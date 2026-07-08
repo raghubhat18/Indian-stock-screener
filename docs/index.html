@@ -3,71 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>India Stock Screener Ultra</title>
+    <title>India Stock Screener Terminal</title>
     <link rel="manifest" href="manifest.json">
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #121212; color: #e0e0e0; margin: 0; padding: 20px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #121212; color: #e0e0e0; margin: 0; padding: 0; overflow-x: hidden; }
         
-        /* FULL SCREEN FLEXIBLE CONTAINER */
-        .container { max-width: 1400px; margin: 0 auto; width: 100%; }
-        
-        h1 { text-align: center; color: #00ff88; font-size: 26px; margin-bottom: 5px; }
+        /* DASHBOARD GRID VIEW */
+        .view-layout { padding: 20px; box-sizing: border-box; width: 100%; max-width: 1400px; margin: 0 auto; }
+        h1 { text-align: center; color: #00ff88; font-size: 24px; margin: 10px 0 5px 0; }
         .subtitle { text-align: center; color: #888; font-size: 13px; margin-bottom: 25px; }
         
-        /* FILTERS ROW STYLING */
         .controls-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 20px; }
-        @media (min-width: 600px) {
-            .controls-grid { grid-template-columns: 2fr 1fr 1fr; }
-        }
+        @media (min-width: 600px) { .controls-grid { grid-template-columns: 2fr 1fr 1fr; } }
 
         .tabs { display: flex; background: #1e1e1e; border-radius: 8px; padding: 4px; border: 1px solid #2d2d2d; }
-        .tab { flex: 1; text-align: center; padding: 12px 6px; cursor: pointer; border-radius: 6px; font-weight: bold; font-size: 13px; color: #aaa; transition: 0.2s; }
+        .tab { flex: 1; text-align: center; padding: 12px 6px; cursor: pointer; border-radius: 6px; font-weight: bold; font-size: 13px; color: #aaa; }
         .tab.active { background: #00ff88; color: #121212; }
-        
-        select { background: #1e1e1e; color: #fff; border: 1px solid #2d2d2d; padding: 12px; border-radius: 8px; font-size: 14px; outline: none; width: 100%; cursor: pointer; }
+        select { background: #1e1e1e; color: #fff; border: 1px solid #2d2d2d; padding: 12px; border-radius: 8px; font-size: 14px; width: 100%; cursor: pointer; outline: none; }
 
-        /* RESPONSIVE FULL SCREEN GRID FOR CARDS */
-        #stock-list { 
-            display: grid; 
-            grid-template-columns: 1fr; 
-            gap: 15px; 
-        }
+        #stock-list { display: grid; grid-template-columns: 1fr; gap: 15px; }
         @media (min-width: 600px) { #stock-list { grid-template-columns: repeat(2, 1fr); } }
         @media (min-width: 1000px) { #stock-list { grid-template-columns: repeat(3, 1fr); } }
         @media (min-width: 1300px) { #stock-list { grid-template-columns: repeat(4, 1fr); } }
 
-        /* CARD COSMETICS */
-        .card { background: #1e1e1e; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #2d2d2d; transition: transform 0.2s; }
-        .card:hover { transform: translateY(-2px); border-color: #444; }
-        .ticker { font-weight: bold; font-size: 18px; color: #ffffff; letter-spacing: 0.5px; }
-        .meta-tag { font-size: 11px; color: #aaa; background: #2a2a2a; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-top: 6px; }
-        .score-badge { padding: 8px 14px; border-radius: 8px; font-weight: bold; font-size: 15px; text-align: right; min-width: 80px; }
-        .positive { background: rgba(0, 255, 136, 0.12); color: #00ff88; border: 1px solid rgba(0, 255, 136, 0.2); }
-        .negative { background: rgba(255, 69, 58, 0.12); color: #ff453a; border: 1px solid rgba(255, 69, 58, 0.2); }
+        .card { background: #1e1e1e; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #2d2d2d; cursor: pointer; transition: 0.2s; }
+        .card:hover { transform: translateY(-2px); border-color: #00ff88; }
+        .ticker { font-weight: bold; font-size: 18px; color: #ffffff; }
+        .company-name { font-size: 12px; color: #888; margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+        .meta-tag { font-size: 11px; color: #aaa; background: #2a2a2a; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-top: 8px; }
+        .score-badge { padding: 8px 14px; border-radius: 8px; font-weight: bold; font-size: 15px; text-align: right; }
+        .positive { background: rgba(0, 255, 136, 0.12); color: #00ff88; }
+        .negative { background: rgba(255, 69, 58, 0.12); color: #ff453a; }
+
+        /* SPLIT-SCREEN SPLIT INTERFACE */
+        #detail-view { display: none; width: 100vw; height: 100vh; grid-template-rows: 60px 1fr; position: fixed; top: 0; left: 0; background: #121212; z-index: 999; }
+        .detail-header { background: #1e1e1e; border-bottom: 1px solid #2d2d2d; display: flex; align-items: center; padding: 0 20px; justify-content: space-between; }
+        .back-btn { background: #2a2a2a; border: 1px solid #444; color: #fff; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px; }
+        .back-btn:hover { background: #333; }
+        .header-title-block { text-align: right; }
+        .header-company { font-weight: bold; font-size: 16px; color: #fff; }
+        .header-price { font-size: 14px; color: #00ff88; margin-top: 2px; }
+
+        .split-body { display: grid; grid-template-columns: 1fr; height: 100%; overflow: hidden; }
+        @media (min-width: 900px) { .split-body { grid-template-columns: 2.5fr 1fr; } }
+        
+        .chart-container { width: 100%; height: 100%; background: #161616; border-right: 1px solid #2d2d2d; }
+        .news-container { width: 100%; height: 100%; overflow-y: auto; background: #1a1a1a; padding: 20px; box-sizing: border-box; }
+        .news-header { font-size: 16px; font-weight: bold; color: #00ff88; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 8px; }
+        .news-item { background: #222; padding: 14px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #2d2d2d; transition: 0.2s; }
+        .news-item:hover { border-color: #555; background: #262626; }
+        .news-item a { text-decoration: none; color: #fff; font-size: 13px; font-weight: 500; display: block; line-height: 1.4; }
+        .news-date { font-size: 11px; color: #777; margin-top: 6px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🇮🇳 Indian Stock Screener Ultra</h1>
-        <div class="subtitle">Real-Time Multi-Horizon Momentum Tracker</div>
+
+    <!-- 1. DASHBOARD OVERVIEW SURFACE -->
+    <div id="dashboard-view" class="view-layout">
+        <h1>🇮🇳 Indian Stock Screener Terminal</h1>
+        <div class="subtitle">Click any stock card to open split terminal workspace</div>
 
         <div class="controls-grid">
-            <!-- Cap Tabs -->
             <div class="tabs">
                 <div class="tab active" onclick="filterCap('All', this)">All Caps</div>
                 <div class="tab" onclick="filterCap('Large', this)">Large</div>
                 <div class="tab" onclick="filterCap('Mid', this)">Mid</div>
                 <div class="tab" onclick="filterCap('Small', this)">Small</div>
             </div>
-
-            <!-- Sector Filter -->
             <div>
                 <select id="sectorDropdown" onchange="filterSector(this.value)">
                     <option value="All">All Sectors</option>
                 </select>
             </div>
-
-            <!-- Dynamic Horizon Lookback Filter -->
             <div>
                 <select id="timeframeDropdown" onchange="filterTimeframe(this.value)">
                     <option value="1D">Horizon: 1 Day</option>
@@ -81,9 +88,30 @@
                 </select>
             </div>
         </div>
+        <div id="stock-list">Processing workspace metrics...</div>
+    </div>
 
-        <!-- Cards Display Surface -->
-        <div id="stock-list">Processing multi-horizon queries...</div>
+    <!-- 2. FULL SCREEN SPLIT WORKSPACE OVERLAY -->
+    <div id="detail-view">
+        <div class="detail-header">
+            <button class="back-btn" onclick="closeTerminal()">← Back to Dashboard</button>
+            <div class="header-title-block">
+                <div id="activeCompanyName" class="header-company">Company Full Name</div>
+                <div id="activeCompanyPrice" class="header-price">₹0.00</div>
+            </div>
+        </div>
+        <div class="split-body">
+            <!-- Left Side Panel (TradingView Engine) -->
+            <div class="chart-container">
+                <iframe id="tvChartIframe" style="width:100%; height:100%; border:none; margin:0; padding:0;"></iframe>
+            </div>
+            <!-- Right Side Panel (Dynamic News Feed) -->
+            <div class="news-container">
+                <div class="news-header">Live Market Headlines</div>
+                <div id="newsLoadingState" style="color:#888; font-size:13px;">Fetching latest financial streams...</div>
+                <div id="news-list"></div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -99,7 +127,7 @@
                 populateSectors(data);
                 renderDashboard();
             }).catch(() => {
-                document.getElementById('stock-list').innerHTML = "Run the GitHub action to initialize multi-year tracking records.";
+                document.getElementById('stock-list').innerHTML = "Run your GitHub action sequence to generate terminal structures.";
             });
 
         function populateSectors(data) {
@@ -120,54 +148,102 @@
             renderDashboard();
         }
 
-        function filterSector(sectorValue) {
-            currentSector = sectorValue;
-            renderDashboard();
-        }
-
-        function filterTimeframe(tfValue) {
-            currentTimeframe = tfValue;
-            renderDashboard();
-        }
+        function filterSector(sectorValue) { currentSector = sectorValue; renderDashboard(); }
+        function filterTimeframe(tfValue) { currentTimeframe = tfValue; renderDashboard(); }
 
         function renderDashboard() {
             const listContainer = document.getElementById('stock-list');
             listContainer.innerHTML = '';
 
-            // 1. Structural Category Filtering
             let filtered = rawStockData.filter(stock => {
-                const matchesCap = (currentCap === 'All' || stock.cap === currentCap);
-                const matchesSector = (currentSector === 'All' || stock.sector === currentSector);
-                return matchesCap && matchesSector;
+                return (currentCap === 'All' || stock.cap === currentCap) && (currentSector === 'All' || stock.sector === currentSector);
             });
 
-            // 2. Dynamic Real-Time Sorting by Selected Horizon Value
             filtered.sort((a, b) => (b.returns[currentTimeframe] || 0) - (a.returns[currentTimeframe] || 0));
 
             if(filtered.length === 0) {
-                listContainer.innerHTML = "<div style='grid-column: 1/-1; text-align:center; padding:40px; color:#666;'>No stock fits this combination matrix.</div>";
+                listContainer.innerHTML = "<div style='grid-column:1/-1; text-align:center; padding:40px; color:#666;'>No listings align with current parameters.</div>";
                 return;
             }
 
-            // 3. Render Generated Interface Elements
             filtered.forEach(stock => {
-                const performanceValue = stock.returns[currentTimeframe] || 0;
-                const isPositive = performanceValue >= 0;
-                const badgeClass = isPositive ? 'positive' : 'negative';
-                const sign = isPositive ? '+' : '';
+                const perf = stock.returns[currentTimeframe] || 0;
+                const isPos = perf >= 0;
                 
                 listContainer.innerHTML += `
-                    <div class="card">
-                        <div>
+                    <div class="card" onclick="openTerminal('${stock.ticker}', '${stock.name.replace(/'/g, "\\'")}', ${stock.price})">
+                        <div style="max-width: 70%;">
                             <div class="ticker">${stock.ticker}</div>
+                            <div class="company-name">${stock.name}</div>
                             <div class="meta-tag">${stock.cap} Cap • ${stock.sector}</div>
                         </div>
-                        <div class="score-badge ${badgeClass}">
-                            <div>${sign}${performanceValue}%</div>
+                        <div class="score-badge ${isPos ? 'positive' : 'negative'}">
+                            <div>${isPos ? '+' : ''}${perf}%</div>
+                            <div style="font-size:11px; font-weight:normal; margin-top:4px; opacity:0.8;">₹${stock.price}</div>
                         </div>
                     </div>
                 `;
             });
+        }
+
+        // WORKSPACE INTERACTIVE ROUTINES
+        function openTerminal(ticker, fullName, currentPrice) {
+            document.getElementById('dashboard-view').style.display = 'none';
+            document.getElementById('detail-view').style.display = 'grid';
+
+            // Lock Header Content Details
+            document.getElementById('activeCompanyName').textContent = fullName;
+            document.getElementById('activeCompanyPrice').textContent = `₹${currentPrice}`;
+
+            // Inject TradingView Full Canvas Frame
+            const chartUrl = `https://s.tradingview.com/widgetembed/?symbol=NSE%3A${ticker}&theme=dark&style=1&timezone=Asia%2FKolkata&locale=en&withdateranges=true`;
+            document.getElementById('tvChartIframe').src = chartUrl;
+
+            // Load Corporate Stream News Items
+            loadCorporateNews(fullName);
+        }
+
+        function closeTerminal() {
+            document.getElementById('detail-view').style.display = 'none';
+            document.getElementById('dashboard-view').style.display = 'block';
+            document.getElementById('tvChartIframe').src = ''; // Clean canvas resources
+        }
+
+        function loadCorporateNews(companyName) {
+            const newsList = document.getElementById('news-list');
+            const loadingState = document.getElementById('newsLoadingState');
+            newsList.innerHTML = '';
+            loadingState.style.display = 'block';
+
+            // Query free Google News RSS Feed translated seamlessly through cloud parser
+            const query = encodeURIComponent(companyName + " stock news");
+            const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=en-IN&gl=IN&ceid=IN:en`;
+            
+            fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`)
+                .then(res => res.json())
+                .then(data => {
+                    loadingState.style.display = 'none';
+                    if (!data.items || data.items.length === 0) {
+                        newsList.innerHTML = '<div style="color:#666; font-size:13px;">No direct corporate tracking articles streaming currently.</div>';
+                        return;
+                    }
+                    
+                    data.items.slice(0, 8).forEach(item => {
+                        const date = new Date(item.pubDate).toLocaleDateString('en-IN', {
+                            day: 'numeric', month: 'short', hour: '2-digit', minute:'2-digit'
+                        });
+                        newsList.innerHTML += `
+                            <div class="news-item">
+                                <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>
+                                <div class="news-date">${date} • ${item.author || 'Market Stream'}</div>
+                            </div>
+                        `;
+                    });
+                })
+                .catch(() => {
+                    loadingState.style.display = 'none';
+                    newsList.innerHTML = '<div style="color:#ff453a; font-size:13px;">Stream latency error. Could not pull dynamic articles.</div>';
+                });
         }
 
         if ('serviceWorker' in navigator) {
