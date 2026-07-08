@@ -20,7 +20,7 @@
 
     <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
         
-        <!-- Header with Logo and Name (Subtitle Removed) -->
+        <!-- Header with Logo and Name -->
         <header class="text-center mb-8 flex flex-col items-center justify-center">
             <div class="flex items-center gap-3">
                 <div class="bg-emerald-950/50 border border-emerald-500/30 p-2 rounded-xl shadow-inner">
@@ -34,13 +34,19 @@
             </div>
         </header>
 
-        <!-- Global Dashboard Switcher Tabs -->
-        <div class="flex justify-center gap-4 mb-6 border-b border-zinc-800 pb-4 font-mono">
-            <button id="nav-momentum" onclick="switchGlobalView('momentum')" class="px-5 py-2 rounded-lg text-sm font-bold tracking-wider uppercase border border-emerald-500/40 bg-emerald-950/30 text-emerald-400 shadow-md transition-all cursor-pointer">
-                ⚡ Momentum Screener
-            </button>
-            <button id="nav-dividend" onclick="switchGlobalView('dividend')" class="px-5 py-2 rounded-lg text-sm font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">
-                💰 Dividend Tracker
+        <!-- Global Dashboard Switcher Tabs & Info Button -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 border-b border-zinc-800 pb-4 font-mono">
+            <div class="flex flex-wrap justify-center gap-3 w-full sm:w-auto">
+                <button id="nav-momentum" onclick="switchGlobalView('momentum')" class="px-5 py-2 rounded-lg text-sm font-bold tracking-wider uppercase border border-emerald-500/40 bg-emerald-950/30 text-emerald-400 shadow-md transition-all cursor-pointer">
+                    ⚡ Momentum Screener
+                </button>
+                <button id="nav-dividend" onclick="switchGlobalView('dividend')" class="px-5 py-2 rounded-lg text-sm font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">
+                    💰 Dividend Tracker
+                </button>
+            </div>
+            <!-- Global ReadMe Info Button -->
+            <button onclick="openReadmeModal()" class="w-full sm:w-auto px-4 py-2 rounded-lg text-xs font-bold bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-emerald-400 hover:border-emerald-500/40 transition-all shadow-md cursor-pointer flex items-center justify-center gap-2">
+                📖 Terminal Guide (ReadMe)
             </button>
         </div>
 
@@ -118,6 +124,59 @@
     <!-- Active Split Terminal Workspace View Overlay -->
     <div id="workspace-overlay" class="hidden"></div>
 
+    <!-- ================= DOCUMENTATION README MODAL OVERLAY ================= -->
+    <div id="readme-modal" class="hidden fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="w-full max-w-3xl max-h-[85vh] bg-zinc-950 rounded-2xl border border-zinc-800 flex flex-col font-mono text-zinc-300 overflow-hidden shadow-2xl">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4 bg-zinc-900/90 border-b border-zinc-800">
+                <span class="text-emerald-400 font-bold text-sm">📖 SYSTEM DOCUMENTATION & DATA LOGIC</span>
+                <button onclick="closeReadmeModal()" class="text-zinc-400 hover:text-white bg-zinc-850 hover:bg-zinc-800 px-3 py-1 rounded-md text-xs border border-zinc-700 cursor-pointer">
+                    ✕ Close
+                </button>
+            </div>
+            <!-- Modal Content Body -->
+            <div class="p-6 overflow-y-auto space-y-6 text-xs leading-relaxed">
+                <div>
+                    <h3 class="text-emerald-400 font-bold border-b border-zinc-800 pb-1 mb-2">⚡ 1. MOMENTUM SCREENER</h3>
+                    <p class="text-zinc-400 mb-2">The landing cards rank performance across 1-Week, 1-Month, and 3-Month windows.</p>
+                    <ul class="list-disc list-inside space-y-1 text-zinc-500 pl-2">
+                        <li><strong class="text-zinc-300">Data Boundary:</strong> Main screen dashboard metric metrics are calculated using end-of-day automation snapshots.</li>
+                        <li><strong class="text-zinc-300">Directory Categorization:</strong> Stocks are segregated structurally into Large-cap, Mid-cap, and Small-cap brackets across core operational industry sectors.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-emerald-400 font-bold border-b border-zinc-800 pb-1 mb-2">📊 2. CHART DECODER (SPEEDOMETER INDICATOR)</h3>
+                    <p class="text-zinc-400 mb-2">The speedometer dial inside the workspace represents an institutional consensus calculation from the <span class="text-zinc-200">TradingView Technical Analysis Engine</span>.</p>
+                    <ul class="list-disc list-inside space-y-1 text-zinc-500 pl-2">
+                        <li>It collects real-time technical inputs simultaneously across <strong class="text-zinc-300">26 underlying indicators</strong> (17 Moving Averages + 9 Oscillators).</li>
+                        <li>Each indicator logs an active operational trade vote: <span class="text-emerald-400 font-bold">BUY</span>, <span class="text-rose-400 font-bold">SELL</span>, or <span class="text-zinc-400">NEUTRAL</span>.</li>
+                        <li>The directional placement of the gauge needle highlights the net math layout of these combined technical indicators.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-emerald-400 font-bold border-b border-zinc-800 pb-1 mb-2">💰 3. DIVIDEND TRACKER MONITOR</h3>
+                    <p class="text-zinc-400 mb-2">Tracks ongoing structural corporate actions for target equities list.</p>
+                    <ul class="list-disc list-inside space-y-1 text-zinc-500 pl-2">
+                        <li><strong class="text-zinc-300">Dividend Amount:</strong> Denotes the actual distribution payout cash value declared per individual equity share.</li>
+                        <li><strong class="text-zinc-300">Dividend Yield (%):</strong> Represents the annualized percentage ratio of dividend return compared against current price.</li>
+                        <li><strong class="text-zinc-300">Ex-Dividend Date:</strong> Critical cutoff threshold window. Equities purchased on or past this specific calendar date will not be eligible to collect the upcoming declared payout distribution.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-zinc-900/40 border border-zinc-800 p-3 rounded-lg">
+                    <h4 class="text-zinc-200 font-bold mb-1 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> SYSTEM STATUS NOTE
+                    </h4>
+                    <p class="text-zinc-500">
+                        While main landing cards track static baseline automated daily parameters, launching any split terminal canvas workspace links you instantly to live streaming high-fidelity WebSockets pipes directly processing active market prices.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const stockData = {
             "CEATLTD": { name: "CEAT Ltd.", cap: "small", sector: "Automobile", price: 3858.6, changes: { "1w": 6.16, "1m": 12.4, "3m": -2.1 }, divAmount: 30.00, divYield: 0.78, exDate: "2026-07-24" },
@@ -141,6 +200,14 @@
 
         const horizonLabels = { "1w": "1 Week Chg", "1m": "1 Month Chg", "3m": "3 Month Chg" };
         let currentCapFilter = "small"; 
+
+        // ReadMe Modal Display Window Controllers
+        window.openReadmeModal = function() {
+            document.getElementById('readme-modal').classList.remove('hidden');
+        };
+        window.closeReadmeModal = function() {
+            document.getElementById('readme-modal').classList.add('hidden');
+        };
 
         window.switchGlobalView = function(view) {
             const btnMomentum = document.getElementById('nav-momentum');
@@ -325,13 +392,13 @@
                             </div>
                             
                             <div id="panel-tab-news" class="flex-1 flex flex-col space-y-3 overflow-y-auto pr-1">
-                                ${getMockNews(ticker).map(news => `
+                                \${getMockNews(ticker).map(news => `
                                     <div class="bg-zinc-900/40 border border-zinc-800 p-3 rounded-lg hover:border-zinc-700 transition-all">
                                         <div class="flex justify-between items-center text-[10px] text-zinc-500 mb-1">
-                                            <span class="text-emerald-500/80 font-bold">${news.source}</span>
-                                            <span>${news.time}</span>
+                                            <span class="text-emerald-500/80 font-bold">\${news.source}</span>
+                                            <span>\${news.time}</span>
                                         </div>
-                                        <p class="text-xs text-zinc-300 leading-relaxed">${news.title}</p>
+                                        <p class="text-xs text-zinc-300 leading-relaxed">\${news.title}</p>
                                     </div>
                                 `).join('')}
                             </div>
@@ -347,7 +414,7 @@
             setTimeout(() => {
                 new TradingView.widget({
                     "autosize": true,
-                    "symbol": `NSE:${ticker}`,
+                    "symbol": `NSE:\${ticker}`,
                     "interval": "D",
                     "timezone": "Asia/Kolkata",
                     "theme": "dark",
