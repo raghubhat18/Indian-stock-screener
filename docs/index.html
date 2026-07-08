@@ -59,7 +59,7 @@
             <div class="flex flex-col gap-4 mb-6 bg-zinc-900/80 p-4 rounded-xl border border-zinc-800/80 backdrop-blur-sm shadow-xl">
                 <div class="relative w-full">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-500 font-mono text-sm">🔎</span>
-                    <input type="text" id="all-search-stocks" oninput="filterAllStocks()" placeholder="Search comprehensive directory by symbol (e.g. HAL, IREDA, RELIANCE, JIOFIN)..." class="w-full bg-zinc-950 text-zinc-200 pl-10 pr-4 py-2.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono transition-all">
+                    <input type="text" id="all-search-stocks" oninput="filterAllStocks()" placeholder="Search comprehensive directory by symbol (e.g. HAL, IREDA, RELIANCE, VEDL)..." class="w-full bg-zinc-950 text-zinc-200 pl-10 pr-4 py-2.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono transition-all">
                 </div>
 
                 <div class="flex flex-wrap items-center justify-between gap-4 border-t border-zinc-800/60 pt-3">
@@ -247,7 +247,7 @@
     <div id="workspace-overlay" class="hidden"></div>
 
     <script>
-        // Expanded Data Repository containing heavyweights + extensive additions across categories
+        // Heavily expanded database core to increase operational density across specific custom modules
         const stockData = {
             "RELIANCE": { name: "Reliance Industries Ltd.", cap: "large", sector: "Energy", price: 2452.10, changes: { "1w": 1.85, "1m": 3.4, "3m": 7.1 }, divAmount: 10.00, divYield: 0.41, exDate: "2026-08-27", mostBought: { surge: "2.1x", delivery: "65%", intensity: "High 🔥", tf: "1w" }, circuit: null, tech: { rsi: 64, pivot: "Below R1" }, riskMetrics: null },
             "TCS": { name: "Tata Consultancy Services Ltd.", cap: "large", sector: "IT", price: 3820.00, changes: { "1w": -0.45, "1m": 5.1, "3m": 9.3 }, divAmount: 28.00, divYield: 0.73, exDate: "2026-07-15", mostBought: null, circuit: null, tech: { rsi: 52, pivot: "At Pivot Point" }, riskMetrics: null },
@@ -263,23 +263,39 @@
             "ADANIENT": { name: "Adani Enterprises Ltd.", cap: "large", sector: "Energy", price: 3120.50, changes: { "1w": -8.4, "1m": -15.2, "3m": -22.4 }, divAmount: 1.20, divYield: 0.03, exDate: "2026-07-12", mostBought: null, circuit: null, tech: { rsi: 28, pivot: "Below S2" }, riskMetrics: null },
             "HAL": { name: "Hindustan Aeronautics", cap: "large", sector: "Defence", price: 3840.50, changes: { "1w": 5.4, "1m": 14.2, "3m": 42.1 }, divAmount: 22.00, divYield: 0.57, exDate: "2026-08-20", mostBought: { surge: "4.1x", delivery: "68%", intensity: "Extreme ⚡", tf: "today" }, circuit: null, tech: { rsi: 74, pivot: "Above R1" }, riskMetrics: null },
             
-            // Extensive New Directory Additions & High Risk Candidates
+            // Core Turnarounds / High Risk Assets
             "MAZDOCK": { name: "Mazagon Dock Shipbuilders", cap: "mid", sector: "Defence", price: 2145.30, changes: { "1w": 12.1, "1m": 28.5, "3m": 85.4 }, divAmount: 15.30, divYield: 0.71, exDate: "2026-09-05", mostBought: null, circuit: { chg: "+10.0%", band: "10%", buyers: "850,200", tf: "1w" }, tech: { rsi: 85, pivot: "Overextended R3" }, riskMetrics: { threat: "High Overvaluation", award: "Defense Order Pipeline", beta: "2.1x" } },
             "RVNL": { name: "Rail Vikas Nigam Ltd.", cap: "mid", sector: "Infrastructure", price: 278.40, changes: { "1w": 12.4, "1m": 35.1, "3m": 88.5 }, divAmount: 2.13, divYield: 0.76, exDate: "2026-08-15", mostBought: { surge: "4.1x", delivery: "71%", intensity: "High 🔥", tf: "1m" }, circuit: null, tech: { rsi: 82, pivot: "R3 Resistance" }, riskMetrics: { threat: "Policy Shift Exposure", award: "Railway Modernization Multiplier", beta: "1.9x" } },
             "IREDA": { name: "Indian Renewable Energy Dev.", cap: "mid", sector: "Energy", price: 198.50, changes: { "1w": 14.2, "1m": 42.1, "3m": 112.4 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+5.0%", band: "5%", buyers: "2,100,000", tf: "today" }, tech: { rsi: 88, pivot: "Skyward Parabolic" }, riskMetrics: { threat: "High Speculative Leverage", award: "Green Sovereign Funding Apex", beta: "2.4x" } },
-            "JIOFIN": { name: "Jio Financial Services Ltd.", cap: "large", sector: "Financial Services", price: 345.20, changes: { "1w": 3.10, "1m": 11.5, "3m": 24.1 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 62, pivot: "R1 Proximity" }, riskMetrics: null },
-            "TATASTEEL": { name: "Tata Steel Ltd.", cap: "large", sector: "Materials", price: 154.60, changes: { "1w": -1.45, "1m": -4.2, "3m": 8.9 }, divAmount: 3.60, divYield: 2.32, exDate: "2026-06-21", mostBought: null, circuit: null, tech: { rsi: 44, pivot: "Support S1" }, riskMetrics: null },
-            "COALINDIA": { name: "Coal India Ltd.", cap: "large", sector: "Energy", price: 462.10, changes: { "1w": 0.80, "1m": 7.4, "3m": 18.2 }, divAmount: 24.50, divYield: 5.30, exDate: "2026-08-11", mostBought: null, circuit: null, tech: { rsi: 59, pivot: "Neutral Zone" }, riskMetrics: null },
-            "WIPRO": { name: "Wipro Ltd.", cap: "large", sector: "IT", price: 472.30, changes: { "1w": -2.10, "1m": -6.8, "3m": -1.2 }, divAmount: 1.00, divYield: 0.21, exDate: "2026-07-02", mostBought: null, circuit: null, tech: { rsi: 32, pivot: "Deep Support S2" }, riskMetrics: null },
             "SUZLON": { name: "Suzlon Energy Ltd.", cap: "small", sector: "Energy", price: 42.15, changes: { "1w": 8.4, "1m": 24.1, "3m": 65.2 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+5.0%", band: "5%", buyers: "4,500,000", tf: "1m" }, tech: { rsi: 78, pivot: "R2 Resistance" }, riskMetrics: { threat: "Legacy Debt & Execution Flaws", award: "Clean Energy Capex Surge", beta: "2.8x" } },
             "PAYTM": { name: "One97 Communications", cap: "mid", sector: "IT", price: 420.15, changes: { "1w": -8.4, "1m": -22.1, "3m": -45.2 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 22, pivot: "Oversold S3" }, riskMetrics: { threat: "Regulatory Headwinds", award: "Turnaround Re-licensing Option", beta: "2.5x" } },
             "YESBANK": { name: "Yes Bank Ltd.", cap: "small", sector: "Banking", price: 22.15, changes: { "1w": 4.20, "1m": -3.1, "3m": 14.8 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 62, pivot: "Testing R1" }, riskMetrics: { threat: "Low Capital Adequacy Margin", award: "Strategic Ownership Acquisition Buyout", beta: "1.9x" } },
-            "NHPC": { name: "NHPC Ltd.", cap: "mid", sector: "Energy", price: 92.40, changes: { "1w": 5.10, "1m": 16.2, "3m": 38.4 }, divAmount: 1.85, divYield: 2.00, exDate: "2026-08-04", mostBought: null, circuit: null, tech: { rsi: 67, pivot: "Near R1" }, riskMetrics: null },
             "IDEA": { name: "Vodafone Idea Ltd.", cap: "mid", sector: "Telecom", price: 11.20, changes: { "1w": -11.4, "1m": -18.5, "3m": -32.1 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 29, pivot: "Capitulation Floor" }, riskMetrics: { threat: "Substantial AGR Dues & Churn", award: "Government Equity Conversion Backstop", beta: "3.2x" } },
-            "ZOMATO": { name: "Zomato Ltd.", cap: "large", sector: "Consumer", price: 184.30, changes: { "1w": 4.2, "1m": 12.1, "3m": 34.5 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: { surge: "3.1x", delivery: "61%", intensity: "High 🔥", tf: "1w" }, circuit: null, tech: { rsi: 71, pivot: "Above R1" }, riskMetrics: null },
-            "VOLTAS": { name: "Voltas Ltd.", cap: "mid", sector: "Consumer", price: 984.50, changes: { "1w": 0.95, "1m": 6.3, "3m": 15.6 }, divAmount: 5.50, divYield: 0.56, exDate: "2026-06-18", mostBought: null, circuit: { chg: "+20.0%", band: "20%", buyers: "852,430", tf: "today" }, tech: { rsi: 81, pivot: "Gap Up Above R3" }, riskMetrics: null },
-            "KPITTECH": { name: "KPIT Technologies Ltd.", cap: "mid", sector: "IT", price: 1540.20, changes: { "1w": 6.20, "1m": 18.4, "3m": 42.1 }, divAmount: 4.60, divYield: 0.30, exDate: "2026-07-22", mostBought: null, circuit: null, tech: { rsi: 82, pivot: "Pinned At R3" }, riskMetrics: null },
-            "LUPIN": { name: "Lupin Ltd.", cap: "large", sector: "Healthcare", price: 1640.20, changes: { "1w": 3.1, "1m": 12.4, "3m": 28.5 }, divAmount: 8.50, divYield: 0.52, exDate: "2026-07-19", mostBought: null, circuit: null, tech: { rsi: 68, pivot: "Approaching R1" }, riskMetrics: null }
+            
+            // New Dividend Expansions
+            "VEDL": { name: "Vedanta Limited", cap: "large", sector: "Materials", price: 452.30, changes: { "1w": 2.10, "1m": 9.4, "3m": 22.1 }, divAmount: 46.50, divYield: 10.28, exDate: "2026-08-18", mostBought: null, circuit: null, tech: { rsi: 61, pivot: "Above R1" }, riskMetrics: null },
+            "PFC": { name: "Power Finance Corporation", cap: "large", sector: "Financial Services", price: 482.15, changes: { "1w": 3.40, "1m": 11.2, "3m": 31.4 }, divAmount: 14.00, divYield: 2.90, exDate: "2026-06-10", mostBought: null, circuit: null, tech: { rsi: 64, pivot: "Breaking Pivot" }, riskMetrics: null },
+            "RECLTD": { name: "REC Limited", cap: "large", sector: "Financial Services", price: 521.40, changes: { "1w": 4.10, "1m": 14.3, "3m": 35.8 }, divAmount: 16.50, divYield: 3.16, exDate: "2026-06-25", mostBought: null, circuit: null, tech: { rsi: 67, pivot: "At R1 Base" }, riskMetrics: null },
+            "IOC": { name: "Indian Oil Corporation Ltd.", cap: "large", sector: "Energy", price: 164.50, changes: { "1w": -0.80, "1m": 2.1, "3m": 5.4 }, divAmount: 12.00, divYield: 7.29, exDate: "2026-07-14", mostBought: null, circuit: null, tech: { rsi: 48, pivot: "S1 Support" }, riskMetrics: null },
+            "ONGC": { name: "Oil & Natural Gas Corp.", cap: "large", sector: "Energy", price: 272.10, changes: { "1w": 1.25, "1m": 4.8, "3m": 12.1 }, divAmount: 11.25, divYield: 4.13, exDate: "2026-08-02", mostBought: null, circuit: null, tech: { rsi: 54, pivot: "Pivot Mean" }, riskMetrics: null },
+
+            // New Most Bought Expansions
+            "TATAMOTORS": { name: "Tata Motors Limited", cap: "large", sector: "Automotive", price: 942.30, changes: { "1w": 4.80, "1m": 12.5, "3m": 24.1 }, divAmount: 6.00, divYield: 0.63, exDate: "2026-06-30", mostBought: { surge: "3.8x", delivery: "74%", intensity: "Extreme ⚡", tf: "1w" }, circuit: null, tech: { rsi: 71, pivot: "Above R2" }, riskMetrics: null },
+            "AXISBANK": { name: "Axis Bank Limited", cap: "large", sector: "Banking", price: 1182.40, changes: { "1w": 2.15, "1m": 6.8, "3m": 11.4 }, divAmount: 2.00, divYield: 0.17, exDate: "2026-07-05", mostBought: { surge: "2.9x", delivery: "68%", intensity: "High 🔥", tf: "today" }, circuit: null, tech: { rsi: 59, pivot: "Near R1" }, riskMetrics: null },
+            "DLF": { name: "DLF Limited", cap: "large", sector: "Infrastructure", price: 891.50, changes: { "1w": 5.20, "1m": 15.4, "3m": 33.1 }, divAmount: 5.00, divYield: 0.56, exDate: "2026-07-28", mostBought: { surge: "3.1x", delivery: "62%", intensity: "High 🔥", tf: "1m" }, circuit: null, tech: { rsi: 68, pivot: "R2 Multi-Break" }, riskMetrics: null },
+            "PNB": { name: "Punjab National Bank", cap: "mid", sector: "Banking", price: 124.15, changes: { "1w": 6.10, "1m": 18.2, "3m": 44.5 }, divAmount: 1.50, divYield: 1.20, exDate: "2026-06-22", mostBought: { surge: "4.5x", delivery: "59%", intensity: "Extreme ⚡", tf: "1m" }, circuit: null, tech: { rsi: 76, pivot: "Over R3 Floor" }, riskMetrics: null },
+
+            // New Circuit Expansions
+            "RATTANPOWER": { name: "RattanIndia Power Ltd.", cap: "small", sector: "Energy", price: 16.40, changes: { "1w": 21.50, "1m": 54.2, "3m": 120.4 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+5.0%", band: "5%", buyers: "8,400,000", tf: "today" }, tech: { rsi: 91, pivot: "Parabolic R3" }, riskMetrics: { threat: "Highly Leveraged Operative Structuring", award: "Retail Liquidity Momentum Wave", beta: "3.4x" } },
+            "IFCI": { name: "IFCI Limited", cap: "small", sector: "Financial Services", price: 62.80, changes: { "1w": 14.80, "1m": 41.2, "3m": 94.5 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+5.0%", band: "5%", buyers: "3,250,400", tf: "1w" }, tech: { rsi: 84, pivot: "R2 Extension" }, riskMetrics: { threat: "Heavy Non-Performing Book Liabilities", award: "Sovereign Recapitalization Narrative", beta: "2.6x" } },
+            "HFCL": { name: "HFCL Limited", cap: "mid", sector: "Telecom", price: 114.30, changes: { "1w": 9.80, "1m": 26.5, "3m": 58.1 }, divAmount: 0.50, divYield: 0.44, exDate: "2026-09-02", mostBought: null, circuit: { chg: "+10.0%", band: "10%", buyers: "1,950,000", tf: "today" }, tech: { rsi: 79, pivot: "R1 Aggressive Cross" }, riskMetrics: null },
+            "LLOYDSENG": { name: "Lloyds Engineering Works", cap: "small", sector: "Infrastructure", price: 78.15, changes: { "1w": 11.20, "1m": 33.4, "3m": 112.5 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+5.0%", band: "5%", buyers: "1,420,000", tf: "1m" }, tech: { rsi: 82, pivot: "Overextended R2" }, riskMetrics: null },
+
+            // New High Risk High Reward Expansions
+            "ALOKTEXT": { name: "Alok Industries Limited", cap: "small", sector: "Materials", price: 28.40, changes: { "1w": 4.50, "1m": -12.1, "3m": 48.5 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 41, pivot: "S1 Baseline" }, riskMetrics: { threat: "Sustained Negative Retained Earnings", award: "Reliance Conglomerate Financial Backing", beta: "2.2x" } },
+            "PCJEWELLER": { name: "PC Jeweller Limited", cap: "small", sector: "Consumer", price: 142.60, changes: { "1w": -6.20, "1m": 38.4, "3m": 145.2 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 73, pivot: "Testing Pivot Balance" }, riskMetrics: { threat: "Historical Legal Disputes & Debt Settlement", award: "Bank Debt Restructuring Approval Catalyst", beta: "2.9x" } },
+            "JPPOWER": { name: "Jaiprakash Power Ventures", cap: "small", sector: "Energy", price: 19.15, changes: { "1w": 2.10, "1m": 16.4, "3m": 68.2 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 63, pivot: "R1 Resistance" }, riskMetrics: { threat: "Volatile Quarterly Fuel Expense Margins", award: "Capacity Utilization Power Demand Peak", beta: "2.5x" } },
+            "INFIBEAM": { name: "Infibeam Avenues Limited", cap: "small", sector: "IT", price: 34.10, changes: { "1w": 1.20, "1m": 22.5, "3m": 54.1 }, divAmount: 0.05, divYield: 0.15, exDate: "2026-08-12", mostBought: null, circuit: null, tech: { rsi: 66, pivot: "Neutral Zone" }, riskMetrics: { threat: "High Competitive Fintech Margins Pressure", award: "AI Transaction Processing Platform Scale", beta: "1.9x" } }
         };
 
         const horizonLabels = { "1w": "1 Week Chg", "1m": "1 Month Chg", "3m": "3 Month Chg" };
@@ -353,7 +369,6 @@
             }
         };
 
-        /* ------------------ ALL STOCKS (WITH SORT ENGINE) ------------------ */
         function setAllCapFilter(capValue) {
             currentAllCapFilter = capValue;
             document.querySelectorAll('.all-cap-btn').forEach(btn => {
@@ -375,10 +390,8 @@
             posGrid.innerHTML = ''; negGrid.innerHTML = ''; hook.innerHTML = ''; hook.classList.add('hidden');
             let posCount = 0; let negCount = 0;
 
-            // 1. Transform cache data to an array for dynamic sorting
             let dataset = Object.entries(stockData);
 
-            // 2. Perform Sort Execution BEFORE Rendering Layout
             dataset.sort((a, b) => {
                 const tickerA = a[0]; const tickerB = b[0];
                 const objA = a[1]; const objB = b[1];
@@ -395,7 +408,6 @@
                 }
             });
 
-            // 3. Render Sorted & Filtered Assets
             dataset.forEach(([ticker, data]) => {
                 if (searchQuery && !ticker.toLowerCase().includes(searchQuery) && !data.name.toLowerCase().includes(searchQuery)) return;
                 if (currentAllCapFilter !== 'all' && data.cap !== currentAllCapFilter) return;
@@ -476,7 +488,6 @@
             }
         }
 
-        /* ------------------ MOMENTUM LOGIC ------------------ */
         function setCapFilter(capValue) {
             currentCapFilter = capValue;
             document.querySelectorAll('.cap-btn').forEach(btn => {
@@ -522,14 +533,13 @@
             });
         }
 
-        /* ------------------ SCANNERS & TERMINAL MODULES ------------------ */
         function renderDividendTable() {
             const container = document.getElementById('dividend-table-body');
             const monthFilter = document.getElementById('dividend-month-filter').value;
             container.innerHTML = '';
             
             Object.entries(stockData).forEach(([ticker, data]) => {
-                if(data.divAmount === 0 || data.exDate === "N/A") return;
+                if(!data.divAmount || data.divAmount === 0 || data.exDate === "N/A") return;
                 if(monthFilter !== 'all' && !data.exDate.startsWith(monthFilter)) return;
 
                 const row = document.createElement('tr');
@@ -594,7 +604,6 @@
             });
         }
 
-        /* ------------------ NEW TAB RENDERER: HIGH RISK HIGH REWARD ------------------ */
         function renderHighRiskTable() {
             const container = document.getElementById('highrisk-table-body');
             container.innerHTML = '';
@@ -626,14 +635,13 @@
             });
         }
 
-        /* ------------------ WORKSPACE INTERNALS ------------------ */
         function generateSuggestionMarkup(ticker) {
             const cached = stockData[ticker];
             const rsi = cached ? cached.tech.rsi : Math.floor(Math.random() * (75 - 35) + 35);
             const pivot = cached ? cached.tech.pivot : "Consolidating near Pivot Baseline";
             
             let rsiRec = ""; let rsiScore = 0;
-            if (rsi >= 70) { rsiRec = `RSI is highly overbought (${rsi}). Momentum has expanded excessively; there is a severe risk of exhaustion. recommended to avoid buying here.`; rsiScore = -2; } 
+            if (rsi >= 70) { rsiRec = `RSI is highly overbought (${rsi}). Momentum has expanded excessively; there is a severe risk of exhaustion. Recommended to avoid buying here.`; rsiScore = -2; } 
             else if (rsi <= 40) { rsiRec = `RSI is heavily oversold (${rsi}). Asset is experiencing capitulation; structurally deeply discounted. Recommended to buy.`; rsiScore = 2; } 
             else { rsiRec = `RSI is resting at a healthy mid-range (${rsi}). Consistent volume accumulation observed; recommended to buy defensively.`; rsiScore = 1; }
 
@@ -664,15 +672,6 @@
                         <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
                             <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2">🎯 Pivot Matrix Level</span>
                             <p class="text-zinc-300 leading-relaxed">${pivotRec}</p>
-                        </div>
-                    </div>
-
-                    <div class="mt-6 pt-4 border-t border-zinc-800/80">
-                        <h4 class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider mb-3">📚 System Glossary</h4>
-                        <div class="space-y-3 text-[10px] text-zinc-400 font-sans leading-relaxed">
-                            <p><strong class="text-emerald-400/80 font-mono">RSI (Relative Strength Index):</strong> A momentum oscillator measuring the speed and change of price movements on a scale of 0 to 100. A score below 40 typically indicates an asset is oversold, while a score above 70 indicates it is overbought.</p>
-                            <p><strong class="text-sky-400/80 font-mono">Pivot Matrix:</strong> Mathematical support (S1, S2, S3) and resistance (R1, R2, R3) layers calculated from previous price action.</p>
-                            <p><strong class="text-purple-400/80 font-mono">System Verdict:</strong> The automated decoder aggregates the RSI momentum score with Pivot level proximity to output a unified, risk-adjusted trading recommendation.</p>
                         </div>
                     </div>
                 </div>
@@ -762,7 +761,6 @@
             document.getElementById('workspace-overlay').innerHTML = '';
         };
 
-        // Initialize App
         initDataLoaders();
         filterAllStocks();
         filterStocks();
