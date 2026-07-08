@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Short-Term India Stock Screener</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #121212; color: #e0e0e0; margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        h1 { text-align: center; color: #00ff88; font-size: 24px; }
+        .subtitle { text-align: center; color: #888; font-size: 12px; margin-bottom: 20px; }
+        .card { background: #1e1e1e; padding: 15px; border-radius: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #2d2d2d; }
+        .ticker { font-weight: bold; font-size: 18px; color: #ffffff; }
+        .price { color: #aaa; font-size: 14px; margin-top: 4px; }
+        .score-badge { padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 14px; }
+        .positive { background: rgba(0, 255, 136, 0.15); color: #00ff88; }
+        .negative { background: rgba(255, 69, 58, 0.15); color: #ff453a; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇮🇳 Short-Term Momentum</h1>
+        <div class="subtitle">Top picks based on 1-week relative strength</div>
+        <div id="stock-list">Loading latest analysis...</div>
+    </div>
+
+    <script>
+        // Fetch the generated data file
+        fetch('data.json')
+            .then(res => res.json())
+            .then(data => {
+                const listContainer = document.getElementById('stock-list');
+                listContainer.innerHTML = '';
+                
+                data.forEach(stock => {
+                    const isPositive = stock.weekly_change >= 0;
+                    const badgeClass = isPositive ? 'positive' : 'negative';
+                    const sign = isPositive ? '+' : '';
+                    
+                    listContainer.innerHTML += `
+                        <div class="card">
+                            <div>
+                                <div class="ticker">${stock.ticker}</div>
+                                <div class="price">₹${stock.price}</div>
+                            </div>
+                            <div class="score-badge ${badgeClass}">
+                                ${sign}${stock.weekly_change}% (Score: ${stock.score})
+                            </div>
+                        </div>
+                    `;
+                });
+            }).catch(() => {
+                document.getElementById('stock-list').innerHTML = "No data generated yet. Wait for the automated run.";
+            });
+
+        // Register Service Worker for PWA functionality
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(() => {});
+        }
+    </script>
+</body>
+</html>
