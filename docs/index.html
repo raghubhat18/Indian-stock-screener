@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>India Stock Screener Terminal</title>
+    <title>NiftyPulse Terminal</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- TradingView Core Library for Advanced Chart -->
@@ -20,13 +20,20 @@
 
     <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
         
-        <!-- Header -->
-        <header class="text-center mb-8">
-            <h1 class="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight flex items-center justify-center gap-2">
-                <span class="bg-emerald-950 text-emerald-400 text-xs px-2 py-1 rounded border border-emerald-800">IN</span>
-                Indian Stock Screener Terminal
-            </h1>
-            <p class="text-zinc-500 text-xs mt-1 font-mono">Click any stock card to open split terminal workspace</p>
+        <!-- Header with New Logo and Name -->
+        <header class="text-center mb-8 flex flex-col items-center justify-center">
+            <div class="flex items-center gap-3">
+                <!-- Premium Custom Pulse/Chart SVG Logo -->
+                <div class="bg-emerald-950/50 border border-emerald-500/30 p-2 rounded-xl shadow-inner">
+                    <svg class="w-6 h-6 text-emerald-400 animate-pulse" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"></path>
+                    </svg>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                    Nifty<span class="text-emerald-400">Pulse</span> Terminal
+                </h1>
+            </div>
+            <p class="text-zinc-500 text-xs mt-2 font-mono">Click any stock card to open split terminal workspace</p>
         </header>
 
         <!-- Dynamic Controls & Filters Row -->
@@ -80,7 +87,7 @@
 
     <!-- Application Script -->
     <script>
-        // Expanded seed data matching your exact layout & values
+        // Expanded seed data
         const stockData = {
             "CEATLTD": { name: "CEAT Ltd.", cap: "small", sector: "Automobile", price: 3858.6, changes: { "1w": 6.16, "1m": 12.4, "3m": -2.1 } },
             "CENTURYPLY": { name: "Century Plyboards (India) Ltd.", cap: "small", sector: "Materials", price: 770.25, changes: { "1w": 3.59, "1m": -1.2, "3m": 8.4 } },
@@ -89,7 +96,6 @@
             "ANGELONE": { name: "Angel One Ltd.", cap: "small", sector: "Capital Markets", price: 331.20, changes: { "1w": -2.70, "1m": -8.3, "3m": -4.2 } },
             "CYIENT": { name: "Cyient Ltd.", cap: "small", sector: "IT", price: 834.85, changes: { "1w": -3.03, "1m": 2.9, "3m": -11.4 } },
             
-            // Supporting variations across price groups/caps for fully interactive filtering demo
             "RELIANCE": { name: "Reliance Industries Ltd.", cap: "large", sector: "Energy", price: 2452.10, changes: { "1w": 1.85, "1m": 3.4, "3m": 7.1 } },
             "TCS": { name: "Tata Consultancy Services Ltd.", cap: "large", sector: "IT", price: 3820.00, changes: { "1w": -0.45, "1m": 5.1, "3m": 9.3 } },
             "YESBANK": { name: "Yes Bank Ltd.", cap: "small", sector: "Banking", price: 22.15, changes: { "1w": 4.20, "1m": -3.1, "3m": 14.8 } },
@@ -98,7 +104,13 @@
             "VOLTAS": { name: "Voltas Ltd.", cap: "mid", sector: "Consumer Durables", price: 984.50, changes: { "1w": 0.95, "1m": 6.3, "3m": 15.6 } }
         };
 
-        // Initialize sectors dynamically
+        // Readable labels mapping back to selected horizons
+        const horizonLabels = {
+            "1w": "1 Week Chg",
+            "1m": "1 Month Chg",
+            "3m": "3 Month Chg"
+        };
+
         function initSectors() {
             const sectors = new Set();
             Object.values(stockData).forEach(s => sectors.add(s.sector));
@@ -111,7 +123,7 @@
             });
         }
 
-        let currentCapFilter = "small"; // Default view set to match your state image
+        let currentCapFilter = "small"; 
 
         function setCapFilter(capValue) {
             currentCapFilter = capValue;
@@ -125,7 +137,6 @@
             filterStocks();
         }
 
-        // Logic processing filters simultaneously
         function filterStocks() {
             const sectorFilter = document.getElementById('sector-filter').value;
             const priceFilter = document.getElementById('price-filter').value;
@@ -135,13 +146,9 @@
             grid.innerHTML = '';
 
             Object.entries(stockData).forEach(([ticker, data]) => {
-                // 1. Cap Filter
                 if (currentCapFilter !== 'all' && data.cap !== currentCapFilter) return;
-                
-                // 2. Sector Filter
                 if (sectorFilter !== 'all' && data.sector !== sectorFilter) return;
                 
-                // 3. Price Filter (Requested bounds)
                 const price = data.price;
                 if (priceFilter !== 'all') {
                     if (priceFilter === 'under100' && price >= 100) return;
@@ -152,7 +159,6 @@
                     if (priceFilter === 'over2500' && price <= 2500) return;
                 }
 
-                // Append card to template view
                 const pct = data.changes[horizon];
                 const isPos = pct >= 0;
                 const card = document.createElement('div');
@@ -167,18 +173,19 @@
                             ${data.cap} Cap • ${data.sector}
                         </span>
                     </div>
-                    <div class="text-right">
+                    <div class="text-right flex flex-col items-end">
                         <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-bold font-mono ${isPos ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-900' : 'bg-rose-950/80 text-rose-400 border border-rose-900'}">
                             ${isPos ? '+' : ''}${pct}%
                         </span>
-                        <p class="text-xs font-mono text-zinc-400 mt-1.5">₹${price.toLocaleString('en-IN')}</p>
+                        <!-- Clear context sub-label to prevent ambiguity -->
+                        <span class="text-[10px] font-mono text-zinc-500 mt-1 uppercase tracking-wider">${horizonLabels[horizon]}</span>
+                        <p class="text-xs font-mono text-zinc-400 mt-1">₹${price.toLocaleString('en-IN')}</p>
                     </div>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        // Generate customized terminal live context news streams
         function getMockNews(ticker) {
             return [
                 { source: "Bloomberg Quint", time: "2h ago", title: `${ticker} volume breakouts cross 50-day SMA baseline benchmarks.` },
@@ -187,11 +194,10 @@
             ];
         }
 
-        // Initialize active chart decoder (TradingView gauge snippet)
         function initDecoderGauge(ticker) {
             const targetContainer = document.getElementById('tv-decoder-container');
             if (!targetContainer) return;
-            targetContainer.innerHTML = ''; // clear
+            targetContainer.innerHTML = ''; 
 
             const script = document.createElement('script');
             script.type = 'text/javascript';
@@ -211,7 +217,6 @@
             targetContainer.appendChild(script);
         }
 
-        // Main overlay split panel workspace routing
         window.openWorkspace = function(ticker) {
             const details = stockData[ticker];
             const overlay = document.getElementById('workspace-overlay');
@@ -219,7 +224,6 @@
             
             overlay.innerHTML = `
                 <div class="w-full h-full bg-zinc-950 sm:rounded-2xl border border-zinc-800 flex flex-col font-mono text-zinc-300 overflow-hidden shadow-2xl">
-                    <!-- Top Workspace Bar -->
                     <div class="flex items-center justify-between px-6 py-3 bg-zinc-900/90 border-b border-zinc-800">
                         <div class="flex items-center gap-3">
                             <span class="text-emerald-400 font-bold text-sm">■ WORKSPACE: ${ticker}</span>
@@ -230,10 +234,7 @@
                         </button>
                     </div>
                     
-                    <!-- Core Multi-Grid Workspace Split -->
                     <div class="flex-1 grid grid-cols-1 lg:grid-cols-3 overflow-hidden">
-                        
-                        <!-- Main Frame Layer: Advanced Interactive TradingView Chart Grid -->
                         <div class="lg:col-span-2 p-4 flex flex-col h-full border-r border-zinc-800 bg-black">
                             <div class="flex items-center justify-between mb-2">
                                 <span class="text-[10px] tracking-wider text-zinc-500 uppercase font-bold flex items-center gap-1.5">
@@ -243,9 +244,7 @@
                             <div id="tv-chart-frame" class="flex-1 w-full bg-zinc-900/20 rounded-xl overflow-hidden border border-zinc-800/80"></div>
                         </div>
                         
-                        <!-- Contextual Dynamic Panels Side Stack (Tabs System) -->
                         <div class="p-4 flex flex-col h-full overflow-hidden bg-zinc-950">
-                            <!-- Tab Headers -->
                             <div class="flex border-b border-zinc-800 mb-4">
                                 <button id="btn-tab-news" onclick="toggleWorkspaceTab('news', '${ticker}')" class="flex-1 pb-2 text-center text-xs font-bold uppercase tracking-wider border-b-2 border-emerald-500 text-emerald-400 transition-all cursor-pointer">
                                     📰 News Feed
@@ -255,7 +254,6 @@
                                 </button>
                             </div>
                             
-                            <!-- News Stream Layout Layer -->
                             <div id="panel-tab-news" class="flex-1 flex flex-col space-y-3 overflow-y-auto pr-1">
                                 ${getMockNews(ticker).map(news => `
                                     <div class="bg-zinc-900/40 border border-zinc-800 p-3 rounded-lg hover:border-zinc-700 transition-all">
@@ -268,7 +266,6 @@
                                 `).join('')}
                             </div>
                             
-                            <!-- Interactive Free Analytics Chart Decoder Layer (Hidden by default) -->
                             <div id="panel-tab-decoder" class="flex-1 hidden flex-col h-full bg-zinc-900/10 rounded-xl border border-zinc-800 p-3 overflow-hidden">
                                 <div id="tv-decoder-container" class="w-full h-full min-h-[340px]"></div>
                             </div>
@@ -277,7 +274,6 @@
                 </div>
             </div>`;
 
-            // Load interactive TradingView Chart Engine Instance
             setTimeout(() => {
                 new TradingView.widget({
                     "autosize": true,
@@ -295,7 +291,6 @@
             }, 50);
         };
 
-        // Reactive navigation switching tabs natively
         window.toggleWorkspaceTab = function(activeTab, ticker) {
             const btnNews = document.getElementById('btn-tab-news');
             const btnDecoder = document.getElementById('btn-tab-decoder');
@@ -312,7 +307,6 @@
                 btnNews.className = "flex-1 pb-2 text-center text-xs font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer";
                 panelNews.classList.add('hidden');
                 panelDecoder.classList.remove('hidden');
-                // Construct dynamic gauge analysis widget
                 initDecoderGauge(ticker);
             }
         };
@@ -322,7 +316,6 @@
             document.getElementById('workspace-overlay').innerHTML = '';
         };
 
-        // App Boot configuration scripts
         initSectors();
         filterStocks();
     </script>
