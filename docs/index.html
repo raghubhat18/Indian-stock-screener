@@ -49,6 +49,9 @@
                 <button id="nav-uppercircuit" onclick="switchGlobalView('uppercircuit')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">
                     📈 Circuits
                 </button>
+                <button id="nav-highrisk" onclick="switchGlobalView('highrisk')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">
+                    ⚠️ High Risk High Reward
+                </button>
             </div>
         </div>
 
@@ -56,7 +59,7 @@
             <div class="flex flex-col gap-4 mb-6 bg-zinc-900/80 p-4 rounded-xl border border-zinc-800/80 backdrop-blur-sm shadow-xl">
                 <div class="relative w-full">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-500 font-mono text-sm">🔎</span>
-                    <input type="text" id="all-search-stocks" oninput="filterAllStocks()" placeholder="Search directory by symbol (e.g. HAL, PAYTM, TATA)..." class="w-full bg-zinc-950 text-zinc-200 pl-10 pr-4 py-2.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono transition-all">
+                    <input type="text" id="all-search-stocks" oninput="filterAllStocks()" placeholder="Search comprehensive directory by symbol (e.g. HAL, IREDA, RELIANCE, JIOFIN)..." class="w-full bg-zinc-950 text-zinc-200 pl-10 pr-4 py-2.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono transition-all">
                 </div>
 
                 <div class="flex flex-wrap items-center justify-between gap-4 border-t border-zinc-800/60 pt-3">
@@ -78,6 +81,14 @@
                             <option value="500-1500">₹500 - ₹1500</option>
                             <option value="1500-3000">₹1500 - ₹3000</option>
                             <option value="over3000">&gt; ₹3000</option>
+                        </select>
+                        <select id="all-sort-filter" onchange="filterAllStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-sky-500/50 text-sky-400 font-bold text-xs focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer font-mono">
+                            <option value="ticker-asc">Sort: Ticker (A-Z)</option>
+                            <option value="chg1m-desc">Sort: 1M Perf (High ➔ Low)</option>
+                            <option value="chg1m-asc">Sort: 1M Perf (Low ➔ High)</option>
+                            <option value="chg1w-desc">Sort: 1W Perf (High ➔ Low)</option>
+                            <option value="price-desc">Sort: Price (High ➔ Low)</option>
+                            <option value="price-asc">Sort: Price (Low ➔ High)</option>
                         </select>
                     </div>
                 </div>
@@ -117,7 +128,6 @@
                 <div id="global-search-hook" class="hidden grid-cols-1 gap-4"></div>
             </div>
         </div>
-
 
         <div id="view-momentum" class="hidden">
             <div class="flex flex-col gap-4 mb-6 bg-zinc-900/80 p-4 rounded-xl border border-zinc-800/80 backdrop-blur-sm shadow-xl">
@@ -208,41 +218,68 @@
             </div>
         </div>
 
+        <div id="view-highrisk" class="hidden">
+            <div class="bg-zinc-900/40 border border-amber-500/30 rounded-xl p-4 sm:p-6 shadow-xl backdrop-blur-sm overflow-hidden">
+                <div class="mb-4">
+                    <h2 class="text-base font-bold text-amber-400 font-mono">⚠️ Alpha Aggressive Catalyst Radar (High Risk High Reward)</h2>
+                    <p class="text-[11px] text-zinc-400 font-sans mt-1">High-beta breakouts, extreme turnaround stories, micro-caps with narrative momentum, and heavily short-squeezed equities.</p>
+                </div>
+                <div class="overflow-x-auto rounded-lg border border-zinc-800 bg-zinc-950">
+                    <table class="w-full text-left font-mono text-xs text-zinc-300 divide-y divide-zinc-800">
+                        <thead class="bg-zinc-900/80 text-zinc-400 uppercase text-[10px] tracking-wider">
+                            <tr>
+                                <th class="p-4">Symbol</th>
+                                <th class="p-4">Company Name</th>
+                                <th class="p-4 text-right">Price</th>
+                                <th class="p-4 text-right">1M Growth</th>
+                                <th class="p-4 text-center">Risk Parameter Check</th>
+                                <th class="p-4 text-emerald-400 text-right">Target Multiplier</th>
+                            </tr>
+                        </thead>
+                        <tbody id="highrisk-table-body" class="divide-y divide-zinc-900"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div id="workspace-overlay" class="hidden"></div>
 
     <script>
-        // Expanded Data Repository containing heavyweights across indices. 
-        // Notice the addition of 'tf' (Timeframe) variables to Most Bought and Circuits.
+        // Expanded Data Repository containing heavyweights + extensive additions across categories
         const stockData = {
-            "RELIANCE": { name: "Reliance Industries Ltd.", cap: "large", sector: "Energy", price: 2452.10, changes: { "1w": 1.85, "1m": 3.4, "3m": 7.1 }, divAmount: 10.00, divYield: 0.41, exDate: "2026-08-27", mostBought: { surge: "2.1x", delivery: "65%", intensity: "High 🔥", tf: "1w" }, circuit: null, tech: { rsi: 64, pivot: "Below R1" } },
-            "TCS": { name: "Tata Consultancy Services Ltd.", cap: "large", sector: "IT", price: 3820.00, changes: { "1w": -0.45, "1m": 5.1, "3m": 9.3 }, divAmount: 28.00, divYield: 0.73, exDate: "2026-07-15", mostBought: null, circuit: null, tech: { rsi: 52, pivot: "At Pivot Point" } },
-            "HDFCBANK": { name: "HDFC Bank Ltd.", cap: "large", sector: "Banking", price: 1680.25, changes: { "1w": -1.10, "1m": 2.6, "3m": 5.9 }, divAmount: 19.50, divYield: 1.16, exDate: "2026-05-12", mostBought: null, circuit: null, tech: { rsi: 38, pivot: "Approaching S1" } },
-            "INFY": { name: "Infosys Ltd.", cap: "large", sector: "IT", price: 1492.00, changes: { "1w": 2.40, "1m": -4.8, "3m": 11.2 }, divAmount: 20.00, divYield: 1.34, exDate: "2026-06-02", mostBought: null, circuit: null, tech: { rsi: 72, pivot: "Above R2" } },
-            "SBIN": { name: "State Bank of India", cap: "large", sector: "Banking", price: 825.40, changes: { "1w": 3.15, "1m": 6.2, "3m": 14.1 }, divAmount: 13.70, divYield: 1.66, exDate: "2026-06-14", mostBought: { surge: "3.2x", delivery: "71%", intensity: "High 🔥", tf: "today" }, circuit: null, tech: { rsi: 68, pivot: "Breaking R1" } },
-            "ICICIBANK": { name: "ICICI Bank Ltd.", cap: "large", sector: "Banking", price: 1124.50, changes: { "1w": 0.85, "1m": 3.9, "3m": 6.4 }, divAmount: 10.00, divYield: 0.89, exDate: "2026-07-09", mostBought: null, circuit: null, tech: { rsi: 58, pivot: "Slightly Above Pivot" } },
-            "ITC": { name: "ITC Ltd.", cap: "large", sector: "Consumer", price: 435.50, changes: { "1w": 0.20, "1m": -1.1, "3m": -2.4 }, divAmount: 13.75, divYield: 3.16, exDate: "2026-07-21", mostBought: null, circuit: null, tech: { rsi: 34, pivot: "Sitting On S2" } },
-            "BHARTIARTL": { name: "Bharti Airtel Ltd.", cap: "large", sector: "Telecom", price: 1340.20, changes: { "1w": -4.10, "1m": -9.2, "3m": 18.4 }, divAmount: 8.00, divYield: 0.60, exDate: "2026-08-05", mostBought: null, circuit: null, tech: { rsi: 76, pivot: "Above R2" } },
-            "LARSEN": { name: "Larsen & Toubro Ltd.", cap: "large", sector: "Infrastructure", price: 3450.10, changes: { "1w": 2.40, "1m": 8.1, "3m": 14.2 }, divAmount: 24.00, divYield: 0.70, exDate: "2026-07-30", mostBought: null, circuit: null, tech: { rsi: 55, pivot: "Near Pivot" } },
-            "HINDUNILVR": { name: "Hindustan Unilever Ltd.", cap: "large", sector: "Consumer", price: 2341.00, changes: { "1w": -0.5, "1m": -2.1, "3m": -5.4 }, divAmount: 39.00, divYield: 1.66, exDate: "2026-07-25", mostBought: null, circuit: null, tech: { rsi: 35, pivot: "S2 Support" } },
-            "BAJFINANCE": { name: "Bajaj Finance Ltd.", cap: "large", sector: "Banking", price: 6850.40, changes: { "1w": 2.4, "1m": 8.9, "3m": 14.1 }, divAmount: 30.00, divYield: 0.43, exDate: "2026-06-28", mostBought: { surge: "1.8x", delivery: "55%", intensity: "Moderate", tf: "1m" }, circuit: null, tech: { rsi: 66, pivot: "R1 Resistance" } },
-            "ADANIENT": { name: "Adani Enterprises Ltd.", cap: "large", sector: "Energy", price: 3120.50, changes: { "1w": -8.4, "1m": -15.2, "3m": -22.4 }, divAmount: 1.20, divYield: 0.03, exDate: "2026-07-12", mostBought: null, circuit: null, tech: { rsi: 28, pivot: "Below S2" } },
-            "HAL": { name: "Hindustan Aeronautics", cap: "large", sector: "Defence", price: 3840.50, changes: { "1w": 5.4, "1m": 14.2, "3m": 42.1 }, divAmount: 22.00, divYield: 0.57, exDate: "2026-08-20", mostBought: { surge: "4.1x", delivery: "68%", intensity: "Extreme ⚡", tf: "today" }, circuit: null, tech: { rsi: 74, pivot: "Above R1" } },
-            "MAZDOCK": { name: "Mazagon Dock Shipbuilders", cap: "mid", sector: "Defence", price: 2145.30, changes: { "1w": 12.1, "1m": 28.5, "3m": 85.4 }, divAmount: 15.30, divYield: 0.71, exDate: "2026-09-05", mostBought: null, circuit: { chg: "+10.0%", band: "10%", buyers: "850,200", tf: "1w" }, tech: { rsi: 85, pivot: "Overextended R3" } },
-            "RVNL": { name: "Rail Vikas Nigam Ltd.", cap: "mid", sector: "Infrastructure", price: 278.40, changes: { "1w": 12.4, "1m": 35.1, "3m": 88.5 }, divAmount: 2.13, divYield: 0.76, exDate: "2026-08-15", mostBought: { surge: "4.1x", delivery: "71%", intensity: "High 🔥", tf: "1m" }, circuit: null, tech: { rsi: 82, pivot: "R3 Resistance" } },
-            "IRFC": { name: "Indian Railway Finance", cap: "large", sector: "Banking", price: 142.50, changes: { "1w": -3.2, "1m": -8.4, "3m": 12.1 }, divAmount: 1.50, divYield: 1.05, exDate: "2026-07-11", mostBought: null, circuit: null, tech: { rsi: 41, pivot: "Testing S1" } },
-            "BHEL": { name: "Bharat Heavy Electricals", cap: "mid", sector: "Infrastructure", price: 245.30, changes: { "1w": 6.2, "1m": -1.4, "3m": 25.4 }, divAmount: 0.40, divYield: 0.16, exDate: "2026-09-10", mostBought: null, circuit: { chg: "+10.0%", band: "10%", buyers: "240,100", tf: "today" }, tech: { rsi: 65, pivot: "Near R1" } },
-            "ZOMATO": { name: "Zomato Ltd.", cap: "large", sector: "Consumer", price: 184.30, changes: { "1w": 4.2, "1m": 12.1, "3m": 34.5 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: { surge: "3.1x", delivery: "61%", intensity: "High 🔥", tf: "1w" }, circuit: null, tech: { rsi: 71, pivot: "Above R1" } },
-            "PAYTM": { name: "One97 Communications", cap: "mid", sector: "IT", price: 420.15, changes: { "1w": -8.4, "1m": -22.1, "3m": -45.2 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 22, pivot: "Oversold S3" } },
-            "NYKAA": { name: "FSN E-Commerce", cap: "mid", sector: "Consumer", price: 165.40, changes: { "1w": 1.2, "1m": 5.4, "3m": -2.1 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 52, pivot: "Neutral Baseline" } },
-            "CDSL": { name: "Central Depository Services", cap: "small", sector: "Capital Markets", price: 1311.40, changes: { "1w": -1.58, "1m": 4.1, "3m": 22.5 }, divAmount: 22.00, divYield: 1.68, exDate: "2026-08-18", mostBought: null, circuit: null, tech: { rsi: 55, pivot: "Holding Pivot" } },
-            "SUZLON": { name: "Suzlon Energy Ltd.", cap: "small", sector: "Energy", price: 42.15, changes: { "1w": 8.4, "1m": 24.1, "3m": 65.2 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+5.0%", band: "5%", buyers: "4,500,000", tf: "1m" }, tech: { rsi: 78, pivot: "R2 Resistance" } },
-            "YESBANK": { name: "Yes Bank Ltd.", cap: "small", sector: "Banking", price: 22.15, changes: { "1w": 4.20, "1m": -3.1, "3m": 14.8 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 62, pivot: "Testing R1" } },
-            "VOLTAS": { name: "Voltas Ltd.", cap: "mid", sector: "Consumer", price: 984.50, changes: { "1w": 0.95, "1m": 6.3, "3m": 15.6 }, divAmount: 5.50, divYield: 0.56, exDate: "2026-06-18", mostBought: null, circuit: { chg: "+20.0%", band: "20%", buyers: "852,430", tf: "today" }, tech: { rsi: 81, pivot: "Gap Up Above R3" } },
-            "KPITTECH": { name: "KPIT Technologies Ltd.", cap: "mid", sector: "IT", price: 1540.20, changes: { "1w": 6.20, "1m": 18.4, "3m": 42.1 }, divAmount: 4.60, divYield: 0.30, exDate: "2026-07-22", mostBought: null, circuit: null, tech: { rsi: 82, pivot: "Pinned At R3" } },
-            "DEEPAKNTR": { name: "Deepak Nitrite Ltd.", cap: "mid", sector: "Materials", price: 2150.40, changes: { "1w": -2.4, "1m": -6.5, "3m": 2.1 }, divAmount: 7.50, divYield: 0.35, exDate: "2026-08-12", mostBought: null, circuit: null, tech: { rsi: 41, pivot: "Testing S1" } },
-            "LUPIN": { name: "Lupin Ltd.", cap: "large", sector: "Healthcare", price: 1640.20, changes: { "1w": 3.1, "1m": 12.4, "3m": 28.5 }, divAmount: 8.50, divYield: 0.52, exDate: "2026-07-19", mostBought: null, circuit: null, tech: { rsi: 68, pivot: "Approaching R1" } }
+            "RELIANCE": { name: "Reliance Industries Ltd.", cap: "large", sector: "Energy", price: 2452.10, changes: { "1w": 1.85, "1m": 3.4, "3m": 7.1 }, divAmount: 10.00, divYield: 0.41, exDate: "2026-08-27", mostBought: { surge: "2.1x", delivery: "65%", intensity: "High 🔥", tf: "1w" }, circuit: null, tech: { rsi: 64, pivot: "Below R1" }, riskMetrics: null },
+            "TCS": { name: "Tata Consultancy Services Ltd.", cap: "large", sector: "IT", price: 3820.00, changes: { "1w": -0.45, "1m": 5.1, "3m": 9.3 }, divAmount: 28.00, divYield: 0.73, exDate: "2026-07-15", mostBought: null, circuit: null, tech: { rsi: 52, pivot: "At Pivot Point" }, riskMetrics: null },
+            "HDFCBANK": { name: "HDFC Bank Ltd.", cap: "large", sector: "Banking", price: 1680.25, changes: { "1w": -1.10, "1m": 2.6, "3m": 5.9 }, divAmount: 19.50, divYield: 1.16, exDate: "2026-05-12", mostBought: null, circuit: null, tech: { rsi: 38, pivot: "Approaching S1" }, riskMetrics: null },
+            "INFY": { name: "Infosys Ltd.", cap: "large", sector: "IT", price: 1492.00, changes: { "1w": 2.40, "1m": -4.8, "3m": 11.2 }, divAmount: 20.00, divYield: 1.34, exDate: "2026-06-02", mostBought: null, circuit: null, tech: { rsi: 72, pivot: "Above R2" }, riskMetrics: null },
+            "SBIN": { name: "State Bank of India", cap: "large", sector: "Banking", price: 825.40, changes: { "1w": 3.15, "1m": 6.2, "3m": 14.1 }, divAmount: 13.70, divYield: 1.66, exDate: "2026-06-14", mostBought: { surge: "3.2x", delivery: "71%", intensity: "High 🔥", tf: "today" }, circuit: null, tech: { rsi: 68, pivot: "Breaking R1" }, riskMetrics: null },
+            "ICICIBANK": { name: "ICICI Bank Ltd.", cap: "large", sector: "Banking", price: 1124.50, changes: { "1w": 0.85, "1m": 3.9, "3m": 6.4 }, divAmount: 10.00, divYield: 0.89, exDate: "2026-07-09", mostBought: null, circuit: null, tech: { rsi: 58, pivot: "Slightly Above Pivot" }, riskMetrics: null },
+            "ITC": { name: "ITC Ltd.", cap: "large", sector: "Consumer", price: 435.50, changes: { "1w": 0.20, "1m": -1.1, "3m": -2.4 }, divAmount: 13.75, divYield: 3.16, exDate: "2026-07-21", mostBought: null, circuit: null, tech: { rsi: 34, pivot: "Sitting On S2" }, riskMetrics: null },
+            "BHARTIARTL": { name: "Bharti Airtel Ltd.", cap: "large", sector: "Telecom", price: 1340.20, changes: { "1w": -4.10, "1m": -9.2, "3m": 18.4 }, divAmount: 8.00, divYield: 0.60, exDate: "2026-08-05", mostBought: null, circuit: null, tech: { rsi: 76, pivot: "Above R2" }, riskMetrics: null },
+            "LARSEN": { name: "Larsen & Toubro Ltd.", cap: "large", sector: "Infrastructure", price: 3450.10, changes: { "1w": 2.40, "1m": 8.1, "3m": 14.2 }, divAmount: 24.00, divYield: 0.70, exDate: "2026-07-30", mostBought: null, circuit: null, tech: { rsi: 55, pivot: "Near Pivot" }, riskMetrics: null },
+            "HINDUNILVR": { name: "Hindustan Unilever Ltd.", cap: "large", sector: "Consumer", price: 2341.00, changes: { "1w": -0.5, "1m": -2.1, "3m": -5.4 }, divAmount: 39.00, divYield: 1.66, exDate: "2026-07-25", mostBought: null, circuit: null, tech: { rsi: 35, pivot: "S2 Support" }, riskMetrics: null },
+            "BAJFINANCE": { name: "Bajaj Finance Ltd.", cap: "large", sector: "Banking", price: 6850.40, changes: { "1w": 2.4, "1m": 8.9, "3m": 14.1 }, divAmount: 30.00, divYield: 0.43, exDate: "2026-06-28", mostBought: { surge: "1.8x", delivery: "55%", intensity: "Moderate", tf: "1m" }, circuit: null, tech: { rsi: 66, pivot: "R1 Resistance" }, riskMetrics: null },
+            "ADANIENT": { name: "Adani Enterprises Ltd.", cap: "large", sector: "Energy", price: 3120.50, changes: { "1w": -8.4, "1m": -15.2, "3m": -22.4 }, divAmount: 1.20, divYield: 0.03, exDate: "2026-07-12", mostBought: null, circuit: null, tech: { rsi: 28, pivot: "Below S2" }, riskMetrics: null },
+            "HAL": { name: "Hindustan Aeronautics", cap: "large", sector: "Defence", price: 3840.50, changes: { "1w": 5.4, "1m": 14.2, "3m": 42.1 }, divAmount: 22.00, divYield: 0.57, exDate: "2026-08-20", mostBought: { surge: "4.1x", delivery: "68%", intensity: "Extreme ⚡", tf: "today" }, circuit: null, tech: { rsi: 74, pivot: "Above R1" }, riskMetrics: null },
+            
+            // Extensive New Directory Additions & High Risk Candidates
+            "MAZDOCK": { name: "Mazagon Dock Shipbuilders", cap: "mid", sector: "Defence", price: 2145.30, changes: { "1w": 12.1, "1m": 28.5, "3m": 85.4 }, divAmount: 15.30, divYield: 0.71, exDate: "2026-09-05", mostBought: null, circuit: { chg: "+10.0%", band: "10%", buyers: "850,200", tf: "1w" }, tech: { rsi: 85, pivot: "Overextended R3" }, riskMetrics: { threat: "High Overvaluation", award: "Defense Order Pipeline", beta: "2.1x" } },
+            "RVNL": { name: "Rail Vikas Nigam Ltd.", cap: "mid", sector: "Infrastructure", price: 278.40, changes: { "1w": 12.4, "1m": 35.1, "3m": 88.5 }, divAmount: 2.13, divYield: 0.76, exDate: "2026-08-15", mostBought: { surge: "4.1x", delivery: "71%", intensity: "High 🔥", tf: "1m" }, circuit: null, tech: { rsi: 82, pivot: "R3 Resistance" }, riskMetrics: { threat: "Policy Shift Exposure", award: "Railway Modernization Multiplier", beta: "1.9x" } },
+            "IREDA": { name: "Indian Renewable Energy Dev.", cap: "mid", sector: "Energy", price: 198.50, changes: { "1w": 14.2, "1m": 42.1, "3m": 112.4 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+5.0%", band: "5%", buyers: "2,100,000", tf: "today" }, tech: { rsi: 88, pivot: "Skyward Parabolic" }, riskMetrics: { threat: "High Speculative Leverage", award: "Green Sovereign Funding Apex", beta: "2.4x" } },
+            "JIOFIN": { name: "Jio Financial Services Ltd.", cap: "large", sector: "Financial Services", price: 345.20, changes: { "1w": 3.10, "1m": 11.5, "3m": 24.1 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 62, pivot: "R1 Proximity" }, riskMetrics: null },
+            "TATASTEEL": { name: "Tata Steel Ltd.", cap: "large", sector: "Materials", price: 154.60, changes: { "1w": -1.45, "1m": -4.2, "3m": 8.9 }, divAmount: 3.60, divYield: 2.32, exDate: "2026-06-21", mostBought: null, circuit: null, tech: { rsi: 44, pivot: "Support S1" }, riskMetrics: null },
+            "COALINDIA": { name: "Coal India Ltd.", cap: "large", sector: "Energy", price: 462.10, changes: { "1w": 0.80, "1m": 7.4, "3m": 18.2 }, divAmount: 24.50, divYield: 5.30, exDate: "2026-08-11", mostBought: null, circuit: null, tech: { rsi: 59, pivot: "Neutral Zone" }, riskMetrics: null },
+            "WIPRO": { name: "Wipro Ltd.", cap: "large", sector: "IT", price: 472.30, changes: { "1w": -2.10, "1m": -6.8, "3m": -1.2 }, divAmount: 1.00, divYield: 0.21, exDate: "2026-07-02", mostBought: null, circuit: null, tech: { rsi: 32, pivot: "Deep Support S2" }, riskMetrics: null },
+            "SUZLON": { name: "Suzlon Energy Ltd.", cap: "small", sector: "Energy", price: 42.15, changes: { "1w": 8.4, "1m": 24.1, "3m": 65.2 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+5.0%", band: "5%", buyers: "4,500,000", tf: "1m" }, tech: { rsi: 78, pivot: "R2 Resistance" }, riskMetrics: { threat: "Legacy Debt & Execution Flaws", award: "Clean Energy Capex Surge", beta: "2.8x" } },
+            "PAYTM": { name: "One97 Communications", cap: "mid", sector: "IT", price: 420.15, changes: { "1w": -8.4, "1m": -22.1, "3m": -45.2 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 22, pivot: "Oversold S3" }, riskMetrics: { threat: "Regulatory Headwinds", award: "Turnaround Re-licensing Option", beta: "2.5x" } },
+            "YESBANK": { name: "Yes Bank Ltd.", cap: "small", sector: "Banking", price: 22.15, changes: { "1w": 4.20, "1m": -3.1, "3m": 14.8 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 62, pivot: "Testing R1" }, riskMetrics: { threat: "Low Capital Adequacy Margin", award: "Strategic Ownership Acquisition Buyout", beta: "1.9x" } },
+            "NHPC": { name: "NHPC Ltd.", cap: "mid", sector: "Energy", price: 92.40, changes: { "1w": 5.10, "1m": 16.2, "3m": 38.4 }, divAmount: 1.85, divYield: 2.00, exDate: "2026-08-04", mostBought: null, circuit: null, tech: { rsi: 67, pivot: "Near R1" }, riskMetrics: null },
+            "IDEA": { name: "Vodafone Idea Ltd.", cap: "mid", sector: "Telecom", price: 11.20, changes: { "1w": -11.4, "1m": -18.5, "3m": -32.1 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 29, pivot: "Capitulation Floor" }, riskMetrics: { threat: "Substantial AGR Dues & Churn", award: "Government Equity Conversion Backstop", beta: "3.2x" } },
+            "ZOMATO": { name: "Zomato Ltd.", cap: "large", sector: "Consumer", price: 184.30, changes: { "1w": 4.2, "1m": 12.1, "3m": 34.5 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: { surge: "3.1x", delivery: "61%", intensity: "High 🔥", tf: "1w" }, circuit: null, tech: { rsi: 71, pivot: "Above R1" }, riskMetrics: null },
+            "VOLTAS": { name: "Voltas Ltd.", cap: "mid", sector: "Consumer", price: 984.50, changes: { "1w": 0.95, "1m": 6.3, "3m": 15.6 }, divAmount: 5.50, divYield: 0.56, exDate: "2026-06-18", mostBought: null, circuit: { chg: "+20.0%", band: "20%", buyers: "852,430", tf: "today" }, tech: { rsi: 81, pivot: "Gap Up Above R3" }, riskMetrics: null },
+            "KPITTECH": { name: "KPIT Technologies Ltd.", cap: "mid", sector: "IT", price: 1540.20, changes: { "1w": 6.20, "1m": 18.4, "3m": 42.1 }, divAmount: 4.60, divYield: 0.30, exDate: "2026-07-22", mostBought: null, circuit: null, tech: { rsi: 82, pivot: "Pinned At R3" }, riskMetrics: null },
+            "LUPIN": { name: "Lupin Ltd.", cap: "large", sector: "Healthcare", price: 1640.20, changes: { "1w": 3.1, "1m": 12.4, "3m": 28.5 }, divAmount: 8.50, divYield: 0.52, exDate: "2026-07-19", mostBought: null, circuit: null, tech: { rsi: 68, pivot: "Approaching R1" }, riskMetrics: null }
         };
 
         const horizonLabels = { "1w": "1 Week Chg", "1m": "1 Month Chg", "3m": "3 Month Chg" };
@@ -252,12 +289,12 @@
         let currentAllCapFilter = "all";
 
         window.switchGlobalView = function(view) {
-            const tabs = ['allstocks', 'momentum', 'dividend', 'mostbought', 'uppercircuit'];
+            const tabs = ['allstocks', 'momentum', 'dividend', 'mostbought', 'uppercircuit', 'highrisk'];
             tabs.forEach(t => {
                 const btn = document.getElementById(`nav-${t}`);
                 const panel = document.getElementById(`view-${t}`);
                 if (t === view) {
-                    btn.className = `px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border shadow-md transition-all cursor-pointer ${view === 'allstocks' ? 'border-sky-500/40 bg-sky-950/30 text-sky-400' : 'border-emerald-500/40 bg-emerald-950/30 text-emerald-400'}`;
+                    btn.className = `px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border shadow-md transition-all cursor-pointer ${view === 'allstocks' ? 'border-sky-500/40 bg-sky-950/30 text-sky-400' : view === 'highrisk' ? 'border-amber-500/40 bg-amber-950/30 text-amber-400' : 'border-emerald-500/40 bg-emerald-950/30 text-emerald-400'}`;
                     panel.classList.remove('hidden');
                 } else {
                     btn.className = "px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer";
@@ -270,10 +307,10 @@
             if (view === 'dividend') renderDividendTable();
             if (view === 'mostbought') renderMostBoughtTable();
             if (view === 'uppercircuit') renderUpperCircuitTable();
+            if (view === 'highrisk') renderHighRiskTable();
         };
 
         function initDataLoaders() {
-            // 1. Init Sectors
             const sectors = new Set();
             Object.values(stockData).forEach(s => sectors.add(s.sector));
             const selectMomentum = document.getElementById('sector-filter');
@@ -285,21 +322,20 @@
                 selectAll.appendChild(opt2);
             });
 
-            // 2. Init Dynamic Dividend Months
             const divMonths = new Set();
             Object.values(stockData).forEach(data => {
                 if (data.exDate && data.exDate !== "N/A") {
-                    const parts = data.exDate.split("-"); // "2026-08-27"
+                    const parts = data.exDate.split("-");
                     if(parts.length === 3) {
-                        const monthLabel = `${monthNames[parseInt(parts[1])-1]} ${parts[0]}`; // "August 2026"
-                        const monthValue = `${parts[0]}-${parts[1]}`; // "2026-08"
+                        const monthLabel = `${monthNames[parseInt(parts[1])-1]} ${parts[0]}`;
+                        const monthValue = `${parts[0]}-${parts[1]}`;
                         divMonths.add(JSON.stringify({label: monthLabel, val: monthValue}));
                     }
                 }
             });
             const divSelect = document.getElementById('dividend-month-filter');
             Array.from(divMonths).map(item => JSON.parse(item))
-                .sort((a,b) => a.val.localeCompare(b.val)) // Chronological sort
+                .sort((a,b) => a.val.localeCompare(b.val))
                 .forEach(month => {
                     const opt = document.createElement('option');
                     opt.value = month.val; opt.textContent = month.label;
@@ -317,7 +353,7 @@
             }
         };
 
-        /* ------------------ ALL STOCKS (GROUPED) LOGIC ------------------ */
+        /* ------------------ ALL STOCKS (WITH SORT ENGINE) ------------------ */
         function setAllCapFilter(capValue) {
             currentAllCapFilter = capValue;
             document.querySelectorAll('.all-cap-btn').forEach(btn => {
@@ -329,6 +365,7 @@
         function filterAllStocks() {
             const sectorFilter = document.getElementById('all-sector-filter').value;
             const priceFilter = document.getElementById('all-price-filter').value;
+            const sortFilter = document.getElementById('all-sort-filter').value;
             const searchQuery = document.getElementById('all-search-stocks').value.trim().toLowerCase();
             
             const posGrid = document.getElementById('positive-grid');
@@ -338,7 +375,28 @@
             posGrid.innerHTML = ''; negGrid.innerHTML = ''; hook.innerHTML = ''; hook.classList.add('hidden');
             let posCount = 0; let negCount = 0;
 
-            Object.entries(stockData).forEach(([ticker, data]) => {
+            // 1. Transform cache data to an array for dynamic sorting
+            let dataset = Object.entries(stockData);
+
+            // 2. Perform Sort Execution BEFORE Rendering Layout
+            dataset.sort((a, b) => {
+                const tickerA = a[0]; const tickerB = b[0];
+                const objA = a[1]; const objB = b[1];
+
+                switch(sortFilter) {
+                    case "chg1m-desc": return objB.changes['1m'] - objA.changes['1m'];
+                    case "chg1m-asc":  return objA.changes['1m'] - objB.changes['1m'];
+                    case "chg1w-desc": return objB.changes['1w'] - objA.changes['1w'];
+                    case "price-desc": return objB.price - objA.price;
+                    case "price-asc":  return objA.price - objB.price;
+                    case "ticker-asc":
+                    default:
+                        return tickerA.localeCompare(tickerB);
+                }
+            });
+
+            // 3. Render Sorted & Filtered Assets
+            dataset.forEach(([ticker, data]) => {
                 if (searchQuery && !ticker.toLowerCase().includes(searchQuery) && !data.name.toLowerCase().includes(searchQuery)) return;
                 if (currentAllCapFilter !== 'all' && data.cap !== currentAllCapFilter) return;
                 if (sectorFilter !== 'all' && data.sector !== sectorFilter) return;
@@ -418,7 +476,7 @@
             }
         }
 
-        /* ------------------ MOMENTUM (FLAT GRID) LOGIC ------------------ */
+        /* ------------------ MOMENTUM LOGIC ------------------ */
         function setCapFilter(capValue) {
             currentCapFilter = capValue;
             document.querySelectorAll('.cap-btn').forEach(btn => {
@@ -464,7 +522,7 @@
             });
         }
 
-        /* ------------------ TABLE RENDERERS WITH TIMEFRAME FILTERS ------------------ */
+        /* ------------------ SCANNERS & TERMINAL MODULES ------------------ */
         function renderDividendTable() {
             const container = document.getElementById('dividend-table-body');
             const monthFilter = document.getElementById('dividend-month-filter').value;
@@ -472,8 +530,6 @@
             
             Object.entries(stockData).forEach(([ticker, data]) => {
                 if(data.divAmount === 0 || data.exDate === "N/A") return;
-                
-                // If a specific month is selected (e.g. "2026-08"), skip if the exDate doesn't start with it
                 if(monthFilter !== 'all' && !data.exDate.startsWith(monthFilter)) return;
 
                 const row = document.createElement('tr');
@@ -497,8 +553,6 @@
 
             Object.entries(stockData).forEach(([ticker, data]) => {
                 if (!data.mostBought) return;
-                
-                // Match the mock timeframe assigned to the mostBought record
                 if (tfFilter !== 'all' && data.mostBought.tf !== tfFilter) return;
 
                 const row = document.createElement('tr');
@@ -523,8 +577,6 @@
             
             Object.entries(stockData).forEach(([ticker, data]) => {
                 if (!data.circuit) return;
-                
-                // Match the mock timeframe assigned to the circuit record
                 if (tfFilter !== 'all' && data.circuit.tf !== tfFilter) return;
 
                 const row = document.createElement('tr');
@@ -542,54 +594,60 @@
             });
         }
 
-        /* ------------------ WORKSPACE LOGIC WITH GLOSSARY ------------------ */
-        function getMockNews(ticker) {
-            return [{ source: "System", time: "Now", title: `Live feed established for ${ticker}.` }];
+        /* ------------------ NEW TAB RENDERER: HIGH RISK HIGH REWARD ------------------ */
+        function renderHighRiskTable() {
+            const container = document.getElementById('highrisk-table-body');
+            container.innerHTML = '';
+
+            Object.entries(stockData).forEach(([ticker, data]) => {
+                if (!data.riskMetrics) return;
+
+                const chg1m = data.changes['1m'];
+                const isPos = chg1m >= 0;
+
+                const row = document.createElement('tr');
+                row.className = "hover:bg-zinc-900/50 cursor-pointer transition-colors group";
+                row.setAttribute('onclick', `openWorkspace('${ticker}')`);
+                row.innerHTML = `
+                    <td class="p-4 font-bold text-zinc-200 group-hover:text-amber-400 transition-colors">${ticker}</td>
+                    <td class="p-4 text-zinc-400 font-sans">
+                        <div>${data.name}</div>
+                        <div class="text-[10px] text-zinc-500 font-mono mt-0.5">Beta: ${data.riskMetrics.beta}</div>
+                    </td>
+                    <td class="p-4 text-right font-bold text-zinc-200">₹${data.price.toLocaleString('en-IN')}</td>
+                    <td class="p-4 text-right font-bold ${isPos ? 'text-emerald-400' : 'text-rose-400'}">${isPos?'+':''}${chg1m}%</td>
+                    <td class="p-4 font-mono text-[11px]">
+                        <div class="text-rose-400"><span class="text-zinc-500">Risk:</span> ${data.riskMetrics.threat}</div>
+                        <div class="text-emerald-400"><span class="text-zinc-500">Reward:</span> ${data.riskMetrics.award}</div>
+                    </td>
+                    <td class="p-4 text-right text-amber-400 font-extrabold tracking-wider animate-pulse">Alpha Catalyst 🚀</td>
+                `;
+                container.appendChild(row);
+            });
         }
 
+        /* ------------------ WORKSPACE INTERNALS ------------------ */
         function generateSuggestionMarkup(ticker) {
             const cached = stockData[ticker];
-            // Generating synthetic values if asset is from a global search
             const rsi = cached ? cached.tech.rsi : Math.floor(Math.random() * (75 - 35) + 35);
             const pivot = cached ? cached.tech.pivot : "Consolidating near Pivot Baseline";
             
-            let rsiRec = "";
-            let rsiScore = 0;
-            if (rsi >= 70) {
-                rsiRec = `RSI is highly overbought (${rsi}). Momentum has expanded excessively; there is a severe risk of exhaustion. recommended to avoid buying here.`;
-                rsiScore = -2;
-            } else if (rsi <= 40) {
-                rsiRec = `RSI is heavily oversold (${rsi}). Asset is experiencing capitulation; structurally deeply discounted. Recommended to buy.`;
-                rsiScore = 2;
-            } else {
-                rsiRec = `RSI is resting at a healthy mid-range (${rsi}). Consistent volume accumulation observed; recommended to buy defensively.`;
-                rsiScore = 1;
-            }
+            let rsiRec = ""; let rsiScore = 0;
+            if (rsi >= 70) { rsiRec = `RSI is highly overbought (${rsi}). Momentum has expanded excessively; there is a severe risk of exhaustion. recommended to avoid buying here.`; rsiScore = -2; } 
+            else if (rsi <= 40) { rsiRec = `RSI is heavily oversold (${rsi}). Asset is experiencing capitulation; structurally deeply discounted. Recommended to buy.`; rsiScore = 2; } 
+            else { rsiRec = `RSI is resting at a healthy mid-range (${rsi}). Consistent volume accumulation observed; recommended to buy defensively.`; rsiScore = 1; }
 
-            let pivotRec = "";
-            let pivotScore = 0;
-            if (pivot.includes("Above R2") || pivot.includes("R3") || pivot.includes("Resistance") || pivot.includes("Overextended")) {
-                pivotRec = `Pivot calculations indicate overhead structural resistance layers (${pivot}). Buying here forces poor risk-to-reward ratios; recommended to wait.`;
-                pivotScore = -2;
-            } else if (pivot.includes("Support") || pivot.includes("S1") || pivot.includes("S2")) {
-                pivotRec = `Pivot system registers cluster safety support layers (${pivot}). Downside floor protection is exceptionally strong; recommended to buy.`;
-                pivotScore = 2;
-            } else {
-                pivotRec = `Asset is hovering near foundational trading ranges (${pivot}). Stabilized horizontal parameters confirm neutral posture.`;
-                pivotScore = 0;
-            }
+            let pivotRec = ""; let pivotScore = 0;
+            if (pivot.includes("Above R2") || pivot.includes("R3") || pivot.includes("Resistance") || pivot.includes("Overextended")) { pivotRec = `Pivot calculations indicate overhead structural resistance layers (${pivot}). Buying here forces poor risk-to-reward ratios; recommended to wait.`; pivotScore = -2; } 
+            else if (pivot.includes("Support") || pivot.includes("S1") || pivot.includes("S2")) { pivotRec = `Pivot system registers cluster safety support layers (${pivot}). Downside floor protection is exceptionally strong; recommended to buy.`; pivotScore = 2; } 
+            else { pivotRec = `Asset is hovering near foundational trading ranges (${pivot}). Stabilized horizontal parameters confirm neutral posture.`; pivotScore = 0; }
 
             const totalScore = rsiScore + pivotScore;
             let finalVerdict = "⚖️ HOLD / NEUTRAL POSITION";
             let verdictClass = "bg-zinc-900 border-zinc-800 text-zinc-400";
 
-            if (totalScore >= 2) {
-                finalVerdict = "🟢 RECOMMENDED TO BUY";
-                verdictClass = "bg-emerald-950/60 border-emerald-500/40 text-emerald-400 shadow-md";
-            } else if (totalScore <= -1) {
-                finalVerdict = "🔴 NOT RECOMMENDED (AVOID)";
-                verdictClass = "bg-rose-950/60 border-rose-500/40 text-rose-400 shadow-md";
-            }
+            if (totalScore >= 2) { finalVerdict = "🟢 RECOMMENDED TO BUY"; verdictClass = "bg-emerald-950/60 border-emerald-500/40 text-emerald-400 shadow-md"; } 
+            else if (totalScore <= -1) { finalVerdict = "🔴 NOT RECOMMENDED (AVOID)"; verdictClass = "bg-rose-950/60 border-rose-500/40 text-rose-400 shadow-md"; }
 
             return `
                 <div class="space-y-4 flex-1 overflow-y-auto pr-2 pb-6">
@@ -612,8 +670,8 @@
                     <div class="mt-6 pt-4 border-t border-zinc-800/80">
                         <h4 class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider mb-3">📚 System Glossary</h4>
                         <div class="space-y-3 text-[10px] text-zinc-400 font-sans leading-relaxed">
-                            <p><strong class="text-emerald-400/80 font-mono">RSI (Relative Strength Index):</strong> A momentum oscillator measuring the speed and change of price movements on a scale of 0 to 100. A score below 40 typically indicates an asset is oversold (a potential buy signal), while a score above 70 indicates it is overbought (a potential sell signal).</p>
-                            <p><strong class="text-sky-400/80 font-mono">Pivot Matrix:</strong> Mathematical support (S1, S2, S3) and resistance (R1, R2, R3) layers calculated from previous price action. They are used to determine structural floors (where price stops falling) and ceilings (where price struggles to break through).</p>
+                            <p><strong class="text-emerald-400/80 font-mono">RSI (Relative Strength Index):</strong> A momentum oscillator measuring the speed and change of price movements on a scale of 0 to 100. A score below 40 typically indicates an asset is oversold, while a score above 70 indicates it is overbought.</p>
+                            <p><strong class="text-sky-400/80 font-mono">Pivot Matrix:</strong> Mathematical support (S1, S2, S3) and resistance (R1, R2, R3) layers calculated from previous price action.</p>
                             <p><strong class="text-purple-400/80 font-mono">System Verdict:</strong> The automated decoder aggregates the RSI momentum score with Pivot level proximity to output a unified, risk-adjusted trading recommendation.</p>
                         </div>
                     </div>
@@ -711,6 +769,7 @@
         renderDividendTable();
         renderMostBoughtTable();
         renderUpperCircuitTable();
+        renderHighRiskTable();
     </script>
 </body>
 </html>
