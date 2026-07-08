@@ -9,11 +9,16 @@
     <!-- TradingView Core Library for Advanced Chart -->
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
-        /* Custom scrollbar styling for terminal feel */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #09090b; }
         ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+        
+        /* Needle rotation transition animations */
+        .gauge-needle {
+            transform-origin: 50px 50px;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
     </style>
 </head>
 <body class="bg-black text-zinc-100 min-h-screen font-sans selection:bg-emerald-500/30 selection:text-emerald-400">
@@ -35,7 +40,7 @@
             <p class="text-[11px] text-zinc-500 font-mono mt-2 uppercase tracking-widest">Nifty 50/100 Advanced Analytics Terminal</p>
         </header>
 
-        <!-- Global Dashboard Switcher Tabs & Info Button -->
+        <!-- Global Dashboard Switcher Tabs -->
         <div class="flex flex-col lg:flex-row items-center justify-between gap-4 mb-6 border-b border-zinc-800 pb-4 font-mono">
             <div class="flex flex-wrap justify-center gap-2.5 w-full lg:w-auto">
                 <button id="nav-momentum" onclick="switchGlobalView('momentum')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-emerald-500/40 bg-emerald-950/30 text-emerald-400 shadow-md transition-all cursor-pointer">
@@ -50,6 +55,9 @@
                 <button id="nav-uppercircuit" onclick="switchGlobalView('uppercircuit')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">
                     📈 Upper Circuits
                 </button>
+                <button id="nav-allstocks" onclick="switchGlobalView('allstocks')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">
+                    🔍 All Stocks
+                </button>
             </div>
             <!-- Global ReadMe Info Button -->
             <button onclick="openReadmeModal()" class="w-full lg:w-auto px-4 py-2 rounded-lg text-xs font-bold bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-emerald-400 hover:border-emerald-500/40 transition-all shadow-md cursor-pointer flex items-center justify-center gap-2">
@@ -59,15 +67,8 @@
 
         <!-- ================= MOMENTUM SCREENER VIEW ================= -->
         <div id="view-momentum" class="block">
-            <!-- Controls, Search & Filters Row -->
             <div class="flex flex-col gap-4 mb-6 bg-zinc-900/80 p-4 rounded-xl border border-zinc-800/80 backdrop-blur-sm shadow-xl">
-                <!-- Search Bar -->
-                <div class="relative w-full">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-500 font-mono text-sm">🔎</span>
-                    <input type="text" id="search-stocks" oninput="filterStocks()" placeholder="Search local Nifty heavyweights, or type ANY market ticker (e.g., ZOMATO, MRF) to unlock global chart..." class="w-full bg-zinc-950 text-zinc-200 pl-10 pr-4 py-2 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono transition-all">
-                </div>
-
-                <div class="flex flex-wrap items-center justify-between gap-4 border-t border-zinc-800/60 pt-3">
+                <div class="flex flex-wrap items-center justify-between gap-4">
                     <!-- Market Cap Toggles -->
                     <div class="flex flex-wrap gap-2" id="cap-filters">
                         <button onclick="setCapFilter('all')" data-cap="all" class="cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-emerald-500 text-white font-semibold cursor-pointer shadow-lg shadow-emerald-950">All Caps</button>
@@ -100,6 +101,21 @@
 
             <!-- Main Stock Cards Grid -->
             <main id="stock-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></main>
+        </div>
+
+        <!-- ================= ALL STOCKS TAB (GLOBAL TERMINAL SEARCH) ================= -->
+        <div id="view-allstocks" class="hidden">
+            <div class="bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-6 shadow-xl backdrop-blur-sm">
+                <div class="mb-4">
+                    <h2 class="text-base font-bold text-sky-400 font-mono mb-1">🔍 Live Exchange Engine Router</h2>
+                    <p class="text-xs text-zinc-500">Type any Indian or Global asset ticker below to initiate direct live line graphics bypassing filters.</p>
+                </div>
+                <div class="relative w-full mb-6">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-500 font-mono text-sm">🔎</span>
+                    <input type="text" id="search-global-input" oninput="filterGlobalSearch()" placeholder="Type any market symbol (e.g., ZOMATO, TATASTEEL, MRF, AAPL)..." class="w-full bg-zinc-950 text-zinc-200 pl-10 pr-4 py-3 rounded-xl border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono transition-all">
+                </div>
+                <div id="global-search-results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+            </div>
         </div>
 
         <!-- ================= DIVIDEND TRACKER VIEW ================= -->
@@ -189,27 +205,22 @@
             </div>
             <div class="p-6 overflow-y-auto space-y-6 text-xs leading-relaxed">
                 <div>
-                    <h3 class="text-emerald-400 font-bold border-b border-zinc-800 pb-1 mb-2">⚡ 1. MOMENTUM SCREENER & ALL STOCKS</h3>
-                    <p class="text-zinc-400 mb-2">Displays high-volume tickers across Nifty 50/100 parameters. Use the top search bar to type any asset. If an asset is missing locally, an escape connector allows trading visualization terminal access natively.</p>
+                    <h3 class="text-emerald-400 font-bold border-b border-zinc-800 pb-1 mb-2">⚡ 1. MOMENTUM SCREENER</h3>
+                    <p class="text-zinc-400">Clean list tracking local cached Nifty components filtering across various intervals natively.</p>
                 </div>
                 <div>
-                    <h3 class="text-orange-400 font-bold border-b border-zinc-800 pb-1 mb-2">🔥 2. MOST BOUGHT STOCKS (DELIVERY PIPELINE)</h3>
-                    <p class="text-zinc-400 mb-2">Tracks intense investor accumulation by monitoring delivery percentages rather than speculative day trades.</p>
-                </div>
-                <div>
-                    <h3 class="text-rose-400 font-bold border-b border-zinc-800 pb-1 mb-2">📈 3. UPPER CIRCUIT MONITOR</h3>
-                    <p class="text-zinc-400 mb-2">Tracks explosive demand configurations where a stock hits its maximum permitted legal daily price limit.</p>
+                    <h3 class="text-sky-400 font-bold border-b border-zinc-800 pb-1 mb-2">🔍 2. ALL STOCKS PANEL</h3>
+                    <p class="text-zinc-400">Isolated environment containing general search systems avoiding layout friction across home metrics.</p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Expanded Data Repository containing heavyweights across Nifty 50 / Nifty 100 indices
         const stockData = {
             "RELIANCE": { name: "Reliance Industries Ltd.", cap: "large", sector: "Energy", price: 2452.10, changes: { "1w": 1.85, "1m": 3.4, "3m": 7.1 }, divAmount: 10.00, divYield: 0.41, exDate: "2026-08-27", mostBought: { surge: "2.1x", delivery: "65%", intensity: "High 🔥" }, circuit: null, tech: { rsi: 64, pivot: "Below R1 Resistance" } },
             "TCS": { name: "Tata Consultancy Services Ltd.", cap: "large", sector: "IT", price: 3820.00, changes: { "1w": -0.45, "1m": 5.1, "3m": 9.3 }, divAmount: 28.00, divYield: 0.73, exDate: "2026-07-15", mostBought: null, circuit: null, tech: { rsi: 52, pivot: "At Pivot Point" } },
-            "HDFCBANK": { name: "HDFC Bank Ltd.", cap: "large", sector: "Banking", price: 1680.25, changes: { "1w": -1.10, "1m": 2.6, "3m": 5.9 }, divAmount: 19.50, divYield: 1.16, exDate: "2026-05-12", mostBought: { surge: "1.5x", delivery: "52%", intensity: "Moderate" }, circuit: null, tech: { rsi: 41, pivot: "Approaching S1 Support" } },
+            "HDFCBANK": { name: "HDFC Bank Ltd.", cap: "large", sector: "Banking", price: 1680.25, changes: { "1w": -1.10, "1m": 2.6, "3m": 5.9 }, divAmount: 19.50, divYield: 1.16, exDate: "2026-05-12", mostBought: { surge: "1.5x", delivery: "52%", intensity: "Moderate" }, circuit: null, tech: { rsi: 38, pivot: "Approaching S1 Support" } },
             "INFY": { name: "Infosys Ltd.", cap: "large", sector: "IT", price: 1492.00, changes: { "1w": 2.40, "1m": 4.8, "3m": 11.2 }, divAmount: 20.00, divYield: 1.34, exDate: "2026-06-02", mostBought: null, circuit: null, tech: { rsi: 72, pivot: "Above R2 (Overextended)" } },
             "SBIN": { name: "State Bank of India", cap: "large", sector: "Banking", price: 825.40, changes: { "1w": 3.15, "1m": 6.2, "3m": 14.1 }, divAmount: 13.70, divYield: 1.66, exDate: "2026-06-14", mostBought: { surge: "3.2x", delivery: "71%", intensity: "High 🔥" }, circuit: null, tech: { rsi: 68, pivot: "Breaking Above R1" } },
             "ICICIBANK": { name: "ICICI Bank Ltd.", cap: "large", sector: "Banking", price: 1124.50, changes: { "1w": 0.85, "1m": 3.9, "3m": 6.4 }, divAmount: 10.00, divYield: 0.89, exDate: "2026-07-09", mostBought: null, circuit: null, tech: { rsi: 58, pivot: "Slightly Above Pivot" } },
@@ -228,7 +239,7 @@
         window.closeReadmeModal = function() { document.getElementById('readme-modal').classList.add('hidden'); };
 
         window.switchGlobalView = function(view) {
-            const tabs = ['momentum', 'dividend', 'mostbought', 'uppercircuit'];
+            const tabs = ['momentum', 'dividend', 'mostbought', 'uppercircuit', 'allstocks'];
             tabs.forEach(t => {
                 const btn = document.getElementById(`nav-${t}`);
                 const panel = document.getElementById(`view-${t}`);
@@ -244,6 +255,7 @@
             if (view === 'dividend') renderDividendTable();
             if (view === 'mostbought') renderMostBoughtTable();
             if (view === 'uppercircuit') renderUpperCircuitTable();
+            if (view === 'allstocks') filterGlobalSearch();
         };
 
         function initSectors() {
@@ -275,15 +287,11 @@
             const sectorFilter = document.getElementById('sector-filter').value;
             const priceFilter = document.getElementById('price-filter').value;
             const horizon = document.getElementById('horizon-filter').value;
-            const rawSearch = document.getElementById('search-stocks').value.trim();
-            const searchQuery = rawSearch.toLowerCase();
             const grid = document.getElementById('stock-grid');
             
             grid.innerHTML = '';
-            let cardsRendered = 0;
 
             Object.entries(stockData).forEach(([ticker, data]) => {
-                if (searchQuery && !ticker.toLowerCase().includes(searchQuery) && !data.name.toLowerCase().includes(searchQuery)) return;
                 if (currentCapFilter !== 'all' && data.cap !== currentCapFilter) return;
                 if (sectorFilter !== 'all' && data.sector !== sectorFilter) return;
                 
@@ -296,7 +304,6 @@
                     if (priceFilter === 'over3000' && price <= 3000) return;
                 }
 
-                cardsRendered++;
                 const pct = data.changes[horizon];
                 const isPos = pct >= 0;
                 const card = document.createElement('div');
@@ -321,23 +328,46 @@
                 `;
                 grid.appendChild(card);
             });
+        }
 
-            if (cardsRendered === 0 && rawSearch.length >= 2) {
-                const globalTicker = rawSearch.toUpperCase();
-                const escapeCard = document.createElement('div');
-                escapeCard.className = "col-span-1 sm:col-span-2 lg:col-span-3 xl:col-span-4 bg-zinc-900/20 border-2 border-dashed border-zinc-800 rounded-xl p-6 text-center flex flex-col items-center justify-center hover:border-emerald-500/50 transition-all cursor-pointer group";
-                escapeCard.setAttribute('onclick', `openWorkspace('${globalTicker}')`);
-                escapeCard.innerHTML = `
-                    <div class="bg-zinc-950 border border-zinc-800 p-3 rounded-full mb-2 text-zinc-400 group-hover:text-emerald-400 group-hover:border-emerald-500/30 transition-all">
-                        🔍
+        function filterGlobalSearch() {
+            const query = document.getElementById('search-global-input').value.trim().toLowerCase();
+            const container = document.getElementById('global-search-results');
+            container.innerHTML = '';
+            let matches = 0;
+
+            Object.entries(stockData).forEach(([ticker, data]) => {
+                if (query && !ticker.toLowerCase().includes(query) && !data.name.toLowerCase().includes(query)) return;
+                matches++;
+                
+                const card = document.createElement('div');
+                card.className = "bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-sky-500/50 hover:bg-zinc-900/80 transition-all cursor-pointer group";
+                card.setAttribute('onclick', `openWorkspace('${ticker}')`);
+                card.innerHTML = `
+                    <div>
+                        <span class="text-xs font-mono text-zinc-500 block uppercase">${data.cap} Cap</span>
+                        <h3 class="font-bold text-sm tracking-wide text-zinc-200 group-hover:text-sky-400 transition-colors mt-0.5">${ticker}</h3>
+                        <p class="text-[11px] text-zinc-400 truncate mt-1">${data.name}</p>
                     </div>
-                    <h4 class="text-sm font-bold font-mono text-zinc-300">Launch Live Terminal for "${globalTicker}"</h4>
-                    <p class="text-xs text-zinc-500 font-sans mt-1 max-w-md">"${globalTicker}" is not cached in local Nifty filters. Click here to trigger the secure TradingView bridge and pull its full live chart from the market.</p>
-                    <span class="mt-3 text-[10px] font-mono bg-emerald-950/40 text-emerald-400 border border-emerald-900/60 px-3 py-1 rounded-md uppercase tracking-wider font-bold">
-                        ⚡ Connect Global Engine
-                    </span>
+                    <div class="mt-4 flex items-center justify-between border-t border-zinc-800/60 pt-2 font-mono text-xs">
+                        <span class="text-zinc-500">LTP</span>
+                        <span class="text-zinc-300 font-bold">₹${data.price.toLocaleString('en-IN')}</span>
+                    </div>
                 `;
-                grid.appendChild(escapeCard);
+                container.appendChild(card);
+            });
+
+            if (query.length >= 2) {
+                const rawTicker = query.toUpperCase();
+                const globalCard = document.createElement('div');
+                globalCard.className = "col-span-1 bg-zinc-900/20 border-2 border-dashed border-zinc-800 rounded-xl p-4 flex flex-col items-center justify-center text-center hover:border-emerald-500/50 transition-all cursor-pointer group";
+                globalCard.setAttribute('onclick', `openWorkspace('${rawTicker}')`);
+                globalCard.innerHTML = `
+                    <h4 class="text-xs font-bold font-mono text-sky-400">Launch Live: "${rawTicker}"</h4>
+                    <p class="text-[10px] text-zinc-500 mt-1">Route direct external gateway feed</p>
+                    <span class="mt-2 text-[9px] font-mono bg-sky-950/40 text-sky-400 border border-sky-900 px-2 py-0.5 rounded uppercase tracking-wider font-bold">⚡ Launch Bridge</span>
+                `;
+                container.appendChild(globalCard);
             }
         }
 
@@ -399,69 +429,91 @@
             });
         }
 
-        // Generate dynamic technical recommendations based on RSI and Pivot values
         function generateDecoderMarkup(ticker) {
             const cached = stockData[ticker];
-            // Fallback parameters if it's a global search ticker
             const rsi = cached ? cached.tech.rsi : Math.floor(Math.random() * (75 - 35) + 35);
             const pivot = cached ? cached.tech.pivot : "Consolidating near Pivot Baseline";
             
-            let rsiClass = "text-zinc-300";
-            let rsiRec = "Neutral state. Hold allocations.";
-            let rsiScore = 0; // positive = buy, negative = avoid
-            
+            let rsiRec = "";
+            let rsiScore = 0;
             if (rsi >= 70) {
-                rsiClass = "text-rose-400 font-extrabold";
-                rsiRec = `Overbought (${rsi}). Warning: High risk of exhaustion. Recommended to AVOID chasing here.`;
+                rsiRec = `RSI is highly overbought (${rsi}). Momentum has expanded excessively; there is a severe risk of exhaustion. recommended to avoid buying here.`;
                 rsiScore = -2;
             } else if (rsi <= 40) {
-                rsiClass = "text-emerald-400 font-extrabold";
-                rsiRec = `Oversold (${rsi}). Value accumulation zone. Highly recommended to BUY on support dips.`;
+                rsiRec = `RSI is heavily oversold (${rsi}). Asset is experiencing capitulation; structurally deeply discounted. Recommended to buy.`;
                 rsiScore = 2;
             } else {
-                rsiRec = `Moderate Momentum (${rsi}). Stable price structure. Recommended to HOLD or accumulate incrementally.`;
+                rsiRec = `RSI is resting at a healthy mid-range (${rsi}). Consistent volume accumulation observed; recommended to buy defensively.`;
                 rsiScore = 1;
             }
 
-            let pivotRec = "Price is establishing an intermediate baseline.";
+            let pivotRec = "";
             let pivotScore = 0;
             if (pivot.includes("Above R2") || pivot.includes("R3") || pivot.includes("Resistance")) {
-                pivotRec = `Trading high at resistance levels (${pivot}). Price extension is vulnerable to pullbacks; NOT recommended to buy.`;
+                pivotRec = `Pivot calculations indicate overhead structural resistance layers (${pivot}). Buying here forces poor risk-to-reward ratios; recommended to wait.`;
                 pivotScore = -2;
             } else if (pivot.includes("Support") || pivot.includes("S1") || pivot.includes("S2")) {
-                pivotRec = `Defending key structural layers (${pivot}). Downside is highly protected; favorable risk-reward to BUY.`;
+                pivotRec = `Pivot system registers cluster safety support layers (${pivot}). Downside floor protection is exceptionally strong; recommended to buy.`;
                 pivotScore = 2;
             } else {
-                pivotRec = `Cruising inside standard ranges (${pivot}). Safe baseline entries allowed.`;
-                pivotScore = 1;
+                pivotRec = `Asset is hovering near foundational trading ranges (${pivot}). Stabilized horizontal parameters confirm neutral posture.`;
+                pivotScore = 0;
             }
 
             const totalScore = rsiScore + pivotScore;
-            let finalVerdict = "⚖️ HOLD / NEUTRAL";
-            let verdictClass = "bg-zinc-900 border-zinc-700 text-zinc-400";
+            let finalVerdict = "⚖️ HOLD / NEUTRAL POSITION";
+            let verdictClass = "bg-zinc-900 border-zinc-800 text-zinc-400";
+            let needleRotation = 0; // -60deg (Sell) to 60deg (Buy)
+
             if (totalScore >= 2) {
-                finalVerdict = "🟢 STRONGLY RECOMMENDED TO BUY";
-                verdictClass = "bg-emerald-950/60 border-emerald-500/40 text-emerald-400 shadow-emerald-950";
+                finalVerdict = "🟢 RECOMMENDED TO BUY";
+                verdictClass = "bg-emerald-950/60 border-emerald-500/40 text-emerald-400 shadow-md";
+                needleRotation = 50; 
             } else if (totalScore <= -1) {
-                finalVerdict = "🔴 NOT RECOMMENDED TO BUY (AVOID / WAIT)";
-                verdictClass = "bg-rose-950/60 border-rose-500/40 text-rose-400 shadow-rose-950";
+                finalVerdict = "🔴 NOT RECOMMENDED TO BUY (AVOID)";
+                verdictClass = "bg-rose-950/60 border-rose-500/40 text-rose-400 shadow-md";
+                needleRotation = -50;
             }
 
             return `
                 <div class="space-y-4">
-                    <div class="p-3.5 rounded-xl border font-bold text-xs tracking-wider text-center ${verdictClass}">
-                        SYSTEM VERDICT: ${finalVerdict}
+                    <!-- Gauge Meter -->
+                    <div class="bg-zinc-900/40 border border-zinc-800 rounded-xl p-4 flex flex-col items-center justify-center">
+                        <span class="text-[10px] text-zinc-500 uppercase font-mono tracking-widest mb-2 font-bold">Technical Meter Spectrum</span>
+                        <div class="relative w-28 h-16 overflow-hidden">
+                            <svg viewBox="0 0 100 50" class="w-full h-full">
+                                <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#3f3f46" stroke-width="12" stroke-linecap="round"/>
+                                <path d="M 10 50 A 40 40 0 0 1 40 18" fill="none" stroke="#f43f5e" stroke-width="12" />
+                                <path d="M 40 18 A 40 40 0 0 1 60 18" fill="none" stroke="#e4e4e7" stroke-width="12" />
+                                <path d="M 60 18 A 40 40 0 0 1 90 50" fill="none" stroke="#10b981" stroke-width="12" stroke-linecap="round"/>
+                                <g class="gauge-needle" style="transform: rotate(${needleRotation}deg);">
+                                    <polygon points="48,50 52,50 50,10" fill="#ffffff" />
+                                    <circle cx="50" cy="50" r="4" fill="#ffffff"/>
+                                </g>
+                            </svg>
+                            <div class="absolute bottom-0 inset-x-0 flex justify-between px-1 font-mono text-[9px] text-zinc-600 font-bold uppercase">
+                                <span>Avoid</span>
+                                <span>Neutral</span>
+                                <span>Buy</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Wide Verdict -->
+                    <div class="p-3 rounded-xl border text-center font-mono font-bold text-xs tracking-wide ${verdictClass}">
+                        ${finalVerdict}
                     </div>
                     
-                    <div class="space-y-3 font-mono text-[11px]">
+                    <!-- Advanced Contextual Metric Elements -->
+                    <div class="space-y-2.5 font-mono text-[11px]">
                         <div class="bg-zinc-900/50 p-3 rounded-lg border border-zinc-800">
-                            <span class="text-zinc-500 block uppercase tracking-wider font-bold mb-1">⚡ Relative Strength Index (RSI)</span>
-                            <p class="text-zinc-300">${rsiRec}</p>
+                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-1">⚡ Relative Strength Index (RSI)</span>
+                            <p class="text-zinc-300 leading-normal">${rsiRec}</p>
                         </div>
                         
                         <div class="bg-zinc-900/50 p-3 rounded-lg border border-zinc-800">
-                            <span class="text-zinc-500 block uppercase tracking-wider font-bold mb-1">🎯 Structural Pivot Matrix</span>
-                            <p class="text-zinc-300">${pivotRec}</p>
+                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-1">🎯 Pivot Matrix Level</span>
+                            <p class="text-zinc-300 leading-normal">${pivotRec}</p>
                         </div>
                     </div>
                 </div>
@@ -526,10 +578,10 @@
                     "interval": "D",
                     "timezone": "Asia/Kolkata",
                     "theme": "dark",
-                    "style": "3", // Code 3 instructs the TradingView engine to boot explicitly as an ultra-fast Line Chart
+                    "style": "3", // Code 3 triggers fast native Line chart mode
                     "locale": "en",
                     "enable_publishing": false,
-                    "hide_side_toolbar": true, // Hides heavy side toolbar menus to preserve memory and load instantly
+                    "hide_side_toolbar": true, // Disables complex drawing panels to optimize performance
                     "allow_symbol_change": false,
                     "container_id": "tv-chart-frame"
                 });
