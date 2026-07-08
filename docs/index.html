@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RBK NiftyPulse Scanner</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- TradingView Core Library for Advanced Chart -->
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
+        /* Custom scrollbar styling for terminal feel */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #09090b; }
         ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
         
-        /* Needle rotation transition animations */
+        /* Smooth needle rotation animation */
         .gauge-needle {
             transform-origin: 50px 50px;
             transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
@@ -25,7 +24,6 @@
 
     <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
         
-        <!-- Header with Logo and Name -->
         <header class="text-center mb-8 flex flex-col items-center justify-center">
             <div class="flex items-center gap-3">
                 <div class="bg-emerald-950/50 border border-emerald-500/30 p-2 rounded-xl shadow-inner">
@@ -40,7 +38,6 @@
             <p class="text-[11px] text-zinc-500 font-mono mt-2 uppercase tracking-widest">Nifty 50/100 Advanced Analytics Terminal</p>
         </header>
 
-        <!-- Global Dashboard Switcher Tabs -->
         <div class="flex flex-col lg:flex-row items-center justify-between gap-4 mb-6 border-b border-zinc-800 pb-4 font-mono">
             <div class="flex flex-wrap justify-center gap-2.5 w-full lg:w-auto">
                 <button id="nav-momentum" onclick="switchGlobalView('momentum')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-emerald-500/40 bg-emerald-950/30 text-emerald-400 shadow-md transition-all cursor-pointer">
@@ -59,17 +56,19 @@
                     🔍 All Stocks
                 </button>
             </div>
-            <!-- Global ReadMe Info Button -->
             <button onclick="openReadmeModal()" class="w-full lg:w-auto px-4 py-2 rounded-lg text-xs font-bold bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-emerald-400 hover:border-emerald-500/40 transition-all shadow-md cursor-pointer flex items-center justify-center gap-2">
-                📖 Scanner Guide (ReadMe)
+                📖 Scanner Guide
             </button>
         </div>
 
-        <!-- ================= MOMENTUM SCREENER VIEW ================= -->
         <div id="view-momentum" class="block">
             <div class="flex flex-col gap-4 mb-6 bg-zinc-900/80 p-4 rounded-xl border border-zinc-800/80 backdrop-blur-sm shadow-xl">
-                <div class="flex flex-wrap items-center justify-between gap-4">
-                    <!-- Market Cap Toggles -->
+                <div class="relative w-full">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-500 font-mono text-sm">🔎</span>
+                    <input type="text" id="search-stocks" oninput="filterStocks()" placeholder="Filter local Nifty components by symbol or name (e.g. HDFC, RELIANCE)..." class="w-full bg-zinc-950 text-zinc-200 pl-10 pr-4 py-2 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono transition-all">
+                </div>
+
+                <div class="flex flex-wrap items-center justify-between gap-4 border-t border-zinc-800/60 pt-3">
                     <div class="flex flex-wrap gap-2" id="cap-filters">
                         <button onclick="setCapFilter('all')" data-cap="all" class="cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-emerald-500 text-white font-semibold cursor-pointer shadow-lg shadow-emerald-950">All Caps</button>
                         <button onclick="setCapFilter('large')" data-cap="large" class="cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer">Large Caps</button>
@@ -77,7 +76,6 @@
                         <button onclick="setCapFilter('small')" data-cap="small" class="cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer">Small Caps</button>
                     </div>
 
-                    <!-- Dropdowns -->
                     <div class="flex flex-wrap gap-3 items-center w-full sm:w-auto">
                         <select id="sector-filter" onchange="filterStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer font-mono">
                             <option value="all">All Sectors</option>
@@ -99,30 +97,27 @@
                 </div>
             </div>
 
-            <!-- Main Stock Cards Grid -->
             <main id="stock-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></main>
         </div>
 
-        <!-- ================= ALL STOCKS TAB (GLOBAL TERMINAL SEARCH) ================= -->
         <div id="view-allstocks" class="hidden">
             <div class="bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-6 shadow-xl backdrop-blur-sm">
                 <div class="mb-4">
                     <h2 class="text-base font-bold text-sky-400 font-mono mb-1">🔍 Live Exchange Engine Router</h2>
-                    <p class="text-xs text-zinc-500">Type any Indian or Global asset ticker below to initiate direct live line graphics bypassing filters.</p>
+                    <p class="text-xs text-zinc-500">Type any Indian or Global asset ticker below to initiate direct live chart integration.</p>
                 </div>
-                <div class="relative w-full mb-6">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-500 font-mono text-sm">🔎</span>
-                    <input type="text" id="search-global-input" oninput="filterGlobalSearch()" placeholder="Type any market symbol (e.g., ZOMATO, TATASTEEL, MRF, AAPL)..." class="w-full bg-zinc-950 text-zinc-200 pl-10 pr-4 py-3 rounded-xl border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono transition-all">
+                <div class="relative w-full mb-6 max-w-2xl">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-zinc-500 font-mono text-base">🔎</span>
+                    <input type="text" id="search-global-input" oninput="filterGlobalSearch()" placeholder="Search ANY global market symbol (e.g. ZOMATO, AAPL, MRF)..." class="w-full bg-zinc-950 text-zinc-200 pl-12 pr-4 py-4 rounded-xl border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono transition-all shadow-inner">
                 </div>
                 <div id="global-search-results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
             </div>
         </div>
 
-        <!-- ================= DIVIDEND TRACKER VIEW ================= -->
         <div id="view-dividend" class="hidden">
             <div class="bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-4 sm:p-6 shadow-xl backdrop-blur-sm overflow-hidden">
                 <div class="mb-4">
-                    <h2 class="text-base font-bold text-emerald-400 font-mono">📋 Corporate Actions: Dividend Payout Monitor (Nifty 50/100)</h2>
+                    <h2 class="text-base font-bold text-emerald-400 font-mono">📋 Corporate Actions: Dividend Monitor</h2>
                 </div>
                 <div class="overflow-x-auto rounded-lg border border-zinc-800 bg-zinc-950">
                     <table class="w-full text-left font-mono text-xs text-zinc-300 divide-y divide-zinc-800">
@@ -132,7 +127,7 @@
                                 <th class="p-4">Company Name</th>
                                 <th class="p-4 text-right">Div. Amount</th>
                                 <th class="p-4 text-right">Yield (%)</th>
-                                <th class="p-4 text-center">Ex-Dividend Date</th>
+                                <th class="p-4 text-center">Ex-Date</th>
                             </tr>
                         </thead>
                         <tbody id="dividend-table-body" class="divide-y divide-zinc-900"></tbody>
@@ -141,11 +136,10 @@
             </div>
         </div>
 
-        <!-- ================= MOST BOUGHT VIEW ================= -->
         <div id="view-mostbought" class="hidden">
             <div class="bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-4 sm:p-6 shadow-xl backdrop-blur-sm overflow-hidden">
                 <div class="mb-4">
-                    <h2 class="text-base font-bold text-orange-400 font-mono">🔥 High Accumulation: Most Bought Today (Delivery Volume)</h2>
+                    <h2 class="text-base font-bold text-orange-400 font-mono">🔥 High Accumulation: Delivery Surge</h2>
                 </div>
                 <div class="overflow-x-auto rounded-lg border border-zinc-800 bg-zinc-950">
                     <table class="w-full text-left font-mono text-xs text-zinc-300 divide-y divide-zinc-800">
@@ -156,7 +150,7 @@
                                 <th class="p-4 text-right">Price</th>
                                 <th class="p-4 text-right">Volume Surge</th>
                                 <th class="p-4 text-right">Delivery %</th>
-                                <th class="p-4 text-center">Buying Intensity</th>
+                                <th class="p-4 text-center">Intensity</th>
                             </tr>
                         </thead>
                         <tbody id="mostbought-table-body" class="divide-y divide-zinc-900"></tbody>
@@ -165,11 +159,10 @@
             </div>
         </div>
 
-        <!-- ================= UPPER CIRCUIT VIEW ================= -->
         <div id="view-uppercircuit" class="hidden">
             <div class="bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-4 sm:p-6 shadow-xl backdrop-blur-sm overflow-hidden">
                 <div class="mb-4">
-                    <h2 class="text-base font-bold text-rose-400 font-mono">📈 Price Ceilings: Locked In Upper Circuit</h2>
+                    <h2 class="text-base font-bold text-rose-400 font-mono">📈 Locked In Upper Circuit</h2>
                 </div>
                 <div class="overflow-x-auto rounded-lg border border-zinc-800 bg-zinc-950">
                     <table class="w-full text-left font-mono text-xs text-zinc-300 divide-y divide-zinc-800">
@@ -180,7 +173,7 @@
                                 <th class="p-4 text-right">LTP (Last Price)</th>
                                 <th class="p-4 text-right">Day Chg %</th>
                                 <th class="p-4 text-right">Circuit Band</th>
-                                <th class="p-4 text-right text-emerald-400">Pending Buy Orders</th>
+                                <th class="p-4 text-right text-emerald-400">Pending Buyers</th>
                             </tr>
                         </thead>
                         <tbody id="uppercircuit-table-body" class="divide-y divide-zinc-900"></tbody>
@@ -191,10 +184,8 @@
 
     </div>
 
-    <!-- Active Split Terminal Workspace View Overlay -->
     <div id="workspace-overlay" class="hidden"></div>
 
-    <!-- ================= DOCUMENTATION README MODAL OVERLAY ================= -->
     <div id="readme-modal" class="hidden fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4 backdrop-blur-md">
         <div class="w-full max-w-3xl max-h-[85vh] bg-zinc-950 rounded-2xl border border-zinc-800 flex flex-col font-mono text-zinc-300 overflow-hidden shadow-2xl">
             <div class="flex items-center justify-between px-6 py-4 bg-zinc-900/90 border-b border-zinc-800">
@@ -206,17 +197,26 @@
             <div class="p-6 overflow-y-auto space-y-6 text-xs leading-relaxed">
                 <div>
                     <h3 class="text-emerald-400 font-bold border-b border-zinc-800 pb-1 mb-2">⚡ 1. MOMENTUM SCREENER</h3>
-                    <p class="text-zinc-400">Clean list tracking local cached Nifty components filtering across various intervals natively.</p>
+                    <p class="text-zinc-400">Clean list tracking locally cached Nifty components. Main dashboard metrics process EOD logic.</p>
                 </div>
                 <div>
                     <h3 class="text-sky-400 font-bold border-b border-zinc-800 pb-1 mb-2">🔍 2. ALL STOCKS PANEL</h3>
-                    <p class="text-zinc-400">Isolated environment containing general search systems avoiding layout friction across home metrics.</p>
+                    <p class="text-zinc-400">Search for any asset (Global or Indian) outside the curated list to hook instantly into live charts.</p>
+                </div>
+                <div>
+                    <h3 class="text-orange-400 font-bold border-b border-zinc-800 pb-1 mb-2">🔥 3. MOST BOUGHT STOCKS (DELIVERY PIPELINE)</h3>
+                    <p class="text-zinc-400">Tracks intense investor accumulation by monitoring delivery percentages rather than speculative day trades.</p>
+                </div>
+                <div>
+                    <h3 class="text-rose-400 font-bold border-b border-zinc-800 pb-1 mb-2">📈 4. UPPER CIRCUIT MONITOR</h3>
+                    <p class="text-zinc-400">Tracks explosive demand configurations where a stock hits its maximum permitted legal daily price limit.</p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Expanded Data Repository containing heavyweights across Nifty 50 / Nifty 100 indices
         const stockData = {
             "RELIANCE": { name: "Reliance Industries Ltd.", cap: "large", sector: "Energy", price: 2452.10, changes: { "1w": 1.85, "1m": 3.4, "3m": 7.1 }, divAmount: 10.00, divYield: 0.41, exDate: "2026-08-27", mostBought: { surge: "2.1x", delivery: "65%", intensity: "High 🔥" }, circuit: null, tech: { rsi: 64, pivot: "Below R1 Resistance" } },
             "TCS": { name: "Tata Consultancy Services Ltd.", cap: "large", sector: "IT", price: 3820.00, changes: { "1w": -0.45, "1m": 5.1, "3m": 9.3 }, divAmount: 28.00, divYield: 0.73, exDate: "2026-07-15", mostBought: null, circuit: null, tech: { rsi: 52, pivot: "At Pivot Point" } },
@@ -226,8 +226,8 @@
             "ICICIBANK": { name: "ICICI Bank Ltd.", cap: "large", sector: "Banking", price: 1124.50, changes: { "1w": 0.85, "1m": 3.9, "3m": 6.4 }, divAmount: 10.00, divYield: 0.89, exDate: "2026-07-09", mostBought: null, circuit: null, tech: { rsi: 58, pivot: "Slightly Above Pivot" } },
             "ITC": { name: "ITC Ltd.", cap: "large", sector: "Consumer", price: 435.50, changes: { "1w": 0.20, "1m": 1.1, "3m": -2.4 }, divAmount: 13.75, divYield: 3.16, exDate: "2026-07-21", mostBought: null, circuit: null, tech: { rsi: 34, pivot: "Sitting On S2 Support" } },
             "BHARTIARTL": { name: "Bharti Airtel Ltd.", cap: "large", sector: "Telecom", price: 1340.20, changes: { "1w": 4.10, "1m": 9.2, "3m": 18.4 }, divAmount: 8.00, divYield: 0.60, exDate: "2026-08-05", mostBought: { surge: "4.5x", delivery: "78%", intensity: "Extreme ⚡" }, circuit: null, tech: { rsi: 76, pivot: "Far Above R2 Resistance" } },
-            "VOLTAS": { name: "Voltas Ltd.", cap: "mid", sector: "Consumer", price: 984.50, changes: { "1w": 0.95, "1m": 6.3, "3m": 15.6 }, divAmount: 5.50, divYield: 0.56, exDate: "2026-06-18", mostBought: null, circuit: { chg: "+20.0%", band: "20%", buyers: "852,430" }, tech: { rsi: 79, pivot: "Gap Up Above R3 Limit" } },
-            "KPITTECH": { name: "KPIT Technologies Ltd.", cap: "mid", sector: "IT", price: 1540.20, changes: { "1w": 6.20, "1m": 18.4, "3m": 42.1 }, divAmount: 4.60, divYield: 0.30, exDate: "2026-07-22", mostBought: null, circuit: { chg: "+10.0%", band: "10%", buyers: "314,900" }, tech: { rsi: 81, pivot: "Pinned At Daily R3" } },
+            "VOLTAS": { name: "Voltas Ltd.", cap: "mid", sector: "Consumer", price: 984.50, changes: { "1w": 0.95, "1m": 6.3, "3m": 15.6 }, divAmount: 5.50, divYield: 0.56, exDate: "2026-06-18", mostBought: null, circuit: { chg: "+20.0%", band: "20%", buyers: "852,430" }, tech: { rsi: 81, pivot: "Gap Up Above R3 Limit" } },
+            "KPITTECH": { name: "KPIT Technologies Ltd.", cap: "mid", sector: "IT", price: 1540.20, changes: { "1w": 6.20, "1m": 18.4, "3m": 42.1 }, divAmount: 4.60, divYield: 0.30, exDate: "2026-07-22", mostBought: null, circuit: { chg: "+10.0%", band: "10%", buyers: "314,900" }, tech: { rsi: 82, pivot: "Pinned At Daily R3" } },
             "CDSL": { name: "Central Depository Services Ltd.", cap: "small", sector: "Capital Markets", price: 1311.40, changes: { "1w": -1.58, "1m": 4.1, "3m": 22.5 }, divAmount: 22.00, divYield: 1.68, exDate: "2026-08-18", mostBought: { surge: "5.2x", delivery: "81%", intensity: "Extreme ⚡" }, circuit: null, tech: { rsi: 55, pivot: "Holding Daily Pivot Baseline" } },
             "YESBANK": { name: "Yes Bank Ltd.", cap: "small", sector: "Banking", price: 22.15, changes: { "1w": 4.20, "1m": -3.1, "3m": 14.8 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+10.0%", band: "10%", buyers: "4,205,100" }, tech: { rsi: 62, pivot: "Testing R1 Levels" } }
         };
@@ -287,11 +287,13 @@
             const sectorFilter = document.getElementById('sector-filter').value;
             const priceFilter = document.getElementById('price-filter').value;
             const horizon = document.getElementById('horizon-filter').value;
+            const searchQuery = document.getElementById('search-stocks').value.trim().toLowerCase();
             const grid = document.getElementById('stock-grid');
             
             grid.innerHTML = '';
 
             Object.entries(stockData).forEach(([ticker, data]) => {
+                if (searchQuery && !ticker.toLowerCase().includes(searchQuery) && !data.name.toLowerCase().includes(searchQuery)) return;
                 if (currentCapFilter !== 'all' && data.cap !== currentCapFilter) return;
                 if (sectorFilter !== 'all' && data.sector !== sectorFilter) return;
                 
@@ -334,12 +336,10 @@
             const query = document.getElementById('search-global-input').value.trim().toLowerCase();
             const container = document.getElementById('global-search-results');
             container.innerHTML = '';
-            let matches = 0;
-
+            
+            // Show matched local results if applicable
             Object.entries(stockData).forEach(([ticker, data]) => {
                 if (query && !ticker.toLowerCase().includes(query) && !data.name.toLowerCase().includes(query)) return;
-                matches++;
-                
                 const card = document.createElement('div');
                 card.className = "bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-sky-500/50 hover:bg-zinc-900/80 transition-all cursor-pointer group";
                 card.setAttribute('onclick', `openWorkspace('${ticker}')`);
@@ -349,23 +349,20 @@
                         <h3 class="font-bold text-sm tracking-wide text-zinc-200 group-hover:text-sky-400 transition-colors mt-0.5">${ticker}</h3>
                         <p class="text-[11px] text-zinc-400 truncate mt-1">${data.name}</p>
                     </div>
-                    <div class="mt-4 flex items-center justify-between border-t border-zinc-800/60 pt-2 font-mono text-xs">
-                        <span class="text-zinc-500">LTP</span>
-                        <span class="text-zinc-300 font-bold">₹${data.price.toLocaleString('en-IN')}</span>
-                    </div>
                 `;
                 container.appendChild(card);
             });
 
+            // Always show the dynamic trigger box for ANY input >= 2 chars
             if (query.length >= 2) {
                 const rawTicker = query.toUpperCase();
                 const globalCard = document.createElement('div');
-                globalCard.className = "col-span-1 bg-zinc-900/20 border-2 border-dashed border-zinc-800 rounded-xl p-4 flex flex-col items-center justify-center text-center hover:border-emerald-500/50 transition-all cursor-pointer group";
+                globalCard.className = "col-span-1 sm:col-span-2 bg-zinc-900/20 border-2 border-dashed border-zinc-700 rounded-xl p-6 flex flex-col items-center justify-center text-center hover:border-sky-500/60 transition-all cursor-pointer group";
                 globalCard.setAttribute('onclick', `openWorkspace('${rawTicker}')`);
                 globalCard.innerHTML = `
-                    <h4 class="text-xs font-bold font-mono text-sky-400">Launch Live: "${rawTicker}"</h4>
-                    <p class="text-[10px] text-zinc-500 mt-1">Route direct external gateway feed</p>
-                    <span class="mt-2 text-[9px] font-mono bg-sky-950/40 text-sky-400 border border-sky-900 px-2 py-0.5 rounded uppercase tracking-wider font-bold">⚡ Launch Bridge</span>
+                    <h4 class="text-sm font-bold font-mono text-sky-400">Launch Live Terminal: "${rawTicker}"</h4>
+                    <p class="text-[11px] text-zinc-400 mt-2 max-w-sm">Tap to instantly route "${rawTicker}" into the live workspace engine bypassing local filters.</p>
+                    <span class="mt-4 text-[10px] font-mono bg-sky-950/40 text-sky-400 border border-sky-900 px-4 py-1.5 rounded uppercase tracking-wider font-bold">⚡ Launch Bridge</span>
                 `;
                 container.appendChild(globalCard);
             }
@@ -429,6 +426,15 @@
             });
         }
 
+        function getMockNews(ticker) {
+            return [
+                { source: "Bloomberg Quint", time: "2h ago", title: `${ticker} volume breakouts cross moving average baseline benchmarks.` },
+                { source: "MoneyControl", time: "5h ago", title: `Institutional blocks record structural momentum shifts for ${ticker}.` },
+                { source: "Reuters", time: "1d ago", title: `Sectoral analysis suggests upcoming resistance tests for ${ticker}.` }
+            ];
+        }
+
+        // Generates the fixed-size Voting Speedometer, Verdict, and Metric breakdowns
         function generateDecoderMarkup(ticker) {
             const cached = stockData[ticker];
             const rsi = cached ? cached.tech.rsi : Math.floor(Math.random() * (75 - 35) + 35);
@@ -463,57 +469,54 @@
             const totalScore = rsiScore + pivotScore;
             let finalVerdict = "⚖️ HOLD / NEUTRAL POSITION";
             let verdictClass = "bg-zinc-900 border-zinc-800 text-zinc-400";
-            let needleRotation = 0; // -60deg (Sell) to 60deg (Buy)
+            let needleRotation = 0; // -50deg (Sell) to 50deg (Buy)
 
             if (totalScore >= 2) {
                 finalVerdict = "🟢 RECOMMENDED TO BUY";
                 verdictClass = "bg-emerald-950/60 border-emerald-500/40 text-emerald-400 shadow-md";
-                needleRotation = 50; 
+                needleRotation = 55; 
             } else if (totalScore <= -1) {
-                finalVerdict = "🔴 NOT RECOMMENDED TO BUY (AVOID)";
+                finalVerdict = "🔴 NOT RECOMMENDED (AVOID)";
                 verdictClass = "bg-rose-950/60 border-rose-500/40 text-rose-400 shadow-md";
-                needleRotation = -50;
+                needleRotation = -55;
             }
 
             return `
-                <div class="space-y-4">
-                    <!-- Gauge Meter -->
-                    <div class="bg-zinc-900/40 border border-zinc-800 rounded-xl p-4 flex flex-col items-center justify-center">
-                        <span class="text-[10px] text-zinc-500 uppercase font-mono tracking-widest mb-2 font-bold">Technical Meter Spectrum</span>
-                        <div class="relative w-28 h-16 overflow-hidden">
-                            <svg viewBox="0 0 100 50" class="w-full h-full">
-                                <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#3f3f46" stroke-width="12" stroke-linecap="round"/>
-                                <path d="M 10 50 A 40 40 0 0 1 40 18" fill="none" stroke="#f43f5e" stroke-width="12" />
-                                <path d="M 40 18 A 40 40 0 0 1 60 18" fill="none" stroke="#e4e4e7" stroke-width="12" />
-                                <path d="M 60 18 A 40 40 0 0 1 90 50" fill="none" stroke="#10b981" stroke-width="12" stroke-linecap="round"/>
+                <div class="space-y-4 flex-1 overflow-y-auto">
+                    <div class="bg-zinc-900/40 border border-zinc-800 rounded-xl p-5 flex flex-col items-center justify-center shrink-0">
+                        <span class="text-[10px] text-zinc-500 uppercase font-mono tracking-widest mb-4 font-bold">Technical Meter Spectrum</span>
+                        <div class="relative w-56 h-28 mx-auto overflow-hidden">
+                            <svg viewBox="0 0 100 50" class="w-full h-full drop-shadow-md">
+                                <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#27272a" stroke-width="12" stroke-linecap="round"/>
+                                <path d="M 10 50 A 40 40 0 0 1 35 15" fill="none" stroke="#f43f5e" stroke-width="12" stroke-linecap="round"/>
+                                <path d="M 35 15 A 40 40 0 0 1 65 15" fill="none" stroke="#e4e4e7" stroke-width="12" />
+                                <path d="M 65 15 A 40 40 0 0 1 90 50" fill="none" stroke="#10b981" stroke-width="12" stroke-linecap="round"/>
                                 <g class="gauge-needle" style="transform: rotate(${needleRotation}deg);">
-                                    <polygon points="48,50 52,50 50,10" fill="#ffffff" />
+                                    <polygon points="48,50 52,50 50,12" fill="#ffffff" />
                                     <circle cx="50" cy="50" r="4" fill="#ffffff"/>
                                 </g>
                             </svg>
-                            <div class="absolute bottom-0 inset-x-0 flex justify-between px-1 font-mono text-[9px] text-zinc-600 font-bold uppercase">
-                                <span>Avoid</span>
+                            <div class="absolute bottom-0 inset-x-0 flex justify-between px-2 font-mono text-[10px] text-zinc-500 font-bold uppercase">
+                                <span>Sell</span>
                                 <span>Neutral</span>
                                 <span>Buy</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- System Wide Verdict -->
-                    <div class="p-3 rounded-xl border text-center font-mono font-bold text-xs tracking-wide ${verdictClass}">
+                    <div class="p-3 rounded-xl border text-center font-mono font-bold text-xs tracking-wide shrink-0 ${verdictClass}">
                         ${finalVerdict}
                     </div>
                     
-                    <!-- Advanced Contextual Metric Elements -->
-                    <div class="space-y-2.5 font-mono text-[11px]">
-                        <div class="bg-zinc-900/50 p-3 rounded-lg border border-zinc-800">
-                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-1">⚡ Relative Strength Index (RSI)</span>
-                            <p class="text-zinc-300 leading-normal">${rsiRec}</p>
+                    <div class="space-y-3 font-mono text-[11px] pb-4">
+                        <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
+                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2">⚡ Relative Strength Index (RSI)</span>
+                            <p class="text-zinc-300 leading-relaxed">${rsiRec}</p>
                         </div>
                         
-                        <div class="bg-zinc-900/50 p-3 rounded-lg border border-zinc-800">
-                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-1">🎯 Pivot Matrix Level</span>
-                            <p class="text-zinc-300 leading-normal">${pivotRec}</p>
+                        <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
+                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2">🎯 Pivot Matrix Level</span>
+                            <p class="text-zinc-300 leading-relaxed">${pivotRec}</p>
                         </div>
                     </div>
                 </div>
@@ -548,24 +551,29 @@
                         </div>
                         
                         <div class="p-4 flex flex-col h-full overflow-hidden bg-zinc-950">
-                            <div class="flex border-b border-zinc-800 mb-4">
+                            <div class="flex border-b border-zinc-800 mb-4 shrink-0">
                                 <button id="btn-tab-decoder" onclick="toggleWorkspaceTab('decoder', '${ticker}')" class="flex-1 pb-2 text-center text-xs font-bold uppercase tracking-wider border-b-2 border-emerald-500 text-emerald-400 transition-all cursor-pointer">
                                     📊 Chart Decoder
                                 </button>
                                 <button id="btn-tab-news" onclick="toggleWorkspaceTab('news', '${ticker}')" class="flex-1 pb-2 text-center text-xs font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer">
-                                    📰 System Logs
+                                    📰 News Feed
                                 </button>
                             </div>
                             
-                            <div id="panel-tab-decoder" class="flex-1 flex flex-col space-y-4 overflow-y-auto pr-1">
+                            <div id="panel-tab-decoder" class="flex-1 flex flex-col overflow-y-auto pr-1">
                                 ${generateDecoderMarkup(ticker)}
                             </div>
 
-                            <div id="panel-tab-news" class="flex-1 hidden flex-col space-y-3 overflow-y-auto pr-1">
-                                <div class="bg-zinc-900/40 border border-zinc-800 p-3 rounded-lg text-xs">
-                                    <span class="text-emerald-500/80 font-bold block mb-1">System Audit Log</span>
-                                    <p class="text-zinc-400">TradingView API widget loaded seamlessly. Graphic style overrode successfully to native Line layout (Style 3).</p>
-                                </div>
+                            <div id="panel-tab-news" class="flex-1 hidden flex-col space-y-3 overflow-y-auto pr-1 pb-4">
+                                ${getMockNews(ticker).map(news => `
+                                    <div class="bg-zinc-900/40 border border-zinc-800 p-4 rounded-lg hover:border-zinc-700 transition-all">
+                                        <div class="flex justify-between items-center text-[10px] text-zinc-500 mb-2">
+                                            <span class="text-emerald-500/80 font-bold uppercase">${news.source}</span>
+                                            <span>${news.time}</span>
+                                        </div>
+                                        <p class="text-xs text-zinc-300 leading-relaxed font-sans">${news.title}</p>
+                                    </div>
+                                `).join('')}
                             </div>
                         </div>
                     </div>
@@ -578,10 +586,10 @@
                     "interval": "D",
                     "timezone": "Asia/Kolkata",
                     "theme": "dark",
-                    "style": "3", // Code 3 triggers fast native Line chart mode
+                    "style": "3", // Triggers fast native Line chart
                     "locale": "en",
                     "enable_publishing": false,
-                    "hide_side_toolbar": true, // Disables complex drawing panels to optimize performance
+                    "hide_side_toolbar": true, 
                     "allow_symbol_change": false,
                     "container_id": "tv-chart-frame"
                 });
