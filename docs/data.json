@@ -1,80 +1,122 @@
 [
     {
-        "ticker": "INFY",
-        "price": 1070.5,
-        "weekly_change": 2.84,
-        "score": 28.4
+        "ticker": "HFCL",
+        "price": 214.74,
+        "weekly_change": 4.96,
+        "score": 49.6,
+        "cap": "Small",
+        "sector": "Telecom"
     },
     {
-        "ticker": "TITAN",
-        "price": 4591.1,
-        "weekly_change": 2.45,
-        "score": 24.5
+        "ticker": "CENTURYPLY",
+        "price": 770.25,
+        "weekly_change": 1.95,
+        "score": 19.5,
+        "cap": "Small",
+        "sector": "Materials"
     },
     {
         "ticker": "HDFCBANK",
-        "price": 810.6,
-        "weekly_change": 1.85,
-        "score": 18.5
+        "price": 810.3,
+        "weekly_change": 1.81,
+        "score": 18.1,
+        "cap": "Large",
+        "sector": "Banking & Finance"
     },
     {
-        "ticker": "SUNPHARMA",
-        "price": 1890.0,
-        "weekly_change": 1.28,
-        "score": 12.8
+        "ticker": "CEATLTD",
+        "price": 3858.6,
+        "weekly_change": 1.39,
+        "score": 13.9,
+        "cap": "Small",
+        "sector": "Automobile"
     },
     {
-        "ticker": "BHARTIARTL",
-        "price": 1890.3,
-        "weekly_change": 0.82,
-        "score": 8.2
-    },
-    {
-        "ticker": "BAJAJFINSV",
-        "price": 1857.1,
-        "weekly_change": 0.08,
-        "score": 0.8
+        "ticker": "MRF",
+        "price": 132940.0,
+        "weekly_change": 0.66,
+        "score": 6.6,
+        "cap": "Mid",
+        "sector": "Automobile"
     },
     {
         "ticker": "TCS",
-        "price": 2059.8,
-        "weekly_change": -0.4,
-        "score": -4.0
+        "price": 2057.5,
+        "weekly_change": -0.51,
+        "score": -5.1,
+        "cap": "Large",
+        "sector": "IT"
     },
     {
-        "ticker": "ICICIBANK",
-        "price": 1381.6,
-        "weekly_change": -1.31,
-        "score": -13.1
+        "ticker": "KPITTECH",
+        "price": 554.6,
+        "weekly_change": -0.75,
+        "score": -7.5,
+        "cap": "Mid",
+        "sector": "IT"
+    },
+    {
+        "ticker": "BHARATFORG",
+        "price": 2100.5,
+        "weekly_change": -1.96,
+        "score": -19.6,
+        "cap": "Mid",
+        "sector": "Capital Goods"
     },
     {
         "ticker": "RELIANCE",
-        "price": 1276.2,
-        "weekly_change": -2.09,
-        "score": -20.9
+        "price": 1275.9,
+        "weekly_change": -2.12,
+        "score": -21.2,
+        "cap": "Large",
+        "sector": "Energy"
     },
     {
-        "ticker": "NTPC",
-        "price": 348.9,
-        "weekly_change": -2.61,
-        "score": -26.1
+        "ticker": "VOLTAS",
+        "price": 1253.6,
+        "weekly_change": -2.87,
+        "score": -28.7,
+        "cap": "Mid",
+        "sector": "Consumer Durables"
     },
     {
-        "ticker": "MARUTI",
-        "price": 13972.0,
-        "weekly_change": -2.62,
-        "score": -26.2
-    },
-    {
-        "ticker": "SBIN",
-        "price": 1020.1,
-        "weekly_change": -3.0,
-        "score": -30.0
+        "ticker": "CDSL",
+        "price": 1311.4,
+        "weekly_change": -2.92,
+        "score": -29.2,
+        "cap": "Small",
+        "sector": "Capital Markets"
     },
     {
         "ticker": "ITC",
-        "price": 281.0,
-        "weekly_change": -3.07,
-        "score": -30.7
+        "price": 280.65,
+        "weekly_change": -3.19,
+        "score": -31.9,
+        "cap": "Large",
+        "sector": "FMCG"
+    },
+    {
+        "ticker": "LT",
+        "price": 3892.1,
+        "weekly_change": -4.12,
+        "score": -41.2,
+        "cap": "Large",
+        "sector": "Capital Goods"
+    },
+    {
+        "ticker": "ANGELONE",
+        "price": 331.2,
+        "weekly_change": -4.32,
+        "score": -43.2,
+        "cap": "Small",
+        "sector": "Capital Markets"
+    },
+    {
+        "ticker": "CYIENT",
+        "price": 834.85,
+        "weekly_change": -5.07,
+        "score": -50.7,
+        "cap": "Small",
+        "sector": "IT"
     }
 ]
