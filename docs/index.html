@@ -20,10 +20,9 @@
 
     <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
         
-        <!-- Header with New Logo and Name -->
+        <!-- Header with Logo and Name (Subtitle Removed) -->
         <header class="text-center mb-8 flex flex-col items-center justify-center">
             <div class="flex items-center gap-3">
-                <!-- Premium Custom Pulse/Chart SVG Logo -->
                 <div class="bg-emerald-950/50 border border-emerald-500/30 p-2 rounded-xl shadow-inner">
                     <svg class="w-6 h-6 text-emerald-400 animate-pulse" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"></path>
@@ -33,82 +32,134 @@
                     Nifty<span class="text-emerald-400">Pulse</span> Terminal
                 </h1>
             </div>
-            <p class="text-zinc-500 text-xs mt-2 font-mono">Click any stock card to open split terminal workspace</p>
         </header>
 
-        <!-- Dynamic Controls & Filters Row -->
-        <div class="flex flex-col gap-4 mb-6 bg-zinc-900/80 p-4 rounded-xl border border-zinc-800/80 backdrop-blur-sm shadow-xl">
-            <div class="flex flex-wrap items-center justify-between gap-4">
-                
-                <!-- Market Cap Toggles -->
-                <div class="flex flex-wrap gap-2" id="cap-filters">
-                    <button onclick="setCapFilter('all')" data-cap="all" class="cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer">All Caps</button>
-                    <button onclick="setCapFilter('large')" data-cap="large" class="cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer">Large</button>
-                    <button onclick="setCapFilter('mid')" data-cap="mid" class="cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer">Mid</button>
-                    <button onclick="setCapFilter('small')" data-cap="small" class="cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-emerald-500 text-white font-semibold cursor-pointer shadow-lg shadow-emerald-950">Small</button>
+        <!-- Global Dashboard Switcher Tabs -->
+        <div class="flex justify-center gap-4 mb-6 border-b border-zinc-800 pb-4 font-mono">
+            <button id="nav-momentum" onclick="switchGlobalView('momentum')" class="px-5 py-2 rounded-lg text-sm font-bold tracking-wider uppercase border border-emerald-500/40 bg-emerald-950/30 text-emerald-400 shadow-md transition-all cursor-pointer">
+                ⚡ Momentum Screener
+            </button>
+            <button id="nav-dividend" onclick="switchGlobalView('dividend')" class="px-5 py-2 rounded-lg text-sm font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">
+                💰 Dividend Tracker
+            </button>
+        </div>
+
+        <!-- ================= MOMENTUM SCREENER VIEW ================= -->
+        <div id="view-momentum" class="block">
+            <!-- Controls, Search & Filters Row -->
+            <div class="flex flex-col gap-4 mb-6 bg-zinc-900/80 p-4 rounded-xl border border-zinc-800/80 backdrop-blur-sm shadow-xl">
+                <!-- Search Bar -->
+                <div class="relative w-full">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-500 font-mono text-sm">🔎</span>
+                    <input type="text" id="search-stocks" oninput="filterStocks()" placeholder="Search regular stocks directory by symbol or name... (Type 'ITC', 'HDFC', etc.)" class="w-full bg-zinc-950 text-zinc-200 pl-10 pr-4 py-2 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono transition-all">
                 </div>
 
-                <!-- Dropdowns -->
-                <div class="flex flex-wrap gap-3 items-center w-full sm:w-auto">
-                    <!-- Sector Filter -->
-                    <select id="sector-filter" onchange="filterStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all cursor-pointer">
-                        <option value="all">All Sectors</option>
-                    </select>
+                <div class="flex flex-wrap items-center justify-between gap-4 border-t border-zinc-800/60 pt-3">
+                    <!-- Market Cap Toggles -->
+                    <div class="flex flex-wrap gap-2" id="cap-filters">
+                        <button onclick="setCapFilter('all')" data-cap="all" class="cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer">All Watchlist</button>
+                        <button onclick="setCapFilter('large')" data-cap="large" class="cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer">Large Caps</button>
+                        <button onclick="setCapFilter('mid')" data-cap="mid" class="cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer">Mid Caps</button>
+                        <button onclick="setCapFilter('small')" data-cap="small" class="cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-emerald-500 text-white font-semibold cursor-pointer shadow-lg shadow-emerald-950">Small Caps</button>
+                    </div>
 
-                    <!-- Price Grouping Filter -->
-                    <select id="price-filter" onchange="filterStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all cursor-pointer">
-                        <option value="all">All Prices</option>
-                        <option value="under100">&lt; ₹100</option>
-                        <option value="100-250">₹100 - ₹250</option>
-                        <option value="250-500">₹250 - ₹500</option>
-                        <option value="500-1000">₹500 - ₹1000</option>
-                        <option value="1000-2500">₹1000 - ₹2500</option>
-                        <option value="over2500">&gt; ₹2500</option>
-                    </select>
-                    
-                    <!-- Performance Horizon Filter -->
-                    <select id="horizon-filter" onchange="filterStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all cursor-pointer">
-                        <option value="1w">Horizon: 1 Week</option>
-                        <option value="1m">Horizon: 1 Month</option>
-                        <option value="3m">Horizon: 3 Months</option>
-                    </select>
+                    <!-- Dropdowns -->
+                    <div class="flex flex-wrap gap-3 items-center w-full sm:w-auto">
+                        <select id="sector-filter" onchange="filterStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer font-mono">
+                            <option value="all">All Sectors</option>
+                        </select>
+                        <select id="price-filter" onchange="filterStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer font-mono">
+                            <option value="all">All Prices</option>
+                            <option value="under100">&lt; ₹100</option>
+                            <option value="100-250">₹100 - ₹250</option>
+                            <option value="250-500">₹250 - ₹500</option>
+                            <option value="500-1000">₹500 - ₹1000</option>
+                            <option value="1000-2500">₹1000 - ₹2500</option>
+                            <option value="over2500">&gt; ₹2500</option>
+                        </select>
+                        <select id="horizon-filter" onchange="filterStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer font-mono">
+                            <option value="1w">Horizon: 1 Week</option>
+                            <option value="1m">Horizon: 1 Month</option>
+                            <option value="3m">Horizon: 3 Months</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Stock Cards Grid -->
+            <main id="stock-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></main>
+        </div>
+
+        <!-- ================= DIVIDEND TRACKER VIEW ================= -->
+        <div id="view-dividend" class="hidden">
+            <div class="bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-4 sm:p-6 shadow-xl backdrop-blur-sm overflow-hidden">
+                <div class="mb-4">
+                    <h2 class="text-base font-bold text-emerald-400 font-mono">📋 Corporate Actions: Dividend Monitor</h2>
+                </div>
+                <div class="overflow-x-auto rounded-lg border border-zinc-800 bg-zinc-950">
+                    <table class="w-full text-left font-mono text-xs text-zinc-300 divide-y divide-zinc-800">
+                        <thead class="bg-zinc-900/80 text-zinc-400 uppercase text-[10px] tracking-wider">
+                            <tr>
+                                <th class="p-4">Symbol</th>
+                                <th class="p-4">Company Name</th>
+                                <th class="p-4 text-right">Div. Amount</th>
+                                <th class="p-4 text-right">Yield (%)</th>
+                                <th class="p-4 text-center">Ex-Dividend Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dividend-table-body" class="divide-y divide-zinc-900"></tbody>
+                    </table>
                 </div>
             </div>
         </div>
 
-        <!-- Main Stock Cards Grid Container -->
-        <main id="stock-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            <!-- Dynamic Cards Inserted Here -->
-        </main>
     </div>
 
     <!-- Active Split Terminal Workspace View Overlay -->
     <div id="workspace-overlay" class="hidden"></div>
 
-    <!-- Application Script -->
     <script>
-        // Expanded seed data
         const stockData = {
-            "CEATLTD": { name: "CEAT Ltd.", cap: "small", sector: "Automobile", price: 3858.6, changes: { "1w": 6.16, "1m": 12.4, "3m": -2.1 } },
-            "CENTURYPLY": { name: "Century Plyboards (India) Ltd.", cap: "small", sector: "Materials", price: 770.25, changes: { "1w": 3.59, "1m": -1.2, "3m": 8.4 } },
-            "HFCL": { name: "HFCL Ltd.", cap: "small", sector: "Telecom", price: 214.74, changes: { "1w": 1.25, "1m": 5.8, "3m": 19.3 } },
-            "CDSL": { name: "Central Depository Services (India) Ltd.", cap: "small", sector: "Capital Markets", price: 1311.40, changes: { "1w": -1.58, "1m": 4.1, "3m": 22.5 } },
-            "ANGELONE": { name: "Angel One Ltd.", cap: "small", sector: "Capital Markets", price: 331.20, changes: { "1w": -2.70, "1m": -8.3, "3m": -4.2 } },
-            "CYIENT": { name: "Cyient Ltd.", cap: "small", sector: "IT", price: 834.85, changes: { "1w": -3.03, "1m": 2.9, "3m": -11.4 } },
+            "CEATLTD": { name: "CEAT Ltd.", cap: "small", sector: "Automobile", price: 3858.6, changes: { "1w": 6.16, "1m": 12.4, "3m": -2.1 }, divAmount: 30.00, divYield: 0.78, exDate: "2026-07-24" },
+            "CENTURYPLY": { name: "Century Plyboards (Ind) Ltd.", cap: "small", sector: "Materials", price: 770.25, changes: { "1w": 3.59, "1m": -1.2, "3m": 8.4 }, divAmount: 1.25, divYield: 0.16, exDate: "2026-08-11" },
+            "HFCL": { name: "HFCL Ltd.", cap: "small", sector: "Telecom", price: 214.74, changes: { "1w": 1.25, "1m": 5.8, "3m": 19.3 }, divAmount: 0.20, divYield: 0.09, exDate: "2026-09-02" },
+            "CDSL": { name: "Central Depository Services Ltd.", cap: "small", sector: "Capital Markets", price: 1311.40, changes: { "1w": -1.58, "1m": 4.1, "3m": 22.5 }, divAmount: 22.00, divYield: 1.68, exDate: "2026-08-18" },
+            "ANGELONE": { name: "Angel One Ltd.", cap: "small", sector: "Capital Markets", price: 331.20, changes: { "1w": -2.70, "1m": -8.3, "3m": -4.2 }, divAmount: 12.70, divYield: 3.83, exDate: "2026-07-16" },
+            "CYIENT": { name: "Cyient Ltd.", cap: "small", sector: "IT", price: 834.85, changes: { "1w": -3.03, "1m": 2.9, "3m": -11.4 }, divAmount: 18.00, divYield: 2.16, exDate: "2026-07-30" },
             
-            "RELIANCE": { name: "Reliance Industries Ltd.", cap: "large", sector: "Energy", price: 2452.10, changes: { "1w": 1.85, "1m": 3.4, "3m": 7.1 } },
-            "TCS": { name: "Tata Consultancy Services Ltd.", cap: "large", sector: "IT", price: 3820.00, changes: { "1w": -0.45, "1m": 5.1, "3m": 9.3 } },
-            "YESBANK": { name: "Yes Bank Ltd.", cap: "small", sector: "Banking", price: 22.15, changes: { "1w": 4.20, "1m": -3.1, "3m": 14.8 } },
-            "IDEA": { name: "Vodafone Idea Ltd.", cap: "small", sector: "Telecom", price: 12.45, changes: { "1w": -5.12, "1m": -14.2, "3m": 2.5 } },
-            "TATASTEEL": { name: "Tata Steel Ltd.", cap: "large", sector: "Materials", price: 145.30, changes: { "1w": 2.10, "1m": -1.5, "3m": 11.2 } },
-            "VOLTAS": { name: "Voltas Ltd.", cap: "mid", sector: "Consumer Durables", price: 984.50, changes: { "1w": 0.95, "1m": 6.3, "3m": 15.6 } }
+            "RELIANCE": { name: "Reliance Industries Ltd.", cap: "large", sector: "Energy", price: 2452.10, changes: { "1w": 1.85, "1m": 3.4, "3m": 7.1 }, divAmount: 10.00, divYield: 0.41, exDate: "2026-08-27" },
+            "TCS": { name: "Tata Consultancy Services Ltd.", cap: "large", sector: "IT", price: 3820.00, changes: { "1w": -0.45, "1m": 5.1, "3m": 9.3 }, divAmount: 28.00, divYield: 0.73, exDate: "2026-07-15" },
+            "ITC": { name: "ITC Ltd.", cap: "large", sector: "Consumer Durables", price: 435.50, changes: { "1w": 0.20, "1m": 1.1, "3m": -2.4 }, divAmount: 13.75, divYield: 3.16, exDate: "2026-07-21" },
+            "HDFCBANK": { name: "HDFC Bank Ltd.", cap: "large", sector: "Banking", price: 1680.25, changes: { "1w": -1.10, "1m": 2.6, "3m": 5.9 }, divAmount: 19.50, divYield: 1.16, exDate: "2026-05-12" },
+            "INFY": { name: "Infosys Ltd.", cap: "large", sector: "IT", price: 1492.00, changes: { "1w": 2.40, "1m": 4.8, "3m": 11.2 }, divAmount: 20.00, divYield: 1.34, exDate: "2026-06-02" },
+            "SBIN": { name: "State Bank of India", cap: "large", sector: "Banking", price: 825.40, changes: { "1w": 3.15, "1m": 6.2, "3m": 14.1 }, divAmount: 13.70, divYield: 1.66, exDate: "2026-06-14" },
+            "YESBANK": { name: "Yes Bank Ltd.", cap: "small", sector: "Banking", price: 22.15, changes: { "1w": 4.20, "1m": -3.1, "3m": 14.8 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A" },
+            "IDEA": { name: "Vodafone Idea Ltd.", cap: "small", sector: "Telecom", price: 12.45, changes: { "1w": -5.12, "1m": -14.2, "3m": 2.5 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A" },
+            "TATASTEEL": { name: "Tata Steel Ltd.", cap: "large", sector: "Materials", price: 145.30, changes: { "1w": 2.10, "1m": -1.5, "3m": 11.2 }, divAmount: 3.60, divYield: 2.48, exDate: "2026-06-20" },
+            "VOLTAS": { name: "Voltas Ltd.", cap: "mid", sector: "Consumer Durables", price: 984.50, changes: { "1w": 0.95, "1m": 6.3, "3m": 15.6 }, divAmount: 5.50, divYield: 0.56, exDate: "2026-06-18" }
         };
 
-        // Readable labels mapping back to selected horizons
-        const horizonLabels = {
-            "1w": "1 Week Chg",
-            "1m": "1 Month Chg",
-            "3m": "3 Month Chg"
+        const horizonLabels = { "1w": "1 Week Chg", "1m": "1 Month Chg", "3m": "3 Month Chg" };
+        let currentCapFilter = "small"; 
+
+        window.switchGlobalView = function(view) {
+            const btnMomentum = document.getElementById('nav-momentum');
+            const btnDividend = document.getElementById('nav-dividend');
+            const viewMomentum = document.getElementById('view-momentum');
+            const viewDividend = document.getElementById('view-dividend');
+
+            if (view === 'momentum') {
+                btnMomentum.className = "px-5 py-2 rounded-lg text-sm font-bold tracking-wider uppercase border border-emerald-500/40 bg-emerald-950/30 text-emerald-400 shadow-md transition-all cursor-pointer";
+                btnDividend.className = "px-5 py-2 rounded-lg text-sm font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer";
+                viewMomentum.classList.remove('hidden');
+                viewDividend.classList.add('hidden');
+            } else {
+                btnDividend.className = "px-5 py-2 rounded-lg text-sm font-bold tracking-wider uppercase border border-emerald-500/40 bg-emerald-950/30 text-emerald-400 shadow-md transition-all cursor-pointer";
+                btnMomentum.className = "px-5 py-2 rounded-lg text-sm font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer";
+                viewMomentum.classList.add('hidden');
+                viewDividend.classList.remove('hidden');
+                renderDividendTable();
+            }
         };
 
         function initSectors() {
@@ -122,8 +173,6 @@
                 select.appendChild(opt);
             });
         }
-
-        let currentCapFilter = "small"; 
 
         function setCapFilter(capValue) {
             currentCapFilter = capValue;
@@ -141,11 +190,13 @@
             const sectorFilter = document.getElementById('sector-filter').value;
             const priceFilter = document.getElementById('price-filter').value;
             const horizon = document.getElementById('horizon-filter').value;
+            const searchQuery = document.getElementById('search-stocks').value.toLowerCase();
             const grid = document.getElementById('stock-grid');
             
             grid.innerHTML = '';
 
             Object.entries(stockData).forEach(([ticker, data]) => {
+                if (searchQuery && !ticker.toLowerCase().includes(searchQuery) && !data.name.toLowerCase().includes(searchQuery)) return;
                 if (currentCapFilter !== 'all' && data.cap !== currentCapFilter) return;
                 if (sectorFilter !== 'all' && data.sector !== sectorFilter) return;
                 
@@ -177,12 +228,31 @@
                         <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-bold font-mono ${isPos ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-900' : 'bg-rose-950/80 text-rose-400 border border-rose-900'}">
                             ${isPos ? '+' : ''}${pct}%
                         </span>
-                        <!-- Clear context sub-label to prevent ambiguity -->
                         <span class="text-[10px] font-mono text-zinc-500 mt-1 uppercase tracking-wider">${horizonLabels[horizon]}</span>
                         <p class="text-xs font-mono text-zinc-400 mt-1">₹${price.toLocaleString('en-IN')}</p>
                     </div>
                 `;
                 grid.appendChild(card);
+            });
+        }
+
+        function renderDividendTable() {
+            const container = document.getElementById('dividend-table-body');
+            container.innerHTML = '';
+
+            Object.entries(stockData).forEach(([ticker, data]) => {
+                const row = document.createElement('tr');
+                row.className = "hover:bg-zinc-900/50 cursor-pointer transition-colors group";
+                row.setAttribute('onclick', `openWorkspace('${ticker}')`);
+                
+                row.innerHTML = `
+                    <td class="p-4 font-bold text-zinc-200 group-hover:text-emerald-400 transition-colors">${ticker}</td>
+                    <td class="p-4 text-zinc-400 font-sans">${data.name}</td>
+                    <td class="p-4 text-right font-bold text-zinc-200">₹${data.divAmount.toFixed(2)}</td>
+                    <td class="p-4 text-right text-emerald-400 font-bold">${data.divYield > 0 ? data.divYield + '%' : '-'}</td>
+                    <td class="p-4 text-center text-zinc-500 font-mono">${data.exDate}</td>
+                `;
+                container.appendChild(row);
             });
         }
 
