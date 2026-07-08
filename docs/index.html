@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NiftyPulse Terminal</title>
+    <title>RBK NiftyPulse Scanner</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- TradingView Core Library for Advanced Chart -->
@@ -29,24 +29,30 @@
                     </svg>
                 </div>
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                    Nifty<span class="text-emerald-400">Pulse</span> Terminal
+                    RBK Nifty<span class="text-emerald-400">Pulse</span> Scanner
                 </h1>
             </div>
         </header>
 
         <!-- Global Dashboard Switcher Tabs & Info Button -->
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 border-b border-zinc-800 pb-4 font-mono">
-            <div class="flex flex-wrap justify-center gap-3 w-full sm:w-auto">
-                <button id="nav-momentum" onclick="switchGlobalView('momentum')" class="px-5 py-2 rounded-lg text-sm font-bold tracking-wider uppercase border border-emerald-500/40 bg-emerald-950/30 text-emerald-400 shadow-md transition-all cursor-pointer">
-                    ⚡ Momentum Screener
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-4 mb-6 border-b border-zinc-800 pb-4 font-mono">
+            <div class="flex flex-wrap justify-center gap-2.5 w-full lg:w-auto">
+                <button id="nav-momentum" onclick="switchGlobalView('momentum')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-emerald-500/40 bg-emerald-950/30 text-emerald-400 shadow-md transition-all cursor-pointer">
+                    ⚡ Momentum
                 </button>
-                <button id="nav-dividend" onclick="switchGlobalView('dividend')" class="px-5 py-2 rounded-lg text-sm font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">
-                    💰 Dividend Tracker
+                <button id="nav-dividend" onclick="switchGlobalView('dividend')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">
+                    💰 Dividends
+                </button>
+                <button id="nav-mostbought" onclick="switchGlobalView('mostbought')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">
+                    🔥 Most Bought
+                </button>
+                <button id="nav-uppercircuit" onclick="switchGlobalView('uppercircuit')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">
+                    📈 Upper Circuits
                 </button>
             </div>
             <!-- Global ReadMe Info Button -->
-            <button onclick="openReadmeModal()" class="w-full sm:w-auto px-4 py-2 rounded-lg text-xs font-bold bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-emerald-400 hover:border-emerald-500/40 transition-all shadow-md cursor-pointer flex items-center justify-center gap-2">
-                📖 Terminal Guide (ReadMe)
+            <button onclick="openReadmeModal()" class="w-full lg:w-auto px-4 py-2 rounded-lg text-xs font-bold bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-emerald-400 hover:border-emerald-500/40 transition-all shadow-md cursor-pointer flex items-center justify-center gap-2">
+                📖 Scanner Guide (ReadMe)
             </button>
         </div>
 
@@ -100,7 +106,7 @@
         <div id="view-dividend" class="hidden">
             <div class="bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-4 sm:p-6 shadow-xl backdrop-blur-sm overflow-hidden">
                 <div class="mb-4">
-                    <h2 class="text-base font-bold text-emerald-400 font-mono">📋 Corporate Actions: Dividend Monitor</h2>
+                    <h2 class="text-base font-bold text-emerald-400 font-mono">📋 Corporate Actions: Dividend Payout Monitor</h2>
                 </div>
                 <div class="overflow-x-auto rounded-lg border border-zinc-800 bg-zinc-950">
                     <table class="w-full text-left font-mono text-xs text-zinc-300 divide-y divide-zinc-800">
@@ -114,6 +120,54 @@
                             </tr>
                         </thead>
                         <tbody id="dividend-table-body" class="divide-y divide-zinc-900"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= MOST BOUGHT VIEW ================= -->
+        <div id="view-mostbought" class="hidden">
+            <div class="bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-4 sm:p-6 shadow-xl backdrop-blur-sm overflow-hidden">
+                <div class="mb-4">
+                    <h2 class="text-base font-bold text-orange-400 font-mono">🔥 High Accumulation: Most Bought Today (Delivery Volume)</h2>
+                </div>
+                <div class="overflow-x-auto rounded-lg border border-zinc-800 bg-zinc-950">
+                    <table class="w-full text-left font-mono text-xs text-zinc-300 divide-y divide-zinc-800">
+                        <thead class="bg-zinc-900/80 text-zinc-400 uppercase text-[10px] tracking-wider">
+                            <tr>
+                                <th class="p-4">Symbol</th>
+                                <th class="p-4">Company Name</th>
+                                <th class="p-4 text-right">Price</th>
+                                <th class="p-4 text-right">Volume Surge</th>
+                                <th class="p-4 text-right">Delivery %</th>
+                                <th class="p-4 text-center">Buying Intensity</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mostbought-table-body" class="divide-y divide-zinc-900"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= UPPER CIRCUIT VIEW ================= -->
+        <div id="view-uppercircuit" class="hidden">
+            <div class="bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-4 sm:p-6 shadow-xl backdrop-blur-sm overflow-hidden">
+                <div class="mb-4">
+                    <h2 class="text-base font-bold text-rose-400 font-mono">📈 Price Ceilings: Locked In Upper Circuit</h2>
+                </div>
+                <div class="overflow-x-auto rounded-lg border border-zinc-800 bg-zinc-950">
+                    <table class="w-full text-left font-mono text-xs text-zinc-300 divide-y divide-zinc-800">
+                        <thead class="bg-zinc-900/80 text-zinc-400 uppercase text-[10px] tracking-wider">
+                            <tr>
+                                <th class="p-4">Symbol</th>
+                                <th class="p-4">Company Name</th>
+                                <th class="p-4 text-right">LTP (Last Price)</th>
+                                <th class="p-4 text-right">Day Chg %</th>
+                                <th class="p-4 text-right">Circuit Band</th>
+                                <th class="p-4 text-right text-emerald-400">Pending Buy Orders</th>
+                            </tr>
+                        </thead>
+                        <tbody id="uppercircuit-table-body" class="divide-y divide-zinc-900"></tbody>
                     </table>
                 </div>
             </div>
@@ -146,22 +200,29 @@
                 </div>
 
                 <div>
-                    <h3 class="text-emerald-400 font-bold border-b border-zinc-800 pb-1 mb-2">📊 2. CHART DECODER (SPEEDOMETER INDICATOR)</h3>
-                    <p class="text-zinc-400 mb-2">The speedometer dial inside the workspace represents an institutional consensus calculation from the <span class="text-zinc-200">TradingView Technical Analysis Engine</span>.</p>
+                    <h3 class="text-orange-400 font-bold border-b border-zinc-800 pb-1 mb-2">🔥 2. MOST BOUGHT STOCKS (DELIVERY PIPELINE)</h3>
+                    <p class="text-zinc-400 mb-2">Tracks intense investor accumulation by monitoring delivery percentages rather than speculative day trades.</p>
                     <ul class="list-disc list-inside space-y-1 text-zinc-500 pl-2">
-                        <li>It collects real-time technical inputs simultaneously across <strong class="text-zinc-300">26 underlying indicators</strong> (17 Moving Averages + 9 Oscillators).</li>
-                        <li>Each indicator logs an active operational trade vote: <span class="text-emerald-400 font-bold">BUY</span>, <span class="text-rose-400 font-bold">SELL</span>, or <span class="text-zinc-400">NEUTRAL</span>.</li>
-                        <li>The directional placement of the gauge needle highlights the net math layout of these combined technical indicators.</li>
+                        <li><strong class="text-zinc-300">Volume Surge:</strong> Represents how multiple times current trading volume exceeds the stock's 20-day average trading volume baseline.</li>
+                        <li><strong class="text-zinc-300">Delivery %:</strong> High metrics (e.g., &gt;60%) indicate shares are leaving the exchange and being locked safely into long-term investor Demat portfolios.</li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 class="text-emerald-400 font-bold border-b border-zinc-800 pb-1 mb-2">💰 3. DIVIDEND TRACKER MONITOR</h3>
-                    <p class="text-zinc-400 mb-2">Tracks ongoing structural corporate actions for target equities list.</p>
+                    <h3 class="text-rose-400 font-bold border-b border-zinc-800 pb-1 mb-2">📈 3. UPPER CIRCUIT MONITOR</h3>
+                    <p class="text-zinc-400 mb-2">Tracks explosive demand configurations where a stock hits its maximum permitted legal daily price limit.</p>
                     <ul class="list-disc list-inside space-y-1 text-zinc-500 pl-2">
-                        <li><strong class="text-zinc-300">Dividend Amount:</strong> Denotes the actual distribution payout cash value declared per individual equity share.</li>
-                        <li><strong class="text-zinc-300">Dividend Yield (%):</strong> Represents the annualized percentage ratio of dividend return compared against current price.</li>
-                        <li><strong class="text-zinc-300">Ex-Dividend Date:</strong> Critical cutoff threshold window. Equities purchased on or past this specific calendar date will not be eligible to collect the upcoming declared payout distribution.</li>
+                        <li><strong class="text-zinc-300">Circuit Band:</strong> Exchanges enforce limits (typically 5%, 10%, or 20%) to stabilize volatile daily micro-caps and mid-caps.</li>
+                        <li><strong class="text-zinc-300">Pending Buy Orders:</strong> Extreme buying pressure completely exhausts all available market supply sellers, leaving thousands of buy requests waiting in line at the ceiling price.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-emerald-400 font-bold border-b border-zinc-800 pb-1 mb-2">📊 4. CHART DECODER (SPEEDOMETER INDICATOR)</h3>
+                    <p class="text-zinc-400 mb-2">The speedometer dial inside the workspace represents an institutional consensus calculation from the <span class="text-zinc-200">TradingView Technical Analysis Engine</span>.</p>
+                    <ul class="list-disc list-inside space-y-1 text-zinc-500 pl-2">
+                        <li>It collects real-time technical inputs simultaneously across <strong class="text-zinc-300">26 underlying indicators</strong> (17 Moving Averages + 9 Oscillators).</li>
+                        <li>Each indicator logs an active operational trade vote: <span class="text-emerald-400 font-bold">BUY</span>, <span class="text-rose-400 font-bold">SELL</span>, or <span class="text-zinc-400">NEUTRAL</span>.</li>
                     </ul>
                 </div>
 
@@ -170,7 +231,7 @@
                         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> SYSTEM STATUS NOTE
                     </h4>
                     <p class="text-zinc-500">
-                        While main landing cards track static baseline automated daily parameters, launching any split terminal canvas workspace links you instantly to live streaming high-fidelity WebSockets pipes directly processing active market prices.
+                        While main landing cards track static baseline automated daily parameters, launching any split scanner canvas workspace links you instantly to live streaming high-fidelity WebSockets pipes directly processing active market prices.
                     </p>
                 </div>
             </div>
@@ -178,24 +239,26 @@
     </div>
 
     <script>
+        // Central data repository updated with corporate actions, volume analytics, and pricing metrics
         const stockData = {
-            "CEATLTD": { name: "CEAT Ltd.", cap: "small", sector: "Automobile", price: 3858.6, changes: { "1w": 6.16, "1m": 12.4, "3m": -2.1 }, divAmount: 30.00, divYield: 0.78, exDate: "2026-07-24" },
-            "CENTURYPLY": { name: "Century Plyboards (Ind) Ltd.", cap: "small", sector: "Materials", price: 770.25, changes: { "1w": 3.59, "1m": -1.2, "3m": 8.4 }, divAmount: 1.25, divYield: 0.16, exDate: "2026-08-11" },
-            "HFCL": { name: "HFCL Ltd.", cap: "small", sector: "Telecom", price: 214.74, changes: { "1w": 1.25, "1m": 5.8, "3m": 19.3 }, divAmount: 0.20, divYield: 0.09, exDate: "2026-09-02" },
-            "CDSL": { name: "Central Depository Services Ltd.", cap: "small", sector: "Capital Markets", price: 1311.40, changes: { "1w": -1.58, "1m": 4.1, "3m": 22.5 }, divAmount: 22.00, divYield: 1.68, exDate: "2026-08-18" },
-            "ANGELONE": { name: "Angel One Ltd.", cap: "small", sector: "Capital Markets", price: 331.20, changes: { "1w": -2.70, "1m": -8.3, "3m": -4.2 }, divAmount: 12.70, divYield: 3.83, exDate: "2026-07-16" },
-            "CYIENT": { name: "Cyient Ltd.", cap: "small", sector: "IT", price: 834.85, changes: { "1w": -3.03, "1m": 2.9, "3m": -11.4 }, divAmount: 18.00, divYield: 2.16, exDate: "2026-07-30" },
+            "CEATLTD": { name: "CEAT Ltd.", cap: "small", sector: "Automobile", price: 3858.6, changes: { "1w": 6.16, "1m": 12.4, "3m": -2.1 }, divAmount: 30.00, divYield: 0.78, exDate: "2026-07-24", mostBought: { surge: "1.4x", delivery: "42%", intensity: "Moderate" }, circuit: null },
+            "CENTURYPLY": { name: "Century Plyboards (Ind) Ltd.", cap: "small", sector: "Materials", price: 770.25, changes: { "1w": 3.59, "1m": -1.2, "3m": 8.4 }, divAmount: 1.25, divYield: 0.16, exDate: "2026-08-11", mostBought: { surge: "3.8x", delivery: "74%", intensity: "High 🔥" }, circuit: null },
+            "HFCL": { name: "HFCL Ltd.", cap: "small", sector: "Telecom", price: 214.74, changes: { "1w": 1.25, "1m": 5.8, "3m": 19.3 }, divAmount: 0.20, divYield: 0.09, exDate: "2026-09-02", mostBought: { surge: "1.1x", delivery: "38%", intensity: "Low" }, circuit: null },
+            "CDSL": { name: "Central Depository Services Ltd.", cap: "small", sector: "Capital Markets", price: 1311.40, changes: { "1w": -1.58, "1m": 4.1, "3m": 22.5 }, divAmount: 22.00, divYield: 1.68, exDate: "2026-08-18", mostBought: { surge: "5.2x", delivery: "81%", intensity: "Extreme ⚡" }, circuit: null },
+            "ANGELONE": { name: "Angel One Ltd.", cap: "small", sector: "Capital Markets", price: 331.20, changes: { "1w": -2.70, "1m": -8.3, "3m": -4.2 }, divAmount: 12.70, divYield: 3.83, exDate: "2026-07-16", mostBought: null, circuit: null },
+            "CYIENT": { name: "Cyient Ltd.", cap: "small", sector: "IT", price: 834.85, changes: { "1w": -3.03, "1m": 2.9, "3m": -11.4 }, divAmount: 18.00, divYield: 2.16, exDate: "2026-07-30", mostBought: null, circuit: null },
             
-            "RELIANCE": { name: "Reliance Industries Ltd.", cap: "large", sector: "Energy", price: 2452.10, changes: { "1w": 1.85, "1m": 3.4, "3m": 7.1 }, divAmount: 10.00, divYield: 0.41, exDate: "2026-08-27" },
-            "TCS": { name: "Tata Consultancy Services Ltd.", cap: "large", sector: "IT", price: 3820.00, changes: { "1w": -0.45, "1m": 5.1, "3m": 9.3 }, divAmount: 28.00, divYield: 0.73, exDate: "2026-07-15" },
-            "ITC": { name: "ITC Ltd.", cap: "large", sector: "Consumer Durables", price: 435.50, changes: { "1w": 0.20, "1m": 1.1, "3m": -2.4 }, divAmount: 13.75, divYield: 3.16, exDate: "2026-07-21" },
-            "HDFCBANK": { name: "HDFC Bank Ltd.", cap: "large", sector: "Banking", price: 1680.25, changes: { "1w": -1.10, "1m": 2.6, "3m": 5.9 }, divAmount: 19.50, divYield: 1.16, exDate: "2026-05-12" },
-            "INFY": { name: "Infosys Ltd.", cap: "large", sector: "IT", price: 1492.00, changes: { "1w": 2.40, "1m": 4.8, "3m": 11.2 }, divAmount: 20.00, divYield: 1.34, exDate: "2026-06-02" },
-            "SBIN": { name: "State Bank of India", cap: "large", sector: "Banking", price: 825.40, changes: { "1w": 3.15, "1m": 6.2, "3m": 14.1 }, divAmount: 13.70, divYield: 1.66, exDate: "2026-06-14" },
-            "YESBANK": { name: "Yes Bank Ltd.", cap: "small", sector: "Banking", price: 22.15, changes: { "1w": 4.20, "1m": -3.1, "3m": 14.8 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A" },
-            "IDEA": { name: "Vodafone Idea Ltd.", cap: "small", sector: "Telecom", price: 12.45, changes: { "1w": -5.12, "1m": -14.2, "3m": 2.5 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A" },
-            "TATASTEEL": { name: "Tata Steel Ltd.", cap: "large", sector: "Materials", price: 145.30, changes: { "1w": 2.10, "1m": -1.5, "3m": 11.2 }, divAmount: 3.60, divYield: 2.48, exDate: "2026-06-20" },
-            "VOLTAS": { name: "Voltas Ltd.", cap: "mid", sector: "Consumer Durables", price: 984.50, changes: { "1w": 0.95, "1m": 6.3, "3m": 15.6 }, divAmount: 5.50, divYield: 0.56, exDate: "2026-06-18" }
+            "RELIANCE": { name: "Reliance Industries Ltd.", cap: "large", sector: "Energy", price: 2452.10, changes: { "1w": 1.85, "1m": 3.4, "3m": 7.1 }, divAmount: 10.00, divYield: 0.41, exDate: "2026-08-27", mostBought: { surge: "2.1x", delivery: "65%", intensity: "High 🔥" }, circuit: null },
+            "TCS": { name: "Tata Consultancy Services Ltd.", cap: "large", sector: "IT", price: 3820.00, changes: { "1w": -0.45, "1m": 5.1, "3m": 9.3 }, divAmount: 28.00, divYield: 0.73, exDate: "2026-07-15", mostBought: null, circuit: null },
+            "ITC": { name: "ITC Ltd.", cap: "large", sector: "Consumer Durables", price: 435.50, changes: { "1w": 0.20, "1m": 1.1, "3m": -2.4 }, divAmount: 13.75, divYield: 3.16, exDate: "2026-07-21", mostBought: null, circuit: null },
+            "HDFCBANK": { name: "HDFC Bank Ltd.", cap: "large", sector: "Banking", price: 1680.25, changes: { "1w": -1.10, "1m": 2.6, "3m": 5.9 }, divAmount: 19.50, divYield: 1.16, exDate: "2026-05-12", mostBought: null, circuit: null },
+            "INFY": { name: "Infosys Ltd.", cap: "large", sector: "IT", price: 1492.00, changes: { "1w": 2.40, "1m": 4.8, "3m": 11.2 }, divAmount: 20.00, divYield: 1.34, exDate: "2026-06-02", mostBought: null, circuit: null },
+            "SBIN": { name: "State Bank of India", cap: "large", sector: "Banking", price: 825.40, changes: { "1w": 3.15, "1m": 6.2, "3m": 14.1 }, divAmount: 13.70, divYield: 1.66, exDate: "2026-06-14", mostBought: { surge: "1.9x", delivery: "58%", intensity: "Moderate" }, circuit: null },
+            
+            "YESBANK": { name: "Yes Bank Ltd.", cap: "small", sector: "Banking", price: 22.15, changes: { "1w": 4.20, "1m": -3.1, "3m": 14.8 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+10.0%", band: "10%", buyers: "4,205,100" } },
+            "IDEA": { name: "Vodafone Idea Ltd.", cap: "small", sector: "Telecom", price: 12.45, changes: { "1w": -5.12, "1m": -14.2, "3m": 2.5 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null },
+            "TATASTEEL": { name: "Tata Steel Ltd.", cap: "large", sector: "Materials", price: 145.30, changes: { "1w": 2.10, "1m": -1.5, "3m": 11.2 }, divAmount: 3.60, divYield: 2.48, exDate: "2026-06-20", mostBought: null, circuit: null },
+            "VOLTAS": { name: "Voltas Ltd.", cap: "mid", sector: "Consumer Durables", price: 984.50, changes: { "1w": 0.95, "1m": 6.3, "3m": 15.6 }, divAmount: 5.50, divYield: 0.56, exDate: "2026-06-18", mostBought: null, circuit: { chg: "+20.0%", band: "20%", buyers: "852,430" } }
         };
 
         const horizonLabels = { "1w": "1 Week Chg", "1m": "1 Month Chg", "3m": "3 Month Chg" };
@@ -210,23 +273,24 @@
         };
 
         window.switchGlobalView = function(view) {
-            const btnMomentum = document.getElementById('nav-momentum');
-            const btnDividend = document.getElementById('nav-dividend');
-            const viewMomentum = document.getElementById('view-momentum');
-            const viewDividend = document.getElementById('view-dividend');
+            const tabs = ['momentum', 'dividend', 'mostbought', 'uppercircuit'];
+            
+            tabs.forEach(t => {
+                const btn = document.getElementById(`nav-${t}`);
+                const panel = document.getElementById(`view-${t}`);
+                if (t === view) {
+                    btn.className = "px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-emerald-500/40 bg-emerald-950/30 text-emerald-400 shadow-md transition-all cursor-pointer";
+                    panel.classList.remove('hidden');
+                } else {
+                    btn.className = "px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer";
+                    panel.classList.add('hidden');
+                }
+            });
 
-            if (view === 'momentum') {
-                btnMomentum.className = "px-5 py-2 rounded-lg text-sm font-bold tracking-wider uppercase border border-emerald-500/40 bg-emerald-950/30 text-emerald-400 shadow-md transition-all cursor-pointer";
-                btnDividend.className = "px-5 py-2 rounded-lg text-sm font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer";
-                viewMomentum.classList.remove('hidden');
-                viewDividend.classList.add('hidden');
-            } else {
-                btnDividend.className = "px-5 py-2 rounded-lg text-sm font-bold tracking-wider uppercase border border-emerald-500/40 bg-emerald-950/30 text-emerald-400 shadow-md transition-all cursor-pointer";
-                btnMomentum.className = "px-5 py-2 rounded-lg text-sm font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer";
-                viewMomentum.classList.add('hidden');
-                viewDividend.classList.remove('hidden');
-                renderDividendTable();
-            }
+            // Trigger population arrays based on active view panels
+            if (view === 'dividend') renderDividendTable();
+            if (view === 'mostbought') renderMostBoughtTable();
+            if (view === 'uppercircuit') renderUpperCircuitTable();
         };
 
         function initSectors() {
@@ -318,6 +382,50 @@
                     <td class="p-4 text-right font-bold text-zinc-200">₹${data.divAmount.toFixed(2)}</td>
                     <td class="p-4 text-right text-emerald-400 font-bold">${data.divYield > 0 ? data.divYield + '%' : '-'}</td>
                     <td class="p-4 text-center text-zinc-500 font-mono">${data.exDate}</td>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function renderMostBoughtTable() {
+            const container = document.getElementById('mostbought-table-body');
+            container.innerHTML = '';
+
+            Object.entries(stockData).forEach(([ticker, data]) => {
+                if (!data.mostBought) return; // Only process accumulation assets
+                const row = document.createElement('tr');
+                row.className = "hover:bg-zinc-900/50 cursor-pointer transition-colors group";
+                row.setAttribute('onclick', `openWorkspace('${ticker}')`);
+                
+                row.innerHTML = `
+                    <td class="p-4 font-bold text-zinc-200 group-hover:text-orange-400 transition-colors">${ticker}</td>
+                    <td class="p-4 text-zinc-400 font-sans">${data.name}</td>
+                    <td class="p-4 text-right font-bold text-zinc-200">₹${data.price.toLocaleString('en-IN')}</td>
+                    <td class="p-4 text-right text-zinc-300 font-bold">${data.mostBought.surge}</td>
+                    <td class="p-4 text-right text-emerald-400 font-bold">${data.mostBought.delivery}</td>
+                    <td class="p-4 text-center font-bold text-orange-400">${data.mostBought.intensity}</td>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function renderUpperCircuitTable() {
+            const container = document.getElementById('uppercircuit-table-body');
+            container.innerHTML = '';
+
+            Object.entries(stockData).forEach(([ticker, data]) => {
+                if (!data.circuit) return; // Only process locked limit assets
+                const row = document.createElement('tr');
+                row.className = "hover:bg-zinc-900/50 cursor-pointer transition-colors group";
+                row.setAttribute('onclick', `openWorkspace('${ticker}')`);
+                
+                row.innerHTML = `
+                    <td class="p-4 font-bold text-zinc-200 group-hover:text-rose-400 transition-colors">${ticker}</td>
+                    <td class="p-4 text-zinc-400 font-sans">${data.name}</td>
+                    <td class="p-4 text-right font-bold text-zinc-200">₹${data.price.toLocaleString('en-IN')}</td>
+                    <td class="p-4 text-right text-rose-400 font-extrabold animate-pulse">${data.circuit.chg}</td>
+                    <td class="p-4 text-right text-zinc-400">${data.circuit.band} % band</td>
+                    <td class="p-4 text-right text-emerald-400 font-bold tracking-wide">${data.circuit.buyers}</td>
                 `;
                 container.appendChild(row);
             });
