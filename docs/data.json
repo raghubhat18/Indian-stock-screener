@@ -1,70 +1,7 @@
 [
     {
-        "ticker": "RELIANCE",
-        "price": 1275.9,
-        "cap": "Large",
-        "sector": "Energy",
-        "returns": {
-            "1D": -2.48,
-            "1W": -2.45,
-            "1M": 0.53,
-            "1Y": -15.21,
-            "2Y": -17.51,
-            "3Y": 10.0,
-            "4Y": 0.65,
-            "5Y": 34.62
-        }
-    },
-    {
-        "ticker": "TCS",
-        "price": 2057.5,
-        "cap": "Large",
-        "sector": "IT",
-        "returns": {
-            "1D": -1.84,
-            "1W": 3.78,
-            "1M": -4.35,
-            "1Y": -37.12,
-            "2Y": -43.45,
-            "3Y": -30.02,
-            "4Y": -31.98,
-            "5Y": -27.55
-        }
-    },
-    {
-        "ticker": "HDFCBANK",
-        "price": 810.3,
-        "cap": "Large",
-        "sector": "Banking & Finance",
-        "returns": {
-            "1D": -2.29,
-            "1W": 1.78,
-            "1M": 11.56,
-            "1Y": -16.89,
-            "2Y": -0.84,
-            "3Y": 6.98,
-            "4Y": 24.26,
-            "5Y": 13.9
-        }
-    },
-    {
-        "ticker": "ITC",
-        "price": 280.65,
-        "cap": "Large",
-        "sector": "FMCG",
-        "returns": {
-            "1D": -2.81,
-            "1W": -3.32,
-            "1M": 0.23,
-            "1Y": -28.79,
-            "2Y": -25.58,
-            "3Y": -27.03,
-            "4Y": 25.45,
-            "5Y": 76.45
-        }
-    },
-    {
         "ticker": "LT",
+        "name": "Larsen & Toubro Ltd.",
         "price": 3892.1,
         "cap": "Large",
         "sector": "Capital Goods",
@@ -81,6 +18,7 @@
     },
     {
         "ticker": "KPITTECH",
+        "name": "KPIT Technologies Ltd.",
         "price": 554.6,
         "cap": "Mid",
         "sector": "IT",
@@ -97,6 +35,7 @@
     },
     {
         "ticker": "VOLTAS",
+        "name": "Voltas Ltd.",
         "price": 1253.6,
         "cap": "Mid",
         "sector": "Consumer Durables",
@@ -113,6 +52,7 @@
     },
     {
         "ticker": "BHARATFORG",
+        "name": "Bharat Forge Ltd.",
         "price": 2100.5,
         "cap": "Mid",
         "sector": "Capital Goods",
@@ -129,6 +69,7 @@
     },
     {
         "ticker": "MRF",
+        "name": "MRF Ltd.",
         "price": 132940.0,
         "cap": "Mid",
         "sector": "Automobile",
@@ -145,6 +86,7 @@
     },
     {
         "ticker": "CDSL",
+        "name": "Central Depository Services (India) Ltd.",
         "price": 1311.4,
         "cap": "Small",
         "sector": "Capital Markets",
@@ -161,6 +103,7 @@
     },
     {
         "ticker": "ANGELONE",
+        "name": "Angel One Ltd.",
         "price": 331.2,
         "cap": "Small",
         "sector": "Capital Markets",
@@ -177,6 +120,7 @@
     },
     {
         "ticker": "CYIENT",
+        "name": "Cyient Ltd.",
         "price": 834.85,
         "cap": "Small",
         "sector": "IT",
@@ -193,6 +137,7 @@
     },
     {
         "ticker": "CEATLTD",
+        "name": "CEAT Ltd.",
         "price": 3858.6,
         "cap": "Small",
         "sector": "Automobile",
@@ -209,6 +154,7 @@
     },
     {
         "ticker": "CENTURYPLY",
+        "name": "Century Plyboards (India) Ltd.",
         "price": 770.25,
         "cap": "Small",
         "sector": "Materials",
@@ -225,6 +171,7 @@
     },
     {
         "ticker": "HFCL",
+        "name": "HFCL Ltd.",
         "price": 214.74,
         "cap": "Small",
         "sector": "Telecom",
