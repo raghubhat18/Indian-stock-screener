@@ -3,61 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>India Stock Screener Pro</title>
+    <title>India Stock Screener Ultra</title>
     <link rel="manifest" href="manifest.json">
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #121212; color: #e0e0e0; margin: 0; padding: 16px; }
-        .container { max-width: 600px; margin: 0 auto; }
-        h1 { text-align: center; color: #00ff88; font-size: 22px; margin-bottom: 5px; }
-        .subtitle { text-align: center; color: #888; font-size: 12px; margin-bottom: 20px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #121212; color: #e0e0e0; margin: 0; padding: 20px; }
         
-        /* Interactive Filters Style */
-        .tabs { display: flex; background: #1e1e1e; border-radius: 8px; padding: 4px; margin-bottom: 15px; border: 1px solid #2d2d2d; }
-        .tab { flex: 1; text-align: center; padding: 10px; cursor: pointer; border-radius: 6px; font-weight: bold; font-size: 14px; color: #aaa; transition: 0.2s; }
+        /* FULL SCREEN FLEXIBLE CONTAINER */
+        .container { max-width: 1400px; margin: 0 auto; width: 100%; }
+        
+        h1 { text-align: center; color: #00ff88; font-size: 26px; margin-bottom: 5px; }
+        .subtitle { text-align: center; color: #888; font-size: 13px; margin-bottom: 25px; }
+        
+        /* FILTERS ROW STYLING */
+        .controls-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 20px; }
+        @media (min-width: 600px) {
+            .controls-grid { grid-template-columns: 2fr 1fr 1fr; }
+        }
+
+        .tabs { display: flex; background: #1e1e1e; border-radius: 8px; padding: 4px; border: 1px solid #2d2d2d; }
+        .tab { flex: 1; text-align: center; padding: 12px 6px; cursor: pointer; border-radius: 6px; font-weight: bold; font-size: 13px; color: #aaa; transition: 0.2s; }
         .tab.active { background: #00ff88; color: #121212; }
         
-        .filter-row { margin-bottom: 15px; }
-        select { width: 100%; background: #1e1e1e; color: #fff; border: 1px solid #2d2d2d; padding: 12px; border-radius: 8px; font-size: 14px; outline: none; }
+        select { background: #1e1e1e; color: #fff; border: 1px solid #2d2d2d; padding: 12px; border-radius: 8px; font-size: 14px; outline: none; width: 100%; cursor: pointer; }
 
-        /* Card Layout */
-        .card { background: #1e1e1e; padding: 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #2d2d2d; }
-        .ticker { font-weight: bold; font-size: 16px; color: #ffffff; }
-        .meta-tag { font-size: 11px; color: #888; background: #2a2a2a; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 4px; }
-        .score-badge { padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 13px; text-align: right; }
-        .positive { background: rgba(0, 255, 136, 0.15); color: #00ff88; }
-        .negative { background: rgba(255, 69, 58, 0.15); color: #ff453a; }
+        /* RESPONSIVE FULL SCREEN GRID FOR CARDS */
+        #stock-list { 
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 15px; 
+        }
+        @media (min-width: 600px) { #stock-list { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1000px) { #stock-list { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 1300px) { #stock-list { grid-template-columns: repeat(4, 1fr); } }
+
+        /* CARD COSMETICS */
+        .card { background: #1e1e1e; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #2d2d2d; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-2px); border-color: #444; }
+        .ticker { font-weight: bold; font-size: 18px; color: #ffffff; letter-spacing: 0.5px; }
+        .meta-tag { font-size: 11px; color: #aaa; background: #2a2a2a; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-top: 6px; }
+        .score-badge { padding: 8px 14px; border-radius: 8px; font-weight: bold; font-size: 15px; text-align: right; min-width: 80px; }
+        .positive { background: rgba(0, 255, 136, 0.12); color: #00ff88; border: 1px solid rgba(0, 255, 136, 0.2); }
+        .negative { background: rgba(255, 69, 58, 0.12); color: #ff453a; border: 1px solid rgba(255, 69, 58, 0.2); }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🇮🇳 Indian Stock Screener Pro</h1>
-        <div class="subtitle">Short-term Momentum Tracker</div>
+        <h1>🇮🇳 Indian Stock Screener Ultra</h1>
+        <div class="subtitle">Real-Time Multi-Horizon Momentum Tracker</div>
 
-        <!-- Market Cap Navigation Tabs -->
-        <div class="tabs">
-            <div class="tab active" onclick="filterCap('All', this)">All Caps</div>
-            <div class="tab" onclick="filterCap('Large', this)">Large</div>
-            <div class="tab" onclick="filterCap('Mid', this)">Mid</div>
-            <div class="tab" onclick="filterCap('Small', this)">Small</div>
+        <div class="controls-grid">
+            <!-- Cap Tabs -->
+            <div class="tabs">
+                <div class="tab active" onclick="filterCap('All', this)">All Caps</div>
+                <div class="tab" onclick="filterCap('Large', this)">Large</div>
+                <div class="tab" onclick="filterCap('Mid', this)">Mid</div>
+                <div class="tab" onclick="filterCap('Small', this)">Small</div>
+            </div>
+
+            <!-- Sector Filter -->
+            <div>
+                <select id="sectorDropdown" onchange="filterSector(this.value)">
+                    <option value="All">All Sectors</option>
+                </select>
+            </div>
+
+            <!-- Dynamic Horizon Lookback Filter -->
+            <div>
+                <select id="timeframeDropdown" onchange="filterTimeframe(this.value)">
+                    <option value="1D">Horizon: 1 Day</option>
+                    <option value="1W" selected>Horizon: 1 Week</option>
+                    <option value="1M">Horizon: 1 Month</option>
+                    <option value="1Y">Horizon: 1 Year</option>
+                    <option value="2Y">Horizon: 2 Years</option>
+                    <option value="3Y">Horizon: 3 Years</option>
+                    <option value="4Y">Horizon: 4 Years</option>
+                    <option value="5Y">Horizon: 5 Years</option>
+                </select>
+            </div>
         </div>
 
-        <!-- Sector Selector Dropdown -->
-        <div class="filter-row">
-            <select id="sectorDropdown" onchange="filterSector(this.value)">
-                <option value="All">All Sectors (IT, FMCG, Capital Markets...)</option>
-            </select>
-        </div>
-
-        <!-- List Elements -->
-        <div id="stock-list">Loading real-time calculations...</div>
+        <!-- Cards Display Surface -->
+        <div id="stock-list">Processing multi-horizon queries...</div>
     </div>
 
     <script>
         let rawStockData = [];
         let currentCap = 'All';
         let currentSector = 'All';
+        let currentTimeframe = '1W';
 
-        // Fetch data from Python-generated JSON
         fetch('data.json')
             .then(res => res.json())
             .then(data => {
@@ -65,10 +99,9 @@
                 populateSectors(data);
                 renderDashboard();
             }).catch(() => {
-                document.getElementById('stock-list').innerHTML = "Please run your GitHub action to generate data.";
+                document.getElementById('stock-list').innerHTML = "Run the GitHub action to initialize multi-year tracking records.";
             });
 
-        // Automatically pull distinct sectors dynamically to build your dropdown options
         function populateSectors(data) {
             const dropdown = document.getElementById('sectorDropdown');
             const sectors = [...new Set(data.map(item => item.sector))].sort();
@@ -81,7 +114,6 @@
         }
 
         function filterCap(capValue, element) {
-            // Manage UI Active State Class
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             element.classList.add('active');
             currentCap = capValue;
@@ -93,25 +125,34 @@
             renderDashboard();
         }
 
+        function filterTimeframe(tfValue) {
+            currentTimeframe = tfValue;
+            renderDashboard();
+        }
+
         function renderDashboard() {
             const listContainer = document.getElementById('stock-list');
             listContainer.innerHTML = '';
 
-            // Run structural filtering rules
-            const filtered = rawStockData.filter(stock => {
+            // 1. Structural Category Filtering
+            let filtered = rawStockData.filter(stock => {
                 const matchesCap = (currentCap === 'All' || stock.cap === currentCap);
                 const matchesSector = (currentSector === 'All' || stock.sector === currentSector);
                 return matchesCap && matchesSector;
             });
 
+            // 2. Dynamic Real-Time Sorting by Selected Horizon Value
+            filtered.sort((a, b) => (b.returns[currentTimeframe] || 0) - (a.returns[currentTimeframe] || 0));
+
             if(filtered.length === 0) {
-                listContainer.innerHTML = "<div style='text-align:center; padding:30px; color:#666;'>No matching stocks found for this combination.</div>";
+                listContainer.innerHTML = "<div style='grid-column: 1/-1; text-align:center; padding:40px; color:#666;'>No stock fits this combination matrix.</div>";
                 return;
             }
 
-            // Print filtered items
+            // 3. Render Generated Interface Elements
             filtered.forEach(stock => {
-                const isPositive = stock.weekly_change >= 0;
+                const performanceValue = stock.returns[currentTimeframe] || 0;
+                const isPositive = performanceValue >= 0;
                 const badgeClass = isPositive ? 'positive' : 'negative';
                 const sign = isPositive ? '+' : '';
                 
@@ -122,8 +163,7 @@
                             <div class="meta-tag">${stock.cap} Cap • ${stock.sector}</div>
                         </div>
                         <div class="score-badge ${badgeClass}">
-                            <div>${sign}${stock.weekly_change}%</div>
-                            <div style="font-size:10px; font-weight:normal; margin-top:2px; opacity:0.8;">Score: ${stock.score}</div>
+                            <div>${sign}${performanceValue}%</div>
                         </div>
                     </div>
                 `;
