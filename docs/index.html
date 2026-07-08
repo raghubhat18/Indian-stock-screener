@@ -12,6 +12,12 @@
         ::-webkit-scrollbar-track { background: #09090b; }
         ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+        
+        /* Smooth needle rotation animation */
+        .gauge-needle {
+            transform-origin: 50px 50px;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
     </style>
 </head>
 <body class="bg-black text-zinc-100 min-h-screen font-sans selection:bg-emerald-500/30 selection:text-emerald-400">
@@ -34,7 +40,10 @@
 
         <div class="flex flex-col lg:flex-row items-center justify-between gap-4 mb-6 border-b border-zinc-800 pb-4 font-mono">
             <div class="flex flex-wrap justify-center gap-2.5 w-full lg:w-auto">
-                <button id="nav-momentum" onclick="switchGlobalView('momentum')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-emerald-500/40 bg-emerald-950/30 text-emerald-400 shadow-md transition-all cursor-pointer">
+                <button id="nav-allstocks" onclick="switchGlobalView('allstocks')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-sky-500/40 bg-sky-950/30 text-sky-400 shadow-md transition-all cursor-pointer">
+                    🔍 All Stocks
+                </button>
+                <button id="nav-momentum" onclick="switchGlobalView('momentum')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">
                     ⚡ Momentum
                 </button>
                 <button id="nav-dividend" onclick="switchGlobalView('dividend')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">
@@ -44,10 +53,7 @@
                     🔥 Most Bought
                 </button>
                 <button id="nav-uppercircuit" onclick="switchGlobalView('uppercircuit')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">
-                    📈 Upper Circuits
-                </button>
-                <button id="nav-allstocks" onclick="switchGlobalView('allstocks')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">
-                    🔍 All Stocks
+                    📈 Circuits
                 </button>
             </div>
             <button onclick="openReadmeModal()" class="w-full lg:w-auto px-4 py-2 rounded-lg text-xs font-bold bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-emerald-400 hover:border-emerald-500/40 transition-all shadow-md cursor-pointer flex items-center justify-center gap-2">
@@ -55,14 +61,44 @@
             </button>
         </div>
 
-        <div id="view-momentum" class="block">
+        <div id="view-allstocks" class="block">
             <div class="flex flex-col gap-4 mb-6 bg-zinc-900/80 p-4 rounded-xl border border-zinc-800/80 backdrop-blur-sm shadow-xl">
                 <div class="relative w-full">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-500 font-mono text-sm">🔎</span>
-                    <input type="text" id="search-stocks" oninput="filterStocks()" placeholder="Filter local Nifty components by symbol or name (e.g. HDFC, RELIANCE)..." class="w-full bg-zinc-950 text-zinc-200 pl-10 pr-4 py-2 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono transition-all">
+                    <input type="text" id="all-search-stocks" oninput="filterAllStocks()" placeholder="Search entire directory by symbol or name (e.g. ZOMATO, HDFC)..." class="w-full bg-zinc-950 text-zinc-200 pl-10 pr-4 py-2.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono transition-all">
                 </div>
 
                 <div class="flex flex-wrap items-center justify-between gap-4 border-t border-zinc-800/60 pt-3">
+                    <div class="flex flex-wrap gap-2" id="all-cap-filters">
+                        <button onclick="setAllCapFilter('all')" data-cap="all" class="all-cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-sky-500 text-white font-semibold cursor-pointer shadow-lg shadow-sky-950">All Caps</button>
+                        <button onclick="setAllCapFilter('large')" data-cap="large" class="all-cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer">Large Caps</button>
+                        <button onclick="setAllCapFilter('mid')" data-cap="mid" class="all-cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer">Mid Caps</button>
+                        <button onclick="setAllCapFilter('small')" data-cap="small" class="all-cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer">Small Caps</button>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3 items-center w-full sm:w-auto">
+                        <select id="all-sector-filter" onchange="filterAllStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer font-mono">
+                            <option value="all">All Sectors</option>
+                        </select>
+                        <select id="all-price-filter" onchange="filterAllStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer font-mono">
+                            <option value="all">All Prices</option>
+                            <option value="under100">&lt; ₹100</option>
+                            <option value="100-500">₹100 - ₹500</option>
+                            <option value="500-1500">₹500 - ₹1500</option>
+                            <option value="1500-3000">₹1500 - ₹3000</option>
+                            <option value="over3000">&gt; ₹3000</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <main id="all-stock-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></main>
+        </div>
+
+
+        <div id="view-momentum" class="hidden">
+            <div class="flex flex-col gap-4 mb-6 bg-zinc-900/80 p-4 rounded-xl border border-zinc-800/80 backdrop-blur-sm shadow-xl">
+                <div class="flex flex-wrap items-center justify-between gap-4">
                     <div class="flex flex-wrap gap-2" id="cap-filters">
                         <button onclick="setCapFilter('all')" data-cap="all" class="cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-emerald-500 text-white font-semibold cursor-pointer shadow-lg shadow-emerald-950">All Caps</button>
                         <button onclick="setCapFilter('large')" data-cap="large" class="cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer">Large Caps</button>
@@ -74,38 +110,16 @@
                         <select id="sector-filter" onchange="filterStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer font-mono">
                             <option value="all">All Sectors</option>
                         </select>
-                        <select id="price-filter" onchange="filterStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer font-mono">
-                            <option value="all">All Prices</option>
-                            <option value="under100">&lt; ₹100</option>
-                            <option value="100-500">₹100 - ₹500</option>
-                            <option value="500-1500">₹500 - ₹1500</option>
-                            <option value="1500-3000">₹1500 - ₹3000</option>
-                            <option value="over3000">&gt; ₹3000</option>
-                        </select>
                         <select id="horizon-filter" onchange="filterStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer font-mono">
-                            <option value="1w">Horizon: 1 Week</option>
-                            <option value="1m">Horizon: 1 Month</option>
-                            <option value="3m">Horizon: 3 Months</option>
+                            <option value="1w">Horizon: 1 Week Performance</option>
+                            <option value="1m">Horizon: 1 Month Performance</option>
+                            <option value="3m">Horizon: 3 Months Performance</option>
                         </select>
                     </div>
                 </div>
             </div>
 
             <main id="stock-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></main>
-        </div>
-
-        <div id="view-allstocks" class="hidden">
-            <div class="bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-6 shadow-xl backdrop-blur-sm">
-                <div class="mb-4">
-                    <h2 class="text-base font-bold text-sky-400 font-mono mb-1">🔍 Live Exchange Engine Router</h2>
-                    <p class="text-xs text-zinc-500">Type any Indian or Global asset ticker below to initiate direct live chart integration.</p>
-                </div>
-                <div class="relative w-full mb-6 max-w-2xl">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-zinc-500 font-mono text-base">🔎</span>
-                    <input type="text" id="search-global-input" oninput="filterGlobalSearch()" placeholder="Search ANY global market symbol (e.g. ZOMATO, AAPL, MRF)..." class="w-full bg-zinc-950 text-zinc-200 pl-12 pr-4 py-4 rounded-xl border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono transition-all shadow-inner">
-                </div>
-                <div id="global-search-results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
-            </div>
         </div>
 
         <div id="view-dividend" class="hidden">
@@ -190,15 +204,15 @@
             </div>
             <div class="p-6 overflow-y-auto space-y-6 text-xs leading-relaxed">
                 <div>
-                    <h3 class="text-emerald-400 font-bold border-b border-zinc-800 pb-1 mb-2">⚡ 1. MOMENTUM SCREENER</h3>
-                    <p class="text-zinc-400">Clean list tracking locally cached Nifty components. Main dashboard metrics process EOD logic.</p>
+                    <h3 class="text-sky-400 font-bold border-b border-zinc-800 pb-1 mb-2">🔍 1. ALL STOCKS DIRECTORY</h3>
+                    <p class="text-zinc-400">The master database containing all standard equities. Search, filter by price, sector, and market cap to find specific assets.</p>
                 </div>
                 <div>
-                    <h3 class="text-sky-400 font-bold border-b border-zinc-800 pb-1 mb-2">🔍 2. ALL STOCKS PANEL</h3>
-                    <p class="text-zinc-400">Search for any asset (Global or Indian) outside the curated list to hook instantly into live charts.</p>
+                    <h3 class="text-emerald-400 font-bold border-b border-zinc-800 pb-1 mb-2">⚡ 2. MOMENTUM SCREENER</h3>
+                    <p class="text-zinc-400">Focuses strictly on timeline performance. Ranks assets based on 1-Week, 1-Month, and 3-Month percentage changes.</p>
                 </div>
                 <div>
-                    <h3 class="text-orange-400 font-bold border-b border-zinc-800 pb-1 mb-2">🔥 3. MOST BOUGHT STOCKS (DELIVERY PIPELINE)</h3>
+                    <h3 class="text-orange-400 font-bold border-b border-zinc-800 pb-1 mb-2">🔥 3. MOST BOUGHT STOCKS</h3>
                     <p class="text-zinc-400">Tracks intense investor accumulation by monitoring delivery percentages rather than speculative day trades.</p>
                 </div>
                 <div>
@@ -210,35 +224,50 @@
     </div>
 
     <script>
-        // Expanded Data Repository containing heavyweights across Nifty 50 / Nifty 100 indices
+        // Highly Expanded Data Repository containing heavyweights across indices
         const stockData = {
-            "RELIANCE": { name: "Reliance Industries Ltd.", cap: "large", sector: "Energy", price: 2452.10, changes: { "1w": 1.85, "1m": 3.4, "3m": 7.1 }, divAmount: 10.00, divYield: 0.41, exDate: "2026-08-27", mostBought: { surge: "2.1x", delivery: "65%", intensity: "High 🔥" }, circuit: null, tech: { rsi: 64, pivot: "Below R1 Resistance" } },
+            // NEW ADDITIONS
+            "ZOMATO": { name: "Zomato Ltd.", cap: "large", sector: "Consumer", price: 184.30, changes: { "1w": 4.2, "1m": 12.1, "3m": 34.5 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: { surge: "3.1x", delivery: "61%", intensity: "High 🔥" }, circuit: null, tech: { rsi: 71, pivot: "Above R1" } },
+            "TATAMOTORS": { name: "Tata Motors Ltd.", cap: "large", sector: "Automobile", price: 1024.15, changes: { "1w": -1.2, "1m": 5.4, "3m": 18.2 }, divAmount: 2.00, divYield: 0.19, exDate: "2026-06-10", mostBought: null, circuit: null, tech: { rsi: 54, pivot: "Near Pivot" } },
+            "HINDUNILVR": { name: "Hindustan Unilever Ltd.", cap: "large", sector: "Consumer", price: 2341.00, changes: { "1w": 0.5, "1m": -2.1, "3m": -5.4 }, divAmount: 39.00, divYield: 1.66, exDate: "2026-07-25", mostBought: null, circuit: null, tech: { rsi: 32, pivot: "Testing S2 Support" } },
+            "BAJFINANCE": { name: "Bajaj Finance Ltd.", cap: "large", sector: "Banking", price: 6850.40, changes: { "1w": 2.4, "1m": 8.9, "3m": 14.1 }, divAmount: 30.00, divYield: 0.43, exDate: "2026-06-28", mostBought: { surge: "1.8x", delivery: "55%", intensity: "Moderate" }, circuit: null, tech: { rsi: 65, pivot: "Breaking R1" } },
+            "ADANIENT": { name: "Adani Enterprises Ltd.", cap: "large", sector: "Energy", price: 3120.50, changes: { "1w": 8.4, "1m": 15.2, "3m": 22.4 }, divAmount: 1.20, divYield: 0.03, exDate: "2026-07-12", mostBought: null, circuit: null, tech: { rsi: 78, pivot: "Above R2 Resistance" } },
+            "WIPRO": { name: "Wipro Ltd.", cap: "large", sector: "IT", price: 485.20, changes: { "1w": -2.5, "1m": 1.1, "3m": 6.8 }, divAmount: 1.00, divYield: 0.20, exDate: "2026-05-15", mostBought: null, circuit: null, tech: { rsi: 44, pivot: "At S1 Support" } },
+            "MARUTI": { name: "Maruti Suzuki India Ltd.", cap: "large", sector: "Automobile", price: 11450.00, changes: { "1w": 1.1, "1m": 4.5, "3m": 11.2 }, divAmount: 90.00, divYield: 0.78, exDate: "2026-08-02", mostBought: null, circuit: null, tech: { rsi: 61, pivot: "Above Pivot" } },
+            "JIOFIN": { name: "Jio Financial Services Ltd.", cap: "large", sector: "Banking", price: 342.10, changes: { "1w": 5.1, "1m": 18.4, "3m": 42.5 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: { surge: "5.4x", delivery: "82%", intensity: "Extreme ⚡" }, circuit: null, tech: { rsi: 82, pivot: "Overextended R3" } },
+            "BHEL": { name: "Bharat Heavy Electricals", cap: "mid", sector: "Infrastructure", price: 245.30, changes: { "1w": 6.2, "1m": -1.4, "3m": 25.4 }, divAmount: 0.40, divYield: 0.16, exDate: "2026-09-10", mostBought: null, circuit: { chg: "+10.0%", band: "10%", buyers: "1,250,000" }, tech: { rsi: 69, pivot: "Hitting R2" } },
+            "RVNL": { name: "Rail Vikas Nigam Ltd.", cap: "mid", sector: "Infrastructure", price: 278.40, changes: { "1w": 12.4, "1m": 35.1, "3m": 88.5 }, divAmount: 2.13, divYield: 0.76, exDate: "2026-08-15", mostBought: { surge: "4.1x", delivery: "71%", intensity: "High 🔥" }, circuit: null, tech: { rsi: 85, pivot: "Far Above R3" } },
+
+            // ORIGINAL
+            "RELIANCE": { name: "Reliance Industries Ltd.", cap: "large", sector: "Energy", price: 2452.10, changes: { "1w": 1.85, "1m": 3.4, "3m": 7.1 }, divAmount: 10.00, divYield: 0.41, exDate: "2026-08-27", mostBought: null, circuit: null, tech: { rsi: 64, pivot: "Below R1" } },
             "TCS": { name: "Tata Consultancy Services Ltd.", cap: "large", sector: "IT", price: 3820.00, changes: { "1w": -0.45, "1m": 5.1, "3m": 9.3 }, divAmount: 28.00, divYield: 0.73, exDate: "2026-07-15", mostBought: null, circuit: null, tech: { rsi: 52, pivot: "At Pivot Point" } },
-            "HDFCBANK": { name: "HDFC Bank Ltd.", cap: "large", sector: "Banking", price: 1680.25, changes: { "1w": -1.10, "1m": 2.6, "3m": 5.9 }, divAmount: 19.50, divYield: 1.16, exDate: "2026-05-12", mostBought: { surge: "1.5x", delivery: "52%", intensity: "Moderate" }, circuit: null, tech: { rsi: 38, pivot: "Approaching S1 Support" } },
-            "INFY": { name: "Infosys Ltd.", cap: "large", sector: "IT", price: 1492.00, changes: { "1w": 2.40, "1m": 4.8, "3m": 11.2 }, divAmount: 20.00, divYield: 1.34, exDate: "2026-06-02", mostBought: null, circuit: null, tech: { rsi: 72, pivot: "Above R2 (Overextended)" } },
-            "SBIN": { name: "State Bank of India", cap: "large", sector: "Banking", price: 825.40, changes: { "1w": 3.15, "1m": 6.2, "3m": 14.1 }, divAmount: 13.70, divYield: 1.66, exDate: "2026-06-14", mostBought: { surge: "3.2x", delivery: "71%", intensity: "High 🔥" }, circuit: null, tech: { rsi: 68, pivot: "Breaking Above R1" } },
+            "HDFCBANK": { name: "HDFC Bank Ltd.", cap: "large", sector: "Banking", price: 1680.25, changes: { "1w": -1.10, "1m": 2.6, "3m": 5.9 }, divAmount: 19.50, divYield: 1.16, exDate: "2026-05-12", mostBought: null, circuit: null, tech: { rsi: 38, pivot: "Approaching S1" } },
+            "INFY": { name: "Infosys Ltd.", cap: "large", sector: "IT", price: 1492.00, changes: { "1w": 2.40, "1m": 4.8, "3m": 11.2 }, divAmount: 20.00, divYield: 1.34, exDate: "2026-06-02", mostBought: null, circuit: null, tech: { rsi: 72, pivot: "Above R2" } },
+            "SBIN": { name: "State Bank of India", cap: "large", sector: "Banking", price: 825.40, changes: { "1w": 3.15, "1m": 6.2, "3m": 14.1 }, divAmount: 13.70, divYield: 1.66, exDate: "2026-06-14", mostBought: null, circuit: null, tech: { rsi: 68, pivot: "Breaking R1" } },
             "ICICIBANK": { name: "ICICI Bank Ltd.", cap: "large", sector: "Banking", price: 1124.50, changes: { "1w": 0.85, "1m": 3.9, "3m": 6.4 }, divAmount: 10.00, divYield: 0.89, exDate: "2026-07-09", mostBought: null, circuit: null, tech: { rsi: 58, pivot: "Slightly Above Pivot" } },
-            "ITC": { name: "ITC Ltd.", cap: "large", sector: "Consumer", price: 435.50, changes: { "1w": 0.20, "1m": 1.1, "3m": -2.4 }, divAmount: 13.75, divYield: 3.16, exDate: "2026-07-21", mostBought: null, circuit: null, tech: { rsi: 34, pivot: "Sitting On S2 Support" } },
-            "BHARTIARTL": { name: "Bharti Airtel Ltd.", cap: "large", sector: "Telecom", price: 1340.20, changes: { "1w": 4.10, "1m": 9.2, "3m": 18.4 }, divAmount: 8.00, divYield: 0.60, exDate: "2026-08-05", mostBought: { surge: "4.5x", delivery: "78%", intensity: "Extreme ⚡" }, circuit: null, tech: { rsi: 76, pivot: "Far Above R2 Resistance" } },
-            "VOLTAS": { name: "Voltas Ltd.", cap: "mid", sector: "Consumer", price: 984.50, changes: { "1w": 0.95, "1m": 6.3, "3m": 15.6 }, divAmount: 5.50, divYield: 0.56, exDate: "2026-06-18", mostBought: null, circuit: { chg: "+20.0%", band: "20%", buyers: "852,430" }, tech: { rsi: 81, pivot: "Gap Up Above R3 Limit" } },
-            "KPITTECH": { name: "KPIT Technologies Ltd.", cap: "mid", sector: "IT", price: 1540.20, changes: { "1w": 6.20, "1m": 18.4, "3m": 42.1 }, divAmount: 4.60, divYield: 0.30, exDate: "2026-07-22", mostBought: null, circuit: { chg: "+10.0%", band: "10%", buyers: "314,900" }, tech: { rsi: 82, pivot: "Pinned At Daily R3" } },
-            "CDSL": { name: "Central Depository Services Ltd.", cap: "small", sector: "Capital Markets", price: 1311.40, changes: { "1w": -1.58, "1m": 4.1, "3m": 22.5 }, divAmount: 22.00, divYield: 1.68, exDate: "2026-08-18", mostBought: { surge: "5.2x", delivery: "81%", intensity: "Extreme ⚡" }, circuit: null, tech: { rsi: 55, pivot: "Holding Daily Pivot Baseline" } },
-            "YESBANK": { name: "Yes Bank Ltd.", cap: "small", sector: "Banking", price: 22.15, changes: { "1w": 4.20, "1m": -3.1, "3m": 14.8 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+10.0%", band: "10%", buyers: "4,205,100" }, tech: { rsi: 62, pivot: "Testing R1 Levels" } }
+            "ITC": { name: "ITC Ltd.", cap: "large", sector: "Consumer", price: 435.50, changes: { "1w": 0.20, "1m": 1.1, "3m": -2.4 }, divAmount: 13.75, divYield: 3.16, exDate: "2026-07-21", mostBought: null, circuit: null, tech: { rsi: 34, pivot: "Sitting On S2" } },
+            "BHARTIARTL": { name: "Bharti Airtel Ltd.", cap: "large", sector: "Telecom", price: 1340.20, changes: { "1w": 4.10, "1m": 9.2, "3m": 18.4 }, divAmount: 8.00, divYield: 0.60, exDate: "2026-08-05", mostBought: null, circuit: null, tech: { rsi: 76, pivot: "Above R2" } },
+            "VOLTAS": { name: "Voltas Ltd.", cap: "mid", sector: "Consumer", price: 984.50, changes: { "1w": 0.95, "1m": 6.3, "3m": 15.6 }, divAmount: 5.50, divYield: 0.56, exDate: "2026-06-18", mostBought: null, circuit: { chg: "+20.0%", band: "20%", buyers: "852,430" }, tech: { rsi: 81, pivot: "Gap Up Above R3" } },
+            "KPITTECH": { name: "KPIT Technologies Ltd.", cap: "mid", sector: "IT", price: 1540.20, changes: { "1w": 6.20, "1m": 18.4, "3m": 42.1 }, divAmount: 4.60, divYield: 0.30, exDate: "2026-07-22", mostBought: null, circuit: { chg: "+10.0%", band: "10%", buyers: "314,900" }, tech: { rsi: 82, pivot: "Pinned At R3" } },
+            "CDSL": { name: "Central Depository Services Ltd.", cap: "small", sector: "Capital Markets", price: 1311.40, changes: { "1w": -1.58, "1m": 4.1, "3m": 22.5 }, divAmount: 22.00, divYield: 1.68, exDate: "2026-08-18", mostBought: null, circuit: null, tech: { rsi: 55, pivot: "Holding Pivot" } },
+            "YESBANK": { name: "Yes Bank Ltd.", cap: "small", sector: "Banking", price: 22.15, changes: { "1w": 4.20, "1m": -3.1, "3m": 14.8 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+10.0%", band: "10%", buyers: "4,205,100" }, tech: { rsi: 62, pivot: "Testing R1" } }
         };
 
         const horizonLabels = { "1w": "1 Week Chg", "1m": "1 Month Chg", "3m": "3 Month Chg" };
+        
         let currentCapFilter = "all"; 
+        let currentAllCapFilter = "all";
 
         window.openReadmeModal = function() { document.getElementById('readme-modal').classList.remove('hidden'); };
         window.closeReadmeModal = function() { document.getElementById('readme-modal').classList.add('hidden'); };
 
         window.switchGlobalView = function(view) {
-            const tabs = ['momentum', 'dividend', 'mostbought', 'uppercircuit', 'allstocks'];
+            const tabs = ['allstocks', 'momentum', 'dividend', 'mostbought', 'uppercircuit'];
             tabs.forEach(t => {
                 const btn = document.getElementById(`nav-${t}`);
                 const panel = document.getElementById(`view-${t}`);
                 if (t === view) {
-                    btn.className = "px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-emerald-500/40 bg-emerald-950/30 text-emerald-400 shadow-md transition-all cursor-pointer";
+                    btn.className = `px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border shadow-md transition-all cursor-pointer ${view === 'allstocks' ? 'border-sky-500/40 bg-sky-950/30 text-sky-400' : 'border-emerald-500/40 bg-emerald-950/30 text-emerald-400'}`;
                     panel.classList.remove('hidden');
                 } else {
                     btn.className = "px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer";
@@ -246,25 +275,35 @@
                 }
             });
 
+            if (view === 'allstocks') filterAllStocks();
+            if (view === 'momentum') filterStocks();
             if (view === 'dividend') renderDividendTable();
             if (view === 'mostbought') renderMostBoughtTable();
             if (view === 'uppercircuit') renderUpperCircuitTable();
-            if (view === 'allstocks') filterGlobalSearch();
         };
 
         function initSectors() {
             const sectors = new Set();
             Object.values(stockData).forEach(s => sectors.add(s.sector));
-            const select = document.getElementById('sector-filter');
-            select.innerHTML = '<option value="all">All Sectors</option>';
+            
+            const selectMomentum = document.getElementById('sector-filter');
+            const selectAll = document.getElementById('all-sector-filter');
+            
+            selectMomentum.innerHTML = '<option value="all">All Sectors</option>';
+            selectAll.innerHTML = '<option value="all">All Sectors</option>';
+            
             sectors.forEach(sector => {
-                const opt = document.createElement('option');
-                opt.value = sector;
-                opt.textContent = sector;
-                select.appendChild(opt);
+                const opt1 = document.createElement('option');
+                opt1.value = sector; opt1.textContent = sector;
+                selectMomentum.appendChild(opt1);
+                
+                const opt2 = document.createElement('option');
+                opt2.value = sector; opt2.textContent = sector;
+                selectAll.appendChild(opt2);
             });
         }
 
+        /* ------------------ MOMENTUM TAB LOGIC ------------------ */
         function setCapFilter(capValue) {
             currentCapFilter = capValue;
             document.querySelectorAll('.cap-btn').forEach(btn => {
@@ -279,26 +318,14 @@
 
         function filterStocks() {
             const sectorFilter = document.getElementById('sector-filter').value;
-            const priceFilter = document.getElementById('price-filter').value;
             const horizon = document.getElementById('horizon-filter').value;
-            const searchQuery = document.getElementById('search-stocks').value.trim().toLowerCase();
             const grid = document.getElementById('stock-grid');
             
             grid.innerHTML = '';
 
             Object.entries(stockData).forEach(([ticker, data]) => {
-                if (searchQuery && !ticker.toLowerCase().includes(searchQuery) && !data.name.toLowerCase().includes(searchQuery)) return;
                 if (currentCapFilter !== 'all' && data.cap !== currentCapFilter) return;
                 if (sectorFilter !== 'all' && data.sector !== sectorFilter) return;
-                
-                const price = data.price;
-                if (priceFilter !== 'all') {
-                    if (priceFilter === 'under100' && price >= 100) return;
-                    if (priceFilter === '100-500' && (price < 100 || price > 500)) return;
-                    if (priceFilter === '500-1500' && (price < 500 || price > 1500)) return;
-                    if (priceFilter === '1500-3000' && (price < 1500 || price > 3000)) return;
-                    if (priceFilter === 'over3000' && price <= 3000) return;
-                }
 
                 const pct = data.changes[horizon];
                 const isPos = pct >= 0;
@@ -319,53 +346,92 @@
                             ${isPos ? '+' : ''}${pct}%
                         </span>
                         <span class="text-[10px] font-mono text-zinc-500 mt-1 uppercase tracking-wider">${horizonLabels[horizon]}</span>
-                        <p class="text-xs font-mono text-zinc-400 mt-1">₹${price.toLocaleString('en-IN')}</p>
                     </div>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        function filterGlobalSearch() {
-            const query = document.getElementById('search-global-input').value.trim().toLowerCase();
-            const container = document.getElementById('global-search-results');
-            container.innerHTML = '';
+        /* ------------------ ALL STOCKS TAB LOGIC ------------------ */
+        function setAllCapFilter(capValue) {
+            currentAllCapFilter = capValue;
+            document.querySelectorAll('.all-cap-btn').forEach(btn => {
+                if (btn.getAttribute('data-cap') === capValue) {
+                    btn.className = "all-cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-sky-500 text-white font-semibold cursor-pointer shadow-lg shadow-sky-950";
+                } else {
+                    btn.className = "all-cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer";
+                }
+            });
+            filterAllStocks();
+        }
+
+        function filterAllStocks() {
+            const sectorFilter = document.getElementById('all-sector-filter').value;
+            const priceFilter = document.getElementById('all-price-filter').value;
+            const searchQuery = document.getElementById('all-search-stocks').value.trim().toLowerCase();
+            const grid = document.getElementById('all-stock-grid');
             
-            // Show matched local results if applicable
+            grid.innerHTML = '';
+
             Object.entries(stockData).forEach(([ticker, data]) => {
-                if (query && !ticker.toLowerCase().includes(query) && !data.name.toLowerCase().includes(query)) return;
+                if (searchQuery && !ticker.toLowerCase().includes(searchQuery) && !data.name.toLowerCase().includes(searchQuery)) return;
+                if (currentAllCapFilter !== 'all' && data.cap !== currentAllCapFilter) return;
+                if (sectorFilter !== 'all' && data.sector !== sectorFilter) return;
+                
+                const price = data.price;
+                if (priceFilter !== 'all') {
+                    if (priceFilter === 'under100' && price >= 100) return;
+                    if (priceFilter === '100-500' && (price < 100 || price > 500)) return;
+                    if (priceFilter === '500-1500' && (price < 500 || price > 1500)) return;
+                    if (priceFilter === '1500-3000' && (price < 1500 || price > 3000)) return;
+                    if (priceFilter === 'over3000' && price <= 3000) return;
+                }
+
                 const card = document.createElement('div');
-                card.className = "bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-sky-500/50 hover:bg-zinc-900/80 transition-all cursor-pointer group";
+                card.className = "bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-sky-500/50 hover:bg-zinc-900/80 transition-all duration-300 cursor-pointer group shadow-md";
                 card.setAttribute('onclick', `openWorkspace('${ticker}')`);
+                
                 card.innerHTML = `
                     <div>
-                        <span class="text-xs font-mono text-zinc-500 block uppercase">${data.cap} Cap</span>
-                        <h3 class="font-bold text-sm tracking-wide text-zinc-200 group-hover:text-sky-400 transition-colors mt-0.5">${ticker}</h3>
-                        <p class="text-[11px] text-zinc-400 truncate mt-1">${data.name}</p>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-bold text-sm tracking-wide text-zinc-200 group-hover:text-sky-400 transition-colors">${ticker}</h3>
+                                <p class="text-[11px] text-zinc-500 truncate mt-0.5">${data.name}</p>
+                            </div>
+                            <span class="text-zinc-200 font-bold font-mono text-sm">₹${price.toLocaleString('en-IN')}</span>
+                        </div>
+                        <span class="inline-block mt-3 text-[10px] px-2 py-0.5 rounded bg-zinc-950 border border-zinc-800 text-zinc-400 font-mono capitalize">
+                            ${data.cap} Cap • ${data.sector}
+                        </span>
                     </div>
                 `;
-                container.appendChild(card);
+                grid.appendChild(card);
             });
 
-            // Always show the dynamic trigger box for ANY input >= 2 chars
-            if (query.length >= 2) {
-                const rawTicker = query.toUpperCase();
-                const globalCard = document.createElement('div');
-                globalCard.className = "col-span-1 sm:col-span-2 bg-zinc-900/20 border-2 border-dashed border-zinc-700 rounded-xl p-6 flex flex-col items-center justify-center text-center hover:border-sky-500/60 transition-all cursor-pointer group";
-                globalCard.setAttribute('onclick', `openWorkspace('${rawTicker}')`);
-                globalCard.innerHTML = `
-                    <h4 class="text-sm font-bold font-mono text-sky-400">Launch Live Terminal: "${rawTicker}"</h4>
-                    <p class="text-[11px] text-zinc-400 mt-2 max-w-sm">Tap to instantly route "${rawTicker}" into the live workspace engine bypassing local filters.</p>
-                    <span class="mt-4 text-[10px] font-mono bg-sky-950/40 text-sky-400 border border-sky-900 px-4 py-1.5 rounded uppercase tracking-wider font-bold">⚡ Launch Bridge</span>
-                `;
-                container.appendChild(globalCard);
+            // Dynamic hook for any ticker not in database
+            if (searchQuery.length >= 2) {
+                const rawTicker = searchQuery.toUpperCase();
+                // Check if it exactly matches an existing ticker to avoid duplicates
+                if (!stockData[rawTicker]) {
+                    const globalCard = document.createElement('div');
+                    globalCard.className = "col-span-1 sm:col-span-2 lg:col-span-3 xl:col-span-4 bg-zinc-900/20 border-2 border-dashed border-zinc-700 rounded-xl p-6 flex flex-col items-center justify-center text-center hover:border-sky-500/60 transition-all cursor-pointer group";
+                    globalCard.setAttribute('onclick', `openWorkspace('${rawTicker}')`);
+                    globalCard.innerHTML = `
+                        <h4 class="text-sm font-bold font-mono text-sky-400">Search Market For: "${rawTicker}"</h4>
+                        <p class="text-[11px] text-zinc-400 mt-2 max-w-sm">Tap to connect directly to the live exchange and launch a workspace for this ticker.</p>
+                        <span class="mt-4 text-[10px] font-mono bg-sky-950/40 text-sky-400 border border-sky-900 px-4 py-1.5 rounded uppercase tracking-wider font-bold">⚡ Launch Bridge</span>
+                    `;
+                    grid.appendChild(globalCard);
+                }
             }
         }
 
+        /* ------------------ RENDER TABLES ------------------ */
         function renderDividendTable() {
             const container = document.getElementById('dividend-table-body');
             container.innerHTML = '';
             Object.entries(stockData).forEach(([ticker, data]) => {
+                if(data.divAmount === 0) return;
                 const row = document.createElement('tr');
                 row.className = "hover:bg-zinc-900/50 cursor-pointer transition-colors group";
                 row.setAttribute('onclick', `openWorkspace('${ticker}')`);
@@ -420,6 +486,7 @@
             });
         }
 
+        /* ------------------ WORKSPACE LOGIC ------------------ */
         function getMockNews(ticker) {
             return [
                 { source: "Bloomberg Quint", time: "2h ago", title: `${ticker} volume breakouts cross moving average baseline benchmarks.` },
@@ -428,7 +495,6 @@
             ];
         }
 
-        // Returns purely textual analysis markup for the new Suggestion Tab
         function generateSuggestionMarkup(ticker) {
             const cached = stockData[ticker];
             const rsi = cached ? cached.tech.rsi : Math.floor(Math.random() * (75 - 35) + 35);
@@ -449,7 +515,7 @@
 
             let pivotRec = "";
             let pivotScore = 0;
-            if (pivot.includes("Above R2") || pivot.includes("R3") || pivot.includes("Resistance")) {
+            if (pivot.includes("Above R2") || pivot.includes("R3") || pivot.includes("Resistance") || pivot.includes("Overextended")) {
                 pivotRec = `Pivot calculations indicate overhead structural resistance layers (${pivot}). Buying here forces poor risk-to-reward ratios; recommended to wait.`;
                 pivotScore = -2;
             } else if (pivot.includes("Support") || pivot.includes("S1") || pivot.includes("S2")) {
@@ -493,7 +559,6 @@
             `;
         }
 
-        // The Original TradingView Technical Gauge Injector
         function initDecoderGauge(ticker) {
             const targetContainer = document.getElementById('tv-decoder-container');
             if (!targetContainer) return;
@@ -518,7 +583,7 @@
         }
 
         window.openWorkspace = function(ticker) {
-            const details = stockData[ticker] || { name: "NSE Live Market Asset Listing", cap: "global", sector: "Market Index" };
+            const details = stockData[ticker] || { name: "Live Market Search", cap: "global", sector: "Equities" };
             const overlay = document.getElementById('workspace-overlay');
             overlay.className = "fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-0 sm:p-4 backdrop-blur-md";
             
@@ -588,7 +653,7 @@
                     "interval": "D",
                     "timezone": "Asia/Kolkata",
                     "theme": "dark",
-                    "style": "3", // Triggers fast native Line chart
+                    "style": "3", // Code 3 triggers fast native Line chart
                     "locale": "en",
                     "enable_publishing": false,
                     "hide_side_toolbar": true, 
@@ -616,7 +681,7 @@
                 }
             });
 
-            // We only initialize the TradingView original gauge exactly when the Decoder tab is clicked to prevent layout rendering bugs
+            // Delay initialization of TradingView gauge until the tab is clicked to prevent sizing bugs
             if (activeTab === 'decoder') {
                 const container = document.getElementById('tv-decoder-container');
                 if (container && container.innerHTML.trim() === '') {
@@ -631,6 +696,7 @@
         };
 
         initSectors();
+        filterAllStocks();
         filterStocks();
     </script>
 </body>
