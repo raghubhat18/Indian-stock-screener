@@ -3,58 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Short-Term India Stock Screener</title>
+    <title>India Stock Screener Pro</title>
     <link rel="manifest" href="manifest.json">
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #121212; color: #e0e0e0; margin: 0; padding: 20px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #121212; color: #e0e0e0; margin: 0; padding: 16px; }
         .container { max-width: 600px; margin: 0 auto; }
-        h1 { text-align: center; color: #00ff88; font-size: 24px; }
+        h1 { text-align: center; color: #00ff88; font-size: 22px; margin-bottom: 5px; }
         .subtitle { text-align: center; color: #888; font-size: 12px; margin-bottom: 20px; }
-        .card { background: #1e1e1e; padding: 15px; border-radius: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #2d2d2d; }
-        .ticker { font-weight: bold; font-size: 18px; color: #ffffff; }
-        .price { color: #aaa; font-size: 14px; margin-top: 4px; }
-        .score-badge { padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 14px; }
+        
+        /* Interactive Filters Style */
+        .tabs { display: flex; background: #1e1e1e; border-radius: 8px; padding: 4px; margin-bottom: 15px; border: 1px solid #2d2d2d; }
+        .tab { flex: 1; text-align: center; padding: 10px; cursor: pointer; border-radius: 6px; font-weight: bold; font-size: 14px; color: #aaa; transition: 0.2s; }
+        .tab.active { background: #00ff88; color: #121212; }
+        
+        .filter-row { margin-bottom: 15px; }
+        select { wIdth: 100%; background: #1e1e1e; color: #fff; border: 1px solid #2d2d2d; padding: 12px; border-radius: 8px; font-size: 14px; outline: none; }
+
+        /* Card Layout */
+        .card { background: #1e1e1e; padding: 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #2d2d2d; }
+        .ticker { font-weight: bold; font-size: 16px; color: #ffffff; }
+        .meta-tag { font-size: 11px; color: #888; background: #2a2a2a; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 4px; }
+        .score-badge { padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 13px; text-align: right; }
         .positive { background: rgba(0, 255, 136, 0.15); color: #00ff88; }
         .negative { background: rgba(255, 69, 58, 0.15); color: #ff453a; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🇮🇳 Short-Term Momentum</h1>
-        <div class="subtitle">Top picks based on 1-week relative strength</div>
-        <div id="stock-list">Loading latest analysis...</div>
+        <h1>🇮🇳 Indian Stock Screener Pro</h1>
+        <div class="subtitle">Short-term Momentum Tracker</div>
+
+        <!-- Market Cap Navigation Tabs -->
+        <div class="tabs">
+            <div class="tab active" onclick="filterCap('All', this)">All Caps</div>
+            <div class="tab" onclick="filterCap('Large', this)">Large</div>
+            <div class="tab" onclick="filterCap('Mid', this)">Mid</div>
+            <div class="tab" onclick="filterCap('Small', this)">Small</div>
+        </div>
+
+        <!-- Sector Selector Dropdown -->
+        <div class="filter-row">
+            <select id="sectorDropdown" onchange="filterSector(this.value)">
+                <option value="All">All Sectors (IT, FMCG, Capital Markets...)</option>
+            </select>
+        </div>
+
+        <!-- List Elements -->
+        <div id="stock-list">Loading real-time calculations...</div>
     </div>
 
     <script>
-        // Fetch the generated data file
+        let rawStockData = [];
+        let currentCap = 'All';
+        let currentSector = 'All';
+
+        // Fetch data from Python-generated JSON
         fetch('data.json')
             .then(res => res.json())
             .then(data => {
-                const listContainer = document.getElementById('stock-list');
-                listContainer.innerHTML = '';
-                
-                data.forEach(stock => {
-                    const isPositive = stock.weekly_change >= 0;
-                    const badgeClass = isPositive ? 'positive' : 'negative';
-                    const sign = isPositive ? '+' : '';
-                    
-                    listContainer.innerHTML += `
-                        <div class="card">
-                            <div>
-                                <div class="ticker">${stock.ticker}</div>
-                                <div class="price">₹${stock.price}</div>
-                            </div>
-                            <div class="score-badge ${badgeClass}">
-                                ${sign}${stock.weekly_change}% (Score: ${stock.score})
-                            </div>
-                        </div>
-                    `;
-                });
+                rawStockData = data;
+                populateSectors(data);
+                renderDashboard();
             }).catch(() => {
-                document.getElementById('stock-list').innerHTML = "No data generated yet. Wait for the automated run.";
+                document.getElementById('stock-list').innerHTML = "Please run your GitHub action to generate data.";
             });
 
-        // Register Service Worker for PWA functionality
+        // Automatically pull distinct sectors dynamically to build your dropdown options
+        def populateSectors(data) {
+            const dropdown = document.getElementById('sectorDropdown');
+            const sectors = [...new Set(data.map(item => item.sector))].sort();
+            sectors.forEach(sec => {
+                const opt = document.createElement('option');
+                opt.value = sec;
+                opt.textContent = sec;
+                dropdown.appendChild(opt);
+            });
+        }
+
+        def filterCap(capValue, element) {
+            // Manage UI Active State Class
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+            currentCap = capValue;
+            renderDashboard();
+        }
+
+        def filterSector(sectorValue) {
+            currentSector = sectorValue;
+            renderDashboard();
+        }
+
+        def renderDashboard() {
+            const listContainer = document.getElementById('stock-list');
+            listContainer.innerHTML = '';
+
+            // Run structural filtering rules
+            const filtered = rawStockData.filter(stock => {
+                const matchesCap = (currentCap === 'All' || stock.cap === currentCap);
+                const matchesSector = (currentSector === 'All' || stock.sector === currentSector);
+                return matchesCap && matchesSector;
+            });
+
+            if(filtered.length === 0) {
+                listContainer.innerHTML = "<div style='text-align:center; padding:30px; color:#666;'>No matching stocks found for this combination.</div>";
+                return;
+            }
+
+            // Print filtered items
+            filtered.forEach(stock => {
+                const isPositive = stock.weekly_change >= 0;
+                const badgeClass = isPositive ? 'positive' : 'negative';
+                const sign = isPositive ? '+' : '';
+                
+                listContainer.innerHTML += `
+                    <div class="card">
+                        <div>
+                            <div class="ticker">${stock.ticker}</div>
+                            <div class="meta-tag">${stock.cap} Cap • ${stock.sector}</div>
+                        </div>
+                        <div class="score-badge ${badgeClass}">
+                            <div>${sign}${stock.weekly_change}%</div>
+                            <div style="font-size:10px; font-weight:normal; margin-top:2px; opacity:0.8;">Score: ${stock.score}</div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js').catch(() => {});
         }
