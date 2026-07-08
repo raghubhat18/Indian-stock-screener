@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RBK NiftyPulse Scanner</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#09090b">
-    <link rel="apple-touch-icon" href="icon-192.png">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
@@ -66,14 +63,23 @@
                 </div>
 
                 <div class="flex flex-wrap items-center justify-between gap-4 border-t border-zinc-800/60 pt-3">
-                    <div class="flex flex-wrap gap-2" id="all-cap-filters">
-                        <button onclick="setAllCapFilter('all')" data-cap="all" class="all-cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-sky-500 text-white font-semibold cursor-pointer shadow-lg shadow-sky-950">All Caps</button>
-                        <button onclick="setAllCapFilter('large')" data-cap="large" class="all-cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer">Large Caps</button>
-                        <button onclick="setAllCapFilter('mid')" data-cap="mid" class="all-cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer">Mid Caps</button>
-                        <button onclick="setAllCapFilter('small')" data-cap="small" class="all-cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer">Small Caps</button>
+                    
+                    <div class="flex flex-col sm:flex-row flex-wrap gap-4 w-full lg:w-auto">
+                        <div class="flex flex-wrap gap-2 bg-zinc-950/50 p-1 rounded-lg border border-zinc-800/80" id="all-trend-filters">
+                            <button onclick="setAllTrendFilter('all')" data-trend="all" class="all-trend-btn px-4 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-sky-500/20 text-sky-400 border border-sky-500/50 cursor-pointer">All Trends</button>
+                            <button onclick="setAllTrendFilter('bullish')" data-trend="bullish" class="all-trend-btn px-4 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-transparent text-zinc-400 hover:text-emerald-400 border border-transparent cursor-pointer">Bullish 🟢</button>
+                            <button onclick="setAllTrendFilter('bearish')" data-trend="bearish" class="all-trend-btn px-4 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-transparent text-zinc-400 hover:text-rose-400 border border-transparent cursor-pointer">Bearish 🔴</button>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2 bg-zinc-950/50 p-1 rounded-lg border border-zinc-800/80" id="all-cap-filters">
+                            <button onclick="setAllCapFilter('all')" data-cap="all" class="all-cap-btn px-4 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-zinc-800 text-white cursor-pointer shadow-sm">All Caps</button>
+                            <button onclick="setAllCapFilter('large')" data-cap="large" class="all-cap-btn px-4 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-transparent text-zinc-400 hover:text-white cursor-pointer">Large</button>
+                            <button onclick="setAllCapFilter('mid')" data-cap="mid" class="all-cap-btn px-4 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-transparent text-zinc-400 hover:text-white cursor-pointer">Mid</button>
+                            <button onclick="setAllCapFilter('small')" data-cap="small" class="all-cap-btn px-4 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-transparent text-zinc-400 hover:text-white cursor-pointer">Small</button>
+                        </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-3 items-center w-full sm:w-auto">
+                    <div class="flex flex-wrap gap-3 items-center w-full lg:w-auto">
                         <select id="all-sector-filter" onchange="filterAllStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer font-mono">
                             <option value="all">All Sectors</option>
                         </select>
@@ -97,39 +103,12 @@
                 </div>
             </div>
 
-            <div class="space-y-6">
-                <div class="bg-zinc-900/40 border border-emerald-900/50 rounded-xl overflow-hidden shadow-lg">
-                    <div onclick="toggleGroup('positive')" class="bg-emerald-950/30 px-6 py-4 flex items-center justify-between cursor-pointer hover:bg-emerald-900/30 transition-colors">
-                        <div>
-                            <h2 class="text-emerald-400 font-bold font-mono tracking-wide">🟢 Bullish Trend / Positive Momentum</h2>
-                            <p class="text-[11px] text-zinc-400 mt-0.5">Assets showing positive 1-month growth</p>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="bg-emerald-900/50 text-emerald-400 px-3 py-1 rounded-full text-xs font-bold" id="pos-count">0 Assets</span>
-                            <span id="positive-icon" class="text-emerald-400 font-mono font-bold text-lg">[+]</span>
-                        </div>
-                    </div>
-                    <div id="positive-grid" class="hidden p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 bg-black/20">
-                        </div>
-                </div>
-
-                <div class="bg-zinc-900/40 border border-rose-900/50 rounded-xl overflow-hidden shadow-lg">
-                    <div onclick="toggleGroup('negative')" class="bg-rose-950/30 px-6 py-4 flex items-center justify-between cursor-pointer hover:bg-rose-900/30 transition-colors">
-                        <div>
-                            <h2 class="text-rose-400 font-bold font-mono tracking-wide">🔴 Bearish Trend / Negative Momentum</h2>
-                            <p class="text-[11px] text-zinc-400 mt-0.5">Assets experiencing 1-month contraction</p>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="bg-rose-900/50 text-rose-400 px-3 py-1 rounded-full text-xs font-bold" id="neg-count">0 Assets</span>
-                            <span id="negative-icon" class="text-rose-400 font-mono font-bold text-lg">[+]</span>
-                        </div>
-                    </div>
-                    <div id="negative-grid" class="hidden p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 bg-black/20">
-                        </div>
-                </div>
-                
-                <div id="global-search-hook" class="hidden grid-cols-1 gap-4"></div>
+            <div class="mb-3 flex justify-between items-end">
+                <span id="all-directory-count" class="text-xs font-mono text-zinc-500 tracking-wider">LOADING...</span>
             </div>
+            
+            <main id="all-stock-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></main>
+            <div id="global-search-hook" class="hidden mt-4"></div>
         </div>
 
         <div id="view-momentum" class="hidden">
@@ -154,7 +133,6 @@
                     </div>
                 </div>
             </div>
-
             <main id="stock-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></main>
         </div>
 
@@ -230,14 +208,7 @@
                 <div class="overflow-x-auto rounded-lg border border-zinc-800 bg-zinc-950">
                     <table class="w-full text-left font-mono text-xs text-zinc-300 divide-y divide-zinc-800">
                         <thead class="bg-zinc-900/80 text-zinc-400 uppercase text-[10px] tracking-wider">
-                            <tr>
-                                <th class="p-4">Symbol</th>
-                                <th class="p-4">Company Name</th>
-                                <th class="p-4 text-right">Price</th>
-                                <th class="p-4 text-right">1M Growth</th>
-                                <th class="p-4 text-center">Risk Parameter Check</th>
-                                <th class="p-4 text-emerald-400 text-right">Target Multiplier</th>
-                            </tr>
+                            <tr><th class="p-4">Symbol</th><th class="p-4">Company Name</th><th class="p-4 text-right">Price</th><th class="p-4 text-right">1M Growth</th><th class="p-4 text-center">Risk Parameter Check</th><th class="p-4 text-emerald-400 text-right">Target Multiplier</th></tr>
                         </thead>
                         <tbody id="highrisk-table-body" class="divide-y divide-zinc-900"></tbody>
                     </table>
@@ -250,55 +221,41 @@
     <div id="workspace-overlay" class="hidden"></div>
 
     <script>
-        // Heavily expanded database core to increase operational density across specific custom modules
+        // Database with added Fundamental Data (P/E, ROE, D/E) to support the new workspace terminal
         const stockData = {
-            "RELIANCE": { name: "Reliance Industries Ltd.", cap: "large", sector: "Energy", price: 2452.10, changes: { "1w": 1.85, "1m": 3.4, "3m": 7.1 }, divAmount: 10.00, divYield: 0.41, exDate: "2026-08-27", mostBought: { surge: "2.1x", delivery: "65%", intensity: "High 🔥", tf: "1w" }, circuit: null, tech: { rsi: 64, pivot: "Below R1" }, riskMetrics: null },
-            "TCS": { name: "Tata Consultancy Services Ltd.", cap: "large", sector: "IT", price: 3820.00, changes: { "1w": -0.45, "1m": 5.1, "3m": 9.3 }, divAmount: 28.00, divYield: 0.73, exDate: "2026-07-15", mostBought: null, circuit: null, tech: { rsi: 52, pivot: "At Pivot Point" }, riskMetrics: null },
-            "HDFCBANK": { name: "HDFC Bank Ltd.", cap: "large", sector: "Banking", price: 1680.25, changes: { "1w": -1.10, "1m": 2.6, "3m": 5.9 }, divAmount: 19.50, divYield: 1.16, exDate: "2026-05-12", mostBought: null, circuit: null, tech: { rsi: 38, pivot: "Approaching S1" }, riskMetrics: null },
-            "INFY": { name: "Infosys Ltd.", cap: "large", sector: "IT", price: 1492.00, changes: { "1w": 2.40, "1m": -4.8, "3m": 11.2 }, divAmount: 20.00, divYield: 1.34, exDate: "2026-06-02", mostBought: null, circuit: null, tech: { rsi: 72, pivot: "Above R2" }, riskMetrics: null },
-            "SBIN": { name: "State Bank of India", cap: "large", sector: "Banking", price: 825.40, changes: { "1w": 3.15, "1m": 6.2, "3m": 14.1 }, divAmount: 13.70, divYield: 1.66, exDate: "2026-06-14", mostBought: { surge: "3.2x", delivery: "71%", intensity: "High 🔥", tf: "today" }, circuit: null, tech: { rsi: 68, pivot: "Breaking R1" }, riskMetrics: null },
-            "ICICIBANK": { name: "ICICI Bank Ltd.", cap: "large", sector: "Banking", price: 1124.50, changes: { "1w": 0.85, "1m": 3.9, "3m": 6.4 }, divAmount: 10.00, divYield: 0.89, exDate: "2026-07-09", mostBought: null, circuit: null, tech: { rsi: 58, pivot: "Slightly Above Pivot" }, riskMetrics: null },
-            "ITC": { name: "ITC Ltd.", cap: "large", sector: "Consumer", price: 435.50, changes: { "1w": 0.20, "1m": -1.1, "3m": -2.4 }, divAmount: 13.75, divYield: 3.16, exDate: "2026-07-21", mostBought: null, circuit: null, tech: { rsi: 34, pivot: "Sitting On S2" }, riskMetrics: null },
-            "BHARTIARTL": { name: "Bharti Airtel Ltd.", cap: "large", sector: "Telecom", price: 1340.20, changes: { "1w": -4.10, "1m": -9.2, "3m": 18.4 }, divAmount: 8.00, divYield: 0.60, exDate: "2026-08-05", mostBought: null, circuit: null, tech: { rsi: 76, pivot: "Above R2" }, riskMetrics: null },
-            "LARSEN": { name: "Larsen & Toubro Ltd.", cap: "large", sector: "Infrastructure", price: 3450.10, changes: { "1w": 2.40, "1m": 8.1, "3m": 14.2 }, divAmount: 24.00, divYield: 0.70, exDate: "2026-07-30", mostBought: null, circuit: null, tech: { rsi: 55, pivot: "Near Pivot" }, riskMetrics: null },
-            "HINDUNILVR": { name: "Hindustan Unilever Ltd.", cap: "large", sector: "Consumer", price: 2341.00, changes: { "1w": -0.5, "1m": -2.1, "3m": -5.4 }, divAmount: 39.00, divYield: 1.66, exDate: "2026-07-25", mostBought: null, circuit: null, tech: { rsi: 35, pivot: "S2 Support" }, riskMetrics: null },
-            "BAJFINANCE": { name: "Bajaj Finance Ltd.", cap: "large", sector: "Banking", price: 6850.40, changes: { "1w": 2.4, "1m": 8.9, "3m": 14.1 }, divAmount: 30.00, divYield: 0.43, exDate: "2026-06-28", mostBought: { surge: "1.8x", delivery: "55%", intensity: "Moderate", tf: "1m" }, circuit: null, tech: { rsi: 66, pivot: "R1 Resistance" }, riskMetrics: null },
-            "ADANIENT": { name: "Adani Enterprises Ltd.", cap: "large", sector: "Energy", price: 3120.50, changes: { "1w": -8.4, "1m": -15.2, "3m": -22.4 }, divAmount: 1.20, divYield: 0.03, exDate: "2026-07-12", mostBought: null, circuit: null, tech: { rsi: 28, pivot: "Below S2" }, riskMetrics: null },
-            "HAL": { name: "Hindustan Aeronautics", cap: "large", sector: "Defence", price: 3840.50, changes: { "1w": 5.4, "1m": 14.2, "3m": 42.1 }, divAmount: 22.00, divYield: 0.57, exDate: "2026-08-20", mostBought: { surge: "4.1x", delivery: "68%", intensity: "Extreme ⚡", tf: "today" }, circuit: null, tech: { rsi: 74, pivot: "Above R1" }, riskMetrics: null },
+            "RELIANCE": { name: "Reliance Industries Ltd.", cap: "large", sector: "Energy", price: 2452.10, changes: { "1w": 1.85, "1m": 3.4, "3m": 7.1 }, divAmount: 10.00, divYield: 0.41, exDate: "2026-08-27", mostBought: { surge: "2.1x", delivery: "65%", intensity: "High 🔥", tf: "1w" }, circuit: null, tech: { rsi: 64, pivot: "Below R1" }, funda: { pe: 28.4, roe: 9.5, de: 0.4 }, riskMetrics: null },
+            "TCS": { name: "Tata Consultancy Services Ltd.", cap: "large", sector: "IT", price: 3820.00, changes: { "1w": -0.45, "1m": 5.1, "3m": 9.3 }, divAmount: 28.00, divYield: 0.73, exDate: "2026-07-15", mostBought: null, circuit: null, tech: { rsi: 52, pivot: "At Pivot Point" }, funda: { pe: 32.1, roe: 46.2, de: 0.0 }, riskMetrics: null },
+            "HDFCBANK": { name: "HDFC Bank Ltd.", cap: "large", sector: "Banking", price: 1680.25, changes: { "1w": -1.10, "1m": 2.6, "3m": 5.9 }, divAmount: 19.50, divYield: 1.16, exDate: "2026-05-12", mostBought: null, circuit: null, tech: { rsi: 38, pivot: "Approaching S1" }, funda: { pe: 16.2, roe: 15.8, de: 1.1 }, riskMetrics: null },
+            "INFY": { name: "Infosys Ltd.", cap: "large", sector: "IT", price: 1492.00, changes: { "1w": 2.40, "1m": -4.8, "3m": 11.2 }, divAmount: 20.00, divYield: 1.34, exDate: "2026-06-02", mostBought: null, circuit: null, tech: { rsi: 72, pivot: "Above R2" }, funda: { pe: 24.5, roe: 31.2, de: 0.0 }, riskMetrics: null },
+            "SBIN": { name: "State Bank of India", cap: "large", sector: "Banking", price: 825.40, changes: { "1w": 3.15, "1m": 6.2, "3m": 14.1 }, divAmount: 13.70, divYield: 1.66, exDate: "2026-06-14", mostBought: { surge: "3.2x", delivery: "71%", intensity: "High 🔥", tf: "today" }, circuit: null, tech: { rsi: 68, pivot: "Breaking R1" }, funda: { pe: 9.8, roe: 18.5, de: 1.4 }, riskMetrics: null },
+            "ICICIBANK": { name: "ICICI Bank Ltd.", cap: "large", sector: "Banking", price: 1124.50, changes: { "1w": 0.85, "1m": 3.9, "3m": 6.4 }, divAmount: 10.00, divYield: 0.89, exDate: "2026-07-09", mostBought: null, circuit: null, tech: { rsi: 58, pivot: "Slightly Above Pivot" }, funda: { pe: 17.5, roe: 18.1, de: 1.2 }, riskMetrics: null },
+            "ITC": { name: "ITC Ltd.", cap: "large", sector: "Consumer", price: 435.50, changes: { "1w": 0.20, "1m": -1.1, "3m": -2.4 }, divAmount: 13.75, divYield: 3.16, exDate: "2026-07-21", mostBought: null, circuit: null, tech: { rsi: 34, pivot: "Sitting On S2" }, funda: { pe: 26.1, roe: 28.5, de: 0.0 }, riskMetrics: null },
+            "BHARTIARTL": { name: "Bharti Airtel Ltd.", cap: "large", sector: "Telecom", price: 1340.20, changes: { "1w": -4.10, "1m": -9.2, "3m": 18.4 }, divAmount: 8.00, divYield: 0.60, exDate: "2026-08-05", mostBought: null, circuit: null, tech: { rsi: 76, pivot: "Above R2" }, funda: { pe: 54.2, roe: 12.1, de: 1.3 }, riskMetrics: null },
+            "LARSEN": { name: "Larsen & Toubro Ltd.", cap: "large", sector: "Infrastructure", price: 3450.10, changes: { "1w": 2.40, "1m": 8.1, "3m": 14.2 }, divAmount: 24.00, divYield: 0.70, exDate: "2026-07-30", mostBought: null, circuit: null, tech: { rsi: 55, pivot: "Near Pivot" }, funda: { pe: 38.5, roe: 14.2, de: 1.1 }, riskMetrics: null },
+            "HINDUNILVR": { name: "Hindustan Unilever Ltd.", cap: "large", sector: "Consumer", price: 2341.00, changes: { "1w": -0.5, "1m": -2.1, "3m": -5.4 }, divAmount: 39.00, divYield: 1.66, exDate: "2026-07-25", mostBought: null, circuit: null, tech: { rsi: 35, pivot: "S2 Support" }, funda: { pe: 58.2, roe: 20.4, de: 0.0 }, riskMetrics: null },
+            "BAJFINANCE": { name: "Bajaj Finance Ltd.", cap: "large", sector: "Banking", price: 6850.40, changes: { "1w": 2.4, "1m": 8.9, "3m": 14.1 }, divAmount: 30.00, divYield: 0.43, exDate: "2026-06-28", mostBought: { surge: "1.8x", delivery: "55%", intensity: "Moderate", tf: "1m" }, circuit: null, tech: { rsi: 66, pivot: "R1 Resistance" }, funda: { pe: 31.4, roe: 22.1, de: 4.5 }, riskMetrics: null },
+            "ADANIENT": { name: "Adani Enterprises Ltd.", cap: "large", sector: "Energy", price: 3120.50, changes: { "1w": -8.4, "1m": -15.2, "3m": -22.4 }, divAmount: 1.20, divYield: 0.03, exDate: "2026-07-12", mostBought: null, circuit: null, tech: { rsi: 28, pivot: "Below S2" }, funda: { pe: 112.5, roe: 9.4, de: 1.8 }, riskMetrics: null },
+            "HAL": { name: "Hindustan Aeronautics", cap: "large", sector: "Defence", price: 3840.50, changes: { "1w": 5.4, "1m": 14.2, "3m": 42.1 }, divAmount: 22.00, divYield: 0.57, exDate: "2026-08-20", mostBought: { surge: "4.1x", delivery: "68%", intensity: "Extreme ⚡", tf: "today" }, circuit: null, tech: { rsi: 74, pivot: "Above R1" }, funda: { pe: 42.1, roe: 28.4, de: 0.0 }, riskMetrics: null },
+            "MAZDOCK": { name: "Mazagon Dock Shipbuilders", cap: "mid", sector: "Defence", price: 2145.30, changes: { "1w": 12.1, "1m": 28.5, "3m": 85.4 }, divAmount: 15.30, divYield: 0.71, exDate: "2026-09-05", mostBought: null, circuit: { chg: "+10.0%", band: "10%", buyers: "850,200", tf: "1w" }, tech: { rsi: 85, pivot: "Overextended R3" }, funda: { pe: 48.5, roe: 36.1, de: 0.0 }, riskMetrics: { threat: "High Overvaluation", award: "Defense Order Pipeline", beta: "2.1x" } },
+            "RVNL": { name: "Rail Vikas Nigam Ltd.", cap: "mid", sector: "Infrastructure", price: 278.40, changes: { "1w": 12.4, "1m": 35.1, "3m": 88.5 }, divAmount: 2.13, divYield: 0.76, exDate: "2026-08-15", mostBought: { surge: "4.1x", delivery: "71%", intensity: "High 🔥", tf: "1m" }, circuit: null, tech: { rsi: 82, pivot: "R3 Resistance" }, funda: { pe: 35.2, roe: 20.4, de: 0.8 }, riskMetrics: { threat: "Policy Shift Exposure", award: "Railway Modernization Multiplier", beta: "1.9x" } },
+            "IREDA": { name: "Indian Renewable Energy Dev.", cap: "mid", sector: "Energy", price: 198.50, changes: { "1w": 14.2, "1m": 42.1, "3m": 112.4 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+5.0%", band: "5%", buyers: "2,100,000", tf: "today" }, tech: { rsi: 88, pivot: "Skyward Parabolic" }, funda: { pe: 45.1, roe: 15.8, de: 6.2 }, riskMetrics: { threat: "High Speculative Leverage", award: "Green Sovereign Funding Apex", beta: "2.4x" } },
+            "SUZLON": { name: "Suzlon Energy Ltd.", cap: "small", sector: "Energy", price: 42.15, changes: { "1w": 8.4, "1m": 24.1, "3m": 65.2 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+5.0%", band: "5%", buyers: "4,500,000", tf: "1m" }, tech: { rsi: 78, pivot: "R2 Resistance" }, funda: { pe: 95.2, roe: 12.1, de: 1.4 }, riskMetrics: { threat: "Legacy Debt & Execution Flaws", award: "Clean Energy Capex Surge", beta: "2.8x" } },
+            "PAYTM": { name: "One97 Communications", cap: "mid", sector: "IT", price: 420.15, changes: { "1w": -8.4, "1m": -22.1, "3m": -45.2 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 22, pivot: "Oversold S3" }, funda: { pe: -15.4, roe: -12.1, de: 0.1 }, riskMetrics: { threat: "Regulatory Headwinds", award: "Turnaround Re-licensing Option", beta: "2.5x" } },
+            "YESBANK": { name: "Yes Bank Ltd.", cap: "small", sector: "Banking", price: 22.15, changes: { "1w": 4.20, "1m": -3.1, "3m": 14.8 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 62, pivot: "Testing R1" }, funda: { pe: 65.2, roe: 3.1, de: 8.4 }, riskMetrics: { threat: "Low Capital Adequacy Margin", award: "Strategic Ownership Acquisition Buyout", beta: "1.9x" } },
+            "IDEA": { name: "Vodafone Idea Ltd.", cap: "mid", sector: "Telecom", price: 11.20, changes: { "1w": -11.4, "1m": -18.5, "3m": -32.1 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 29, pivot: "Capitulation Floor" }, funda: { pe: -4.2, roe: -45.1, de: 12.1 }, riskMetrics: { threat: "Substantial AGR Dues & Churn", award: "Government Equity Conversion Backstop", beta: "3.2x" } },
             
-            // Core Turnarounds / High Risk Assets
-            "MAZDOCK": { name: "Mazagon Dock Shipbuilders", cap: "mid", sector: "Defence", price: 2145.30, changes: { "1w": 12.1, "1m": 28.5, "3m": 85.4 }, divAmount: 15.30, divYield: 0.71, exDate: "2026-09-05", mostBought: null, circuit: { chg: "+10.0%", band: "10%", buyers: "850,200", tf: "1w" }, tech: { rsi: 85, pivot: "Overextended R3" }, riskMetrics: { threat: "High Overvaluation", award: "Defense Order Pipeline", beta: "2.1x" } },
-            "RVNL": { name: "Rail Vikas Nigam Ltd.", cap: "mid", sector: "Infrastructure", price: 278.40, changes: { "1w": 12.4, "1m": 35.1, "3m": 88.5 }, divAmount: 2.13, divYield: 0.76, exDate: "2026-08-15", mostBought: { surge: "4.1x", delivery: "71%", intensity: "High 🔥", tf: "1m" }, circuit: null, tech: { rsi: 82, pivot: "R3 Resistance" }, riskMetrics: { threat: "Policy Shift Exposure", award: "Railway Modernization Multiplier", beta: "1.9x" } },
-            "IREDA": { name: "Indian Renewable Energy Dev.", cap: "mid", sector: "Energy", price: 198.50, changes: { "1w": 14.2, "1m": 42.1, "3m": 112.4 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+5.0%", band: "5%", buyers: "2,100,000", tf: "today" }, tech: { rsi: 88, pivot: "Skyward Parabolic" }, riskMetrics: { threat: "High Speculative Leverage", award: "Green Sovereign Funding Apex", beta: "2.4x" } },
-            "SUZLON": { name: "Suzlon Energy Ltd.", cap: "small", sector: "Energy", price: 42.15, changes: { "1w": 8.4, "1m": 24.1, "3m": 65.2 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+5.0%", band: "5%", buyers: "4,500,000", tf: "1m" }, tech: { rsi: 78, pivot: "R2 Resistance" }, riskMetrics: { threat: "Legacy Debt & Execution Flaws", award: "Clean Energy Capex Surge", beta: "2.8x" } },
-            "PAYTM": { name: "One97 Communications", cap: "mid", sector: "IT", price: 420.15, changes: { "1w": -8.4, "1m": -22.1, "3m": -45.2 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 22, pivot: "Oversold S3" }, riskMetrics: { threat: "Regulatory Headwinds", award: "Turnaround Re-licensing Option", beta: "2.5x" } },
-            "YESBANK": { name: "Yes Bank Ltd.", cap: "small", sector: "Banking", price: 22.15, changes: { "1w": 4.20, "1m": -3.1, "3m": 14.8 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 62, pivot: "Testing R1" }, riskMetrics: { threat: "Low Capital Adequacy Margin", award: "Strategic Ownership Acquisition Buyout", beta: "1.9x" } },
-            "IDEA": { name: "Vodafone Idea Ltd.", cap: "mid", sector: "Telecom", price: 11.20, changes: { "1w": -11.4, "1m": -18.5, "3m": -32.1 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 29, pivot: "Capitulation Floor" }, riskMetrics: { threat: "Substantial AGR Dues & Churn", award: "Government Equity Conversion Backstop", beta: "3.2x" } },
-            
-            // New Dividend Expansions
-            "VEDL": { name: "Vedanta Limited", cap: "large", sector: "Materials", price: 452.30, changes: { "1w": 2.10, "1m": 9.4, "3m": 22.1 }, divAmount: 46.50, divYield: 10.28, exDate: "2026-08-18", mostBought: null, circuit: null, tech: { rsi: 61, pivot: "Above R1" }, riskMetrics: null },
-            "PFC": { name: "Power Finance Corporation", cap: "large", sector: "Financial Services", price: 482.15, changes: { "1w": 3.40, "1m": 11.2, "3m": 31.4 }, divAmount: 14.00, divYield: 2.90, exDate: "2026-06-10", mostBought: null, circuit: null, tech: { rsi: 64, pivot: "Breaking Pivot" }, riskMetrics: null },
-            "RECLTD": { name: "REC Limited", cap: "large", sector: "Financial Services", price: 521.40, changes: { "1w": 4.10, "1m": 14.3, "3m": 35.8 }, divAmount: 16.50, divYield: 3.16, exDate: "2026-06-25", mostBought: null, circuit: null, tech: { rsi: 67, pivot: "At R1 Base" }, riskMetrics: null },
-            "IOC": { name: "Indian Oil Corporation Ltd.", cap: "large", sector: "Energy", price: 164.50, changes: { "1w": -0.80, "1m": 2.1, "3m": 5.4 }, divAmount: 12.00, divYield: 7.29, exDate: "2026-07-14", mostBought: null, circuit: null, tech: { rsi: 48, pivot: "S1 Support" }, riskMetrics: null },
-            "ONGC": { name: "Oil & Natural Gas Corp.", cap: "large", sector: "Energy", price: 272.10, changes: { "1w": 1.25, "1m": 4.8, "3m": 12.1 }, divAmount: 11.25, divYield: 4.13, exDate: "2026-08-02", mostBought: null, circuit: null, tech: { rsi: 54, pivot: "Pivot Mean" }, riskMetrics: null },
+            // Value / Dividend Plays
+            "VEDL": { name: "Vedanta Limited", cap: "large", sector: "Materials", price: 452.30, changes: { "1w": 2.10, "1m": 9.4, "3m": 22.1 }, divAmount: 46.50, divYield: 10.28, exDate: "2026-08-18", mostBought: null, circuit: null, tech: { rsi: 61, pivot: "Above R1" }, funda: { pe: 12.4, roe: 24.5, de: 1.8 }, riskMetrics: null },
+            "PFC": { name: "Power Finance Corporation", cap: "large", sector: "Financial Services", price: 482.15, changes: { "1w": 3.40, "1m": 11.2, "3m": 31.4 }, divAmount: 14.00, divYield: 2.90, exDate: "2026-06-10", mostBought: null, circuit: null, tech: { rsi: 64, pivot: "Breaking Pivot" }, funda: { pe: 8.5, roe: 21.2, de: 6.4 }, riskMetrics: null },
+            "RECLTD": { name: "REC Limited", cap: "large", sector: "Financial Services", price: 521.40, changes: { "1w": 4.10, "1m": 14.3, "3m": 35.8 }, divAmount: 16.50, divYield: 3.16, exDate: "2026-06-25", mostBought: null, circuit: null, tech: { rsi: 67, pivot: "At R1 Base" }, funda: { pe: 9.1, roe: 22.4, de: 6.1 }, riskMetrics: null },
+            "IOC": { name: "Indian Oil Corporation Ltd.", cap: "large", sector: "Energy", price: 164.50, changes: { "1w": -0.80, "1m": 2.1, "3m": 5.4 }, divAmount: 12.00, divYield: 7.29, exDate: "2026-07-14", mostBought: null, circuit: null, tech: { rsi: 48, pivot: "S1 Support" }, funda: { pe: 5.4, roe: 14.2, de: 0.8 }, riskMetrics: null },
+            "ONGC": { name: "Oil & Natural Gas Corp.", cap: "large", sector: "Energy", price: 272.10, changes: { "1w": 1.25, "1m": 4.8, "3m": 12.1 }, divAmount: 11.25, divYield: 4.13, exDate: "2026-08-02", mostBought: null, circuit: null, tech: { rsi: 54, pivot: "Pivot Mean" }, funda: { pe: 6.8, roe: 16.5, de: 0.5 }, riskMetrics: null },
 
-            // New Most Bought Expansions
-            "TATAMOTORS": { name: "Tata Motors Limited", cap: "large", sector: "Automotive", price: 942.30, changes: { "1w": 4.80, "1m": 12.5, "3m": 24.1 }, divAmount: 6.00, divYield: 0.63, exDate: "2026-06-30", mostBought: { surge: "3.8x", delivery: "74%", intensity: "Extreme ⚡", tf: "1w" }, circuit: null, tech: { rsi: 71, pivot: "Above R2" }, riskMetrics: null },
-            "AXISBANK": { name: "Axis Bank Limited", cap: "large", sector: "Banking", price: 1182.40, changes: { "1w": 2.15, "1m": 6.8, "3m": 11.4 }, divAmount: 2.00, divYield: 0.17, exDate: "2026-07-05", mostBought: { surge: "2.9x", delivery: "68%", intensity: "High 🔥", tf: "today" }, circuit: null, tech: { rsi: 59, pivot: "Near R1" }, riskMetrics: null },
-            "DLF": { name: "DLF Limited", cap: "large", sector: "Infrastructure", price: 891.50, changes: { "1w": 5.20, "1m": 15.4, "3m": 33.1 }, divAmount: 5.00, divYield: 0.56, exDate: "2026-07-28", mostBought: { surge: "3.1x", delivery: "62%", intensity: "High 🔥", tf: "1m" }, circuit: null, tech: { rsi: 68, pivot: "R2 Multi-Break" }, riskMetrics: null },
-            "PNB": { name: "Punjab National Bank", cap: "mid", sector: "Banking", price: 124.15, changes: { "1w": 6.10, "1m": 18.2, "3m": 44.5 }, divAmount: 1.50, divYield: 1.20, exDate: "2026-06-22", mostBought: { surge: "4.5x", delivery: "59%", intensity: "Extreme ⚡", tf: "1m" }, circuit: null, tech: { rsi: 76, pivot: "Over R3 Floor" }, riskMetrics: null },
-
-            // New Circuit Expansions
-            "RATTANPOWER": { name: "RattanIndia Power Ltd.", cap: "small", sector: "Energy", price: 16.40, changes: { "1w": 21.50, "1m": 54.2, "3m": 120.4 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+5.0%", band: "5%", buyers: "8,400,000", tf: "today" }, tech: { rsi: 91, pivot: "Parabolic R3" }, riskMetrics: { threat: "Highly Leveraged Operative Structuring", award: "Retail Liquidity Momentum Wave", beta: "3.4x" } },
-            "IFCI": { name: "IFCI Limited", cap: "small", sector: "Financial Services", price: 62.80, changes: { "1w": 14.80, "1m": 41.2, "3m": 94.5 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+5.0%", band: "5%", buyers: "3,250,400", tf: "1w" }, tech: { rsi: 84, pivot: "R2 Extension" }, riskMetrics: { threat: "Heavy Non-Performing Book Liabilities", award: "Sovereign Recapitalization Narrative", beta: "2.6x" } },
-            "HFCL": { name: "HFCL Limited", cap: "mid", sector: "Telecom", price: 114.30, changes: { "1w": 9.80, "1m": 26.5, "3m": 58.1 }, divAmount: 0.50, divYield: 0.44, exDate: "2026-09-02", mostBought: null, circuit: { chg: "+10.0%", band: "10%", buyers: "1,950,000", tf: "today" }, tech: { rsi: 79, pivot: "R1 Aggressive Cross" }, riskMetrics: null },
-            "LLOYDSENG": { name: "Lloyds Engineering Works", cap: "small", sector: "Infrastructure", price: 78.15, changes: { "1w": 11.20, "1m": 33.4, "3m": 112.5 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: { chg: "+5.0%", band: "5%", buyers: "1,420,000", tf: "1m" }, tech: { rsi: 82, pivot: "Overextended R2" }, riskMetrics: null },
-
-            // New High Risk High Reward Expansions
-            "ALOKTEXT": { name: "Alok Industries Limited", cap: "small", sector: "Materials", price: 28.40, changes: { "1w": 4.50, "1m": -12.1, "3m": 48.5 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 41, pivot: "S1 Baseline" }, riskMetrics: { threat: "Sustained Negative Retained Earnings", award: "Reliance Conglomerate Financial Backing", beta: "2.2x" } },
-            "PCJEWELLER": { name: "PC Jeweller Limited", cap: "small", sector: "Consumer", price: 142.60, changes: { "1w": -6.20, "1m": 38.4, "3m": 145.2 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 73, pivot: "Testing Pivot Balance" }, riskMetrics: { threat: "Historical Legal Disputes & Debt Settlement", award: "Bank Debt Restructuring Approval Catalyst", beta: "2.9x" } },
-            "JPPOWER": { name: "Jaiprakash Power Ventures", cap: "small", sector: "Energy", price: 19.15, changes: { "1w": 2.10, "1m": 16.4, "3m": 68.2 }, divAmount: 0.00, divYield: 0.00, exDate: "N/A", mostBought: null, circuit: null, tech: { rsi: 63, pivot: "R1 Resistance" }, riskMetrics: { threat: "Volatile Quarterly Fuel Expense Margins", award: "Capacity Utilization Power Demand Peak", beta: "2.5x" } },
-            "INFIBEAM": { name: "Infibeam Avenues Limited", cap: "small", sector: "IT", price: 34.10, changes: { "1w": 1.20, "1m": 22.5, "3m": 54.1 }, divAmount: 0.05, divYield: 0.15, exDate: "2026-08-12", mostBought: null, circuit: null, tech: { rsi: 66, pivot: "Neutral Zone" }, riskMetrics: { threat: "High Competitive Fintech Margins Pressure", award: "AI Transaction Processing Platform Scale", beta: "1.9x" } }
+            // Others
+            "TATAMOTORS": { name: "Tata Motors Limited", cap: "large", sector: "Automotive", price: 942.30, changes: { "1w": 4.80, "1m": 12.5, "3m": 24.1 }, divAmount: 6.00, divYield: 0.63, exDate: "2026-06-30", mostBought: { surge: "3.8x", delivery: "74%", intensity: "Extreme ⚡", tf: "1w" }, circuit: null, tech: { rsi: 71, pivot: "Above R2" }, funda: { pe: 16.5, roe: 28.4, de: 1.1 }, riskMetrics: null },
+            "AXISBANK": { name: "Axis Bank Limited", cap: "large", sector: "Banking", price: 1182.40, changes: { "1w": 2.15, "1m": 6.8, "3m": 11.4 }, divAmount: 2.00, divYield: 0.17, exDate: "2026-07-05", mostBought: { surge: "2.9x", delivery: "68%", intensity: "High 🔥", tf: "today" }, circuit: null, tech: { rsi: 59, pivot: "Near R1" }, funda: { pe: 14.2, roe: 18.5, de: 1.0 }, riskMetrics: null },
+            "DLF": { name: "DLF Limited", cap: "large", sector: "Infrastructure", price: 891.50, changes: { "1w": 5.20, "1m": 15.4, "3m": 33.1 }, divAmount: 5.00, divYield: 0.56, exDate: "2026-07-28", mostBought: { surge: "3.1x", delivery: "62%", intensity: "High 🔥", tf: "1m" }, circuit: null, tech: { rsi: 68, pivot: "R2 Multi-Break" }, funda: { pe: 65.4, roe: 8.2, de: 0.4 }, riskMetrics: null },
+            "PNB": { name: "Punjab National Bank", cap: "mid", sector: "Banking", price: 124.15, changes: { "1w": 6.10, "1m": 18.2, "3m": 44.5 }, divAmount: 1.50, divYield: 1.20, exDate: "2026-06-22", mostBought: { surge: "4.5x", delivery: "59%", intensity: "Extreme ⚡", tf: "1m" }, circuit: null, tech: { rsi: 76, pivot: "Over R3 Floor" }, funda: { pe: 12.1, roe: 11.4, de: 1.2 }, riskMetrics: null }
         };
 
         const horizonLabels = { "1w": "1 Week Chg", "1m": "1 Month Chg", "3m": "3 Month Chg" };
@@ -306,6 +263,7 @@
         
         let currentCapFilter = "all"; 
         let currentAllCapFilter = "all";
+        let currentAllTrendFilter = "all"; // Added trend state
 
         window.switchGlobalView = function(view) {
             const tabs = ['allstocks', 'momentum', 'dividend', 'mostbought', 'uppercircuit', 'highrisk'];
@@ -353,29 +311,33 @@
                 }
             });
             const divSelect = document.getElementById('dividend-month-filter');
-            Array.from(divMonths).map(item => JSON.parse(item))
-                .sort((a,b) => a.val.localeCompare(b.val))
-                .forEach(month => {
-                    const opt = document.createElement('option');
-                    opt.value = month.val; opt.textContent = month.label;
-                    divSelect.appendChild(opt);
-                });
+            Array.from(divMonths).map(item => JSON.parse(item)).sort((a,b) => a.val.localeCompare(b.val)).forEach(month => {
+                const opt = document.createElement('option'); opt.value = month.val; opt.textContent = month.label; divSelect.appendChild(opt);
+            });
         }
 
-        window.toggleGroup = function(groupName) {
-            const grid = document.getElementById(`${groupName}-grid`);
-            const icon = document.getElementById(`${groupName}-icon`);
-            if (grid.classList.contains('hidden')) {
-                grid.classList.remove('hidden'); icon.innerText = '[-]';
-            } else {
-                grid.classList.add('hidden'); icon.innerText = '[+]';
-            }
-        };
-
+        /* ------------------ ALL STOCKS (FLAT DIRECTORY + TREND TOGGLE) ------------------ */
         function setAllCapFilter(capValue) {
             currentAllCapFilter = capValue;
             document.querySelectorAll('.all-cap-btn').forEach(btn => {
-                btn.className = btn.getAttribute('data-cap') === capValue ? "all-cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-sky-500 text-white font-semibold cursor-pointer shadow-lg shadow-sky-950" : "all-cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer";
+                if (btn.getAttribute('data-cap') === capValue) {
+                    btn.className = "all-cap-btn px-4 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-zinc-800 text-white cursor-pointer shadow-sm";
+                } else {
+                    btn.className = "all-cap-btn px-4 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-transparent text-zinc-400 hover:text-white cursor-pointer";
+                }
+            });
+            filterAllStocks();
+        }
+
+        function setAllTrendFilter(trendValue) {
+            currentAllTrendFilter = trendValue;
+            document.querySelectorAll('.all-trend-btn').forEach(btn => {
+                if (btn.getAttribute('data-trend') === trendValue) {
+                    btn.className = "all-trend-btn px-4 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-sky-500/20 text-sky-400 border border-sky-500/50 cursor-pointer";
+                } else {
+                    const hoverColor = btn.getAttribute('data-trend') === 'bullish' ? 'hover:text-emerald-400' : 'hover:text-rose-400';
+                    btn.className = `all-trend-btn px-4 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-transparent text-zinc-400 ${hoverColor} border border-transparent cursor-pointer`;
+                }
             });
             filterAllStocks();
         }
@@ -386,15 +348,14 @@
             const sortFilter = document.getElementById('all-sort-filter').value;
             const searchQuery = document.getElementById('all-search-stocks').value.trim().toLowerCase();
             
-            const posGrid = document.getElementById('positive-grid');
-            const negGrid = document.getElementById('negative-grid');
+            const grid = document.getElementById('all-stock-grid');
             const hook = document.getElementById('global-search-hook');
+            const countLabel = document.getElementById('all-directory-count');
             
-            posGrid.innerHTML = ''; negGrid.innerHTML = ''; hook.innerHTML = ''; hook.classList.add('hidden');
-            let posCount = 0; let negCount = 0;
+            grid.innerHTML = ''; hook.innerHTML = ''; hook.classList.add('hidden');
+            let matchedCount = 0;
 
             let dataset = Object.entries(stockData);
-
             dataset.sort((a, b) => {
                 const tickerA = a[0]; const tickerB = b[0];
                 const objA = a[1]; const objB = b[1];
@@ -405,9 +366,7 @@
                     case "chg1w-desc": return objB.changes['1w'] - objA.changes['1w'];
                     case "price-desc": return objB.price - objA.price;
                     case "price-asc":  return objA.price - objB.price;
-                    case "ticker-asc":
-                    default:
-                        return tickerA.localeCompare(tickerB);
+                    case "ticker-asc": default: return tickerA.localeCompare(tickerB);
                 }
             });
 
@@ -415,6 +374,13 @@
                 if (searchQuery && !ticker.toLowerCase().includes(searchQuery) && !data.name.toLowerCase().includes(searchQuery)) return;
                 if (currentAllCapFilter !== 'all' && data.cap !== currentAllCapFilter) return;
                 if (sectorFilter !== 'all' && data.sector !== sectorFilter) return;
+                
+                const chg1m = data.changes['1m'];
+                const is1mPos = chg1m >= 0;
+
+                // Apply new flat Trend Filter
+                if (currentAllTrendFilter === 'bullish' && !is1mPos) return;
+                if (currentAllTrendFilter === 'bearish' && is1mPos) return;
                 
                 const price = data.price;
                 if (priceFilter !== 'all') {
@@ -426,15 +392,13 @@
                 }
 
                 const chg1w = data.changes['1w'];
-                const chg1m = data.changes['1m'];
                 const is1wPos = chg1w >= 0;
-                const is1mPos = chg1m >= 0;
                 
                 const card = document.createElement('div');
                 const borderClass = is1mPos ? 'hover:border-emerald-500/50' : 'hover:border-rose-500/50';
                 const textClass = is1mPos ? 'group-hover:text-emerald-400' : 'group-hover:text-rose-400';
                 
-                card.className = `bg-zinc-900/60 border border-zinc-800/80 rounded-xl p-4 flex flex-col justify-between transition-all duration-300 cursor-pointer group shadow-md ${borderClass}`;
+                card.className = `bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-4 flex flex-col justify-between transition-all duration-300 cursor-pointer group shadow-md ${borderClass}`;
                 card.setAttribute('onclick', `openWorkspace('${ticker}')`);
                 
                 card.innerHTML = `
@@ -464,17 +428,11 @@
                     </div>
                 `;
                 
-                if (is1mPos) { posGrid.appendChild(card); posCount++; } 
-                else { negGrid.appendChild(card); negCount++; }
+                grid.appendChild(card);
+                matchedCount++;
             });
 
-            document.getElementById('pos-count').innerText = `${posCount} Assets`;
-            document.getElementById('neg-count').innerText = `${negCount} Assets`;
-
-            if (searchQuery.length > 0) {
-                if (posCount > 0) { posGrid.classList.remove('hidden'); document.getElementById('positive-icon').innerText = '[-]'; }
-                if (negCount > 0) { negGrid.classList.remove('hidden'); document.getElementById('negative-icon').innerText = '[-]'; }
-            }
+            countLabel.innerText = `DISPLAYING ${matchedCount} ASSETS`;
 
             if (searchQuery.length >= 2) {
                 const rawTicker = searchQuery.toUpperCase();
@@ -491,6 +449,7 @@
             }
         }
 
+        /* ------------------ MOMENTUM LOGIC ------------------ */
         function setCapFilter(capValue) {
             currentCapFilter = capValue;
             document.querySelectorAll('.cap-btn').forEach(btn => {
@@ -536,6 +495,7 @@
             });
         }
 
+        /* ------------------ TABLE RENDERERS ------------------ */
         function renderDividendTable() {
             const container = document.getElementById('dividend-table-body');
             const monthFilter = document.getElementById('dividend-month-filter').value;
@@ -613,7 +573,6 @@
 
             Object.entries(stockData).forEach(([ticker, data]) => {
                 if (!data.riskMetrics) return;
-
                 const chg1m = data.changes['1m'];
                 const isPos = chg1m >= 0;
 
@@ -638,27 +597,83 @@
             });
         }
 
-        function generateSuggestionMarkup(ticker) {
+        /* ------------------ WORKSPACE INTERNALS ------------------ */
+
+        // 1. Technical Suggestion Generator
+        function generateTechnicalMarkup(ticker) {
             const cached = stockData[ticker];
             const rsi = cached ? cached.tech.rsi : Math.floor(Math.random() * (75 - 35) + 35);
             const pivot = cached ? cached.tech.pivot : "Consolidating near Pivot Baseline";
             
             let rsiRec = ""; let rsiScore = 0;
-            if (rsi >= 70) { rsiRec = `RSI is highly overbought (${rsi}). Momentum has expanded excessively; there is a severe risk of exhaustion. Recommended to avoid buying here.`; rsiScore = -2; } 
-            else if (rsi <= 40) { rsiRec = `RSI is heavily oversold (${rsi}). Asset is experiencing capitulation; structurally deeply discounted. Recommended to buy.`; rsiScore = 2; } 
-            else { rsiRec = `RSI is resting at a healthy mid-range (${rsi}). Consistent volume accumulation observed; recommended to buy defensively.`; rsiScore = 1; }
+            if (rsi >= 70) { rsiRec = `RSI is highly overbought (${rsi}). Momentum has expanded excessively; there is a severe risk of exhaustion.`; rsiScore = -2; } 
+            else if (rsi <= 40) { rsiRec = `RSI is heavily oversold (${rsi}). Asset is experiencing capitulation; structurally discounted.`; rsiScore = 2; } 
+            else { rsiRec = `RSI is resting at a healthy mid-range (${rsi}). Consistent volume accumulation observed.`; rsiScore = 1; }
 
             let pivotRec = ""; let pivotScore = 0;
-            if (pivot.includes("Above R2") || pivot.includes("R3") || pivot.includes("Resistance") || pivot.includes("Overextended")) { pivotRec = `Pivot calculations indicate overhead structural resistance layers (${pivot}). Buying here forces poor risk-to-reward ratios; recommended to wait.`; pivotScore = -2; } 
-            else if (pivot.includes("Support") || pivot.includes("S1") || pivot.includes("S2")) { pivotRec = `Pivot system registers cluster safety support layers (${pivot}). Downside floor protection is exceptionally strong; recommended to buy.`; pivotScore = 2; } 
+            if (pivot.includes("Above R2") || pivot.includes("R3") || pivot.includes("Resistance") || pivot.includes("Overextended")) { pivotRec = `Pivot calculations indicate overhead structural resistance layers (${pivot}). Buying here forces poor risk-to-reward ratios.`; pivotScore = -2; } 
+            else if (pivot.includes("Support") || pivot.includes("S1") || pivot.includes("S2")) { pivotRec = `Pivot system registers cluster safety support layers (${pivot}). Downside floor protection is exceptionally strong.`; pivotScore = 2; } 
             else { pivotRec = `Asset is hovering near foundational trading ranges (${pivot}). Stabilized horizontal parameters confirm neutral posture.`; pivotScore = 0; }
 
             const totalScore = rsiScore + pivotScore;
             let finalVerdict = "⚖️ HOLD / NEUTRAL POSITION";
             let verdictClass = "bg-zinc-900 border-zinc-800 text-zinc-400";
 
-            if (totalScore >= 2) { finalVerdict = "🟢 RECOMMENDED TO BUY"; verdictClass = "bg-emerald-950/60 border-emerald-500/40 text-emerald-400 shadow-md"; } 
+            if (totalScore >= 2) { finalVerdict = "🟢 STRONG TECHNICAL BUY"; verdictClass = "bg-emerald-950/60 border-emerald-500/40 text-emerald-400 shadow-md"; } 
             else if (totalScore <= -1) { finalVerdict = "🔴 NOT RECOMMENDED (AVOID)"; verdictClass = "bg-rose-950/60 border-rose-500/40 text-rose-400 shadow-md"; }
+
+            return `
+                <div class="space-y-4 flex-1 overflow-y-auto pr-2 pb-6">
+                    <div class="p-3 rounded-xl border text-center font-mono font-bold text-xs tracking-wide shrink-0 ${verdictClass}">
+                        ${finalVerdict}
+                    </div>
+                    <div class="space-y-3 font-mono text-[11px]">
+                        <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
+                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2">⚡ Relative Strength Index (RSI)</span>
+                            <p class="text-zinc-300 leading-relaxed">${rsiRec}</p>
+                        </div>
+                        <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
+                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2">🎯 Pivot Matrix Level</span>
+                            <p class="text-zinc-300 leading-relaxed">${pivotRec}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 2. Fundamental Suggestion Generator (Value/Dividend Focus)
+        function generateFundamentalMarkup(ticker) {
+            const cached = stockData[ticker];
+            
+            // If data doesn't exist, mock it to look realistic
+            const funda = cached && cached.funda ? cached.funda : { pe: Math.floor(Math.random() * 40 + 8), roe: Math.floor(Math.random() * 20 + 5), de: (Math.random() * 2).toFixed(1) };
+            const divYield = cached && cached.divYield ? cached.divYield : 0;
+            
+            let valScore = 0;
+            
+            // P/E Ratio Evaluation
+            let peText = "";
+            if (funda.pe < 15 && funda.pe > 0) { peText = `P/E Ratio is deeply discounted (${funda.pe.toFixed(1)}). Structurally undervalued relative to sector averages.`; valScore += 2; }
+            else if (funda.pe > 30 || funda.pe < 0) { peText = `P/E Ratio is highly stretched (${funda.pe.toFixed(1)}). Trading at a severe premium; risk of overvaluation.`; valScore -= 2; }
+            else { peText = `P/E Ratio is fair (${funda.pe.toFixed(1)}). Trading in-line with historical market multiples.`; valScore += 1; }
+
+            // Dividend Yield Focus
+            let yieldText = "";
+            if (divYield > 3.0) { yieldText = `High dividend yield (${divYield}%). Provides robust downside protection and superior passive cash flow.`; valScore += 2; }
+            else if (divYield > 0) { yieldText = `Moderate dividend yield (${divYield}%). Reliable capital return program in place.`; valScore += 1; }
+            else { yieldText = `No dividend yield. Total return relies purely on speculative capital appreciation.`; }
+
+            // Debt to Equity
+            let debtText = "";
+            if (funda.de < 0.5) { debtText = `Debt-to-Equity is excellent (${funda.de}). Balance sheet is highly insulated against interest rate shocks.`; valScore += 1; }
+            else if (funda.de > 1.5) { debtText = `Debt-to-Equity is concerning (${funda.de}). High leverage profile increases structural risk.`; valScore -= 1; }
+            else { debtText = `Debt-to-Equity is manageable (${funda.de}). Standard operational leverage.`; }
+
+            let finalVerdict = "⚖️ FAIR VALUE / HOLD";
+            let verdictClass = "bg-zinc-900 border-zinc-800 text-zinc-400";
+
+            if (valScore >= 3) { finalVerdict = "🟢 STRONG VALUE (UNDERVALUED)"; verdictClass = "bg-emerald-950/60 border-emerald-500/40 text-emerald-400 shadow-md"; } 
+            else if (valScore < 0) { finalVerdict = "🔴 OVERVALUED (AVOID)"; verdictClass = "bg-rose-950/60 border-rose-500/40 text-rose-400 shadow-md"; }
 
             return `
                 <div class="space-y-4 flex-1 overflow-y-auto pr-2 pb-6">
@@ -668,13 +683,27 @@
                     
                     <div class="space-y-3 font-mono text-[11px]">
                         <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
-                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2">⚡ Relative Strength Index (RSI)</span>
-                            <p class="text-zinc-300 leading-relaxed">${rsiRec}</p>
+                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2 flex justify-between">
+                                <span>📉 Value Status (P/E)</span>
+                                <span class="text-sky-400">${funda.pe.toFixed(1)}</span>
+                            </span>
+                            <p class="text-zinc-300 leading-relaxed">${peText}</p>
                         </div>
                         
                         <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
-                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2">🎯 Pivot Matrix Level</span>
-                            <p class="text-zinc-300 leading-relaxed">${pivotRec}</p>
+                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2 flex justify-between">
+                                <span>💰 Income Potential (Yield)</span>
+                                <span class="text-emerald-400">${divYield > 0 ? divYield + '%' : 'N/A'}</span>
+                            </span>
+                            <p class="text-zinc-300 leading-relaxed">${yieldText}</p>
+                        </div>
+
+                        <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
+                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2 flex justify-between">
+                                <span>🏛️ Financial Health (D/E)</span>
+                                <span class="text-purple-400">${funda.de}</span>
+                            </span>
+                            <p class="text-zinc-300 leading-relaxed">${debtText}</p>
                         </div>
                     </div>
                 </div>
@@ -702,14 +731,20 @@
                         </div>
                         
                         <div class="p-4 flex flex-col h-full overflow-hidden bg-zinc-950">
-                            <div class="flex border-b border-zinc-800 mb-4 shrink-0 text-xs">
-                                <button id="btn-tab-suggestion" onclick="toggleWorkspaceTab('suggestion', '${ticker}')" class="flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-emerald-500 text-emerald-400 transition-all cursor-pointer">💡 Suggestion</button>
-                                <button id="btn-tab-decoder" onclick="toggleWorkspaceTab('decoder', '${ticker}')" class="flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer">📊 Decoder</button>
-                                <button id="btn-tab-news" onclick="toggleWorkspaceTab('news', '${ticker}')" class="flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer">📰 News</button>
+                            
+                            <div class="flex flex-wrap border-b border-zinc-800 mb-4 shrink-0 text-xs">
+                                <button id="btn-tab-tech" onclick="toggleWorkspaceTab('tech', '${ticker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-emerald-500 text-emerald-400 transition-all cursor-pointer">💡 Tech</button>
+                                <button id="btn-tab-funda" onclick="toggleWorkspaceTab('funda', '${ticker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer">🏛️ Funda</button>
+                                <button id="btn-tab-decoder" onclick="toggleWorkspaceTab('decoder', '${ticker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer mt-2 sm:mt-0">📊 Decoder</button>
+                                <button id="btn-tab-news" onclick="toggleWorkspaceTab('news', '${ticker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer mt-2 sm:mt-0">📰 News</button>
                             </div>
                             
-                            <div id="panel-tab-suggestion" class="flex-1 flex flex-col overflow-y-auto pr-1">
-                                ${generateSuggestionMarkup(ticker)}
+                            <div id="panel-tab-tech" class="flex-1 flex flex-col overflow-y-auto pr-1">
+                                ${generateTechnicalMarkup(ticker)}
+                            </div>
+
+                            <div id="panel-tab-funda" class="flex-1 hidden flex-col overflow-y-auto pr-1">
+                                ${generateFundamentalMarkup(ticker)}
                             </div>
 
                             <div id="panel-tab-decoder" class="flex-1 hidden flex-col h-full bg-zinc-900/10 rounded-xl border border-zinc-800 p-3 overflow-hidden">
@@ -719,7 +754,7 @@
                             <div id="panel-tab-news" class="flex-1 hidden flex-col space-y-3 overflow-y-auto pr-1 pb-4">
                                 <div class="bg-zinc-900/40 border border-zinc-800 p-4 rounded-lg">
                                     <span class="text-emerald-500/80 font-bold text-[10px] uppercase block mb-1">System</span>
-                                    <p class="text-xs text-zinc-300">Live feed connected for ${ticker}.</p>
+                                    <p class="text-xs text-zinc-300">Live feed connected for ${ticker}. Waiting for market volume spikes...</p>
                                 </div>
                             </div>
                         </div>
@@ -735,15 +770,15 @@
         };
 
         window.toggleWorkspaceTab = function(activeTab, ticker) {
-            const tabs = ['suggestion', 'decoder', 'news'];
+            const tabs = ['tech', 'funda', 'decoder', 'news'];
             tabs.forEach(tab => {
                 const btn = document.getElementById(`btn-tab-${tab}`);
                 const panel = document.getElementById(`panel-tab-${tab}`);
                 if (tab === activeTab) {
-                    btn.className = "flex-1 pb-2 text-center text-xs font-bold uppercase tracking-wider border-b-2 border-emerald-500 text-emerald-400 transition-all cursor-pointer";
+                    btn.className = btn.className.replace('border-transparent', 'border-emerald-500').replace('text-zinc-500', 'text-emerald-400');
                     panel.classList.remove('hidden'); panel.classList.add('flex');
                 } else {
-                    btn.className = "flex-1 pb-2 text-center text-xs font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer";
+                    btn.className = btn.className.replace('border-emerald-500', 'border-transparent').replace('text-emerald-400', 'text-zinc-500');
                     panel.classList.add('hidden'); panel.classList.remove('flex');
                 }
             });
@@ -771,15 +806,6 @@
         renderMostBoughtTable();
         renderUpperCircuitTable();
         renderHighRiskTable();
-    </script>
-        <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(reg => console.log('Service Worker Registered!', reg))
-                    .catch(err => console.error('Service Worker Registration Failed!', err));
-            });
-        }
     </script>
 </body>
 </html>
