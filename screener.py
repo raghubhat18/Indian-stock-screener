@@ -3,21 +3,40 @@ import json
 import yfinance as yf
 import pandas as pd
 
-# Define a starter list of popular liquid Indian stocks (Nifty 50 tokens)
-# yfinance requires '.NS' at the end for the National Stock Exchange (NSE)
-TICKERS = [
-    "RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS", "ICICIBANK.NS",
-    "BHARTIARTL.NS", "SBIN.NS", "LTIM.NS", "ITC.NS", "TATAMOTORS.NS",
-    "BAJAJFINSV.NS", "NTPC.NS", "SUNPHARMA.NS", "TITAN.NS", "MARUTI.NS"
+# Expanded stock pool with hardcoded Market Cap and Sector metadata
+STOCK_POOL = [
+    # ---- LARGE CAP ----
+    {"ticker": "RELIANCE.NS", "cap": "Large", "sector": "Energy"},
+    {"ticker": "TCS.NS", "cap": "Large", "sector": "IT"},
+    {"ticker": "HDFCBANK.NS", "cap": "Large", "sector": "Banking & Finance"},
+    {"ticker": "ITC.NS", "cap": "Large", "sector": "FMCG"},
+    {"ticker": "LT.NS", "cap": "Large", "sector": "Capital Goods"},
+    {"ticker": "TATAMOTORS.NS", "cap": "Large", "sector": "Automobile"},
+    
+    # ---- MID CAP ----
+    {"ticker": "KPITTECH.NS", "cap": "Mid", "sector": "IT"},
+    {"ticker": "TATACHEMICALS.NS", "cap": "Mid", "sector": "Chemicals"},
+    {"ticker": "VOLTAS.NS", "cap": "Mid", "sector": "Consumer Durables"},
+    {"ticker": "BHARATFORG.NS", "cap": "Mid", "sector": "Capital Goods"},
+    {"ticker": "FEDERALBANK.NS", "cap": "Mid", "sector": "Banking & Finance"},
+    {"ticker": "MRF.NS", "cap": "Mid", "sector": "Automobile"},
+
+    # ---- SMALL CAP ----
+    {"ticker": "CDSL.NS", "cap": "Small", "sector": "Capital Markets"},
+    {"ticker": "ANGELONE.NS", "cap": "Small", "sector": "Capital Markets"},
+    {"ticker": "CYIENT.NS", "cap": "Small", "sector": "IT"},
+    {"ticker": "CEATLTD.NS", "cap": "Small", "sector": "Automobile"},
+    {"ticker": "CENTURYPLY.NS", "cap": "Small", "sector": "Materials"},
+    {"ticker": "HFCL.NS", "cap": "Small", "sector": "Telecom"}
 ]
 
 def analyze_stocks():
     results = []
+    print("Fetching updated market data...")
     
-    print("Fetching stock data...")
-    for ticker in TICKERS:
+    for item in STOCK_POOL:
+        ticker = item["ticker"]
         try:
-            # Fetch 1 month of daily data to calculate short term trends
             stock = yf.Ticker(ticker)
             hist = stock.history(period="1mo")
             
@@ -25,33 +44,29 @@ def analyze_stocks():
                 continue
                 
             current_price = hist['Close'].iloc[-1]
-            price_1w_ago = hist['Close'].iloc[-5] if len(hist) >= 5 else hist['Close'].iloc[0]
+            price_1w_ago = hist['Close'].iloc[-5]
             
-            # Short-term momentum: % change over the last week
             weekly_return = ((current_price - price_1w_ago) / price_1w_ago) * 100
-            
-            # Simple scoring algorithm (higher momentum = higher score)
             score = round(weekly_return * 10, 1) 
             
             results.append({
                 "ticker": ticker.replace(".NS", ""),
                 "price": round(current_price, 2),
                 "weekly_change": round(weekly_return, 2),
-                "score": score
+                "score": score,
+                "cap": item["cap"],
+                "sector": item["sector"]
             })
         except Exception as e:
             print(f"Error processing {ticker}: {e}")
             
-    # Sort stocks by highest short-term momentum score
+    # Sort everything by highest momentum score
     results = sorted(results, key=lambda x: x['score'], reverse=True)
     
-    # Ensure the output directory exists
     os.makedirs("docs", exist_ok=True)
-    
-    # Save results as a JSON data file for our frontend web app
     with open("docs/data.json", "w") as f:
         json.dump(results, f, indent=4)
-    print("Screener completed successfully. Data saved to docs/data.json")
+    print("Analysis finished successfully!")
 
 if __name__ == "__main__":
     analyze_stocks()
