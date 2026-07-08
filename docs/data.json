@@ -1,0 +1,80 @@
+[
+    {
+        "ticker": "INFY",
+        "price": 1070.5,
+        "weekly_change": 2.84,
+        "score": 28.4
+    },
+    {
+        "ticker": "TITAN",
+        "price": 4591.1,
+        "weekly_change": 2.45,
+        "score": 24.5
+    },
+    {
+        "ticker": "HDFCBANK",
+        "price": 810.6,
+        "weekly_change": 1.85,
+        "score": 18.5
+    },
+    {
+        "ticker": "SUNPHARMA",
+        "price": 1890.0,
+        "weekly_change": 1.28,
+        "score": 12.8
+    },
+    {
+        "ticker": "BHARTIARTL",
+        "price": 1890.3,
+        "weekly_change": 0.82,
+        "score": 8.2
+    },
+    {
+        "ticker": "BAJAJFINSV",
+        "price": 1857.1,
+        "weekly_change": 0.08,
+        "score": 0.8
+    },
+    {
+        "ticker": "TCS",
+        "price": 2059.8,
+        "weekly_change": -0.4,
+        "score": -4.0
+    },
+    {
+        "ticker": "ICICIBANK",
+        "price": 1381.6,
+        "weekly_change": -1.31,
+        "score": -13.1
+    },
+    {
+        "ticker": "RELIANCE",
+        "price": 1276.2,
+        "weekly_change": -2.09,
+        "score": -20.9
+    },
+    {
+        "ticker": "NTPC",
+        "price": 348.9,
+        "weekly_change": -2.61,
+        "score": -26.1
+    },
+    {
+        "ticker": "MARUTI",
+        "price": 13972.0,
+        "weekly_change": -2.62,
+        "score": -26.2
+    },
+    {
+        "ticker": "SBIN",
+        "price": 1020.1,
+        "weekly_change": -3.0,
+        "score": -30.0
+    },
+    {
+        "ticker": "ITC",
+        "price": 281.0,
+        "weekly_change": -3.07,
+        "score": -30.7
+    }
+]
