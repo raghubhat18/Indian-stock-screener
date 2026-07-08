@@ -1,122 +1,242 @@
 [
     {
-        "ticker": "HFCL",
-        "price": 214.74,
-        "weekly_change": 4.96,
-        "score": 49.6,
-        "cap": "Small",
-        "sector": "Telecom"
-    },
-    {
-        "ticker": "CENTURYPLY",
-        "price": 770.25,
-        "weekly_change": 1.95,
-        "score": 19.5,
-        "cap": "Small",
-        "sector": "Materials"
-    },
-    {
-        "ticker": "HDFCBANK",
-        "price": 810.3,
-        "weekly_change": 1.81,
-        "score": 18.1,
+        "ticker": "RELIANCE",
+        "price": 1275.9,
         "cap": "Large",
-        "sector": "Banking & Finance"
-    },
-    {
-        "ticker": "CEATLTD",
-        "price": 3858.6,
-        "weekly_change": 1.39,
-        "score": 13.9,
-        "cap": "Small",
-        "sector": "Automobile"
-    },
-    {
-        "ticker": "MRF",
-        "price": 132940.0,
-        "weekly_change": 0.66,
-        "score": 6.6,
-        "cap": "Mid",
-        "sector": "Automobile"
+        "sector": "Energy",
+        "returns": {
+            "1D": -2.48,
+            "1W": -2.45,
+            "1M": 0.53,
+            "1Y": -15.21,
+            "2Y": -17.51,
+            "3Y": 10.0,
+            "4Y": 0.65,
+            "5Y": 34.62
+        }
     },
     {
         "ticker": "TCS",
         "price": 2057.5,
-        "weekly_change": -0.51,
-        "score": -5.1,
         "cap": "Large",
-        "sector": "IT"
+        "sector": "IT",
+        "returns": {
+            "1D": -1.84,
+            "1W": 3.78,
+            "1M": -4.35,
+            "1Y": -37.12,
+            "2Y": -43.45,
+            "3Y": -30.02,
+            "4Y": -31.98,
+            "5Y": -27.55
+        }
     },
     {
-        "ticker": "KPITTECH",
-        "price": 554.6,
-        "weekly_change": -0.75,
-        "score": -7.5,
-        "cap": "Mid",
-        "sector": "IT"
-    },
-    {
-        "ticker": "BHARATFORG",
-        "price": 2100.5,
-        "weekly_change": -1.96,
-        "score": -19.6,
-        "cap": "Mid",
-        "sector": "Capital Goods"
-    },
-    {
-        "ticker": "RELIANCE",
-        "price": 1275.9,
-        "weekly_change": -2.12,
-        "score": -21.2,
+        "ticker": "HDFCBANK",
+        "price": 810.3,
         "cap": "Large",
-        "sector": "Energy"
-    },
-    {
-        "ticker": "VOLTAS",
-        "price": 1253.6,
-        "weekly_change": -2.87,
-        "score": -28.7,
-        "cap": "Mid",
-        "sector": "Consumer Durables"
-    },
-    {
-        "ticker": "CDSL",
-        "price": 1311.4,
-        "weekly_change": -2.92,
-        "score": -29.2,
-        "cap": "Small",
-        "sector": "Capital Markets"
+        "sector": "Banking & Finance",
+        "returns": {
+            "1D": -2.29,
+            "1W": 1.78,
+            "1M": 11.56,
+            "1Y": -16.89,
+            "2Y": -0.84,
+            "3Y": 6.98,
+            "4Y": 24.26,
+            "5Y": 13.9
+        }
     },
     {
         "ticker": "ITC",
         "price": 280.65,
-        "weekly_change": -3.19,
-        "score": -31.9,
         "cap": "Large",
-        "sector": "FMCG"
+        "sector": "FMCG",
+        "returns": {
+            "1D": -2.81,
+            "1W": -3.32,
+            "1M": 0.23,
+            "1Y": -28.79,
+            "2Y": -25.58,
+            "3Y": -27.03,
+            "4Y": 25.45,
+            "5Y": 76.45
+        }
     },
     {
         "ticker": "LT",
         "price": 3892.1,
-        "weekly_change": -4.12,
-        "score": -41.2,
         "cap": "Large",
-        "sector": "Capital Goods"
+        "sector": "Capital Goods",
+        "returns": {
+            "1D": -2.5,
+            "1W": -4.9,
+            "1M": -0.22,
+            "1Y": 9.69,
+            "2Y": 11.79,
+            "3Y": 71.24,
+            "4Y": 156.74,
+            "5Y": 175.98
+        }
+    },
+    {
+        "ticker": "KPITTECH",
+        "price": 554.6,
+        "cap": "Mid",
+        "sector": "IT",
+        "returns": {
+            "1D": -1.39,
+            "1W": -0.53,
+            "1M": -26.65,
+            "1Y": -55.72,
+            "2Y": -65.68,
+            "3Y": -47.06,
+            "4Y": 7.71,
+            "5Y": 127.07
+        }
+    },
+    {
+        "ticker": "VOLTAS",
+        "price": 1253.6,
+        "cap": "Mid",
+        "sector": "Consumer Durables",
+        "returns": {
+            "1D": -2.67,
+            "1W": -2.15,
+            "1M": -3.59,
+            "1Y": -8.01,
+            "2Y": -14.1,
+            "3Y": 58.47,
+            "4Y": 27.64,
+            "5Y": 27.46
+        }
+    },
+    {
+        "ticker": "BHARATFORG",
+        "price": 2100.5,
+        "cap": "Mid",
+        "sector": "Capital Goods",
+        "returns": {
+            "1D": -0.53,
+            "1W": -0.09,
+            "1M": 9.43,
+            "1Y": 61.59,
+            "2Y": 26.88,
+            "3Y": 159.76,
+            "4Y": 227.39,
+            "5Y": 169.88
+        }
+    },
+    {
+        "ticker": "MRF",
+        "price": 132940.0,
+        "cap": "Mid",
+        "sector": "Automobile",
+        "returns": {
+            "1D": -4.12,
+            "1W": 2.71,
+            "1M": 8.3,
+            "1Y": -8.31,
+            "2Y": 6.49,
+            "3Y": 33.42,
+            "4Y": 89.4,
+            "5Y": 66.71
+        }
+    },
+    {
+        "ticker": "CDSL",
+        "price": 1311.4,
+        "cap": "Small",
+        "sector": "Capital Markets",
+        "returns": {
+            "1D": -3.57,
+            "1W": -1.58,
+            "1M": 8.17,
+            "1Y": -26.75,
+            "2Y": 11.78,
+            "3Y": 159.45,
+            "4Y": 143.23,
+            "5Y": 168.8
+        }
     },
     {
         "ticker": "ANGELONE",
         "price": 331.2,
-        "weekly_change": -4.32,
-        "score": -43.2,
         "cap": "Small",
-        "sector": "Capital Markets"
+        "sector": "Capital Markets",
+        "returns": {
+            "1D": -1.37,
+            "1W": -2.7,
+            "1M": -1.88,
+            "1Y": 14.06,
+            "2Y": 31.68,
+            "3Y": 123.23,
+            "4Y": 142.27,
+            "5Y": 293.04
+        }
     },
     {
         "ticker": "CYIENT",
         "price": 834.85,
-        "weekly_change": -5.07,
-        "score": -50.7,
         "cap": "Small",
-        "sector": "IT"
+        "sector": "IT",
+        "returns": {
+            "1D": -1.56,
+            "1W": -3.03,
+            "1M": -3.37,
+            "1Y": -34.07,
+            "2Y": -53.14,
+            "3Y": -40.28,
+            "4Y": 9.63,
+            "5Y": 7.34
+        }
+    },
+    {
+        "ticker": "CEATLTD",
+        "price": 3858.6,
+        "cap": "Small",
+        "sector": "Automobile",
+        "returns": {
+            "1D": -1.44,
+            "1W": 6.16,
+            "1M": 22.99,
+            "1Y": 5.77,
+            "2Y": 39.62,
+            "3Y": 91.17,
+            "4Y": 305.75,
+            "5Y": 205.13
+        }
+    },
+    {
+        "ticker": "CENTURYPLY",
+        "price": 770.25,
+        "cap": "Small",
+        "sector": "Materials",
+        "returns": {
+            "1D": -0.26,
+            "1W": 3.59,
+            "1M": 2.74,
+            "1Y": 4.39,
+            "2Y": 3.28,
+            "3Y": 25.69,
+            "4Y": 39.78,
+            "5Y": 90.16
+        }
+    },
+    {
+        "ticker": "HFCL",
+        "price": 214.74,
+        "cap": "Small",
+        "sector": "Telecom",
+        "returns": {
+            "1D": -5.0,
+            "1W": 1.25,
+            "1M": 20.63,
+            "1Y": 154.43,
+            "2Y": 90.26,
+            "3Y": 214.49,
+            "4Y": 239.21,
+            "5Y": 155.88
+        }
     }
 ]
