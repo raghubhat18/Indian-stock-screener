@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NiftyPulse Terminal</title>
+    <title>RBK NiftyPulse Scanner</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- TradingView Core Library for Advanced Chart -->
@@ -29,7 +29,7 @@
                     </svg>
                 </div>
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                    Nifty<span class="text-emerald-400">Pulse</span> Terminal
+                    RBK Nifty<span class="text-emerald-400">Pulse</span> Scanner
                 </h1>
             </div>
         </header>
@@ -52,7 +52,7 @@
             </div>
             <!-- Global ReadMe Info Button -->
             <button onclick="openReadmeModal()" class="w-full lg:w-auto px-4 py-2 rounded-lg text-xs font-bold bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-emerald-400 hover:border-emerald-500/40 transition-all shadow-md cursor-pointer flex items-center justify-center gap-2">
-                📖 Terminal Guide (ReadMe)
+                📖 Scanner Guide (ReadMe)
             </button>
         </div>
 
@@ -231,7 +231,7 @@
                         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> SYSTEM STATUS NOTE
                     </h4>
                     <p class="text-zinc-500">
-                        While main landing cards track static baseline automated daily parameters, launching any split terminal canvas workspace links you instantly to live streaming high-fidelity WebSockets pipes directly processing active market prices.
+                        While main landing cards track static baseline automated daily parameters, launching any split scanner canvas workspace links you instantly to live streaming high-fidelity WebSockets pipes directly processing active market prices.
                     </p>
                 </div>
             </div>
@@ -500,13 +500,13 @@
                             </div>
                             
                             <div id="panel-tab-news" class="flex-1 flex flex-col space-y-3 overflow-y-auto pr-1">
-                                \${getMockNews(ticker).map(news => `
+                                ${getMockNews(ticker).map(news => `
                                     <div class="bg-zinc-900/40 border border-zinc-800 p-3 rounded-lg hover:border-zinc-700 transition-all">
                                         <div class="flex justify-between items-center text-[10px] text-zinc-500 mb-1">
-                                            <span class="text-emerald-500/80 font-bold">\${news.source}</span>
-                                            <span>\${news.time}</span>
+                                            <span class="text-emerald-500/80 font-bold">${news.source}</span>
+                                            <span>${news.time}</span>
                                         </div>
-                                        <p class="text-xs text-zinc-300 leading-relaxed">\${news.title}</p>
+                                        <p class="text-xs text-zinc-300 leading-relaxed">${news.title}</p>
                                     </div>
                                 `).join('')}
                             </div>
@@ -516,13 +516,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>`;
+                </div>`;
 
             setTimeout(() => {
                 new TradingView.widget({
                     "autosize": true,
-                    "symbol": `NSE:\${ticker}`,
+                    "symbol": `NSE:${ticker}`,
                     "interval": "D",
                     "timezone": "Asia/Kolkata",
                     "theme": "dark",
