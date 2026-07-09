@@ -33,27 +33,36 @@
         let stockData = {};
 
         // 2. FETCH DATA FROM YOUR SHEET
-        async function fetchLiveMarketData() {
-            try {
-                const response = await fetch(AM_SHEETS_API);
-                const raw = await response.json();
-                
-                // Convert your JSON response into the format your UI expects
-                stockData = {};
-                ['large', 'mid', 'small'].forEach(cap => {
-                    ['bullish', 'bearish'].forEach(trend => {
-                        raw[cap][trend].forEach(s => {
-                            stockData[s.ticker] = { 
-                                name: s.name, cap: s.cap, sector: s.sector, price: s.price, 
-                                changes: { "1w": 0, "1m": s.change, "3m": 0 },
-                                tech: { rsi: 60, pivot: "Live" }
+       async function fetchLiveMarketData() {
+    try {
+        const response = await fetch(AM_SHEETS_API);
+        const rawFeed = await response.json();
+        console.log("Data Received:", rawFeed); // Look at F12 console to see this!
+        
+        stockData = {};
+        // Only proceed if rawFeed has the expected keys
+        if (rawFeed && rawFeed.large) {
+            ['large', 'mid', 'small'].forEach(cap => {
+                ['bullish', 'bearish'].forEach(trend => {
+                    if (rawFeed[cap][trend]) {
+                        rawFeed[cap][trend].forEach(stock => {
+                            stockData[stock.ticker] = {
+                                name: stock.name, 
+                                cap: cap, 
+                                sector: "N/A", 
+                                price: stock.price,
+                                changes: { "1w": 0, "1m": stock.change, "3m": 0 }
                             };
                         });
-                    });
+                    }
                 });
-                renderUI();
-            } catch (e) { console.error("Sync Error:", e); }
+            });
+            renderAllStocks();
         }
+    } catch (e) { 
+        console.error("Sync Error:", e); 
+    }
+}
 
         // 3. RENDER FUNCTION
         function renderUI() {
