@@ -4,103 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RBK NiftyPulse Scanner</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #09090b; }
-        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+        body { background: #000; color: #e4e4e7; font-family: sans-serif; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 3px; }
     </style>
 </head>
-<body class="bg-black text-zinc-100 min-h-screen font-sans selection:bg-emerald-500/30">
+<body>
 
-    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+    <div class="max-w-7xl mx-auto p-6">
         <header class="text-center mb-8">
-            <h1 class="text-2xl sm:text-3xl font-extrabold text-white">RBK Nifty<span class="text-emerald-400">Pulse</span> Scanner</h1>
-            <p class="text-[11px] text-zinc-500 font-mono mt-2 uppercase">Live Terminal (Source: Google Sheets)</p>
+            <h1 class="text-3xl font-extrabold text-white">RBK Nifty<span class="text-emerald-400">Pulse</span></h1>
+            <p id="status-bar" class="text-xs text-zinc-500 font-mono mt-2 uppercase">Connecting to live feed...</p>
         </header>
 
-        <main id="all-stock-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></main>
+        <div class="flex justify-center gap-2 mb-6 flex-wrap">
+            <button onclick="switchView('allstocks')" class="px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-xs font-bold hover:border-emerald-500">🔍 ALL STOCKS</button>
+            <button onclick="switchView('momentum')" class="px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-xs font-bold hover:border-emerald-500">⚡ MOMENTUM</button>
+        </div>
+
+        <main id="main-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></main>
     </div>
 
-    <div id="workspace-overlay" class="hidden"></div>
+    <div id="workspace" class="hidden fixed inset-0 bg-black z-50 flex flex-col">
+        <div class="flex justify-between p-4 border-b border-zinc-800">
+            <span id="ws-title" class="font-bold text-emerald-400"></span>
+            <button onclick="document.getElementById('workspace').classList.add('hidden')" class="text-zinc-400">✕ CLOSE</button>
+        </div>
+        <div id="tv-chart" class="flex-1 p-2"></div>
+    </div>
 
     <script>
-        // 1. YOUR API URL
-        const AM_SHEETS_API = "https://script.google.com/macros/s/AKfycbxRxY9_32hBEkHaOIogwndtw9dZCNQM3emTBPlxrV2GOKjsk8ZMr38_pDqVlyAC1ygYEg/exec";
-        
-        let stockData = {};
+        const API_URL = "https://script.google.com/macros/s/AKfycbwwyyH3aWB90MVa7Syw87wZSU3lEMe6twlVD4xVzJVaZF0AV_PSFU9Q-QCyjHrb5wI0FA/exec";
+        let masterData = {};
 
-        // 2. FETCH DATA FROM YOUR SHEET
-       async function fetchLiveMarketData() {
-    try {
-        const response = await fetch(AM_SHEETS_API);
-        const data = await response.json();
-        
-        stockData = {};
-        // Flatten the data for your grid
-        ['large', 'mid', 'small'].forEach(cap => {
-            ['bullish', 'bearish'].forEach(trend => {
-                if (data[cap] && data[cap][trend]) {
-                    data[cap][trend].forEach(s => {
-                        stockData[s.ticker] = {
-                            name: s.name, cap: cap, sector: "N/A", price: s.price, 
-                            changes: { "1w": 0, "1m": s.change, "3m": 0 }
-                        };
+        async function init() {
+            try {
+                const res = await fetch(API_URL);
+                const json = await res.json();
+                document.getElementById('status-bar').innerText = "LIVE: DATA SYNCED";
+                
+                // Process Data
+                ['large', 'mid', 'small'].forEach(cap => {
+                    ['bullish', 'bearish'].forEach(trend => {
+                        json[cap][trend].forEach(s => {
+                            masterData[s.ticker] = { ...s, cap };
+                        });
                     });
-                }
-            });
-        });
-        renderUI();
-    } catch (e) { console.error("Sync Error:", e); }
-}
+                });
+                render('allstocks');
+            } catch(e) { document.getElementById('status-bar').innerText = "CONNECTION FAILED"; }
+        }
 
-        // 3. RENDER FUNCTION
-        function renderUI() {
-            const grid = document.getElementById('all-stock-grid');
+        function render(view) {
+            const grid = document.getElementById('main-grid');
             grid.innerHTML = '';
-            Object.entries(stockData).forEach(([ticker, data]) => {
+            Object.entries(masterData).forEach(([ticker, data]) => {
                 const card = document.createElement('div');
-                card.className = "bg-zinc-900/40 border border-zinc-800 p-4 rounded-xl cursor-pointer hover:border-emerald-500 transition-all";
-                card.onclick = () => openWorkspace(ticker);
+                card.className = "bg-zinc-900 border border-zinc-800 p-4 rounded-xl cursor-pointer hover:border-emerald-500 transition-all";
+                card.onclick = () => openWS(ticker);
                 card.innerHTML = `
                     <h3 class="font-bold">${ticker}</h3>
-                    <p class="text-[10px] text-zinc-500">${data.name}</p>
-                    <p class="text-emerald-400 font-mono mt-2">₹${data.price} <span class="text-[10px] text-zinc-600">${data.changes['1m']}%</span></p>
+                    <p class="text-[10px] text-zinc-500 uppercase">${data.cap} Cap</p>
+                    <p class="text-emerald-400 font-mono mt-2">₹${data.price} <span class="text-zinc-600">${data.change}%</span></p>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        // 4. WORKSPACE TERMINAL
-        window.openWorkspace = function(ticker) {
-            const overlay = document.getElementById('workspace-overlay');
-            overlay.className = "fixed inset-0 bg-black/95 z-50 flex flex-col";
-            overlay.innerHTML = `
-                <div class="flex justify-between p-4 border-b border-zinc-800">
-                    <span class="font-bold text-emerald-400">■ WORKSPACE: ${ticker}</span>
-                    <button onclick="closeWorkspace()" class="text-zinc-400 font-mono">✕ CLOSE</button>
-                </div>
-                <div id="tv-chart-frame" class="flex-1 p-2"></div>
-            `;
-            overlay.classList.remove('hidden');
+        function openWS(ticker) {
+            document.getElementById('ws-title').innerText = '■ ' + ticker + ' WORKSPACE';
+            document.getElementById('workspace').classList.remove('hidden');
+            new TradingView.widget({
+                "autosize": true,
+                "symbol": `NSE:${ticker}`,
+                "interval": "D",
+                "theme": "dark",
+                "container_id": "tv-chart"
+            });
+        }
 
-            setTimeout(() => {
-                new TradingView.widget({
-                    "autosize": true,
-                    "symbol": `NSE:${ticker}`, 
-                    "interval": "D",
-                    "theme": "dark",
-                    "container_id": "tv-chart-frame"
-                });
-            }, 100);
-        };
-
-        window.closeWorkspace = () => document.getElementById('workspace-overlay').classList.add('hidden');
-
-        // RUN ON LOAD
-        fetchLiveMarketData();
+        init();
     </script>
 </body>
 </html>
