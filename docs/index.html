@@ -385,15 +385,12 @@
             `;
         }
 
-        // -------------------------------------------------------------
-        // WORKSPACE LOGIC (CLEAN TICKER & LIVE NEWS)
-        // -------------------------------------------------------------
         window.openWorkspace = function(ticker) {
             const details = stockData[ticker] || { name: "Live Market Search", cap: "global", sector: "Equities" };
             const overlay = document.getElementById('workspace-overlay');
             overlay.className = "fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-0 sm:p-4 backdrop-blur-md";
             
-            // AGGRESSIVE SANITIZATION: Removes .NS, .BO, and any accidental spaces
+            // Clean ticker for charts and news
             const cleanTicker = ticker.split('.')[0].replace(/\s+/g, '').toUpperCase();
             
             overlay.innerHTML = `
@@ -432,31 +429,25 @@
                                 <div id="tv-decoder-container" class="w-full h-full min-h-[340px]"></div>
                             </div>
 
-                            <div id="panel-tab-news" class="flex-1 hidden flex-col h-full bg-zinc-900/10 rounded-xl border border-zinc-800 overflow-hidden p-2 gap-2">
-                                <a href="https://news.google.com/search?q=${cleanTicker}+Stock+India" target="_blank" class="w-full bg-sky-950/50 hover:bg-sky-900/80 border border-sky-800 text-sky-400 text-center py-2 rounded text-xs font-bold uppercase tracking-wider transition-colors">
-                                    🔍 Open in Google News
-                                </a>
-                                <div id="tv-news-container" class="w-full flex-1 rounded overflow-hidden border border-zinc-800"></div>
+                            <div id="panel-tab-news" class="flex-1 hidden flex-col h-full bg-zinc-900/10 rounded-xl border border-zinc-800 overflow-hidden relative">
+                                <div id="tv-news-container" class="w-full h-full overflow-y-auto absolute inset-0"></div>
                             </div>
                         </div>
                     </div>
                 </div>`;
 
-            // Load the main chart
             setTimeout(() => {
                 new TradingView.widget({
                     "autosize": true, 
-                    // CHANGE THIS LINE: TradingView often prefers 'NSE:' directly 
-                    // and sometimes needs the exchange to be explicit.
                     "symbol": `NSE:${cleanTicker}`, 
                     "interval": "D", 
                     "timezone": "Asia/Kolkata", 
                     "theme": "dark", 
-                    "style": "1", // Changed from 3 to 1 (Candlestick) to be safer
+                    "style": "1",
                     "locale": "en", 
                     "enable_publishing": false, 
-                    "hide_side_toolbar": false, // Set to false to see if TV can help you search
-                    "allow_symbol_change": true, // Allow manual correction if it fails
+                    "hide_side_toolbar": false, 
+                    "allow_symbol_change": true, 
                     "container_id": "tv-chart-frame"
                 });
             }, 50);
@@ -475,6 +466,74 @@
                     panel.classList.add('hidden'); panel.classList.remove('flex');
                 }
             });
+
+            const cleanTicker = ticker.split('.')[0].replace(/\s+/g, '').toUpperCase();
+
+            if (activeTab === 'decoder') {
+                const container = document.getElementById('tv-decoder-container');
+                if (container && container.innerHTML.trim() === '') {
+                    const script = document.createElement('script');
+                    script.type = 'text/javascript'; script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js'; script.async = true;
+                    script.text = JSON.stringify({ "interval": "1D", "width": "100%", "isTransparent": true, "height": "100%", "symbol": `NSE:${cleanTicker}`, "showIntervalTabs": true, "displayMode": "single", "locale": "en", "colorTheme": "dark" });
+                    container.appendChild(script);
+                }
+            }
+            
+            // Trigger our custom news fetcher
+            if (activeTab === 'news') {
+                const container = document.getElementById('tv-news-container');
+                if (container && container.innerHTML.trim() === '') {
+                    container.innerHTML = '<div class="p-6 text-center text-zinc-500 text-xs font-mono animate-pulse">📡 Scanning global feeds for ' + cleanTicker + '...</div>';
+                    fetchLiveNews(cleanTicker, container);
+                }
+            }
+        };
+
+        // NEW FUNCTION: Fetches Google News RSS and turns them into native tiles
+        async function fetchLiveNews(ticker, container) {
+            try {
+                // We ask Google News for this specific stock in India
+                const query = encodeURIComponent(`${ticker} stock India`);
+                const rssUrl = encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=en-IN&gl=IN&ceid=IN:en`);
+                
+                // We use a free public proxy to convert the RSS feed into clean JSON data
+                const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`;
+
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data.status === "ok" && data.items.length > 0) {
+                    let html = '<div class="p-3 flex flex-col gap-3 pb-8">';
+                    
+                    // Loop through the top 8 news articles and build tiles
+                    data.items.slice(0, 8).forEach(item => {
+                        // Extract just the source name from the title if possible, or fallback
+                        const source = item.source || 'Google News';
+                        
+                        // Clean up the date format
+                        const pubDate = new Date(item.pubDate);
+                        const dateString = pubDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+
+                        html += `
+                            <a href="${item.link}" target="_blank" class="block bg-zinc-900/60 hover:bg-zinc-800 border border-zinc-800/80 p-3.5 rounded-xl transition-all duration-200 group shadow-sm">
+                                <h4 class="text-xs font-semibold text-zinc-200 group-hover:text-emerald-400 mb-2 leading-relaxed">${item.title}</h4>
+                                <div class="flex justify-between items-center mt-2 border-t border-zinc-800/50 pt-2">
+                                    <span class="text-[9px] text-zinc-500 font-mono uppercase tracking-wider">${source}</span>
+                                    <span class="text-[9px] text-zinc-500 font-mono">${dateString}</span>
+                                </div>
+                            </a>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = '<div class="p-6 text-center text-zinc-500 text-xs font-mono">No recent news found for this ticker.</div>';
+                }
+            } catch (error) {
+                container.innerHTML = '<div class="p-6 text-center text-rose-500 text-xs font-mono">⚠️ Failed to connect to news feed.</div>';
+            }
+        }
 
             const cleanTicker = ticker.split('.')[0].replace(/\s+/g, '').toUpperCase();
 
