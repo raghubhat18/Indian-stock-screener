@@ -666,11 +666,14 @@
             const overlay = document.getElementById('workspace-overlay');
             overlay.className = "fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-0 sm:p-4 backdrop-blur-md";
             
+            // SANITIZE TICKER: Remove spaces and .NS so TradingView doesn't default to Apple
+            const cleanTicker = ticker.replace('.NS', '').replace('.BO', '').trim();
+            
             overlay.innerHTML = `
                 <div class="w-full h-full bg-zinc-950 sm:rounded-2xl border border-zinc-800 flex flex-col font-mono text-zinc-300 overflow-hidden shadow-2xl">
                     <div class="flex items-center justify-between px-6 py-3 bg-zinc-900/90 border-b border-zinc-800">
                         <div class="flex items-center gap-3">
-                            <span class="text-emerald-400 font-bold text-sm">■ WORKSPACE: ${ticker}</span>
+                            <span class="text-emerald-400 font-bold text-sm">■ WORKSPACE: ${cleanTicker}</span>
                             <span class="hidden md:inline-block text-[11px] bg-zinc-950 px-2 py-0.5 rounded text-zinc-400 border border-zinc-800">${details.name}</span>
                         </div>
                         <button onclick="closeWorkspace()" class="text-zinc-400 hover:text-white transition-colors bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded-md text-xs border border-zinc-700 cursor-pointer">✕ Close</button>
@@ -684,10 +687,10 @@
                         <div class="p-4 flex flex-col h-full overflow-hidden bg-zinc-950">
                             
                             <div class="flex flex-wrap border-b border-zinc-800 mb-4 shrink-0 text-xs">
-                                <button id="btn-tab-tech" onclick="toggleWorkspaceTab('tech', '${ticker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-emerald-500 text-emerald-400 transition-all cursor-pointer">💡 Tech</button>
-                                <button id="btn-tab-funda" onclick="toggleWorkspaceTab('funda', '${ticker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer">🏛️ Funda</button>
-                                <button id="btn-tab-decoder" onclick="toggleWorkspaceTab('decoder', '${ticker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer mt-2 sm:mt-0">📊 Decoder</button>
-                                <button id="btn-tab-news" onclick="toggleWorkspaceTab('news', '${ticker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer mt-2 sm:mt-0">📰 News</button>
+                                <button id="btn-tab-tech" onclick="toggleWorkspaceTab('tech', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-emerald-500 text-emerald-400 transition-all cursor-pointer">💡 Tech</button>
+                                <button id="btn-tab-funda" onclick="toggleWorkspaceTab('funda', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer">🏛️ Funda</button>
+                                <button id="btn-tab-decoder" onclick="toggleWorkspaceTab('decoder', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer mt-2 sm:mt-0">📊 Decoder</button>
+                                <button id="btn-tab-news" onclick="toggleWorkspaceTab('news', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer mt-2 sm:mt-0">📰 News</button>
                             </div>
                             
                             <div id="panel-tab-tech" class="flex-1 flex flex-col overflow-y-auto pr-1">
@@ -702,34 +705,29 @@
                                 <div id="tv-decoder-container" class="w-full h-full min-h-[340px]"></div>
                             </div>
 
-                            <div id="panel-tab-news" class="flex-1 hidden flex-col space-y-3 overflow-y-auto pr-1 pb-4">
-                                <div class="bg-zinc-900/40 border border-zinc-800 p-4 rounded-lg">
-                                    <span class="text-emerald-500/80 font-bold text-[10px] uppercase block mb-1">System</span>
-                                    <p class="text-xs text-zinc-300">Live feed connected for ${ticker}. Waiting for market volume spikes...</p>
-                                </div>
+                            <div id="panel-tab-news" class="flex-1 hidden flex-col h-full bg-zinc-900/10 rounded-xl border border-zinc-800 overflow-hidden">
+                                <div id="tv-news-container" class="w-full h-full"></div>
                             </div>
                         </div>
                     </div>
                 </div>`;
 
+            // Initialize the main chart with the sanitized ticker
             setTimeout(() => {
-            // Clean the ticker by removing .NS or .BO if it exists
-            const cleanTicker = ticker.split('.')[0]; 
-            
-            new TradingView.widget({
-                "autosize": true, 
-                "symbol": `NSE:${cleanTicker}`, // Uses the cleaned ticker
-                "interval": "D", 
-                "timezone": "Asia/Kolkata", 
-                "theme": "dark", 
-                "style": "3",
-                "locale": "en", 
-                "enable_publishing": false, 
-                "hide_side_toolbar": true, 
-                "allow_symbol_change": false, 
-                "container_id": "tv-chart-frame"
-            });
-        }, 50);
+                new TradingView.widget({
+                    "autosize": true, 
+                    "symbol": `NSE:${cleanTicker}`, 
+                    "interval": "D", 
+                    "timezone": "Asia/Kolkata", 
+                    "theme": "dark", 
+                    "style": "3",
+                    "locale": "en", 
+                    "enable_publishing": false, 
+                    "hide_side_toolbar": true, 
+                    "allow_symbol_change": false, 
+                    "container_id": "tv-chart-frame"
+                });
+            }, 50);
         };
 
         window.toggleWorkspaceTab = function(activeTab, ticker) {
@@ -746,12 +744,37 @@
                 }
             });
 
+            // Ensure ticker is clean for dynamic widget loading
+            const cleanTicker = ticker.replace('.NS', '').replace('.BO', '').trim();
+
             if (activeTab === 'decoder') {
                 const container = document.getElementById('tv-decoder-container');
                 if (container && container.innerHTML.trim() === '') {
                     const script = document.createElement('script');
                     script.type = 'text/javascript'; script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js'; script.async = true;
-                    script.text = JSON.stringify({ "interval": "1D", "width": "100%", "isTransparent": true, "height": "100%", "symbol": `NSE:${ticker}`, "showIntervalTabs": true, "displayMode": "single", "locale": "en", "colorTheme": "dark" });
+                    script.text = JSON.stringify({ "interval": "1D", "width": "100%", "isTransparent": true, "height": "100%", "symbol": `NSE:${cleanTicker}`, "showIntervalTabs": true, "displayMode": "single", "locale": "en", "colorTheme": "dark" });
+                    container.appendChild(script);
+                }
+            }
+            
+            // Dynamically load the Live News Widget
+            if (activeTab === 'news') {
+                const container = document.getElementById('tv-news-container');
+                if (container && container.innerHTML.trim() === '') {
+                    const script = document.createElement('script');
+                    script.type = 'text/javascript'; 
+                    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-timeline.js'; 
+                    script.async = true;
+                    script.text = JSON.stringify({
+                        "feedMode": "symbol",
+                        "symbol": `NSE:${cleanTicker}`,
+                        "colorTheme": "dark",
+                        "isTransparent": true,
+                        "displayMode": "regular",
+                        "width": "100%",
+                        "height": "100%",
+                        "locale": "en"
+                    });
                     container.appendChild(script);
                 }
             }
