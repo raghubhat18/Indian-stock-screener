@@ -713,11 +713,23 @@
                 </div>`;
 
             setTimeout(() => {
-                new TradingView.widget({
-                    "autosize": true, "symbol": `NSE:${ticker}`, "interval": "D", "timezone": "Asia/Kolkata", "theme": "dark", "style": "3",
-                    "locale": "en", "enable_publishing": false, "hide_side_toolbar": true, "allow_symbol_change": false, "container_id": "tv-chart-frame"
-                });
-            }, 50);
+            // Clean the ticker by removing .NS or .BO if it exists
+            const cleanTicker = ticker.split('.')[0]; 
+            
+            new TradingView.widget({
+                "autosize": true, 
+                "symbol": `NSE:${cleanTicker}`, // Uses the cleaned ticker
+                "interval": "D", 
+                "timezone": "Asia/Kolkata", 
+                "theme": "dark", 
+                "style": "3",
+                "locale": "en", 
+                "enable_publishing": false, 
+                "hide_side_toolbar": true, 
+                "allow_symbol_change": false, 
+                "container_id": "tv-chart-frame"
+            });
+        }, 50);
         };
 
         window.toggleWorkspaceTab = function(activeTab, ticker) {
