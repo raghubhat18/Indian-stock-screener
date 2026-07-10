@@ -346,32 +346,40 @@
         }
 
         function generateFundamentalMarkup(ticker) {
-            const data = stockData[ticker];
-            const pe = data && data.funda && data.funda.pe ? data.funda.pe : 'N/A';
-            const de = data && data.funda && data.funda.de ? data.funda.de : 'N/A';
-            const yieldVal = data && data.divYield ? data.divYield + '%' : 'N/A';
-
+            // Clean the ticker to ensure the URLs build perfectly
+            const cleanTicker = ticker.split('.')[0].replace(/\s+/g, '').toUpperCase();
+            
             return `
                 <div class="space-y-4 flex-1 overflow-y-auto pr-2 pb-6">
+                    <div class="p-3 rounded-xl border text-center font-mono font-bold text-xs tracking-wide shrink-0 bg-zinc-900 border-zinc-800 text-zinc-400">
+                        📊 COMPREHENSIVE FUNDAMENTAL REPORTS
+                    </div>
                     <div class="space-y-3 font-mono text-[11px]">
-                        <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
-                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2 flex justify-between">
-                                <span>📉 Value Status (P/E)</span>
-                                <span class="text-sky-400">${pe}</span>
-                            </span>
-                        </div>
-                        <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
-                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2 flex justify-between">
-                                <span>💰 Income Potential (Yield)</span>
-                                <span class="text-emerald-400">${yieldVal}</span>
-                            </span>
-                        </div>
-                        <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
-                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2 flex justify-between">
-                                <span>🏛️ Financial Health (D/E)</span>
-                                <span class="text-purple-400">${de}</span>
-                            </span>
-                        </div>
+                        <p class="text-zinc-500 mb-4 px-1">Access complete balance sheets, P&L statements, cash flows, and peer comparisons through India's top fundamental engines.</p>
+                        
+                        <a href="https://www.screener.in/company/${cleanTicker}/consolidated/" target="_blank" class="flex items-center justify-between bg-zinc-900/60 hover:bg-zinc-800 border border-zinc-800/80 p-4 rounded-xl transition-all duration-200 group shadow-sm w-full cursor-pointer">
+                            <div class="flex flex-col text-left">
+                                <span class="text-emerald-400 font-bold text-xs uppercase tracking-wider group-hover:text-emerald-300">Screener.in Report</span>
+                                <span class="text-zinc-500 text-[10px] mt-1">Detailed financial statements & ratios</span>
+                            </div>
+                            <span class="text-zinc-600 group-hover:text-emerald-400 text-lg">↗</span>
+                        </a>
+
+                        <a href="https://www.tickertape.in/stocks/${cleanTicker}" target="_blank" class="flex items-center justify-between bg-zinc-900/60 hover:bg-zinc-800 border border-zinc-800/80 p-4 rounded-xl transition-all duration-200 group shadow-sm w-full cursor-pointer mt-3">
+                            <div class="flex flex-col text-left">
+                                <span class="text-sky-400 font-bold text-xs uppercase tracking-wider group-hover:text-sky-300">TickerTape Scorecard</span>
+                                <span class="text-zinc-500 text-[10px] mt-1">Intrinsic value & dividend scorecard</span>
+                            </div>
+                            <span class="text-zinc-600 group-hover:text-sky-400 text-lg">↗</span>
+                        </a>
+                        
+                        <a href="https://trendlyne.com/stock/${cleanTicker}" target="_blank" class="flex items-center justify-between bg-zinc-900/60 hover:bg-zinc-800 border border-zinc-800/80 p-4 rounded-xl transition-all duration-200 group shadow-sm w-full cursor-pointer mt-3">
+                            <div class="flex flex-col text-left">
+                                <span class="text-amber-400 font-bold text-xs uppercase tracking-wider group-hover:text-amber-300">Trendlyne Analysis</span>
+                                <span class="text-zinc-500 text-[10px] mt-1">Broker targets & SWOT analysis</span>
+                            </div>
+                            <span class="text-zinc-600 group-hover:text-amber-400 text-lg">↗</span>
+                        </a>
                     </div>
                 </div>
             `;
