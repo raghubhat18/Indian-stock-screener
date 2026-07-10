@@ -39,8 +39,6 @@
                 <button id="nav-allstocks" onclick="switchGlobalView('allstocks')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-sky-500/40 bg-sky-950/30 text-sky-400 shadow-md transition-all cursor-pointer">🔍 All Stocks Directory</button>
                 <button id="nav-momentum" onclick="switchGlobalView('momentum')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">⚡ Momentum</button>
                 <button id="nav-dividend" onclick="switchGlobalView('dividend')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">💰 Dividends</button>
-                <button id="nav-mostbought" onclick="switchGlobalView('mostbought')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">🔥 Most Bought</button>
-                <button id="nav-uppercircuit" onclick="switchGlobalView('uppercircuit')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">📈 Circuits</button>
                 <button id="nav-highrisk" onclick="switchGlobalView('highrisk')" class="px-4 py-2 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-800 text-zinc-400 hover:bg-zinc-900 transition-all cursor-pointer">⚠️ High Risk High Reward</button>
             </div>
         </div>
@@ -65,35 +63,12 @@
                             <button onclick="setAllCapFilter('small')" data-cap="small" class="all-cap-btn px-4 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-transparent text-zinc-400 hover:text-white cursor-pointer">Small</button>
                         </div>
                     </div>
-                    <div class="flex flex-wrap gap-3 items-center w-full lg:w-auto">
-                        <select id="all-sector-filter" onchange="filterAllStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer font-mono">
-                            <option value="all">All Sectors</option>
-                        </select>
-                        <select id="all-price-filter" onchange="filterAllStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer font-mono">
-                            <option value="all">All Prices</option>
-                            <option value="under100">&lt; ₹100</option>
-                            <option value="100-500">₹100 - ₹500</option>
-                            <option value="500-1500">₹500 - ₹1500</option>
-                            <option value="1500-3000">₹1500 - ₹3000</option>
-                            <option value="over3000">&gt; ₹3000</option>
-                        </select>
-                        <select id="all-sort-filter" onchange="filterAllStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-sky-500/50 text-sky-400 font-bold text-xs focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer font-mono">
-                            <option value="ticker-asc">Sort: Ticker (A-Z)</option>
-                            <option value="chg1m-desc">Sort: 1M Perf (High ➔ Low)</option>
-                            <option value="chg1m-asc">Sort: 1M Perf (Low ➔ High)</option>
-                            <option value="chg1w-desc">Sort: 1W Perf (High ➔ Low)</option>
-                            <option value="price-desc">Sort: Price (High ➔ Low)</option>
-                            <option value="price-asc">Sort: Price (Low ➔ High)</option>
-                        </select>
-                    </div>
                 </div>
             </div>
-
             <div class="mb-3 flex justify-between items-end">
                 <span id="all-directory-count" class="text-xs font-mono text-zinc-500 tracking-wider">WAITING FOR LIVE DATA...</span>
             </div>
             <main id="all-stock-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></main>
-            <div id="global-search-hook" class="hidden mt-4"></div>
         </div>
 
         <div id="view-momentum" class="hidden">
@@ -106,9 +81,6 @@
                         <button onclick="setCapFilter('small')" data-cap="small" class="cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer">Small Caps</button>
                     </div>
                     <div class="flex flex-wrap gap-3 items-center w-full sm:w-auto">
-                        <select id="sector-filter" onchange="filterStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer font-mono">
-                            <option value="all">All Sectors</option>
-                        </select>
                         <select id="horizon-filter" onchange="filterStocks()" class="w-full sm:w-auto bg-zinc-950 text-zinc-200 px-3 py-1.5 rounded-lg border border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer font-mono">
                             <option value="1w">Horizon: 1 Week Perf.</option>
                             <option value="1m">Horizon: 1 Month Perf.</option>
@@ -122,11 +94,8 @@
 
         <div id="view-dividend" class="hidden">
             <div class="bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-4 sm:p-6 shadow-xl backdrop-blur-sm overflow-hidden">
-                <div class="flex justify-between items-center mb-4">
+                <div class="mb-4">
                     <h2 class="text-base font-bold text-emerald-400 font-mono">📋 Corporate Actions: Dividend Monitor</h2>
-                    <select id="dividend-month-filter" onchange="renderDividendTable()" class="bg-zinc-950 text-zinc-200 px-3 py-1 rounded-lg border border-zinc-800 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer font-mono">
-                        <option value="all">All Ex-Dates</option>
-                    </select>
                 </div>
                 <div class="overflow-x-auto rounded-lg border border-zinc-800 bg-zinc-950">
                     <table class="w-full text-left font-mono text-xs text-zinc-300 divide-y divide-zinc-800">
@@ -139,55 +108,10 @@
             </div>
         </div>
 
-        <div id="view-mostbought" class="hidden">
-            <div class="bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-4 sm:p-6 shadow-xl backdrop-blur-sm overflow-hidden">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-base font-bold text-orange-400 font-mono">🔥 High Accumulation: Delivery Surge</h2>
-                    <select id="mostbought-tf-filter" onchange="renderMostBoughtTable()" class="bg-zinc-950 text-zinc-200 px-3 py-1 rounded-lg border border-zinc-800 text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer font-mono">
-                        <option value="all">All Timeframes</option>
-                        <option value="today">Today</option>
-                        <option value="1w">This Week</option>
-                        <option value="1m">This Month</option>
-                    </select>
-                </div>
-                <div class="overflow-x-auto rounded-lg border border-zinc-800 bg-zinc-950">
-                    <table class="w-full text-left font-mono text-xs text-zinc-300 divide-y divide-zinc-800">
-                        <thead class="bg-zinc-900/80 text-zinc-400 uppercase text-[10px] tracking-wider">
-                            <tr><th class="p-4">Symbol</th><th class="p-4">Company Name</th><th class="p-4 text-right">Price</th><th class="p-4 text-right">Volume Surge</th><th class="p-4 text-right">Delivery %</th><th class="p-4 text-center">Intensity</th></tr>
-                        </thead>
-                        <tbody id="mostbought-table-body" class="divide-y divide-zinc-900"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div id="view-uppercircuit" class="hidden">
-            <div class="bg-zinc-900/40 border border-zinc-800/80 rounded-xl p-4 sm:p-6 shadow-xl backdrop-blur-sm overflow-hidden">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-base font-bold text-rose-400 font-mono">📈 Locked In Upper Circuit</h2>
-                    <select id="circuit-tf-filter" onchange="renderUpperCircuitTable()" class="bg-zinc-950 text-zinc-200 px-3 py-1 rounded-lg border border-zinc-800 text-xs focus:outline-none focus:ring-2 focus:ring-rose-500 cursor-pointer font-mono">
-                        <option value="all">All Timeframes</option>
-                        <option value="today">Today</option>
-                        <option value="1w">This Week</option>
-                        <option value="1m">This Month</option>
-                    </select>
-                </div>
-                <div class="overflow-x-auto rounded-lg border border-zinc-800 bg-zinc-950">
-                    <table class="w-full text-left font-mono text-xs text-zinc-300 divide-y divide-zinc-800">
-                        <thead class="bg-zinc-900/80 text-zinc-400 uppercase text-[10px] tracking-wider">
-                            <tr><th class="p-4">Symbol</th><th class="p-4">Company Name</th><th class="p-4 text-right">LTP (Last Price)</th><th class="p-4 text-right">Day Chg %</th><th class="p-4 text-right">Circuit Band</th><th class="p-4 text-right text-emerald-400">Pending Buyers</th></tr>
-                        </thead>
-                        <tbody id="uppercircuit-table-body" class="divide-y divide-zinc-900"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
         <div id="view-highrisk" class="hidden">
             <div class="bg-zinc-900/40 border border-amber-500/30 rounded-xl p-4 sm:p-6 shadow-xl backdrop-blur-sm overflow-hidden">
                 <div class="mb-4">
                     <h2 class="text-base font-bold text-amber-400 font-mono">⚠️ Alpha Aggressive Catalyst Radar (High Risk High Reward)</h2>
-                    <p class="text-[11px] text-zinc-400 font-sans mt-1">High-beta breakouts, extreme turnaround stories, micro-caps with narrative momentum, and heavily short-squeezed equities.</p>
                 </div>
                 <div class="overflow-x-auto rounded-lg border border-zinc-800 bg-zinc-950">
                     <table class="w-full text-left font-mono text-xs text-zinc-300 divide-y divide-zinc-800">
@@ -204,25 +128,22 @@
     <div id="workspace-overlay" class="hidden"></div>
 
     <script>
-        // API Configuration
-        const AM_SHEETS_API = "https://script.google.com/macros/s/AKfycbxRxY9_32hBEkHaOIogwndtw9dZCNQM3emTBPlxrV2GOKjsk8ZMr38_pDqVlyAC1ygYEg/exec";
+        // ==========================================
+        // ADD YOUR DEPLOYED APPS SCRIPT URL HERE
+        // ==========================================
+        const AM_SHEETS_API = "YOUR_NEW_WEB_APP_URL_GOES_HERE";
 
-        // 100% EMPTY CACHE - Strictly built from Google Sheets
         let stockData = {};
-
         const horizonLabels = { "1w": "1 Week Chg", "1m": "1 Month Chg", "3m": "3 Month Chg" };
-        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        
         let currentCapFilter = "all"; 
         let currentAllCapFilter = "all";
         let currentAllTrendFilter = "all"; 
 
         // -------------------------------------------------------------
-        // CORE LOGIC & UI BUILDERS
+        // CORE UI BUILDERS
         // -------------------------------------------------------------
-
         window.switchGlobalView = function(view) {
-            const tabs = ['allstocks', 'momentum', 'dividend', 'mostbought', 'uppercircuit', 'highrisk'];
+            const tabs = ['allstocks', 'momentum', 'dividend', 'highrisk'];
             tabs.forEach(t => {
                 const btn = document.getElementById(`nav-${t}`);
                 const panel = document.getElementById(`view-${t}`);
@@ -238,51 +159,8 @@
             if (view === 'allstocks') filterAllStocks();
             if (view === 'momentum') filterStocks();
             if (view === 'dividend') renderDividendTable();
-            if (view === 'mostbought') renderMostBoughtTable();
-            if (view === 'uppercircuit') renderUpperCircuitTable();
             if (view === 'highrisk') renderHighRiskTable();
         };
-
-        function initDataLoaders() {
-            const sectors = new Set();
-            Object.values(stockData).forEach(s => {
-                if (s.sector) sectors.add(s.sector);
-            });
-            
-            const selectMomentum = document.getElementById('sector-filter');
-            const selectAll = document.getElementById('all-sector-filter');
-            
-            selectMomentum.innerHTML = '<option value="all">All Sectors</option>';
-            selectAll.innerHTML = '<option value="all">All Sectors</option>';
-            
-            sectors.forEach(sector => {
-                const opt1 = document.createElement('option'); opt1.value = sector; opt1.textContent = sector;
-                selectMomentum.appendChild(opt1);
-                const opt2 = document.createElement('option'); opt2.value = sector; opt2.textContent = sector;
-                selectAll.appendChild(opt2);
-            });
-
-            const divMonths = new Set();
-            Object.values(stockData).forEach(data => {
-                if (data.exDate && data.exDate !== "N/A") {
-                    const parts = data.exDate.split("-");
-                    if(parts.length === 3) {
-                        const monthLabel = `${monthNames[parseInt(parts[1])-1]} ${parts[0]}`;
-                        const monthValue = `${parts[0]}-${parts[1]}`;
-                        divMonths.add(JSON.stringify({label: monthLabel, val: monthValue}));
-                    }
-                }
-            });
-            const divSelect = document.getElementById('dividend-month-filter');
-            divSelect.innerHTML = '<option value="all">All Ex-Dates</option>';
-            Array.from(divMonths).map(item => JSON.parse(item))
-                .sort((a,b) => a.val.localeCompare(b.val))
-                .forEach(month => {
-                    const opt = document.createElement('option');
-                    opt.value = month.val; opt.textContent = month.label;
-                    divSelect.appendChild(opt);
-                });
-        }
 
         function setAllCapFilter(capValue) {
             currentAllCapFilter = capValue;
@@ -310,37 +188,18 @@
         }
 
         function filterAllStocks() {
-            const sectorFilter = document.getElementById('all-sector-filter').value;
-            const priceFilter = document.getElementById('all-price-filter').value;
-            const sortFilter = document.getElementById('all-sort-filter').value;
             const searchQuery = document.getElementById('all-search-stocks').value.trim().toLowerCase();
-            
             const grid = document.getElementById('all-stock-grid');
-            const hook = document.getElementById('global-search-hook');
             const countLabel = document.getElementById('all-directory-count');
             
-            grid.innerHTML = ''; hook.innerHTML = ''; hook.classList.add('hidden');
+            grid.innerHTML = ''; 
             let matchedCount = 0;
 
             let dataset = Object.entries(stockData);
-            dataset.sort((a, b) => {
-                const tickerA = a[0]; const tickerB = b[0];
-                const objA = a[1]; const objB = b[1];
-
-                switch(sortFilter) {
-                    case "chg1m-desc": return (objB.changes['1m'] || 0) - (objA.changes['1m'] || 0);
-                    case "chg1m-asc":  return (objA.changes['1m'] || 0) - (objB.changes['1m'] || 0);
-                    case "chg1w-desc": return (objB.changes['1w'] || 0) - (objA.changes['1w'] || 0);
-                    case "price-desc": return (objB.price || 0) - (objA.price || 0);
-                    case "price-asc":  return (objA.price || 0) - (objB.price || 0);
-                    case "ticker-asc": default: return tickerA.localeCompare(tickerB);
-                }
-            });
-
+            
             dataset.forEach(([ticker, data]) => {
                 if (searchQuery && !ticker.toLowerCase().includes(searchQuery) && !data.name.toLowerCase().includes(searchQuery)) return;
                 if (currentAllCapFilter !== 'all' && data.cap !== currentAllCapFilter) return;
-                if (sectorFilter !== 'all' && data.sector !== sectorFilter) return;
                 
                 const chg1m = data.changes['1m'] || 0;
                 const is1mPos = chg1m >= 0;
@@ -349,14 +208,6 @@
                 if (currentAllTrendFilter === 'bearish' && is1mPos) return;
                 
                 const price = data.price || 0;
-                if (priceFilter !== 'all') {
-                    if (priceFilter === 'under100' && price >= 100) return;
-                    if (priceFilter === '100-500' && (price < 100 || price > 500)) return;
-                    if (priceFilter === '500-1500' && (price < 500 || price > 1500)) return;
-                    if (priceFilter === '1500-3000' && (price < 1500 || price > 3000)) return;
-                    if (priceFilter === 'over3000' && price <= 3000) return;
-                }
-
                 const chg1w = data.changes['1w'] || 0;
                 const is1wPos = chg1w >= 0;
                 
@@ -374,45 +225,25 @@
                                 <h3 class="font-bold text-sm tracking-wide text-zinc-200 ${textClass} transition-colors">${ticker}</h3>
                                 <p class="text-[11px] text-zinc-500 truncate mt-0.5">${data.name}</p>
                                 <span class="inline-block mt-2 text-[9px] px-2 py-0.5 rounded bg-zinc-950 border border-zinc-800 text-zinc-400 font-mono capitalize">
-                                    ${data.cap} Cap • ${data.sector || 'General'}
+                                    ${data.cap} Cap
                                 </span>
                             </div>
                             <div class="text-right flex flex-col items-end">
                                 <span class="text-zinc-200 font-bold font-mono text-sm block">₹${price.toLocaleString('en-IN')}</span>
                                 <div class="flex flex-col gap-1 mt-1.5 text-[9px] font-mono font-bold">
                                     <div class="flex items-center justify-end gap-1.5">
-                                        <span class="text-zinc-500">1W</span>
-                                        <span class="${is1wPos ? 'text-emerald-400' : 'text-rose-400'}">${is1wPos ? '+' : ''}${chg1w}%</span>
-                                    </div>
-                                    <div class="flex items-center justify-end gap-1.5">
                                         <span class="text-zinc-500">1M</span>
-                                        <span class="${is1mPos ? 'text-emerald-400' : 'text-rose-400'}">${is1mPos ? '+' : ''}${chg1m}%</span>
+                                        <span class="${is1mPos ? 'text-emerald-400' : 'text-rose-400'}">${is1mPos ? '+' : ''}${chg1m.toFixed(2)}%</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 `;
-                
                 grid.appendChild(card);
                 matchedCount++;
             });
-
             countLabel.innerText = `DISPLAYING ${matchedCount} ASSETS`;
-
-            if (searchQuery.length >= 2) {
-                const rawTicker = searchQuery.toUpperCase();
-                if (!stockData[rawTicker]) {
-                    hook.classList.remove('hidden');
-                    hook.innerHTML = `
-                        <div class="bg-zinc-900/20 border-2 border-dashed border-sky-900/50 rounded-xl p-6 flex flex-col items-center justify-center text-center hover:border-sky-500/60 transition-all cursor-pointer group" onclick="openWorkspace('${rawTicker}')">
-                            <h4 class="text-sm font-bold font-mono text-sky-400">Search External Market For: "${rawTicker}"</h4>
-                            <p class="text-[11px] text-zinc-400 mt-2 max-w-sm">Not in local cache. Tap to connect to live exchange and force-launch workspace.</p>
-                            <span class="mt-4 text-[10px] font-mono bg-sky-950/40 text-sky-400 border border-sky-900 px-4 py-1.5 rounded uppercase tracking-wider font-bold">⚡ Launch Bridge</span>
-                        </div>
-                    `;
-                }
-            }
         }
 
         function setCapFilter(capValue) {
@@ -424,7 +255,6 @@
         }
 
         function filterStocks() {
-            const sectorFilter = document.getElementById('sector-filter').value;
             const horizon = document.getElementById('horizon-filter').value;
             const grid = document.getElementById('stock-grid');
             grid.innerHTML = '';
@@ -433,7 +263,6 @@
 
             sortedTickers.forEach(([ticker, data]) => {
                 if (currentCapFilter !== 'all' && data.cap !== currentCapFilter) return;
-                if (sectorFilter !== 'all' && data.sector !== sectorFilter) return;
 
                 const pct = data.changes[horizon] || 0;
                 const isPos = pct >= 0;
@@ -445,13 +274,10 @@
                     <div>
                         <h3 class="font-bold text-sm tracking-wide text-zinc-200 group-hover:text-emerald-400 transition-colors">${ticker}</h3>
                         <p class="text-[11px] text-zinc-500 truncate max-w-[150px] mt-0.5">${data.name}</p>
-                        <span class="inline-block mt-2 text-[10px] px-2 py-0.5 rounded bg-zinc-950 border border-zinc-800 text-zinc-400 font-mono capitalize">
-                            ${data.cap} Cap • ${data.sector || 'General'}
-                        </span>
                     </div>
                     <div class="text-right flex flex-col items-end">
                         <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-bold font-mono ${isPos ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-900' : 'bg-rose-950/80 text-rose-400 border border-rose-900'}">
-                            ${isPos ? '+' : ''}${pct}%
+                            ${isPos ? '+' : ''}${pct.toFixed(2)}%
                         </span>
                         <span class="text-[10px] font-mono text-zinc-500 mt-1 uppercase tracking-wider">${horizonLabels[horizon]}</span>
                     </div>
@@ -462,12 +288,10 @@
 
         function renderDividendTable() {
             const container = document.getElementById('dividend-table-body');
-            const monthFilter = document.getElementById('dividend-month-filter').value;
             container.innerHTML = '';
             
             Object.entries(stockData).forEach(([ticker, data]) => {
-                if(!data.divAmount || data.divAmount === 0 || data.exDate === "N/A") return;
-                if(monthFilter !== 'all' && !data.exDate.startsWith(monthFilter)) return;
+                if(!data.divYield || data.divYield === 0) return;
 
                 const row = document.createElement('tr');
                 row.className = "hover:bg-zinc-900/50 cursor-pointer transition-colors group";
@@ -475,57 +299,9 @@
                 row.innerHTML = `
                     <td class="p-4 font-bold text-zinc-200 group-hover:text-emerald-400 transition-colors">${ticker}</td>
                     <td class="p-4 text-zinc-400 font-sans">${data.name}</td>
-                    <td class="p-4 text-right font-bold text-zinc-200">₹${data.divAmount.toFixed(2)}</td>
-                    <td class="p-4 text-right text-emerald-400 font-bold">${data.divYield > 0 ? data.divYield + '%' : '-'}</td>
-                    <td class="p-4 text-center text-zinc-500 font-mono">${data.exDate}</td>
-                `;
-                container.appendChild(row);
-            });
-        }
-
-        function renderMostBoughtTable() {
-            const container = document.getElementById('mostbought-table-body');
-            const tfFilter = document.getElementById('mostbought-tf-filter').value;
-            container.innerHTML = '';
-
-            Object.entries(stockData).forEach(([ticker, data]) => {
-                if (!data.mostBought) return;
-                if (tfFilter !== 'all' && data.mostBought.tf !== tfFilter) return;
-
-                const row = document.createElement('tr');
-                row.className = "hover:bg-zinc-900/50 cursor-pointer transition-colors group";
-                row.setAttribute('onclick', `openWorkspace('${ticker}')`);
-                row.innerHTML = `
-                    <td class="p-4 font-bold text-zinc-200 group-hover:text-orange-400 transition-colors">${ticker}</td>
-                    <td class="p-4 text-zinc-400 font-sans">${data.name}</td>
-                    <td class="p-4 text-right font-bold text-zinc-200">₹${data.price.toLocaleString('en-IN')}</td>
-                    <td class="p-4 text-right text-zinc-300 font-bold">${data.mostBought.surge}</td>
-                    <td class="p-4 text-right text-emerald-400 font-bold">${data.mostBought.delivery}</td>
-                    <td class="p-4 text-center font-bold text-orange-400">${data.mostBought.intensity}</td>
-                `;
-                container.appendChild(row);
-            });
-        }
-
-        function renderUpperCircuitTable() {
-            const container = document.getElementById('uppercircuit-table-body');
-            const tfFilter = document.getElementById('circuit-tf-filter').value;
-            container.innerHTML = '';
-            
-            Object.entries(stockData).forEach(([ticker, data]) => {
-                if (!data.circuit) return;
-                if (tfFilter !== 'all' && data.circuit.tf !== tfFilter) return;
-
-                const row = document.createElement('tr');
-                row.className = "hover:bg-zinc-900/50 cursor-pointer transition-colors group";
-                row.setAttribute('onclick', `openWorkspace('${ticker}')`);
-                row.innerHTML = `
-                    <td class="p-4 font-bold text-zinc-200 group-hover:text-rose-400 transition-colors">${ticker}</td>
-                    <td class="p-4 text-zinc-400 font-sans">${data.name}</td>
-                    <td class="p-4 text-right font-bold text-zinc-200">₹${data.price.toLocaleString('en-IN')}</td>
-                    <td class="p-4 text-right text-rose-400 font-extrabold animate-pulse">${data.circuit.chg}</td>
-                    <td class="p-4 text-right text-zinc-400">${data.circuit.band} % band</td>
-                    <td class="p-4 text-right text-emerald-400 font-bold tracking-wide">${data.circuit.buyers}</td>
+                    <td class="p-4 text-right font-bold text-zinc-200">₹${data.divAmount}</td>
+                    <td class="p-4 text-right text-emerald-400 font-bold">${data.divYield}%</td>
+                    <td class="p-4 text-center text-zinc-500 font-mono">${data.exDate || 'N/A'}</td>
                 `;
                 container.appendChild(row);
             });
@@ -536,7 +312,7 @@
             container.innerHTML = '';
 
             Object.entries(stockData).forEach(([ticker, data]) => {
-                if (!data.riskMetrics) return;
+                if (!data.riskMetrics || data.riskMetrics.threat === "N/A") return;
                 const chg1m = data.changes['1m'] || 0;
                 const isPos = chg1m >= 0;
 
@@ -550,52 +326,27 @@
                         <div class="text-[10px] text-zinc-500 font-mono mt-0.5">Beta: ${data.riskMetrics.beta}</div>
                     </td>
                     <td class="p-4 text-right font-bold text-zinc-200">₹${data.price.toLocaleString('en-IN')}</td>
-                    <td class="p-4 text-right font-bold ${isPos ? 'text-emerald-400' : 'text-rose-400'}">${isPos?'+':''}${chg1m}%</td>
+                    <td class="p-4 text-right font-bold ${isPos ? 'text-emerald-400' : 'text-rose-400'}">${isPos?'+':''}${chg1m.toFixed(2)}%</td>
                     <td class="p-4 font-mono text-[11px]">
                         <div class="text-rose-400"><span class="text-zinc-500">Risk:</span> ${data.riskMetrics.threat}</div>
                         <div class="text-emerald-400"><span class="text-zinc-500">Reward:</span> ${data.riskMetrics.award}</div>
                     </td>
-                    <td class="p-4 text-right text-amber-400 font-extrabold tracking-wider animate-pulse">Alpha Catalyst 🚀</td>
+                    <td class="p-4 text-right text-amber-400 font-extrabold tracking-wider animate-pulse">Review 🚀</td>
                 `;
                 container.appendChild(row);
             });
         }
 
         function generateTechnicalMarkup(ticker) {
-            const cached = stockData[ticker];
-            const rsi = cached && cached.tech ? cached.tech.rsi : Math.floor(Math.random() * (75 - 35) + 35);
-            const pivot = cached && cached.tech ? cached.tech.pivot : "Consolidating near Pivot Baseline";
-            
-            let rsiRec = ""; let rsiScore = 0;
-            if (rsi >= 70) { rsiRec = `RSI is highly overbought (${rsi}). Momentum has expanded excessively; there is a severe risk of exhaustion.`; rsiScore = -2; } 
-            else if (rsi <= 40) { rsiRec = `RSI is heavily oversold (${rsi}). Asset is experiencing capitulation; structurally discounted.`; rsiScore = 2; } 
-            else { rsiRec = `RSI is resting at a healthy mid-range (${rsi}). Consistent volume accumulation observed.`; rsiScore = 1; }
-
-            let pivotRec = ""; let pivotScore = 0;
-            if (pivot.includes("Above R2") || pivot.includes("R3") || pivot.includes("Resistance") || pivot.includes("Overextended")) { pivotRec = `Pivot calculations indicate overhead structural resistance layers (${pivot}). Buying here forces poor risk-to-reward ratios.`; pivotScore = -2; } 
-            else if (pivot.includes("Support") || pivot.includes("S1") || pivot.includes("S2")) { pivotRec = `Pivot system registers cluster safety support layers (${pivot}). Downside floor protection is exceptionally strong.`; pivotScore = 2; } 
-            else { pivotRec = `Asset is hovering near foundational trading ranges (${pivot}). Stabilized horizontal parameters confirm neutral posture.`; pivotScore = 0; }
-
-            const totalScore = rsiScore + pivotScore;
-            let finalVerdict = "⚖️ HOLD / NEUTRAL POSITION";
-            let verdictClass = "bg-zinc-900 border-zinc-800 text-zinc-400";
-
-            if (totalScore >= 2) { finalVerdict = "🟢 STRONG TECHNICAL BUY"; verdictClass = "bg-emerald-950/60 border-emerald-500/40 text-emerald-400 shadow-md"; } 
-            else if (totalScore <= -1) { finalVerdict = "🔴 NOT RECOMMENDED (AVOID)"; verdictClass = "bg-rose-950/60 border-rose-500/40 text-rose-400 shadow-md"; }
-
             return `
                 <div class="space-y-4 flex-1 overflow-y-auto pr-2 pb-6">
-                    <div class="p-3 rounded-xl border text-center font-mono font-bold text-xs tracking-wide shrink-0 ${verdictClass}">
-                        ${finalVerdict}
+                    <div class="p-3 rounded-xl border text-center font-mono font-bold text-xs tracking-wide shrink-0 bg-zinc-900 border-zinc-800 text-zinc-400">
+                        ⚖️ HOLD / NEUTRAL POSITION
                     </div>
                     <div class="space-y-3 font-mono text-[11px]">
                         <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
-                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2">⚡ Relative Strength Index (RSI)</span>
-                            <p class="text-zinc-300 leading-relaxed">${rsiRec}</p>
-                        </div>
-                        <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
-                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2">🎯 Pivot Matrix Level</span>
-                            <p class="text-zinc-300 leading-relaxed">${pivotRec}</p>
+                            <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2">⚡ Technical Notes</span>
+                            <p class="text-zinc-300 leading-relaxed">Check the Decoder tab for live structural analysis.</p>
                         </div>
                     </div>
                 </div>
@@ -603,64 +354,40 @@
         }
 
         function generateFundamentalMarkup(ticker) {
-            const cached = stockData[ticker];
-            const funda = cached && cached.funda ? cached.funda : { pe: Math.floor(Math.random() * 40 + 8), roe: Math.floor(Math.random() * 20 + 5), de: (Math.random() * 2).toFixed(1) };
-            const divYield = cached && cached.divYield ? cached.divYield : 0;
-            
-            let valScore = 0;
-            let peText = "";
-            if (funda.pe < 15 && funda.pe > 0) { peText = `P/E Ratio is deeply discounted (${funda.pe.toFixed(1)}). Structurally undervalued relative to sector averages.`; valScore += 2; }
-            else if (funda.pe > 30 || funda.pe < 0) { peText = `P/E Ratio is highly stretched (${funda.pe.toFixed(1)}). Trading at a severe premium; risk of overvaluation.`; valScore -= 2; }
-            else { peText = `P/E Ratio is fair (${funda.pe.toFixed(1)}). Trading in-line with historical market multiples.`; valScore += 1; }
-
-            let yieldText = "";
-            if (divYield > 3.0) { yieldText = `High dividend yield (${divYield}%). Provides robust downside protection and superior passive cash flow.`; valScore += 2; }
-            else if (divYield > 0) { yieldText = `Moderate dividend yield (${divYield}%). Reliable capital return program in place.`; valScore += 1; }
-            else { yieldText = `No dividend yield. Total return relies purely on speculative capital appreciation.`; }
-
-            let debtText = "";
-            if (funda.de < 0.5) { debtText = `Debt-to-Equity is excellent (${funda.de}). Balance sheet is highly insulated against interest rate shocks.`; valScore += 1; }
-            else if (funda.de > 1.5) { debtText = `Debt-to-Equity is concerning (${funda.de}). High leverage profile increases structural risk.`; valScore -= 1; }
-            else { debtText = `Debt-to-Equity is manageable (${funda.de}). Standard operational leverage.`; }
-
-            let finalVerdict = "⚖️ FAIR VALUE / HOLD";
-            let verdictClass = "bg-zinc-900 border-zinc-800 text-zinc-400";
-
-            if (valScore >= 3) { finalVerdict = "🟢 STRONG VALUE (UNDERVALUED)"; verdictClass = "bg-emerald-950/60 border-emerald-500/40 text-emerald-400 shadow-md"; } 
-            else if (valScore < 0) { finalVerdict = "🔴 OVERVALUED (AVOID)"; verdictClass = "bg-rose-950/60 border-rose-500/40 text-rose-400 shadow-md"; }
+            const data = stockData[ticker];
+            const pe = data && data.funda && data.funda.pe ? data.funda.pe : 'N/A';
+            const de = data && data.funda && data.funda.de ? data.funda.de : 'N/A';
+            const yield = data && data.divYield ? data.divYield + '%' : 'N/A';
 
             return `
                 <div class="space-y-4 flex-1 overflow-y-auto pr-2 pb-6">
-                    <div class="p-3 rounded-xl border text-center font-mono font-bold text-xs tracking-wide shrink-0 ${verdictClass}">
-                        ${finalVerdict}
-                    </div>
                     <div class="space-y-3 font-mono text-[11px]">
                         <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
                             <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2 flex justify-between">
                                 <span>📉 Value Status (P/E)</span>
-                                <span class="text-sky-400">${funda.pe.toFixed(1)}</span>
+                                <span class="text-sky-400">${pe}</span>
                             </span>
-                            <p class="text-zinc-300 leading-relaxed">${peText}</p>
                         </div>
                         <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
                             <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2 flex justify-between">
                                 <span>💰 Income Potential (Yield)</span>
-                                <span class="text-emerald-400">${divYield > 0 ? divYield + '%' : 'N/A'}</span>
+                                <span class="text-emerald-400">${yield}</span>
                             </span>
-                            <p class="text-zinc-300 leading-relaxed">${yieldText}</p>
                         </div>
                         <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
                             <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2 flex justify-between">
                                 <span>🏛️ Financial Health (D/E)</span>
-                                <span class="text-purple-400">${funda.de}</span>
+                                <span class="text-purple-400">${de}</span>
                             </span>
-                            <p class="text-zinc-300 leading-relaxed">${debtText}</p>
                         </div>
                     </div>
                 </div>
             `;
         }
 
+        // -------------------------------------------------------------
+        // WORKSPACE LOGIC (CLEAN TICKER & LIVE NEWS)
+        // -------------------------------------------------------------
         window.openWorkspace = function(ticker) {
             const details = stockData[ticker] || { name: "Live Market Search", cap: "global", sector: "Equities" };
             const overlay = document.getElementById('workspace-overlay');
@@ -783,58 +510,26 @@
             }
         };
 
-            // Ensure ticker is clean for dynamic widget loading
-            const cleanTicker = ticker.replace('.NS', '').replace('.BO', '').trim();
-
-            if (activeTab === 'decoder') {
-                const container = document.getElementById('tv-decoder-container');
-                if (container && container.innerHTML.trim() === '') {
-                    const script = document.createElement('script');
-                    script.type = 'text/javascript'; script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js'; script.async = true;
-                    script.text = JSON.stringify({ "interval": "1D", "width": "100%", "isTransparent": true, "height": "100%", "symbol": `NSE:${cleanTicker}`, "showIntervalTabs": true, "displayMode": "single", "locale": "en", "colorTheme": "dark" });
-                    container.appendChild(script);
-                }
-            }
-            
-            // Dynamically load the Live News Widget
-            if (activeTab === 'news') {
-                const container = document.getElementById('tv-news-container');
-                if (container && container.innerHTML.trim() === '') {
-                    const script = document.createElement('script');
-                    script.type = 'text/javascript'; 
-                    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-timeline.js'; 
-                    script.async = true;
-                    script.text = JSON.stringify({
-                        "feedMode": "symbol",
-                        "symbol": `NSE:${cleanTicker}`,
-                        "colorTheme": "dark",
-                        "isTransparent": true,
-                        "displayMode": "regular",
-                        "width": "100%",
-                        "height": "100%",
-                        "locale": "en"
-                    });
-                    container.appendChild(script);
-                }
-            }
-        };
-
         window.closeWorkspace = function() {
             document.getElementById('workspace-overlay').classList.add('hidden');
             document.getElementById('workspace-overlay').innerHTML = '';
         };
 
         // -------------------------------------------------------------
-        // LIVE API SYNC - Fetch Data First, Build UI Second
+        // LIVE API SYNC
         // -------------------------------------------------------------
         async function fetchLiveMarketData() {
+            if (AM_SHEETS_API === "YOUR_NEW_WEB_APP_URL_GOES_HERE") {
+                document.getElementById('all-directory-count').innerText = 'ERROR: API URL MISSING IN CODE';
+                return;
+            }
+
             try {
                 document.getElementById('all-directory-count').innerText = 'SYNCING LIVE MARKET DATA...';
                 
                 const response = await fetch(AM_SHEETS_API, { redirect: 'follow' });
                 const raw = await response.json();
                 
-                // Build the stockData completely from the Google Sheet
                 ['large', 'mid', 'small'].forEach(cap => {
                     ['bullish', 'bearish'].forEach(trend => {
                         if (raw[cap] && raw[cap][trend]) {
@@ -844,16 +539,10 @@
                                     cap: cap, 
                                     sector: s.sector || "General", 
                                     price: s.price,
-                                    changes: { "1w": 0, "1m": s.change, "3m": 0 },
-                                    
-                                    // These fields are initialized empty so the UI doesn't crash.
-                                    // You must add them to your Google Sheet if you want them to populate!
+                                    changes: s.changes || { "1w": 0, "1m": 0, "3m": 0 },
                                     divAmount: s.divAmount || 0, 
                                     divYield: s.divYield || 0, 
                                     exDate: s.exDate || "N/A",
-                                    mostBought: s.mostBought || null, 
-                                    circuit: s.circuit || null,
-                                    tech: s.tech || { rsi: 50, pivot: "Live Setup" },
                                     funda: s.funda || null,
                                     riskMetrics: s.riskMetrics || null
                                 };
@@ -862,24 +551,19 @@
                     });
                 });
                 
-                // Now that data is here, trigger all UI builders
-                initDataLoaders();
                 filterAllStocks();
                 filterStocks();
                 renderDividendTable();
-                renderMostBoughtTable();
-                renderUpperCircuitTable();
                 renderHighRiskTable();
                 
                 document.getElementById('all-directory-count').innerText = 'LIVE SYNC COMPLETE';
 
             } catch (e) { 
                 console.error("Live Sync Failed:", e); 
-                document.getElementById('all-directory-count').innerText = 'LIVE SYNC FAILED - CHECK CONNECTION';
+                document.getElementById('all-directory-count').innerText = 'LIVE SYNC FAILED - CHECK CONNECTION & PRIVACY SETTINGS';
             }
         }
 
-        // Start the application sequence
         fetchLiveMarketData();
 
     </script>
