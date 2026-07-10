@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RBK NiftyPulse Scanner</title>
-    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#09090b">
-    <link rel="apple-touch-icon" href="icon-192.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
@@ -128,10 +126,10 @@
     <div id="workspace-overlay" class="hidden"></div>
 
     <script>
-        // ==========================================
-        // ADD YOUR DEPLOYED APPS SCRIPT URL HERE
-        // ==========================================
-        const AM_SHEETS_API = "https://script.google.com/macros/s/AKfycbxRxY9_32hBEkHaOIogwndtw9dZCNQM3emTBPlxrV2GOKjsk8ZMr38_pDqVlyAC1ygYEg/exec";
+        // =============================================================
+        // CONFIGURATION: PASTE YOUR GOOGLE WEB APP URL BELOW
+        // =============================================================
+        const AM_SHEETS_API = "https://script.google.com/macros/s/AKfycbz_K_N6r9L9mRjGk_f0U07wJ_6rU82YvE-A/exec"; // Put your actual App Script URL here
 
         let stockData = {};
         const horizonLabels = { "1w": "1 Week Chg", "1m": "1 Month Chg", "3m": "3 Month Chg" };
@@ -139,9 +137,7 @@
         let currentAllCapFilter = "all";
         let currentAllTrendFilter = "all"; 
 
-        // -------------------------------------------------------------
-        // CORE UI BUILDERS
-        // -------------------------------------------------------------
+        // NAVIGATION LOGIC
         window.switchGlobalView = function(view) {
             const tabs = ['allstocks', 'momentum', 'dividend', 'highrisk'];
             tabs.forEach(t => {
@@ -162,7 +158,7 @@
             if (view === 'highrisk') renderHighRiskTable();
         };
 
-        function setAllCapFilter(capValue) {
+        window.setAllCapFilter = function(capValue) {
             currentAllCapFilter = capValue;
             document.querySelectorAll('.all-cap-btn').forEach(btn => {
                 if (btn.getAttribute('data-cap') === capValue) {
@@ -172,9 +168,9 @@
                 }
             });
             filterAllStocks();
-        }
+        };
 
-        function setAllTrendFilter(trendValue) {
+        window.setAllTrendFilter = function(trendValue) {
             currentAllTrendFilter = trendValue;
             document.querySelectorAll('.all-trend-btn').forEach(btn => {
                 if (btn.getAttribute('data-trend') === trendValue) {
@@ -185,9 +181,10 @@
                 }
             });
             filterAllStocks();
-        }
+        };
 
-        function filterAllStocks() {
+        // DIRECTORY FILTERING
+        window.filterAllStocks = function() {
             const searchQuery = document.getElementById('all-search-stocks').value.trim().toLowerCase();
             const grid = document.getElementById('all-stock-grid');
             const countLabel = document.getElementById('all-directory-count');
@@ -195,9 +192,7 @@
             grid.innerHTML = ''; 
             let matchedCount = 0;
 
-            let dataset = Object.entries(stockData);
-            
-            dataset.forEach(([ticker, data]) => {
+            Object.entries(stockData).forEach(([ticker, data]) => {
                 if (searchQuery && !ticker.toLowerCase().includes(searchQuery) && !data.name.toLowerCase().includes(searchQuery)) return;
                 if (currentAllCapFilter !== 'all' && data.cap !== currentAllCapFilter) return;
                 
@@ -208,9 +203,6 @@
                 if (currentAllTrendFilter === 'bearish' && is1mPos) return;
                 
                 const price = data.price || 0;
-                const chg1w = data.changes['1w'] || 0;
-                const is1wPos = chg1w >= 0;
-                
                 const card = document.createElement('div');
                 const borderClass = is1mPos ? 'hover:border-emerald-500/50' : 'hover:border-rose-500/50';
                 const textClass = is1mPos ? 'group-hover:text-emerald-400' : 'group-hover:text-rose-400';
@@ -244,17 +236,17 @@
                 matchedCount++;
             });
             countLabel.innerText = `DISPLAYING ${matchedCount} ASSETS`;
-        }
+        };
 
-        function setCapFilter(capValue) {
+        window.setCapFilter = function(capValue) {
             currentCapFilter = capValue;
             document.querySelectorAll('.cap-btn').forEach(btn => {
                 btn.className = btn.getAttribute('data-cap') === capValue ? "cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-emerald-500 text-white font-semibold cursor-pointer shadow-lg shadow-emerald-950" : "cap-btn px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer";
             });
             filterStocks();
-        }
+        };
 
-        function filterStocks() {
+        window.filterStocks = function() {
             const horizon = document.getElementById('horizon-filter').value;
             const grid = document.getElementById('stock-grid');
             grid.innerHTML = '';
@@ -284,9 +276,9 @@
                 `;
                 grid.appendChild(card);
             });
-        }
+        };
 
-        function renderDividendTable() {
+        window.renderDividendTable = function() {
             const container = document.getElementById('dividend-table-body');
             container.innerHTML = '';
             
@@ -305,9 +297,9 @@
                 `;
                 container.appendChild(row);
             });
-        }
+        };
 
-        function renderHighRiskTable() {
+        window.renderHighRiskTable = function() {
             const container = document.getElementById('highrisk-table-body');
             container.innerHTML = '';
 
@@ -335,18 +327,18 @@
                 `;
                 container.appendChild(row);
             });
-        }
+        };
 
         function generateTechnicalMarkup(ticker) {
             return `
                 <div class="space-y-4 flex-1 overflow-y-auto pr-2 pb-6">
                     <div class="p-3 rounded-xl border text-center font-mono font-bold text-xs tracking-wide shrink-0 bg-zinc-900 border-zinc-800 text-zinc-400">
-                        ⚖️ HOLD / NEUTRAL POSITION
+                        ⚖️ POSITION DATA READY
                     </div>
                     <div class="space-y-3 font-mono text-[11px]">
                         <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
                             <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2">⚡ Technical Notes</span>
-                            <p class="text-zinc-300 leading-relaxed">Check the Decoder tab for live structural analysis.</p>
+                            <p class="text-zinc-300 leading-relaxed">Check Decoder tab for advanced metric aggregation options.</p>
                         </div>
                     </div>
                 </div>
@@ -357,7 +349,7 @@
             const data = stockData[ticker];
             const pe = data && data.funda && data.funda.pe ? data.funda.pe : 'N/A';
             const de = data && data.funda && data.funda.de ? data.funda.de : 'N/A';
-            const yield = data && data.divYield ? data.divYield + '%' : 'N/A';
+            const yieldVal = data && data.divYield ? data.divYield + '%' : 'N/A';
 
             return `
                 <div class="space-y-4 flex-1 overflow-y-auto pr-2 pb-6">
@@ -371,7 +363,7 @@
                         <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
                             <span class="text-zinc-500 block uppercase font-bold tracking-wider mb-2 flex justify-between">
                                 <span>💰 Income Potential (Yield)</span>
-                                <span class="text-emerald-400">${yield}</span>
+                                <span class="text-emerald-400">${yieldVal}</span>
                             </span>
                         </div>
                         <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800">
@@ -385,12 +377,13 @@
             `;
         }
 
+        // WORKSPACE OVERLAY LOGIC
         window.openWorkspace = function(ticker) {
             const details = stockData[ticker] || { name: "Live Market Search", cap: "global", sector: "Equities" };
             const overlay = document.getElementById('workspace-overlay');
             overlay.className = "fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-0 sm:p-4 backdrop-blur-md";
             
-            // Clean ticker for charts and news
+            // Clean up the ticker name perfectly
             const cleanTicker = ticker.split('.')[0].replace(/\s+/g, '').toUpperCase();
             
             overlay.innerHTML = `
@@ -409,7 +402,6 @@
                         </div>
                         
                         <div class="p-4 flex flex-col h-full overflow-hidden bg-zinc-950">
-                            
                             <div class="flex flex-wrap border-b border-zinc-800 mb-4 shrink-0 text-xs">
                                 <button id="btn-tab-tech" onclick="toggleWorkspaceTab('tech', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-emerald-500 text-emerald-400 transition-all cursor-pointer">💡 Tech</button>
                                 <button id="btn-tab-funda" onclick="toggleWorkspaceTab('funda', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer">🏛️ Funda</button>
@@ -436,6 +428,7 @@
                     </div>
                 </div>`;
 
+            // Initialize TradingView Widget safely
             setTimeout(() => {
                 new TradingView.widget({
                     "autosize": true, 
@@ -479,94 +472,12 @@
                 }
             }
             
-            // Trigger our custom news fetcher
+            // Native News Handler
             if (activeTab === 'news') {
                 const container = document.getElementById('tv-news-container');
                 if (container && container.innerHTML.trim() === '') {
-                    container.innerHTML = '<div class="p-6 text-center text-zinc-500 text-xs font-mono animate-pulse">📡 Scanning global feeds for ' + cleanTicker + '...</div>';
+                    container.innerHTML = `<div class="p-6 text-center text-zinc-500 text-xs font-mono animate-pulse">📡 Scanning dynamic news matrix for ${cleanTicker}...</div>`;
                     fetchLiveNews(cleanTicker, container);
-                }
-            }
-        };
-
-        // NEW FUNCTION: Fetches Google News RSS and turns them into native tiles
-        async function fetchLiveNews(ticker, container) {
-            try {
-                // We ask Google News for this specific stock in India
-                const query = encodeURIComponent(`${ticker} stock India`);
-                const rssUrl = encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=en-IN&gl=IN&ceid=IN:en`);
-                
-                // We use a free public proxy to convert the RSS feed into clean JSON data
-                const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`;
-
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-
-                if (data.status === "ok" && data.items.length > 0) {
-                    let html = '<div class="p-3 flex flex-col gap-3 pb-8">';
-                    
-                    // Loop through the top 8 news articles and build tiles
-                    data.items.slice(0, 8).forEach(item => {
-                        // Extract just the source name from the title if possible, or fallback
-                        const source = item.source || 'Google News';
-                        
-                        // Clean up the date format
-                        const pubDate = new Date(item.pubDate);
-                        const dateString = pubDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
-
-                        html += `
-                            <a href="${item.link}" target="_blank" class="block bg-zinc-900/60 hover:bg-zinc-800 border border-zinc-800/80 p-3.5 rounded-xl transition-all duration-200 group shadow-sm">
-                                <h4 class="text-xs font-semibold text-zinc-200 group-hover:text-emerald-400 mb-2 leading-relaxed">${item.title}</h4>
-                                <div class="flex justify-between items-center mt-2 border-t border-zinc-800/50 pt-2">
-                                    <span class="text-[9px] text-zinc-500 font-mono uppercase tracking-wider">${source}</span>
-                                    <span class="text-[9px] text-zinc-500 font-mono">${dateString}</span>
-                                </div>
-                            </a>
-                        `;
-                    });
-                    
-                    html += '</div>';
-                    container.innerHTML = html;
-                } else {
-                    container.innerHTML = '<div class="p-6 text-center text-zinc-500 text-xs font-mono">No recent news found for this ticker.</div>';
-                }
-            } catch (error) {
-                container.innerHTML = '<div class="p-6 text-center text-rose-500 text-xs font-mono">⚠️ Failed to connect to news feed.</div>';
-            }
-        }
-
-            const cleanTicker = ticker.split('.')[0].replace(/\s+/g, '').toUpperCase();
-
-            // Load Technical Decoder Widget
-            if (activeTab === 'decoder') {
-                const container = document.getElementById('tv-decoder-container');
-                if (container && container.innerHTML.trim() === '') {
-                    const script = document.createElement('script');
-                    script.type = 'text/javascript'; script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js'; script.async = true;
-                    script.text = JSON.stringify({ "interval": "1D", "width": "100%", "isTransparent": true, "height": "100%", "symbol": `NSE:${cleanTicker}`, "showIntervalTabs": true, "displayMode": "single", "locale": "en", "colorTheme": "dark" });
-                    container.appendChild(script);
-                }
-            }
-            
-            // Load Live News Widget
-            if (activeTab === 'news') {
-                const container = document.getElementById('tv-news-container');
-                if (container && container.innerHTML.trim() === '') {
-                    const script = document.createElement('script');
-                    script.type = 'text/javascript'; 
-                    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-timeline.js'; 
-                    script.async = true;
-                    script.text = JSON.stringify({
-                        "feedMode": "symbol",
-                        "symbol": `NSE:${cleanTicker}`,
-                        "colorTheme": "dark",
-                        "isTransparent": true,
-                        "displayMode": "regular",
-                        "width": "100%",
-                        "height": "100%",
-                        "locale": "en"
-                    });
-                    container.appendChild(script);
                 }
             }
         };
@@ -576,15 +487,48 @@
             document.getElementById('workspace-overlay').innerHTML = '';
         };
 
-        // -------------------------------------------------------------
-        // LIVE API SYNC
-        // -------------------------------------------------------------
-        async function fetchLiveMarketData() {
-            if (AM_SHEETS_API === "YOUR_NEW_WEB_APP_URL_GOES_HERE") {
-                document.getElementById('all-directory-count').innerText = 'ERROR: API URL MISSING IN CODE';
-                return;
-            }
+        // NATIVE NEWS TILE GENERATOR
+        async function fetchLiveNews(ticker, container) {
+            try {
+                const query = encodeURIComponent(`${ticker} stock India news`);
+                const rssUrl = encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=en-IN&gl=IN&ceid=IN:en`);
+                const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`;
 
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data.status === "ok" && data.items && data.items.length > 0) {
+                    let html = '<div class="p-3 flex flex-col gap-3 pb-8">';
+                    
+                    data.items.slice(0, 10).forEach(item => {
+                        const source = item.source || 'Market Update';
+                        const pubDate = new Date(item.pubDate);
+                        const dateString = pubDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+
+                        html += `
+                            <a href="${item.link}" target="_blank" class="block bg-zinc-900/60 hover:bg-zinc-800/90 border border-zinc-800/80 p-3.5 rounded-xl transition-all duration-200 group shadow-md">
+                                <h4 class="text-xs font-semibold text-zinc-200 group-hover:text-emerald-400 mb-2 leading-relaxed">${item.title}</h4>
+                                <div class="flex justify-between items-center mt-2 border-t border-zinc-800/40 pt-2 font-mono text-[9px] text-zinc-500">
+                                    <span class="uppercase tracking-wider font-bold">${source}</span>
+                                    <span>${dateString}</span>
+                                </div>
+                            </a>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = '<div class="p-6 text-center text-zinc-500 text-xs font-mono">No localized stock news tiles available.</div>';
+                }
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = '<div class="p-6 text-center text-rose-500 text-xs font-mono">⚠️ Telemetry error parsing feed sync.</div>';
+            }
+        }
+
+        // MARKET API BACKEND DATA SYNC
+        async function fetchLiveMarketData() {
             try {
                 document.getElementById('all-directory-count').innerText = 'SYNCING LIVE MARKET DATA...';
                 
@@ -621,12 +565,12 @@
 
             } catch (e) { 
                 console.error("Live Sync Failed:", e); 
-                document.getElementById('all-directory-count').innerText = 'LIVE SYNC FAILED - CHECK CONNECTION & PRIVACY SETTINGS';
+                document.getElementById('all-directory-count').innerText = 'LIVE SYNC FAILED - CHECK INTERNET OR PRIVACY SETTINGS';
             }
         }
 
+        // Initialize App on load
         fetchLiveMarketData();
-
     </script>
 </body>
 </html>
