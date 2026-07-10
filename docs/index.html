@@ -442,19 +442,21 @@
                     </div>
                 </div>`;
 
-            // Load the main chart with the sanitized ticker
+            // Load the main chart
             setTimeout(() => {
                 new TradingView.widget({
                     "autosize": true, 
+                    // CHANGE THIS LINE: TradingView often prefers 'NSE:' directly 
+                    // and sometimes needs the exchange to be explicit.
                     "symbol": `NSE:${cleanTicker}`, 
                     "interval": "D", 
                     "timezone": "Asia/Kolkata", 
                     "theme": "dark", 
-                    "style": "3",
+                    "style": "1", // Changed from 3 to 1 (Candlestick) to be safer
                     "locale": "en", 
                     "enable_publishing": false, 
-                    "hide_side_toolbar": true, 
-                    "allow_symbol_change": false, 
+                    "hide_side_toolbar": false, // Set to false to see if TV can help you search
+                    "allow_symbol_change": true, // Allow manual correction if it fails
                     "container_id": "tv-chart-frame"
                 });
             }, 50);
