@@ -6,6 +6,7 @@
     <title>RBK NiftyPulse Scanner</title>
     <meta name="theme-color" content="#09090b">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
         ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -536,45 +537,61 @@
             }
         }
 
-        // MARKET API BACKEND DATA SYNC
         async function fetchLiveMarketData() {
             try {
-                document.getElementById('all-directory-count').innerText = 'SYNCING LIVE MARKET DATA...';
+                document.getElementById('all-directory-count').innerText = 'READING LOCAL NSE DATA...';
                 
-                const response = await fetch(AM_SHEETS_API, { redirect: 'follow' });
-                const raw = await response.json();
+                // Fetch the CSV file you uploaded to Netlify
+                const response = await fetch('bhavcopy.csv');
+                if (!response.ok) throw new Error("Could not find bhavcopy.csv");
+                const csvText = await response.text();
                 
-                ['large', 'mid', 'small'].forEach(cap => {
-                    ['bullish', 'bearish'].forEach(trend => {
-                        if (raw[cap] && raw[cap][trend]) {
-                            raw[cap][trend].forEach(s => {
-                                stockData[s.ticker] = {
-                                    name: s.name, 
-                                    cap: cap, 
-                                    sector: s.sector || "General", 
-                                    price: s.price,
-                                    changes: s.changes || { "1w": 0, "1m": 0, "3m": 0 },
-                                    divAmount: s.divAmount || 0, 
-                                    divYield: s.divYield || 0, 
-                                    exDate: s.exDate || "N/A",
-                                    funda: s.funda || null,
-                                    riskMetrics: s.riskMetrics || null
-                                };
-                            });
-                        }
-                    });
+                // Parse the CSV text into Javascript data using PapaParse
+                Papa.parse(csvText, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        const rawData = results.data;
+                        stockData = {}; // Clear old data
+                        
+                        rawData.forEach(row => {
+                            // Support for both old and new UDiFF NSE column names
+                            const ticker = row['SYMBOL'] || row['TckrSymb'] || row['Symbol'];
+                            if (!ticker || ticker === "NIFTY") return;
+                            
+                            const closePrice = parseFloat(row['CLOSE'] || row['ClsPric'] || row['Close'] || 0);
+                            const prevClose = parseFloat(row['PREVCLOSE'] || row['PrvsClsgPric'] || row['PrevClose'] || closePrice);
+                            
+                            // Calculate daily percentage change
+                            const dailyChangePct = prevClose > 0 ? ((closePrice - prevClose) / prevClose) * 100 : 0;
+                            
+                            // Inject into the dashboard structure
+                            stockData[ticker] = {
+                                name: ticker + " (NSE Equity)", 
+                                cap: "mid", // Default placeholder
+                                sector: "Equities", 
+                                price: closePrice,
+                                changes: { "1w": dailyChangePct, "1m": dailyChangePct, "3m": dailyChangePct },
+                                divAmount: 0, 
+                                divYield: 0, 
+                                exDate: "N/A",
+                                funda: { pe: 'N/A', de: 'N/A' },
+                                riskMetrics: { threat: "N/A", award: "N/A", beta: "1.0" }
+                            };
+                        });
+                        
+                        filterAllStocks();
+                        filterStocks();
+                        renderDividendTable(); // Will be empty for now
+                        renderHighRiskTable(); // Will be empty for now
+                        
+                        document.getElementById('all-directory-count').innerText = `SYNC COMPLETE: LOADED ${Object.keys(stockData).length} EQUITIES`;
+                    }
                 });
-                
-                filterAllStocks();
-                filterStocks();
-                renderDividendTable();
-                renderHighRiskTable();
-                
-                document.getElementById('all-directory-count').innerText = 'LIVE SYNC COMPLETE';
 
             } catch (e) { 
-                console.error("Live Sync Failed:", e); 
-                document.getElementById('all-directory-count').innerText = 'LIVE SYNC FAILED - CHECK INTERNET OR PRIVACY SETTINGS';
+                console.error("Local Sync Failed:", e); 
+                document.getElementById('all-directory-count').innerText = 'FAILED TO READ bhavcopy.csv - Ensure it is uploaded next to index.html!';
             }
         }
 
