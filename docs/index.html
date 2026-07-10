@@ -666,8 +666,8 @@
             const overlay = document.getElementById('workspace-overlay');
             overlay.className = "fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-0 sm:p-4 backdrop-blur-md";
             
-            // SANITIZE TICKER: Remove spaces and .NS so TradingView doesn't default to Apple
-            const cleanTicker = ticker.replace('.NS', '').replace('.BO', '').trim();
+            // AGGRESSIVE SANITIZATION: Removes .NS, .BO, and any accidental spaces
+            const cleanTicker = ticker.split('.')[0].replace(/\s+/g, '').toUpperCase();
             
             overlay.innerHTML = `
                 <div class="w-full h-full bg-zinc-950 sm:rounded-2xl border border-zinc-800 flex flex-col font-mono text-zinc-300 overflow-hidden shadow-2xl">
@@ -705,14 +705,17 @@
                                 <div id="tv-decoder-container" class="w-full h-full min-h-[340px]"></div>
                             </div>
 
-                            <div id="panel-tab-news" class="flex-1 hidden flex-col h-full bg-zinc-900/10 rounded-xl border border-zinc-800 overflow-hidden">
-                                <div id="tv-news-container" class="w-full h-full"></div>
+                            <div id="panel-tab-news" class="flex-1 hidden flex-col h-full bg-zinc-900/10 rounded-xl border border-zinc-800 overflow-hidden p-2 gap-2">
+                                <a href="https://news.google.com/search?q=${cleanTicker}+Stock+India" target="_blank" class="w-full bg-sky-950/50 hover:bg-sky-900/80 border border-sky-800 text-sky-400 text-center py-2 rounded text-xs font-bold uppercase tracking-wider transition-colors">
+                                    🔍 Open in Google News
+                                </a>
+                                <div id="tv-news-container" class="w-full flex-1 rounded overflow-hidden border border-zinc-800"></div>
                             </div>
                         </div>
                     </div>
                 </div>`;
 
-            // Initialize the main chart with the sanitized ticker
+            // Load the main chart with the sanitized ticker
             setTimeout(() => {
                 new TradingView.widget({
                     "autosize": true, 
@@ -743,6 +746,42 @@
                     panel.classList.add('hidden'); panel.classList.remove('flex');
                 }
             });
+
+            const cleanTicker = ticker.split('.')[0].replace(/\s+/g, '').toUpperCase();
+
+            // Load Technical Decoder Widget
+            if (activeTab === 'decoder') {
+                const container = document.getElementById('tv-decoder-container');
+                if (container && container.innerHTML.trim() === '') {
+                    const script = document.createElement('script');
+                    script.type = 'text/javascript'; script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js'; script.async = true;
+                    script.text = JSON.stringify({ "interval": "1D", "width": "100%", "isTransparent": true, "height": "100%", "symbol": `NSE:${cleanTicker}`, "showIntervalTabs": true, "displayMode": "single", "locale": "en", "colorTheme": "dark" });
+                    container.appendChild(script);
+                }
+            }
+            
+            // Load Live News Widget
+            if (activeTab === 'news') {
+                const container = document.getElementById('tv-news-container');
+                if (container && container.innerHTML.trim() === '') {
+                    const script = document.createElement('script');
+                    script.type = 'text/javascript'; 
+                    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-timeline.js'; 
+                    script.async = true;
+                    script.text = JSON.stringify({
+                        "feedMode": "symbol",
+                        "symbol": `NSE:${cleanTicker}`,
+                        "colorTheme": "dark",
+                        "isTransparent": true,
+                        "displayMode": "regular",
+                        "width": "100%",
+                        "height": "100%",
+                        "locale": "en"
+                    });
+                    container.appendChild(script);
+                }
+            }
+        };
 
             // Ensure ticker is clean for dynamic widget loading
             const cleanTicker = ticker.replace('.NS', '').replace('.BO', '').trim();
