@@ -6,8 +6,8 @@
     <title>Indian Stock Screener & Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
-        /* Custom scrollbar styling for a cleaner dark theme interface */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #18181b; }
         ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 3px; }
@@ -16,7 +16,7 @@
 </head>
 <body class="bg-black text-zinc-100 font-sans min-h-screen flex flex-col selection:bg-zinc-800 selection:text-zinc-200">
 
-    <div class="tradingview-widget-container border-b border-zinc-800" style="width: 100%; height: 46px; background: #000;">
+    <div class="tradingview-widget-container border-b border-zinc-800 shrink-0" style="width: 100%; height: 46px; background: #000;">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
         {
@@ -37,72 +37,57 @@
         </script>
     </div>
 
-    <div class="flex-1 flex flex-col max-w-[1600px] w-full mx-auto p-4 md:p-6 space-y-6 overflow-hidden">
+    <div class="flex-1 flex flex-col max-w-[1200px] w-full mx-auto p-4 md:p-6 space-y-4 overflow-hidden">
         
-        <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-zinc-800 gap-4 shrink-0">
+        <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-2 border-b border-zinc-800 gap-4 shrink-0">
             <div>
                 <h1 class="text-xl font-bold tracking-tight text-zinc-100 flex items-center gap-2">
-                    <span>📈</span> INDIAN STOCK SCREENER
+                    <span>📈</span> DYNAMIC MARKET SCREENER
                 </h1>
-                <p class="text-xs text-zinc-500 mt-0.5 font-mono" id="all-directory-count">INITIALIZING DASHBOARD...</p>
+                <p class="text-xs text-zinc-500 mt-0.5 font-mono" id="all-directory-count">INITIALIZING DATA ENGINE...</p>
             </div>
             <div class="flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-xl font-mono text-xs text-zinc-400">
                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>LOCAL FILE SYSTEM MODE</span>
+                <span>BHAVCOPY SYNCED</span>
             </div>
         </header>
 
-        <main class="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-6 overflow-hidden min-h-[500px]">
-            
-            <section class="lg:col-span-2 flex flex-col bg-zinc-950 border border-zinc-900 rounded-2xl overflow-hidden shadow-2xl">
-                <div class="p-4 bg-zinc-900/50 border-b border-zinc-900 flex flex-col sm:flex-row gap-3 items-center justify-between shrink-0">
-                    <div class="relative w-full sm:w-72">
-                        <input type="text" id="search-input" oninput="filterStocks()" placeholder="Search symbols (e.g. RELIANCE)..." 
-                               class="w-full bg-zinc-900 border border-zinc-800 text-xs rounded-xl px-3 py-2 text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-700 font-mono transition-colors">
-                    </div>
-                    <div class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
-                        <button onclick="setCapFilter('all')" id="btn-cap-all" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700">ALL</button>
-                        <button onclick="setCapFilter('large')" id="btn-cap-large" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300">LARGE</button>
-                        <button onclick="setCapFilter('mid')" id="btn-cap-mid" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300">MID</button>
-                        <button onclick="setCapFilter('small')" id="btn-cap-small" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300">SMALL</button>
-                    </div>
-                </div>
+        <div class="flex flex-col sm:flex-row gap-3 items-center justify-between shrink-0 bg-zinc-950 p-3 rounded-xl border border-zinc-900">
+            <div class="relative w-full sm:w-80">
+                <input type="text" id="search-input" oninput="loadView('search')" placeholder="Search 3000+ symbols..." 
+                       class="w-full bg-zinc-900 border border-zinc-800 text-xs rounded-lg px-3 py-2.5 text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-700 font-mono transition-colors">
+            </div>
+            <div class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto">
+                <button onclick="loadView('traded')" id="btn-view-traded" class="px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap">🔥 MOST TRADED</button>
+                <button onclick="loadView('bullish')" id="btn-view-bullish" class="px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">📈 TOP GAINERS</button>
+                <button onclick="loadView('bearish')" id="btn-view-bearish" class="px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">📉 TOP LOSERS</button>
+            </div>
+        </div>
 
-                <div class="flex-1 overflow-y-auto p-4 space-y-2" id="stock-directory-list">
-                    </div>
-            </section>
-
-            <section class="flex flex-col bg-zinc-950 border border-zinc-900 rounded-2xl p-4 overflow-hidden shadow-2xl space-y-4" id="detail-pane">
-                <div class="flex-1 flex flex-col items-center justify-center text-center p-6 text-zinc-600 font-mono space-y-2">
-                    <span class="text-2xl">🔍</span>
-                    <p class="text-xs uppercase tracking-wider">Select a stock ticker to analyze fundamental metrics natively</p>
+        <div class="flex-1 overflow-y-auto bg-zinc-950 border border-zinc-900 rounded-xl p-4 shadow-xl">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3" id="stock-directory-list">
                 </div>
-            </section>
-        </main>
+        </div>
     </div>
 
-    <script>
-        // Global state dictionary holding parsed stock items
-        let stockData = {};
-        let currentCapFilter = 'all';
-        let activeSelectedTicker = null;
+    <div id="workspace-overlay" class="hidden fixed inset-0 bg-black/90 z-50 p-0 sm:p-4 backdrop-blur-md"></div>
 
-        // Initialize connection to file asset immediately on layout mount
+    <script>
+        let stockData = {};
+        let currentView = 'traded';
+
         window.addEventListener('DOMContentLoaded', () => {
             fetchLiveMarketData();
         });
 
-        // REPLACED: Core implementation reading local bhavcopy.csv directly
         async function fetchLiveMarketData() {
             try {
-                document.getElementById('all-directory-count').innerText = 'READING NSE DATA...';
+                document.getElementById('all-directory-count').innerText = 'PARSING NSE BHAVCOPY...';
                 
-                // Fetch the CSV file sitting right next to index.html on GitHub
                 const response = await fetch('bhavcopy.csv');
                 if (!response.ok) throw new Error("Could not find bhavcopy.csv");
                 const csvText = await response.text();
                 
-                // Convert the CSV into clean data structures using PapaParse
                 Papa.parse(csvText, {
                     header: true,
                     skipEmptyLines: true,
@@ -111,7 +96,6 @@
                         stockData = {}; 
                         
                         rawData.forEach(row => {
-                            // Extract symbol dynamically supporting various common capitalization schemas
                             const ticker = row['SYMBOL'] || row['TckrSymb'] || row['Symbol'];
                             if (!ticker || ticker === "NIFTY") return;
                             
@@ -119,136 +103,253 @@
                             const prevClose = parseFloat(row['PREVCLOSE'] || row['PrvsClsgPric'] || row['PrevClose'] || closePrice);
                             const dailyChangePct = prevClose > 0 ? ((closePrice - prevClose) / prevClose) * 100 : 0;
                             
+                            // Capture Volume directly from Bhavcopy to calculate "Most Traded"
+                            const volume = parseFloat(row['TOTTRDQTY'] || row['TotTrdQty'] || row['TOTALTRADEDQTY'] || 0);
+                            
                             stockData[ticker] = {
                                 name: ticker + " (NSE Equity)", 
-                                cap: "all", 
-                                sector: "Equities Market", 
                                 price: closePrice,
-                                changes: { "1w": dailyChangePct, "1m": dailyChangePct, "3m": dailyChangePct },
-                                divAmount: 0, 
-                                divYield: 0, 
-                                exDate: "N/A",
-                                funda: { pe: 'N/A', de: 'N/A' },
-                                riskMetrics: { threat: "N/A", award: "N/A", beta: "1.0" }
+                                volume: volume,
+                                change: dailyChangePct
                             };
                         });
                         
-                        filterAllStocks();
-                        document.getElementById('all-directory-count').innerText = `SYNC COMPLETE: LOADED ${Object.keys(stockData).length} EQUITIES FROM BHAVCOPY`;
+                        loadView('traded'); // Default to Most Traded on load
+                        document.getElementById('all-directory-count').innerText = `SYSTEM READY: TRACKING ${Object.keys(stockData).length} EQUITIES`;
                     }
                 });
-
             } catch (e) { 
                 console.error("Data Load Failed:", e); 
-                document.getElementById('all-directory-count').innerText = 'FAILED TO READ bhavcopy.csv - Ensure it is committed next to index.html';
+                document.getElementById('all-directory-count').innerText = 'FAILED TO READ bhavcopy.csv';
             }
         }
 
-        function filterAllStocks() {
-            filterStocks();
-        }
-
-        function setCapFilter(cap) {
-            currentCapFilter = cap;
-            ['all', 'large', 'mid', 'small'].forEach(c => {
-                const btn = document.getElementById(`btn-cap-${c}`);
-                if(c === cap) {
-                    btn.className = "px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700";
-                } else {
-                    btn.className = "px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300";
-                }
-            });
-            filterStocks();
-        }
-
-        function filterStocks() {
+        // DYNAMIC SORTING ENGINE
+        window.loadView = function(viewType) {
+            currentView = viewType;
             const searchVal = document.getElementById('search-input').value.toUpperCase().trim();
             const container = document.getElementById('stock-directory-list');
             container.innerHTML = '';
             
+            // Update Tab Button Styles
+            ['traded', 'bullish', 'bearish'].forEach(v => {
+                const btn = document.getElementById(`btn-view-${v}`);
+                if (btn) {
+                    if (viewType === v && !searchVal) {
+                        btn.className = "px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap";
+                    } else {
+                        btn.className = "px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap";
+                    }
+                }
+            });
+
             let keys = Object.keys(stockData);
-            if(searchVal) {
+            
+            // Filter by search if typing
+            if (searchVal) {
                 keys = keys.filter(k => k.includes(searchVal));
+                ['traded', 'bullish', 'bearish'].forEach(v => {
+                     document.getElementById(`btn-view-${v}`).className = "px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap";
+                });
+            } else {
+                // Apply Dynamic Sorts
+                if (viewType === 'traded') {
+                    keys.sort((a, b) => stockData[b].volume - stockData[a].volume); // Highest Volume first
+                } else if (viewType === 'bullish') {
+                    keys.sort((a, b) => stockData[b].change - stockData[a].change); // Highest % Change first
+                } else if (viewType === 'bearish') {
+                    keys.sort((a, b) => stockData[a].change - stockData[b].change); // Lowest % Change first
+                }
             }
             
-            if(keys.length === 0) {
-                container.innerHTML = `<div class="text-center font-mono text-xs text-zinc-700 py-8">No active ticker matches found</div>`;
+            if (keys.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center font-mono text-xs text-zinc-700 py-8">No ticker matches found</div>`;
                 return;
             }
             
-            keys.forEach(ticker => {
+            // Render exactly top 60 items so the browser doesn't freeze
+            keys.slice(0, 60).forEach((ticker, index) => {
                 const data = stockData[ticker];
-                const change = data.changes["1w"];
-                const changeColor = change >= 0 ? "text-emerald-500" : "text-rose-500";
-                const changeSign = change >= 0 ? "+" : "";
-                const isSelected = activeSelectedTicker === ticker ? 'border-zinc-700 bg-zinc-900/60' : 'border-zinc-900 bg-zinc-950 hover:bg-zinc-900/30';
+                const changeColor = data.change >= 0 ? "text-emerald-500" : "text-rose-500";
+                const changeSign = data.change >= 0 ? "+" : "";
                 
+                // Format volume cleanly (e.g., 1.5M, 400K)
+                let volDisplay = data.volume > 1000000 ? (data.volume/1000000).toFixed(1) + 'M Vol' : (data.volume/1000).toFixed(0) + 'K Vol';
+                if(data.volume === 0) volDisplay = '';
+
                 const div = document.createElement('div');
-                div.className = `p-3 border rounded-xl flex items-center justify-between cursor-pointer transition-all ${isSelected}`;
-                div.onclick = () => selectTicker(ticker);
+                div.className = `p-4 bg-zinc-900/40 border border-zinc-800/80 rounded-xl hover:border-zinc-500 cursor-pointer transition-all flex flex-col justify-between shadow-sm hover:shadow-md group relative`;
+                div.onclick = () => openWorkspace(ticker); 
+                
+                // Add a subtle rank number for the sorted views
+                let rankBadge = !searchVal ? `<span class="absolute -top-2 -left-2 bg-zinc-800 text-zinc-400 text-[9px] px-1.5 py-0.5 rounded border border-zinc-700">#${index + 1}</span>` : '';
+
                 div.innerHTML = `
-                    <div class="font-mono">
-                        <div class="text-xs font-bold text-zinc-200">${ticker}</div>
-                        <div class="text-[10px] text-zinc-600 mt-0.5 truncate max-w-[180px] sm:max-w-none">${data.name}</div>
+                    ${rankBadge}
+                    <div class="flex justify-between items-start font-mono mb-3">
+                        <div>
+                            <div class="text-sm font-bold text-zinc-200 group-hover:text-sky-400 transition-colors">${ticker}</div>
+                        </div>
+                        <div class="text-[10px] ${changeColor} font-bold bg-zinc-950 px-2 py-1 rounded border border-zinc-800">
+                            ${changeSign}${data.change.toFixed(2)}%
+                        </div>
                     </div>
-                    <div class="text-right font-mono">
-                        <div class="text-xs font-bold text-zinc-300">₹${data.price.toLocaleString('en-IN', {minimumFractionDigits: 2})}</div>
-                        <div class="text-[10px] ${changeColor} font-bold mt-0.5">${changeSign}${change.toFixed(2)}%</div>
+                    <div class="flex justify-between items-end font-mono">
+                         <div class="text-[9px] text-zinc-500 tracking-wider">${volDisplay}</div>
+                         <div class="text-sm font-bold text-zinc-100">₹${data.price.toLocaleString('en-IN', {minimumFractionDigits: 2})}</div>
                     </div>
                 `;
                 container.appendChild(div);
             });
-        }
+        };
 
-        function selectTicker(ticker) {
-            activeSelectedTicker = ticker;
-            filterStocks(); // update borders
-            
-            const pane = document.getElementById('detail-pane');
+        // WORKSPACE OVERLAY LOGIC
+        window.openWorkspace = function(ticker) {
             const data = stockData[ticker];
+            const overlay = document.getElementById('workspace-overlay');
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex', 'items-center', 'justify-center');
             
-            pane.innerHTML = `
-                <div class="flex items-center justify-between pb-3 border-b border-zinc-900 shrink-0">
-                    <div class="font-mono">
-                        <h2 class="text-sm font-bold text-zinc-200">${ticker}</h2>
-                        <p class="text-[10px] text-zinc-500 mt-0.5">${data.sector}</p>
-                    </div>
-                    <div class="text-right font-mono">
-                        <p class="text-xs font-bold text-zinc-200">₹${data.price.toLocaleString('en-IN')}</p>
-                    </div>
-                </div>
-                
-                <div class="space-y-4 flex-1 overflow-y-auto pr-2 pb-6">
-                    <div class="p-3 rounded-xl border text-center font-mono font-bold text-xs tracking-wide shrink-0 bg-zinc-900 border-zinc-800 text-zinc-400">
-                        🏛️ NATIVE FINANCIAL SCORECARD
+            const cleanTicker = ticker.split('.')[0].replace(/\s+/g, '').toUpperCase();
+            
+            overlay.innerHTML = `
+                <div class="w-full h-full bg-zinc-950 sm:rounded-2xl border border-zinc-800 flex flex-col font-mono text-zinc-300 overflow-hidden shadow-2xl">
+                    <div class="flex items-center justify-between px-6 py-3 bg-zinc-900/90 border-b border-zinc-800 shrink-0">
+                        <div class="flex items-center gap-3">
+                            <span class="text-sky-400 font-bold text-sm">■ WORKSPACE: ${cleanTicker}</span>
+                        </div>
+                        <button onclick="closeWorkspace()" class="text-zinc-400 hover:text-white transition-colors bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded-md text-xs border border-zinc-700 cursor-pointer">✕ Close</button>
                     </div>
                     
-                    <div class="grid grid-cols-2 gap-3 font-mono text-[11px]">
-                        <div class="bg-zinc-900/60 p-3 rounded-xl border border-zinc-800/80 shadow-sm flex flex-col justify-between">
-                            <span class="text-zinc-500 uppercase tracking-wider mb-1">Current Price</span>
-                            <span class="text-zinc-200 font-bold text-sm">₹${data.price.toLocaleString('en-IN')}</span>
+                    <div class="flex-1 grid grid-cols-1 lg:grid-cols-3 overflow-hidden">
+                        <div class="lg:col-span-2 p-4 flex flex-col h-full border-r border-zinc-800 bg-black">
+                            <div id="tv-chart-frame" class="flex-1 w-full bg-zinc-900/20 rounded-xl overflow-hidden border border-zinc-800/80"></div>
                         </div>
-                        <div class="bg-zinc-900/60 p-3 rounded-xl border border-zinc-800/80 shadow-sm flex flex-col justify-between">
-                            <span class="text-zinc-500 uppercase tracking-wider mb-1">Sector</span>
-                            <span class="text-zinc-200 font-bold text-sm truncate">${data.sector}</span>
-                        </div>
-                        <div class="bg-zinc-900/60 p-3 rounded-xl border border-zinc-800/80 shadow-sm flex flex-col justify-between group">
-                            <span class="text-zinc-500 uppercase tracking-wider mb-1">P/E Ratio</span>
-                            <span class="text-sky-400 font-bold text-sm">N/A</span>
-                        </div>
-                        <div class="bg-zinc-900/60 p-3 rounded-xl border border-zinc-800/80 shadow-sm flex flex-col justify-between group">
-                            <span class="text-zinc-500 uppercase tracking-wider mb-1">Debt / Equity</span>
-                            <span class="text-purple-400 font-bold text-sm">N/A</span>
+                        
+                        <div class="p-4 flex flex-col h-full overflow-hidden bg-zinc-950">
+                            <div class="flex flex-wrap border-b border-zinc-800 mb-4 shrink-0 text-xs">
+                                <button id="btn-tab-tech" onclick="toggleWorkspaceTab('tech', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-sky-500 text-sky-400 transition-all cursor-pointer">💡 Tech</button>
+                                <button id="btn-tab-decoder" onclick="toggleWorkspaceTab('decoder', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer mt-2 sm:mt-0">📊 Decoder</button>
+                                <button id="btn-tab-news" onclick="toggleWorkspaceTab('news', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer mt-2 sm:mt-0">📰 News</button>
+                            </div>
+                            
+                            <div id="panel-tab-tech" class="flex-1 flex flex-col overflow-y-auto pr-1">
+                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px] mb-3 flex justify-between">
+                                    <span class="text-zinc-500 uppercase">EOD Price</span>
+                                    <span class="text-zinc-100 font-bold">₹${data.price.toLocaleString('en-IN')}</span>
+                                </div>
+                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px] mb-3 flex justify-between">
+                                    <span class="text-zinc-500 uppercase">1D Change</span>
+                                    <span class="${data.change >= 0 ? 'text-emerald-400' : 'text-rose-400'} font-bold">${data.change.toFixed(2)}%</span>
+                                </div>
+                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px] flex justify-between">
+                                    <span class="text-zinc-500 uppercase">Total Volume</span>
+                                    <span class="text-zinc-100 font-bold">${data.volume.toLocaleString('en-IN')}</span>
+                                </div>
+                            </div>
+
+                            <div id="panel-tab-decoder" class="flex-1 hidden flex-col h-full bg-zinc-900/10 rounded-xl border border-zinc-800 p-3 overflow-hidden">
+                                <div id="tv-decoder-container" class="w-full h-full min-h-[340px]"></div>
+                            </div>
+
+                            <div id="panel-tab-news" class="flex-1 hidden flex-col h-full bg-zinc-900/10 rounded-xl border border-zinc-800 overflow-hidden relative">
+                                <div id="tv-news-container" class="w-full h-full overflow-y-auto absolute inset-0"></div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="mt-4 p-4 bg-zinc-900/30 border border-zinc-800/50 rounded-xl">
-                         <p class="text-[10px] text-zinc-500 font-mono leading-relaxed text-center">
-                            Note: End-of-Day price values are successfully loaded from your committed nse bhavcopy file. Fundamental metrics require manual schema configuration or premium endpoint feeds.
-                         </p>
-                    </div>
-                </div>
-            `;
+                </div>`;
+
+            setTimeout(() => {
+                new TradingView.widget({
+                    "autosize": true, 
+                    "symbol": `BSE:${cleanTicker}`, 
+                    "interval": "D", 
+                    "timezone": "Asia/Kolkata", 
+                    "theme": "dark", 
+                    "style": "1",
+                    "locale": "en", 
+                    "enable_publishing": false, 
+                    "hide_side_toolbar": false, 
+                    "allow_symbol_change": true, 
+                    "container_id": "tv-chart-frame"
+                });
+            }, 50);
+        };
+
+        window.closeWorkspace = function() {
+            const overlay = document.getElementById('workspace-overlay');
+            overlay.classList.add('hidden');
+            overlay.classList.remove('flex', 'items-center', 'justify-center');
+            overlay.innerHTML = '';
+        };
+
+        window.toggleWorkspaceTab = function(activeTab, ticker) {
+            const tabs = ['tech', 'decoder', 'news'];
+            tabs.forEach(tab => {
+                const btn = document.getElementById(`btn-tab-${tab}`);
+                const panel = document.getElementById(`panel-tab-${tab}`);
+                if (tab === activeTab) {
+                    btn.className = btn.className.replace('border-transparent', 'border-sky-500').replace('text-zinc-500', 'text-sky-400');
+                    panel.classList.remove('hidden'); panel.classList.add('flex');
+                } else {
+                    btn.className = btn.className.replace('border-sky-500', 'border-transparent').replace('text-sky-400', 'text-zinc-500');
+                    panel.classList.add('hidden'); panel.classList.remove('flex');
+                }
+            });
+
+            if (activeTab === 'decoder') {
+                const container = document.getElementById('tv-decoder-container');
+                if (container && container.innerHTML.trim() === '') {
+                    const script = document.createElement('script');
+                    script.type = 'text/javascript'; script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js'; script.async = true;
+                    script.text = JSON.stringify({ "interval": "1D", "width": "100%", "isTransparent": true, "height": "100%", "symbol": `BSE:${ticker}`, "showIntervalTabs": true, "displayMode": "single", "locale": "en", "colorTheme": "dark" });
+                    container.appendChild(script);
+                }
+            }
+            
+            if (activeTab === 'news') {
+                const container = document.getElementById('tv-news-container');
+                if (container && container.innerHTML.trim() === '') {
+                    container.innerHTML = `<div class="p-6 text-center text-zinc-500 text-xs font-mono animate-pulse">📡 Scanning dynamic news matrix for ${ticker}...</div>`;
+                    fetchLiveNews(ticker, container);
+                }
+            }
+        };
+
+        async function fetchLiveNews(ticker, container) {
+            try {
+                const query = encodeURIComponent(`${ticker} stock India news`);
+                const rssUrl = encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=en-IN&gl=IN&ceid=IN:en`);
+                const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`;
+
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data.status === "ok" && data.items && data.items.length > 0) {
+                    let html = '<div class="p-3 flex flex-col gap-3 pb-8">';
+                    data.items.slice(0, 10).forEach(item => {
+                        const source = item.source || 'Market Update';
+                        const pubDate = new Date(item.pubDate);
+                        const dateString = pubDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+
+                        html += `
+                            <a href="${item.link}" target="_blank" class="block bg-zinc-900/60 hover:bg-zinc-800/90 border border-zinc-800/80 p-3.5 rounded-xl transition-all duration-200 group shadow-md">
+                                <h4 class="text-xs font-semibold text-zinc-200 group-hover:text-sky-400 mb-2 leading-relaxed">${item.title}</h4>
+                                <div class="flex justify-between items-center mt-2 border-t border-zinc-800/40 pt-2 font-mono text-[9px] text-zinc-500">
+                                    <span class="uppercase tracking-wider font-bold">${source}</span>
+                                    <span>${dateString}</span>
+                                </div>
+                            </a>
+                        `;
+                    });
+                    html += '</div>';
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = '<div class="p-6 text-center text-zinc-500 text-xs font-mono">No localized stock news tiles available.</div>';
+                }
+            } catch (error) {
+                container.innerHTML = '<div class="p-6 text-center text-rose-500 text-xs font-mono">⚠️ Telemetry error parsing feed sync.</div>';
+            }
         }
     </script>
 </body>
