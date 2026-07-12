@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indian Stock Screener & Dashboard</title>
+    <title>RBK Dynamic Market Screener</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -22,13 +22,16 @@
         <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-3 border-b border-zinc-800 gap-3 shrink-0">
             <div>
                 <h1 class="text-2xl font-bold tracking-tight text-zinc-100 flex items-center gap-2">
-                    <span>📈</span> DYNAMIC MARKET SCREENER
+                    <span>📈</span> RBK DYNAMIC MARKET SCREENER
                 </h1>
                 <p class="text-sm text-zinc-500 mt-1 font-mono" id="all-directory-count">INITIALIZING DATA ENGINE...</p>
             </div>
-            <div class="flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-3 py-2 rounded-xl font-mono text-xs text-zinc-400">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>BHAVCOPY SYNCED</span>
+            <div class="flex items-center gap-2 flex-wrap">
+                <div id="market-sentiment-badge" class="hidden"></div>
+                <div class="flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-3 py-2 rounded-xl font-mono text-xs text-zinc-400">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>BHAVCOPY SYNCED</span>
+                </div>
             </div>
         </header>
 
@@ -102,6 +105,12 @@
         let fundamentalsMap = {}; // TICKER -> {pe, roe, de, eps} (optional, from data/fundamentals.csv)
         let stockData = {};       // TICKER -> latest snapshot + computed momentum indicators
         let availableDates = [];
+        let marketIndexCloses = [];   // synthetic equal-weighted index level per date, built from our own tracked universe
+        let marketBreadth = { date: null, advancers: 0, decliners: 0, unchanged: 0, avgChangePct: 0 };
+        let marketROC10 = null;
+        let currentChartTicker = null;
+        let chartType = 'candle';   // 'candle' | 'line'
+        let showPivotPoints = false;
         let activeTab = 'momentum';   // which preset tab is highlighted (null when a custom sort is chosen)
         let sortKey = 'momentum';     // momentum | change | volume | price | rsi | name
         let sortDir = 'desc';         // desc | asc
@@ -215,7 +224,9 @@
                     historicalData[t].sort((a, b) => a.date.localeCompare(b.date));
                 });
 
+                buildMarketContext();
                 buildMomentumSnapshot();
+                renderMarketSentiment();
 
                 if (Object.keys(marketCapMap).length === 0) {
                     ['LargeCap', 'MidCap', 'SmallCap'].forEach(c => {
@@ -268,36 +279,99 @@
             return ((now - past) / past) * 100;
         }
 
-        function computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price, volSurge }) {
+        // ---------------------------------------------------------
+        // MARKET SENTIMENT CONTEXT
+        // Built entirely from our own tracked universe of stocks -
+        // no external index/benchmark feed required.
+        // ---------------------------------------------------------
+        function buildMarketContext() {
+            // Fast lookup: ticker -> {date: close}
+            const closeByDate = {};
+            Object.keys(historicalData).forEach(ticker => {
+                const map = {};
+                historicalData[ticker].forEach(h => { map[h.date] = h.close; });
+                closeByDate[ticker] = map;
+            });
+
+            // Equal-weighted daily return across every tracked stock, compounded into a synthetic index level
+            const dailyAvgReturns = [];
+            for (let i = 1; i < availableDates.length; i++) {
+                const today = availableDates[i], yest = availableDates[i - 1];
+                let sum = 0, count = 0;
+                Object.keys(closeByDate).forEach(ticker => {
+                    const c1 = closeByDate[ticker][yest], c2 = closeByDate[ticker][today];
+                    if (c1 && c2) { sum += (c2 - c1) / c1; count++; }
+                });
+                dailyAvgReturns.push(count > 0 ? sum / count : 0);
+            }
+
+            marketIndexCloses = [100];
+            dailyAvgReturns.forEach(r => marketIndexCloses.push(marketIndexCloses[marketIndexCloses.length - 1] * (1 + r)));
+            marketROC10 = calcROC(marketIndexCloses, 10);
+
+            // Today's market breadth (advancers vs decliners) across the whole tracked universe
+            const latestDate = availableDates[availableDates.length - 1];
+            const prevDate = availableDates[availableDates.length - 2];
+            let advancers = 0, decliners = 0, unchanged = 0, changeSum = 0, changeCount = 0;
+            if (prevDate) {
+                Object.keys(closeByDate).forEach(ticker => {
+                    const c1 = closeByDate[ticker][prevDate], c2 = closeByDate[ticker][latestDate];
+                    if (c1 && c2) {
+                        const pct = (c2 - c1) / c1 * 100;
+                        if (pct > 0.05) advancers++; else if (pct < -0.05) decliners++; else unchanged++;
+                        changeSum += pct; changeCount++;
+                    }
+                });
+            }
+            marketBreadth = { date: latestDate, advancers, decliners, unchanged, avgChangePct: changeCount > 0 ? changeSum / changeCount : 0 };
+        }
+
+        function renderMarketSentiment() {
+            const el = document.getElementById('market-sentiment-badge');
+            if (!el) return;
+            const total = marketBreadth.advancers + marketBreadth.decliners + marketBreadth.unchanged;
+            if (total === 0) { el.classList.add('hidden'); return; }
+            const advPct = Math.round(marketBreadth.advancers / total * 100);
+            let mood, colorClass;
+            if (advPct >= 60) { mood = 'Bullish'; colorClass = 'text-emerald-400 border-emerald-800 bg-emerald-950'; }
+            else if (advPct <= 40) { mood = 'Bearish'; colorClass = 'text-rose-400 border-rose-800 bg-rose-950'; }
+            else { mood = 'Neutral'; colorClass = 'text-amber-400 border-amber-800 bg-amber-950'; }
+
+            el.className = `flex items-center gap-2 px-3 py-2 rounded-xl font-mono text-xs border ${colorClass}`;
+            el.innerHTML = `<span class="font-bold">${mood}</span><span class="text-[10px] opacity-80">${advPct}% advancing (${marketBreadth.advancers}↑ ${marketBreadth.decliners}↓)</span>`;
+            el.classList.remove('hidden');
+        }
+
+        function computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price, volSurge, relStrength }) {
             let score = 0;
             const breakdown = [];
 
-            // Factor 1: 5-day price momentum - max 25 pts
+            // Factor 1: 5-day price momentum - max 20 pts
             if (roc5 !== null) {
-                const pts = Math.round(Math.max(0, Math.min(25, roc5 * 2.5)) * 10) / 10;
+                const pts = Math.round(Math.max(0, Math.min(20, roc5 * 2)) * 10) / 10;
                 score += pts;
                 breakdown.push({
                     label: '5-Day Price Momentum',
                     value: `${roc5 >= 0 ? '+' : ''}${roc5.toFixed(1)}%`,
-                    points: pts, max: 25,
+                    points: pts, max: 20,
                     note: roc5 > 3 ? 'Strong short-term push upward' : roc5 < -3 ? 'Recent pullback over the last week' : 'Little short-term movement either way'
                 });
             } else {
-                breakdown.push({ label: '5-Day Price Momentum', value: 'N/A', points: 0, max: 25, note: 'Not enough history yet (needs 5+ sessions)' });
+                breakdown.push({ label: '5-Day Price Momentum', value: 'N/A', points: 0, max: 20, note: 'Not enough history yet (needs 5+ sessions)' });
             }
 
-            // Factor 2: 10-day price momentum - max 15 pts, only rewards positive moves
+            // Factor 2: 10-day price momentum - max 10 pts, only rewards positive moves
             if (roc10 !== null) {
-                const pts = Math.round(Math.max(0, Math.min(15, roc10 * 1.2)) * 10) / 10;
+                const pts = Math.round(Math.max(0, Math.min(10, roc10 * 0.8)) * 10) / 10;
                 score += pts;
                 breakdown.push({
                     label: '10-Day Price Momentum',
                     value: `${roc10 >= 0 ? '+' : ''}${roc10.toFixed(1)}%`,
-                    points: pts, max: 15,
+                    points: pts, max: 10,
                     note: roc10 > 0 ? 'Still climbing over a 2-week window' : 'No 2-week tailwind (only upward moves earn points here)'
                 });
             } else {
-                breakdown.push({ label: '10-Day Price Momentum', value: 'N/A', points: 0, max: 15, note: 'Not enough history yet (needs 10+ sessions)' });
+                breakdown.push({ label: '10-Day Price Momentum', value: 'N/A', points: 0, max: 10, note: 'Not enough history yet (needs 10+ sessions)' });
             }
 
             // Factor 3: price vs 20-day average - max 15 pts
@@ -330,30 +404,46 @@
                 breakdown.push({ label: '20-Day Average Direction', value: 'N/A', points: 0, max: 10, note: 'Not enough history yet (needs 25+ sessions)' });
             }
 
-            // Factor 5: RSI(14) - max 20 pts, tiered
+            // Factor 5: RSI(14) - max 15 pts, tiered
             if (rsi14 !== null) {
                 let pts, note;
-                if (rsi14 >= 50 && rsi14 <= 70) { pts = 20; note = 'Healthy momentum zone — rising with room to run'; }
-                else if (rsi14 > 70 && rsi14 <= 80) { pts = 10; note = 'Strong, but starting to get stretched'; }
+                if (rsi14 >= 50 && rsi14 <= 70) { pts = 15; note = 'Healthy momentum zone — rising with room to run'; }
+                else if (rsi14 > 70 && rsi14 <= 80) { pts = 8; note = 'Strong, but starting to get stretched'; }
                 else if (rsi14 > 80) { pts = 0; note = 'Overbought — a pullback becomes more likely here'; }
-                else if (rsi14 >= 30 && rsi14 < 50) { pts = 8; note = 'Neutral — no strong signal either way'; }
+                else if (rsi14 >= 30 && rsi14 < 50) { pts = 6; note = 'Neutral — no strong signal either way'; }
                 else { pts = 0; note = 'Oversold / weak — momentum is against the stock'; }
                 score += pts;
-                breakdown.push({ label: 'RSI (14-day)', value: rsi14.toFixed(0), points: pts, max: 20, note });
+                breakdown.push({ label: 'RSI (14-day)', value: rsi14.toFixed(0), points: pts, max: 15, note });
             } else {
-                breakdown.push({ label: 'RSI (14-day)', value: 'N/A', points: 0, max: 20, note: 'Not enough history yet (needs 15+ sessions)' });
+                breakdown.push({ label: 'RSI (14-day)', value: 'N/A', points: 0, max: 15, note: 'Not enough history yet (needs 15+ sessions)' });
             }
 
-            // Factor 6: volume surge vs 20-day average - max 15 pts, tiered
+            // Factor 6: volume surge vs 20-day average - max 10 pts, tiered
             if (volSurge !== null) {
                 let pts, note;
-                if (volSurge > 1.5) { pts = 15; note = 'Unusually high volume — strong conviction behind the move'; }
-                else if (volSurge > 1.2) { pts = 8; note = 'Somewhat elevated volume'; }
+                if (volSurge > 1.5) { pts = 10; note = 'Unusually high volume — strong conviction behind the move'; }
+                else if (volSurge > 1.2) { pts = 5; note = 'Somewhat elevated volume'; }
                 else { pts = 0; note = 'Normal or below-average volume — less conviction behind the move'; }
                 score += pts;
-                breakdown.push({ label: 'Volume vs 20-Day Average', value: `${volSurge.toFixed(2)}x`, points: pts, max: 15, note });
+                breakdown.push({ label: 'Volume vs 20-Day Average', value: `${volSurge.toFixed(2)}x`, points: pts, max: 10, note });
             } else {
-                breakdown.push({ label: 'Volume vs 20-Day Average', value: 'N/A', points: 0, max: 15, note: 'Not enough history yet' });
+                breakdown.push({ label: 'Volume vs 20-Day Average', value: 'N/A', points: 0, max: 10, note: 'Not enough history yet' });
+            }
+
+            // Factor 7 (NEW): Relative Strength vs overall market - max 20 pts
+            // Rewards stocks outperforming the broader market, not just moving with it.
+            // "Market" here is our own equal-weighted index built from every tracked stock.
+            if (relStrength !== null) {
+                const pts = Math.round(Math.max(0, Math.min(20, relStrength * 2)) * 10) / 10;
+                score += pts;
+                breakdown.push({
+                    label: 'Relative Strength vs Market',
+                    value: `${relStrength >= 0 ? '+' : ''}${relStrength.toFixed(1)}% vs market`,
+                    points: pts, max: 20,
+                    note: relStrength > 3 ? 'Meaningfully beating the broader market — real outperformance, not just a rising tide' : relStrength < -3 ? 'Lagging the broader market over this period' : 'Moving roughly in line with the overall market'
+                });
+            } else {
+                breakdown.push({ label: 'Relative Strength vs Market', value: 'N/A', points: 0, max: 20, note: 'Not enough market-wide history yet' });
             }
 
             score = Math.max(0, Math.min(100, Math.round(score)));
@@ -386,8 +476,9 @@
                 const rsi14 = calcRSI(closes, 14);
                 const avgVol20 = calcSMA(volumes.slice(0, -1), Math.min(20, volumes.length - 1)) || null;
                 const volSurge = avgVol20 && avgVol20 > 0 ? latest.volume / avgVol20 : null;
+                const relStrength = (roc10 !== null && marketROC10 !== null) ? (roc10 - marketROC10) : null;
 
-                const { score, breakdown } = computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price: latest.close, volSurge });
+                const { score, breakdown } = computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price: latest.close, volSurge, relStrength });
 
                 stockData[ticker] = {
                     symbol: ticker,
@@ -397,7 +488,7 @@
                     dayLow: latest.low,
                     volume: latest.volume,
                     change,
-                    roc5, roc10, roc20, rsi14, sma20, volSurge,
+                    roc5, roc10, roc20, rsi14, sma20, volSurge, relStrength,
                     momentumScore: score,
                     breakdown,
                     capCategory: marketCapMap[ticker] || null,
@@ -601,6 +692,11 @@
                     
                     <div class="flex-1 flex flex-col lg:grid lg:grid-cols-3 overflow-y-auto lg:overflow-hidden">
                         <div class="lg:col-span-2 p-4 flex flex-col h-[340px] lg:h-full shrink-0 border-r border-zinc-800 bg-black">
+                            <div class="flex items-center gap-2 mb-2 shrink-0">
+                                <button id="btn-chart-candle" onclick="setChartType('candle')" class="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-zinc-800 text-zinc-200 border border-zinc-700">🕯️ Candles</button>
+                                <button id="btn-chart-line" onclick="setChartType('line')" class="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300">📈 Line</button>
+                                <button id="btn-chart-pivot" onclick="togglePivotPoints()" class="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 ml-auto">🎯 Pivot Points</button>
+                            </div>
                             <div id="own-chart-container" class="flex-1 w-full bg-zinc-900/20 rounded-xl overflow-hidden border border-zinc-800/80"></div>
                             <div class="text-[10px] text-zinc-600 font-mono mt-2 flex flex-col sm:flex-row sm:justify-between gap-1">
                                 <span>Source: NSE Bhavcopy · ${data.sessionsTracked} sessions of real price history</span>
@@ -658,7 +754,7 @@
                                 <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-xs mb-3">
                                     <div class="text-zinc-500 uppercase mb-2">How this score is built</div>
                                     <div class="text-[10px] text-zinc-500 leading-relaxed mb-1">
-                                        6 factors are checked, each worth a slice of 100 points. Points are added up — no AI, no black box, just this formula. Score ≥65 = <span class="text-emerald-400 font-bold">BUY</span>, 40-64 = <span class="text-amber-400 font-bold">HOLD</span>, below 40 = <span class="text-rose-400 font-bold">AVOID</span>.
+                                        7 factors are checked, each worth a slice of 100 points — including how the stock is performing relative to the overall market, not just in isolation. Points are added up — no AI, no black box, just this formula. Score ≥65 = <span class="text-emerald-400 font-bold">BUY</span>, 40-64 = <span class="text-amber-400 font-bold">HOLD</span>, below 40 = <span class="text-rose-400 font-bold">AVOID</span>.
                                     </div>
                                 </div>
 
@@ -733,27 +829,55 @@
                     </div>
                 </div>`;
 
+            currentChartTicker = ticker;
             setTimeout(() => renderPriceChart(ticker), 50);
         };
 
-        // Draws a candlestick chart using our own NSE bhavcopy history (not TradingView's live feed).
+        // Chart state - remembers the user's chosen view across stock switches
+        window.setChartType = function(type) {
+            chartType = type;
+            document.getElementById('btn-chart-candle').className = type === 'candle'
+                ? "px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-zinc-800 text-zinc-200 border border-zinc-700"
+                : "px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300";
+            document.getElementById('btn-chart-line').className = type === 'line'
+                ? "px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-zinc-800 text-zinc-200 border border-zinc-700"
+                : "px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300";
+            if (currentChartTicker) renderPriceChart(currentChartTicker);
+        };
+
+        window.togglePivotPoints = function() {
+            showPivotPoints = !showPivotPoints;
+            const btn = document.getElementById('btn-chart-pivot');
+            btn.className = showPivotPoints
+                ? "px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-sky-950 text-sky-400 border border-sky-800 ml-auto"
+                : "px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 ml-auto";
+            if (currentChartTicker) renderPriceChart(currentChartTicker);
+        };
+
+        // Classic daily pivot points, calculated from the most recent session's High/Low/Close.
+        // These are the standard support/resistance levels short-term traders watch.
+        function calcPivotPoints(latest) {
+            const { high, low, close } = latest;
+            const p = (high + low + close) / 3;
+            return {
+                p,
+                r1: 2 * p - low, r2: p + (high - low), r3: high + 2 * (p - low),
+                s1: 2 * p - high, s2: p - (high - low), s3: low - 2 * (high - p)
+            };
+        }
+
+        // Draws a chart using our own NSE bhavcopy history (not TradingView's live feed).
         // This is the free, open-source "Lightweight Charts" library from TradingView -
         // it just draws whatever data we give it, no exchange/license restrictions.
         function renderPriceChart(ticker) {
             const container = document.getElementById('own-chart-container');
             if (!container) return;
+            container.innerHTML = '';
             const hist = historicalData[ticker] || [];
             if (hist.length === 0) {
                 container.innerHTML = '<div class="flex items-center justify-center h-full text-zinc-600 text-xs font-mono">No price history available for this stock</div>';
                 return;
             }
-
-            const candleData = hist.map(h => ({ time: h.date, open: h.open, high: h.high, low: h.low, close: h.close }));
-            const volumeData = hist.map(h => ({
-                time: h.date,
-                value: h.volume,
-                color: h.close >= h.open ? 'rgba(16,185,129,0.5)' : 'rgba(244,63,94,0.5)'
-            }));
 
             const chart = LightweightCharts.createChart(container, {
                 layout: { background: { color: 'transparent' }, textColor: '#a1a1aa' },
@@ -764,18 +888,52 @@
                 autoSize: true
             });
 
-            const candleSeries = chart.addCandlestickSeries({
-                upColor: '#10b981', downColor: '#f43f5e', borderVisible: false,
-                wickUpColor: '#10b981', wickDownColor: '#f43f5e'
-            });
-            candleSeries.setData(candleData);
+            let mainSeries;
+            if (chartType === 'line') {
+                const lineData = hist.map(h => ({ time: h.date, value: h.close }));
+                mainSeries = chart.addLineSeries({ color: '#38bdf8', lineWidth: 2 });
+                mainSeries.setData(lineData);
+            } else {
+                const candleData = hist.map(h => ({ time: h.date, open: h.open, high: h.high, low: h.low, close: h.close }));
+                mainSeries = chart.addCandlestickSeries({
+                    upColor: '#10b981', downColor: '#f43f5e', borderVisible: false,
+                    wickUpColor: '#10b981', wickDownColor: '#f43f5e'
+                });
+                mainSeries.setData(candleData);
+            }
 
+            const volumeData = hist.map(h => ({
+                time: h.date,
+                value: h.volume,
+                color: h.close >= h.open ? 'rgba(16,185,129,0.5)' : 'rgba(244,63,94,0.5)'
+            }));
             const volumeSeries = chart.addHistogramSeries({
                 priceFormat: { type: 'volume' },
                 priceScaleId: '',
                 scaleMargins: { top: 0.8, bottom: 0 }
             });
             volumeSeries.setData(volumeData);
+
+            if (showPivotPoints) {
+                const latest = hist[hist.length - 1];
+                const pv = calcPivotPoints(latest);
+                const lines = [
+                    { value: pv.r3, color: '#f43f5e', title: 'R3' },
+                    { value: pv.r2, color: '#fb923c', title: 'R2' },
+                    { value: pv.r1, color: '#fbbf24', title: 'R1' },
+                    { value: pv.p, color: '#38bdf8', title: 'Pivot' },
+                    { value: pv.s1, color: '#fbbf24', title: 'S1' },
+                    { value: pv.s2, color: '#fb923c', title: 'S2' },
+                    { value: pv.s3, color: '#f43f5e', title: 'S3' }
+                ];
+                lines.forEach(l => {
+                    mainSeries.createPriceLine({
+                        price: l.value, color: l.color, lineWidth: 1,
+                        lineStyle: LightweightCharts.LineStyle.Dashed,
+                        axisLabelVisible: true, title: l.title
+                    });
+                });
+            }
 
             chart.timeScale().fitContent();
         }
