@@ -1,11 +1,11 @@
 name: Update bhavcopy date index
 
-# Runs automatically whenever files change inside data/bhavcopy/
+# Runs automatically whenever files change inside docs/data/bhavcopy/
 # Also runs manually from the Actions tab (needed once for your existing 68 files)
 on:
   push:
     paths:
-      - 'data/bhavcopy/**'
+      - 'docs/data/bhavcopy/**'
   workflow_dispatch:
 
 permissions:
@@ -18,18 +18,18 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Generate data/dates.json from filenames in data/bhavcopy
+      - name: Generate docs/data/dates.json from filenames in docs/data/bhavcopy
         run: |
-          cd data/bhavcopy
+          cd docs/data/bhavcopy
           ls *.csv | sed 's/\.csv$//' | sort | jq -R -s -c 'split("\n")[:-1]' > ../dates.json
-          cd ../..
+          cd ../../..
           echo "Generated dates.json:"
-          cat data/dates.json
+          cat docs/data/dates.json
 
       - name: Commit updated dates.json (only if it changed)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/dates.json
+          git add docs/data/dates.json
           git diff --staged --quiet || git commit -m "Auto-update dates.json"
           git push
