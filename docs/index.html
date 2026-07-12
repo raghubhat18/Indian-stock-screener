@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
     <style>
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #18181b; }
@@ -83,6 +84,7 @@
         let historicalData = {};
         let stockNames = {};      // TICKER -> full company name (from FinInstrmNm)
         let marketCapMap = {};    // TICKER -> 'LargeCap' | 'MidCap' | 'SmallCap' (optional, from data/market-cap.csv)
+        let fundamentalsMap = {}; // TICKER -> {pe, roe, de, eps} (optional, from data/fundamentals.csv)
         let stockData = {};       // TICKER -> latest snapshot + computed momentum indicators
         let availableDates = [];
         let currentView = 'momentum';
@@ -117,6 +119,25 @@
                             const sym = (row['Symbol'] || row['SYMBOL'] || '').trim().toUpperCase();
                             const cat = (row['Category'] || row['CATEGORY'] || '').trim();
                             if (sym && cat) marketCapMap[sym] = cat;
+                        });
+                    }
+                } catch (e) { /* optional file - fine if missing */ }
+
+                // Optional: manually-curated fundamentals (P/E, ROE, D/E, EPS). Silently skipped if not present.
+                try {
+                    const fundResp = await fetch('data/fundamentals.csv');
+                    if (fundResp.ok) {
+                        const fundText = await fundResp.text();
+                        const parsedFund = Papa.parse(fundText, { header: true, skipEmptyLines: true });
+                        parsedFund.data.forEach(row => {
+                            const sym = (row['Symbol'] || '').trim().toUpperCase();
+                            if (!sym) return;
+                            fundamentalsMap[sym] = {
+                                pe: row['PE'] !== '' ? parseFloat(row['PE']) : null,
+                                roe: row['ROE'] !== '' ? parseFloat(row['ROE']) : null,
+                                de: row['DebtToEquity'] !== '' ? parseFloat(row['DebtToEquity']) : null,
+                                eps: row['EPS'] !== '' ? parseFloat(row['EPS']) : null
+                            };
                         });
                     }
                 } catch (e) { /* optional file - fine if missing */ }
@@ -442,7 +463,11 @@
                     
                     <div class="flex-1 grid grid-cols-1 lg:grid-cols-3 overflow-hidden">
                         <div class="lg:col-span-2 p-4 flex flex-col h-full border-r border-zinc-800 bg-black">
-                            <div id="tv-chart-frame" class="flex-1 w-full bg-zinc-900/20 rounded-xl overflow-hidden border border-zinc-800/80"></div>
+                            <div id="own-chart-container" class="flex-1 w-full bg-zinc-900/20 rounded-xl overflow-hidden border border-zinc-800/80"></div>
+                            <div class="text-[10px] text-zinc-600 font-mono mt-2 flex justify-between">
+                                <span>Source: NSE Bhavcopy · ${data.sessionsTracked} sessions of real price history</span>
+                                <span>Charting: TradingView Lightweight Charts (open-source)</span>
+                            </div>
                         </div>
                         
                         <div class="p-4 flex flex-col h-full overflow-hidden bg-zinc-950">
@@ -503,10 +528,39 @@
                                 <div id="tv-decoder-container" class="w-full h-full min-h-[340px]"></div>
                             </div>
 
-                            <div id="panel-tab-fundamentals" class="flex-1 hidden flex-col items-center justify-center text-center p-6">
-                                <div class="text-3xl mb-2">🏗️</div>
-                                <div class="text-sm text-zinc-400 font-mono">Fundamental data (P/E, ROE, Debt/Equity) isn't wired up yet.</div>
-                                <div class="text-[11px] text-zinc-600 font-mono mt-2">Coming in the next build step.</div>
+                            <div id="panel-tab-fundamentals" class="flex-1 hidden flex-col overflow-y-auto pr-1">
+                                ${(() => {
+                                    const f = fundamentalsMap[ticker];
+                                    if (!f) {
+                                        return `<div class="flex-1 flex flex-col items-center justify-center text-center p-6">
+                                            <div class="text-3xl mb-2">📋</div>
+                                            <div class="text-sm text-zinc-400 font-mono">No fundamentals entered for ${cleanTicker} yet.</div>
+                                            <div class="text-[11px] text-zinc-600 font-mono mt-2">Look it up on Screener.in and add it with the Fundamentals Entry tool.</div>
+                                        </div>`;
+                                    }
+                                    const peNote = f.pe !== null ? (f.pe < 15 ? 'Relatively cheap' : f.pe > 40 ? 'Richly valued' : 'Moderate valuation') : '';
+                                    const roeNote = f.roe !== null ? (f.roe > 15 ? 'Strong profitability' : f.roe < 8 ? 'Weak profitability' : 'Average profitability') : '';
+                                    const deNote = f.de !== null ? (f.de < 0.5 ? 'Low debt' : f.de > 1.5 ? 'High debt load' : 'Moderate debt') : '';
+                                    return `
+                                        <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-xs mb-3 flex justify-between items-center">
+                                            <span class="text-zinc-500 uppercase">P/E Ratio</span>
+                                            <span class="text-right"><span class="text-zinc-100 font-bold">${f.pe !== null ? f.pe : 'N/A'}</span>${f.pe !== null ? `<div class="text-[10px] text-zinc-600">${peNote}</div>` : ''}</span>
+                                        </div>
+                                        <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-xs mb-3 flex justify-between items-center">
+                                            <span class="text-zinc-500 uppercase">ROE</span>
+                                            <span class="text-right"><span class="text-zinc-100 font-bold">${f.roe !== null ? f.roe + '%' : 'N/A'}</span>${f.roe !== null ? `<div class="text-[10px] text-zinc-600">${roeNote}</div>` : ''}</span>
+                                        </div>
+                                        <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-xs mb-3 flex justify-between items-center">
+                                            <span class="text-zinc-500 uppercase">Debt / Equity</span>
+                                            <span class="text-right"><span class="text-zinc-100 font-bold">${f.de !== null ? f.de : 'N/A'}</span>${f.de !== null ? `<div class="text-[10px] text-zinc-600">${deNote}</div>` : ''}</span>
+                                        </div>
+                                        <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-xs mb-3 flex justify-between">
+                                            <span class="text-zinc-500 uppercase">EPS</span>
+                                            <span class="text-zinc-100 font-bold">${f.eps !== null ? '₹' + f.eps : 'N/A'}</span>
+                                        </div>
+                                        <div class="text-[10px] text-zinc-600 font-mono mt-2">Manually entered from Screener.in — update periodically as results are released.</div>
+                                    `;
+                                })()}
                             </div>
 
                             <div id="panel-tab-news" class="flex-1 hidden flex-col h-full bg-zinc-900/10 rounded-xl border border-zinc-800 overflow-hidden relative">
@@ -516,22 +570,52 @@
                     </div>
                 </div>`;
 
-            setTimeout(() => {
-                new TradingView.widget({
-                    "autosize": true, 
-                    "symbol": `BSE:${cleanTicker}`, 
-                    "interval": "D", 
-                    "timezone": "Asia/Kolkata", 
-                    "theme": "dark", 
-                    "style": "1",
-                    "locale": "en", 
-                    "enable_publishing": false, 
-                    "hide_side_toolbar": false, 
-                    "allow_symbol_change": true, 
-                    "container_id": "tv-chart-frame"
-                });
-            }, 50);
+            setTimeout(() => renderPriceChart(ticker), 50);
         };
+
+        // Draws a candlestick chart using our own NSE bhavcopy history (not TradingView's live feed).
+        // This is the free, open-source "Lightweight Charts" library from TradingView -
+        // it just draws whatever data we give it, no exchange/license restrictions.
+        function renderPriceChart(ticker) {
+            const container = document.getElementById('own-chart-container');
+            if (!container) return;
+            const hist = historicalData[ticker] || [];
+            if (hist.length === 0) {
+                container.innerHTML = '<div class="flex items-center justify-center h-full text-zinc-600 text-xs font-mono">No price history available for this stock</div>';
+                return;
+            }
+
+            const candleData = hist.map(h => ({ time: h.date, open: h.open, high: h.high, low: h.low, close: h.close }));
+            const volumeData = hist.map(h => ({
+                time: h.date,
+                value: h.volume,
+                color: h.close >= h.open ? 'rgba(16,185,129,0.5)' : 'rgba(244,63,94,0.5)'
+            }));
+
+            const chart = LightweightCharts.createChart(container, {
+                layout: { background: { color: 'transparent' }, textColor: '#a1a1aa' },
+                grid: { vertLines: { color: '#18181b' }, horzLines: { color: '#18181b' } },
+                timeScale: { borderColor: '#3f3f46' },
+                rightPriceScale: { borderColor: '#3f3f46' },
+                crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+                autoSize: true
+            });
+
+            const candleSeries = chart.addCandlestickSeries({
+                upColor: '#10b981', downColor: '#f43f5e', borderVisible: false,
+                wickUpColor: '#10b981', wickDownColor: '#f43f5e'
+            });
+            candleSeries.setData(candleData);
+
+            const volumeSeries = chart.addHistogramSeries({
+                priceFormat: { type: 'volume' },
+                priceScaleId: '',
+                scaleMargins: { top: 0.8, bottom: 0 }
+            });
+            volumeSeries.setData(volumeData);
+
+            chart.timeScale().fitContent();
+        }
 
         window.closeWorkspace = function() {
             const overlay = document.getElementById('workspace-overlay');
