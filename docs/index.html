@@ -54,11 +54,12 @@
 
         <div class="flex flex-col sm:flex-row gap-3 items-center justify-between shrink-0 bg-zinc-950 p-3 rounded-xl border border-zinc-900">
             <div class="relative w-full sm:w-80">
-                <input type="text" id="search-input" oninput="loadView('search')" placeholder="Search 3000+ symbols..." 
+                <input type="text" id="search-input" oninput="loadView(currentView)" placeholder="Search 3000+ symbols..." 
                        class="w-full bg-zinc-900 border border-zinc-800 text-xs rounded-lg px-3 py-2.5 text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-700 font-mono transition-colors">
             </div>
             <div class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto">
-                <button onclick="loadView('traded')" id="btn-view-traded" class="px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap">🔥 MOST TRADED</button>
+                <button onclick="loadView('momentum')" id="btn-view-momentum" class="px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap">🚀 MOMENTUM</button>
+                <button onclick="loadView('traded')" id="btn-view-traded" class="px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">🔥 MOST TRADED</button>
                 <button onclick="loadView('bullish')" id="btn-view-bullish" class="px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">📈 TOP GAINERS</button>
                 <button onclick="loadView('bearish')" id="btn-view-bearish" class="px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">📉 TOP LOSERS</button>
             </div>
@@ -73,66 +74,209 @@
     <div id="workspace-overlay" class="hidden fixed inset-0 bg-black/90 z-50 p-0 sm:p-4 backdrop-blur-md"></div>
 
     <script>
+        // historicalData: { TICKER: [ {date, open, high, low, close, prevClose, volume}, ... ] } sorted oldest -> newest
+        let historicalData = {};
+        // stockData: { TICKER: latest snapshot + computed momentum indicators } - rebuilt from historicalData
         let stockData = {};
-        let currentView = 'traded';
+        let availableDates = [];
+        let currentView = 'momentum';
 
         window.addEventListener('DOMContentLoaded', () => {
             fetchLiveMarketData();
         });
 
+        // ---------------------------------------------------------
+        // DATA LOADING: reads data/dates.json, then every dated CSV,
+        // and builds a per-stock price history.
+        // ---------------------------------------------------------
         async function fetchLiveMarketData() {
+            const statusEl = document.getElementById('all-directory-count');
             try {
-                document.getElementById('all-directory-count').innerText = 'PARSING NSE BHAVCOPY...';
-                
-                const response = await fetch('bhavcopy.csv');
-                if (!response.ok) throw new Error("Could not find bhavcopy.csv");
-                const csvText = await response.text();
-                
-                Papa.parse(csvText, {
-                    header: true,
-                    skipEmptyLines: true,
-                    complete: function(results) {
-                        const rawData = results.data;
-                        stockData = {}; 
-                        
-                        rawData.forEach(row => {
-                            const ticker = row['SYMBOL'] || row['TckrSymb'] || row['Symbol'];
-                            if (!ticker || ticker === "NIFTY") return;
-                            
-                            const closePrice = parseFloat(row['CLOSE'] || row['ClsPric'] || row['Close'] || 0);
-                            const prevClose = parseFloat(row['PREVCLOSE'] || row['PrvsClsgPric'] || row['PrevClose'] || closePrice);
-                            const dailyChangePct = prevClose > 0 ? ((closePrice - prevClose) / prevClose) * 100 : 0;
-                            
-                            // Capture Volume directly from Bhavcopy to calculate "Most Traded"
-                            const volume = parseFloat(row['TOTTRDQTY'] || row['TotTrdQty'] || row['TOTALTRADEDQTY'] || 0);
-                            
-                            stockData[ticker] = {
-                                name: ticker + " (NSE Equity)", 
-                                price: closePrice,
-                                volume: volume,
-                                change: dailyChangePct
-                            };
-                        });
-                        
-                        loadView('traded'); // Default to Most Traded on load
-                        document.getElementById('all-directory-count').innerText = `SYSTEM READY: TRACKING ${Object.keys(stockData).length} EQUITIES`;
-                    }
+                statusEl.innerText = 'LOADING DATE INDEX...';
+
+                const datesResp = await fetch('data/dates.json');
+                if (!datesResp.ok) throw new Error("Could not find data/dates.json");
+                availableDates = await datesResp.json();
+                availableDates.sort();
+
+                if (availableDates.length === 0) throw new Error("data/dates.json is empty");
+
+                historicalData = {};
+                let completed = 0;
+                const total = availableDates.length;
+
+                const fetchPromises = availableDates.map(date =>
+                    fetch(`data/bhavcopy/${date}.csv`)
+                        .then(r => r.ok ? r.text() : null)
+                        .catch(() => null)
+                        .then(text => {
+                            completed++;
+                            statusEl.innerText = `LOADING HISTORICAL DATA... ${completed}/${total} SESSIONS`;
+                            return { date, text };
+                        })
+                );
+
+                const results = await Promise.all(fetchPromises);
+
+                results.forEach(({ date, text }) => {
+                    if (!text) return;
+                    const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+
+                    parsed.data.forEach(row => {
+                        // Only keep regular mainboard equity rows (skip SME, bonds, trade-for-trade etc.)
+                        if (row['SctySrs'] !== 'EQ') return;
+
+                        const ticker = row['TckrSymb'];
+                        if (!ticker) return;
+
+                        const close = parseFloat(row['ClsPric'] || 0);
+                        const open = parseFloat(row['OpnPric'] || 0);
+                        const high = parseFloat(row['HghPric'] || 0);
+                        const low = parseFloat(row['LwPric'] || 0);
+                        const prevClose = parseFloat(row['PrvsClsgPric'] || close);
+                        const volume = parseFloat(row['TtlTradgVol'] || row['TOTTRDQTY'] || row['TotTrdQty'] || 0);
+
+                        if (!close) return;
+
+                        if (!historicalData[ticker]) historicalData[ticker] = [];
+                        historicalData[ticker].push({ date, open, high, low, close, prevClose, volume });
+                    });
                 });
-            } catch (e) { 
-                console.error("Data Load Failed:", e); 
-                document.getElementById('all-directory-count').innerText = 'FAILED TO READ bhavcopy.csv';
+
+                // Ensure each stock's history is in correct chronological order
+                Object.keys(historicalData).forEach(t => {
+                    historicalData[t].sort((a, b) => a.date.localeCompare(b.date));
+                });
+
+                buildMomentumSnapshot();
+                loadView('momentum');
+                statusEl.innerText = `SYSTEM READY: TRACKING ${Object.keys(stockData).length} EQUITIES ACROSS ${availableDates.length} SESSIONS`;
+
+            } catch (e) {
+                console.error("Data Load Failed:", e);
+                statusEl.innerText = `DATA LOAD FAILED: ${e.message}`;
             }
         }
 
-        // DYNAMIC SORTING ENGINE
+        // ---------------------------------------------------------
+        // INDICATOR MATH - plain formulas, no AI/black box.
+        // ---------------------------------------------------------
+        function calcSMA(values, period) {
+            if (values.length < period) return null;
+            const slice = values.slice(-period);
+            return slice.reduce((s, v) => s + v, 0) / period;
+        }
+
+        function calcRSI(closes, period = 14) {
+            if (closes.length < period + 1) return null;
+            let gains = 0, losses = 0;
+            for (let i = closes.length - period; i < closes.length; i++) {
+                const diff = closes[i] - closes[i - 1];
+                if (diff >= 0) gains += diff; else losses += Math.abs(diff);
+            }
+            const avgGain = gains / period, avgLoss = losses / period;
+            if (avgLoss === 0) return 100;
+            const rs = avgGain / avgLoss;
+            return 100 - (100 / (1 + rs));
+        }
+
+        function calcROC(closes, period) {
+            if (closes.length < period + 1) return null;
+            const past = closes[closes.length - 1 - period];
+            const now = closes[closes.length - 1];
+            if (!past) return null;
+            return ((now - past) / past) * 100;
+        }
+
+        // Combines the indicators above into one 0-100 score + plain-English reasons.
+        // This is a transparent rule-based formula, not a machine-learning model.
+        function computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price, volSurge }) {
+            let score = 0;
+            const reasons = [];
+
+            if (roc5 !== null) {
+                score += Math.max(0, Math.min(25, roc5 * 2.5));
+                if (roc5 > 3) reasons.push(`Up ${roc5.toFixed(1)}% over the last 5 sessions`);
+                if (roc5 < -3) reasons.push(`Down ${Math.abs(roc5).toFixed(1)}% over the last 5 sessions`);
+            }
+            if (roc10 !== null && roc10 > 0) {
+                score += Math.max(0, Math.min(15, roc10 * 1.2));
+            }
+            if (sma20 !== null && price) {
+                if (price > sma20) { score += 15; reasons.push('Price is above its 20-day average'); }
+                if (sma20Prev !== null && sma20 > sma20Prev) { score += 10; reasons.push('20-day average is trending upward'); }
+            }
+            if (rsi14 !== null) {
+                if (rsi14 >= 50 && rsi14 <= 70) { score += 20; reasons.push(`RSI ${rsi14.toFixed(0)} — healthy momentum zone`); }
+                else if (rsi14 > 70 && rsi14 <= 80) { score += 10; reasons.push(`RSI ${rsi14.toFixed(0)} — strong, getting stretched`); }
+                else if (rsi14 > 80) { reasons.push(`RSI ${rsi14.toFixed(0)} — overbought, caution`); }
+                else if (rsi14 >= 30 && rsi14 < 50) { score += 8; }
+                else { reasons.push(`RSI ${rsi14.toFixed(0)} — weak / oversold`); }
+            }
+            if (volSurge !== null) {
+                if (volSurge > 1.5) { score += 15; reasons.push(`Volume ${volSurge.toFixed(1)}x above its recent average`); }
+                else if (volSurge > 1.2) { score += 8; }
+            }
+
+            score = Math.max(0, Math.min(100, Math.round(score)));
+            if (reasons.length === 0) reasons.push('Not enough recent movement to flag anything notable');
+            return { score, reasons };
+        }
+
+        function getVerdict(score) {
+            if (score >= 65) return { label: 'BUY', text: 'text-emerald-400', badge: 'bg-emerald-950 text-emerald-400 border-emerald-800' };
+            if (score >= 40) return { label: 'HOLD', text: 'text-amber-400', badge: 'bg-amber-950 text-amber-400 border-amber-800' };
+            return { label: 'AVOID', text: 'text-rose-400', badge: 'bg-rose-950 text-rose-400 border-rose-800' };
+        }
+
+        // Turns raw historicalData into a flat stockData snapshot used by the UI
+        function buildMomentumSnapshot() {
+            stockData = {};
+            Object.keys(historicalData).forEach(ticker => {
+                const hist = historicalData[ticker];
+                if (hist.length < 2) return; // need at least 2 sessions for a % change
+
+                const closes = hist.map(h => h.close);
+                const volumes = hist.map(h => h.volume);
+                const latest = hist[hist.length - 1];
+                const prev = hist[hist.length - 2];
+
+                const change = prev.close > 0 ? ((latest.close - prev.close) / prev.close) * 100 : 0;
+                const roc5 = calcROC(closes, 5);
+                const roc10 = calcROC(closes, 10);
+                const roc20 = calcROC(closes, 20);
+                const sma20 = calcSMA(closes, 20);
+                const sma20Prev = closes.length >= 25 ? calcSMA(closes.slice(0, -5), 20) : null;
+                const rsi14 = calcRSI(closes, 14);
+                const avgVol20 = calcSMA(volumes.slice(0, -1), Math.min(20, volumes.length - 1)) || null;
+                const volSurge = avgVol20 && avgVol20 > 0 ? latest.volume / avgVol20 : null;
+
+                const { score, reasons } = computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price: latest.close, volSurge });
+
+                stockData[ticker] = {
+                    name: ticker + " (NSE Equity)",
+                    price: latest.close,
+                    volume: latest.volume,
+                    change,
+                    roc5, roc10, roc20, rsi14, sma20, volSurge,
+                    momentumScore: score,
+                    reasons,
+                    sessionsTracked: hist.length
+                };
+            });
+        }
+
+        // ---------------------------------------------------------
+        // RENDERING (tabs + directory grid)
+        // ---------------------------------------------------------
         window.loadView = function(viewType) {
             currentView = viewType;
             const searchVal = document.getElementById('search-input').value.toUpperCase().trim();
             const container = document.getElementById('stock-directory-list');
             container.innerHTML = '';
-            
-            // Update Tab Button Styles
-            ['traded', 'bullish', 'bearish'].forEach(v => {
+
+            const allTabs = ['momentum', 'traded', 'bullish', 'bearish'];
+            allTabs.forEach(v => {
                 const btn = document.getElementById(`btn-view-${v}`);
                 if (btn) {
                     if (viewType === v && !searchVal) {
@@ -144,44 +288,39 @@
             });
 
             let keys = Object.keys(stockData);
-            
-            // Filter by search if typing
+
             if (searchVal) {
                 keys = keys.filter(k => k.includes(searchVal));
-                ['traded', 'bullish', 'bearish'].forEach(v => {
-                     document.getElementById(`btn-view-${v}`).className = "px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap";
-                });
             } else {
-                // Apply Dynamic Sorts
-                if (viewType === 'traded') {
-                    keys.sort((a, b) => stockData[b].volume - stockData[a].volume); // Highest Volume first
+                if (viewType === 'momentum') {
+                    keys.sort((a, b) => stockData[b].momentumScore - stockData[a].momentumScore);
+                } else if (viewType === 'traded') {
+                    keys.sort((a, b) => stockData[b].volume - stockData[a].volume);
                 } else if (viewType === 'bullish') {
-                    keys.sort((a, b) => stockData[b].change - stockData[a].change); // Highest % Change first
+                    keys.sort((a, b) => stockData[b].change - stockData[a].change);
                 } else if (viewType === 'bearish') {
-                    keys.sort((a, b) => stockData[a].change - stockData[b].change); // Lowest % Change first
+                    keys.sort((a, b) => stockData[a].change - stockData[b].change);
                 }
             }
-            
+
             if (keys.length === 0) {
                 container.innerHTML = `<div class="col-span-full text-center font-mono text-xs text-zinc-700 py-8">No ticker matches found</div>`;
                 return;
             }
-            
-            // Render exactly top 60 items so the browser doesn't freeze
+
             keys.slice(0, 60).forEach((ticker, index) => {
                 const data = stockData[ticker];
                 const changeColor = data.change >= 0 ? "text-emerald-500" : "text-rose-500";
                 const changeSign = data.change >= 0 ? "+" : "";
-                
-                // Format volume cleanly (e.g., 1.5M, 400K)
+                const verdict = getVerdict(data.momentumScore);
+
                 let volDisplay = data.volume > 1000000 ? (data.volume/1000000).toFixed(1) + 'M Vol' : (data.volume/1000).toFixed(0) + 'K Vol';
-                if(data.volume === 0) volDisplay = '';
+                if (data.volume === 0) volDisplay = '';
 
                 const div = document.createElement('div');
                 div.className = `p-4 bg-zinc-900/40 border border-zinc-800/80 rounded-xl hover:border-zinc-500 cursor-pointer transition-all flex flex-col justify-between shadow-sm hover:shadow-md group relative`;
-                div.onclick = () => openWorkspace(ticker); 
-                
-                // Add a subtle rank number for the sorted views
+                div.onclick = () => openWorkspace(ticker);
+
                 let rankBadge = !searchVal ? `<span class="absolute -top-2 -left-2 bg-zinc-800 text-zinc-400 text-[9px] px-1.5 py-0.5 rounded border border-zinc-700">#${index + 1}</span>` : '';
 
                 div.innerHTML = `
@@ -189,6 +328,7 @@
                     <div class="flex justify-between items-start font-mono mb-3">
                         <div>
                             <div class="text-sm font-bold text-zinc-200 group-hover:text-sky-400 transition-colors">${ticker}</div>
+                            <div class="text-[9px] font-bold mt-1 inline-block px-1.5 py-0.5 rounded border ${verdict.badge}">${verdict.label} · ${data.momentumScore}</div>
                         </div>
                         <div class="text-[10px] ${changeColor} font-bold bg-zinc-950 px-2 py-1 rounded border border-zinc-800">
                             ${changeSign}${data.change.toFixed(2)}%
@@ -203,20 +343,26 @@
             });
         };
 
-        // WORKSPACE OVERLAY LOGIC
+        // ---------------------------------------------------------
+        // WORKSPACE OVERLAY
+        // ---------------------------------------------------------
         window.openWorkspace = function(ticker) {
             const data = stockData[ticker];
             const overlay = document.getElementById('workspace-overlay');
             overlay.classList.remove('hidden');
             overlay.classList.add('flex', 'items-center', 'justify-center');
-            
+
             const cleanTicker = ticker.split('.')[0].replace(/\s+/g, '').toUpperCase();
-            
+            const verdict = getVerdict(data.momentumScore);
+
+            const fmt = (v, suffix = '%') => v === null || v === undefined ? 'N/A' : v.toFixed(2) + suffix;
+
             overlay.innerHTML = `
                 <div class="w-full h-full bg-zinc-950 sm:rounded-2xl border border-zinc-800 flex flex-col font-mono text-zinc-300 overflow-hidden shadow-2xl">
                     <div class="flex items-center justify-between px-6 py-3 bg-zinc-900/90 border-b border-zinc-800 shrink-0">
                         <div class="flex items-center gap-3">
                             <span class="text-sky-400 font-bold text-sm">■ WORKSPACE: ${cleanTicker}</span>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded border ${verdict.badge}">${verdict.label}</span>
                         </div>
                         <button onclick="closeWorkspace()" class="text-zinc-400 hover:text-white transition-colors bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded-md text-xs border border-zinc-700 cursor-pointer">✕ Close</button>
                     </div>
@@ -228,28 +374,62 @@
                         
                         <div class="p-4 flex flex-col h-full overflow-hidden bg-zinc-950">
                             <div class="flex flex-wrap border-b border-zinc-800 mb-4 shrink-0 text-xs">
-                                <button id="btn-tab-tech" onclick="toggleWorkspaceTab('tech', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-sky-500 text-sky-400 transition-all cursor-pointer">💡 Tech</button>
-                                <button id="btn-tab-decoder" onclick="toggleWorkspaceTab('decoder', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer mt-2 sm:mt-0">📊 Decoder</button>
+                                <button id="btn-tab-momentum" onclick="toggleWorkspaceTab('momentum', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-sky-500 text-sky-400 transition-all cursor-pointer">🚀 Momentum</button>
+                                <button id="btn-tab-decoder" onclick="toggleWorkspaceTab('decoder', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer mt-2 sm:mt-0">📊 Technical</button>
+                                <button id="btn-tab-fundamentals" onclick="toggleWorkspaceTab('fundamentals', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer mt-2 sm:mt-0">🏦 Fundamentals</button>
                                 <button id="btn-tab-news" onclick="toggleWorkspaceTab('news', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer mt-2 sm:mt-0">📰 News</button>
                             </div>
                             
-                            <div id="panel-tab-tech" class="flex-1 flex flex-col overflow-y-auto pr-1">
+                            <div id="panel-tab-momentum" class="flex-1 flex flex-col overflow-y-auto pr-1">
+                                <div class="bg-zinc-900/60 p-4 rounded-lg border border-zinc-800 mb-3">
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="text-zinc-500 uppercase text-[10px]">Momentum Score</span>
+                                        <span class="text-[10px] font-bold ${verdict.text}">${verdict.label}</span>
+                                    </div>
+                                    <div class="text-2xl font-bold ${verdict.text}">${data.momentumScore} / 100</div>
+                                    <div class="text-[9px] text-zinc-600 mt-1">Rule-based signal from price data only — not financial advice.</div>
+                                </div>
+
                                 <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px] mb-3 flex justify-between">
                                     <span class="text-zinc-500 uppercase">EOD Price</span>
                                     <span class="text-zinc-100 font-bold">₹${data.price.toLocaleString('en-IN')}</span>
                                 </div>
                                 <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px] mb-3 flex justify-between">
                                     <span class="text-zinc-500 uppercase">1D Change</span>
-                                    <span class="${data.change >= 0 ? 'text-emerald-400' : 'text-rose-400'} font-bold">${data.change.toFixed(2)}%</span>
+                                    <span class="${data.change >= 0 ? 'text-emerald-400' : 'text-rose-400'} font-bold">${fmt(data.change)}</span>
                                 </div>
-                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px] flex justify-between">
+                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px] mb-3 flex justify-between">
+                                    <span class="text-zinc-500 uppercase">5-Day / 10-Day / 20-Day ROC</span>
+                                    <span class="text-zinc-100 font-bold">${fmt(data.roc5)} / ${fmt(data.roc10)} / ${fmt(data.roc20)}</span>
+                                </div>
+                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px] mb-3 flex justify-between">
+                                    <span class="text-zinc-500 uppercase">RSI (14)</span>
+                                    <span class="text-zinc-100 font-bold">${data.rsi14 !== null ? data.rsi14.toFixed(1) : 'N/A'}</span>
+                                </div>
+                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px] mb-3 flex justify-between">
+                                    <span class="text-zinc-500 uppercase">Volume vs 20-Day Avg</span>
+                                    <span class="text-zinc-100 font-bold">${data.volSurge !== null ? data.volSurge.toFixed(2) + 'x' : 'N/A'}</span>
+                                </div>
+                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px] mb-3 flex justify-between">
                                     <span class="text-zinc-500 uppercase">Total Volume</span>
                                     <span class="text-zinc-100 font-bold">${data.volume.toLocaleString('en-IN')}</span>
+                                </div>
+                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px]">
+                                    <span class="text-zinc-500 uppercase block mb-2">Why this score</span>
+                                    <ul class="space-y-1">
+                                        ${data.reasons.map(r => `<li class="text-zinc-300 text-[10px]">• ${r}</li>`).join('')}
+                                    </ul>
                                 </div>
                             </div>
 
                             <div id="panel-tab-decoder" class="flex-1 hidden flex-col h-full bg-zinc-900/10 rounded-xl border border-zinc-800 p-3 overflow-hidden">
                                 <div id="tv-decoder-container" class="w-full h-full min-h-[340px]"></div>
+                            </div>
+
+                            <div id="panel-tab-fundamentals" class="flex-1 hidden flex-col items-center justify-center text-center p-6">
+                                <div class="text-3xl mb-2">🏗️</div>
+                                <div class="text-xs text-zinc-400 font-mono">Fundamental data (P/E, ROE, Debt/Equity) isn't wired up yet.</div>
+                                <div class="text-[10px] text-zinc-600 font-mono mt-2">Coming in the next build step.</div>
                             </div>
 
                             <div id="panel-tab-news" class="flex-1 hidden flex-col h-full bg-zinc-900/10 rounded-xl border border-zinc-800 overflow-hidden relative">
@@ -284,7 +464,7 @@
         };
 
         window.toggleWorkspaceTab = function(activeTab, ticker) {
-            const tabs = ['tech', 'decoder', 'news'];
+            const tabs = ['momentum', 'decoder', 'fundamentals', 'news'];
             tabs.forEach(tab => {
                 const btn = document.getElementById(`btn-tab-${tab}`);
                 const panel = document.getElementById(`panel-tab-${tab}`);
