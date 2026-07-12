@@ -16,57 +16,62 @@
 </head>
 <body class="bg-black text-zinc-100 font-sans min-h-screen flex flex-col selection:bg-zinc-800 selection:text-zinc-200">
 
-    <div class="tradingview-widget-container border-b border-zinc-800 shrink-0" style="width: 100%; height: 46px; background: #000;">
-        <div class="tradingview-widget-container__widget"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-        {
-            "symbols": [
-                { "description": "NIFTY 50 (ETF)", "proName": "BSE:NIFTYBEES" },
-                { "description": "BANK NIFTY (ETF)", "proName": "BSE:BANKBEES" },
-                { "description": "RELIANCE", "proName": "BSE:RELIANCE" },
-                { "description": "TCS", "proName": "BSE:TCS" },
-                { "description": "HDFC BANK", "proName": "BSE:HDFCBANK" },
-                { "description": "INFOSYS", "proName": "BSE:INFY" }
-            ],
-            "showSymbolLogo": true,
-            "colorTheme": "dark",
-            "isTransparent": true,
-            "displayMode": "adaptive",
-            "locale": "en"
-        }
-        </script>
-    </div>
+    <div class="flex-1 flex flex-col max-w-[1300px] w-full mx-auto p-4 md:p-6 space-y-4 overflow-hidden">
 
-    <div class="flex-1 flex flex-col max-w-[1200px] w-full mx-auto p-4 md:p-6 space-y-4 overflow-hidden">
-        
-        <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-2 border-b border-zinc-800 gap-4 shrink-0">
+        <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-3 border-b border-zinc-800 gap-3 shrink-0">
             <div>
-                <h1 class="text-xl font-bold tracking-tight text-zinc-100 flex items-center gap-2">
+                <h1 class="text-2xl font-bold tracking-tight text-zinc-100 flex items-center gap-2">
                     <span>📈</span> DYNAMIC MARKET SCREENER
                 </h1>
-                <p class="text-xs text-zinc-500 mt-0.5 font-mono" id="all-directory-count">INITIALIZING DATA ENGINE...</p>
+                <p class="text-sm text-zinc-500 mt-1 font-mono" id="all-directory-count">INITIALIZING DATA ENGINE...</p>
             </div>
-            <div class="flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-xl font-mono text-xs text-zinc-400">
+            <div class="flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-3 py-2 rounded-xl font-mono text-xs text-zinc-400">
                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span>BHAVCOPY SYNCED</span>
             </div>
         </header>
 
-        <div class="flex flex-col sm:flex-row gap-3 items-center justify-between shrink-0 bg-zinc-950 p-3 rounded-xl border border-zinc-900">
-            <div class="relative w-full sm:w-80">
-                <input type="text" id="search-input" oninput="loadView(currentView)" placeholder="Search 3000+ symbols..." 
-                       class="w-full bg-zinc-900 border border-zinc-800 text-xs rounded-lg px-3 py-2.5 text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-700 font-mono transition-colors">
+        <!-- SEARCH -->
+        <div class="shrink-0">
+            <input type="text" id="search-input" oninput="loadView(currentView)" placeholder="🔍 Search by symbol or company name..."
+                   class="w-full bg-zinc-900 border border-zinc-800 text-sm rounded-xl px-4 py-3.5 text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-sky-700 font-mono transition-colors">
+        </div>
+
+        <!-- VIEW TABS -->
+        <div class="flex flex-col gap-3 shrink-0 bg-zinc-950 p-3 rounded-xl border border-zinc-900">
+            <div class="flex items-center gap-2 w-full overflow-x-auto pb-1">
+                <button onclick="loadView('momentum')" id="btn-view-momentum" class="px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap">🚀 MOMENTUM</button>
+                <button onclick="loadView('traded')" id="btn-view-traded" class="px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">🔥 MOST TRADED</button>
+                <button onclick="loadView('bullish')" id="btn-view-bullish" class="px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">📈 TOP GAINERS</button>
+                <button onclick="loadView('bearish')" id="btn-view-bearish" class="px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">📉 TOP LOSERS</button>
             </div>
-            <div class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto">
-                <button onclick="loadView('momentum')" id="btn-view-momentum" class="px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap">🚀 MOMENTUM</button>
-                <button onclick="loadView('traded')" id="btn-view-traded" class="px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">🔥 MOST TRADED</button>
-                <button onclick="loadView('bullish')" id="btn-view-bullish" class="px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">📈 TOP GAINERS</button>
-                <button onclick="loadView('bearish')" id="btn-view-bearish" class="px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">📉 TOP LOSERS</button>
+
+            <div class="flex flex-col sm:flex-row gap-3 border-t border-zinc-900 pt-3">
+                <!-- CAP FILTER -->
+                <div class="flex items-center gap-2 overflow-x-auto">
+                    <span class="text-[11px] text-zinc-600 font-bold uppercase shrink-0 font-mono">Cap:</span>
+                    <button onclick="setCapFilter('ALL')" id="btn-cap-ALL" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap">All</button>
+                    <button onclick="setCapFilter('LargeCap')" id="btn-cap-LargeCap" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">Large</button>
+                    <button onclick="setCapFilter('MidCap')" id="btn-cap-MidCap" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">Mid</button>
+                    <button onclick="setCapFilter('SmallCap')" id="btn-cap-SmallCap" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">Small</button>
+                </div>
+
+                <!-- PRICE FILTER -->
+                <div class="flex items-center gap-2 overflow-x-auto">
+                    <span class="text-[11px] text-zinc-600 font-bold uppercase shrink-0 font-mono">Price:</span>
+                    <button onclick="setPriceFilter('ALL')" id="btn-price-ALL" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap">All</button>
+                    <button onclick="setPriceFilter('LT100')" id="btn-price-LT100" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">&lt;100</button>
+                    <button onclick="setPriceFilter('100-250')" id="btn-price-100-250" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">100-250</button>
+                    <button onclick="setPriceFilter('250-500')" id="btn-price-250-500" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">250-500</button>
+                    <button onclick="setPriceFilter('500-1000')" id="btn-price-500-1000" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">500-1000</button>
+                    <button onclick="setPriceFilter('GT1000')" id="btn-price-GT1000" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">&gt;1000</button>
+                </div>
             </div>
+            <p id="cap-filter-note" class="hidden text-[11px] text-amber-500/80 font-mono">📎 Large/Mid/Small filtering needs one extra file (data/market-cap.csv) — ask your assistant how to add it.</p>
         </div>
 
         <div class="flex-1 overflow-y-auto bg-zinc-950 border border-zinc-900 rounded-xl p-4 shadow-xl">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3" id="stock-directory-list">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3" id="stock-directory-list">
                 </div>
         </div>
     </div>
@@ -76,18 +81,20 @@
     <script>
         // historicalData: { TICKER: [ {date, open, high, low, close, prevClose, volume}, ... ] } sorted oldest -> newest
         let historicalData = {};
-        // stockData: { TICKER: latest snapshot + computed momentum indicators } - rebuilt from historicalData
-        let stockData = {};
+        let stockNames = {};      // TICKER -> full company name (from FinInstrmNm)
+        let marketCapMap = {};    // TICKER -> 'LargeCap' | 'MidCap' | 'SmallCap' (optional, from data/market-cap.csv)
+        let stockData = {};       // TICKER -> latest snapshot + computed momentum indicators
         let availableDates = [];
         let currentView = 'momentum';
+        let capFilter = 'ALL';
+        let priceFilter = 'ALL';
 
         window.addEventListener('DOMContentLoaded', () => {
             fetchLiveMarketData();
         });
 
         // ---------------------------------------------------------
-        // DATA LOADING: reads data/dates.json, then every dated CSV,
-        // and builds a per-stock price history.
+        // DATA LOADING
         // ---------------------------------------------------------
         async function fetchLiveMarketData() {
             const statusEl = document.getElementById('all-directory-count');
@@ -98,10 +105,24 @@
                 if (!datesResp.ok) throw new Error("Could not find data/dates.json");
                 availableDates = await datesResp.json();
                 availableDates.sort();
-
                 if (availableDates.length === 0) throw new Error("data/dates.json is empty");
 
+                // Optional: market cap classification (Large/Mid/Small). Silently skipped if not present.
+                try {
+                    const capResp = await fetch('data/market-cap.csv');
+                    if (capResp.ok) {
+                        const capText = await capResp.text();
+                        const parsedCap = Papa.parse(capText, { header: true, skipEmptyLines: true });
+                        parsedCap.data.forEach(row => {
+                            const sym = (row['Symbol'] || row['SYMBOL'] || '').trim().toUpperCase();
+                            const cat = (row['Category'] || row['CATEGORY'] || '').trim();
+                            if (sym && cat) marketCapMap[sym] = cat;
+                        });
+                    }
+                } catch (e) { /* optional file - fine if missing */ }
+
                 historicalData = {};
+                stockNames = {};
                 let completed = 0;
                 const total = availableDates.length;
 
@@ -123,8 +144,7 @@
                     const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
 
                     parsed.data.forEach(row => {
-                        // Only keep regular mainboard equity rows (skip SME, bonds, trade-for-trade etc.)
-                        if (row['SctySrs'] !== 'EQ') return;
+                        if (row['SctySrs'] !== 'EQ') return; // mainboard equity only
 
                         const ticker = row['TckrSymb'];
                         if (!ticker) return;
@@ -140,15 +160,29 @@
 
                         if (!historicalData[ticker]) historicalData[ticker] = [];
                         historicalData[ticker].push({ date, open, high, low, close, prevClose, volume });
+
+                        if (row['FinInstrmNm']) stockNames[ticker] = row['FinInstrmNm'];
                     });
                 });
 
-                // Ensure each stock's history is in correct chronological order
                 Object.keys(historicalData).forEach(t => {
                     historicalData[t].sort((a, b) => a.date.localeCompare(b.date));
                 });
 
                 buildMomentumSnapshot();
+
+                if (Object.keys(marketCapMap).length === 0) {
+                    ['LargeCap', 'MidCap', 'SmallCap'].forEach(c => {
+                        const btn = document.getElementById(`btn-cap-${c}`);
+                        if (btn) {
+                            btn.disabled = true;
+                            btn.title = 'Add data/market-cap.csv to enable this filter';
+                            btn.classList.add('opacity-30', 'cursor-not-allowed');
+                        }
+                    });
+                    document.getElementById('cap-filter-note').classList.remove('hidden');
+                }
+
                 loadView('momentum');
                 statusEl.innerText = `SYSTEM READY: TRACKING ${Object.keys(stockData).length} EQUITIES ACROSS ${availableDates.length} SESSIONS`;
 
@@ -159,7 +193,7 @@
         }
 
         // ---------------------------------------------------------
-        // INDICATOR MATH - plain formulas, no AI/black box.
+        // INDICATOR MATH
         // ---------------------------------------------------------
         function calcSMA(values, period) {
             if (values.length < period) return null;
@@ -188,8 +222,6 @@
             return ((now - past) / past) * 100;
         }
 
-        // Combines the indicators above into one 0-100 score + plain-English reasons.
-        // This is a transparent rule-based formula, not a machine-learning model.
         function computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price, volSurge }) {
             let score = 0;
             const reasons = [];
@@ -229,12 +261,11 @@
             return { label: 'AVOID', text: 'text-rose-400', badge: 'bg-rose-950 text-rose-400 border-rose-800' };
         }
 
-        // Turns raw historicalData into a flat stockData snapshot used by the UI
         function buildMomentumSnapshot() {
             stockData = {};
             Object.keys(historicalData).forEach(ticker => {
                 const hist = historicalData[ticker];
-                if (hist.length < 2) return; // need at least 2 sessions for a % change
+                if (hist.length < 2) return;
 
                 const closes = hist.map(h => h.close);
                 const volumes = hist.map(h => h.volume);
@@ -254,20 +285,62 @@
                 const { score, reasons } = computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price: latest.close, volSurge });
 
                 stockData[ticker] = {
-                    name: ticker + " (NSE Equity)",
+                    symbol: ticker,
+                    name: stockNames[ticker] || ticker,
                     price: latest.close,
+                    dayHigh: latest.high,
+                    dayLow: latest.low,
                     volume: latest.volume,
                     change,
                     roc5, roc10, roc20, rsi14, sma20, volSurge,
                     momentumScore: score,
                     reasons,
+                    capCategory: marketCapMap[ticker] || null,
                     sessionsTracked: hist.length
                 };
             });
         }
 
         // ---------------------------------------------------------
-        // RENDERING (tabs + directory grid)
+        // FILTER STATE
+        // ---------------------------------------------------------
+        window.setCapFilter = function(val) {
+            capFilter = val;
+            ['ALL', 'LargeCap', 'MidCap', 'SmallCap'].forEach(c => {
+                const btn = document.getElementById(`btn-cap-${c}`);
+                if (!btn || btn.disabled) return;
+                btn.className = c === val
+                    ? "px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap"
+                    : "px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap";
+            });
+            loadView(currentView);
+        };
+
+        window.setPriceFilter = function(val) {
+            priceFilter = val;
+            ['ALL', 'LT100', '100-250', '250-500', '500-1000', 'GT1000'].forEach(p => {
+                const btn = document.getElementById(`btn-price-${p}`);
+                if (!btn) return;
+                btn.className = p === val
+                    ? "px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap"
+                    : "px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap";
+            });
+            loadView(currentView);
+        };
+
+        function matchesPriceFilter(price) {
+            switch (priceFilter) {
+                case 'LT100': return price < 100;
+                case '100-250': return price >= 100 && price < 250;
+                case '250-500': return price >= 250 && price < 500;
+                case '500-1000': return price >= 500 && price < 1000;
+                case 'GT1000': return price >= 1000;
+                default: return true;
+            }
+        }
+
+        // ---------------------------------------------------------
+        // RENDERING
         // ---------------------------------------------------------
         window.loadView = function(viewType) {
             currentView = viewType;
@@ -279,32 +352,28 @@
             allTabs.forEach(v => {
                 const btn = document.getElementById(`btn-view-${v}`);
                 if (btn) {
-                    if (viewType === v && !searchVal) {
-                        btn.className = "px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap";
-                    } else {
-                        btn.className = "px-4 py-2 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap";
-                    }
+                    btn.className = (viewType === v && !searchVal)
+                        ? "px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap"
+                        : "px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap";
                 }
             });
 
             let keys = Object.keys(stockData);
 
+            if (capFilter !== 'ALL') keys = keys.filter(k => stockData[k].capCategory === capFilter);
+            if (priceFilter !== 'ALL') keys = keys.filter(k => matchesPriceFilter(stockData[k].price));
+
             if (searchVal) {
-                keys = keys.filter(k => k.includes(searchVal));
+                keys = keys.filter(k => k.includes(searchVal) || (stockData[k].name || '').toUpperCase().includes(searchVal));
             } else {
-                if (viewType === 'momentum') {
-                    keys.sort((a, b) => stockData[b].momentumScore - stockData[a].momentumScore);
-                } else if (viewType === 'traded') {
-                    keys.sort((a, b) => stockData[b].volume - stockData[a].volume);
-                } else if (viewType === 'bullish') {
-                    keys.sort((a, b) => stockData[b].change - stockData[a].change);
-                } else if (viewType === 'bearish') {
-                    keys.sort((a, b) => stockData[a].change - stockData[b].change);
-                }
+                if (viewType === 'momentum') keys.sort((a, b) => stockData[b].momentumScore - stockData[a].momentumScore);
+                else if (viewType === 'traded') keys.sort((a, b) => stockData[b].volume - stockData[a].volume);
+                else if (viewType === 'bullish') keys.sort((a, b) => stockData[b].change - stockData[a].change);
+                else if (viewType === 'bearish') keys.sort((a, b) => stockData[a].change - stockData[b].change);
             }
 
             if (keys.length === 0) {
-                container.innerHTML = `<div class="col-span-full text-center font-mono text-xs text-zinc-700 py-8">No ticker matches found</div>`;
+                container.innerHTML = `<div class="col-span-full text-center font-mono text-sm text-zinc-700 py-10">No stocks match your filters</div>`;
                 return;
             }
 
@@ -314,29 +383,33 @@
                 const changeSign = data.change >= 0 ? "+" : "";
                 const verdict = getVerdict(data.momentumScore);
 
-                let volDisplay = data.volume > 1000000 ? (data.volume/1000000).toFixed(1) + 'M Vol' : (data.volume/1000).toFixed(0) + 'K Vol';
+                let volDisplay = data.volume > 1000000 ? (data.volume / 1000000).toFixed(1) + 'M Vol' : (data.volume / 1000).toFixed(0) + 'K Vol';
                 if (data.volume === 0) volDisplay = '';
 
                 const div = document.createElement('div');
                 div.className = `p-4 bg-zinc-900/40 border border-zinc-800/80 rounded-xl hover:border-zinc-500 cursor-pointer transition-all flex flex-col justify-between shadow-sm hover:shadow-md group relative`;
                 div.onclick = () => openWorkspace(ticker);
 
-                let rankBadge = !searchVal ? `<span class="absolute -top-2 -left-2 bg-zinc-800 text-zinc-400 text-[9px] px-1.5 py-0.5 rounded border border-zinc-700">#${index + 1}</span>` : '';
+                let rankBadge = (!searchVal) ? `<span class="absolute -top-2 -left-2 bg-zinc-800 text-zinc-400 text-[10px] px-1.5 py-0.5 rounded border border-zinc-700 font-bold">#${index + 1}</span>` : '';
 
                 div.innerHTML = `
                     ${rankBadge}
-                    <div class="flex justify-between items-start font-mono mb-3">
-                        <div>
-                            <div class="text-sm font-bold text-zinc-200 group-hover:text-sky-400 transition-colors">${ticker}</div>
-                            <div class="text-[9px] font-bold mt-1 inline-block px-1.5 py-0.5 rounded border ${verdict.badge}">${verdict.label} · ${data.momentumScore}</div>
+                    <div class="flex justify-between items-start font-mono mb-3 gap-2">
+                        <div class="min-w-0">
+                            <div class="text-base font-bold text-zinc-100 group-hover:text-sky-400 transition-colors">${ticker}</div>
+                            <div class="text-[11px] text-zinc-500 truncate" title="${data.name}">${data.name}</div>
+                            <div class="text-[10px] font-bold mt-1.5 inline-block px-1.5 py-0.5 rounded border ${verdict.badge}">${verdict.label} · ${data.momentumScore}</div>
                         </div>
-                        <div class="text-[10px] ${changeColor} font-bold bg-zinc-950 px-2 py-1 rounded border border-zinc-800">
+                        <div class="text-xs ${changeColor} font-bold bg-zinc-950 px-2 py-1 rounded border border-zinc-800 shrink-0">
                             ${changeSign}${data.change.toFixed(2)}%
                         </div>
                     </div>
-                    <div class="flex justify-between items-end font-mono">
-                         <div class="text-[9px] text-zinc-500 tracking-wider">${volDisplay}</div>
-                         <div class="text-sm font-bold text-zinc-100">₹${data.price.toLocaleString('en-IN', {minimumFractionDigits: 2})}</div>
+                    <div class="space-y-1">
+                        <div class="flex justify-between items-end font-mono">
+                             <div class="text-[10px] text-zinc-500 tracking-wider">${volDisplay}</div>
+                             <div class="text-base font-bold text-zinc-100">₹${data.price.toLocaleString('en-IN', {minimumFractionDigits: 2})}</div>
+                        </div>
+                        <div class="text-[10px] text-zinc-600 font-mono">H ₹${data.dayHigh.toFixed(2)} &nbsp;·&nbsp; L ₹${data.dayLow.toFixed(2)}</div>
                     </div>
                 `;
                 container.appendChild(div);
@@ -354,17 +427,17 @@
 
             const cleanTicker = ticker.split('.')[0].replace(/\s+/g, '').toUpperCase();
             const verdict = getVerdict(data.momentumScore);
-
             const fmt = (v, suffix = '%') => v === null || v === undefined ? 'N/A' : v.toFixed(2) + suffix;
 
             overlay.innerHTML = `
                 <div class="w-full h-full bg-zinc-950 sm:rounded-2xl border border-zinc-800 flex flex-col font-mono text-zinc-300 overflow-hidden shadow-2xl">
                     <div class="flex items-center justify-between px-6 py-3 bg-zinc-900/90 border-b border-zinc-800 shrink-0">
-                        <div class="flex items-center gap-3">
-                            <span class="text-sky-400 font-bold text-sm">■ WORKSPACE: ${cleanTicker}</span>
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded border ${verdict.badge}">${verdict.label}</span>
+                        <div class="flex items-center gap-3 min-w-0">
+                            <span class="text-sky-400 font-bold text-base shrink-0">■ ${cleanTicker}</span>
+                            <span class="text-zinc-500 text-xs truncate hidden sm:inline">${data.name}</span>
+                            <span class="text-[11px] font-bold px-2 py-0.5 rounded border ${verdict.badge} shrink-0">${verdict.label}</span>
                         </div>
-                        <button onclick="closeWorkspace()" class="text-zinc-400 hover:text-white transition-colors bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded-md text-xs border border-zinc-700 cursor-pointer">✕ Close</button>
+                        <button onclick="closeWorkspace()" class="text-zinc-400 hover:text-white transition-colors bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded-md text-xs border border-zinc-700 cursor-pointer shrink-0">✕ Close</button>
                     </div>
                     
                     <div class="flex-1 grid grid-cols-1 lg:grid-cols-3 overflow-hidden">
@@ -383,41 +456,45 @@
                             <div id="panel-tab-momentum" class="flex-1 flex flex-col overflow-y-auto pr-1">
                                 <div class="bg-zinc-900/60 p-4 rounded-lg border border-zinc-800 mb-3">
                                     <div class="flex justify-between items-center mb-1">
-                                        <span class="text-zinc-500 uppercase text-[10px]">Momentum Score</span>
-                                        <span class="text-[10px] font-bold ${verdict.text}">${verdict.label}</span>
+                                        <span class="text-zinc-500 uppercase text-[11px]">Momentum Score</span>
+                                        <span class="text-[11px] font-bold ${verdict.text}">${verdict.label}</span>
                                     </div>
                                     <div class="text-2xl font-bold ${verdict.text}">${data.momentumScore} / 100</div>
-                                    <div class="text-[9px] text-zinc-600 mt-1">Rule-based signal from price data only — not financial advice.</div>
+                                    <div class="text-[10px] text-zinc-600 mt-1">Rule-based signal from price data only — not financial advice.</div>
                                 </div>
 
-                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px] mb-3 flex justify-between">
+                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-xs mb-3 flex justify-between">
                                     <span class="text-zinc-500 uppercase">EOD Price</span>
                                     <span class="text-zinc-100 font-bold">₹${data.price.toLocaleString('en-IN')}</span>
                                 </div>
-                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px] mb-3 flex justify-between">
+                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-xs mb-3 flex justify-between">
+                                    <span class="text-zinc-500 uppercase">Day Range</span>
+                                    <span class="text-zinc-100 font-bold">₹${data.dayLow.toFixed(2)} - ₹${data.dayHigh.toFixed(2)}</span>
+                                </div>
+                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-xs mb-3 flex justify-between">
                                     <span class="text-zinc-500 uppercase">1D Change</span>
                                     <span class="${data.change >= 0 ? 'text-emerald-400' : 'text-rose-400'} font-bold">${fmt(data.change)}</span>
                                 </div>
-                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px] mb-3 flex justify-between">
-                                    <span class="text-zinc-500 uppercase">5-Day / 10-Day / 20-Day ROC</span>
+                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-xs mb-3 flex justify-between">
+                                    <span class="text-zinc-500 uppercase">5 / 10 / 20-Day ROC</span>
                                     <span class="text-zinc-100 font-bold">${fmt(data.roc5)} / ${fmt(data.roc10)} / ${fmt(data.roc20)}</span>
                                 </div>
-                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px] mb-3 flex justify-between">
+                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-xs mb-3 flex justify-between">
                                     <span class="text-zinc-500 uppercase">RSI (14)</span>
                                     <span class="text-zinc-100 font-bold">${data.rsi14 !== null ? data.rsi14.toFixed(1) : 'N/A'}</span>
                                 </div>
-                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px] mb-3 flex justify-between">
+                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-xs mb-3 flex justify-between">
                                     <span class="text-zinc-500 uppercase">Volume vs 20-Day Avg</span>
                                     <span class="text-zinc-100 font-bold">${data.volSurge !== null ? data.volSurge.toFixed(2) + 'x' : 'N/A'}</span>
                                 </div>
-                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px] mb-3 flex justify-between">
+                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-xs mb-3 flex justify-between">
                                     <span class="text-zinc-500 uppercase">Total Volume</span>
                                     <span class="text-zinc-100 font-bold">${data.volume.toLocaleString('en-IN')}</span>
                                 </div>
-                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-[11px]">
+                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-xs">
                                     <span class="text-zinc-500 uppercase block mb-2">Why this score</span>
                                     <ul class="space-y-1">
-                                        ${data.reasons.map(r => `<li class="text-zinc-300 text-[10px]">• ${r}</li>`).join('')}
+                                        ${data.reasons.map(r => `<li class="text-zinc-300 text-[11px]">• ${r}</li>`).join('')}
                                     </ul>
                                 </div>
                             </div>
@@ -428,8 +505,8 @@
 
                             <div id="panel-tab-fundamentals" class="flex-1 hidden flex-col items-center justify-center text-center p-6">
                                 <div class="text-3xl mb-2">🏗️</div>
-                                <div class="text-xs text-zinc-400 font-mono">Fundamental data (P/E, ROE, Debt/Equity) isn't wired up yet.</div>
-                                <div class="text-[10px] text-zinc-600 font-mono mt-2">Coming in the next build step.</div>
+                                <div class="text-sm text-zinc-400 font-mono">Fundamental data (P/E, ROE, Debt/Equity) isn't wired up yet.</div>
+                                <div class="text-[11px] text-zinc-600 font-mono mt-2">Coming in the next build step.</div>
                             </div>
 
                             <div id="panel-tab-news" class="flex-1 hidden flex-col h-full bg-zinc-900/10 rounded-xl border border-zinc-800 overflow-hidden relative">
@@ -515,7 +592,7 @@
                         html += `
                             <a href="${item.link}" target="_blank" class="block bg-zinc-900/60 hover:bg-zinc-800/90 border border-zinc-800/80 p-3.5 rounded-xl transition-all duration-200 group shadow-md">
                                 <h4 class="text-xs font-semibold text-zinc-200 group-hover:text-sky-400 mb-2 leading-relaxed">${item.title}</h4>
-                                <div class="flex justify-between items-center mt-2 border-t border-zinc-800/40 pt-2 font-mono text-[9px] text-zinc-500">
+                                <div class="flex justify-between items-center mt-2 border-t border-zinc-800/40 pt-2 font-mono text-[10px] text-zinc-500">
                                     <span class="uppercase tracking-wider font-bold">${source}</span>
                                     <span>${dateString}</span>
                                 </div>
