@@ -34,22 +34,22 @@
 
         <!-- SEARCH -->
         <div class="shrink-0">
-            <input type="text" id="search-input" oninput="loadView(currentView)" placeholder="🔍 Search by symbol or company name..."
+            <input type="text" id="search-input" oninput="renderList()" placeholder="🔍 Search by symbol or company name..."
                    class="w-full bg-zinc-900 border border-zinc-800 text-sm rounded-xl px-4 py-3.5 text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-sky-700 font-mono transition-colors">
         </div>
 
         <!-- VIEW TABS -->
         <div class="flex flex-col gap-3 shrink-0 bg-zinc-950 p-3 rounded-xl border border-zinc-900">
-            <div class="flex items-center gap-2 w-full overflow-x-auto pb-1">
-                <button onclick="loadView('momentum')" id="btn-view-momentum" class="px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap">🚀 MOMENTUM</button>
-                <button onclick="loadView('traded')" id="btn-view-traded" class="px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">🔥 MOST TRADED</button>
-                <button onclick="loadView('bullish')" id="btn-view-bullish" class="px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">📈 TOP GAINERS</button>
-                <button onclick="loadView('bearish')" id="btn-view-bearish" class="px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">📉 TOP LOSERS</button>
+            <div class="flex flex-wrap items-center gap-2 w-full">
+                <button onclick="loadView('momentum')" id="btn-view-momentum" class="px-3 sm:px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap">🚀 MOMENTUM</button>
+                <button onclick="loadView('traded')" id="btn-view-traded" class="px-3 sm:px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">🔥 MOST TRADED</button>
+                <button onclick="loadView('bullish')" id="btn-view-bullish" class="px-3 sm:px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">📈 TOP GAINERS</button>
+                <button onclick="loadView('bearish')" id="btn-view-bearish" class="px-3 sm:px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">📉 TOP LOSERS</button>
             </div>
 
-            <div class="flex flex-col sm:flex-row gap-3 border-t border-zinc-900 pt-3">
+            <div class="flex flex-col gap-3 border-t border-zinc-900 pt-3">
                 <!-- CAP FILTER -->
-                <div class="flex items-center gap-2 overflow-x-auto">
+                <div class="flex flex-wrap items-center gap-2">
                     <span class="text-[11px] text-zinc-600 font-bold uppercase shrink-0 font-mono">Cap:</span>
                     <button onclick="setCapFilter('ALL')" id="btn-cap-ALL" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap">All</button>
                     <button onclick="setCapFilter('LargeCap')" id="btn-cap-LargeCap" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">Large</button>
@@ -58,7 +58,7 @@
                 </div>
 
                 <!-- PRICE FILTER -->
-                <div class="flex items-center gap-2 overflow-x-auto">
+                <div class="flex flex-wrap items-center gap-2">
                     <span class="text-[11px] text-zinc-600 font-bold uppercase shrink-0 font-mono">Price:</span>
                     <button onclick="setPriceFilter('ALL')" id="btn-price-ALL" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap">All</button>
                     <button onclick="setPriceFilter('LT100')" id="btn-price-LT100" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">&lt;100</button>
@@ -66,6 +66,21 @@
                     <button onclick="setPriceFilter('250-500')" id="btn-price-250-500" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">250-500</button>
                     <button onclick="setPriceFilter('500-1000')" id="btn-price-500-1000" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">500-1000</button>
                     <button onclick="setPriceFilter('GT1000')" id="btn-price-GT1000" class="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap">&gt;1000</button>
+                </div>
+
+                <!-- SORT -->
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-[11px] text-zinc-600 font-bold uppercase shrink-0 font-mono">Sort:</span>
+                    <select id="sort-select" onchange="setSort(this.value)" class="bg-zinc-900 border border-zinc-800 text-zinc-200 text-[11px] font-mono font-bold rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-sky-700">
+                        <option value="momentum">Momentum Score</option>
+                        <option value="change">% Change</option>
+                        <option value="volume">Volume</option>
+                        <option value="price">Price</option>
+                        <option value="rsi">RSI</option>
+                        <option value="name">Company Name</option>
+                    </select>
+                    <button id="sort-dir-btn" onclick="toggleSortDir()" title="Toggle sort direction" class="px-2.5 py-1.5 rounded-lg text-xs font-mono font-bold bg-zinc-900 text-zinc-300 border border-zinc-800 hover:border-zinc-600">↓ High to Low</button>
+                    <button onclick="resetFilters()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-mono font-bold bg-zinc-900 text-zinc-500 border border-zinc-800 hover:text-zinc-300 whitespace-nowrap ml-auto">↺ Reset</button>
                 </div>
             </div>
             <p id="cap-filter-note" class="hidden text-[11px] text-amber-500/80 font-mono">📎 Large/Mid/Small filtering needs one extra file (data/market-cap.csv) — ask your assistant how to add it.</p>
@@ -87,9 +102,19 @@
         let fundamentalsMap = {}; // TICKER -> {pe, roe, de, eps} (optional, from data/fundamentals.csv)
         let stockData = {};       // TICKER -> latest snapshot + computed momentum indicators
         let availableDates = [];
-        let currentView = 'momentum';
+        let activeTab = 'momentum';   // which preset tab is highlighted (null when a custom sort is chosen)
+        let sortKey = 'momentum';     // momentum | change | volume | price | rsi | name
+        let sortDir = 'desc';         // desc | asc
         let capFilter = 'ALL';
         let priceFilter = 'ALL';
+
+        const TAB_PRESETS = {
+            momentum: { key: 'momentum', dir: 'desc' },
+            traded:   { key: 'volume',   dir: 'desc' },
+            bullish:  { key: 'change',   dir: 'desc' },
+            bearish:  { key: 'change',   dir: 'asc'  }
+        };
+        const DEFAULT_DIR = { momentum: 'desc', volume: 'desc', change: 'desc', price: 'desc', rsi: 'desc', name: 'asc' };
 
         window.addEventListener('DOMContentLoaded', () => {
             fetchLiveMarketData();
@@ -245,35 +270,94 @@
 
         function computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price, volSurge }) {
             let score = 0;
-            const reasons = [];
+            const breakdown = [];
 
+            // Factor 1: 5-day price momentum - max 25 pts
             if (roc5 !== null) {
-                score += Math.max(0, Math.min(25, roc5 * 2.5));
-                if (roc5 > 3) reasons.push(`Up ${roc5.toFixed(1)}% over the last 5 sessions`);
-                if (roc5 < -3) reasons.push(`Down ${Math.abs(roc5).toFixed(1)}% over the last 5 sessions`);
+                const pts = Math.round(Math.max(0, Math.min(25, roc5 * 2.5)) * 10) / 10;
+                score += pts;
+                breakdown.push({
+                    label: '5-Day Price Momentum',
+                    value: `${roc5 >= 0 ? '+' : ''}${roc5.toFixed(1)}%`,
+                    points: pts, max: 25,
+                    note: roc5 > 3 ? 'Strong short-term push upward' : roc5 < -3 ? 'Recent pullback over the last week' : 'Little short-term movement either way'
+                });
+            } else {
+                breakdown.push({ label: '5-Day Price Momentum', value: 'N/A', points: 0, max: 25, note: 'Not enough history yet (needs 5+ sessions)' });
             }
-            if (roc10 !== null && roc10 > 0) {
-                score += Math.max(0, Math.min(15, roc10 * 1.2));
+
+            // Factor 2: 10-day price momentum - max 15 pts, only rewards positive moves
+            if (roc10 !== null) {
+                const pts = Math.round(Math.max(0, Math.min(15, roc10 * 1.2)) * 10) / 10;
+                score += pts;
+                breakdown.push({
+                    label: '10-Day Price Momentum',
+                    value: `${roc10 >= 0 ? '+' : ''}${roc10.toFixed(1)}%`,
+                    points: pts, max: 15,
+                    note: roc10 > 0 ? 'Still climbing over a 2-week window' : 'No 2-week tailwind (only upward moves earn points here)'
+                });
+            } else {
+                breakdown.push({ label: '10-Day Price Momentum', value: 'N/A', points: 0, max: 15, note: 'Not enough history yet (needs 10+ sessions)' });
             }
+
+            // Factor 3: price vs 20-day average - max 15 pts
             if (sma20 !== null && price) {
-                if (price > sma20) { score += 15; reasons.push('Price is above its 20-day average'); }
-                if (sma20Prev !== null && sma20 > sma20Prev) { score += 10; reasons.push('20-day average is trending upward'); }
+                const above = price > sma20;
+                const pts = above ? 15 : 0;
+                score += pts;
+                breakdown.push({
+                    label: 'Price vs 20-Day Average',
+                    value: `₹${price.toFixed(2)} vs ₹${sma20.toFixed(2)} avg`,
+                    points: pts, max: 15,
+                    note: above ? 'Trading above its 20-day average — an established short-term uptrend' : 'Trading below its 20-day average — no uptrend confirmation'
+                });
+            } else {
+                breakdown.push({ label: 'Price vs 20-Day Average', value: 'N/A', points: 0, max: 15, note: 'Not enough history yet (needs 20+ sessions)' });
             }
+
+            // Factor 4: is the 20-day average itself rising - max 10 pts
+            if (sma20 !== null && sma20Prev !== null) {
+                const rising = sma20 > sma20Prev;
+                const pts = rising ? 10 : 0;
+                score += pts;
+                breakdown.push({
+                    label: '20-Day Average Direction',
+                    value: rising ? 'Rising' : 'Flat / falling',
+                    points: pts, max: 10,
+                    note: rising ? 'The trend itself is strengthening, not just a single-day spike' : 'The underlying trend is not yet confirmed as rising'
+                });
+            } else {
+                breakdown.push({ label: '20-Day Average Direction', value: 'N/A', points: 0, max: 10, note: 'Not enough history yet (needs 25+ sessions)' });
+            }
+
+            // Factor 5: RSI(14) - max 20 pts, tiered
             if (rsi14 !== null) {
-                if (rsi14 >= 50 && rsi14 <= 70) { score += 20; reasons.push(`RSI ${rsi14.toFixed(0)} — healthy momentum zone`); }
-                else if (rsi14 > 70 && rsi14 <= 80) { score += 10; reasons.push(`RSI ${rsi14.toFixed(0)} — strong, getting stretched`); }
-                else if (rsi14 > 80) { reasons.push(`RSI ${rsi14.toFixed(0)} — overbought, caution`); }
-                else if (rsi14 >= 30 && rsi14 < 50) { score += 8; }
-                else { reasons.push(`RSI ${rsi14.toFixed(0)} — weak / oversold`); }
+                let pts, note;
+                if (rsi14 >= 50 && rsi14 <= 70) { pts = 20; note = 'Healthy momentum zone — rising with room to run'; }
+                else if (rsi14 > 70 && rsi14 <= 80) { pts = 10; note = 'Strong, but starting to get stretched'; }
+                else if (rsi14 > 80) { pts = 0; note = 'Overbought — a pullback becomes more likely here'; }
+                else if (rsi14 >= 30 && rsi14 < 50) { pts = 8; note = 'Neutral — no strong signal either way'; }
+                else { pts = 0; note = 'Oversold / weak — momentum is against the stock'; }
+                score += pts;
+                breakdown.push({ label: 'RSI (14-day)', value: rsi14.toFixed(0), points: pts, max: 20, note });
+            } else {
+                breakdown.push({ label: 'RSI (14-day)', value: 'N/A', points: 0, max: 20, note: 'Not enough history yet (needs 15+ sessions)' });
             }
+
+            // Factor 6: volume surge vs 20-day average - max 15 pts, tiered
             if (volSurge !== null) {
-                if (volSurge > 1.5) { score += 15; reasons.push(`Volume ${volSurge.toFixed(1)}x above its recent average`); }
-                else if (volSurge > 1.2) { score += 8; }
+                let pts, note;
+                if (volSurge > 1.5) { pts = 15; note = 'Unusually high volume — strong conviction behind the move'; }
+                else if (volSurge > 1.2) { pts = 8; note = 'Somewhat elevated volume'; }
+                else { pts = 0; note = 'Normal or below-average volume — less conviction behind the move'; }
+                score += pts;
+                breakdown.push({ label: 'Volume vs 20-Day Average', value: `${volSurge.toFixed(2)}x`, points: pts, max: 15, note });
+            } else {
+                breakdown.push({ label: 'Volume vs 20-Day Average', value: 'N/A', points: 0, max: 15, note: 'Not enough history yet' });
             }
 
             score = Math.max(0, Math.min(100, Math.round(score)));
-            if (reasons.length === 0) reasons.push('Not enough recent movement to flag anything notable');
-            return { score, reasons };
+            return { score, breakdown };
         }
 
         function getVerdict(score) {
@@ -303,7 +387,7 @@
                 const avgVol20 = calcSMA(volumes.slice(0, -1), Math.min(20, volumes.length - 1)) || null;
                 const volSurge = avgVol20 && avgVol20 > 0 ? latest.volume / avgVol20 : null;
 
-                const { score, reasons } = computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price: latest.close, volSurge });
+                const { score, breakdown } = computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price: latest.close, volSurge });
 
                 stockData[ticker] = {
                     symbol: ticker,
@@ -315,7 +399,7 @@
                     change,
                     roc5, roc10, roc20, rsi14, sma20, volSurge,
                     momentumScore: score,
-                    reasons,
+                    breakdown,
                     capCategory: marketCapMap[ticker] || null,
                     sessionsTracked: hist.length
                 };
@@ -323,7 +407,7 @@
         }
 
         // ---------------------------------------------------------
-        // FILTER STATE
+        // FILTER + SORT STATE
         // ---------------------------------------------------------
         window.setCapFilter = function(val) {
             capFilter = val;
@@ -334,7 +418,7 @@
                     ? "px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap"
                     : "px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap";
             });
-            loadView(currentView);
+            renderList();
         };
 
         window.setPriceFilter = function(val) {
@@ -346,8 +430,75 @@
                     ? "px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap"
                     : "px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap";
             });
-            loadView(currentView);
+            renderList();
         };
+
+        // Tab buttons are just convenient presets for the sort control
+        window.loadView = function(tab) {
+            activeTab = tab;
+            const preset = TAB_PRESETS[tab];
+            sortKey = preset.key;
+            sortDir = preset.dir;
+            syncSortControlsUI();
+            renderList();
+        };
+
+        // Manual sort dropdown - overrides tab presets
+        window.setSort = function(key) {
+            sortKey = key;
+            sortDir = DEFAULT_DIR[key] || 'desc';
+            activeTab = null;
+            syncSortControlsUI();
+            renderList();
+        };
+
+        window.toggleSortDir = function() {
+            sortDir = sortDir === 'desc' ? 'asc' : 'desc';
+            syncSortControlsUI();
+            renderList();
+        };
+
+        window.resetFilters = function() {
+            document.getElementById('search-input').value = '';
+            capFilter = 'ALL'; priceFilter = 'ALL';
+            setCapFilter('ALL'); setPriceFilter('ALL');
+            loadView('momentum');
+        };
+
+        function syncSortControlsUI() {
+            document.getElementById('sort-select').value = sortKey;
+            const dirBtn = document.getElementById('sort-dir-btn');
+            const labels = {
+                momentum: ['High to Low', 'Low to High'], change: ['High to Low', 'Low to High'],
+                volume: ['High to Low', 'Low to High'], price: ['High to Low', 'Low to High'],
+                rsi: ['High to Low', 'Low to High'], name: ['A to Z', 'Z to A']
+            };
+            const [descLabel, ascLabel] = labels[sortKey] || ['High to Low', 'Low to High'];
+            dirBtn.textContent = sortDir === 'desc' ? `↓ ${descLabel}` : `↑ ${ascLabel}`;
+
+            const allTabs = ['momentum', 'traded', 'bullish', 'bearish'];
+            allTabs.forEach(v => {
+                const btn = document.getElementById(`btn-view-${v}`);
+                if (btn) {
+                    btn.className = (activeTab === v)
+                        ? "px-3 sm:px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap"
+                        : "px-3 sm:px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap";
+                }
+            });
+        }
+
+        function getSortValue(ticker, key) {
+            const d = stockData[ticker];
+            switch (key) {
+                case 'momentum': return d.momentumScore;
+                case 'volume': return d.volume;
+                case 'change': return d.change;
+                case 'price': return d.price;
+                case 'rsi': return d.rsi14 === null ? -Infinity : d.rsi14;
+                case 'name': return d.name || '';
+                default: return 0;
+            }
+        }
 
         function matchesPriceFilter(price) {
             switch (priceFilter) {
@@ -363,35 +514,22 @@
         // ---------------------------------------------------------
         // RENDERING
         // ---------------------------------------------------------
-        window.loadView = function(viewType) {
-            currentView = viewType;
+        function renderList() {
             const searchVal = document.getElementById('search-input').value.toUpperCase().trim();
             const container = document.getElementById('stock-directory-list');
             container.innerHTML = '';
-
-            const allTabs = ['momentum', 'traded', 'bullish', 'bearish'];
-            allTabs.forEach(v => {
-                const btn = document.getElementById(`btn-view-${v}`);
-                if (btn) {
-                    btn.className = (viewType === v && !searchVal)
-                        ? "px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-800 text-zinc-200 border border-zinc-700 whitespace-nowrap"
-                        : "px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono font-bold transition-all bg-zinc-900 text-zinc-500 border border-transparent hover:text-zinc-300 whitespace-nowrap";
-                }
-            });
 
             let keys = Object.keys(stockData);
 
             if (capFilter !== 'ALL') keys = keys.filter(k => stockData[k].capCategory === capFilter);
             if (priceFilter !== 'ALL') keys = keys.filter(k => matchesPriceFilter(stockData[k].price));
+            if (searchVal) keys = keys.filter(k => k.includes(searchVal) || (stockData[k].name || '').toUpperCase().includes(searchVal));
 
-            if (searchVal) {
-                keys = keys.filter(k => k.includes(searchVal) || (stockData[k].name || '').toUpperCase().includes(searchVal));
-            } else {
-                if (viewType === 'momentum') keys.sort((a, b) => stockData[b].momentumScore - stockData[a].momentumScore);
-                else if (viewType === 'traded') keys.sort((a, b) => stockData[b].volume - stockData[a].volume);
-                else if (viewType === 'bullish') keys.sort((a, b) => stockData[b].change - stockData[a].change);
-                else if (viewType === 'bearish') keys.sort((a, b) => stockData[a].change - stockData[b].change);
-            }
+            keys.sort((a, b) => {
+                const va = getSortValue(a, sortKey), vb = getSortValue(b, sortKey);
+                const cmp = typeof va === 'string' ? va.localeCompare(vb) : va - vb;
+                return sortDir === 'desc' ? -cmp : cmp;
+            });
 
             if (keys.length === 0) {
                 container.innerHTML = `<div class="col-span-full text-center font-mono text-sm text-zinc-700 py-10">No stocks match your filters</div>`;
@@ -435,7 +573,7 @@
                 `;
                 container.appendChild(div);
             });
-        };
+        }
 
         // ---------------------------------------------------------
         // WORKSPACE OVERLAY
@@ -461,16 +599,16 @@
                         <button onclick="closeWorkspace()" class="text-zinc-400 hover:text-white transition-colors bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded-md text-xs border border-zinc-700 cursor-pointer shrink-0">✕ Close</button>
                     </div>
                     
-                    <div class="flex-1 grid grid-cols-1 lg:grid-cols-3 overflow-hidden">
-                        <div class="lg:col-span-2 p-4 flex flex-col h-full border-r border-zinc-800 bg-black">
+                    <div class="flex-1 flex flex-col lg:grid lg:grid-cols-3 overflow-y-auto lg:overflow-hidden">
+                        <div class="lg:col-span-2 p-4 flex flex-col h-[340px] lg:h-full shrink-0 border-r border-zinc-800 bg-black">
                             <div id="own-chart-container" class="flex-1 w-full bg-zinc-900/20 rounded-xl overflow-hidden border border-zinc-800/80"></div>
-                            <div class="text-[10px] text-zinc-600 font-mono mt-2 flex justify-between">
+                            <div class="text-[10px] text-zinc-600 font-mono mt-2 flex flex-col sm:flex-row sm:justify-between gap-1">
                                 <span>Source: NSE Bhavcopy · ${data.sessionsTracked} sessions of real price history</span>
                                 <span>Charting: TradingView Lightweight Charts (open-source)</span>
                             </div>
                         </div>
                         
-                        <div class="p-4 flex flex-col h-full overflow-hidden bg-zinc-950">
+                        <div class="p-4 flex flex-col lg:h-full overflow-hidden bg-zinc-950">
                             <div class="flex flex-wrap border-b border-zinc-800 mb-4 shrink-0 text-xs">
                                 <button id="btn-tab-momentum" onclick="toggleWorkspaceTab('momentum', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-sky-500 text-sky-400 transition-all cursor-pointer">🚀 Momentum</button>
                                 <button id="btn-tab-decoder" onclick="toggleWorkspaceTab('decoder', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-zinc-500 hover:text-zinc-300 transition-all cursor-pointer mt-2 sm:mt-0">📊 Technical</button>
@@ -516,11 +654,36 @@
                                     <span class="text-zinc-500 uppercase">Total Volume</span>
                                     <span class="text-zinc-100 font-bold">${data.volume.toLocaleString('en-IN')}</span>
                                 </div>
+
+                                <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-xs mb-3">
+                                    <div class="text-zinc-500 uppercase mb-2">How this score is built</div>
+                                    <div class="text-[10px] text-zinc-500 leading-relaxed mb-1">
+                                        6 factors are checked, each worth a slice of 100 points. Points are added up — no AI, no black box, just this formula. Score ≥65 = <span class="text-emerald-400 font-bold">BUY</span>, 40-64 = <span class="text-amber-400 font-bold">HOLD</span>, below 40 = <span class="text-rose-400 font-bold">AVOID</span>.
+                                    </div>
+                                </div>
+
                                 <div class="bg-zinc-900/50 p-4 rounded-lg border border-zinc-800 text-xs">
-                                    <span class="text-zinc-500 uppercase block mb-2">Why this score</span>
-                                    <ul class="space-y-1">
-                                        ${data.reasons.map(r => `<li class="text-zinc-300 text-[11px]">• ${r}</li>`).join('')}
-                                    </ul>
+                                    <div class="text-zinc-500 uppercase mb-3">Score Breakdown</div>
+                                    <div class="space-y-3">
+                                        ${data.breakdown.map(b => `
+                                            <div>
+                                                <div class="flex items-center justify-between mb-1">
+                                                    <span class="text-zinc-300 text-[11px] font-bold">${b.label}</span>
+                                                    <span class="text-zinc-100 text-[11px] font-bold">${b.points}/${b.max} pts</span>
+                                                </div>
+                                                <div class="w-full bg-zinc-800 rounded-full h-1.5 mb-1.5 overflow-hidden">
+                                                    <div class="h-1.5 rounded-full ${b.points > 0 ? 'bg-sky-500' : 'bg-zinc-700'}" style="width:${Math.round(b.points / b.max * 100)}%"></div>
+                                                </div>
+                                                <div class="text-[10px] text-zinc-500">
+                                                    <span class="text-zinc-400 font-bold">${b.value}</span> — ${b.note}
+                                                </div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                    <div class="border-t border-zinc-800 mt-3 pt-3 flex justify-between items-center">
+                                        <span class="text-zinc-400 text-[11px] font-bold uppercase">Total</span>
+                                        <span class="${verdict.text} text-sm font-bold">${data.momentumScore} / 100 · ${verdict.label}</span>
+                                    </div>
                                 </div>
                             </div>
 
