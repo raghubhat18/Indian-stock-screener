@@ -1352,25 +1352,90 @@
             }
         };
 
-        // Tries a couple of free CORS proxies in sequence, since any single free service
-        // can be rate-limited or flaky. Falls back cleanly if all fail.
+        // Tries several free CORS proxies in sequence, since any single free service
+        // can go down or rate-limit with no warning (confirmed: AllOrigins had an outage
+        // on their end on 2026-07-16). More options = better odds one is up right now.
         const NEWS_CORS_PROXIES = [
-            (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-            (url) => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(url)}`
+            (url) => `https://corsfix.com/${url}`,
+            (url) => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(url)}`,
+            (url) => `https://cors.x2u.in/${url}`,
+            (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
         ];
 
+        async function fetchWithTimeout(url, ms) {
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), ms);
+            try {
+                return await fetch(url, { signal: controller.signal });
+            } finally {
+                clearTimeout(timer);
+            }
+        }
+
+        // Escapes text before it's ever inserted into the page - defends against a malicious
+        // actor crafting a news title containing HTML/script that could otherwise run in the browser.
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str == null ? '' : String(str);
+            return div.innerHTML;
+        }
+
+        function renderNewsCards(items) {
+            let html = '<div class="p-3 flex flex-col gap-3 pb-8">';
+            items.forEach(item => {
+                const title = escapeHtml(item.title || 'Untitled');
+                const link = escapeHtml(item.link || '#');
+                const source = escapeHtml(item.source || 'Market Update');
+                const pubDate = item.pubDate ? new Date(item.pubDate) : null;
+                const dateString = pubDate && !isNaN(pubDate) ? pubDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) : '';
+
+                html += `
+                    <a href="${link}" target="_blank" rel="noopener noreferrer" class="block bg-slate-700/60 hover:bg-slate-500/90 border border-slate-500/80 p-3.5 rounded-xl transition-all duration-200 group shadow-md">
+                        <h4 class="text-sm font-semibold text-slate-50 group-hover:text-sky-400 mb-2 leading-relaxed">${title}</h4>
+                        <div class="flex justify-between items-center mt-2 border-t border-slate-500/40 pt-2 font-mono text-[12px] text-slate-300">
+                            <span class="uppercase tracking-wider font-bold">${source}</span>
+                            <span>${dateString}</span>
+                        </div>
+                    </a>
+                `;
+            });
+            html += '</div>';
+            return html;
+        }
+
+        let newsCache = null; // loaded once, from the scheduled Action's output (data/news.json)
+
         async function fetchLiveNews(ticker, container) {
+            // 1. Try the pre-fetched cache first (built server-side by a scheduled GitHub Action -
+            //    no CORS issues, no live proxy dependency, and covers the Large/Mid cap universe).
+            try {
+                if (newsCache === null) {
+                    const resp = await fetch('data/news.json');
+                    newsCache = resp.ok ? await resp.json() : { news: {} };
+                }
+                const cached = newsCache.news && newsCache.news[ticker];
+                if (cached && cached.length > 0) {
+                    container.innerHTML = renderNewsCards(cached);
+                    const updatedNote = document.createElement('div');
+                    updatedNote.className = 'text-center text-[10px] text-slate-400 font-mono pb-3';
+                    updatedNote.textContent = newsCache.updatedAt ? `Cached · updated ${new Date(newsCache.updatedAt).toLocaleString('en-IN')}` : 'Cached';
+                    container.appendChild(updatedNote);
+                    return;
+                }
+            } catch (e) { /* cache missing or unreadable - fall through to live fetch below */ }
+
+            // 2. Fall back to a live fetch (e.g. for small-cap stocks not in the cached set)
             const query = encodeURIComponent(`${ticker} stock India news`);
             const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=en-IN&gl=IN&ceid=IN:en`;
 
             let xmlText = null;
             for (const buildProxyUrl of NEWS_CORS_PROXIES) {
                 try {
-                    const resp = await fetch(buildProxyUrl(rssUrl));
+                    const resp = await fetchWithTimeout(buildProxyUrl(rssUrl), 6000);
                     if (!resp.ok) continue;
                     const text = await resp.text();
                     if (text && text.includes('<item>')) { xmlText = text; break; }
-                } catch (e) { /* try the next proxy */ }
+                } catch (e) { /* timed out or failed - try the next proxy */ }
             }
 
             if (!xmlText) {
@@ -1381,35 +1446,18 @@
             try {
                 const parser = new DOMParser();
                 const xml = parser.parseFromString(xmlText, 'text/xml');
-                const items = Array.from(xml.querySelectorAll('item')).slice(0, 10);
+                const items = Array.from(xml.querySelectorAll('item')).slice(0, 10).map(item => ({
+                    title: item.querySelector('title')?.textContent || 'Untitled',
+                    link: item.querySelector('link')?.textContent || '#',
+                    pubDate: item.querySelector('pubDate')?.textContent || null,
+                    source: item.querySelector('source')?.textContent || 'Market Update'
+                }));
 
                 if (items.length === 0) {
                     container.innerHTML = '<div class="p-6 text-center text-slate-300 text-sm font-mono">No localized stock news tiles available.</div>';
                     return;
                 }
-
-                let html = '<div class="p-3 flex flex-col gap-3 pb-8">';
-                items.forEach(item => {
-                    const title = item.querySelector('title')?.textContent || 'Untitled';
-                    const link = item.querySelector('link')?.textContent || '#';
-                    const pubDateRaw = item.querySelector('pubDate')?.textContent;
-                    const sourceEl = item.querySelector('source');
-                    const source = sourceEl ? sourceEl.textContent : 'Market Update';
-                    const pubDate = pubDateRaw ? new Date(pubDateRaw) : null;
-                    const dateString = pubDate ? pubDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) : '';
-
-                    html += `
-                        <a href="${link}" target="_blank" class="block bg-slate-700/60 hover:bg-slate-500/90 border border-slate-500/80 p-3.5 rounded-xl transition-all duration-200 group shadow-md">
-                            <h4 class="text-sm font-semibold text-slate-50 group-hover:text-sky-400 mb-2 leading-relaxed">${title}</h4>
-                            <div class="flex justify-between items-center mt-2 border-t border-slate-500/40 pt-2 font-mono text-[12px] text-slate-300">
-                                <span class="uppercase tracking-wider font-bold">${source}</span>
-                                <span>${dateString}</span>
-                            </div>
-                        </a>
-                    `;
-                });
-                html += '</div>';
-                container.innerHTML = html;
+                container.innerHTML = renderNewsCards(items);
             } catch (error) {
                 container.innerHTML = '<div class="p-6 text-center text-rose-400 text-sm font-mono">⚠️ Error parsing the news feed.</div>';
             }
