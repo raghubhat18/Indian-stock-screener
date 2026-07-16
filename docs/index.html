@@ -941,19 +941,22 @@
                                         </div>
                                     </div>
                                     <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500 text-sm">
-                                        <div class="space-y-3">
-                                            ${data.breakdown.map(b => `
-                                                <div>
-                                                    <div class="flex items-center justify-between mb-1">
-                                                        <span class="text-slate-100 text-[13px] font-bold">${b.label}</span>
-                                                        <span class="text-white text-[13px] font-bold">${b.points}/${b.max} pts</span>
+                                        <div class="space-y-1">
+                                            ${data.breakdown.map((b, i) => `
+                                                <div class="border-b border-slate-600 last:border-0 pb-3 mb-3 last:pb-0 last:mb-0">
+                                                    <div class="cursor-pointer" onclick="toggleFactorDetail(${i})">
+                                                        <div class="flex items-center justify-between mb-1">
+                                                            <span class="text-slate-100 text-[13px] font-bold">${b.label} <span id="factor-arrow-${i}" class="text-slate-400 text-[11px]">▾</span></span>
+                                                            <span class="text-white text-[13px] font-bold">${b.points}/${b.max} pts</span>
+                                                        </div>
+                                                        <div class="w-full bg-slate-600 rounded-full h-1.5 mb-1.5 overflow-hidden">
+                                                            <div class="h-1.5 rounded-full ${b.points > 0 ? 'bg-sky-500' : 'bg-slate-500'}" style="width:${Math.round(b.points / b.max * 100)}%"></div>
+                                                        </div>
+                                                        <div class="text-[12px] text-slate-300">
+                                                            <span class="text-slate-200 font-bold">${b.value}</span> — ${b.note}
+                                                        </div>
                                                     </div>
-                                                    <div class="w-full bg-slate-600 rounded-full h-1.5 mb-1.5 overflow-hidden">
-                                                        <div class="h-1.5 rounded-full ${b.points > 0 ? 'bg-sky-500' : 'bg-slate-500'}" style="width:${Math.round(b.points / b.max * 100)}%"></div>
-                                                    </div>
-                                                    <div class="text-[12px] text-slate-300">
-                                                        <span class="text-slate-200 font-bold">${b.value}</span> — ${b.note}
-                                                    </div>
+                                                    <div id="factor-detail-${i}" data-label="${b.label}" data-loaded="false" class="hidden"></div>
                                                 </div>
                                             `).join('')}
                                         </div>
@@ -1050,25 +1053,54 @@
             if (currentChartTicker) renderPriceChart(currentChartTicker);
         };
 
-        // Expands the chart to fill the workspace (hides the side info panel) - mainly useful on mobile
-        // where the default chart area is small.
-        window.toggleChartFullscreen = function() {
-            chartFullscreen = !chartFullscreen;
+        // Expands the chart to fill the workspace, using the browser's real Fullscreen API
+        // so we can also attempt to lock the screen into landscape (works on most Android
+        // browsers; iOS Safari doesn't support orientation locking from the web, so on iPhone
+        // this still gives a bigger view but won't force-rotate - you can rotate manually there).
+        window.toggleChartFullscreen = async function() {
             const wrapper = document.getElementById('chart-wrapper');
             const infoPanel = document.getElementById('info-panel');
             const btn = document.getElementById('btn-chart-fullscreen');
-            if (chartFullscreen) {
+
+            if (!document.fullscreenElement) {
+                try {
+                    if (wrapper.requestFullscreen) {
+                        await wrapper.requestFullscreen();
+                    }
+                } catch (e) { /* Fullscreen API not available/denied - continue with CSS-only expand below */ }
+
+                try {
+                    if (screen.orientation && screen.orientation.lock) {
+                        await screen.orientation.lock('landscape');
+                    }
+                } catch (e) { /* orientation lock not supported on this device/browser (e.g. iOS) */ }
+
+                chartFullscreen = true;
                 wrapper.classList.remove('h-[240px]');
-                wrapper.classList.add('h-[75vh]');
+                wrapper.classList.add('h-[100vh]', 'bg-slate-900', 'z-50');
                 infoPanel.classList.add('hidden');
                 btn.textContent = '⤢ Collapse';
+                setTimeout(() => { if (currentChartTicker) renderPriceChart(currentChartTicker); }, 250);
             } else {
-                wrapper.classList.remove('h-[75vh]');
-                wrapper.classList.add('h-[240px]');
-                infoPanel.classList.remove('hidden');
-                btn.textContent = '⛶ Expand';
+                document.exitFullscreen();
             }
         };
+
+        // Keeps the UI in sync if the user exits fullscreen via Esc, back gesture, or swipe -
+        // not just via our own Collapse button.
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement && chartFullscreen) {
+                chartFullscreen = false;
+                const wrapper = document.getElementById('chart-wrapper');
+                const infoPanel = document.getElementById('info-panel');
+                const btn = document.getElementById('btn-chart-fullscreen');
+                if (wrapper) { wrapper.classList.remove('h-[100vh]', 'bg-slate-900', 'z-50'); wrapper.classList.add('h-[240px]'); }
+                if (infoPanel) infoPanel.classList.remove('hidden');
+                if (btn) btn.textContent = '⛶ Expand';
+                try { if (screen.orientation && screen.orientation.unlock) screen.orientation.unlock(); } catch (e) {}
+                setTimeout(() => { if (currentChartTicker) renderPriceChart(currentChartTicker); }, 250);
+            }
+        });
 
         // Classic daily pivot points, calculated from the most recent session's High/Low/Close.
         // These are the standard support/resistance levels short-term traders watch.
@@ -1162,7 +1194,125 @@
             arrow.textContent = isHidden ? '▴' : '▾';
         };
 
+        // Draws a small inline SVG line chart for a factor's recent history.
+        function renderSparkline(values, zeroLine) {
+            if (!values || values.length < 2) return '<div class="text-[11px] text-slate-400">Not enough recent history to show a trend yet.</div>';
+            const w = 300, h = 56, pad = 6;
+            const min = Math.min(...values, zeroLine ? 0 : Infinity);
+            const max = Math.max(...values, zeroLine ? 0 : -Infinity);
+            const range = (max - min) || 1;
+            const stepX = values.length > 1 ? (w - pad * 2) / (values.length - 1) : 0;
+            const toY = v => h - pad - ((v - min) / range) * (h - pad * 2);
+            const points = values.map((v, i) => `${(pad + i * stepX).toFixed(1)},${toY(v).toFixed(1)}`).join(' ');
+            const lastX = pad + (values.length - 1) * stepX, lastY = toY(values[values.length - 1]);
+            const up = values[values.length - 1] >= values[0];
+            const color = up ? '#34d399' : '#fb7185';
+            let zeroLineSvg = '';
+            if (zeroLine && min < 0 && max > 0) {
+                zeroLineSvg = `<line x1="${pad}" y1="${toY(0)}" x2="${w - pad}" y2="${toY(0)}" stroke="#64748b" stroke-width="1" stroke-dasharray="3,3"/>`;
+            }
+            return `<svg viewBox="0 0 ${w} ${h}" class="w-full h-14">
+                ${zeroLineSvg}
+                <polyline points="${points}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+                <circle cx="${lastX}" cy="${lastY}" r="3" fill="${color}"/>
+            </svg>`;
+        }
+
+        // Computes a trailing series + explanation for whichever factor the user expands.
+        // Reuses the same point-in-time indicator functions already used for scoring, just
+        // called repeatedly over a recent window - only done on-demand for the one open stock.
+        function getFactorDetail(label, ticker) {
+            const hist = historicalData[ticker];
+            if (!hist) return { series: [], detail: '' };
+            const closes = hist.map(h => h.close);
+            const dates = hist.map(h => h.date);
+            const n = closes.length;
+            const win = Math.min(25, n);
+
+            switch (label) {
+                case '5-Day Price Momentum': {
+                    const series = [];
+                    for (let i = Math.max(5, n - win); i <= n - 1; i++) { const v = calcROC(closes.slice(0, i + 1), 5); if (v !== null) series.push(v); }
+                    const ago = closes[n - 6];
+                    return { series, zeroLine: true, detail: ago !== undefined ? `${dates[n - 6]}: ₹${ago.toFixed(2)} → ${dates[n - 1]}: ₹${closes[n - 1].toFixed(2)}. Chart shows the 5-day % change trend over recent sessions.` : 'Not enough history yet.' };
+                }
+                case '10-Day Price Momentum': {
+                    const series = [];
+                    for (let i = Math.max(10, n - win); i <= n - 1; i++) { const v = calcROC(closes.slice(0, i + 1), 10); if (v !== null) series.push(v); }
+                    const ago = closes[n - 11];
+                    return { series, zeroLine: true, detail: ago !== undefined ? `${dates[n - 11]}: ₹${ago.toFixed(2)} → ${dates[n - 1]}: ₹${closes[n - 1].toFixed(2)}. Chart shows the 10-day % change trend over recent sessions.` : 'Not enough history yet.' };
+                }
+                case 'Price vs 20-Day Average': {
+                    const series = [];
+                    for (let i = Math.max(20, n - win); i <= n - 1; i++) { const sma = calcSMA(closes.slice(0, i + 1), 20); if (sma !== null) series.push(closes[i] - sma); }
+                    return { series, zeroLine: true, detail: 'Price minus its 20-day average, each session. Above zero = above the average; crossing zero is a trend change.' };
+                }
+                case '20-Day Average Direction': {
+                    const series = [];
+                    for (let i = Math.max(20, n - win); i <= n - 1; i++) { const sma = calcSMA(closes.slice(0, i + 1), 20); if (sma !== null) series.push(sma); }
+                    return { series, detail: 'The 20-day average\'s own value over recent sessions - an upward slope confirms a strengthening trend.' };
+                }
+                case 'RSI (14-day)': {
+                    const series = [];
+                    for (let i = Math.max(15, n - win); i <= n - 1; i++) { const v = calcRSI(closes.slice(0, i + 1), 14); if (v !== null) series.push(v); }
+                    return { series, detail: 'RSI over recent sessions. Above 70 = overbought, below 30 = oversold, 50-70 = healthy uptrend zone.' };
+                }
+                case 'Volume vs 20-Day Average': {
+                    const volumes = hist.map(h => h.volume).slice(-win);
+                    return { series: volumes, detail: 'Raw daily traded volume over recent sessions (not the ratio - this shows the actual activity level).' };
+                }
+                case 'Relative Strength vs Market': {
+                    const series = [];
+                    for (let i = Math.max(10, n - win); i <= n - 1; i++) {
+                        const stockRoc = calcROC(closes.slice(0, i + 1), 10);
+                        const marketRoc = calcROC(marketIndexCloses.slice(0, i + 1), 10);
+                        if (stockRoc !== null && marketRoc !== null) series.push(stockRoc - marketRoc);
+                    }
+                    return { series, zeroLine: true, detail: 'This stock\'s 10-day return minus the market\'s 10-day return, each session. Above zero = beating the market.' };
+                }
+                case 'MACD (12,26,9)': {
+                    const series = [];
+                    for (let i = Math.max(35, n - win); i <= n - 1; i++) { const m = calcMACD(closes.slice(0, i + 1)); if (m) series.push(m.histogram); }
+                    return { series, zeroLine: true, detail: 'MACD histogram (MACD line minus its signal line) over recent sessions. Positive and rising is the strongest bullish signal.' };
+                }
+                case 'Bollinger Band Position': {
+                    const series = [];
+                    for (let i = Math.max(20, n - win); i <= n - 1; i++) { const bb = calcBollinger(closes.slice(0, i + 1)); if (bb) series.push(bb.percentB * 100); }
+                    return { series, detail: '% position within the Bollinger Band range over recent sessions (0% = lower band, 100% = upper band).' };
+                }
+                case 'ADX Trend Strength': {
+                    const series = [];
+                    for (let i = Math.max(28, n - win); i <= n - 1; i++) { const a = calcADX(hist.slice(0, i + 1)); if (a) series.push(a.adx); }
+                    return { series, detail: 'ADX over recent sessions. Above 25 = a genuinely strong trend; below 20 = choppy, directionless conditions.' };
+                }
+                default:
+                    return { series: [], detail: '' };
+            }
+        }
+
+        window.toggleFactorDetail = function(index) {
+            const panel = document.getElementById(`factor-detail-${index}`);
+            const arrow = document.getElementById(`factor-arrow-${index}`);
+            if (!panel) return;
+            const isHidden = panel.classList.contains('hidden');
+
+            if (isHidden && panel.dataset.loaded !== 'true') {
+                const label = panel.dataset.label;
+                const d = getFactorDetail(label, currentChartTicker);
+                panel.innerHTML = `
+                    <div class="mt-2 bg-slate-900/60 rounded-lg p-3 border border-slate-600">
+                        ${renderSparkline(d.series, d.zeroLine)}
+                        <div class="text-[11px] text-slate-300 mt-2">${d.detail}</div>
+                    </div>
+                `;
+                panel.dataset.loaded = 'true';
+            }
+            panel.classList.toggle('hidden');
+            if (arrow) arrow.textContent = isHidden ? '▴' : '▾';
+        };
+
         window.closeWorkspace = function() {
+            if (document.fullscreenElement) document.exitFullscreen();
             const overlay = document.getElementById('workspace-overlay');
             overlay.classList.add('hidden');
             overlay.classList.remove('flex', 'items-center', 'justify-center');
