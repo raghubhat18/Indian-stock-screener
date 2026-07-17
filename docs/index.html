@@ -532,14 +532,41 @@
                 breakdown.push({ label: '20-Day Average Direction', value: 'N/A', points: 0, max: 8, note: 'Not enough history yet (needs 25+ sessions)' });
             }
 
-            // Factor 5: RSI(14) - max 12 pts, tiered
+            // Factor 5: RSI(14) - max 12 pts, bell-curve shape peaking at 55-65.
+            // This models the sine-wave pattern you rightly identified: RSI above 70 means
+            // the stock is stretched/overbought and historically tends to revert, so those
+            // readings should REDUCE the score, not reward it. We go negative below 30 and
+            // above 80 to actively penalise the extremes within the overall 0-100 total.
             if (rsi14 !== null) {
                 let pts, note;
-                if (rsi14 >= 50 && rsi14 <= 70) { pts = 12; note = 'Healthy momentum zone — rising with room to run'; }
-                else if (rsi14 > 70 && rsi14 <= 80) { pts = 6; note = 'Strong, but starting to get stretched'; }
-                else if (rsi14 > 80) { pts = 0; note = 'Overbought — a pullback becomes more likely here'; }
-                else if (rsi14 >= 30 && rsi14 < 50) { pts = 5; note = 'Neutral — no strong signal either way'; }
-                else { pts = 0; note = 'Oversold / weak — momentum is against the stock'; }
+                if (rsi14 >= 55 && rsi14 <= 65) {
+                    pts = 12;
+                    note = 'Sweet spot — healthy rising momentum with room still to run';
+                } else if (rsi14 > 65 && rsi14 <= 70) {
+                    pts = 9;
+                    note = 'Strong momentum, approaching stretched territory';
+                } else if (rsi14 > 70 && rsi14 <= 75) {
+                    pts = 5;
+                    note = 'Getting overbought — mean reversion risk is rising';
+                } else if (rsi14 > 75 && rsi14 <= 80) {
+                    pts = 0;
+                    note = 'Overbought — historically this level precedes a pullback (sine-wave pattern)';
+                } else if (rsi14 > 80) {
+                    pts = -4;  // actively penalise extreme overbought
+                    note = `Extremely overbought (RSI ${rsi14.toFixed(0)}) — high reversal risk, sine-wave top`;
+                } else if (rsi14 >= 45 && rsi14 < 55) {
+                    pts = 8;
+                    note = 'Neutral-to-positive — momentum building but not confirmed yet';
+                } else if (rsi14 >= 30 && rsi14 < 45) {
+                    pts = 4;
+                    note = 'Weak momentum — below the midpoint, no clear uptrend';
+                } else if (rsi14 >= 25 && rsi14 < 30) {
+                    pts = 0;
+                    note = 'Oversold — watch for a bounce, but trend is still down';
+                } else {
+                    pts = -4;  // actively penalise extreme oversold too
+                    note = `Extremely oversold (RSI ${rsi14.toFixed(0)}) — severe selling pressure`;
+                }
                 score += pts;
                 breakdown.push({ label: 'RSI (14-day)', value: rsi14.toFixed(0), points: pts, max: 12, note });
             } else {
@@ -1255,7 +1282,7 @@
                 case 'RSI (14-day)': {
                     const series = [];
                     for (let i = Math.max(15, n - win); i <= n - 1; i++) { const v = calcRSI(closes.slice(0, i + 1), 14); if (v !== null) series.push(v); }
-                    return { series, detail: 'RSI over recent sessions. Above 70 = overbought, below 30 = oversold, 50-70 = healthy uptrend zone.' };
+                    return { series, detail: `RSI over recent sessions. The scoring peaks at 55-65 (healthy rising momentum), then tapers off as RSI climbs toward 70 and actively penalises readings above 80 (overbought extremes). This reflects the sine-wave pattern you identified: overbought RSI readings tend to revert. Oversold (<25) is also penalised since it signals strong selling pressure, not a buying opportunity in a momentum screener. Current RSI: ${rsi14 !== null ? rsi14.toFixed(1) : 'N/A'}.` };
                 }
                 case 'Volume vs 20-Day Average': {
                     const volumes = hist.map(h => h.volume).slice(-win);
