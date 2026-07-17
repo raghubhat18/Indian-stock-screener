@@ -1135,7 +1135,7 @@
                             <div class="grid grid-cols-5 gap-1 mb-4 shrink-0">
                                 <button id="btn-tab-momentum" onclick="toggleWorkspaceTab('momentum', '${cleanTicker}')" class="py-2 px-1 rounded-lg text-center text-[11px] font-bold uppercase tracking-wide border-2 border-sky-500 bg-sky-950 text-sky-400 transition-all cursor-pointer">🚀<br>Score</button>
                                 <button id="btn-tab-decoder" onclick="toggleWorkspaceTab('decoder', '${cleanTicker}')" class="py-2 px-1 rounded-lg text-center text-[11px] font-bold uppercase tracking-wide border-2 border-transparent bg-slate-700 text-slate-300 hover:text-white transition-all cursor-pointer">📊<br>Technical</button>
-                                <button id="btn-tab-fundamentals" onclick="toggleWorkspaceTab('fundamentals', '${cleanTicker}')" class="py-2 px-1 rounded-lg text-center text-[11px] font-bold uppercase tracking-wide border-2 border-transparent bg-slate-700 text-slate-300 hover:text-white transition-all cursor-pointer">🏦<br>Fundament.</button>
+                                <button id="btn-tab-fundamentals" onclick="toggleWorkspaceTab('fundamentals', '${cleanTicker}')" class="py-2 px-1 rounded-lg text-center text-[11px] font-bold uppercase tracking-wide border-2 border-transparent bg-slate-700 text-slate-300 hover:text-white transition-all cursor-pointer">🏦<br>Funda</button>
                                 <button id="btn-tab-news" onclick="toggleWorkspaceTab('news', '${cleanTicker}')" class="py-2 px-1 rounded-lg text-center text-[11px] font-bold uppercase tracking-wide border-2 border-transparent bg-slate-700 text-slate-300 hover:text-white transition-all cursor-pointer">📰<br>News</button>
                                 <button id="btn-tab-patterns" onclick="toggleWorkspaceTab('patterns', '${cleanTicker}')" class="py-2 px-1 rounded-lg text-center text-[11px] font-bold uppercase tracking-wide border-2 border-transparent bg-slate-700 text-slate-300 hover:text-white transition-all cursor-pointer">🔍<br>Patterns</button>
                             </div>
@@ -1693,7 +1693,11 @@
             const controller = new AbortController();
             const timer = setTimeout(() => controller.abort(), ms);
             try {
-                return await fetch(url, { signal: controller.signal });
+                return await fetch(url, {
+                    signal: controller.signal,
+                    mode: 'cors',
+                    cache: 'no-store'
+                });
             } finally {
                 clearTimeout(timer);
             }
@@ -1769,7 +1773,7 @@
                 const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=en-IN&gl=IN&ceid=IN:en&num=10`;
                 for (const buildProxyUrl of NEWS_CORS_PROXIES) {
                     try {
-                        const resp = await fetchWithTimeout(buildProxyUrl(rssUrl), 6000);
+                        const resp = await fetchWithTimeout(buildProxyUrl(rssUrl), 12000);
                         if (!resp.ok) continue;
                         const text = await resp.text();
                         if (text && text.includes('<item>')) { xmlText = text; break; }
