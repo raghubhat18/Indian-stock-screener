@@ -475,7 +475,7 @@
             el.classList.remove('hidden');
         }
 
-        function computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price, volSurge, relStrength, macd, bollinger, adx }) {
+        function computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price, volSurge, relStrength, macd, bollinger, adx, crossSignal, pctFrom52High, hasGapUp, hasGapDown, gapPct }) {
             let score = 0;
             const breakdown = [];
 
