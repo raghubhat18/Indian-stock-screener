@@ -35,7 +35,10 @@
                 </h1>
                 <p class="text-base text-slate-300 mt-1 font-mono" id="all-directory-count">INITIALIZING DATA ENGINE...</p>
             </div>
-            <div class="flex items-center gap-2 flex-wrap">
+            <div class="flex items-center gap-3 flex-wrap">
+                <a href="guide.html" target="_blank" class="flex items-center gap-1.5 bg-slate-700 hover:bg-slate-600 border border-slate-500 px-3 py-2 rounded-xl font-mono text-sm text-slate-200 transition-colors">
+                    📚 User Guide
+                </a>
                 <div id="market-sentiment-badge" class="hidden"></div>
                 <div class="flex items-center gap-2 bg-slate-700 border border-slate-500 px-3 py-2 rounded-xl font-mono text-sm text-slate-200">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -481,13 +484,13 @@
                 const pts = Math.round(Math.max(0, Math.min(12, roc5 * 1.2)) * 10) / 10;
                 score += pts;
                 breakdown.push({
-                    label: '5-Day Price Momentum',
+                    label: '5-Day Price Momentum (Short-Term ROC)',
                     value: `${roc5 >= 0 ? '+' : ''}${roc5.toFixed(1)}%`,
                     points: pts, max: 12,
                     note: roc5 > 3 ? 'Strong short-term push upward' : roc5 < -3 ? 'Recent pullback over the last week' : 'Little short-term movement either way'
                 });
             } else {
-                breakdown.push({ label: '5-Day Price Momentum', value: 'N/A', points: 0, max: 12, note: 'Not enough history yet (needs 5+ sessions)' });
+                breakdown.push({ label: '5-Day Price Momentum (Short-Term ROC)', value: 'N/A', points: 0, max: 12, note: 'Not enough history yet (needs 5+ sessions)' });
             }
 
             // Factor 2: 10-day price momentum - max 8 pts, only rewards positive moves
@@ -495,13 +498,13 @@
                 const pts = Math.round(Math.max(0, Math.min(8, roc10 * 0.65)) * 10) / 10;
                 score += pts;
                 breakdown.push({
-                    label: '10-Day Price Momentum',
+                    label: '10-Day Price Momentum (Medium-Term ROC)',
                     value: `${roc10 >= 0 ? '+' : ''}${roc10.toFixed(1)}%`,
                     points: pts, max: 8,
                     note: roc10 > 0 ? 'Still climbing over a 2-week window' : 'No 2-week tailwind (only upward moves earn points here)'
                 });
             } else {
-                breakdown.push({ label: '10-Day Price Momentum', value: 'N/A', points: 0, max: 8, note: 'Not enough history yet (needs 10+ sessions)' });
+                breakdown.push({ label: '10-Day Price Momentum (Medium-Term ROC)', value: 'N/A', points: 0, max: 8, note: 'Not enough history yet (needs 10+ sessions)' });
             }
 
             // Factor 3: price vs 20-day average - max 10 pts
@@ -510,13 +513,13 @@
                 const pts = above ? 10 : 0;
                 score += pts;
                 breakdown.push({
-                    label: 'Price vs 20-Day Average',
+                    label: 'Price vs 20-Day Simple Moving Average (SMA)',
                     value: `₹${price.toFixed(2)} vs ₹${sma20.toFixed(2)} avg`,
                     points: pts, max: 10,
                     note: above ? 'Trading above its 20-day average — an established short-term uptrend' : 'Trading below its 20-day average — no uptrend confirmation'
                 });
             } else {
-                breakdown.push({ label: 'Price vs 20-Day Average', value: 'N/A', points: 0, max: 10, note: 'Not enough history yet (needs 20+ sessions)' });
+                breakdown.push({ label: 'Price vs 20-Day Simple Moving Average (SMA)', value: 'N/A', points: 0, max: 10, note: 'Not enough history yet (needs 20+ sessions)' });
             }
 
             // Factor 4: is the 20-day average itself rising - max 8 pts
@@ -525,13 +528,13 @@
                 const pts = rising ? 8 : 0;
                 score += pts;
                 breakdown.push({
-                    label: '20-Day Average Direction',
+                    label: '20-Day Moving Average Direction',
                     value: rising ? 'Rising' : 'Flat / falling',
                     points: pts, max: 8,
                     note: rising ? 'The trend itself is strengthening, not just a single-day spike' : 'The underlying trend is not yet confirmed as rising'
                 });
             } else {
-                breakdown.push({ label: '20-Day Average Direction', value: 'N/A', points: 0, max: 8, note: 'Not enough history yet (needs 25+ sessions)' });
+                breakdown.push({ label: '20-Day Moving Average Direction', value: 'N/A', points: 0, max: 8, note: 'Not enough history yet (needs 25+ sessions)' });
             }
 
             // Factor 5: RSI(14) - max 12 pts, bell-curve shape peaking at 55-65.
@@ -570,9 +573,9 @@
                     note = `Extremely oversold (RSI ${rsi14.toFixed(0)}) — severe selling pressure`;
                 }
                 score += pts;
-                breakdown.push({ label: 'RSI (14-day)', value: rsi14.toFixed(0), points: pts, max: 12, note });
+                breakdown.push({ label: 'Relative Strength Index (RSI) — 14 Sessions', value: rsi14.toFixed(0), points: pts, max: 12, note });
             } else {
-                breakdown.push({ label: 'RSI (14-day)', value: 'N/A', points: 0, max: 12, note: 'Not enough history yet (needs 15+ sessions)' });
+                breakdown.push({ label: 'Relative Strength Index (RSI) — 14 Sessions', value: 'N/A', points: 0, max: 12, note: 'Not enough history yet (needs 15+ sessions)' });
             }
 
             // Factor 6: volume surge vs 20-day average - max 8 pts, tiered
@@ -582,9 +585,9 @@
                 else if (volSurge > 1.2) { pts = 4; note = 'Somewhat elevated volume'; }
                 else { pts = 0; note = 'Normal or below-average volume — less conviction behind the move'; }
                 score += pts;
-                breakdown.push({ label: 'Volume vs 20-Day Average', value: `${volSurge.toFixed(2)}x`, points: pts, max: 8, note });
+                breakdown.push({ label: 'Volume vs 20-Day Average (Volume Surge)', value: `${volSurge.toFixed(2)}x`, points: pts, max: 8, note });
             } else {
-                breakdown.push({ label: 'Volume vs 20-Day Average', value: 'N/A', points: 0, max: 8, note: 'Not enough history yet' });
+                breakdown.push({ label: 'Volume vs 20-Day Average (Volume Surge)', value: 'N/A', points: 0, max: 8, note: 'Not enough history yet' });
             }
 
             // Factor 7: Relative Strength vs overall market - max 14 pts
@@ -594,13 +597,13 @@
                 const pts = Math.round(Math.max(0, Math.min(14, relStrength * 1.4)) * 10) / 10;
                 score += pts;
                 breakdown.push({
-                    label: 'Relative Strength vs Market',
+                    label: 'Relative Strength vs Broader Market (Equal-Weighted)',
                     value: `${relStrength >= 0 ? '+' : ''}${relStrength.toFixed(1)}% vs market`,
                     points: pts, max: 14,
                     note: relStrength > 3 ? 'Meaningfully beating the broader market — real outperformance, not just a rising tide' : relStrength < -3 ? 'Lagging the broader market over this period' : 'Moving roughly in line with the overall market'
                 });
             } else {
-                breakdown.push({ label: 'Relative Strength vs Market', value: 'N/A', points: 0, max: 14, note: 'Not enough market-wide history yet' });
+                breakdown.push({ label: 'Relative Strength vs Broader Market (Equal-Weighted)', value: 'N/A', points: 0, max: 14, note: 'Not enough market-wide history yet' });
             }
 
             // Factor 8 (NEW): MACD (12,26,9) - max 12 pts
@@ -613,9 +616,9 @@
                 else if (bullish) { pts = 7; note = 'Bullish (MACD line above its signal line)'; }
                 else { pts = 0; note = 'Bearish (MACD line below its signal line)'; }
                 score += pts;
-                breakdown.push({ label: 'MACD (12,26,9)', value: `${macd.macd.toFixed(2)} vs ${macd.signal.toFixed(2)}`, points: pts, max: 12, note });
+                breakdown.push({ label: 'Moving Average Convergence Divergence (MACD) — 12/26/9', value: `${macd.macd.toFixed(2)} vs ${macd.signal.toFixed(2)}`, points: pts, max: 12, note });
             } else {
-                breakdown.push({ label: 'MACD (12,26,9)', value: 'N/A', points: 0, max: 12, note: 'Not enough history yet (needs 35+ sessions)' });
+                breakdown.push({ label: 'Moving Average Convergence Divergence (MACD) — 12/26/9', value: 'N/A', points: 0, max: 12, note: 'Not enough history yet (needs 35+ sessions)' });
             }
 
             // Factor 9 (NEW): Bollinger Bands position - max 8 pts
@@ -628,9 +631,9 @@
                 else if (pb >= 0.2 && pb < 0.5) { pts = 4; note = 'Lower half of its recent range — lacks strength'; }
                 else { pts = 0; note = 'Near/below its lower band — weak, breaking down'; }
                 score += pts;
-                breakdown.push({ label: 'Bollinger Band Position', value: `${Math.round(pb * 100)}% of band range`, points: pts, max: 8, note });
+                breakdown.push({ label: 'Bollinger Bands Position (20-Day, 2 Std Deviations)', value: `${Math.round(pb * 100)}% of band range`, points: pts, max: 8, note });
             } else {
-                breakdown.push({ label: 'Bollinger Band Position', value: 'N/A', points: 0, max: 8, note: 'Not enough history yet (needs 20+ sessions)' });
+                breakdown.push({ label: 'Bollinger Bands Position (20-Day, 2 Std Deviations)', value: 'N/A', points: 0, max: 8, note: 'Not enough history yet (needs 20+ sessions)' });
             }
 
             // Factor 10 (NEW): ADX trend strength - max 8 pts
@@ -641,9 +644,47 @@
                 else if (adx.adx > 25 && adx.minusDI > adx.plusDI) { pts = 0; note = `Strong downtrend (ADX ${adx.adx.toFixed(0)}, sellers in control)`; }
                 else { pts = 3; note = `Weak or no clear trend (ADX ${adx.adx.toFixed(0)}) — choppy conditions`; }
                 score += pts;
-                breakdown.push({ label: 'ADX Trend Strength', value: adx.adx.toFixed(1), points: pts, max: 8, note });
+                breakdown.push({ label: 'Average Directional Index (ADX) Trend Strength', value: adx.adx.toFixed(1), points: pts, max: 8, note });
             } else {
-                breakdown.push({ label: 'ADX Trend Strength', value: 'N/A', points: 0, max: 8, note: 'Not enough history yet (needs 28+ sessions)' });
+                breakdown.push({ label: 'Average Directional Index (ADX) Trend Strength', value: 'N/A', points: 0, max: 8, note: 'Not enough history yet (needs 28+ sessions)' });
+            }
+
+            // Factor 11: Golden Cross / Death Cross (50-day vs 200-day Simple Moving Average)
+            // One of the most watched signals by institutional investors.
+            if (crossSignal !== null) {
+                let pts, note;
+                if (crossSignal === 'golden') { pts = 8; note = '50-day average just crossed ABOVE the 200-day average (Golden Cross) — a rare, powerful long-term bullish signal'; }
+                else if (crossSignal === 'above200') { pts = 5; note = '50-day average is above the 200-day average — long-term uptrend is intact'; }
+                else if (crossSignal === 'death') { pts = 0; note = '50-day average just crossed BELOW the 200-day average (Death Cross) — a significant long-term bearish warning'; }
+                else { pts = 0; note = '50-day average is below the 200-day average — long-term downtrend in place'; }
+                score += pts;
+                breakdown.push({ label: 'Golden Cross / Death Cross (50-day vs 200-day Moving Average)', value: crossSignal === 'golden' ? '🌟 Golden Cross' : crossSignal === 'death' ? '💀 Death Cross' : crossSignal === 'above200' ? 'Above 200MA' : 'Below 200MA', points: pts, max: 8, note });
+            } else {
+                breakdown.push({ label: 'Golden Cross / Death Cross (50-day vs 200-day Moving Average)', value: 'N/A', points: 0, max: 8, note: 'Not enough price history yet — needs 200+ trading sessions downloaded' });
+            }
+
+            // Factor 12: 52-Week High Proximity
+            // Stocks near their annual high have proven momentum; far below signals sustained weakness.
+            if (pctFrom52High !== null) {
+                let pts, note;
+                if (pctFrom52High >= -3) { pts = 6; note = 'Trading within 3% of its 52-week high — near peak territory, strong sustained momentum'; }
+                else if (pctFrom52High >= -10) { pts = 4; note = 'Trading within 10% of its 52-week high — still in healthy territory'; }
+                else if (pctFrom52High >= -20) { pts = 2; note = `Trading ${Math.abs(pctFrom52High).toFixed(0)}% below its 52-week high — moderate weakness from peak`; }
+                else { pts = 0; note = `Trading ${Math.abs(pctFrom52High).toFixed(0)}% below its 52-week high — significant sustained weakness`; }
+                score += pts;
+                breakdown.push({ label: '52-Week High Proximity', value: `${pctFrom52High.toFixed(1)}% from high`, points: pts, max: 6, note });
+            } else {
+                breakdown.push({ label: '52-Week High Proximity', value: 'N/A', points: 0, max: 6, note: 'Not enough history' });
+            }
+
+            // Factor 13: Gap Detection (today\'s open vs yesterday\'s close)
+            if (hasGapUp !== undefined) {
+                let pts, note;
+                if (hasGapUp) { pts = 6; note = `Price gapped up ${gapPct ? Math.abs(gapPct).toFixed(1) : ''}% at open — strong buying pressure overnight, a momentum continuation signal`; }
+                else if (hasGapDown) { pts = 0; note = `Price gapped down ${gapPct ? Math.abs(gapPct).toFixed(1) : ''}% at open — strong selling pressure, negative momentum signal`; }
+                else { pts = 3; note = 'No significant gap — normal session open, neutral signal'; }
+                score += pts;
+                breakdown.push({ label: 'Price Gap Detection', value: hasGapUp ? `Gap Up +${gapPct ? gapPct.toFixed(1) : ''}%` : hasGapDown ? `Gap Down ${gapPct ? gapPct.toFixed(1) : ''}%` : 'No gap', points: pts, max: 6, note });
             }
 
             score = Math.max(0, Math.min(100, Math.round(score)));
@@ -673,6 +714,10 @@
                 const roc20 = calcROC(closes, 20);
                 const sma20 = calcSMA(closes, 20);
                 const sma20Prev = closes.length >= 25 ? calcSMA(closes.slice(0, -5), 20) : null;
+                const sma50 = calcSMA(closes, 50);
+                const sma200 = calcSMA(closes, 200);
+                const sma50Prev = closes.length >= 55 ? calcSMA(closes.slice(0, -5), 50) : null;
+                const sma200Prev = closes.length >= 205 ? calcSMA(closes.slice(0, -5), 200) : null;
                 const rsi14 = calcRSI(closes, 14);
                 const avgVol20 = calcSMA(volumes.slice(0, -1), Math.min(20, volumes.length - 1)) || null;
                 const volSurge = avgVol20 && avgVol20 > 0 ? latest.volume / avgVol20 : null;
@@ -681,23 +726,195 @@
                 const bollinger = calcBollinger(closes);
                 const adx = calcADX(hist);
 
-                const { score, breakdown } = computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price: latest.close, volSurge, relStrength, macd, bollinger, adx });
+                // 52-week high/low proximity
+                const high52 = closes.length >= 1 ? Math.max(...closes) : null;
+                const low52 = closes.length >= 1 ? Math.min(...closes) : null;
+                const pctFrom52High = high52 ? ((latest.close - high52) / high52) * 100 : null;
+
+                // Gap detection: open significantly different from previous close
+                const gapPct = prev.close > 0 ? ((latest.open - prev.close) / prev.close) * 100 : 0;
+                const hasGapUp = gapPct > 1.5;
+                const hasGapDown = gapPct < -1.5;
+
+                // Golden/Death Cross (50-day vs 200-day SMA crossover)
+                let crossSignal = null;
+                if (sma50 && sma200 && sma50Prev && sma200Prev) {
+                    if (sma50 > sma200 && sma50Prev <= sma200Prev) crossSignal = 'golden';
+                    else if (sma50 < sma200 && sma50Prev >= sma200Prev) crossSignal = 'death';
+                    else if (sma50 > sma200) crossSignal = 'above200';
+                    else crossSignal = 'below200';
+                }
+
+                // Detect candlestick and chart patterns from last 2 sessions
+                const patterns = detectPatterns(hist);
+
+                const { score, breakdown } = computeMomentumScore({
+                    roc5, roc10, rsi14, sma20, sma20Prev, price: latest.close,
+                    volSurge, relStrength, macd, bollinger, adx,
+                    pctFrom52High, crossSignal, hasGapUp, hasGapDown
+                });
 
                 stockData[ticker] = {
                     symbol: ticker,
                     name: stockNames[ticker] || ticker,
                     price: latest.close,
+                    dayOpen: latest.open,
                     dayHigh: latest.high,
                     dayLow: latest.low,
                     volume: latest.volume,
                     change,
-                    roc5, roc10, roc20, rsi14, sma20, volSurge, relStrength, macd, bollinger, adx,
+                    roc5, roc10, roc20, rsi14, sma20, sma50, sma200,
+                    volSurge, relStrength, macd, bollinger, adx,
+                    pctFrom52High, high52, low52,
+                    hasGapUp, hasGapDown, gapPct, crossSignal,
+                    patterns,
                     momentumScore: score,
                     breakdown,
                     capCategory: marketCapMap[ticker] || null,
                     sessionsTracked: hist.length
                 };
             });
+        }
+
+        // ---------------------------------------------------------
+        // CANDLESTICK & CHART PATTERN DETECTION
+        // Based on Fidelity/Kirkpatrick guide + academic PDF
+        // Only includes patterns that are algorithmically reliable.
+        // Subjective patterns (H&S, triangles) are excluded intentionally.
+        // ---------------------------------------------------------
+        function detectPatterns(hist) {
+            const patterns = [];
+            const n = hist.length;
+            if (n < 2) return patterns;
+
+            const c = hist[n - 1]; // current (latest) candle
+            const p = hist[n - 2]; // previous candle
+
+            const cBody = Math.abs(c.close - c.open);
+            const cRange = c.high - c.low;
+            const pBody = Math.abs(p.close - p.open);
+            const pRange = p.high - p.low;
+            const cBullish = c.close > c.open;
+            const pBullish = p.close > p.open;
+
+            // --- SINGLE CANDLE PATTERNS ---
+
+            // Doji: open and close very close together (indecision)
+            if (cRange > 0 && cBody / cRange < 0.1) {
+                patterns.push({
+                    name: 'Doji',
+                    signal: 'neutral',
+                    description: 'The opening and closing price are almost identical, forming a cross shape. This is a sign of indecision between buyers and sellers — neither side won the session. Often signals that the current trend may be about to pause or reverse.',
+                    action: 'Watch closely. Wait for the next session to confirm direction before making a decision.',
+                    confidence: 'Low'
+                });
+            }
+
+            // Hammer (bullish reversal): small body at top, long lower wick (≥2x body), appears after a decline
+            const lowerWick = Math.min(c.open, c.close) - c.low;
+            const upperWick = c.high - Math.max(c.open, c.close);
+            if (cBody > 0 && lowerWick >= 2 * cBody && upperWick < cBody) {
+                patterns.push({
+                    name: 'Hammer',
+                    signal: 'bullish',
+                    description: 'A candle with a small body near the top and a long lower tail (at least twice the body length). Sellers pushed the price down sharply during the session, but buyers came in and drove it back up to close near the high. This tug-of-war suggests selling pressure may be exhausted.',
+                    action: 'Potentially bullish reversal. Most reliable when it appears after a sustained downtrend and is confirmed by a strong up-session the following day.',
+                    confidence: 'Medium'
+                });
+            }
+
+            // Shooting Star (bearish reversal): small body at bottom, long upper wick
+            if (cBody > 0 && upperWick >= 2 * cBody && lowerWick < cBody) {
+                patterns.push({
+                    name: 'Shooting Star',
+                    signal: 'bearish',
+                    description: 'A candle with a small body near the bottom and a long upper tail (at least twice the body length). Buyers pushed the price up sharply during the session, but sellers came in and drove it back down. This suggests buying enthusiasm is fading.',
+                    action: 'Potentially bearish reversal. Most meaningful when it appears near a recent high or after a strong run-up, and confirmed by a down-session the next day.',
+                    confidence: 'Medium'
+                });
+            }
+
+            // --- TWO CANDLE PATTERNS ---
+
+            // Bullish Engulfing: bearish candle followed by a larger bullish candle that completely covers it
+            if (!pBullish && cBullish && c.open <= p.close && c.close >= p.open && cBody > pBody) {
+                patterns.push({
+                    name: 'Bullish Engulfing',
+                    signal: 'bullish',
+                    description: 'Yesterday was a red (down) candle. Today is a green (up) candle whose body completely covers yesterday\'s body — meaning today\'s open was lower than yesterday\'s close, and today\'s close was higher than yesterday\'s open. Bulls completely overpowered bears.',
+                    action: 'Strong bullish reversal signal, especially after a downtrend. Suggests buyers have taken control. Strongest when combined with high volume today.',
+                    confidence: 'High'
+                });
+            }
+
+            // Bearish Engulfing: bullish candle followed by a larger bearish candle
+            if (pBullish && !cBullish && c.open >= p.close && c.close <= p.open && cBody > pBody) {
+                patterns.push({
+                    name: 'Bearish Engulfing',
+                    signal: 'bearish',
+                    description: 'Yesterday was a green (up) candle. Today is a red (down) candle whose body completely covers yesterday\'s body. Sellers completely overpowered buyers in a single session.',
+                    action: 'Strong bearish reversal signal, especially after an uptrend. Suggests sellers have taken control. Most reliable near a recent price peak.',
+                    confidence: 'High'
+                });
+            }
+
+            // Piercing Line (bullish): bearish candle then bullish candle closing more than halfway into the previous body
+            if (!pBullish && cBullish && c.open < p.low && c.close > (p.open + p.close) / 2) {
+                patterns.push({
+                    name: 'Piercing Line',
+                    signal: 'bullish',
+                    description: 'Yesterday was a red candle. Today gapped down at open but buyers drove the price back up to close more than halfway into yesterday\'s body. A recovery "piercing" through the prior session\'s decline.',
+                    action: 'Moderate bullish reversal signal. Confirm with the next session before acting.',
+                    confidence: 'Medium'
+                });
+            }
+
+            // Dark Cloud Cover (bearish): bullish candle then bearish candle closing more than halfway into the previous bullish body
+            if (pBullish && !cBullish && c.open > p.high && c.close < (p.open + p.close) / 2) {
+                patterns.push({
+                    name: 'Dark Cloud Cover',
+                    signal: 'bearish',
+                    description: 'Yesterday was a green candle. Today gapped up at open but sellers drove the price back down to close more than halfway into yesterday\'s body. A bearish reversal "cloud" over the prior rally.',
+                    action: 'Moderate bearish reversal signal. Confirm with the next session before acting.',
+                    confidence: 'Medium'
+                });
+            }
+
+            // Inside Bar (volatility contraction): today\'s range completely inside yesterday\'s range
+            if (c.high <= p.high && c.low >= p.low) {
+                patterns.push({
+                    name: 'Inside Bar',
+                    signal: 'neutral',
+                    description: 'Today\'s entire price range (high to low) is contained within yesterday\'s range. The market is "coiling" — buyers and sellers are in balance, with neither side making new ground. This contraction in volatility often precedes a sharp breakout in either direction.',
+                    action: 'Set alerts for a breakout above today\'s high (bullish) or below today\'s low (bearish). The direction of the breakout usually tells you the next short-term move.',
+                    confidence: 'Medium'
+                });
+            }
+
+            // Gap Up (momentum continuation)
+            const gapPct = p.close > 0 ? ((c.open - p.close) / p.close) * 100 : 0;
+            if (gapPct > 1.5) {
+                patterns.push({
+                    name: 'Gap Up',
+                    signal: 'bullish',
+                    description: `Today\'s price opened ${gapPct.toFixed(1)}% above yesterday\'s close with no trading in between. A gap this size reflects a strong surge in buying interest overnight — perhaps positive news, earnings, or a broader market move. Gaps are powerful signals because they represent price levels where no transactions happened.`,
+                    action: 'Bullish signal. If the price stays above yesterday\'s close by end of session, the gap is considered "confirmed." If it falls back below (gap gets "filled"), the bullish signal weakens.',
+                    confidence: gapPct > 3 ? 'High' : 'Medium'
+                });
+            }
+
+            // Gap Down (bearish momentum)
+            if (gapPct < -1.5) {
+                patterns.push({
+                    name: 'Gap Down',
+                    signal: 'bearish',
+                    description: `Today\'s price opened ${Math.abs(gapPct).toFixed(1)}% below yesterday\'s close. A sharp gap down reflects heavy selling pressure before the market even opened — often driven by bad news, weak earnings, or sector-wide selling.`,
+                    action: 'Bearish signal. Watch whether price recovers above yesterday\'s close (gap fills — bullish recovery) or stays below (confirms the downward move).',
+                    confidence: Math.abs(gapPct) > 3 ? 'High' : 'Medium'
+                });
+            }
+
+            return patterns;
         }
 
         // ---------------------------------------------------------
@@ -920,6 +1137,7 @@
                                 <button id="btn-tab-decoder" onclick="toggleWorkspaceTab('decoder', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-slate-300 hover:text-white transition-all cursor-pointer mt-2 sm:mt-0">📊 Technical</button>
                                 <button id="btn-tab-fundamentals" onclick="toggleWorkspaceTab('fundamentals', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-slate-300 hover:text-white transition-all cursor-pointer mt-2 sm:mt-0">🏦 Fundamentals</button>
                                 <button id="btn-tab-news" onclick="toggleWorkspaceTab('news', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-slate-300 hover:text-white transition-all cursor-pointer mt-2 sm:mt-0">📰 News</button>
+                                <button id="btn-tab-patterns" onclick="toggleWorkspaceTab('patterns', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-slate-300 hover:text-white transition-all cursor-pointer mt-2 sm:mt-0">🔍 Patterns</button>
                             </div>
                             
                             <div id="panel-tab-momentum" class="flex-1 flex flex-col overflow-y-auto pr-1">
@@ -971,7 +1189,7 @@
                                 <div id="breakdown-panel" class="hidden mt-2">
                                     <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500 text-sm mb-3">
                                         <div class="text-[12px] text-slate-300 leading-relaxed">
-                                            10 factors are checked, each worth a slice of 100 points — covering short/medium-term momentum, trend strength (MACD, ADX), volatility positioning (Bollinger Bands), volume conviction, and performance relative to the overall market. Score ≥65 = <span class="text-emerald-400 font-bold">BUY</span>, 40-64 = <span class="text-amber-400 font-bold">HOLD</span>, below 40 = <span class="text-rose-400 font-bold">AVOID</span>.
+                                            13 factors are checked, each worth a slice of 100 points — covering short/medium-term momentum, trend strength (MACD, ADX), volatility positioning (Bollinger Bands), volume conviction, and performance relative to the overall market. Score ≥65 = <span class="text-emerald-400 font-bold">BUY</span>, 40-64 = <span class="text-amber-400 font-bold">HOLD</span>, below 40 = <span class="text-rose-400 font-bold">AVOID</span>.
                                         </div>
                                     </div>
                                     <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500 text-sm">
@@ -1057,6 +1275,37 @@
 
                             <div id="panel-tab-news" class="flex-1 hidden flex-col h-full bg-slate-700/10 rounded-xl border border-slate-500 overflow-hidden relative">
                                 <div id="tv-news-container" class="w-full h-full overflow-y-auto absolute inset-0"></div>
+                            </div>
+
+                            <div id="panel-tab-patterns" class="flex-1 hidden flex-col overflow-y-auto pr-1">
+                                ${(() => {
+                                    const pats = data.patterns || [];
+                                    if (pats.length === 0) {
+                                        return `<div class="flex flex-col items-center justify-center text-center p-6 flex-1">
+                                            <div class="text-3xl mb-3">🔍</div>
+                                            <div class="text-base font-bold text-slate-200">No patterns detected in the last session</div>
+                                            <div class="text-sm text-slate-400 mt-2">This is normal — clean, trendless sessions produce no pattern signals. Check back after a volatile session or near support/resistance levels.</div>
+                                        </div>`;
+                                    }
+                                    return pats.map(p => {
+                                        const signalColor = p.signal === 'bullish' ? 'text-emerald-400 border-emerald-700 bg-emerald-950/50' : p.signal === 'bearish' ? 'text-rose-400 border-rose-700 bg-rose-950/50' : 'text-amber-400 border-amber-700 bg-amber-950/50';
+                                        const signalLabel = p.signal === 'bullish' ? '📈 Bullish Signal' : p.signal === 'bearish' ? '📉 Bearish Signal' : '⚖️ Neutral Signal';
+                                        const confColor = p.confidence === 'High' ? 'text-emerald-400' : p.confidence === 'Medium' ? 'text-amber-400' : 'text-slate-400';
+                                        return `<div class="bg-slate-700/50 rounded-xl border border-slate-500 p-4 mb-3">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <span class="text-base font-bold text-white">${p.name}</span>
+                                                <span class="text-[11px] font-bold px-2 py-0.5 rounded border ${signalColor}">${signalLabel}</span>
+                                            </div>
+                                            <div class="text-[11px] ${confColor} font-bold mb-2">Confidence: ${p.confidence}</div>
+                                            <div class="text-sm text-slate-200 mb-3 leading-relaxed">${p.description}</div>
+                                            <div class="border-t border-slate-500 pt-2">
+                                                <span class="text-[11px] text-slate-400 font-bold uppercase">What to do: </span>
+                                                <span class="text-[12px] text-slate-100">${p.action}</span>
+                                            </div>
+                                        </div>`;
+                                    }).join('');
+                                })()}
+                                <div class="text-[11px] text-slate-400 font-mono mt-2 pb-3">Patterns detected from last 2 sessions of NSE data · Not financial advice</div>
                             </div>
                         </div>
                     </div>
@@ -1371,7 +1620,7 @@
         };
 
         window.toggleWorkspaceTab = function(activeTab, ticker) {
-            const tabs = ['momentum', 'decoder', 'fundamentals', 'news'];
+            const tabs = ['momentum', 'decoder', 'fundamentals', 'news', 'patterns'];
             tabs.forEach(tab => {
                 const btn = document.getElementById(`btn-tab-${tab}`);
                 const panel = document.getElementById(`panel-tab-${tab}`);
