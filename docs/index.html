@@ -1528,65 +1528,92 @@
             const dates = hist.map(h => h.date);
             const n = closes.length;
             const win = Math.min(25, n);
+            const data = stockData[ticker] || {};
 
             switch (label) {
-                case '5-Day Price Momentum': {
+                case '5-Day Price Momentum (Short-Term ROC)': {
                     const series = [];
                     for (let i = Math.max(5, n - win); i <= n - 1; i++) { const v = calcROC(closes.slice(0, i + 1), 5); if (v !== null) series.push(v); }
                     const ago = closes[n - 6];
                     return { series, zeroLine: true, detail: ago !== undefined ? `${dates[n - 6]}: ₹${ago.toFixed(2)} → ${dates[n - 1]}: ₹${closes[n - 1].toFixed(2)}. Chart shows the 5-day % change trend over recent sessions.` : 'Not enough history yet.' };
                 }
-                case '10-Day Price Momentum': {
+                case '10-Day Price Momentum (Medium-Term ROC)': {
                     const series = [];
                     for (let i = Math.max(10, n - win); i <= n - 1; i++) { const v = calcROC(closes.slice(0, i + 1), 10); if (v !== null) series.push(v); }
                     const ago = closes[n - 11];
                     return { series, zeroLine: true, detail: ago !== undefined ? `${dates[n - 11]}: ₹${ago.toFixed(2)} → ${dates[n - 1]}: ₹${closes[n - 1].toFixed(2)}. Chart shows the 10-day % change trend over recent sessions.` : 'Not enough history yet.' };
                 }
-                case 'Price vs 20-Day Average': {
+                case 'Price vs 20-Day Simple Moving Average (SMA)': {
                     const series = [];
                     for (let i = Math.max(20, n - win); i <= n - 1; i++) { const sma = calcSMA(closes.slice(0, i + 1), 20); if (sma !== null) series.push(closes[i] - sma); }
-                    return { series, zeroLine: true, detail: 'Price minus its 20-day average, each session. Above zero = above the average; crossing zero is a trend change.' };
+                    return { series, zeroLine: true, detail: 'Price minus its 20-day average, each session. Above zero = trading above the average (uptrend); crossing zero is a trend change signal.' };
                 }
-                case '20-Day Average Direction': {
+                case '20-Day Moving Average Direction': {
                     const series = [];
                     for (let i = Math.max(20, n - win); i <= n - 1; i++) { const sma = calcSMA(closes.slice(0, i + 1), 20); if (sma !== null) series.push(sma); }
-                    return { series, detail: 'The 20-day average\'s own value over recent sessions - an upward slope confirms a strengthening trend.' };
+                    return { series, detail: 'The 20-day average\'s own value over recent sessions. An upward slope confirms the trend is strengthening, not just a one-day spike.' };
                 }
-                case 'RSI (14-day)': {
+                case 'Relative Strength Index (RSI) — 14 Sessions': {
                     const series = [];
                     for (let i = Math.max(15, n - win); i <= n - 1; i++) { const v = calcRSI(closes.slice(0, i + 1), 14); if (v !== null) series.push(v); }
-                    return { series, detail: `RSI over recent sessions. The scoring peaks at 55-65 (healthy rising momentum), then tapers off as RSI climbs toward 70 and actively penalises readings above 80 (overbought extremes). This reflects the sine-wave pattern you identified: overbought RSI readings tend to revert. Oversold (<25) is also penalised since it signals strong selling pressure, not a buying opportunity in a momentum screener. Current RSI: ${rsi14 !== null ? rsi14.toFixed(1) : 'N/A'}.` };
+                    const rsi14 = data.rsi14;
+                    return { series, detail: `Relative Strength Index (RSI) over recent sessions. Scoring peaks at RSI 55–65 (healthy rising momentum), tapers off above 70 (getting stretched), and actively penalises readings above 80 (overbought — likely to revert). Also penalises readings below 25 (extreme oversold). Current RSI: ${rsi14 !== null && rsi14 !== undefined ? rsi14.toFixed(1) : 'N/A'}.` };
                 }
-                case 'Volume vs 20-Day Average': {
+                case 'Volume vs 20-Day Average (Volume Surge)': {
                     const volumes = hist.map(h => h.volume).slice(-win);
-                    return { series: volumes, detail: 'Raw daily traded volume over recent sessions (not the ratio - this shows the actual activity level).' };
+                    return { series: volumes, detail: 'Raw daily traded volume over recent sessions. Rising volume on rising price confirms buyers are genuinely engaged — not just a thin, low-conviction move.' };
                 }
-                case 'Relative Strength vs Market': {
+                case 'Relative Strength vs Broader Market (Equal-Weighted)': {
                     const series = [];
                     for (let i = Math.max(10, n - win); i <= n - 1; i++) {
                         const stockRoc = calcROC(closes.slice(0, i + 1), 10);
                         const marketRoc = calcROC(marketIndexCloses.slice(0, i + 1), 10);
                         if (stockRoc !== null && marketRoc !== null) series.push(stockRoc - marketRoc);
                     }
-                    return { series, zeroLine: true, detail: 'This stock\'s 10-day return minus the market\'s 10-day return, each session. Above zero = beating the market.' };
+                    return { series, zeroLine: true, detail: 'This stock\'s 10-day return minus the equal-weighted market return, each session. Above zero = beating the market (real outperformance, not just rising with the tide).' };
                 }
-                case 'MACD (12,26,9)': {
+                case 'Moving Average Convergence Divergence (MACD) — 12/26/9': {
                     const series = [];
                     for (let i = Math.max(35, n - win); i <= n - 1; i++) { const m = calcMACD(closes.slice(0, i + 1)); if (m) series.push(m.histogram); }
-                    return { series, zeroLine: true, detail: 'MACD histogram (MACD line minus its signal line) over recent sessions. Positive and rising is the strongest bullish signal.' };
+                    return { series, zeroLine: true, detail: 'MACD histogram (MACD line minus its Signal line) over recent sessions. Positive and rising = momentum accelerating upward. Crossing from negative to positive = bullish crossover signal.' };
                 }
-                case 'Bollinger Band Position': {
+                case 'Bollinger Bands Position (20-Day, 2 Std Deviations)': {
                     const series = [];
                     for (let i = Math.max(20, n - win); i <= n - 1; i++) { const bb = calcBollinger(closes.slice(0, i + 1)); if (bb) series.push(bb.percentB * 100); }
-                    return { series, detail: '% position within the Bollinger Band range over recent sessions (0% = lower band, 100% = upper band).' };
+                    return { series, detail: '% position within the Bollinger Band range (0% = lower band, 100% = upper band). The 50–95% zone is the ideal momentum zone — strong without being overextended.' };
                 }
-                case 'ADX Trend Strength': {
+                case 'Average Directional Index (ADX) Trend Strength': {
                     const series = [];
                     for (let i = Math.max(28, n - win); i <= n - 1; i++) { const a = calcADX(hist.slice(0, i + 1)); if (a) series.push(a.adx); }
-                    return { series, detail: 'ADX over recent sessions. Above 25 = a genuinely strong trend; below 20 = choppy, directionless conditions.' };
+                    return { series, detail: 'ADX (Average Directional Index) over recent sessions. Above 25 = a genuine strong trend; below 20 = choppy, directionless conditions where momentum signals are less reliable.' };
+                }
+                case 'Golden Cross / Death Cross (50-Day vs 200-Day Moving Average)': {
+                    const series = [];
+                    for (let i = Math.max(50, n - win); i <= n - 1; i++) {
+                        const s50 = calcSMA(closes.slice(0, i + 1), 50);
+                        const s200 = calcSMA(closes.slice(0, i + 1), Math.min(200, i + 1));
+                        if (s50 !== null && s200 !== null) series.push(s50 - s200);
+                    }
+                    return { series, zeroLine: true, detail: '50-day SMA minus 200-day SMA over recent sessions. Above zero = Golden Cross territory (50MA above 200MA = long-term uptrend). Crossing from below to above zero is the Golden Cross itself. Crossing from above to below is the Death Cross.' };
+                }
+                case '52-Week High Proximity': {
+                    const series = closes.slice(-win).map((c, i, arr) => {
+                        const windowCloses = closes.slice(0, closes.length - win + i + 1);
+                        const high = Math.max(...windowCloses);
+                        return ((c - high) / high) * 100;
+                    });
+                    return { series, zeroLine: true, detail: `% distance from the running 52-week high over recent sessions. At 0% = at the annual high. Current distance: ${data.pctFrom52High !== null && data.pctFrom52High !== undefined ? data.pctFrom52High.toFixed(1) + '%' : 'N/A'}. Stocks consistently near their highs are in genuine long-term uptrends.` };
+                }
+                case 'Price Gap Detection': {
+                    const series = hist.slice(-win).map((h, i, arr) => {
+                        if (i === 0) return 0;
+                        const prev = arr[i - 1];
+                        return prev.close > 0 ? ((h.open - prev.close) / prev.close) * 100 : 0;
+                    });
+                    return { series, zeroLine: true, detail: 'Daily gap % (today\'s open vs yesterday\'s close) over recent sessions. Positive = gap up (strong overnight buying); negative = gap down (strong overnight selling). Large gaps often precede continuation of momentum in the gap\'s direction.' };
                 }
                 default:
-                    return { series: [], detail: '' };
+                    return { series: [], detail: 'Trend chart not available for this factor.' };
             }
         }
 
@@ -1656,9 +1683,9 @@
         // can go down or rate-limit with no warning (confirmed: AllOrigins had an outage
         // on their end on 2026-07-16). More options = better odds one is up right now.
         const NEWS_CORS_PROXIES = [
-            (url) => `https://corsfix.com/${url}`,
+            (url) => `https://api.cors.lol/?url=${encodeURIComponent(url)}`,
             (url) => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(url)}`,
-            (url) => `https://cors.x2u.in/${url}`,
+            (url) => `https://proxy.cors.sh/${url}`,
             (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
         ];
 
