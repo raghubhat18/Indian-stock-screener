@@ -121,6 +121,8 @@
         let chartType = 'line';   // 'candle' | 'line'
         let showPivotPoints = false;
         let chartFullscreen = false;
+        let chartRange = '3M';   // default — show ~3 months of data
+        const RANGE_SESSIONS = { '1W': 5, '2W': 10, '1M': 22, '2M': 44, '3M': 66, 'All': 99999 };
         let activeTab = 'momentum';   // which preset tab is highlighted (null when a custom sort is chosen)
         let sortKey = 'momentum';     // momentum | change | volume | price | rsi | name
         let sortDir = 'desc';         // desc | asc
@@ -876,6 +878,7 @@
             overlay.classList.remove('hidden');
             overlay.classList.add('flex', 'items-center', 'justify-center');
             chartFullscreen = false;
+            chartRange = '3M';
 
             const cleanTicker = ticker.split('.')[0].replace(/\s+/g, '').toUpperCase();
             const verdict = getVerdict(data.momentumScore);
@@ -899,6 +902,10 @@
                                 <button id="btn-chart-line" onclick="setChartType('line')" class="px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-600 text-slate-50 border border-slate-400">📈 Line</button>
                                 <button id="btn-chart-pivot" onclick="togglePivotPoints()" class="px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-700 text-slate-300 border border-transparent hover:text-white">🎯 Pivot Points</button>
                                 <button id="btn-chart-fullscreen" onclick="toggleChartFullscreen()" class="px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-700 text-slate-300 border border-transparent hover:text-white ml-auto">⛶ Expand</button>
+                            </div>
+                            <div class="flex items-center gap-1.5 mb-2 shrink-0 flex-wrap">
+                                <span class="text-[11px] text-slate-400 font-mono">Range:</span>
+                                ${['1W','2W','1M','2M','3M','All'].map((r,i) => `<button id="btn-range-${r}" onclick="setChartRange('${r}')" class="px-2 py-1 rounded text-[11px] font-mono font-bold ${r==='3M'?'bg-slate-600 text-slate-50 border border-slate-400':'bg-slate-700 text-slate-300 border border-transparent hover:text-white'}">${r}</button>`).join('')}
                             </div>
                             <div id="own-chart-container" class="flex-1 w-full bg-slate-700/20 rounded-xl overflow-hidden border border-slate-500/80"></div>
                             <div class="text-[12px] text-slate-400 font-mono mt-2 flex flex-col sm:flex-row sm:justify-between gap-1">
@@ -1084,6 +1091,19 @@
         // so we can also attempt to lock the screen into landscape (works on most Android
         // browsers; iOS Safari doesn't support orientation locking from the web, so on iPhone
         // this still gives a bigger view but won't force-rotate - you can rotate manually there).
+        window.setChartRange = function(range) {
+            chartRange = range;
+            const ranges = ['1W','2W','1M','2M','3M','All'];
+            ranges.forEach(r => {
+                const btn = document.getElementById(`btn-range-${r}`);
+                if (!btn) return;
+                btn.className = r === range
+                    ? 'px-2 py-1 rounded text-[11px] font-mono font-bold bg-slate-600 text-slate-50 border border-slate-400'
+                    : 'px-2 py-1 rounded text-[11px] font-mono font-bold bg-slate-700 text-slate-300 border border-transparent hover:text-white';
+            });
+            if (currentChartTicker) renderPriceChart(currentChartTicker);
+        };
+
         window.toggleChartFullscreen = async function() {
             const wrapper = document.getElementById('chart-wrapper');
             const infoPanel = document.getElementById('info-panel');
@@ -1148,11 +1168,15 @@
             const container = document.getElementById('own-chart-container');
             if (!container) return;
             container.innerHTML = '';
-            const hist = historicalData[ticker] || [];
-            if (hist.length === 0) {
+            const fullHist = historicalData[ticker] || [];
+            if (fullHist.length === 0) {
                 container.innerHTML = '<div class="flex items-center justify-center h-full text-slate-400 text-sm font-mono">No price history available for this stock</div>';
                 return;
             }
+
+            // Slice to the selected range (trading sessions, not calendar days)
+            const sessions = RANGE_SESSIONS[chartRange] || 99999;
+            const hist = fullHist.slice(-sessions);
 
             const chart = LightweightCharts.createChart(container, {
                 layout: { background: { color: 'transparent' }, textColor: '#cbd5e1' },
