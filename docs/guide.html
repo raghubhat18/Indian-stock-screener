@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RBK Screener — User Guide</title>
+<style>
+  * { font-family: Arial, Helvetica, sans-serif !important; box-sizing: border-box; }
+  body { background: #1e293b; color: #f1f5f9; margin: 0; padding: 0; }
+  .header { background: #0f172a; padding: 20px 24px; border-bottom: 1px solid #334155; position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center; }
+  .header h1 { margin: 0; font-size: 20px; color: #38bdf8; }
+  .header a { color: #94a3b8; font-size: 13px; text-decoration: none; }
+  .header a:hover { color: #f1f5f9; }
+  .container { max-width: 900px; margin: 0 auto; padding: 24px 20px 60px; }
+  .toc { background: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 20px; margin-bottom: 32px; }
+  .toc h2 { margin: 0 0 12px; font-size: 15px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
+  .toc a { display: block; color: #38bdf8; text-decoration: none; font-size: 14px; padding: 4px 0; }
+  .toc a:hover { color: #7dd3fc; }
+  .section { margin-bottom: 40px; }
+  h2.section-title { font-size: 22px; color: #38bdf8; border-bottom: 1px solid #334155; padding-bottom: 8px; margin-bottom: 16px; }
+  h3 { font-size: 17px; color: #e2e8f0; margin: 24px 0 8px; }
+  p, li { font-size: 14px; color: #cbd5e1; line-height: 1.7; }
+  ul { padding-left: 20px; margin: 8px 0; }
+  .card { background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+  .card h3 { margin: 0 0 8px; font-size: 16px; color: #f1f5f9; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; border: 1px solid; margin-bottom: 8px; }
+  .bullish { color: #34d399; border-color: #065f46; background: #022c22; }
+  .bearish { color: #fb7185; border-color: #7f1d1d; background: #2d0a0a; }
+  .neutral { color: #fbbf24; border-color: #78350f; background: #1c1000; }
+  .verdict-buy { color: #34d399; font-weight: bold; }
+  .verdict-hold { color: #fbbf24; font-weight: bold; }
+  .verdict-avoid { color: #fb7185; font-weight: bold; }
+  .tip { background: #1e3a5f; border-left: 3px solid #38bdf8; padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 13px; color: #bae6fd; }
+  .score-bar { background: #334155; border-radius: 4px; height: 6px; margin: 4px 0 8px; overflow: hidden; }
+  .score-fill { background: #38bdf8; height: 100%; border-radius: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  th { background: #0f172a; color: #94a3b8; text-align: left; padding: 8px 10px; font-size: 11px; text-transform: uppercase; }
+  td { padding: 8px 10px; border-bottom: 1px solid #1e293b; color: #cbd5e1; }
+  tr:hover td { background: #0f172a; }
+  code { background: #0f172a; color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📈 RBK Screener — User Guide</h1>
+  <a href="index.html">← Back to Screener</a>
+</div>
+
+<div class="container">
+
+  <p style="color:#94a3b8; font-size:14px; margin-bottom:24px;">This guide explains every indicator, score, and pattern used in the RBK Dynamic Market Screener — in plain language, with no assumed knowledge. Think of it as your reference manual.</p>
+
+  <div class="toc">
+    <h2>Contents</h2>
+    <a href="#scores">1. How the Momentum Score Works</a>
+    <a href="#indicators">2. All 13 Scoring Factors Explained</a>
+    <a href="#verdicts">3. BUY / HOLD / AVOID — What Do They Mean?</a>
+    <a href="#patterns">4. Chart Patterns Detected</a>
+    <a href="#candlesticks">5. Candlestick Patterns</a>
+    <a href="#charts">6. Reading the Chart</a>
+    <a href="#filters">7. Filters & Sorting</a>
+    <a href="#disclaimer">8. Important Disclaimer</a>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section" id="scores">
+    <h2 class="section-title">1. How the Momentum Score Works</h2>
+    <p>Every stock in the screener gets a score from <strong>0 to 100</strong>, calculated automatically from 13 different technical factors. Think of it like a report card: each factor contributes a certain number of marks, and the total tells you how strong the momentum signal is right now.</p>
+    <p>The score is completely rule-based and transparent — you can see exactly which factors contributed by opening any stock and tapping <strong>"View Full Score Breakdown"</strong>. There is no AI or black box involved.</p>
+    <div class="tip">💡 The score reflects <strong>technical momentum only</strong> — it does not consider company fundamentals (earnings, debt, management quality) or macro factors (RBI policy, global markets). Always use it as one input among several, not as a standalone buy/sell decision.</div>
+    <h3>How points add up</h3>
+    <table>
+      <tr><th>Score Range</th><th>Verdict</th><th>What it means</th></tr>
+      <tr><td>65–100</td><td><span class="verdict-buy">BUY</span></td><td>Strong technical momentum — multiple signals align positively</td></tr>
+      <tr><td>40–64</td><td><span class="verdict-hold">HOLD</span></td><td>Mixed signals — neither clearly strong nor clearly weak</td></tr>
+      <tr><td>0–39</td><td><span class="verdict-avoid">AVOID</span></td><td>Weak or negative momentum — multiple signals are bearish</td></tr>
+    </table>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section" id="indicators">
+    <h2 class="section-title">2. All 13 Scoring Factors Explained</h2>
+
+    <div class="card">
+      <h3>1. 5-Day Price Momentum (Short-Term Rate of Change)</h3>
+      <div class="score-bar"><div class="score-fill" style="width:15%"></div></div>
+      <p><strong>What it is:</strong> How much has the stock's closing price changed over the last 5 trading sessions (approximately one week)?</p>
+      <p><strong>Formula:</strong> <code>((Today's Close − Close 5 Days Ago) ÷ Close 5 Days Ago) × 100</code></p>
+      <p><strong>Why it matters:</strong> Short-term momentum is the most direct measure of recent buying/selling interest. A stock up 5% in a week has genuine near-term buying pressure.</p>
+      <p><strong>Max points:</strong> 20. Scaled proportionally — higher positive % change = more points. Negative momentum scores 0 (doesn't penalise, since short dips can be normal in an uptrend).</p>
+    </div>
+
+    <div class="card">
+      <h3>2. 10-Day Price Momentum (Medium-Term Rate of Change)</h3>
+      <div class="score-bar"><div class="score-fill" style="width:10%"></div></div>
+      <p><strong>What it is:</strong> Same concept as above, but over 10 sessions (approximately 2 weeks). This confirms whether the short-term momentum has been sustained.</p>
+      <p><strong>Why it matters:</strong> A stock that's up 3% in 5 days but flat over 10 days may be recovering from a dip, not in a genuine uptrend. One that's up 3% over both windows is showing sustained momentum.</p>
+      <p><strong>Max points:</strong> 8. Only positive momentum earns points here — a negative 10-day return scores 0.</p>
+    </div>
+
+    <div class="card">
+      <h3>3. Price vs 20-Day Simple Moving Average (SMA)</h3>
+      <div class="score-bar"><div class="score-fill" style="width:13%"></div></div>
+      <p><strong>What is an SMA?</strong> A Simple Moving Average is the average of the last N closing prices. The 20-day SMA is the average of the last 20 sessions — it smooths out daily noise to show the underlying trend direction.</p>
+      <p><strong>What we check:</strong> Is today's price <em>above</em> or <em>below</em> the 20-day SMA?</p>
+      <p><strong>Why it matters:</strong> When price is above its moving average, the stock is outperforming its own recent history — a classic short-term uptrend signal. When price is below, it's underperforming.</p>
+      <p><strong>Max points:</strong> 10 (all or nothing: above = full points, below = 0).</p>
+    </div>
+
+    <div class="card">
+      <h3>4. 20-Day Moving Average Direction</h3>
+      <div class="score-bar"><div class="score-fill" style="width:10%"></div></div>
+      <p><strong>What we check:</strong> Is the 20-day SMA itself rising (pointing upward) compared to where it was 5 sessions ago?</p>
+      <p><strong>Why it matters:</strong> This is the difference between a trend and a spike. A stock can be above its 20-day average after a single strong day. But if the average itself is rising, it means the uptrend is broad-based and sustainable — not a one-day wonder.</p>
+      <p><strong>Max points:</strong> 8 (rising = full points, flat/falling = 0).</p>
+    </div>
+
+    <div class="card">
+      <h3>5. Relative Strength Index (RSI) — 14 Sessions</h3>
+      <div class="score-bar"><div class="score-fill" style="width:15%"></div></div>
+      <p><strong>What it is:</strong> RSI measures the speed and magnitude of recent price changes, expressed as a number between 0 and 100. It was developed by J. Welles Wilder and is one of the most widely used indicators in technical analysis.</p>
+      <p><strong>Formula:</strong> <code>RSI = 100 − (100 ÷ (1 + Average Gain ÷ Average Loss))</code> over the last 14 sessions.</p>
+      <p><strong>What the numbers mean:</strong></p>
+      <ul>
+        <li><strong>RSI above 70:</strong> Overbought — the stock has risen too fast and a pullback is statistically more likely</li>
+        <li><strong>RSI 55–70:</strong> Healthy upward momentum — the sweet spot for momentum trading</li>
+        <li><strong>RSI 45–55:</strong> Neutral — no strong signal</li>
+        <li><strong>RSI below 30:</strong> Oversold — the stock has fallen too fast and a bounce is statistically more likely</li>
+      </ul>
+      <p><strong>How we score it (bell curve, not linear):</strong> This follows the sine-wave pattern of markets. RSI 55–65 earns maximum points. Points taper off as RSI goes higher or lower, and RSI above 80 or below 25 actually <em>deducts</em> points from the total score — because extreme readings historically precede reversals.</p>
+      <p><strong>Max points:</strong> 12 (can go negative at extremes).</p>
+      <div class="tip">💡 RSI is most useful when it <em>diverges</em> from price — for example, price making a new high but RSI making a lower high. This is called bearish divergence and is an early warning of a trend weakening.</div>
+    </div>
+
+    <div class="card">
+      <h3>6. Volume vs 20-Day Average (Volume Surge)</h3>
+      <div class="score-bar"><div class="score-fill" style="width:10%"></div></div>
+      <p><strong>What it is:</strong> How does today's trading volume compare to the average over the last 20 sessions? Expressed as a multiplier (e.g., 2.0x means double the usual volume).</p>
+      <p><strong>Why it matters:</strong> Volume is the "fuel" behind price moves. A stock rising on double its normal volume signals genuine conviction — many participants are buying. A stock rising on half its normal volume is less convincing — it may be a thin, unsustained move. As the technical analysis materials say: "Volume Spike Confirms Line Break."</p>
+      <p><strong>How we score:</strong> Above 1.5x average = full points. 1.2–1.5x = partial. Below 1.2x = 0 points.</p>
+      <p><strong>Max points:</strong> 8.</p>
+    </div>
+
+    <div class="card">
+      <h3>7. Relative Strength vs Broader Market (Equal-Weighted)</h3>
+      <div class="score-bar"><div class="score-fill" style="width:18%"></div></div>
+      <p><strong>What it is:</strong> This compares the stock's 10-day return against the market's 10-day return. The "market" here is an equal-weighted index we build ourselves from all ~2,400 stocks in our universe — no external NIFTY/SENSEX feed needed.</p>
+      <p><strong>Why it matters:</strong> If the whole market is up 4% in 10 days and a stock is also up 4%, that's not impressive — it just rose with the tide. But if a stock is up 8% when the market is up 4%, it's genuinely outperforming (+4% relative strength). Relative strength separates leaders from followers.</p>
+      <p><strong>How we score:</strong> Positive relative strength earns points proportionally. Negative (lagging the market) scores 0.</p>
+      <p><strong>Max points:</strong> 14.</p>
+    </div>
+
+    <div class="card">
+      <h3>8. Moving Average Convergence Divergence (MACD) — 12/26/9</h3>
+      <div class="score-bar"><div class="score-fill" style="width:15%"></div></div>
+      <p><strong>What it is:</strong> MACD was developed by Gerald Appel and is one of the most popular trend-following momentum indicators. It uses three exponential moving averages:</p>
+      <ul>
+        <li><strong>MACD Line:</strong> 12-day EMA minus 26-day EMA</li>
+        <li><strong>Signal Line:</strong> 9-day EMA of the MACD Line</li>
+        <li><strong>Histogram:</strong> MACD Line minus Signal Line (shows whether momentum is accelerating or decelerating)</li>
+      </ul>
+      <p><strong>What we look for:</strong></p>
+      <ul>
+        <li>MACD Line above Signal Line = bullish</li>
+        <li>MACD Line below Signal Line = bearish</li>
+        <li>Histogram growing (in positive territory) = momentum accelerating upward</li>
+        <li>Histogram shrinking = momentum losing steam</li>
+      </ul>
+      <p><strong>Max points:</strong> 12. Full points for a bullish crossover with accelerating histogram. Bearish = 0 points.</p>
+      <div class="tip">💡 EMA stands for Exponential Moving Average — it's like a Simple Moving Average but gives more weight to recent prices, making it react faster to new developments.</div>
+    </div>
+
+    <div class="card">
+      <h3>9. Bollinger Bands Position (20-Day, 2 Standard Deviations)</h3>
+      <div class="score-bar"><div class="score-fill" style="width:10%"></div></div>
+      <p><strong>What they are:</strong> Bollinger Bands were created by John Bollinger and consist of three lines drawn on a price chart:</p>
+      <ul>
+        <li><strong>Middle Band:</strong> 20-day Simple Moving Average</li>
+        <li><strong>Upper Band:</strong> Middle Band + (2 × standard deviation of prices)</li>
+        <li><strong>Lower Band:</strong> Middle Band − (2 × standard deviation of prices)</li>
+      </ul>
+      <p><strong>What they measure:</strong> Volatility and where the current price sits within its recent trading range. About 95% of all price action statistically falls within the bands.</p>
+      <p><strong>What we check (% B):</strong> Where between the lower and upper band is the price? We express this as a percentage: 0% = lower band, 50% = middle band, 100% = upper band.</p>
+      <ul>
+        <li><strong>50–95% (upper half):</strong> Strong position — in the upper range without being overextended</li>
+        <li><strong>Above 95% (outside upper band):</strong> Overextended — historically a mean-reversion risk</li>
+        <li><strong>Below 50% (lower half):</strong> Weak position</li>
+      </ul>
+      <p><strong>Max points:</strong> 8.</p>
+    </div>
+
+    <div class="card">
+      <h3>10. Average Directional Index (ADX) Trend Strength</h3>
+      <div class="score-bar"><div class="score-fill" style="width:10%"></div></div>
+      <p><strong>What it is:</strong> Developed by J. Welles Wilder (same person who created RSI), ADX measures how strong a trend is — not its direction. It ranges from 0 to 100.</p>
+      <ul>
+        <li><strong>ADX below 20:</strong> No clear trend — price is choppy and directionless</li>
+        <li><strong>ADX 20–25:</strong> Trend developing</li>
+        <li><strong>ADX above 25:</strong> Strong, established trend</li>
+        <li><strong>ADX above 40:</strong> Very strong trend</li>
+      </ul>
+      <p><strong>It also includes two companion lines:</strong></p>
+      <ul>
+        <li><strong>+DI (Plus Directional Indicator):</strong> Measures upward movement strength</li>
+        <li><strong>−DI (Minus Directional Indicator):</strong> Measures downward movement strength</li>
+      </ul>
+      <p>When ADX is above 25 AND +DI > −DI, we have a confirmed strong uptrend. This is what earns maximum points.</p>
+      <p><strong>Max points:</strong> 8.</p>
+    </div>
+
+    <div class="card">
+      <h3>11. Golden Cross / Death Cross (50-Day vs 200-Day Moving Average)</h3>
+      <div class="score-bar"><div class="score-fill" style="width:10%"></div></div>
+      <p><strong>What it is:</strong> One of the most widely watched signals in all of technical analysis, used by institutional investors worldwide.</p>
+      <ul>
+        <li><strong>Golden Cross:</strong> The 50-day SMA crosses <em>above</em> the 200-day SMA. Considered a major long-term bullish signal — historically associated with the start of bull markets.</li>
+        <li><strong>Death Cross:</strong> The 50-day SMA crosses <em>below</em> the 200-day SMA. Considered a major long-term bearish signal — historically associated with bear markets.</li>
+        <li><strong>Already above 200-day SMA:</strong> Long-term uptrend is in place — bullish background condition.</li>
+        <li><strong>Already below 200-day SMA:</strong> Long-term downtrend — a headwind even if short-term looks positive.</li>
+      </ul>
+      <p><strong>Note:</strong> This factor requires at least 200 sessions of downloaded data to compute. As you add more bhavcopy files, more stocks will show this signal over time.</p>
+      <p><strong>Max points:</strong> 8 (Golden Cross gives maximum, Death Cross gives 0, being above 200MA gives partial).</p>
+    </div>
+
+    <div class="card">
+      <h3>12. 52-Week High Proximity</h3>
+      <div class="score-bar"><div class="score-fill" style="width:8%"></div></div>
+      <p><strong>What it is:</strong> How far is today's price from the highest closing price over the last year (52 weeks)?</p>
+      <p><strong>Why it matters:</strong> Based on Dow Theory's principle that "prices move in trends." Stocks trading near their 52-week high are in genuine, sustained uptrends — they've consistently attracted buyers. Stocks far below their highs are in sustained downtrends.</p>
+      <ul>
+        <li><strong>Within 3% of 52-week high:</strong> Near-peak territory — maximum points</li>
+        <li><strong>Within 10%:</strong> Healthy — partial points</li>
+        <li><strong>More than 20% below:</strong> Significant sustained weakness — 0 points</li>
+      </ul>
+      <p><strong>Max points:</strong> 6.</p>
+    </div>
+
+    <div class="card">
+      <h3>13. Price Gap Detection</h3>
+      <div class="score-bar"><div class="score-fill" style="width:8%"></div></div>
+      <p><strong>What is a gap?</strong> A gap occurs when a stock's opening price is significantly different from the previous day's closing price — meaning no trading happened at prices in between. This is very common in Indian markets due to global overnight developments.</p>
+      <p><strong>Types of gaps:</strong></p>
+      <ul>
+        <li><strong>Gap Up (>1.5% above previous close):</strong> Strong overnight buying — bullish momentum signal. Scores maximum points.</li>
+        <li><strong>Gap Down (>1.5% below previous close):</strong> Strong overnight selling — bearish. Scores 0 points.</li>
+        <li><strong>No significant gap:</strong> Normal open — neutral. Scores half points.</li>
+      </ul>
+      <p><strong>Max points:</strong> 6.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section" id="verdicts">
+    <h2 class="section-title">3. BUY / HOLD / AVOID — What Do They Mean?</h2>
+    <div class="tip">⚠️ Important: These are technical momentum signals, NOT financial advice. They tell you the direction of recent momentum, not whether the company is fundamentally good or whether you should invest your money.</div>
+
+    <div class="card">
+      <h3><span class="verdict-buy">BUY (Score 65–100)</span></h3>
+      <p>Multiple technical indicators are aligned positively. The stock has strong recent momentum, is trending above its moving averages, has healthy RSI, and is outperforming the market. This doesn't mean it will definitely go up — it means the technical evidence suggests more buyers than sellers right now.</p>
+      <p><strong>Best used for:</strong> Identifying stocks worth researching further, adding to a watchlist, or considering entry on the next dip to a support level.</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="verdict-hold">HOLD (Score 40–64)</span></h3>
+      <p>Mixed signals — some indicators are positive, some are not. The stock is in an uncertain zone with no clear directional momentum. For existing positions, this suggests not adding or reducing significantly. For new positions, waiting for a clearer signal is usually wise.</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="verdict-avoid">AVOID (Score 0–39)</span></h3>
+      <p>Multiple indicators are negative. The stock is in a downtrend or showing signs of weakness. "Avoid" means the technical momentum is against you — not that the company is bad. Fundamentally strong companies can show AVOID signals during temporary pullbacks. However, trying to "catch a falling knife" (buying a declining stock) is risky for short-term trading.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section" id="patterns">
+    <h2 class="section-title">4. Chart Patterns Detected (Pattern Tab)</h2>
+    <p>When you open a stock and click the <strong>🔍 Patterns</strong> tab, the app checks the last 2 sessions for known chart patterns. These are from the Fidelity Technical Analysis guide and academic research on pattern reliability.</p>
+
+    <div class="card">
+      <h3>Gap Up / Gap Down</h3>
+      <span class="badge bullish">Gap Up = Bullish</span> <span class="badge bearish">Gap Down = Bearish</span>
+      <p>When today's opening price is significantly above (gap up) or below (gap down) yesterday's closing price. Gaps represent areas where supply and demand changed dramatically overnight. A gap up signals strong buying interest; a gap down signals strong selling.</p>
+    </div>
+
+    <div class="card">
+      <h3>Inside Bar</h3>
+      <span class="badge neutral">Neutral — Watch for Breakout</span>
+      <p>When today's entire price range (high to low) falls completely within yesterday's range. It means the market is consolidating — neither buyers nor sellers are making progress. This compression of activity often precedes a sharp move. The direction of the breakout (above today's high or below today's low) usually tells you the next direction.</p>
+    </div>
+
+    <div class="card">
+      <h3>Bullish Engulfing</h3>
+      <span class="badge bullish">Bullish Reversal</span>
+      <p>A two-candle pattern where a red (down) candle is followed by a larger green (up) candle that completely covers it. Strong signal that buyers have overwhelmed sellers. Most powerful at the end of a downtrend.</p>
+    </div>
+
+    <div class="card">
+      <h3>Bearish Engulfing</h3>
+      <span class="badge bearish">Bearish Reversal</span>
+      <p>Opposite of bullish engulfing — a large red candle completely covers the previous green candle. Signals that sellers have taken control. Most meaningful at the top of an uptrend.</p>
+    </div>
+
+    <div class="card">
+      <h3>Hammer</h3>
+      <span class="badge bullish">Potentially Bullish Reversal</span>
+      <p>A candle with a small body near the top and a long lower tail (at least twice the body length). Sellers tried to drive the price down sharply but buyers recovered it to near the open. Suggests selling pressure may be exhausted.</p>
+    </div>
+
+    <div class="card">
+      <h3>Shooting Star</h3>
+      <span class="badge bearish">Potentially Bearish Reversal</span>
+      <p>The opposite of a Hammer — small body near the bottom with a long upper tail. Buyers tried to push the price up but sellers brought it back down. Suggests buying enthusiasm is fading, often near a price peak.</p>
+    </div>
+
+    <div class="card">
+      <h3>Piercing Line / Dark Cloud Cover</h3>
+      <span class="badge bullish">Piercing = Bullish</span> <span class="badge bearish">Dark Cloud = Bearish</span>
+      <p>Two-candle reversal patterns. Piercing Line: a down session followed by an up session that closes more than halfway into the previous body (bulls recovering strongly). Dark Cloud Cover: the reverse (bears recovering strongly).</p>
+    </div>
+
+    <div class="card">
+      <h3>Doji</h3>
+      <span class="badge neutral">Neutral — Indecision</span>
+      <p>When the opening and closing price are almost identical, forming a cross or plus shape. Represents a session where neither buyers nor sellers won. Often signals that the current trend may be about to change direction — but confirmation from the next session is needed.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="section" id="candlesticks">
+    <h2 class="section-title">5. Reading Candlestick Charts</h2>
+    <p>The default chart view shows candlesticks. Each candle represents one trading day:</p>
+    <ul>
+      <li><strong>Green candle:</strong> Closing price was higher than opening price (buyers won the day)</li>
+      <li><strong>Red candle:</strong> Closing price was lower than opening price (sellers won the day)</li>
+      <li><strong>Upper wick/shadow:</strong> The highest price reached during the session</li>
+      <li><strong>Lower wick/shadow:</strong> The lowest price reached during the session</li>
+      <li><strong>Body height:</strong> The distance between open and close — wider body = more decisive session</li>
+    </ul>
+    <div class="tip">💡 Long wicks (especially at extremes) are meaningful — they show that price was pushed to an extreme but rejected, suggesting the extreme level will act as resistance (upper wick) or support (lower wick).</div>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="section" id="charts">
+    <h2 class="section-title">6. Using the Chart</h2>
+
+    <h3>Chart Types</h3>
+    <ul>
+      <li><strong>📈 Line:</strong> Connects closing prices only. Clean, easy to see the overall trend direction.</li>
+      <li><strong>🕯️ Candles:</strong> Shows open, high, low, and close for each session. Much more information — use this for detailed analysis.</li>
+    </ul>
+
+    <h3>Time Ranges</h3>
+    <ul>
+      <li><strong>1W:</strong> Last 5 trading sessions — very short-term view, useful for day traders</li>
+      <li><strong>2W:</strong> Last 10 sessions — short-term swing trading view</li>
+      <li><strong>1M:</strong> Last ~22 sessions — one month view, most useful for short-term trading</li>
+      <li><strong>2M:</strong> Last ~44 sessions — medium-term view</li>
+      <li><strong>3M (default):</strong> Last ~66 sessions — the most balanced view for momentum trading</li>
+      <li><strong>All:</strong> Everything you've downloaded (currently ~70+ sessions)</li>
+    </ul>
+
+    <h3>Pivot Points (🎯 button)</h3>
+    <p>Pivot points are price levels calculated from the previous session's high, low, and close. They are widely used by short-term traders as potential support and resistance levels:</p>
+    <ul>
+      <li><strong>Pivot (blue line):</strong> The central reference point</li>
+      <li><strong>R1, R2, R3 (red lines):</strong> Resistance levels above — areas where selling pressure may emerge</li>
+      <li><strong>S1, S2, S3 (yellow/orange lines):</strong> Support levels below — areas where buying interest may appear</li>
+    </ul>
+    <div class="tip">💡 Classic trading wisdom: "Buy at support, sell at resistance." Pivot lines help identify these levels daily without drawing them manually.</div>
+
+    <h3>Expand / Fullscreen (⛶ button)</h3>
+    <p>Enlarges the chart to fill the screen. On Android phones, also attempts to lock the screen in landscape orientation for a wider chart view. On iPhones, you can rotate your phone manually after tapping Expand.</p>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="section" id="filters">
+    <h2 class="section-title">7. Filters & Sorting</h2>
+
+    <h3>View Tabs</h3>
+    <ul>
+      <li><strong>🚀 Momentum:</strong> Sorted by Momentum Score (highest first) — shows the strongest technical setups</li>
+      <li><strong>🔥 Most Traded:</strong> Sorted by today's trading volume — shows the most actively traded stocks</li>
+      <li><strong>📈 Top Gainers:</strong> Sorted by today's % price change (highest first)</li>
+      <li><strong>📉 Top Losers:</strong> Sorted by today's % price change (lowest first)</li>
+    </ul>
+
+    <h3>Cap Filter</h3>
+    <ul>
+      <li><strong>Large Cap:</strong> Top 100 companies by market capitalisation (NIFTY 100 equivalent)</li>
+      <li><strong>Mid Cap:</strong> Next 150 companies (NIFTY Midcap 150 equivalent)</li>
+      <li><strong>Small Cap:</strong> All remaining listed companies</li>
+    </ul>
+    <p>Classification is based on AMFI's official bi-annual market cap categorisation, the same standard used by mutual funds in India.</p>
+
+    <h3>Price Filter</h3>
+    <p>Filters stocks by their current price range. Useful if you have a budget in mind per share or prefer stocks in a specific price bracket.</p>
+
+    <h3>Sort Control</h3>
+    <p>Use the <strong>Sort By</strong> dropdown to order results by any metric — Momentum Score, % Change, Volume, Price, RSI, or Company Name. The ↓/↑ button toggles between high-to-low and low-to-high. The ↺ Reset button clears all filters at once.</p>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div class="section" id="disclaimer">
+    <h2 class="section-title">8. Important Disclaimer</h2>
+    <div class="tip" style="border-color: #f43f5e; background: #1f0a0a; color: #fca5a5;">
+      ⚠️ <strong>This app is for personal educational and research purposes only.</strong><br><br>
+      Nothing in this app constitutes financial advice, investment advice, or a recommendation to buy or sell any security. Past technical patterns do not guarantee future performance. The scores, verdicts, and patterns shown are derived from historical price data only and do not account for fundamental factors, company-specific risks, macroeconomic conditions, or market liquidity.<br><br>
+      Always consult a SEBI-registered financial advisor before making investment decisions. You are solely responsible for your own investment decisions and their outcomes.
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
