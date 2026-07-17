@@ -1132,12 +1132,12 @@
                         </div>
                         
                         <div id="info-panel" class="p-4 flex flex-col lg:h-full lg:overflow-hidden bg-slate-800">
-                            <div class="flex flex-wrap border-b border-slate-500 mb-4 shrink-0 text-sm sticky top-0 bg-slate-800 z-10 pt-1">
-                                <button id="btn-tab-momentum" onclick="toggleWorkspaceTab('momentum', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-sky-500 text-sky-400 transition-all cursor-pointer">🚀 Momentum</button>
-                                <button id="btn-tab-decoder" onclick="toggleWorkspaceTab('decoder', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-slate-300 hover:text-white transition-all cursor-pointer mt-2 sm:mt-0">📊 Technical</button>
-                                <button id="btn-tab-fundamentals" onclick="toggleWorkspaceTab('fundamentals', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-slate-300 hover:text-white transition-all cursor-pointer mt-2 sm:mt-0">🏦 Fundamentals</button>
-                                <button id="btn-tab-news" onclick="toggleWorkspaceTab('news', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-slate-300 hover:text-white transition-all cursor-pointer mt-2 sm:mt-0">📰 News</button>
-                                <button id="btn-tab-patterns" onclick="toggleWorkspaceTab('patterns', '${cleanTicker}')" class="w-1/2 sm:flex-1 pb-2 text-center font-bold uppercase tracking-wider border-b-2 border-transparent text-slate-300 hover:text-white transition-all cursor-pointer mt-2 sm:mt-0">🔍 Patterns</button>
+                            <div class="grid grid-cols-5 gap-1 mb-4 shrink-0">
+                                <button id="btn-tab-momentum" onclick="toggleWorkspaceTab('momentum', '${cleanTicker}')" class="py-2 px-1 rounded-lg text-center text-[11px] font-bold uppercase tracking-wide border-2 border-sky-500 bg-sky-950 text-sky-400 transition-all cursor-pointer">🚀<br>Score</button>
+                                <button id="btn-tab-decoder" onclick="toggleWorkspaceTab('decoder', '${cleanTicker}')" class="py-2 px-1 rounded-lg text-center text-[11px] font-bold uppercase tracking-wide border-2 border-transparent bg-slate-700 text-slate-300 hover:text-white transition-all cursor-pointer">📊<br>Technical</button>
+                                <button id="btn-tab-fundamentals" onclick="toggleWorkspaceTab('fundamentals', '${cleanTicker}')" class="py-2 px-1 rounded-lg text-center text-[11px] font-bold uppercase tracking-wide border-2 border-transparent bg-slate-700 text-slate-300 hover:text-white transition-all cursor-pointer">🏦<br>Fundament.</button>
+                                <button id="btn-tab-news" onclick="toggleWorkspaceTab('news', '${cleanTicker}')" class="py-2 px-1 rounded-lg text-center text-[11px] font-bold uppercase tracking-wide border-2 border-transparent bg-slate-700 text-slate-300 hover:text-white transition-all cursor-pointer">📰<br>News</button>
+                                <button id="btn-tab-patterns" onclick="toggleWorkspaceTab('patterns', '${cleanTicker}')" class="py-2 px-1 rounded-lg text-center text-[11px] font-bold uppercase tracking-wide border-2 border-transparent bg-slate-700 text-slate-300 hover:text-white transition-all cursor-pointer">🔍<br>Patterns</button>
                             </div>
                             
                             <div id="panel-tab-momentum" class="flex-1 flex flex-col overflow-y-auto pr-1">
@@ -1648,15 +1648,15 @@
 
         window.toggleWorkspaceTab = function(activeTab, ticker) {
             const tabs = ['momentum', 'decoder', 'fundamentals', 'news', 'patterns'];
+            const activeClass = 'py-2 px-1 rounded-lg text-center text-[11px] font-bold uppercase tracking-wide border-2 border-sky-500 bg-sky-950 text-sky-400 transition-all cursor-pointer';
+            const inactiveClass = 'py-2 px-1 rounded-lg text-center text-[11px] font-bold uppercase tracking-wide border-2 border-transparent bg-slate-700 text-slate-300 hover:text-white transition-all cursor-pointer';
             tabs.forEach(tab => {
                 const btn = document.getElementById(`btn-tab-${tab}`);
                 const panel = document.getElementById(`panel-tab-${tab}`);
-                if (tab === activeTab) {
-                    btn.className = btn.className.replace('border-transparent', 'border-sky-500').replace('text-slate-300', 'text-sky-400');
-                    panel.classList.remove('hidden'); panel.classList.add('flex');
-                } else {
-                    btn.className = btn.className.replace('border-sky-500', 'border-transparent').replace('text-sky-400', 'text-slate-300');
-                    panel.classList.add('hidden'); panel.classList.remove('flex');
+                if (btn) btn.className = tab === activeTab ? activeClass : inactiveClass;
+                if (panel) {
+                    if (tab === activeTab) { panel.classList.remove('hidden'); panel.classList.add('flex'); }
+                    else { panel.classList.add('hidden'); panel.classList.remove('flex'); }
                 }
             });
 
@@ -1744,29 +1744,47 @@
                 if (cached && cached.length > 0) {
                     container.innerHTML = renderNewsCards(cached);
                     const updatedNote = document.createElement('div');
-                    updatedNote.className = 'text-center text-[10px] text-slate-400 font-mono pb-3';
+                    updatedNote.className = 'text-center text-[11px] text-slate-400 font-mono pb-3';
                     updatedNote.textContent = newsCache.updatedAt ? `Cached · updated ${new Date(newsCache.updatedAt).toLocaleString('en-IN')}` : 'Cached';
                     container.appendChild(updatedNote);
                     return;
                 }
             } catch (e) { /* cache missing or unreadable - fall through to live fetch below */ }
 
-            // 2. Fall back to a live fetch (e.g. for small-cap stocks not in the cached set)
-            const query = encodeURIComponent(`${ticker} stock India news`);
-            const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=en-IN&gl=IN&ceid=IN:en`;
+            // 2. Fall back to a live fetch.
+            // Try two different query formats — ticker alone works better for well-known
+            // stocks (RELIANCE, INFY); adding "NSE India" helps for less-known tickers.
+            const companyName = (stockData[ticker] && stockData[ticker].name !== ticker)
+                ? stockData[ticker].name : null;
+            const queries = [
+                companyName ? encodeURIComponent(`${companyName} stock NSE India`) : null,
+                encodeURIComponent(`${ticker} NSE India stock`),
+                encodeURIComponent(`${ticker} share price India`),
+            ].filter(Boolean);
 
             let xmlText = null;
-            for (const buildProxyUrl of NEWS_CORS_PROXIES) {
-                try {
-                    const resp = await fetchWithTimeout(buildProxyUrl(rssUrl), 6000);
-                    if (!resp.ok) continue;
-                    const text = await resp.text();
-                    if (text && text.includes('<item>')) { xmlText = text; break; }
-                } catch (e) { /* timed out or failed - try the next proxy */ }
+
+            for (const query of queries) {
+                if (xmlText) break;
+                const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=en-IN&gl=IN&ceid=IN:en&num=10`;
+                for (const buildProxyUrl of NEWS_CORS_PROXIES) {
+                    try {
+                        const resp = await fetchWithTimeout(buildProxyUrl(rssUrl), 6000);
+                        if (!resp.ok) continue;
+                        const text = await resp.text();
+                        if (text && text.includes('<item>')) { xmlText = text; break; }
+                    } catch (e) { /* try next proxy */ }
+                }
             }
 
             if (!xmlText) {
-                container.innerHTML = '<div class="p-6 text-center text-rose-400 text-sm font-mono">⚠️ Could not load news right now (feed service unavailable). Try again in a bit.</div>';
+                container.innerHTML = `
+                    <div class="p-6 text-center">
+                        <div class="text-2xl mb-2">📡</div>
+                        <div class="text-base font-bold text-slate-200 mb-1">News service unavailable</div>
+                        <div class="text-sm text-slate-400">The live news feed couldn't be reached right now. This usually fixes itself — try again in a few minutes.</div>
+                        <div class="text-[11px] text-slate-500 mt-3">Tip: Run the "Update cached news" GitHub Action to get reliable cached news for all Large/Mid cap stocks.</div>
+                    </div>`;
                 return;
             }
 
@@ -1781,12 +1799,17 @@
                 }));
 
                 if (items.length === 0) {
-                    container.innerHTML = '<div class="p-6 text-center text-slate-300 text-sm font-mono">No localized stock news tiles available.</div>';
+                    container.innerHTML = `
+                        <div class="p-6 text-center">
+                            <div class="text-2xl mb-2">🔍</div>
+                            <div class="text-base font-bold text-slate-200 mb-1">No recent news found for ${escapeHtml(ticker)}</div>
+                            <div class="text-sm text-slate-400">Google News doesn't have recent articles matching this stock symbol right now. Try searching directly on <a href="https://news.google.com/search?q=${encodeURIComponent(ticker + ' NSE India')}" target="_blank" class="text-sky-400 underline">Google News</a>.</div>
+                        </div>`;
                     return;
                 }
                 container.innerHTML = renderNewsCards(items);
             } catch (error) {
-                container.innerHTML = '<div class="p-6 text-center text-rose-400 text-sm font-mono">⚠️ Error parsing the news feed.</div>';
+                container.innerHTML = '<div class="p-6 text-center text-rose-400 text-sm">⚠️ Error parsing the news feed.</div>';
             }
         }
     </script>
