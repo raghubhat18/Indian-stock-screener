@@ -691,9 +691,107 @@
             return { score, breakdown };
         }
 
+        // ---------------------------------------------------------
+        // FUNDAMENTAL SCORE (0-100) - computed separately from
+        // the technical momentum score so users can see both.
+        // Only computed when fundamentals.csv has been uploaded.
+        // ---------------------------------------------------------
+        function computeFundamentalsScore(f, currentPrice) {
+            if (!f) return null;
+            let score = 0;
+            const breakdown = [];
+
+            // ROE — measures profitability. Higher is better.
+            if (f.roe !== null) {
+                let pts, note;
+                if (f.roe >= 20)      { pts = 25; note = 'Excellent — company earns over 20% return on shareholders\' money'; }
+                else if (f.roe >= 15) { pts = 20; note = 'Good — above-average profitability'; }
+                else if (f.roe >= 10) { pts = 14; note = 'Moderate — decent but not standout profitability'; }
+                else if (f.roe >= 5)  { pts = 7;  note = 'Weak — low return on equity'; }
+                else                  { pts = 0;  note = 'Very weak or negative — not generating meaningful returns'; }
+                score += pts;
+                breakdown.push({ label: 'Return on Equity (ROE)', value: f.roe + '%', points: pts, max: 25, note });
+            } else {
+                breakdown.push({ label: 'Return on Equity (ROE)', value: 'N/A', points: 0, max: 25, note: 'Not available in filing data' });
+            }
+
+            // Debt to Equity — lower is better for financial health
+            if (f.de !== null) {
+                let pts, note;
+                if (f.de <= 0.3)      { pts = 20; note = 'Very low debt — financially strong, minimal risk from borrowing'; }
+                else if (f.de <= 0.75){ pts = 15; note = 'Comfortable debt level — well within safe limits'; }
+                else if (f.de <= 1.5) { pts = 8;  note = 'Moderate debt — manageable but worth monitoring'; }
+                else if (f.de <= 2.5) { pts = 3;  note = 'High debt — increases financial risk, especially in downturns'; }
+                else                  { pts = 0;  note = 'Very high debt — significant financial risk'; }
+                score += pts;
+                breakdown.push({ label: 'Debt to Equity Ratio', value: f.de, points: pts, max: 20, note });
+            } else {
+                breakdown.push({ label: 'Debt to Equity Ratio', value: 'N/A', points: 0, max: 20, note: 'Not available in filing data' });
+            }
+
+            // Net Profit Margin — how much of each rupee of revenue becomes profit
+            if (f.npm !== null) {
+                let pts, note;
+                if (f.npm >= 20)      { pts = 20; note = 'Exceptional margin — company keeps over 20p of every ₹1 earned'; }
+                else if (f.npm >= 12) { pts = 15; note = 'Strong margin — high quality earnings'; }
+                else if (f.npm >= 6)  { pts = 10; note = 'Average margin — acceptable for most sectors'; }
+                else if (f.npm >= 2)  { pts = 4;  note = 'Thin margin — vulnerable to cost increases or revenue dips'; }
+                else                  { pts = 0;  note = 'Near-zero or negative margin — profitability is a concern'; }
+                score += pts;
+                breakdown.push({ label: 'Net Profit Margin', value: f.npm + '%', points: pts, max: 20, note });
+            } else {
+                breakdown.push({ label: 'Net Profit Margin', value: 'N/A', points: 0, max: 20, note: 'Not available in filing data' });
+            }
+
+            // Current Ratio — can the company pay its short-term bills?
+            if (f.currentRatio !== null) {
+                let pts, note;
+                if (f.currentRatio >= 2)      { pts = 15; note = 'Excellent liquidity — can easily cover short-term obligations'; }
+                else if (f.currentRatio >= 1.5){ pts = 12; note = 'Good liquidity — comfortable buffer'; }
+                else if (f.currentRatio >= 1)  { pts = 7;  note = 'Adequate — just enough to cover obligations'; }
+                else                           { pts = 0;  note = 'Below 1 — may struggle to meet short-term obligations'; }
+                score += pts;
+                breakdown.push({ label: 'Current Ratio (Liquidity)', value: f.currentRatio, points: pts, max: 15, note });
+            } else {
+                breakdown.push({ label: 'Current Ratio (Liquidity)', value: 'N/A', points: 0, max: 15, note: 'Not available in filing data' });
+            }
+
+            // P/E Ratio computed live from current price and EPS
+            const pe = (currentPrice && f.eps && f.eps > 0) ? currentPrice / f.eps : null;
+            if (pe !== null) {
+                let pts, note;
+                if (pe < 10)      { pts = 20; note = 'Trading at a very low P/E — potentially undervalued'; }
+                else if (pe < 20) { pts = 15; note = 'Reasonably valued — P/E in a comfortable zone'; }
+                else if (pe < 35) { pts = 8;  note = 'Slightly expensive — priced for growth, check if justified'; }
+                else if (pe < 60) { pts = 3;  note = 'Richly valued — significant growth already priced in'; }
+                else              { pts = 0;  note = 'Extremely high P/E — very high expectations baked in'; }
+                score += pts;
+                breakdown.push({ label: 'Price to Earnings (P/E) Ratio', value: pe.toFixed(1) + 'x (live)', points: pts, max: 20, note });
+            } else {
+                breakdown.push({ label: 'Price to Earnings (P/E) Ratio', value: 'N/A', points: 0, max: 20, note: f.eps ? 'N/A (negative EPS)' : 'EPS not available in filing data' });
+            }
+
+            score = Math.max(0, Math.min(100, Math.round(score)));
+            return { fundamentalsScore: score, fundamentalsBreakdown: breakdown };
+        }
+
+        function getFundamentalsVerdict(score) {
+            if (score === null) return null;
+            if (score >= 65) return { label: 'STRONG', color: 'text-emerald-400', badge: 'bg-emerald-950 text-emerald-400 border-emerald-800' };
+            if (score >= 40) return { label: 'FAIR',   color: 'text-amber-400',   badge: 'bg-amber-950 text-amber-400 border-amber-800' };
+            return { label: 'WEAK', color: 'text-rose-400', badge: 'bg-rose-950 text-rose-400 border-rose-800' };
+        }
+
+        // Combined score: 70% technical momentum + 30% fundamentals
+        // When no fundamentals available, technical score stands alone.
+        function getCombinedScore(technicalScore, fundamentalsScore) {
+            if (fundamentalsScore === null) return technicalScore;
+            return Math.round(technicalScore * 0.7 + fundamentalsScore * 0.3);
+        }
+
         function getVerdict(score) {
-            if (score >= 65) return { label: 'BUY', text: 'text-emerald-400', badge: 'bg-emerald-950 text-emerald-400 border-emerald-800' };
-            if (score >= 40) return { label: 'HOLD', text: 'text-amber-400', badge: 'bg-amber-950 text-amber-400 border-amber-800' };
+            if (score >= 65) return { label: 'BUY',   text: 'text-emerald-400', badge: 'bg-emerald-950 text-emerald-400 border-emerald-800' };
+            if (score >= 40) return { label: 'HOLD',  text: 'text-amber-400',   badge: 'bg-amber-950 text-amber-400 border-amber-800' };
             return { label: 'AVOID', text: 'text-rose-400', badge: 'bg-rose-950 text-rose-400 border-rose-800' };
         }
 
@@ -754,6 +852,13 @@
                     pctFrom52High, crossSignal, hasGapUp, hasGapDown
                 });
 
+                // Fundamental score — only computed when this stock has data in fundamentalsMap
+                const fundData = fundamentalsMap[ticker] || null;
+                const fundResult = computeFundamentalsScore(fundData, latest.close);
+                const fundamentalsScore = fundResult ? fundResult.fundamentalsScore : null;
+                const fundamentalsBreakdown = fundResult ? fundResult.fundamentalsBreakdown : null;
+                const combinedScore = getCombinedScore(score, fundamentalsScore);
+
                 stockData[ticker] = {
                     symbol: ticker,
                     name: stockNames[ticker] || ticker,
@@ -770,6 +875,9 @@
                     patterns,
                     momentumScore: score,
                     breakdown,
+                    fundamentalsScore,
+                    fundamentalsBreakdown,
+                    combinedScore,
                     capCategory: marketCapMap[ticker] || null,
                     sessionsTracked: hist.length
                 };
@@ -1001,7 +1109,7 @@
         function getSortValue(ticker, key) {
             const d = stockData[ticker];
             switch (key) {
-                case 'momentum': return d.momentumScore;
+                case 'momentum': return d.combinedScore;
                 case 'volume': return d.volume;
                 case 'change': return d.change;
                 case 'price': return d.price;
@@ -1051,7 +1159,7 @@
                 const data = stockData[ticker];
                 const changeColor = data.change >= 0 ? "text-emerald-500" : "text-rose-500";
                 const changeSign = data.change >= 0 ? "+" : "";
-                const verdict = getVerdict(data.momentumScore);
+                const verdict = getVerdict(data.combinedScore);
 
                 let volDisplay = data.volume > 1000000 ? (data.volume / 1000000).toFixed(1) + 'M Vol' : (data.volume / 1000).toFixed(0) + 'K Vol';
                 if (data.volume === 0) volDisplay = '';
@@ -1098,7 +1206,7 @@
             chartRange = '3M';
 
             const cleanTicker = ticker.split('.')[0].replace(/\s+/g, '').toUpperCase();
-            const verdict = getVerdict(data.momentumScore);
+            const verdict = getVerdict(data.combinedScore);
             const fmt = (v, suffix = '%') => v === null || v === undefined ? 'N/A' : v.toFixed(2) + suffix;
 
             overlay.innerHTML = `
@@ -1143,11 +1251,17 @@
                             <div id="panel-tab-momentum" class="flex-1 flex flex-col overflow-y-auto pr-1">
                                 <div class="bg-slate-700/60 p-4 rounded-lg border border-slate-500 mb-3">
                                     <div class="flex justify-between items-center mb-1">
-                                        <span class="text-slate-300 uppercase text-[13px]">Momentum Score</span>
+                                        <span class="text-slate-300 uppercase text-[13px]">${data.fundamentalsScore !== null ? 'Combined Score (Tech + Funda)' : 'Momentum Score (Technical)'}</span>
                                         <span class="text-[13px] font-bold ${verdict.text}">${verdict.label}</span>
                                     </div>
-                                    <div class="text-3xl font-bold ${verdict.text}">${data.momentumScore} / 100</div>
-                                    <div class="text-[12px] text-slate-400 mt-1">Rule-based signal from price data only — not financial advice.</div>
+                                    <div class="text-3xl font-bold ${verdict.text}">${data.combinedScore} / 100</div>
+                                    ${data.fundamentalsScore !== null ? `
+                                    <div class="flex gap-3 mt-2">
+                                        <div class="text-[12px] text-slate-300">📈 Technical: <span class="font-bold text-white">${data.momentumScore}</span></div>
+                                        <div class="text-[12px] text-slate-300">🏦 Fundamental: <span class="font-bold text-white">${data.fundamentalsScore}</span> <span class="text-[10px] text-slate-500">(${getFundamentalsVerdict(data.fundamentalsScore) ? getFundamentalsVerdict(data.fundamentalsScore).label : ''})</span></div>
+                                    </div>
+                                    <div class="text-[11px] text-slate-500 mt-1">Combined = 70% technical + 30% fundamental</div>
+                                    ` : `<div class="text-[12px] text-slate-400 mt-1">Technical signals only — upload XBRL Excel to <code class="text-slate-300">docs/data/xbrl/</code> to include fundamentals in the score.</div>`}
                                 </div>
 
                                 <div class="grid grid-cols-2 gap-2 mb-3">
@@ -1230,45 +1344,83 @@
                                     if (!f) {
                                         return `<div class="flex-1 flex flex-col items-center justify-center text-center p-6">
                                             <div class="text-3xl mb-2">📋</div>
-                                            <div class="text-base text-slate-200 font-mono">No fundamentals entered for ${cleanTicker} yet.</div>
-                                            <div class="text-[13px] text-slate-400 font-mono mt-2">Convert its NSE XBRL filing to Excel and add it with the Fundamentals Converter tool.</div>
+                                            <div class="text-base font-bold text-slate-200">No fundamentals yet for ${cleanTicker}</div>
+                                            <div class="text-sm text-slate-400 mt-2 leading-relaxed">Upload the XBRL Excel for this company to <code class="text-slate-300 bg-slate-700 px-1 rounded">docs/data/xbrl/${cleanTicker}.xlsx</code> in Git. The GitHub Action will auto-generate the fundamentals.csv from it.</div>
                                         </div>`;
                                     }
-                                    // PE computed live from current price if not explicitly stored - stays accurate as price moves
-                                    const livePE = (f.pe !== null) ? f.pe : (f.eps !== null && f.eps > 0 ? data.price / f.eps : null);
-                                    const peNote = livePE !== null ? (livePE < 15 ? 'Relatively cheap' : livePE > 40 ? 'Richly valued' : 'Moderate valuation') : '';
-                                    const roeNote = f.roe !== null ? (f.roe > 15 ? 'Strong profitability' : f.roe < 8 ? 'Weak profitability' : 'Average profitability') : '';
-                                    const deNote = f.de !== null ? (f.de < 0.5 ? 'Low debt' : f.de > 1.5 ? 'High debt load' : 'Moderate debt') : '';
+                                    const fundResult = computeFundamentalsScore(f, data.price);
+                                    const fVerdict = getFundamentalsVerdict(fundResult ? fundResult.fundamentalsScore : null);
+                                    const livePE = f.eps && f.eps > 0 ? (data.price / f.eps).toFixed(1) : 'N/A';
                                     return `
-                                        <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500 text-sm mb-3 flex justify-between items-center">
-                                            <span class="text-slate-300 uppercase">P/E Ratio</span>
-                                            <span class="text-right"><span class="text-white font-bold">${livePE !== null ? livePE.toFixed(1) : 'N/A'}</span>${livePE !== null ? `<div class="text-[12px] text-slate-400">${peNote}${f.pe === null ? ' · live' : ''}</div>` : ''}</span>
+                                        <div class="bg-slate-700/60 p-4 rounded-lg border border-slate-500 mb-3">
+                                            <div class="flex justify-between items-center mb-1">
+                                                <span class="text-slate-300 uppercase text-[13px]">Fundamental Score</span>
+                                                <span class="text-[13px] font-bold ${fVerdict ? fVerdict.color : ''}">${fVerdict ? fVerdict.label : 'N/A'}</span>
+                                            </div>
+                                            <div class="text-3xl font-bold ${fVerdict ? fVerdict.color : 'text-slate-400'}">${fundResult ? fundResult.fundamentalsScore : 'N/A'} / 100</div>
+                                            <div class="text-[11px] text-slate-500 mt-1">From annual filing · ROE, D/E, Net Margin, Liquidity, P/E (live)</div>
                                         </div>
-                                        <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500 text-sm mb-3 flex justify-between items-center">
-                                            <span class="text-slate-300 uppercase">ROE</span>
-                                            <span class="text-right"><span class="text-white font-bold">${f.roe !== null ? f.roe + '%' : 'N/A'}</span>${f.roe !== null ? `<div class="text-[12px] text-slate-400">${roeNote}</div>` : ''}</span>
+
+                                        <div class="grid grid-cols-2 gap-2 mb-3">
+                                            <div class="bg-slate-700/50 p-3 rounded-lg border border-slate-500">
+                                                <div class="text-slate-300 text-[11px] mb-0.5">ROE</div>
+                                                <div class="text-white font-bold text-base">${f.roe !== null ? f.roe + '%' : 'N/A'}</div>
+                                            </div>
+                                            <div class="bg-slate-700/50 p-3 rounded-lg border border-slate-500">
+                                                <div class="text-slate-300 text-[11px] mb-0.5">Debt / Equity</div>
+                                                <div class="text-white font-bold text-base">${f.de !== null ? f.de : 'N/A'}</div>
+                                            </div>
+                                            <div class="bg-slate-700/50 p-3 rounded-lg border border-slate-500">
+                                                <div class="text-slate-300 text-[11px] mb-0.5">EPS</div>
+                                                <div class="text-white font-bold text-base">${f.eps !== null ? '₹' + f.eps : 'N/A'}</div>
+                                            </div>
+                                            <div class="bg-slate-700/50 p-3 rounded-lg border border-slate-500">
+                                                <div class="text-slate-300 text-[11px] mb-0.5">P/E (Live)</div>
+                                                <div class="text-white font-bold text-base">${livePE}x</div>
+                                            </div>
+                                            <div class="bg-slate-700/50 p-3 rounded-lg border border-slate-500">
+                                                <div class="text-slate-300 text-[11px] mb-0.5">Book Value/Share</div>
+                                                <div class="text-white font-bold text-base">${f.bvps !== null && f.bvps !== undefined ? '₹' + f.bvps : 'N/A'}</div>
+                                            </div>
+                                            <div class="bg-slate-700/50 p-3 rounded-lg border border-slate-500">
+                                                <div class="text-slate-300 text-[11px] mb-0.5">Net Profit Margin</div>
+                                                <div class="text-white font-bold text-base">${f.npm !== null && f.npm !== undefined ? f.npm + '%' : 'N/A'}</div>
+                                            </div>
+                                            <div class="bg-slate-700/50 p-3 rounded-lg border border-slate-500 col-span-2">
+                                                <div class="text-slate-300 text-[11px] mb-0.5">Current Ratio (Liquidity)</div>
+                                                <div class="text-white font-bold text-base">${f.currentRatio !== null && f.currentRatio !== undefined ? f.currentRatio : 'N/A'}</div>
+                                            </div>
                                         </div>
-                                        <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500 text-sm mb-3 flex justify-between items-center">
-                                            <span class="text-slate-300 uppercase">Debt / Equity</span>
-                                            <span class="text-right"><span class="text-white font-bold">${f.de !== null ? f.de : 'N/A'}</span>${f.de !== null ? `<div class="text-[12px] text-slate-400">${deNote}</div>` : ''}</span>
+
+                                        <button onclick="toggleFundaBreakdown()" id="funda-breakdown-btn" class="w-full bg-slate-700/60 hover:bg-slate-600 p-3 rounded-lg border border-slate-500 text-sm flex justify-between items-center transition-colors">
+                                            <span class="text-slate-200 font-bold">📋 View Fundamental Score Breakdown</span>
+                                            <span id="funda-breakdown-arrow" class="text-slate-400">▾</span>
+                                        </button>
+                                        <div id="funda-breakdown-panel" class="hidden mt-2">
+                                            <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500">
+                                                <div class="space-y-3">
+                                                ${(fundResult ? fundResult.fundamentalsBreakdown : []).map(b => `
+                                                    <div>
+                                                        <div class="flex items-center justify-between mb-1">
+                                                            <span class="text-slate-200 text-[13px] font-bold">${b.label}</span>
+                                                            <span class="text-white text-[13px] font-bold">${b.points}/${b.max} pts</span>
+                                                        </div>
+                                                        <div class="w-full bg-slate-600 rounded-full h-1.5 mb-1.5 overflow-hidden">
+                                                            <div class="h-1.5 rounded-full ${b.points > 0 ? 'bg-emerald-500' : 'bg-slate-500'}" style="width:${Math.round(b.points/b.max*100)}%"></div>
+                                                        </div>
+                                                        <div class="text-[12px] text-slate-400">
+                                                            <span class="text-slate-200 font-bold">${b.value}</span> — ${b.note}
+                                                        </div>
+                                                    </div>
+                                                `).join('')}
+                                                </div>
+                                                <div class="border-t border-slate-500 mt-3 pt-3 flex justify-between items-center">
+                                                    <span class="text-slate-300 text-[13px] font-bold uppercase">Total</span>
+                                                    <span class="${fVerdict ? fVerdict.color : 'text-slate-300'} text-base font-bold">${fundResult ? fundResult.fundamentalsScore : 'N/A'} / 100 · ${fVerdict ? fVerdict.label : 'N/A'}</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500 text-sm mb-3 flex justify-between">
-                                            <span class="text-slate-300 uppercase">EPS</span>
-                                            <span class="text-white font-bold">${f.eps !== null ? '₹' + f.eps : 'N/A'}</span>
-                                        </div>
-                                        <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500 text-sm mb-3 flex justify-between">
-                                            <span class="text-slate-300 uppercase">Book Value / Share</span>
-                                            <span class="text-white font-bold">${f.bvps !== null && f.bvps !== undefined ? '₹' + f.bvps : 'N/A'}</span>
-                                        </div>
-                                        <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500 text-sm mb-3 flex justify-between items-center">
-                                            <span class="text-slate-300 uppercase">Current Ratio</span>
-                                            <span class="text-right"><span class="text-white font-bold">${f.currentRatio !== null && f.currentRatio !== undefined ? f.currentRatio : 'N/A'}</span>${f.currentRatio ? `<div class="text-[12px] text-slate-400">${f.currentRatio >= 1 ? 'Can cover short-term obligations' : 'May struggle with short-term obligations'}</div>` : ''}</span>
-                                        </div>
-                                        <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500 text-sm mb-3 flex justify-between">
-                                            <span class="text-slate-300 uppercase">Net Profit Margin</span>
-                                            <span class="text-white font-bold">${f.npm !== null && f.npm !== undefined ? f.npm + '%' : 'N/A'}</span>
-                                        </div>
-                                        <div class="text-[12px] text-slate-400 font-mono mt-2">From NSE's own filings (via XBRL) · P/E marked "live" is calculated from today's price, not stored.</div>
+                                        <div class="text-[11px] text-slate-500 mt-3">Source: NSE XBRL annual filing · P/E calculated live from current price and annual EPS</div>
                                     `;
                                 })()}
                             </div>
@@ -1485,6 +1637,14 @@
 
             chart.timeScale().fitContent();
         }
+
+        window.toggleFundaBreakdown = function() {
+            const panel = document.getElementById('funda-breakdown-panel');
+            const arrow = document.getElementById('funda-breakdown-arrow');
+            if (!panel) return;
+            panel.classList.toggle('hidden');
+            arrow.textContent = panel.classList.contains('hidden') ? '▾' : '▴';
+        };
 
         window.toggleBreakdown = function() {
             const panel = document.getElementById('breakdown-panel');
