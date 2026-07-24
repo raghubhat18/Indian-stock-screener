@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RBK Dynamic Market Screener</title>
+    <title>RBK Compass — Navigate the Market</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -31,9 +31,9 @@
         <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-3 border-b border-slate-500 gap-3 shrink-0">
             <div>
                 <h1 class="text-3xl font-bold tracking-tight text-white flex items-center gap-2">
-                    <span>📈</span> RBK DYNAMIC MARKET SCREENER
+                    <span>🧭</span> RBK COMPASS
                 </h1>
-                <p class="text-base text-slate-300 mt-1 font-mono" id="all-directory-count">INITIALIZING DATA ENGINE...</p>
+                <p class="text-base text-slate-300 mt-1 font-mono" id="all-directory-count">Navigate the market with confidence</p>
             </div>
             <div class="flex items-center gap-3 flex-wrap">
                 <a href="guide.html" target="_blank" class="flex items-center gap-1.5 bg-slate-700 hover:bg-slate-600 border border-slate-500 px-3 py-2 rounded-xl font-mono text-sm text-slate-200 transition-colors">
@@ -49,8 +49,12 @@
 
         <!-- SEARCH -->
         <div class="shrink-0">
-            <input type="text" id="search-input" oninput="renderList()" placeholder="🔍 Search by symbol or company name..."
-                   class="w-full bg-slate-700 border border-slate-500 text-base rounded-xl px-4 py-3.5 text-slate-50 placeholder-slate-400 focus:outline-none focus:border-sky-700 font-mono transition-colors">
+            <form onsubmit="event.preventDefault(); document.getElementById('search-input').blur();" role="search">
+                <input type="search" id="search-input" oninput="renderList()"
+                       inputmode="search" enterkeyhint="search" autocomplete="off"
+                       placeholder="🔍 Search by symbol or company name..."
+                       class="w-full bg-slate-700 border border-slate-500 text-base rounded-xl px-4 py-3.5 text-slate-50 placeholder-slate-400 focus:outline-none focus:border-sky-700 font-mono transition-colors">
+            </form>
         </div>
 
         <!-- VIEW TABS -->
@@ -60,6 +64,7 @@
                 <button onclick="loadView('traded')" id="btn-view-traded" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">🔥 MOST TRADED</button>
                 <button onclick="loadView('bullish')" id="btn-view-bullish" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">📈 TOP GAINERS</button>
                 <button onclick="loadView('bearish')" id="btn-view-bearish" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">📉 TOP LOSERS</button>
+                <button onclick="loadView('longterm')" id="btn-view-longterm" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">🏆 LONG TERM</button>
             </div>
 
             <div class="flex flex-col gap-3 border-t border-slate-600 pt-3">
@@ -87,7 +92,7 @@
                 <div class="flex flex-wrap items-center gap-2">
                     <span class="text-[13px] text-slate-400 font-bold uppercase shrink-0 font-mono">Sort:</span>
                     <select id="sort-select" onchange="setSort(this.value)" class="bg-slate-700 border border-slate-500 text-slate-50 text-[13px] font-mono font-bold rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-sky-700">
-                        <option value="momentum">Momentum Score</option>
+                        <option value="momentum">Score</option>
                         <option value="change">% Change</option>
                         <option value="volume">Volume</option>
                         <option value="price">Price</option>
@@ -99,6 +104,7 @@
                 </div>
             </div>
             <p id="cap-filter-note" class="hidden text-[13px] text-amber-500/80 font-mono">📎 Large/Mid/Small filtering needs one extra file (data/market-cap.csv) — ask your assistant how to add it.</p>
+            <p id="longterm-note" class="hidden text-[13px] text-emerald-400/90 font-mono">🏆 LONG TERM — Fundamentally strong stocks currently oversold (low RSI). These are contrarian long-term buy opportunities. Fundamentals data required — stocks without uploaded XBRL filings won't appear here.</p>
         </div>
 
         <div class="flex-1 overflow-y-auto bg-slate-800 border border-slate-600 rounded-xl p-4 shadow-xl">
@@ -133,12 +139,13 @@
         let priceFilter = 'ALL';
 
         const TAB_PRESETS = {
-            momentum: { key: 'momentum', dir: 'desc' },
-            traded:   { key: 'volume',   dir: 'desc' },
-            bullish:  { key: 'change',   dir: 'desc' },
-            bearish:  { key: 'change',   dir: 'asc'  }
+            momentum:   { key: 'momentum',   dir: 'desc' },
+            traded:     { key: 'volume',     dir: 'desc' },
+            bullish:    { key: 'change',     dir: 'desc' },
+            bearish:    { key: 'change',     dir: 'asc'  },
+            longterm: { key: 'longterm', dir: 'desc' }
         };
-        const DEFAULT_DIR = { momentum: 'desc', volume: 'desc', change: 'desc', price: 'desc', rsi: 'desc', name: 'asc' };
+        const DEFAULT_DIR = { momentum: 'desc', volume: 'desc', change: 'desc', price: 'desc', rsi: 'asc', name: 'asc', longterm: 'desc' };
 
         window.addEventListener('DOMContentLoaded', () => {
             rotateQuote();
@@ -193,6 +200,44 @@
         // ---------------------------------------------------------
         // DATA LOADING
         // ---------------------------------------------------------
+        // Cache bhavcopy data in IndexedDB so it survives page reloads.
+        // Only re-fetches dates that aren't already in the cache.
+        // This dramatically speeds up subsequent loads — typically 5-10 seconds
+        // instead of the full 20-30 seconds of fetching all files fresh.
+        const DB_NAME = 'RBKScreener', DB_VER = 1, STORE = 'bhavcopy';
+
+        function openDB() {
+            return new Promise((res, rej) => {
+                const req = indexedDB.open(DB_NAME, DB_VER);
+                req.onupgradeneeded = e => e.target.result.createObjectStore(STORE, { keyPath: 'date' });
+                req.onsuccess = e => res(e.target.result);
+                req.onerror = () => rej(req.error);
+            });
+        }
+        async function dbGetDates(db) {
+            return new Promise((res, rej) => {
+                const req = db.transaction(STORE).objectStore(STORE).getAllKeys();
+                req.onsuccess = () => res(new Set(req.result));
+                req.onerror = () => rej(req.error);
+            });
+        }
+        async function dbGetAll(db) {
+            return new Promise((res, rej) => {
+                const req = db.transaction(STORE).objectStore(STORE).getAll();
+                req.onsuccess = () => res(req.result);
+                req.onerror = () => rej(req.error);
+            });
+        }
+        async function dbPutMany(db, items) {
+            return new Promise((res, rej) => {
+                const tx = db.transaction(STORE, 'readwrite');
+                const store = tx.objectStore(STORE);
+                items.forEach(item => store.put(item));
+                tx.oncomplete = res;
+                tx.onerror = () => rej(tx.error);
+            });
+        }
+
         async function fetchLiveMarketData() {
             try {
                 setStatus('LOADING DATE INDEX...');
@@ -217,7 +262,7 @@
                     }
                 } catch (e) { /* optional file - fine if missing */ }
 
-                // Optional: manually-curated fundamentals (ROE, D/E, EPS, and optionally PE). Silently skipped if not present.
+                // Optional: fundamentals from XBRL data
                 try {
                     const fundResp = await fetch('data/fundamentals.csv');
                     if (fundResp.ok) {
@@ -228,61 +273,96 @@
                             const sym = (row['Symbol'] || '').trim().toUpperCase();
                             if (!sym) return;
                             fundamentalsMap[sym] = {
-                                pe: num(row['PE']),       // optional - if absent, computed live from EPS + current price
+                                pe: num(row['PE']),
                                 roe: num(row['ROE']),
                                 de: num(row['DebtToEquity']),
                                 eps: num(row['EPS']),
                                 bvps: num(row['BookValuePerShare']),
                                 currentRatio: num(row['CurrentRatio']),
-                                npm: num(row['NetProfitMargin'])
+                                npm: num(row['NetProfitMargin']),
+                                segment: (row['Segment'] || '').trim()
                             };
                         });
                     }
                 } catch (e) { /* optional file - fine if missing */ }
 
+                // --- SMART CACHE: only fetch dates not already stored locally ---
                 historicalData = {};
                 stockNames = {};
-                let completed = 0;
-                const total = availableDates.length;
+                let db = null;
+                let cachedDates = new Set();
+                let cachedEntries = [];
 
-                const fetchPromises = availableDates.map(date =>
-                    fetch(`data/bhavcopy/${date}.csv`)
-                        .then(r => r.ok ? r.text() : null)
-                        .catch(() => null)
-                        .then(text => {
-                            completed++;
-                            setStatus(`LOADING HISTORICAL DATA... ${completed}/${total} SESSIONS`);
-                            return { date, text };
-                        })
-                );
+                try {
+                    db = await openDB();
+                    cachedDates = await dbGetDates(db);
+                    cachedEntries = await dbGetAll(db);
+                    if (cachedEntries.length > 0) {
+                        setStatus(`READING ${cachedEntries.length} CACHED SESSIONS FROM LOCAL STORAGE...`);
+                        // Load what we have from cache first
+                        cachedEntries.forEach(entry => {
+                            if (entry.rows) {
+                                entry.rows.forEach(row => {
+                                    if (!historicalData[row.t]) historicalData[row.t] = [];
+                                    historicalData[row.t].push({ date: entry.date, open: row.o, high: row.h, low: row.l, close: row.c, volume: row.v });
+                                    if (row.n) stockNames[row.t] = row.n;
+                                });
+                            }
+                        });
+                    }
+                } catch (e) { db = null; /* IndexedDB not available — fall back to full fetch */ }
 
-                const results = await Promise.all(fetchPromises);
+                const datesToFetch = availableDates.filter(d => !cachedDates.has(d));
+                const total = datesToFetch.length;
 
-                results.forEach(({ date, text }) => {
-                    if (!text) return;
-                    const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+                if (total === 0) {
+                    setStatus(`USING CACHED DATA (${availableDates.length} SESSIONS) — INSTANT LOAD`);
+                } else {
+                    setStatus(`FETCHING ${total} NEW SESSION${total > 1 ? 'S' : ''} (${cachedDates.size} ALREADY CACHED)...`);
 
-                    parsed.data.forEach(row => {
-                        if (row['SctySrs'] !== 'EQ') return; // mainboard equity only
+                    let completed = 0;
+                    const newEntries = [];
 
-                        const ticker = row['TckrSymb'];
-                        if (!ticker) return;
+                    const fetchPromises = datesToFetch.map(date =>
+                        fetch(`data/bhavcopy/${date}.csv`)
+                            .then(r => r.ok ? r.text() : null)
+                            .catch(() => null)
+                            .then(text => {
+                                completed++;
+                                if (total > 5) setStatus(`LOADING ${completed}/${total} NEW SESSIONS...`);
+                                return { date, text };
+                            })
+                    );
 
-                        const close = parseFloat(row['ClsPric'] || 0);
-                        const open = parseFloat(row['OpnPric'] || 0);
-                        const high = parseFloat(row['HghPric'] || 0);
-                        const low = parseFloat(row['LwPric'] || 0);
-                        const prevClose = parseFloat(row['PrvsClsgPric'] || close);
-                        const volume = parseFloat(row['TtlTradgVol'] || row['TOTTRDQTY'] || row['TotTrdQty'] || 0);
+                    const results = await Promise.all(fetchPromises);
 
-                        if (!close) return;
-
-                        if (!historicalData[ticker]) historicalData[ticker] = [];
-                        historicalData[ticker].push({ date, open, high, low, close, prevClose, volume });
-
-                        if (row['FinInstrmNm']) stockNames[ticker] = row['FinInstrmNm'];
+                    results.forEach(({ date, text }) => {
+                        if (!text) return;
+                        const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+                        const rows = [];
+                        parsed.data.forEach(row => {
+                            if (row['SctySrs'] !== 'EQ') return;
+                            const ticker = row['TckrSymb'];
+                            if (!ticker) return;
+                            const close = parseFloat(row['ClsPric'] || 0);
+                            const open  = parseFloat(row['OpnPric'] || 0);
+                            const high  = parseFloat(row['HghPric'] || 0);
+                            const low   = parseFloat(row['LwPric']  || 0);
+                            const vol   = parseFloat(row['TtlTradgVol'] || row['TOTTRDQTY'] || row['TotTrdQty'] || 0);
+                            if (!close) return;
+                            rows.push({ t: ticker, o: open, h: high, l: low, c: close, v: vol, n: row['FinInstrmNm'] || null });
+                            if (!historicalData[ticker]) historicalData[ticker] = [];
+                            historicalData[ticker].push({ date, open, high, low, close, volume: vol });
+                            if (row['FinInstrmNm']) stockNames[ticker] = row['FinInstrmNm'];
+                        });
+                        newEntries.push({ date, rows });
                     });
-                });
+
+                    // Save new entries to cache for next load
+                    if (db && newEntries.length > 0) {
+                        try { await dbPutMany(db, newEntries); } catch (e) { /* cache save failed — non-fatal */ }
+                    }
+                }
 
                 Object.keys(historicalData).forEach(t => {
                     historicalData[t].sort((a, b) => a.date.localeCompare(b.date));
@@ -305,7 +385,7 @@
                 }
 
                 loadView('momentum');
-                setStatus(`SYSTEM READY: TRACKING ${Object.keys(stockData).length} EQUITIES ACROSS ${availableDates.length} SESSIONS`);
+                setStatus('Navigate the market with confidence');
                 hideLoadingScreen();
 
             } catch (e) {
@@ -691,9 +771,210 @@
             return { score, breakdown };
         }
 
+        // ---------------------------------------------------------
+        // FUNDAMENTAL SCORE (0-100) - computed separately from
+        // the technical momentum score so users can see both.
+        // Only computed when fundamentals.csv has been uploaded.
+        // ---------------------------------------------------------
+        // ---------------------------------------------------------
+        // SECTOR-RELATIVE BENCHMARKS
+        // Different industries have very different "normal" ranges for
+        // P/E, D/E, and margins. A P/E of 15 is expensive for a PSU bank
+        // but cheap for an IT company. Benchmarks are based on well-established
+        // historical ranges for Indian listed companies by sector.
+        // ---------------------------------------------------------
+        const SECTOR_BENCHMARKS = {
+            'Banking & Finance':   { peLow:8,  peHigh:18,  deLow:0, deHigh:15,  npmLow:15, npmHigh:35, roeMin:12, label:'Banking & Finance',   note:'High D/E is normal (loans are leverage). Lower P/E typical.' },
+            'IT & Software':       { peLow:18, peHigh:40,  deLow:0, deHigh:0.3, npmLow:15, npmHigh:30, roeMin:18, label:'IT & Software',        note:'Asset-light, high margins, near-zero debt expected.' },
+            'FMCG & Consumer':     { peLow:25, peHigh:60,  deLow:0, deHigh:0.5, npmLow:8,  npmHigh:20, roeMin:20, label:'FMCG & Consumer',      note:'Premium valuations due to brand value and stability.' },
+            'Pharma & Healthcare': { peLow:15, peHigh:35,  deLow:0, deHigh:0.8, npmLow:8,  npmHigh:22, roeMin:12, label:'Pharma & Healthcare',  note:'R&D intensive, moderate debt, cyclical margins.' },
+            'Automobile':          { peLow:10, peHigh:25,  deLow:0, deHigh:1.5, npmLow:4,  npmHigh:12, roeMin:10, label:'Automobile',           note:'Capital intensive, moderate D/E, thin margins.' },
+            'Infrastructure':      { peLow:10, peHigh:25,  deLow:0, deHigh:3,   npmLow:5,  npmHigh:15, roeMin:8,  label:'Infrastructure',       note:'High debt normal for project financing.' },
+            'Chemicals':           { peLow:15, peHigh:35,  deLow:0, deHigh:1,   npmLow:8,  npmHigh:20, roeMin:12, label:'Chemicals',            note:'Manufacturing-heavy, moderate margins.' },
+            'Metals & Mining':     { peLow:6,  peHigh:18,  deLow:0, deHigh:2,   npmLow:5,  npmHigh:15, roeMin:8,  label:'Metals & Mining',      note:'Cyclical, commodity-dependent, capital heavy.' },
+            'Power & Energy':      { peLow:8,  peHigh:20,  deLow:0, deHigh:3,   npmLow:8,  npmHigh:18, roeMin:8,  label:'Power & Energy',       note:'Regulated returns, high capex, debt-funded.' },
+            'Textiles':            { peLow:8,  peHigh:20,  deLow:0, deHigh:1.5, npmLow:3,  npmHigh:10, roeMin:8,  label:'Textiles',             note:'Low margins, moderate debt, export-dependent.' },
+            'Real Estate':         { peLow:10, peHigh:25,  deLow:0, deHigh:2,   npmLow:10, npmHigh:25, roeMin:8,  label:'Real Estate',          note:'Project-based, lumpy revenues, moderate debt.' },
+            'Telecom':             { peLow:15, peHigh:40,  deLow:0, deHigh:4,   npmLow:5,  npmHigh:20, roeMin:6,  label:'Telecom',              note:'Very capital intensive, high debt normal.' },
+            'General':             { peLow:12, peHigh:30,  deLow:0, deHigh:1.5, npmLow:5,  npmHigh:20, roeMin:10, label:'General Market',       note:'Broad market average — sector not identified.' }
+        };
+
+        function detectSector(segmentDescription) {
+            if (!segmentDescription) return 'General';
+            const s = segmentDescription.toLowerCase();
+            if (/bank|nbfc|financ|lending|insurance|mutual fund|asset manag|brokerage|wealth/.test(s)) return 'Banking & Finance';
+            if (/software|it service|information tech|tech(?!tile)|digital|cloud|data/.test(s))       return 'IT & Software';
+            if (/fmcg|consumer|food|beverage|personal care|household|retail|branded/.test(s))         return 'FMCG & Consumer';
+            if (/pharma|drug|medicine|healthcare|hospital|diagnostic|biotech/.test(s))               return 'Pharma & Healthcare';
+            if (/auto|vehicle|car|truck|two.?wheeler|tractor|ancillar/.test(s))                      return 'Automobile';
+            if (/infra|construction|road|highway|bridge|port|airport|real estate|housing/.test(s))   return 'Infrastructure';
+            if (/chemical|specialty|paint|adhesive|fertilizer|agrochem|pesticide/.test(s))           return 'Chemicals';
+            if (/steel|metal|aluminium|copper|zinc|mining|ore|iron/.test(s))                         return 'Metals & Mining';
+            if (/power|energy|electricity|solar|wind|oil|gas|petroleum|refin/.test(s))               return 'Power & Energy';
+            if (/textile|fabric|garment|apparel|yarn|spinning|weaving/.test(s))                      return 'Textiles';
+            if (/telecom|mobile|broadband|tower|spectrum/.test(s))                                   return 'Telecom';
+            return 'General';
+        }
+
+        function getSectorBenchmarks(segmentDescription) {
+            const sector = detectSector(segmentDescription);
+            return { ...SECTOR_BENCHMARKS[sector], sector };
+        }
+
+        function computeFundamentalsScore(f, currentPrice) {
+            if (!f) return null;
+            let score = 0;
+            const breakdown = [];
+
+            // ROE — measures profitability. Higher is better.
+            if (f.roe !== null) {
+                let pts, note;
+                if (f.roe >= 20)      { pts = 25; note = 'Excellent — company earns over 20% return on shareholders\' money'; }
+                else if (f.roe >= 15) { pts = 20; note = 'Good — above-average profitability'; }
+                else if (f.roe >= 10) { pts = 14; note = 'Moderate — decent but not standout profitability'; }
+                else if (f.roe >= 5)  { pts = 7;  note = 'Weak — low return on equity'; }
+                else                  { pts = 0;  note = 'Very weak or negative — not generating meaningful returns'; }
+                score += pts;
+                breakdown.push({ label: 'Return on Equity (ROE)', value: f.roe + '%', points: pts, max: 25, note });
+            } else {
+                breakdown.push({ label: 'Return on Equity (ROE)', value: 'N/A', points: 0, max: 25, note: 'Not available in filing data' });
+            }
+
+            // Get sector benchmarks for this company
+            const bench = getSectorBenchmarks(f.segment);
+            const sectorNote = `Sector: ${bench.sector} — ${bench.note}`;
+
+            // Debt to Equity — judged relative to what's normal for this sector
+            if (f.de !== null) {
+                let pts, note;
+                const deHigh = bench.deHigh;
+                const deRatio = deHigh > 0 ? f.de / deHigh : f.de;
+                if (deRatio <= 0.2)      { pts = 20; note = `Very low debt for a ${bench.sector} company — financially very strong`; }
+                else if (deRatio <= 0.5) { pts = 15; note = `Comfortable debt level for this sector (${bench.sector})`; }
+                else if (deRatio <= 0.8) { pts = 8;  note = `Moderate debt — within the normal range for ${bench.sector}`; }
+                else if (deRatio <= 1.0) { pts = 3;  note = `High debt for this sector — approaching the upper limit for ${bench.sector}`; }
+                else                     { pts = 0;  note = `Debt exceeds typical ${bench.sector} norms (D/E ${f.de} vs sector max ~${deHigh})`; }
+                score += pts;
+                breakdown.push({ label: 'Debt to Equity Ratio', value: f.de, points: pts, max: 20, note: `${note}. ${bench.sector} typical range: 0–${deHigh}.` });
+            } else {
+                breakdown.push({ label: 'Debt to Equity Ratio', value: 'N/A', points: 0, max: 20, note: 'Not available in filing data' });
+            }
+
+            // Net Profit Margin — judged relative to sector norms
+            if (f.npm !== null) {
+                let pts, note;
+                const npmMid = (bench.npmLow + bench.npmHigh) / 2;
+                if (f.npm >= bench.npmHigh)             { pts = 20; note = `Exceptional margin — well above the typical ${bench.sector} range (${bench.npmLow}–${bench.npmHigh}%)`; }
+                else if (f.npm >= npmMid)               { pts = 15; note = `Strong margin — in the upper half of the ${bench.sector} range`; }
+                else if (f.npm >= bench.npmLow)         { pts = 10; note = `Average margin for ${bench.sector} — in the normal range (${bench.npmLow}–${bench.npmHigh}%)`; }
+                else if (f.npm >= bench.npmLow * 0.5)  { pts = 4;  note = `Below-average margin for ${bench.sector} — watch for cost pressure`; }
+                else                                    { pts = 0;  note = `Significantly below ${bench.sector} norms — profitability is a concern`; }
+                score += pts;
+                breakdown.push({ label: 'Net Profit Margin', value: f.npm + '%', points: pts, max: 20, note });
+            } else {
+                breakdown.push({ label: 'Net Profit Margin', value: 'N/A', points: 0, max: 20, note: 'Not available in filing data' });
+            }
+
+            // Current Ratio — standard across sectors (below 1 is always a concern)
+            if (f.currentRatio !== null) {
+                let pts, note;
+                if (f.currentRatio >= 2)       { pts = 15; note = 'Excellent liquidity — can easily cover short-term obligations'; }
+                else if (f.currentRatio >= 1.5){ pts = 12; note = 'Good liquidity — comfortable buffer'; }
+                else if (f.currentRatio >= 1)  { pts = 7;  note = 'Adequate — just enough to cover obligations'; }
+                else                           { pts = 0;  note = 'Below 1 — may struggle to meet short-term obligations'; }
+                // Banks legitimately have low current ratios — don't penalise them
+                if (bench.sector === 'Banking & Finance' && f.currentRatio < 1) {
+                    pts = 7; note = 'Below 1 is normal for banks/NBFCs — short-term ratios work differently in this sector';
+                }
+                score += pts;
+                breakdown.push({ label: 'Current Ratio (Liquidity)', value: f.currentRatio, points: pts, max: 15, note });
+            } else {
+                breakdown.push({ label: 'Current Ratio (Liquidity)', value: 'N/A', points: 0, max: 15, note: 'Not available in filing data' });
+            }
+
+            // P/E Ratio — judged relative to what's normal for this sector
+            const pe = (currentPrice && f.eps && f.eps > 0) ? currentPrice / f.eps : null;
+            if (pe !== null) {
+                let pts, note;
+                if (pe < bench.peLow * 0.7)       { pts = 20; note = `Trading well below the typical ${bench.sector} P/E range (${bench.peLow}–${bench.peHigh}x) — potentially undervalued`; }
+                else if (pe < bench.peLow)         { pts = 15; note = `Reasonably cheap for a ${bench.sector} company — below the sector average`; }
+                else if (pe <= bench.peHigh)       { pts = 10; note = `Fairly valued — within the normal ${bench.sector} P/E range (${bench.peLow}–${bench.peHigh}x)`; }
+                else if (pe <= bench.peHigh * 1.3) { pts = 4;  note = `Slightly expensive — above the typical ${bench.sector} range`; }
+                else                               { pts = 0;  note = `Richly valued at ${pe.toFixed(0)}x — well above the ${bench.sector} norm of ${bench.peLow}–${bench.peHigh}x`; }
+                score += pts;
+                breakdown.push({ label: 'Price to Earnings (P/E) Ratio', value: `${pe.toFixed(1)}x (live) · Sector range: ${bench.peLow}–${bench.peHigh}x`, points: pts, max: 20, note });
+            } else {
+                breakdown.push({ label: 'Price to Earnings (P/E) Ratio', value: 'N/A', points: 0, max: 20, note: f.eps ? 'N/A (negative EPS)' : 'EPS not available in filing data' });
+            }
+
+            // Always show the detected sector so users can verify it's correct
+            breakdown.push({ label: 'Detected Sector', value: bench.sector, points: null, max: null, note: bench.note + ' (All benchmarks above are relative to this sector.)' });
+
+            score = Math.max(0, Math.min(100, Math.round(score)));
+            return { fundamentalsScore: score, fundamentalsBreakdown: breakdown, sector: bench.sector };
+        }
+
+        // Valuation badge: Undervalued / Neutral / Overvalued
+        // Now sector-aware — compares metrics against what's normal for that industry
+        function getValuationBadge(ticker) {
+            const d = stockData[ticker];
+            const f = fundamentalsMap[ticker];
+            if (!f) return null;
+
+            const bench = getSectorBenchmarks(f.segment);
+            const pe   = (d.price && f.eps && f.eps > 0) ? d.price / f.eps : null;
+            const pb   = (d.price && f.bvps && f.bvps > 0) ? d.price / f.bvps : null;
+
+            let signals = 0, total = 0;
+
+            // P/E signal — relative to sector norms
+            if (pe !== null) {
+                total++;
+                if (pe < bench.peLow * 0.8)      signals += 1;  // clearly cheap for the sector
+                else if (pe > bench.peHigh * 1.2) signals -= 1; // clearly expensive for the sector
+            }
+
+            // Price-to-Book — universal signal (below 1.5 is cheap in any sector)
+            if (pb !== null) {
+                total++;
+                if (pb < 1.5)   signals += 1;
+                else if (pb > 4) signals -= 1;
+            }
+
+            // D/E vs sector norm
+            if (f.de !== null) {
+                total++;
+                if (bench.deHigh > 0) {
+                    const deRatio = f.de / bench.deHigh;
+                    if (deRatio < 0.3)  signals += 1;  // very low debt for the sector
+                    else if (deRatio > 1.0) signals -= 1; // above sector norm
+                }
+            }
+
+            if (total === 0) return null;
+            const ratio = signals / total;
+            if (ratio >= 0.5)  return { label: 'UNDERVALUED', sector: bench.sector, badge: 'bg-emerald-950 text-emerald-300 border-emerald-700' };
+            if (ratio <= -0.5) return { label: 'OVERVALUED',  sector: bench.sector, badge: 'bg-rose-950 text-rose-300 border-rose-700' };
+            return { label: 'NEUTRAL', sector: bench.sector, badge: 'bg-slate-700 text-slate-300 border-slate-500' };
+        }
+
+        function getFundamentalsVerdict(score) {
+            if (score === null) return null;
+            if (score >= 65) return { label: 'STRONG', color: 'text-emerald-400', badge: 'bg-emerald-950 text-emerald-400 border-emerald-800' };
+            if (score >= 40) return { label: 'FAIR',   color: 'text-amber-400',   badge: 'bg-amber-950 text-amber-400 border-amber-800' };
+            return { label: 'WEAK', color: 'text-rose-400', badge: 'bg-rose-950 text-rose-400 border-rose-800' };
+        }
+
+        // Combined score: 70% technical momentum + 30% fundamentals
+        // When no fundamentals available, technical score stands alone.
+        function getCombinedScore(technicalScore, fundamentalsScore) {
+            if (fundamentalsScore === null) return technicalScore;
+            return Math.round(technicalScore * 0.7 + fundamentalsScore * 0.3);
+        }
+
         function getVerdict(score) {
-            if (score >= 65) return { label: 'BUY', text: 'text-emerald-400', badge: 'bg-emerald-950 text-emerald-400 border-emerald-800' };
-            if (score >= 40) return { label: 'HOLD', text: 'text-amber-400', badge: 'bg-amber-950 text-amber-400 border-amber-800' };
+            if (score >= 65) return { label: 'BUY',   text: 'text-emerald-400', badge: 'bg-emerald-950 text-emerald-400 border-emerald-800' };
+            if (score >= 40) return { label: 'HOLD',  text: 'text-amber-400',   badge: 'bg-amber-950 text-amber-400 border-amber-800' };
             return { label: 'AVOID', text: 'text-rose-400', badge: 'bg-rose-950 text-rose-400 border-rose-800' };
         }
 
@@ -754,6 +1035,13 @@
                     pctFrom52High, crossSignal, hasGapUp, hasGapDown
                 });
 
+                // Fundamental score — only computed when this stock has data in fundamentalsMap
+                const fundData = fundamentalsMap[ticker] || null;
+                const fundResult = computeFundamentalsScore(fundData, latest.close);
+                const fundamentalsScore = fundResult ? fundResult.fundamentalsScore : null;
+                const fundamentalsBreakdown = fundResult ? fundResult.fundamentalsBreakdown : null;
+                const combinedScore = getCombinedScore(score, fundamentalsScore);
+
                 stockData[ticker] = {
                     symbol: ticker,
                     name: stockNames[ticker] || ticker,
@@ -770,6 +1058,9 @@
                     patterns,
                     momentumScore: score,
                     breakdown,
+                    fundamentalsScore,
+                    fundamentalsBreakdown,
+                    combinedScore,
                     capCategory: marketCapMap[ticker] || null,
                     sessionsTracked: hist.length
                 };
@@ -951,6 +1242,9 @@
             sortKey = preset.key;
             sortDir = preset.dir;
             syncSortControlsUI();
+            // Show/hide Long Term explanation note
+            const qdNote = document.getElementById('longterm-note');
+            if (qdNote) qdNote.classList.toggle('hidden', tab !== 'longterm');
             renderList();
         };
 
@@ -987,7 +1281,7 @@
             const [descLabel, ascLabel] = labels[sortKey] || ['High to Low', 'Low to High'];
             dirBtn.textContent = sortDir === 'desc' ? `↓ ${descLabel}` : `↑ ${ascLabel}`;
 
-            const allTabs = ['momentum', 'traded', 'bullish', 'bearish'];
+            const allTabs = ['momentum', 'traded', 'bullish', 'bearish', 'longterm'];
             allTabs.forEach(v => {
                 const btn = document.getElementById(`btn-view-${v}`);
                 if (btn) {
@@ -998,15 +1292,77 @@
             });
         }
 
+        // Long Term Score: A comprehensive ranking for long-term investing.
+        // Strategy: Find fundamentally strong companies at a reasonable/attractive entry point.
+        // Different from Momentum (which chases rising stocks) — this looks for quality at a dip.
+        // Factors: ROE quality, debt safety, profit margin, entry point (RSI/price), valuation vs sector.
+        function calcLongTermScore(ticker) {
+            const d = stockData[ticker];
+            if (!d) return -Infinity;
+            const f = fundamentalsMap[ticker];
+            if (!f) return -Infinity; // needs fundamentals to be meaningful
+
+            const bench = getSectorBenchmarks(f.segment);
+            let score = 0;
+
+            // Factor 1: ROE — is this a genuinely profitable business? (0-30 pts)
+            if (f.roe !== null) {
+                if (f.roe >= bench.roeMin * 1.5) score += 30;       // well above sector norm
+                else if (f.roe >= bench.roeMin)  score += 22;       // meets sector standard
+                else if (f.roe >= bench.roeMin * 0.7) score += 12;  // slightly below
+                else score += 0;
+            }
+
+            // Factor 2: Debt safety — can the company survive a downturn? (0-20 pts)
+            if (f.de !== null) {
+                const deRatio = bench.deHigh > 0 ? f.de / bench.deHigh : f.de;
+                if (deRatio <= 0.25)      score += 20;
+                else if (deRatio <= 0.5)  score += 15;
+                else if (deRatio <= 0.75) score += 8;
+                else if (deRatio <= 1.0)  score += 3;
+            }
+
+            // Factor 3: Profit margin — quality of earnings (0-15 pts)
+            if (f.npm !== null) {
+                const npmMid = (bench.npmLow + bench.npmHigh) / 2;
+                if (f.npm >= bench.npmHigh)    score += 15;
+                else if (f.npm >= npmMid)      score += 10;
+                else if (f.npm >= bench.npmLow) score += 5;
+            }
+
+            // Factor 4: Entry point — is this a good time to buy? (0-20 pts)
+            // Low RSI means the stock is oversold = better entry. Low pctFrom52High = room to recover.
+            if (d.rsi14 !== null) {
+                if (d.rsi14 < 30)       score += 20; // heavily oversold — best entry
+                else if (d.rsi14 < 40)  score += 15; // oversold
+                else if (d.rsi14 < 50)  score += 8;  // neutral/dipping
+                else if (d.rsi14 < 60)  score += 3;  // fair entry, not ideal
+                // RSI 60+ = stock is already running, not ideal for long-term entry
+            }
+
+            // Factor 5: Valuation vs sector — is it cheap or expensive? (0-15 pts)
+            const pe = (d.price && f.eps && f.eps > 0) ? d.price / f.eps : null;
+            if (pe !== null) {
+                if (pe < bench.peLow * 0.8)      score += 15; // well below sector norm = bargain
+                else if (pe < bench.peLow)        score += 10; // below sector norm
+                else if (pe <= bench.peHigh)      score += 5;  // fairly valued
+                else if (pe <= bench.peHigh * 1.3) score += 1; // slightly expensive
+                // Above 1.3x sector high P/E = overvalued, no points
+            }
+
+            return Math.min(100, Math.round(score));
+        }
+
         function getSortValue(ticker, key) {
             const d = stockData[ticker];
             switch (key) {
-                case 'momentum': return d.momentumScore;
-                case 'volume': return d.volume;
-                case 'change': return d.change;
-                case 'price': return d.price;
-                case 'rsi': return d.rsi14 === null ? -Infinity : d.rsi14;
-                case 'name': return d.name || '';
+                case 'momentum':   return d.combinedScore;
+                case 'volume':     return d.volume;
+                case 'change':     return d.change;
+                case 'price':      return d.price;
+                case 'rsi':        return d.rsi14 === null ? -Infinity : d.rsi14;
+                case 'name':       return d.name || '';
+                case 'longterm': return calcLongTermScore(ticker);
                 default: return 0;
             }
         }
@@ -1034,6 +1390,10 @@
 
             if (capFilter !== 'ALL') keys = keys.filter(k => stockData[k].capCategory === capFilter);
             if (priceFilter !== 'ALL') keys = keys.filter(k => matchesPriceFilter(stockData[k].price));
+            // Long Term: only show stocks with fundamentals uploaded AND RSI below 50
+            if (activeTab === 'longterm') {
+                keys = keys.filter(k => fundamentalsMap[k] && stockData[k].rsi14 !== null && stockData[k].rsi14 < 50);
+            }
             if (searchVal) keys = keys.filter(k => k.includes(searchVal) || (stockData[k].name || '').toUpperCase().includes(searchVal));
 
             keys.sort((a, b) => {
@@ -1051,7 +1411,7 @@
                 const data = stockData[ticker];
                 const changeColor = data.change >= 0 ? "text-emerald-500" : "text-rose-500";
                 const changeSign = data.change >= 0 ? "+" : "";
-                const verdict = getVerdict(data.momentumScore);
+                const verdict = getVerdict(data.combinedScore);
 
                 let volDisplay = data.volume > 1000000 ? (data.volume / 1000000).toFixed(1) + 'M Vol' : (data.volume / 1000).toFixed(0) + 'K Vol';
                 if (data.volume === 0) volDisplay = '';
@@ -1068,7 +1428,10 @@
                         <div class="min-w-0">
                             <div class="text-lg font-bold text-white group-hover:text-sky-400 transition-colors truncate" title="${data.name}">${data.name}</div>
                             <div class="text-base text-slate-300 font-bold tracking-wide">${ticker}</div>
-                            <div class="text-[13px] font-bold mt-1.5 inline-block px-1.5 py-0.5 rounded border ${verdict.badge}">${verdict.label} · ${data.momentumScore}</div>
+                            <div class="flex flex-wrap gap-1 mt-1.5">
+                                <div class="text-[13px] font-bold inline-block px-1.5 py-0.5 rounded border ${verdict.badge}">${verdict.label} · ${data.combinedScore}</div>
+                                ${(() => { const vb = getValuationBadge(ticker); return vb ? `<div class="text-[11px] font-bold inline-block px-1.5 py-0.5 rounded border ${vb.badge}" title="${vb.sector} sector benchmarks used">${vb.label}</div>` : ''; })()}
+                            </div>
                         </div>
                         <div class="text-sm ${changeColor} font-bold bg-slate-800 px-2 py-1 rounded border border-slate-500 shrink-0">
                             ${changeSign}${data.change.toFixed(2)}%
@@ -1098,7 +1461,7 @@
             chartRange = '3M';
 
             const cleanTicker = ticker.split('.')[0].replace(/\s+/g, '').toUpperCase();
-            const verdict = getVerdict(data.momentumScore);
+            const verdict = getVerdict(data.combinedScore);
             const fmt = (v, suffix = '%') => v === null || v === undefined ? 'N/A' : v.toFixed(2) + suffix;
 
             overlay.innerHTML = `
@@ -1113,24 +1476,86 @@
                     </div>
                     
                     <div class="flex-1 flex flex-col lg:grid lg:grid-cols-3 overflow-y-auto lg:overflow-hidden">
-                        <div id="chart-wrapper" class="lg:col-span-2 p-4 flex flex-col h-[240px] lg:h-full shrink-0 border-r border-slate-500 bg-slate-900">
-                            <div class="flex items-center gap-2 mb-2 shrink-0 flex-wrap">
-                                <button id="btn-chart-candle" onclick="setChartType('candle')" class="px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-700 text-slate-300 border border-transparent hover:text-white">🕯️ Candles</button>
-                                <button id="btn-chart-line" onclick="setChartType('line')" class="px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-600 text-slate-50 border border-slate-400">📈 Line</button>
-                                <button id="btn-chart-pivot" onclick="togglePivotPoints()" class="px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-700 text-slate-300 border border-transparent hover:text-white">🎯 Pivot Points</button>
-                                <button id="btn-chart-fullscreen" onclick="toggleChartFullscreen()" class="px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-700 text-slate-300 border border-transparent hover:text-white ml-auto">⛶ Expand</button>
+                        <div id="chart-wrapper" class="lg:col-span-2 p-3 flex flex-col h-[260px] lg:h-full shrink-0 border-r border-slate-500 bg-slate-900">
+
+                            <!-- TOP TOOLBAR -->
+                            <div class="flex items-center gap-2 mb-2 shrink-0">
+
+                                <!-- Chart type -->
+                                <div class="flex bg-slate-800 rounded-lg border border-slate-600 overflow-hidden">
+                                    <button id="btn-chart-line" onclick="setChartType('line')" class="px-3 py-1.5 text-[12px] font-bold bg-sky-900 text-sky-300 border-r border-slate-600">📈 Line</button>
+                                    <button id="btn-chart-candle" onclick="setChartType('candle')" class="px-3 py-1.5 text-[12px] font-bold text-slate-400 hover:text-white">🕯 Candle</button>
+                                </div>
+
+                                <!-- Range pills -->
+                                <div class="flex bg-slate-800 rounded-lg border border-slate-600 overflow-hidden">
+                                    ${['1W','1M','3M','All'].map(r => `<button id="btn-range-${r}" onclick="setChartRange('${r}')" class="px-2.5 py-1.5 text-[11px] font-bold ${r==='3M'?'bg-sky-900 text-sky-300':'text-slate-400 hover:text-white'} border-r border-slate-600 last:border-0">${r}</button>`).join('')}
+                                </div>
+
+                                <!-- Overlays toggle -->
+                                <button id="btn-overlays" onclick="toggleOverlaysPanel()" class="px-3 py-1.5 rounded-lg text-[12px] font-bold bg-slate-800 border border-slate-600 text-slate-300 hover:text-white flex items-center gap-1">
+                                    ☰ Overlays
+                                </button>
+
+                                <!-- Fullscreen -->
+                                <button id="btn-chart-fullscreen" onclick="toggleChartFullscreen()" class="ml-auto px-2.5 py-1.5 rounded-lg text-[12px] font-bold bg-slate-800 border border-slate-600 text-slate-400 hover:text-white">⛶</button>
                             </div>
-                            <div class="flex items-center gap-1.5 mb-2 shrink-0 flex-wrap">
-                                <span class="text-[11px] text-slate-400 font-mono">Range:</span>
-                                ${['1W','2W','1M','2M','3M','All'].map((r,i) => `<button id="btn-range-${r}" onclick="setChartRange('${r}')" class="px-2 py-1 rounded text-[11px] font-mono font-bold ${r==='3M'?'bg-slate-600 text-slate-50 border border-slate-400':'bg-slate-700 text-slate-300 border border-transparent hover:text-white'}">${r}</button>`).join('')}
+
+                            <!-- OVERLAYS PANEL (hidden by default) -->
+                            <div id="overlays-panel" class="hidden mb-2 bg-slate-800 border border-slate-600 rounded-xl p-3 shrink-0">
+                                <div class="text-[11px] text-slate-400 font-bold uppercase mb-2">Toggle overlays on the chart</div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="ov-sma20" onchange="rerenderChart()" class="accent-amber-400 w-4 h-4">
+                                        <span class="text-[12px] text-amber-400 font-bold">━ SMA 20</span>
+                                        <span class="text-[11px] text-slate-500">Short trend</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="ov-sma50" onchange="rerenderChart()" class="accent-purple-400 w-4 h-4">
+                                        <span class="text-[12px] text-purple-400 font-bold">━ SMA 50</span>
+                                        <span class="text-[11px] text-slate-500">Medium trend</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="ov-zones" onchange="rerenderChart()" class="accent-blue-500 w-4 h-4">
+                                        <span class="text-[12px] font-bold" style="color:#3b82f6">▓ Buy Zones</span>
+                                        <span class="text-[11px] text-slate-500">Support bands (blue)</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="ov-sellzones" onchange="rerenderChart()" class="accent-orange-500 w-4 h-4">
+                                        <span class="text-[12px] font-bold" style="color:#f97316">▓ Sell Zones</span>
+                                        <span class="text-[11px] text-slate-500">Resistance bands (orange)</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="ov-pivot" onchange="rerenderChart()" class="accent-sky-400 w-4 h-4">
+                                        <span class="text-[12px] text-sky-400 font-bold">─ Pivot</span>
+                                        <span class="text-[11px] text-slate-500">Daily levels</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="ov-volume" onchange="rerenderChart()" checked class="accent-slate-400 w-4 h-4">
+                                        <span class="text-[12px] text-slate-300 font-bold">▐ Volume</span>
+                                        <span class="text-[11px] text-slate-500">Bar chart</span>
+                                    </label>
+                                </div>
+
+                                <!-- Zone legend -->
+                                <div id="zones-legend" class="hidden mt-3 pt-3 border-t border-slate-600">
+                                    <div class="text-[11px] text-slate-400 font-bold mb-1.5">ZONE LEGEND (color-blind safe)</div>
+                                    <div class="flex flex-col gap-1.5">
+                                        <div class="flex items-center gap-2"><div class="w-10 h-4 rounded" style="background:rgba(37,99,235,0.4);border:1.5px solid rgba(59,130,246,0.9)"></div><span class="text-[11px]" style="color:#3b82f6">Buy Zone (blue) — historical support, buyers typically step in here</span></div>
+                                        <div class="flex items-center gap-2"><div class="w-10 h-4 rounded" style="background:rgba(234,88,12,0.4);border:1.5px solid rgba(249,115,22,0.9)"></div><span class="text-[11px]" style="color:#f97316">Sell Zone (orange) — historical resistance, sellers typically appear here</span></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div id="own-chart-container" class="flex-1 w-full bg-slate-700/20 rounded-xl overflow-hidden border border-slate-500/80"></div>
-                            <div class="text-[12px] text-slate-400 font-mono mt-2 flex flex-col sm:flex-row sm:justify-between gap-1">
-                                <span>Source: NSE Bhavcopy · ${data.sessionsTracked} sessions of real price history</span>
-                                <span>Charting: TradingView Lightweight Charts (open-source)</span>
+
+                            <!-- CHART CANVAS -->
+                            <div id="own-chart-container" class="flex-1 w-full rounded-xl overflow-hidden border border-slate-600/50"></div>
+
+                            <div class="text-[11px] text-slate-500 mt-1.5 flex justify-between">
+                                <span>NSE Bhavcopy · ${data.sessionsTracked} sessions</span>
+                                <span id="chart-zone-summary"></span>
                             </div>
                         </div>
-                        
+
                         <div id="info-panel" class="p-4 flex flex-col lg:h-full lg:overflow-hidden bg-slate-800">
                             <div class="grid grid-cols-5 gap-1 mb-4 shrink-0">
                                 <button id="btn-tab-momentum" onclick="toggleWorkspaceTab('momentum', '${cleanTicker}')" class="py-2 px-1 rounded-lg text-center text-[11px] font-bold uppercase tracking-wide border-2 border-sky-500 bg-sky-950 text-sky-400 transition-all cursor-pointer">🚀<br>Score</button>
@@ -1143,11 +1568,17 @@
                             <div id="panel-tab-momentum" class="flex-1 flex flex-col overflow-y-auto pr-1">
                                 <div class="bg-slate-700/60 p-4 rounded-lg border border-slate-500 mb-3">
                                     <div class="flex justify-between items-center mb-1">
-                                        <span class="text-slate-300 uppercase text-[13px]">Momentum Score</span>
+                                        <span class="text-slate-300 uppercase text-[13px]">${data.fundamentalsScore !== null ? 'Score' : 'Score'}</span>
                                         <span class="text-[13px] font-bold ${verdict.text}">${verdict.label}</span>
                                     </div>
-                                    <div class="text-3xl font-bold ${verdict.text}">${data.momentumScore} / 100</div>
-                                    <div class="text-[12px] text-slate-400 mt-1">Rule-based signal from price data only — not financial advice.</div>
+                                    <div class="text-3xl font-bold ${verdict.text}">${data.combinedScore} / 100</div>
+                                    ${data.fundamentalsScore !== null ? `
+                                    <div class="flex gap-3 mt-2">
+                                        <div class="text-[12px] text-slate-300">📈 Technical: <span class="font-bold text-white">${data.momentumScore}</span></div>
+                                        <div class="text-[12px] text-slate-300">🏦 Fundamental: <span class="font-bold text-white">${data.fundamentalsScore}</span> <span class="text-[10px] text-slate-500">(${getFundamentalsVerdict(data.fundamentalsScore) ? getFundamentalsVerdict(data.fundamentalsScore).label : ''})</span></div>
+                                    </div>
+                                    <div class="text-[11px] text-slate-500 mt-1">Combined = 70% technical + 30% fundamental</div>
+                                    ` : `<div class="text-[12px] text-slate-400 mt-1">Technical signals only — upload XBRL Excel to <code class="text-slate-300">docs/data/xbrl/</code> to include fundamentals in the score.</div>`}
                                 </div>
 
                                 <div class="grid grid-cols-2 gap-2 mb-3">
@@ -1230,45 +1661,89 @@
                                     if (!f) {
                                         return `<div class="flex-1 flex flex-col items-center justify-center text-center p-6">
                                             <div class="text-3xl mb-2">📋</div>
-                                            <div class="text-base text-slate-200 font-mono">No fundamentals entered for ${cleanTicker} yet.</div>
-                                            <div class="text-[13px] text-slate-400 font-mono mt-2">Convert its NSE XBRL filing to Excel and add it with the Fundamentals Converter tool.</div>
+                                            <div class="text-base font-bold text-slate-200">No fundamentals yet for ${cleanTicker}</div>
+                                            <div class="text-sm text-slate-400 mt-2 leading-relaxed">Upload the XBRL Excel for this company to <code class="text-slate-300 bg-slate-700 px-1 rounded">docs/data/xbrl/${cleanTicker}.xlsx</code> in Git. The GitHub Action will auto-generate the fundamentals.csv from it.</div>
                                         </div>`;
                                     }
-                                    // PE computed live from current price if not explicitly stored - stays accurate as price moves
-                                    const livePE = (f.pe !== null) ? f.pe : (f.eps !== null && f.eps > 0 ? data.price / f.eps : null);
-                                    const peNote = livePE !== null ? (livePE < 15 ? 'Relatively cheap' : livePE > 40 ? 'Richly valued' : 'Moderate valuation') : '';
-                                    const roeNote = f.roe !== null ? (f.roe > 15 ? 'Strong profitability' : f.roe < 8 ? 'Weak profitability' : 'Average profitability') : '';
-                                    const deNote = f.de !== null ? (f.de < 0.5 ? 'Low debt' : f.de > 1.5 ? 'High debt load' : 'Moderate debt') : '';
+                                    const fundResult = computeFundamentalsScore(f, data.price);
+                                    const fVerdict = getFundamentalsVerdict(fundResult ? fundResult.fundamentalsScore : null);
+                                    const livePE = f.eps && f.eps > 0 ? (data.price / f.eps).toFixed(1) : 'N/A';
                                     return `
-                                        <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500 text-sm mb-3 flex justify-between items-center">
-                                            <span class="text-slate-300 uppercase">P/E Ratio</span>
-                                            <span class="text-right"><span class="text-white font-bold">${livePE !== null ? livePE.toFixed(1) : 'N/A'}</span>${livePE !== null ? `<div class="text-[12px] text-slate-400">${peNote}${f.pe === null ? ' · live' : ''}</div>` : ''}</span>
+                                        <div class="bg-slate-700/60 p-4 rounded-lg border border-slate-500 mb-3">
+                                            <div class="flex justify-between items-center mb-1">
+                                                <span class="text-slate-300 uppercase text-[13px]">Fundamental Score</span>
+                                                <span class="text-[13px] font-bold ${fVerdict ? fVerdict.color : ''}">${fVerdict ? fVerdict.label : 'N/A'}</span>
+                                            </div>
+                                            <div class="text-3xl font-bold ${fVerdict ? fVerdict.color : 'text-slate-400'}">${fundResult ? fundResult.fundamentalsScore : 'N/A'} / 100</div>
+                                            <div class="text-[11px] text-slate-500 mt-1">From annual filing · ROE, D/E, Net Margin, Liquidity, P/E (live)</div>
                                         </div>
-                                        <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500 text-sm mb-3 flex justify-between items-center">
-                                            <span class="text-slate-300 uppercase">ROE</span>
-                                            <span class="text-right"><span class="text-white font-bold">${f.roe !== null ? f.roe + '%' : 'N/A'}</span>${f.roe !== null ? `<div class="text-[12px] text-slate-400">${roeNote}</div>` : ''}</span>
+
+                                        <div class="grid grid-cols-2 gap-2 mb-3">
+                                            <div class="bg-slate-700/50 p-3 rounded-lg border border-slate-500">
+                                                <div class="text-slate-300 text-[11px] mb-0.5">ROE</div>
+                                                <div class="text-white font-bold text-base">${f.roe !== null ? f.roe + '%' : 'N/A'}</div>
+                                            </div>
+                                            <div class="bg-slate-700/50 p-3 rounded-lg border border-slate-500">
+                                                <div class="text-slate-300 text-[11px] mb-0.5">Debt / Equity</div>
+                                                <div class="text-white font-bold text-base">${f.de !== null ? f.de : 'N/A'}</div>
+                                            </div>
+                                            <div class="bg-slate-700/50 p-3 rounded-lg border border-slate-500">
+                                                <div class="text-slate-300 text-[11px] mb-0.5">EPS</div>
+                                                <div class="text-white font-bold text-base">${f.eps !== null ? '₹' + f.eps : 'N/A'}</div>
+                                            </div>
+                                            <div class="bg-slate-700/50 p-3 rounded-lg border border-slate-500">
+                                                <div class="text-slate-300 text-[11px] mb-0.5">P/E (Live)</div>
+                                                <div class="text-white font-bold text-base">${livePE}x</div>
+                                            </div>
+                                            <div class="bg-slate-700/50 p-3 rounded-lg border border-slate-500">
+                                                <div class="text-slate-300 text-[11px] mb-0.5">Book Value/Share</div>
+                                                <div class="text-white font-bold text-base">${f.bvps !== null && f.bvps !== undefined ? '₹' + f.bvps : 'N/A'}</div>
+                                            </div>
+                                            <div class="bg-slate-700/50 p-3 rounded-lg border border-slate-500">
+                                                <div class="text-slate-300 text-[11px] mb-0.5">Net Profit Margin</div>
+                                                <div class="text-white font-bold text-base">${f.npm !== null && f.npm !== undefined ? f.npm + '%' : 'N/A'}</div>
+                                            </div>
+                                            <div class="bg-slate-700/50 p-3 rounded-lg border border-slate-500 col-span-2">
+                                                <div class="text-slate-300 text-[11px] mb-0.5">Current Ratio (Liquidity)</div>
+                                                <div class="text-white font-bold text-base">${f.currentRatio !== null && f.currentRatio !== undefined ? f.currentRatio : 'N/A'}</div>
+                                            </div>
                                         </div>
-                                        <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500 text-sm mb-3 flex justify-between items-center">
-                                            <span class="text-slate-300 uppercase">Debt / Equity</span>
-                                            <span class="text-right"><span class="text-white font-bold">${f.de !== null ? f.de : 'N/A'}</span>${f.de !== null ? `<div class="text-[12px] text-slate-400">${deNote}</div>` : ''}</span>
+
+                                        <button onclick="toggleFundaBreakdown()" id="funda-breakdown-btn" class="w-full bg-slate-700/60 hover:bg-slate-600 p-3 rounded-lg border border-slate-500 text-sm flex justify-between items-center transition-colors">
+                                            <span class="text-slate-200 font-bold">📋 View Score Breakdown</span>
+                                            <span id="funda-breakdown-arrow" class="text-slate-400">▾</span>
+                                        </button>
+                                        <div id="funda-breakdown-panel" class="hidden mt-2">
+                                            <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500">
+                                                <div class="space-y-3">
+                                                ${(fundResult ? fundResult.fundamentalsBreakdown : []).map(b => b.points === null ? `
+                                                    <div class="bg-slate-800/80 rounded-lg p-2 border border-slate-600/50">
+                                                        <div class="text-[11px] text-slate-400 uppercase font-bold mb-0.5">${b.label}</div>
+                                                        <div class="text-[13px] text-sky-400 font-bold">${b.value}</div>
+                                                        <div class="text-[11px] text-slate-500">${b.note}</div>
+                                                    </div>
+                                                ` : `
+                                                    <div>
+                                                        <div class="flex items-center justify-between mb-1">
+                                                            <span class="text-slate-200 text-[13px] font-bold">${b.label}</span>
+                                                            <span class="text-white text-[13px] font-bold">${b.points}/${b.max} pts</span>
+                                                        </div>
+                                                        <div class="w-full bg-slate-600 rounded-full h-1.5 mb-1.5 overflow-hidden">
+                                                            <div class="h-1.5 rounded-full ${b.points > 0 ? 'bg-emerald-500' : 'bg-slate-500'}" style="width:${Math.round(b.points/b.max*100)}%"></div>
+                                                        </div>
+                                                        <div class="text-[12px] text-slate-400">
+                                                            <span class="text-slate-200 font-bold">${b.value}</span> — ${b.note}
+                                                        </div>
+                                                    </div>
+                                                `).join('')}
+                                                </div>
+                                                <div class="border-t border-slate-500 mt-3 pt-3 flex justify-between items-center">
+                                                    <span class="text-slate-300 text-[13px] font-bold uppercase">Total</span>
+                                                    <span class="${fVerdict ? fVerdict.color : 'text-slate-300'} text-base font-bold">${fundResult ? fundResult.fundamentalsScore : 'N/A'} / 100 · ${fVerdict ? fVerdict.label : 'N/A'}</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500 text-sm mb-3 flex justify-between">
-                                            <span class="text-slate-300 uppercase">EPS</span>
-                                            <span class="text-white font-bold">${f.eps !== null ? '₹' + f.eps : 'N/A'}</span>
-                                        </div>
-                                        <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500 text-sm mb-3 flex justify-between">
-                                            <span class="text-slate-300 uppercase">Book Value / Share</span>
-                                            <span class="text-white font-bold">${f.bvps !== null && f.bvps !== undefined ? '₹' + f.bvps : 'N/A'}</span>
-                                        </div>
-                                        <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500 text-sm mb-3 flex justify-between items-center">
-                                            <span class="text-slate-300 uppercase">Current Ratio</span>
-                                            <span class="text-right"><span class="text-white font-bold">${f.currentRatio !== null && f.currentRatio !== undefined ? f.currentRatio : 'N/A'}</span>${f.currentRatio ? `<div class="text-[12px] text-slate-400">${f.currentRatio >= 1 ? 'Can cover short-term obligations' : 'May struggle with short-term obligations'}</div>` : ''}</span>
-                                        </div>
-                                        <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500 text-sm mb-3 flex justify-between">
-                                            <span class="text-slate-300 uppercase">Net Profit Margin</span>
-                                            <span class="text-white font-bold">${f.npm !== null && f.npm !== undefined ? f.npm + '%' : 'N/A'}</span>
-                                        </div>
-                                        <div class="text-[12px] text-slate-400 font-mono mt-2">From NSE's own filings (via XBRL) · P/E marked "live" is calculated from today's price, not stored.</div>
+                                        <div class="text-[11px] text-slate-500 mt-3">Source: NSE XBRL annual filing · P/E calculated live from current price and annual EPS</div>
                                     `;
                                 })()}
                             </div>
@@ -1318,45 +1793,52 @@
         // Chart state - remembers the user's chosen view across stock switches
         window.setChartType = function(type) {
             chartType = type;
-            document.getElementById('btn-chart-candle').className = type === 'candle'
-                ? "px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-600 text-slate-50 border border-slate-400"
-                : "px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-700 text-slate-300 border border-transparent hover:text-white";
-            document.getElementById('btn-chart-line').className = type === 'line'
-                ? "px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-600 text-slate-50 border border-slate-400"
-                : "px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-700 text-slate-300 border border-transparent hover:text-white";
+            const activeClass   = 'px-3 py-1.5 text-[12px] font-bold bg-sky-900 text-sky-300 border-r border-slate-600';
+            const inactiveClass = 'px-3 py-1.5 text-[12px] font-bold text-slate-400 hover:text-white border-r border-slate-600 last:border-0';
+            const candleBtn = document.getElementById('btn-chart-candle');
+            const lineBtn   = document.getElementById('btn-chart-line');
+            if (candleBtn) candleBtn.className = type === 'candle' ? activeClass : inactiveClass;
+            if (lineBtn)   lineBtn.className   = type === 'line'   ? activeClass : inactiveClass;
             if (currentChartTicker) renderPriceChart(currentChartTicker);
         };
 
-        window.togglePivotPoints = function() {
-            showPivotPoints = !showPivotPoints;
-            const btn = document.getElementById('btn-chart-pivot');
-            btn.className = showPivotPoints
-                ? "px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-sky-950 text-sky-400 border border-sky-800"
-                : "px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-700 text-slate-300 border border-transparent hover:text-white";
+        window.toggleOverlaysPanel = function() {
+            const panel = document.getElementById('overlays-panel');
+            const btn   = document.getElementById('btn-overlays');
+            if (!panel) return;
+            const isOpen = !panel.classList.contains('hidden');
+            panel.classList.toggle('hidden');
+            if (btn) btn.className = isOpen
+                ? 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-slate-800 border border-slate-600 text-slate-300 hover:text-white flex items-center gap-1'
+                : 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-sky-900 border border-sky-700 text-sky-300 flex items-center gap-1';
+        };
+
+        window.rerenderChart = function() {
+            // Show/hide zone legend based on whether zones are checked
+            const showZones = document.getElementById('ov-zones')?.checked || document.getElementById('ov-sellzones')?.checked;
+            const legend    = document.getElementById('zones-legend');
+            if (legend) legend.classList.toggle('hidden', !showZones);
             if (currentChartTicker) renderPriceChart(currentChartTicker);
         };
 
-        // Expands the chart to fill the workspace, using the browser's real Fullscreen API
-        // so we can also attempt to lock the screen into landscape (works on most Android
-        // browsers; iOS Safari doesn't support orientation locking from the web, so on iPhone
-        // this still gives a bigger view but won't force-rotate - you can rotate manually there).
         window.setChartRange = function(range) {
             chartRange = range;
-            const ranges = ['1W','2W','1M','2M','3M','All'];
+            const ranges = ['1W','1M','3M','All'];
             ranges.forEach(r => {
                 const btn = document.getElementById(`btn-range-${r}`);
                 if (!btn) return;
                 btn.className = r === range
-                    ? 'px-2 py-1 rounded text-[11px] font-mono font-bold bg-slate-600 text-slate-50 border border-slate-400'
-                    : 'px-2 py-1 rounded text-[11px] font-mono font-bold bg-slate-700 text-slate-300 border border-transparent hover:text-white';
+                    ? 'px-2.5 py-1.5 text-[11px] font-bold bg-sky-900 text-sky-300 border-r border-slate-600 last:border-0'
+                    : 'px-2.5 py-1.5 text-[11px] font-bold text-slate-400 hover:text-white border-r border-slate-600 last:border-0';
             });
             if (currentChartTicker) renderPriceChart(currentChartTicker);
         };
 
+        // Expands the chart to fill the workspace, using the browser's real Fullscreen API
         window.toggleChartFullscreen = async function() {
-            const wrapper = document.getElementById('chart-wrapper');
+            const wrapper   = document.getElementById('chart-wrapper');
             const infoPanel = document.getElementById('info-panel');
-            const btn = document.getElementById('btn-chart-fullscreen');
+            const btn       = document.getElementById('btn-chart-fullscreen');
 
             if (!document.fullscreenElement) {
                 try {
@@ -1413,6 +1895,59 @@
         // Draws a chart using our own NSE bhavcopy history (not TradingView's live feed).
         // This is the free, open-source "Lightweight Charts" library from TradingView -
         // it just draws whatever data we give it, no exchange/license restrictions.
+        // Helper: read overlay checkbox states with sensible defaults if UI not present
+        function getOverlayStates() {
+            const get = (id, def = false) => {
+                const el = document.getElementById(id);
+                return el ? el.checked : def;
+            };
+            return {
+                sma20:  get('ov-sma20',  false),
+                sma50:  get('ov-sma50',  false),
+                buyZones:  get('ov-zones',    false),
+                sellZones: get('ov-sellzones',false),
+                pivot:  get('ov-pivot',  false),
+                volume: get('ov-volume', true)
+            };
+        }
+
+        // Detect swing highs and lows over the visible window and cluster nearby prices
+        // into zones (bands with an upper and lower edge — not just a single price line).
+        function findZones(hist) {
+            const highs = [], lows = [];
+            for (let i = 3; i < hist.length - 3; i++) {
+                const h = hist[i].high, l = hist[i].low;
+                if (h > hist[i-1].high && h > hist[i-2].high && h > hist[i+1].high && h > hist[i+2].high) highs.push(h);
+                if (l < hist[i-1].low  && l < hist[i-2].low  && l < hist[i+1].low  && l < hist[i+2].low)  lows.push(l);
+            }
+            // Cluster nearby values (within 1.5% of each other) into zones
+            const cluster = (values, isHigh) => {
+                if (values.length === 0) return [];
+                values.sort((a,b) => a - b);
+                const zones = [];
+                let current = [values[0]];
+                for (let i = 1; i < values.length; i++) {
+                    if (values[i] / current[current.length-1] - 1 < 0.015) {
+                        current.push(values[i]);
+                    } else {
+                        zones.push({ min: Math.min(...current), max: Math.max(...current), count: current.length });
+                        current = [values[i]];
+                    }
+                }
+                zones.push({ min: Math.min(...current), max: Math.max(...current), count: current.length });
+                // Give band a minimum thickness of ~0.75% of price so it renders visibly
+                zones.forEach(z => {
+                    const mid = (z.min + z.max) / 2;
+                    const halfBand = mid * 0.0075;
+                    if (z.max - z.min < halfBand * 2) { z.min = mid - halfBand; z.max = mid + halfBand; }
+                });
+                // Prioritize zones with more touches (more historically significant)
+                zones.sort((a, b) => b.count - a.count);
+                return zones.slice(0, 2); // top 2 most-tested zones per side
+            };
+            return { sellZones: cluster(highs, true), buyZones: cluster(lows, false) };
+        }
+
         function renderPriceChart(ticker) {
             const container = document.getElementById('own-chart-container');
             if (!container) return;
@@ -1423,9 +1958,9 @@
                 return;
             }
 
-            // Slice to the selected range (trading sessions, not calendar days)
             const sessions = RANGE_SESSIONS[chartRange] || 99999;
             const hist = fullHist.slice(-sessions);
+            const overlays = getOverlayStates();
 
             const chart = LightweightCharts.createChart(container, {
                 layout: { background: { color: 'transparent' }, textColor: '#cbd5e1' },
@@ -1436,10 +1971,74 @@
                 autoSize: true
             });
 
+            // -------- Zone bands (drawn FIRST so they sit behind price) --------
+            // Draws a truly FILLED band between two price levels using two Baseline series.
+            // Colors chosen for maximum color-blind accessibility (Deuteranopia/Protanopia safe):
+            //   Buy Zone  = BLUE  (clearly distinct for all types of color vision)
+            //   Sell Zone = ORANGE (clearly distinct from blue for all color-blind types)
+            if (overlays.buyZones || overlays.sellZones) {
+                const { buyZones, sellZones } = findZones(hist);
+                const drawFilledBand = (zone, colorFill, colorEdge) => {
+                    // Trick: use a HistogramSeries with priceScaleId sync'd to price scale,
+                    // where each bar spans the full time axis with the zone's price range.
+                    // Actually cleanest: a pair of Area Series that create a filled band effect
+                    // by drawing an upper "top" area filled from zone.max down, then a lower
+                    // area that overwrites everything below zone.min with the same background.
+
+                    // Method: Draw both edge lines PLUS a series of vertical histogram bars
+                    // covering the band range - this creates a fully filled colored zone.
+
+                    // We'll use two thin lines at edges and fill using a Baseline series in between
+                    const bandData = hist.map(h => ({
+                        time: h.date,
+                        value: zone.max,        // upper edge
+                    }));
+                    const bottomData = hist.map(h => ({
+                        time: h.date,
+                        value: zone.min         // lower edge
+                    }));
+                    // Upper edge line
+                    const topLine = chart.addLineSeries({
+                        color: colorEdge, lineWidth: 2, lineStyle: LightweightCharts.LineStyle.Solid,
+                        priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false
+                    });
+                    topLine.setData(bandData);
+                    // Lower edge line
+                    const botLine = chart.addLineSeries({
+                        color: colorEdge, lineWidth: 2, lineStyle: LightweightCharts.LineStyle.Solid,
+                        priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false
+                    });
+                    botLine.setData(bottomData);
+                    // Fill band using a Baseline series between top and bottom edges
+                    // Baseline series shades the area between a base value and the line value
+                    const fillSeries = chart.addBaselineSeries({
+                        baseValue: { type: 'price', price: zone.min },
+                        topLineColor: 'transparent',
+                        topFillColor1: colorFill,
+                        topFillColor2: colorFill,
+                        bottomLineColor: 'transparent',
+                        bottomFillColor1: 'transparent',
+                        bottomFillColor2: 'transparent',
+                        priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false
+                    });
+                    fillSeries.setData(bandData);
+                };
+
+                if (overlays.buyZones) {
+                    // BLUE for buy zones - stands out in all color vision types
+                    buyZones.forEach(z  => drawFilledBand(z, 'rgba(37,99,235,0.35)', 'rgba(59,130,246,0.9)'));
+                }
+                if (overlays.sellZones) {
+                    // ORANGE for sell zones - clearly distinct from blue for all color-blind types
+                    sellZones.forEach(z => drawFilledBand(z, 'rgba(234,88,12,0.35)', 'rgba(249,115,22,0.9)'));
+                }
+            }
+
+            // -------- Main price series --------
             let mainSeries;
             if (chartType === 'line') {
                 const lineData = hist.map(h => ({ time: h.date, value: h.close }));
-                mainSeries = chart.addLineSeries({ color: '#38bdf8', lineWidth: 2 });
+                mainSeries = chart.addLineSeries({ color: '#38bdf8', lineWidth: 2, priceLineVisible: false });
                 mainSeries.setData(lineData);
             } else {
                 const candleData = hist.map(h => ({ time: h.date, open: h.open, high: h.high, low: h.low, close: h.close }));
@@ -1450,41 +2049,88 @@
                 mainSeries.setData(candleData);
             }
 
-            const volumeData = hist.map(h => ({
-                time: h.date,
-                value: h.volume,
-                color: h.close >= h.open ? 'rgba(16,185,129,0.5)' : 'rgba(244,63,94,0.5)'
-            }));
-            const volumeSeries = chart.addHistogramSeries({
-                priceFormat: { type: 'volume' },
-                priceScaleId: '',
-                scaleMargins: { top: 0.8, bottom: 0 }
-            });
-            volumeSeries.setData(volumeData);
+            // -------- Volume (opt-in, on by default) --------
+            if (overlays.volume) {
+                const volumeData = hist.map(h => ({
+                    time: h.date,
+                    value: h.volume,
+                    color: h.close >= h.open ? 'rgba(16,185,129,0.4)' : 'rgba(244,63,94,0.4)'
+                }));
+                const volumeSeries = chart.addHistogramSeries({
+                    priceFormat: { type: 'volume' },
+                    priceScaleId: '',
+                    scaleMargins: { top: 0.82, bottom: 0 }
+                });
+                volumeSeries.setData(volumeData);
+            }
 
-            if (showPivotPoints) {
+            // -------- SMA overlays --------
+            const closes = hist.map(h => h.close);
+            const addSMA = (period, color, title) => {
+                if (hist.length < period) return;
+                const data = [];
+                for (let i = period - 1; i < hist.length; i++) {
+                    const avg = closes.slice(i - period + 1, i + 1).reduce((a, b) => a + b, 0) / period;
+                    data.push({ time: hist[i].date, value: avg });
+                }
+                const s = chart.addLineSeries({ color, lineWidth: 2, title, priceLineVisible: false, lastValueVisible: true, crosshairMarkerVisible: false });
+                s.setData(data);
+            };
+            if (overlays.sma20) addSMA(20, 'rgba(251,191,36,0.9)',  'SMA 20');
+            if (overlays.sma50) addSMA(50, 'rgba(167,139,250,0.9)', 'SMA 50');
+
+            // -------- Pivot Points (opt-in) --------
+            if (overlays.pivot) {
                 const latest = hist[hist.length - 1];
                 const pv = calcPivotPoints(latest);
                 const lines = [
                     { value: pv.r3, color: '#f43f5e', title: 'R3' },
                     { value: pv.r2, color: '#fb923c', title: 'R2' },
                     { value: pv.r1, color: '#fbbf24', title: 'R1' },
-                    { value: pv.p, color: '#38bdf8', title: 'Pivot' },
+                    { value: pv.p,  color: '#38bdf8', title: 'Pivot' },
                     { value: pv.s1, color: '#fbbf24', title: 'S1' },
                     { value: pv.s2, color: '#fb923c', title: 'S2' },
                     { value: pv.s3, color: '#f43f5e', title: 'S3' }
                 ];
                 lines.forEach(l => {
-                    mainSeries.createPriceLine({
-                        price: l.value, color: l.color, lineWidth: 1,
-                        lineStyle: LightweightCharts.LineStyle.Dashed,
-                        axisLabelVisible: true, title: l.title
-                    });
+                    mainSeries.createPriceLine({ price: l.value, color: l.color, lineWidth: 1, lineStyle: LightweightCharts.LineStyle.Dashed, axisLabelVisible: true, title: l.title });
                 });
             }
 
             chart.timeScale().fitContent();
         }
+
+        // Called when overlay checkboxes change
+        window.rerenderChart = function() {
+            // Show/hide the zones legend based on whether either zone is enabled
+            const legend = document.getElementById('zones-legend');
+            if (legend) {
+                const st = getOverlayStates();
+                legend.classList.toggle('hidden', !(st.buyZones || st.sellZones));
+            }
+            if (currentChartTicker) renderPriceChart(currentChartTicker);
+        };
+
+        // Toggle the overlays panel visibility
+        window.toggleOverlaysPanel = function() {
+            const panel = document.getElementById('overlays-panel');
+            const btn = document.getElementById('btn-overlays');
+            if (!panel) return;
+            const isHidden = panel.classList.toggle('hidden');
+            if (btn) {
+                btn.className = isHidden
+                    ? 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-slate-800 border border-slate-600 text-slate-300 hover:text-white flex items-center gap-1'
+                    : 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-sky-900 border border-sky-700 text-sky-300 flex items-center gap-1';
+            }
+        };
+
+        window.toggleFundaBreakdown = function() {
+            const panel = document.getElementById('funda-breakdown-panel');
+            const arrow = document.getElementById('funda-breakdown-arrow');
+            if (!panel) return;
+            panel.classList.toggle('hidden');
+            arrow.textContent = panel.classList.contains('hidden') ? '▾' : '▴';
+        };
 
         window.toggleBreakdown = function() {
             const panel = document.getElementById('breakdown-panel');
@@ -1682,7 +2328,11 @@
         // Tries several free CORS proxies in sequence, since any single free service
         // can go down or rate-limit with no warning (confirmed: AllOrigins had an outage
         // on their end on 2026-07-16). More options = better odds one is up right now.
+        // For mobile: use RSS-to-JSON APIs first (they return JSON not raw XML,
+        // which avoids the XML parsing step that sometimes fails on mobile browsers)
+        // then fall back to CORS proxies for raw RSS
         const NEWS_CORS_PROXIES = [
+            (url) => `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}&count=10`,
             (url) => `https://api.cors.lol/?url=${encodeURIComponent(url)}`,
             (url) => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(url)}`,
             (url) => `https://proxy.cors.sh/${url}`,
@@ -1766,56 +2416,68 @@
                 encodeURIComponent(`${ticker} share price India`),
             ].filter(Boolean);
 
-            let xmlText = null;
+            let parsedItems = null;
 
             for (const query of queries) {
-                if (xmlText) break;
+                if (parsedItems) break;
                 const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=en-IN&gl=IN&ceid=IN:en&num=10`;
                 for (const buildProxyUrl of NEWS_CORS_PROXIES) {
                     try {
-                        const resp = await fetchWithTimeout(buildProxyUrl(rssUrl), 12000);
+                        const proxyUrl = buildProxyUrl(rssUrl);
+                        const resp = await fetchWithTimeout(proxyUrl, 15000);
                         if (!resp.ok) continue;
                         const text = await resp.text();
-                        if (text && text.includes('<item>')) { xmlText = text; break; }
+                        if (!text) continue;
+
+                        // Try JSON first (rss2json returns JSON — easier on mobile)
+                        if (text.trim().startsWith('{')) {
+                            try {
+                                const json = JSON.parse(text);
+                                if (json.status === 'ok' && json.items && json.items.length > 0) {
+                                    parsedItems = json.items.slice(0, 10).map(it => ({
+                                        title: it.title || 'Untitled',
+                                        link: it.link || '#',
+                                        pubDate: it.pubDate || null,
+                                        source: it.author || it.source || 'Market Update'
+                                    }));
+                                    break;
+                                }
+                            } catch (e) { /* not valid JSON, try XML next */ }
+                        }
+
+                        // Fall back to XML parsing
+                        if (text.includes('<item>')) {
+                            const parser = new DOMParser();
+                            const xml = parser.parseFromString(text, 'text/xml');
+                            const items = Array.from(xml.querySelectorAll('item')).slice(0, 10).map(item => ({
+                                title: item.querySelector('title')?.textContent || 'Untitled',
+                                link: item.querySelector('link')?.textContent || '#',
+                                pubDate: item.querySelector('pubDate')?.textContent || null,
+                                source: item.querySelector('source')?.textContent || 'Market Update'
+                            }));
+                            if (items.length > 0) { parsedItems = items; break; }
+                        }
                     } catch (e) { /* try next proxy */ }
                 }
             }
 
-            if (!xmlText) {
+            if (!parsedItems || parsedItems.length === 0) {
                 container.innerHTML = `
                     <div class="p-6 text-center">
                         <div class="text-2xl mb-2">📡</div>
                         <div class="text-base font-bold text-slate-200 mb-1">News service unavailable</div>
                         <div class="text-sm text-slate-400">The live news feed couldn't be reached right now. This usually fixes itself — try again in a few minutes.</div>
-                        <div class="text-[11px] text-slate-500 mt-3">Tip: Run the "Update cached news" GitHub Action to get reliable cached news for all Large/Mid cap stocks.</div>
+                        <div class="text-[13px] text-slate-500 mt-3">Or search directly: <a href="https://news.google.com/search?q=${encodeURIComponent(ticker + ' NSE India')}" target="_blank" class="text-sky-400 underline">Google News → ${escapeHtml(ticker)}</a></div>
                     </div>`;
                 return;
             }
 
             try {
-                const parser = new DOMParser();
-                const xml = parser.parseFromString(xmlText, 'text/xml');
-                const items = Array.from(xml.querySelectorAll('item')).slice(0, 10).map(item => ({
-                    title: item.querySelector('title')?.textContent || 'Untitled',
-                    link: item.querySelector('link')?.textContent || '#',
-                    pubDate: item.querySelector('pubDate')?.textContent || null,
-                    source: item.querySelector('source')?.textContent || 'Market Update'
-                }));
-
-                if (items.length === 0) {
-                    container.innerHTML = `
-                        <div class="p-6 text-center">
-                            <div class="text-2xl mb-2">🔍</div>
-                            <div class="text-base font-bold text-slate-200 mb-1">No recent news found for ${escapeHtml(ticker)}</div>
-                            <div class="text-sm text-slate-400">Google News doesn't have recent articles matching this stock symbol right now. Try searching directly on <a href="https://news.google.com/search?q=${encodeURIComponent(ticker + ' NSE India')}" target="_blank" class="text-sky-400 underline">Google News</a>.</div>
-                        </div>`;
-                    return;
-                }
-                container.innerHTML = renderNewsCards(items);
+                container.innerHTML = renderNewsCards(parsedItems);
             } catch (error) {
-                container.innerHTML = '<div class="p-6 text-center text-rose-400 text-sm">⚠️ Error parsing the news feed.</div>';
+                container.innerHTML = '<div class="p-6 text-center text-rose-400 text-sm">⚠️ Error displaying news.</div>';
             }
         }
-    </script>
+        </script>
 </body>
 </html>

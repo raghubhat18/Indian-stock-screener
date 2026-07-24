@@ -1,0 +1,135 @@
+name: Generate fundamentals.csv from XBRL Excel files
+
+# Runs automatically whenever you upload new Excel files to docs/data/xbrl/
+# Also runs manually from the Actions tab
+on:
+  push:
+    paths:
+      - 'docs/data/xbrl/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-fundamentals:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install openpyxl
+        run: pip install openpyxl --break-system-packages -q
+
+      - name: Extract fundamentals from all XBRL Excel files
+        run: |
+          python3 - << 'EOF'
+          import os, csv, openpyxl
+
+          XBRL_DIR = 'docs/data/xbrl'
+          OUT_FILE = 'docs/data/fundamentals.csv'
+
+          if not os.path.isdir(XBRL_DIR):
+              print(f"Folder {XBRL_DIR} not found — skipping.")
+              exit(0)
+
+          xlsx_files = [f for f in os.listdir(XBRL_DIR) if f.lower().endswith('.xlsx')]
+          print(f"Found {len(xlsx_files)} Excel file(s) in {XBRL_DIR}")
+
+          def period_days(p):
+              if not p or ' To ' not in str(p): return 0
+              try:
+                  a, b = str(p).split(' To ')
+                  def to_date(x):
+                      dd,mm,yyyy = x.strip().split('-')
+                      from datetime import date
+                      return date(int(yyyy),int(mm),int(dd))
+                  return (to_date(b) - to_date(a)).days
+              except: return 0
+
+          def get_first(rows, name):
+              for r in rows:
+                  if r[1] == name and r[5] is not None:
+                      return str(r[5]).strip()
+              return None
+
+          def get_longest(rows, name):
+              matches = [r for r in rows if r[1]==name and r[5] is not None]
+              if not matches: return None
+              matches.sort(key=lambda r: period_days(r[2]), reverse=True)
+              return float(str(matches[0][5]).strip()), matches[0][2]
+
+          results = []
+          errors  = []
+
+          for fname in sorted(xlsx_files):
+              fpath = os.path.join(XBRL_DIR, fname)
+              try:
+                  wb = openpyxl.load_workbook(fpath, data_only=True)
+                  ws = wb.active
+                  rows = [r for r in ws.iter_rows(min_row=2, values_only=True) if r[1]]
+
+                  symbol = get_first(rows, 'Symbol')
+                  if not symbol:
+                      errors.append((fname, 'No Symbol field found'))
+                      continue
+
+                  eq     = float(get_first(rows,'Equity') or 0)
+                  bNC      = float(get_first(rows,'BorrowingsNoncurrent') or 0)
+                  bC       = float(get_first(rows,'BorrowingsCurrent') or 0)
+                  de_given = get_first(rows,'DebtEquityRatio')
+                  np_data  = get_longest(rows,'ProfitLossForPeriod')
+                  eps_data = get_longest(rows,'BasicEarningsLossPerShareFromContinuingAndDiscontinuedOperations')
+                  rev_data = get_longest(rows,'RevenueFromOperations')
+                  paidUp   = float(get_first(rows,'PaidUpValueOfEquityShareCapital') or 0)
+                  faceVal  = float(get_first(rows,'FaceValueOfEquityShareCapital') or 1)
+                  ca       = float(get_first(rows,'CurrentAssets') or 0)
+                  cl       = float(get_first(rows,'CurrentLiabilities') or 0)
+                  segment  = get_first(rows,'DescriptionOfSingleSegment') or get_first(rows,'NatureOfBusiness') or ''
+
+                  shares = paidUp / faceVal if faceVal else None
+
+                  roe  = round(np_data[0] / eq * 100, 2)    if eq and np_data                   else ''
+                  # Use company's own D/E if available and > 0, otherwise compute
+                  if de_given and float(de_given) > 0:
+                      de = round(float(de_given), 4)
+                  else:
+                      de = round((bNC + bC) / eq, 4)         if eq                               else ''
+                  eps  = round(eps_data[0], 2)                   if eps_data                             else ''
+                  bvps = round(eq / shares, 2)               if eq and shares                    else ''
+                  cr   = round(ca / cl, 2)                       if cl                                   else ''
+                  npm  = round(np_data[0] / rev_data[0] * 100,2) if np_data and rev_data and rev_data[0] else ''
+
+                  results.append({
+                      'Symbol': symbol.upper(),
+                      'ROE': roe, 'DebtToEquity': de, 'EPS': eps,
+                      'BookValuePerShare': bvps, 'CurrentRatio': cr, 'NetProfitMargin': npm,
+                      'Segment': segment.replace(',','|') if segment else ''
+                  })
+                  print(f"  ✓ {symbol:<12} ROE={roe}%  D/E={de}  EPS=₹{eps}  Sector segment: {segment[:40] if segment else 'N/A'}")
+
+              except Exception as e:
+                  errors.append((fname, str(e)))
+                  print(f"  ✗ {fname}: {e}")
+
+          # Write CSV
+          os.makedirs(os.path.dirname(OUT_FILE), exist_ok=True)
+          with open(OUT_FILE, 'w', newline='', encoding='utf-8') as f:
+              writer = csv.DictWriter(f, fieldnames=['Symbol','ROE','DebtToEquity','EPS','BookValuePerShare','CurrentRatio','NetProfitMargin','Segment'])
+              writer.writeheader()
+              writer.writerows(results)
+
+          print(f"\nWrote {OUT_FILE}: {len(results)} companies, {len(errors)} errors")
+          if errors:
+              for fname, err in errors:
+                  print(f"  ! {fname}: {err}")
+          EOF
+
+      - name: Commit updated fundamentals.csv
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data/fundamentals.csv
+          git diff --staged --quiet || git commit -m "Auto-regenerate fundamentals.csv from XBRL Excel files"
+          git pull --rebase origin main
+          git push
