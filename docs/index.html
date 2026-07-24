@@ -60,6 +60,7 @@
                 <button onclick="loadView('traded')" id="btn-view-traded" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">🔥 MOST TRADED</button>
                 <button onclick="loadView('bullish')" id="btn-view-bullish" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">📈 TOP GAINERS</button>
                 <button onclick="loadView('bearish')" id="btn-view-bearish" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">📉 TOP LOSERS</button>
+                <button onclick="loadView('qualitydip')" id="btn-view-qualitydip" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">💎 QUALITY DIP</button>
             </div>
 
             <div class="flex flex-col gap-3 border-t border-slate-600 pt-3">
@@ -99,6 +100,7 @@
                 </div>
             </div>
             <p id="cap-filter-note" class="hidden text-[13px] text-amber-500/80 font-mono">📎 Large/Mid/Small filtering needs one extra file (data/market-cap.csv) — ask your assistant how to add it.</p>
+            <p id="qualitydip-note" class="hidden text-[13px] text-emerald-400/90 font-mono">💎 QUALITY DIP — Fundamentally strong stocks currently oversold (low RSI). These are contrarian long-term buy opportunities. Fundamentals data required — stocks without uploaded XBRL filings won't appear here.</p>
         </div>
 
         <div class="flex-1 overflow-y-auto bg-slate-800 border border-slate-600 rounded-xl p-4 shadow-xl">
@@ -133,12 +135,13 @@
         let priceFilter = 'ALL';
 
         const TAB_PRESETS = {
-            momentum: { key: 'momentum', dir: 'desc' },
-            traded:   { key: 'volume',   dir: 'desc' },
-            bullish:  { key: 'change',   dir: 'desc' },
-            bearish:  { key: 'change',   dir: 'asc'  }
+            momentum:   { key: 'momentum',   dir: 'desc' },
+            traded:     { key: 'volume',     dir: 'desc' },
+            bullish:    { key: 'change',     dir: 'desc' },
+            bearish:    { key: 'change',     dir: 'asc'  },
+            qualitydip: { key: 'qualitydip', dir: 'desc' }
         };
-        const DEFAULT_DIR = { momentum: 'desc', volume: 'desc', change: 'desc', price: 'desc', rsi: 'desc', name: 'asc' };
+        const DEFAULT_DIR = { momentum: 'desc', volume: 'desc', change: 'desc', price: 'desc', rsi: 'asc', name: 'asc', qualitydip: 'desc' };
 
         window.addEventListener('DOMContentLoaded', () => {
             rotateQuote();
@@ -228,13 +231,14 @@
                             const sym = (row['Symbol'] || '').trim().toUpperCase();
                             if (!sym) return;
                             fundamentalsMap[sym] = {
-                                pe: num(row['PE']),       // optional - if absent, computed live from EPS + current price
+                                pe: num(row['PE']),
                                 roe: num(row['ROE']),
                                 de: num(row['DebtToEquity']),
                                 eps: num(row['EPS']),
                                 bvps: num(row['BookValuePerShare']),
                                 currentRatio: num(row['CurrentRatio']),
-                                npm: num(row['NetProfitMargin'])
+                                npm: num(row['NetProfitMargin']),
+                                segment: (row['Segment'] || '').trim()
                             };
                         });
                     }
@@ -696,6 +700,51 @@
         // the technical momentum score so users can see both.
         // Only computed when fundamentals.csv has been uploaded.
         // ---------------------------------------------------------
+        // ---------------------------------------------------------
+        // SECTOR-RELATIVE BENCHMARKS
+        // Different industries have very different "normal" ranges for
+        // P/E, D/E, and margins. A P/E of 15 is expensive for a PSU bank
+        // but cheap for an IT company. Benchmarks are based on well-established
+        // historical ranges for Indian listed companies by sector.
+        // ---------------------------------------------------------
+        const SECTOR_BENCHMARKS = {
+            'Banking & Finance':   { peLow:8,  peHigh:18,  deLow:0, deHigh:15,  npmLow:15, npmHigh:35, roeMin:12, label:'Banking & Finance',   note:'High D/E is normal (loans are leverage). Lower P/E typical.' },
+            'IT & Software':       { peLow:18, peHigh:40,  deLow:0, deHigh:0.3, npmLow:15, npmHigh:30, roeMin:18, label:'IT & Software',        note:'Asset-light, high margins, near-zero debt expected.' },
+            'FMCG & Consumer':     { peLow:25, peHigh:60,  deLow:0, deHigh:0.5, npmLow:8,  npmHigh:20, roeMin:20, label:'FMCG & Consumer',      note:'Premium valuations due to brand value and stability.' },
+            'Pharma & Healthcare': { peLow:15, peHigh:35,  deLow:0, deHigh:0.8, npmLow:8,  npmHigh:22, roeMin:12, label:'Pharma & Healthcare',  note:'R&D intensive, moderate debt, cyclical margins.' },
+            'Automobile':          { peLow:10, peHigh:25,  deLow:0, deHigh:1.5, npmLow:4,  npmHigh:12, roeMin:10, label:'Automobile',           note:'Capital intensive, moderate D/E, thin margins.' },
+            'Infrastructure':      { peLow:10, peHigh:25,  deLow:0, deHigh:3,   npmLow:5,  npmHigh:15, roeMin:8,  label:'Infrastructure',       note:'High debt normal for project financing.' },
+            'Chemicals':           { peLow:15, peHigh:35,  deLow:0, deHigh:1,   npmLow:8,  npmHigh:20, roeMin:12, label:'Chemicals',            note:'Manufacturing-heavy, moderate margins.' },
+            'Metals & Mining':     { peLow:6,  peHigh:18,  deLow:0, deHigh:2,   npmLow:5,  npmHigh:15, roeMin:8,  label:'Metals & Mining',      note:'Cyclical, commodity-dependent, capital heavy.' },
+            'Power & Energy':      { peLow:8,  peHigh:20,  deLow:0, deHigh:3,   npmLow:8,  npmHigh:18, roeMin:8,  label:'Power & Energy',       note:'Regulated returns, high capex, debt-funded.' },
+            'Textiles':            { peLow:8,  peHigh:20,  deLow:0, deHigh:1.5, npmLow:3,  npmHigh:10, roeMin:8,  label:'Textiles',             note:'Low margins, moderate debt, export-dependent.' },
+            'Real Estate':         { peLow:10, peHigh:25,  deLow:0, deHigh:2,   npmLow:10, npmHigh:25, roeMin:8,  label:'Real Estate',          note:'Project-based, lumpy revenues, moderate debt.' },
+            'Telecom':             { peLow:15, peHigh:40,  deLow:0, deHigh:4,   npmLow:5,  npmHigh:20, roeMin:6,  label:'Telecom',              note:'Very capital intensive, high debt normal.' },
+            'General':             { peLow:12, peHigh:30,  deLow:0, deHigh:1.5, npmLow:5,  npmHigh:20, roeMin:10, label:'General Market',       note:'Broad market average — sector not identified.' }
+        };
+
+        function detectSector(segmentDescription) {
+            if (!segmentDescription) return 'General';
+            const s = segmentDescription.toLowerCase();
+            if (/bank|nbfc|financ|lending|insurance|mutual fund|asset manag|brokerage|wealth/.test(s)) return 'Banking & Finance';
+            if (/software|it service|information tech|tech(?!tile)|digital|cloud|data/.test(s))       return 'IT & Software';
+            if (/fmcg|consumer|food|beverage|personal care|household|retail|branded/.test(s))         return 'FMCG & Consumer';
+            if (/pharma|drug|medicine|healthcare|hospital|diagnostic|biotech/.test(s))               return 'Pharma & Healthcare';
+            if (/auto|vehicle|car|truck|two.?wheeler|tractor|ancillar/.test(s))                      return 'Automobile';
+            if (/infra|construction|road|highway|bridge|port|airport|real estate|housing/.test(s))   return 'Infrastructure';
+            if (/chemical|specialty|paint|adhesive|fertilizer|agrochem|pesticide/.test(s))           return 'Chemicals';
+            if (/steel|metal|aluminium|copper|zinc|mining|ore|iron/.test(s))                         return 'Metals & Mining';
+            if (/power|energy|electricity|solar|wind|oil|gas|petroleum|refin/.test(s))               return 'Power & Energy';
+            if (/textile|fabric|garment|apparel|yarn|spinning|weaving/.test(s))                      return 'Textiles';
+            if (/telecom|mobile|broadband|tower|spectrum/.test(s))                                   return 'Telecom';
+            return 'General';
+        }
+
+        function getSectorBenchmarks(segmentDescription) {
+            const sector = detectSector(segmentDescription);
+            return { ...SECTOR_BENCHMARKS[sector], sector };
+        }
+
         function computeFundamentalsScore(f, currentPrice) {
             if (!f) return null;
             let score = 0;
@@ -715,64 +764,122 @@
                 breakdown.push({ label: 'Return on Equity (ROE)', value: 'N/A', points: 0, max: 25, note: 'Not available in filing data' });
             }
 
-            // Debt to Equity — lower is better for financial health
+            // Get sector benchmarks for this company
+            const bench = getSectorBenchmarks(f.segment);
+            const sectorNote = `Sector: ${bench.sector} — ${bench.note}`;
+
+            // Debt to Equity — judged relative to what's normal for this sector
             if (f.de !== null) {
                 let pts, note;
-                if (f.de <= 0.3)      { pts = 20; note = 'Very low debt — financially strong, minimal risk from borrowing'; }
-                else if (f.de <= 0.75){ pts = 15; note = 'Comfortable debt level — well within safe limits'; }
-                else if (f.de <= 1.5) { pts = 8;  note = 'Moderate debt — manageable but worth monitoring'; }
-                else if (f.de <= 2.5) { pts = 3;  note = 'High debt — increases financial risk, especially in downturns'; }
-                else                  { pts = 0;  note = 'Very high debt — significant financial risk'; }
+                const deHigh = bench.deHigh;
+                const deRatio = deHigh > 0 ? f.de / deHigh : f.de;
+                if (deRatio <= 0.2)      { pts = 20; note = `Very low debt for a ${bench.sector} company — financially very strong`; }
+                else if (deRatio <= 0.5) { pts = 15; note = `Comfortable debt level for this sector (${bench.sector})`; }
+                else if (deRatio <= 0.8) { pts = 8;  note = `Moderate debt — within the normal range for ${bench.sector}`; }
+                else if (deRatio <= 1.0) { pts = 3;  note = `High debt for this sector — approaching the upper limit for ${bench.sector}`; }
+                else                     { pts = 0;  note = `Debt exceeds typical ${bench.sector} norms (D/E ${f.de} vs sector max ~${deHigh})`; }
                 score += pts;
-                breakdown.push({ label: 'Debt to Equity Ratio', value: f.de, points: pts, max: 20, note });
+                breakdown.push({ label: 'Debt to Equity Ratio', value: f.de, points: pts, max: 20, note: `${note}. ${bench.sector} typical range: 0–${deHigh}.` });
             } else {
                 breakdown.push({ label: 'Debt to Equity Ratio', value: 'N/A', points: 0, max: 20, note: 'Not available in filing data' });
             }
 
-            // Net Profit Margin — how much of each rupee of revenue becomes profit
+            // Net Profit Margin — judged relative to sector norms
             if (f.npm !== null) {
                 let pts, note;
-                if (f.npm >= 20)      { pts = 20; note = 'Exceptional margin — company keeps over 20p of every ₹1 earned'; }
-                else if (f.npm >= 12) { pts = 15; note = 'Strong margin — high quality earnings'; }
-                else if (f.npm >= 6)  { pts = 10; note = 'Average margin — acceptable for most sectors'; }
-                else if (f.npm >= 2)  { pts = 4;  note = 'Thin margin — vulnerable to cost increases or revenue dips'; }
-                else                  { pts = 0;  note = 'Near-zero or negative margin — profitability is a concern'; }
+                const npmMid = (bench.npmLow + bench.npmHigh) / 2;
+                if (f.npm >= bench.npmHigh)             { pts = 20; note = `Exceptional margin — well above the typical ${bench.sector} range (${bench.npmLow}–${bench.npmHigh}%)`; }
+                else if (f.npm >= npmMid)               { pts = 15; note = `Strong margin — in the upper half of the ${bench.sector} range`; }
+                else if (f.npm >= bench.npmLow)         { pts = 10; note = `Average margin for ${bench.sector} — in the normal range (${bench.npmLow}–${bench.npmHigh}%)`; }
+                else if (f.npm >= bench.npmLow * 0.5)  { pts = 4;  note = `Below-average margin for ${bench.sector} — watch for cost pressure`; }
+                else                                    { pts = 0;  note = `Significantly below ${bench.sector} norms — profitability is a concern`; }
                 score += pts;
                 breakdown.push({ label: 'Net Profit Margin', value: f.npm + '%', points: pts, max: 20, note });
             } else {
                 breakdown.push({ label: 'Net Profit Margin', value: 'N/A', points: 0, max: 20, note: 'Not available in filing data' });
             }
 
-            // Current Ratio — can the company pay its short-term bills?
+            // Current Ratio — standard across sectors (below 1 is always a concern)
             if (f.currentRatio !== null) {
                 let pts, note;
-                if (f.currentRatio >= 2)      { pts = 15; note = 'Excellent liquidity — can easily cover short-term obligations'; }
+                if (f.currentRatio >= 2)       { pts = 15; note = 'Excellent liquidity — can easily cover short-term obligations'; }
                 else if (f.currentRatio >= 1.5){ pts = 12; note = 'Good liquidity — comfortable buffer'; }
                 else if (f.currentRatio >= 1)  { pts = 7;  note = 'Adequate — just enough to cover obligations'; }
                 else                           { pts = 0;  note = 'Below 1 — may struggle to meet short-term obligations'; }
+                // Banks legitimately have low current ratios — don't penalise them
+                if (bench.sector === 'Banking & Finance' && f.currentRatio < 1) {
+                    pts = 7; note = 'Below 1 is normal for banks/NBFCs — short-term ratios work differently in this sector';
+                }
                 score += pts;
                 breakdown.push({ label: 'Current Ratio (Liquidity)', value: f.currentRatio, points: pts, max: 15, note });
             } else {
                 breakdown.push({ label: 'Current Ratio (Liquidity)', value: 'N/A', points: 0, max: 15, note: 'Not available in filing data' });
             }
 
-            // P/E Ratio computed live from current price and EPS
+            // P/E Ratio — judged relative to what's normal for this sector
             const pe = (currentPrice && f.eps && f.eps > 0) ? currentPrice / f.eps : null;
             if (pe !== null) {
                 let pts, note;
-                if (pe < 10)      { pts = 20; note = 'Trading at a very low P/E — potentially undervalued'; }
-                else if (pe < 20) { pts = 15; note = 'Reasonably valued — P/E in a comfortable zone'; }
-                else if (pe < 35) { pts = 8;  note = 'Slightly expensive — priced for growth, check if justified'; }
-                else if (pe < 60) { pts = 3;  note = 'Richly valued — significant growth already priced in'; }
-                else              { pts = 0;  note = 'Extremely high P/E — very high expectations baked in'; }
+                if (pe < bench.peLow * 0.7)       { pts = 20; note = `Trading well below the typical ${bench.sector} P/E range (${bench.peLow}–${bench.peHigh}x) — potentially undervalued`; }
+                else if (pe < bench.peLow)         { pts = 15; note = `Reasonably cheap for a ${bench.sector} company — below the sector average`; }
+                else if (pe <= bench.peHigh)       { pts = 10; note = `Fairly valued — within the normal ${bench.sector} P/E range (${bench.peLow}–${bench.peHigh}x)`; }
+                else if (pe <= bench.peHigh * 1.3) { pts = 4;  note = `Slightly expensive — above the typical ${bench.sector} range`; }
+                else                               { pts = 0;  note = `Richly valued at ${pe.toFixed(0)}x — well above the ${bench.sector} norm of ${bench.peLow}–${bench.peHigh}x`; }
                 score += pts;
-                breakdown.push({ label: 'Price to Earnings (P/E) Ratio', value: pe.toFixed(1) + 'x (live)', points: pts, max: 20, note });
+                breakdown.push({ label: 'Price to Earnings (P/E) Ratio', value: `${pe.toFixed(1)}x (live) · Sector range: ${bench.peLow}–${bench.peHigh}x`, points: pts, max: 20, note });
             } else {
                 breakdown.push({ label: 'Price to Earnings (P/E) Ratio', value: 'N/A', points: 0, max: 20, note: f.eps ? 'N/A (negative EPS)' : 'EPS not available in filing data' });
             }
 
+            // Always show the detected sector so users can verify it's correct
+            breakdown.push({ label: 'Detected Sector', value: bench.sector, points: null, max: null, note: bench.note + ' (All benchmarks above are relative to this sector.)' });
+
             score = Math.max(0, Math.min(100, Math.round(score)));
-            return { fundamentalsScore: score, fundamentalsBreakdown: breakdown };
+            return { fundamentalsScore: score, fundamentalsBreakdown: breakdown, sector: bench.sector };
+        }
+
+        // Valuation badge: Undervalued / Neutral / Overvalued
+        // Now sector-aware — compares metrics against what's normal for that industry
+        function getValuationBadge(ticker) {
+            const d = stockData[ticker];
+            const f = fundamentalsMap[ticker];
+            if (!f) return null;
+
+            const bench = getSectorBenchmarks(f.segment);
+            const pe   = (d.price && f.eps && f.eps > 0) ? d.price / f.eps : null;
+            const pb   = (d.price && f.bvps && f.bvps > 0) ? d.price / f.bvps : null;
+
+            let signals = 0, total = 0;
+
+            // P/E signal — relative to sector norms
+            if (pe !== null) {
+                total++;
+                if (pe < bench.peLow * 0.8)      signals += 1;  // clearly cheap for the sector
+                else if (pe > bench.peHigh * 1.2) signals -= 1; // clearly expensive for the sector
+            }
+
+            // Price-to-Book — universal signal (below 1.5 is cheap in any sector)
+            if (pb !== null) {
+                total++;
+                if (pb < 1.5)   signals += 1;
+                else if (pb > 4) signals -= 1;
+            }
+
+            // D/E vs sector norm
+            if (f.de !== null) {
+                total++;
+                if (bench.deHigh > 0) {
+                    const deRatio = f.de / bench.deHigh;
+                    if (deRatio < 0.3)  signals += 1;  // very low debt for the sector
+                    else if (deRatio > 1.0) signals -= 1; // above sector norm
+                }
+            }
+
+            if (total === 0) return null;
+            const ratio = signals / total;
+            if (ratio >= 0.5)  return { label: 'UNDERVALUED', sector: bench.sector, badge: 'bg-emerald-950 text-emerald-300 border-emerald-700' };
+            if (ratio <= -0.5) return { label: 'OVERVALUED',  sector: bench.sector, badge: 'bg-rose-950 text-rose-300 border-rose-700' };
+            return { label: 'NEUTRAL', sector: bench.sector, badge: 'bg-slate-700 text-slate-300 border-slate-500' };
         }
 
         function getFundamentalsVerdict(score) {
@@ -1059,6 +1166,9 @@
             sortKey = preset.key;
             sortDir = preset.dir;
             syncSortControlsUI();
+            // Show/hide Quality Dip explanation note
+            const qdNote = document.getElementById('qualitydip-note');
+            if (qdNote) qdNote.classList.toggle('hidden', tab !== 'qualitydip');
             renderList();
         };
 
@@ -1095,7 +1205,7 @@
             const [descLabel, ascLabel] = labels[sortKey] || ['High to Low', 'Low to High'];
             dirBtn.textContent = sortDir === 'desc' ? `↓ ${descLabel}` : `↑ ${ascLabel}`;
 
-            const allTabs = ['momentum', 'traded', 'bullish', 'bearish'];
+            const allTabs = ['momentum', 'traded', 'bullish', 'bearish', 'qualitydip'];
             allTabs.forEach(v => {
                 const btn = document.getElementById(`btn-view-${v}`);
                 if (btn) {
@@ -1106,15 +1216,43 @@
             });
         }
 
+        // Quality Dip Score: rewards fundamentally strong stocks that are currently
+        // oversold (low RSI). This is a contrarian long-term buy signal — the opposite
+        // philosophy from momentum. Only meaningful when fundamentals are available.
+        function calcQualityDipScore(ticker) {
+            const d = stockData[ticker];
+            if (!d) return -Infinity;
+            const f = fundamentalsMap[ticker];
+            if (!f) return -Infinity; // needs fundamentals to be meaningful
+
+            let score = 0;
+
+            // Fundamental quality — must be strong
+            if (f.roe !== null)  score += Math.min(40, f.roe * 2);       // ROE drives the score
+            if (f.de  !== null)  score += f.de <= 0.5 ? 20 : f.de <= 1 ? 12 : f.de <= 2 ? 5 : 0;
+            if (f.npm !== null)  score += Math.min(15, f.npm);           // profit margin
+
+            // RSI penalty/bonus — LOW RSI is GOOD here (contrarian)
+            if (d.rsi14 !== null) {
+                if (d.rsi14 < 30)       score += 25; // heavily oversold = biggest opportunity
+                else if (d.rsi14 < 40)  score += 18; // oversold
+                else if (d.rsi14 < 50)  score += 10; // dipping but not extreme
+                else                    score += 0;  // not a dip
+            }
+
+            return Math.round(score);
+        }
+
         function getSortValue(ticker, key) {
             const d = stockData[ticker];
             switch (key) {
-                case 'momentum': return d.combinedScore;
-                case 'volume': return d.volume;
-                case 'change': return d.change;
-                case 'price': return d.price;
-                case 'rsi': return d.rsi14 === null ? -Infinity : d.rsi14;
-                case 'name': return d.name || '';
+                case 'momentum':   return d.combinedScore;
+                case 'volume':     return d.volume;
+                case 'change':     return d.change;
+                case 'price':      return d.price;
+                case 'rsi':        return d.rsi14 === null ? -Infinity : d.rsi14;
+                case 'name':       return d.name || '';
+                case 'qualitydip': return calcQualityDipScore(ticker);
                 default: return 0;
             }
         }
@@ -1142,6 +1280,10 @@
 
             if (capFilter !== 'ALL') keys = keys.filter(k => stockData[k].capCategory === capFilter);
             if (priceFilter !== 'ALL') keys = keys.filter(k => matchesPriceFilter(stockData[k].price));
+            // Quality Dip: only show stocks with fundamentals uploaded AND RSI below 50
+            if (activeTab === 'qualitydip') {
+                keys = keys.filter(k => fundamentalsMap[k] && stockData[k].rsi14 !== null && stockData[k].rsi14 < 50);
+            }
             if (searchVal) keys = keys.filter(k => k.includes(searchVal) || (stockData[k].name || '').toUpperCase().includes(searchVal));
 
             keys.sort((a, b) => {
@@ -1176,7 +1318,10 @@
                         <div class="min-w-0">
                             <div class="text-lg font-bold text-white group-hover:text-sky-400 transition-colors truncate" title="${data.name}">${data.name}</div>
                             <div class="text-base text-slate-300 font-bold tracking-wide">${ticker}</div>
-                            <div class="text-[13px] font-bold mt-1.5 inline-block px-1.5 py-0.5 rounded border ${verdict.badge}">${verdict.label} · ${data.momentumScore}</div>
+                            <div class="flex flex-wrap gap-1 mt-1.5">
+                                <div class="text-[13px] font-bold inline-block px-1.5 py-0.5 rounded border ${verdict.badge}">${verdict.label} · ${data.combinedScore}</div>
+                                ${(() => { const vb = getValuationBadge(ticker); return vb ? `<div class="text-[11px] font-bold inline-block px-1.5 py-0.5 rounded border ${vb.badge}" title="${vb.sector} sector benchmarks used">${vb.label}</div>` : ''; })()}
+                            </div>
                         </div>
                         <div class="text-sm ${changeColor} font-bold bg-slate-800 px-2 py-1 rounded border border-slate-500 shrink-0">
                             ${changeSign}${data.change.toFixed(2)}%
@@ -1399,7 +1544,13 @@
                                         <div id="funda-breakdown-panel" class="hidden mt-2">
                                             <div class="bg-slate-700/50 p-4 rounded-lg border border-slate-500">
                                                 <div class="space-y-3">
-                                                ${(fundResult ? fundResult.fundamentalsBreakdown : []).map(b => `
+                                                ${(fundResult ? fundResult.fundamentalsBreakdown : []).map(b => b.points === null ? `
+                                                    <div class="bg-slate-800/80 rounded-lg p-2 border border-slate-600/50">
+                                                        <div class="text-[11px] text-slate-400 uppercase font-bold mb-0.5">${b.label}</div>
+                                                        <div class="text-[13px] text-sky-400 font-bold">${b.value}</div>
+                                                        <div class="text-[11px] text-slate-500">${b.note}</div>
+                                                    </div>
+                                                ` : `
                                                     <div>
                                                         <div class="flex items-center justify-between mb-1">
                                                             <span class="text-slate-200 text-[13px] font-bold">${b.label}</span>
@@ -1842,7 +1993,11 @@
         // Tries several free CORS proxies in sequence, since any single free service
         // can go down or rate-limit with no warning (confirmed: AllOrigins had an outage
         // on their end on 2026-07-16). More options = better odds one is up right now.
+        // For mobile: use RSS-to-JSON APIs first (they return JSON not raw XML,
+        // which avoids the XML parsing step that sometimes fails on mobile browsers)
+        // then fall back to CORS proxies for raw RSS
         const NEWS_CORS_PROXIES = [
+            (url) => `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}&count=10`,
             (url) => `https://api.cors.lol/?url=${encodeURIComponent(url)}`,
             (url) => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(url)}`,
             (url) => `https://proxy.cors.sh/${url}`,
@@ -1926,56 +2081,68 @@
                 encodeURIComponent(`${ticker} share price India`),
             ].filter(Boolean);
 
-            let xmlText = null;
+            let parsedItems = null;
 
             for (const query of queries) {
-                if (xmlText) break;
+                if (parsedItems) break;
                 const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=en-IN&gl=IN&ceid=IN:en&num=10`;
                 for (const buildProxyUrl of NEWS_CORS_PROXIES) {
                     try {
-                        const resp = await fetchWithTimeout(buildProxyUrl(rssUrl), 12000);
+                        const proxyUrl = buildProxyUrl(rssUrl);
+                        const resp = await fetchWithTimeout(proxyUrl, 15000);
                         if (!resp.ok) continue;
                         const text = await resp.text();
-                        if (text && text.includes('<item>')) { xmlText = text; break; }
+                        if (!text) continue;
+
+                        // Try JSON first (rss2json returns JSON — easier on mobile)
+                        if (text.trim().startsWith('{')) {
+                            try {
+                                const json = JSON.parse(text);
+                                if (json.status === 'ok' && json.items && json.items.length > 0) {
+                                    parsedItems = json.items.slice(0, 10).map(it => ({
+                                        title: it.title || 'Untitled',
+                                        link: it.link || '#',
+                                        pubDate: it.pubDate || null,
+                                        source: it.author || it.source || 'Market Update'
+                                    }));
+                                    break;
+                                }
+                            } catch (e) { /* not valid JSON, try XML next */ }
+                        }
+
+                        // Fall back to XML parsing
+                        if (text.includes('<item>')) {
+                            const parser = new DOMParser();
+                            const xml = parser.parseFromString(text, 'text/xml');
+                            const items = Array.from(xml.querySelectorAll('item')).slice(0, 10).map(item => ({
+                                title: item.querySelector('title')?.textContent || 'Untitled',
+                                link: item.querySelector('link')?.textContent || '#',
+                                pubDate: item.querySelector('pubDate')?.textContent || null,
+                                source: item.querySelector('source')?.textContent || 'Market Update'
+                            }));
+                            if (items.length > 0) { parsedItems = items; break; }
+                        }
                     } catch (e) { /* try next proxy */ }
                 }
             }
 
-            if (!xmlText) {
+            if (!parsedItems || parsedItems.length === 0) {
                 container.innerHTML = `
                     <div class="p-6 text-center">
                         <div class="text-2xl mb-2">📡</div>
                         <div class="text-base font-bold text-slate-200 mb-1">News service unavailable</div>
                         <div class="text-sm text-slate-400">The live news feed couldn't be reached right now. This usually fixes itself — try again in a few minutes.</div>
-                        <div class="text-[11px] text-slate-500 mt-3">Tip: Run the "Update cached news" GitHub Action to get reliable cached news for all Large/Mid cap stocks.</div>
+                        <div class="text-[13px] text-slate-500 mt-3">Or search directly: <a href="https://news.google.com/search?q=${encodeURIComponent(ticker + ' NSE India')}" target="_blank" class="text-sky-400 underline">Google News → ${escapeHtml(ticker)}</a></div>
                     </div>`;
                 return;
             }
 
             try {
-                const parser = new DOMParser();
-                const xml = parser.parseFromString(xmlText, 'text/xml');
-                const items = Array.from(xml.querySelectorAll('item')).slice(0, 10).map(item => ({
-                    title: item.querySelector('title')?.textContent || 'Untitled',
-                    link: item.querySelector('link')?.textContent || '#',
-                    pubDate: item.querySelector('pubDate')?.textContent || null,
-                    source: item.querySelector('source')?.textContent || 'Market Update'
-                }));
-
-                if (items.length === 0) {
-                    container.innerHTML = `
-                        <div class="p-6 text-center">
-                            <div class="text-2xl mb-2">🔍</div>
-                            <div class="text-base font-bold text-slate-200 mb-1">No recent news found for ${escapeHtml(ticker)}</div>
-                            <div class="text-sm text-slate-400">Google News doesn't have recent articles matching this stock symbol right now. Try searching directly on <a href="https://news.google.com/search?q=${encodeURIComponent(ticker + ' NSE India')}" target="_blank" class="text-sky-400 underline">Google News</a>.</div>
-                        </div>`;
-                    return;
-                }
-                container.innerHTML = renderNewsCards(items);
+                container.innerHTML = renderNewsCards(parsedItems);
             } catch (error) {
-                container.innerHTML = '<div class="p-6 text-center text-rose-400 text-sm">⚠️ Error parsing the news feed.</div>';
+                container.innerHTML = '<div class="p-6 text-center text-rose-400 text-sm">⚠️ Error displaying news.</div>';
             }
         }
-    </script>
+        </script>
 </body>
 </html>
