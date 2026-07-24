@@ -60,7 +60,7 @@
                 <button onclick="loadView('traded')" id="btn-view-traded" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">🔥 MOST TRADED</button>
                 <button onclick="loadView('bullish')" id="btn-view-bullish" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">📈 TOP GAINERS</button>
                 <button onclick="loadView('bearish')" id="btn-view-bearish" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">📉 TOP LOSERS</button>
-                <button onclick="loadView('qualitydip')" id="btn-view-qualitydip" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">💎 QUALITY DIP</button>
+                <button onclick="loadView('longterm')" id="btn-view-longterm" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">🏆 LONG TERM</button>
             </div>
 
             <div class="flex flex-col gap-3 border-t border-slate-600 pt-3">
@@ -88,7 +88,7 @@
                 <div class="flex flex-wrap items-center gap-2">
                     <span class="text-[13px] text-slate-400 font-bold uppercase shrink-0 font-mono">Sort:</span>
                     <select id="sort-select" onchange="setSort(this.value)" class="bg-slate-700 border border-slate-500 text-slate-50 text-[13px] font-mono font-bold rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-sky-700">
-                        <option value="momentum">Momentum Score</option>
+                        <option value="momentum">Score</option>
                         <option value="change">% Change</option>
                         <option value="volume">Volume</option>
                         <option value="price">Price</option>
@@ -100,7 +100,7 @@
                 </div>
             </div>
             <p id="cap-filter-note" class="hidden text-[13px] text-amber-500/80 font-mono">📎 Large/Mid/Small filtering needs one extra file (data/market-cap.csv) — ask your assistant how to add it.</p>
-            <p id="qualitydip-note" class="hidden text-[13px] text-emerald-400/90 font-mono">💎 QUALITY DIP — Fundamentally strong stocks currently oversold (low RSI). These are contrarian long-term buy opportunities. Fundamentals data required — stocks without uploaded XBRL filings won't appear here.</p>
+            <p id="longterm-note" class="hidden text-[13px] text-emerald-400/90 font-mono">🏆 LONG TERM — Fundamentally strong stocks currently oversold (low RSI). These are contrarian long-term buy opportunities. Fundamentals data required — stocks without uploaded XBRL filings won't appear here.</p>
         </div>
 
         <div class="flex-1 overflow-y-auto bg-slate-800 border border-slate-600 rounded-xl p-4 shadow-xl">
@@ -139,9 +139,9 @@
             traded:     { key: 'volume',     dir: 'desc' },
             bullish:    { key: 'change',     dir: 'desc' },
             bearish:    { key: 'change',     dir: 'asc'  },
-            qualitydip: { key: 'qualitydip', dir: 'desc' }
+            longterm: { key: 'longterm', dir: 'desc' }
         };
-        const DEFAULT_DIR = { momentum: 'desc', volume: 'desc', change: 'desc', price: 'desc', rsi: 'asc', name: 'asc', qualitydip: 'desc' };
+        const DEFAULT_DIR = { momentum: 'desc', volume: 'desc', change: 'desc', price: 'desc', rsi: 'asc', name: 'asc', longterm: 'desc' };
 
         window.addEventListener('DOMContentLoaded', () => {
             rotateQuote();
@@ -196,6 +196,44 @@
         // ---------------------------------------------------------
         // DATA LOADING
         // ---------------------------------------------------------
+        // Cache bhavcopy data in IndexedDB so it survives page reloads.
+        // Only re-fetches dates that aren't already in the cache.
+        // This dramatically speeds up subsequent loads — typically 5-10 seconds
+        // instead of the full 20-30 seconds of fetching all files fresh.
+        const DB_NAME = 'RBKScreener', DB_VER = 1, STORE = 'bhavcopy';
+
+        function openDB() {
+            return new Promise((res, rej) => {
+                const req = indexedDB.open(DB_NAME, DB_VER);
+                req.onupgradeneeded = e => e.target.result.createObjectStore(STORE, { keyPath: 'date' });
+                req.onsuccess = e => res(e.target.result);
+                req.onerror = () => rej(req.error);
+            });
+        }
+        async function dbGetDates(db) {
+            return new Promise((res, rej) => {
+                const req = db.transaction(STORE).objectStore(STORE).getAllKeys();
+                req.onsuccess = () => res(new Set(req.result));
+                req.onerror = () => rej(req.error);
+            });
+        }
+        async function dbGetAll(db) {
+            return new Promise((res, rej) => {
+                const req = db.transaction(STORE).objectStore(STORE).getAll();
+                req.onsuccess = () => res(req.result);
+                req.onerror = () => rej(req.error);
+            });
+        }
+        async function dbPutMany(db, items) {
+            return new Promise((res, rej) => {
+                const tx = db.transaction(STORE, 'readwrite');
+                const store = tx.objectStore(STORE);
+                items.forEach(item => store.put(item));
+                tx.oncomplete = res;
+                tx.onerror = () => rej(tx.error);
+            });
+        }
+
         async function fetchLiveMarketData() {
             try {
                 setStatus('LOADING DATE INDEX...');
@@ -220,7 +258,7 @@
                     }
                 } catch (e) { /* optional file - fine if missing */ }
 
-                // Optional: manually-curated fundamentals (ROE, D/E, EPS, and optionally PE). Silently skipped if not present.
+                // Optional: fundamentals from XBRL data
                 try {
                     const fundResp = await fetch('data/fundamentals.csv');
                     if (fundResp.ok) {
@@ -244,49 +282,83 @@
                     }
                 } catch (e) { /* optional file - fine if missing */ }
 
+                // --- SMART CACHE: only fetch dates not already stored locally ---
                 historicalData = {};
                 stockNames = {};
-                let completed = 0;
-                const total = availableDates.length;
+                let db = null;
+                let cachedDates = new Set();
+                let cachedEntries = [];
 
-                const fetchPromises = availableDates.map(date =>
-                    fetch(`data/bhavcopy/${date}.csv`)
-                        .then(r => r.ok ? r.text() : null)
-                        .catch(() => null)
-                        .then(text => {
-                            completed++;
-                            setStatus(`LOADING HISTORICAL DATA... ${completed}/${total} SESSIONS`);
-                            return { date, text };
-                        })
-                );
+                try {
+                    db = await openDB();
+                    cachedDates = await dbGetDates(db);
+                    cachedEntries = await dbGetAll(db);
+                    if (cachedEntries.length > 0) {
+                        setStatus(`READING ${cachedEntries.length} CACHED SESSIONS FROM LOCAL STORAGE...`);
+                        // Load what we have from cache first
+                        cachedEntries.forEach(entry => {
+                            if (entry.rows) {
+                                entry.rows.forEach(row => {
+                                    if (!historicalData[row.t]) historicalData[row.t] = [];
+                                    historicalData[row.t].push({ date: entry.date, open: row.o, high: row.h, low: row.l, close: row.c, volume: row.v });
+                                    if (row.n) stockNames[row.t] = row.n;
+                                });
+                            }
+                        });
+                    }
+                } catch (e) { db = null; /* IndexedDB not available — fall back to full fetch */ }
 
-                const results = await Promise.all(fetchPromises);
+                const datesToFetch = availableDates.filter(d => !cachedDates.has(d));
+                const total = datesToFetch.length;
 
-                results.forEach(({ date, text }) => {
-                    if (!text) return;
-                    const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+                if (total === 0) {
+                    setStatus(`USING CACHED DATA (${availableDates.length} SESSIONS) — INSTANT LOAD`);
+                } else {
+                    setStatus(`FETCHING ${total} NEW SESSION${total > 1 ? 'S' : ''} (${cachedDates.size} ALREADY CACHED)...`);
 
-                    parsed.data.forEach(row => {
-                        if (row['SctySrs'] !== 'EQ') return; // mainboard equity only
+                    let completed = 0;
+                    const newEntries = [];
 
-                        const ticker = row['TckrSymb'];
-                        if (!ticker) return;
+                    const fetchPromises = datesToFetch.map(date =>
+                        fetch(`data/bhavcopy/${date}.csv`)
+                            .then(r => r.ok ? r.text() : null)
+                            .catch(() => null)
+                            .then(text => {
+                                completed++;
+                                if (total > 5) setStatus(`LOADING ${completed}/${total} NEW SESSIONS...`);
+                                return { date, text };
+                            })
+                    );
 
-                        const close = parseFloat(row['ClsPric'] || 0);
-                        const open = parseFloat(row['OpnPric'] || 0);
-                        const high = parseFloat(row['HghPric'] || 0);
-                        const low = parseFloat(row['LwPric'] || 0);
-                        const prevClose = parseFloat(row['PrvsClsgPric'] || close);
-                        const volume = parseFloat(row['TtlTradgVol'] || row['TOTTRDQTY'] || row['TotTrdQty'] || 0);
+                    const results = await Promise.all(fetchPromises);
 
-                        if (!close) return;
-
-                        if (!historicalData[ticker]) historicalData[ticker] = [];
-                        historicalData[ticker].push({ date, open, high, low, close, prevClose, volume });
-
-                        if (row['FinInstrmNm']) stockNames[ticker] = row['FinInstrmNm'];
+                    results.forEach(({ date, text }) => {
+                        if (!text) return;
+                        const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+                        const rows = [];
+                        parsed.data.forEach(row => {
+                            if (row['SctySrs'] !== 'EQ') return;
+                            const ticker = row['TckrSymb'];
+                            if (!ticker) return;
+                            const close = parseFloat(row['ClsPric'] || 0);
+                            const open  = parseFloat(row['OpnPric'] || 0);
+                            const high  = parseFloat(row['HghPric'] || 0);
+                            const low   = parseFloat(row['LwPric']  || 0);
+                            const vol   = parseFloat(row['TtlTradgVol'] || row['TOTTRDQTY'] || row['TotTrdQty'] || 0);
+                            if (!close) return;
+                            rows.push({ t: ticker, o: open, h: high, l: low, c: close, v: vol, n: row['FinInstrmNm'] || null });
+                            if (!historicalData[ticker]) historicalData[ticker] = [];
+                            historicalData[ticker].push({ date, open, high, low, close, volume: vol });
+                            if (row['FinInstrmNm']) stockNames[ticker] = row['FinInstrmNm'];
+                        });
+                        newEntries.push({ date, rows });
                     });
-                });
+
+                    // Save new entries to cache for next load
+                    if (db && newEntries.length > 0) {
+                        try { await dbPutMany(db, newEntries); } catch (e) { /* cache save failed — non-fatal */ }
+                    }
+                }
 
                 Object.keys(historicalData).forEach(t => {
                     historicalData[t].sort((a, b) => a.date.localeCompare(b.date));
@@ -1166,9 +1238,9 @@
             sortKey = preset.key;
             sortDir = preset.dir;
             syncSortControlsUI();
-            // Show/hide Quality Dip explanation note
-            const qdNote = document.getElementById('qualitydip-note');
-            if (qdNote) qdNote.classList.toggle('hidden', tab !== 'qualitydip');
+            // Show/hide Long Term explanation note
+            const qdNote = document.getElementById('longterm-note');
+            if (qdNote) qdNote.classList.toggle('hidden', tab !== 'longterm');
             renderList();
         };
 
@@ -1205,7 +1277,7 @@
             const [descLabel, ascLabel] = labels[sortKey] || ['High to Low', 'Low to High'];
             dirBtn.textContent = sortDir === 'desc' ? `↓ ${descLabel}` : `↑ ${ascLabel}`;
 
-            const allTabs = ['momentum', 'traded', 'bullish', 'bearish', 'qualitydip'];
+            const allTabs = ['momentum', 'traded', 'bullish', 'bearish', 'longterm'];
             allTabs.forEach(v => {
                 const btn = document.getElementById(`btn-view-${v}`);
                 if (btn) {
@@ -1216,31 +1288,65 @@
             });
         }
 
-        // Quality Dip Score: rewards fundamentally strong stocks that are currently
-        // oversold (low RSI). This is a contrarian long-term buy signal — the opposite
-        // philosophy from momentum. Only meaningful when fundamentals are available.
-        function calcQualityDipScore(ticker) {
+        // Long Term Score: A comprehensive ranking for long-term investing.
+        // Strategy: Find fundamentally strong companies at a reasonable/attractive entry point.
+        // Different from Momentum (which chases rising stocks) — this looks for quality at a dip.
+        // Factors: ROE quality, debt safety, profit margin, entry point (RSI/price), valuation vs sector.
+        function calcLongTermScore(ticker) {
             const d = stockData[ticker];
             if (!d) return -Infinity;
             const f = fundamentalsMap[ticker];
             if (!f) return -Infinity; // needs fundamentals to be meaningful
 
+            const bench = getSectorBenchmarks(f.segment);
             let score = 0;
 
-            // Fundamental quality — must be strong
-            if (f.roe !== null)  score += Math.min(40, f.roe * 2);       // ROE drives the score
-            if (f.de  !== null)  score += f.de <= 0.5 ? 20 : f.de <= 1 ? 12 : f.de <= 2 ? 5 : 0;
-            if (f.npm !== null)  score += Math.min(15, f.npm);           // profit margin
-
-            // RSI penalty/bonus — LOW RSI is GOOD here (contrarian)
-            if (d.rsi14 !== null) {
-                if (d.rsi14 < 30)       score += 25; // heavily oversold = biggest opportunity
-                else if (d.rsi14 < 40)  score += 18; // oversold
-                else if (d.rsi14 < 50)  score += 10; // dipping but not extreme
-                else                    score += 0;  // not a dip
+            // Factor 1: ROE — is this a genuinely profitable business? (0-30 pts)
+            if (f.roe !== null) {
+                if (f.roe >= bench.roeMin * 1.5) score += 30;       // well above sector norm
+                else if (f.roe >= bench.roeMin)  score += 22;       // meets sector standard
+                else if (f.roe >= bench.roeMin * 0.7) score += 12;  // slightly below
+                else score += 0;
             }
 
-            return Math.round(score);
+            // Factor 2: Debt safety — can the company survive a downturn? (0-20 pts)
+            if (f.de !== null) {
+                const deRatio = bench.deHigh > 0 ? f.de / bench.deHigh : f.de;
+                if (deRatio <= 0.25)      score += 20;
+                else if (deRatio <= 0.5)  score += 15;
+                else if (deRatio <= 0.75) score += 8;
+                else if (deRatio <= 1.0)  score += 3;
+            }
+
+            // Factor 3: Profit margin — quality of earnings (0-15 pts)
+            if (f.npm !== null) {
+                const npmMid = (bench.npmLow + bench.npmHigh) / 2;
+                if (f.npm >= bench.npmHigh)    score += 15;
+                else if (f.npm >= npmMid)      score += 10;
+                else if (f.npm >= bench.npmLow) score += 5;
+            }
+
+            // Factor 4: Entry point — is this a good time to buy? (0-20 pts)
+            // Low RSI means the stock is oversold = better entry. Low pctFrom52High = room to recover.
+            if (d.rsi14 !== null) {
+                if (d.rsi14 < 30)       score += 20; // heavily oversold — best entry
+                else if (d.rsi14 < 40)  score += 15; // oversold
+                else if (d.rsi14 < 50)  score += 8;  // neutral/dipping
+                else if (d.rsi14 < 60)  score += 3;  // fair entry, not ideal
+                // RSI 60+ = stock is already running, not ideal for long-term entry
+            }
+
+            // Factor 5: Valuation vs sector — is it cheap or expensive? (0-15 pts)
+            const pe = (d.price && f.eps && f.eps > 0) ? d.price / f.eps : null;
+            if (pe !== null) {
+                if (pe < bench.peLow * 0.8)      score += 15; // well below sector norm = bargain
+                else if (pe < bench.peLow)        score += 10; // below sector norm
+                else if (pe <= bench.peHigh)      score += 5;  // fairly valued
+                else if (pe <= bench.peHigh * 1.3) score += 1; // slightly expensive
+                // Above 1.3x sector high P/E = overvalued, no points
+            }
+
+            return Math.min(100, Math.round(score));
         }
 
         function getSortValue(ticker, key) {
@@ -1252,7 +1358,7 @@
                 case 'price':      return d.price;
                 case 'rsi':        return d.rsi14 === null ? -Infinity : d.rsi14;
                 case 'name':       return d.name || '';
-                case 'qualitydip': return calcQualityDipScore(ticker);
+                case 'longterm': return calcLongTermScore(ticker);
                 default: return 0;
             }
         }
@@ -1280,8 +1386,8 @@
 
             if (capFilter !== 'ALL') keys = keys.filter(k => stockData[k].capCategory === capFilter);
             if (priceFilter !== 'ALL') keys = keys.filter(k => matchesPriceFilter(stockData[k].price));
-            // Quality Dip: only show stocks with fundamentals uploaded AND RSI below 50
-            if (activeTab === 'qualitydip') {
+            // Long Term: only show stocks with fundamentals uploaded AND RSI below 50
+            if (activeTab === 'longterm') {
                 keys = keys.filter(k => fundamentalsMap[k] && stockData[k].rsi14 !== null && stockData[k].rsi14 < 50);
             }
             if (searchVal) keys = keys.filter(k => k.includes(searchVal) || (stockData[k].name || '').toUpperCase().includes(searchVal));
@@ -1396,7 +1502,7 @@
                             <div id="panel-tab-momentum" class="flex-1 flex flex-col overflow-y-auto pr-1">
                                 <div class="bg-slate-700/60 p-4 rounded-lg border border-slate-500 mb-3">
                                     <div class="flex justify-between items-center mb-1">
-                                        <span class="text-slate-300 uppercase text-[13px]">${data.fundamentalsScore !== null ? 'Combined Score (Tech + Funda)' : 'Momentum Score (Technical)'}</span>
+                                        <span class="text-slate-300 uppercase text-[13px]">${data.fundamentalsScore !== null ? 'Score' : 'Score'}</span>
                                         <span class="text-[13px] font-bold ${verdict.text}">${verdict.label}</span>
                                     </div>
                                     <div class="text-3xl font-bold ${verdict.text}">${data.combinedScore} / 100</div>
@@ -1538,7 +1644,7 @@
                                         </div>
 
                                         <button onclick="toggleFundaBreakdown()" id="funda-breakdown-btn" class="w-full bg-slate-700/60 hover:bg-slate-600 p-3 rounded-lg border border-slate-500 text-sm flex justify-between items-center transition-colors">
-                                            <span class="text-slate-200 font-bold">📋 View Fundamental Score Breakdown</span>
+                                            <span class="text-slate-200 font-bold">📋 View Score Breakdown</span>
                                             <span id="funda-breakdown-arrow" class="text-slate-400">▾</span>
                                         </button>
                                         <div id="funda-breakdown-panel" class="hidden mt-2">
@@ -1765,6 +1871,42 @@
             });
             volumeSeries.setData(volumeData);
 
+            // SMA overlays — 20-day (short-term trend) and 50-day (medium-term trend)
+            const closes = hist.map(h => h.close);
+            const addSMA = (period, color, title) => {
+                const data = [];
+                for (let i = period - 1; i < hist.length; i++) {
+                    const avg = closes.slice(i - period + 1, i + 1).reduce((a, b) => a + b, 0) / period;
+                    data.push({ time: hist[i].date, value: avg });
+                }
+                if (data.length === 0) return;
+                const s = chart.addLineSeries({ color, lineWidth: 1, title, priceLineVisible: false, lastValueVisible: true, crosshairMarkerVisible: false });
+                s.setData(data);
+            };
+            addSMA(20, 'rgba(251,191,36,0.8)',  'SMA20');
+            if (hist.length >= 50) addSMA(50, 'rgba(167,139,250,0.8)', 'SMA50');
+
+            // Buyer / Seller zones: find the 3 most significant swing highs and lows
+            // in the visible history as horizontal support/resistance lines
+            const findSwingHighsLows = (data) => {
+                const highs = [], lows = [];
+                for (let i = 3; i < data.length - 3; i++) {
+                    const h = data[i].high, l = data[i].low;
+                    if (h > data[i-1].high && h > data[i-2].high && h > data[i+1].high && h > data[i+2].high) highs.push(h);
+                    if (l < data[i-1].low  && l < data[i-2].low  && l < data[i+1].low  && l < data[i+2].low)  lows.push(l);
+                }
+                highs.sort((a, b) => b - a);
+                lows.sort((a, b) => a - b);
+                return { highs: highs.slice(0, 3), lows: lows.slice(0, 3) };
+            };
+            const { highs, lows } = findSwingHighsLows(hist);
+            highs.forEach((price, i) => {
+                mainSeries.createPriceLine({ price, color: 'rgba(244,63,94,0.6)', lineWidth: 1, lineStyle: LightweightCharts.LineStyle.Dashed, axisLabelVisible: true, title: `R${i+1}` });
+            });
+            lows.forEach((price, i) => {
+                mainSeries.createPriceLine({ price, color: 'rgba(52,211,153,0.6)', lineWidth: 1, lineStyle: LightweightCharts.LineStyle.Dashed, axisLabelVisible: true, title: `S${i+1}` });
+            });
+
             if (showPivotPoints) {
                 const latest = hist[hist.length - 1];
                 const pv = calcPivotPoints(latest);
@@ -1772,17 +1914,13 @@
                     { value: pv.r3, color: '#f43f5e', title: 'R3' },
                     { value: pv.r2, color: '#fb923c', title: 'R2' },
                     { value: pv.r1, color: '#fbbf24', title: 'R1' },
-                    { value: pv.p, color: '#38bdf8', title: 'Pivot' },
+                    { value: pv.p,  color: '#38bdf8', title: 'Pivot' },
                     { value: pv.s1, color: '#fbbf24', title: 'S1' },
                     { value: pv.s2, color: '#fb923c', title: 'S2' },
                     { value: pv.s3, color: '#f43f5e', title: 'S3' }
                 ];
                 lines.forEach(l => {
-                    mainSeries.createPriceLine({
-                        price: l.value, color: l.color, lineWidth: 1,
-                        lineStyle: LightweightCharts.LineStyle.Dashed,
-                        axisLabelVisible: true, title: l.title
-                    });
+                    mainSeries.createPriceLine({ price: l.value, color: l.color, lineWidth: 1, lineStyle: LightweightCharts.LineStyle.Dashed, axisLabelVisible: true, title: l.title });
                 });
             }
 
