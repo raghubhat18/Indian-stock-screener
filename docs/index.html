@@ -1512,14 +1512,14 @@
                                         <span class="text-[11px] text-slate-500">Medium trend</span>
                                     </label>
                                     <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="checkbox" id="ov-zones" onchange="rerenderChart()" class="accent-emerald-400 w-4 h-4">
-                                        <span class="text-[12px] font-bold" style="color:#34d399">▓ Buy Zones</span>
-                                        <span class="text-[11px] text-slate-500">Support bands</span>
+                                        <input type="checkbox" id="ov-zones" onchange="rerenderChart()" class="accent-blue-500 w-4 h-4">
+                                        <span class="text-[12px] font-bold" style="color:#3b82f6">▓ Buy Zones</span>
+                                        <span class="text-[11px] text-slate-500">Support bands (blue)</span>
                                     </label>
                                     <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="checkbox" id="ov-sellzones" onchange="rerenderChart()" class="accent-rose-400 w-4 h-4">
-                                        <span class="text-[12px] font-bold" style="color:#fb7185">▓ Sell Zones</span>
-                                        <span class="text-[11px] text-slate-500">Resistance bands</span>
+                                        <input type="checkbox" id="ov-sellzones" onchange="rerenderChart()" class="accent-orange-500 w-4 h-4">
+                                        <span class="text-[12px] font-bold" style="color:#f97316">▓ Sell Zones</span>
+                                        <span class="text-[11px] text-slate-500">Resistance bands (orange)</span>
                                     </label>
                                     <label class="flex items-center gap-2 cursor-pointer">
                                         <input type="checkbox" id="ov-pivot" onchange="rerenderChart()" class="accent-sky-400 w-4 h-4">
@@ -1535,10 +1535,10 @@
 
                                 <!-- Zone legend -->
                                 <div id="zones-legend" class="hidden mt-3 pt-3 border-t border-slate-600">
-                                    <div class="text-[11px] text-slate-400 font-bold mb-1.5">ZONE LEGEND</div>
-                                    <div class="flex flex-col gap-1">
-                                        <div class="flex items-center gap-2"><div class="w-8 h-3 rounded" style="background:rgba(52,211,153,0.25);border:1px solid rgba(52,211,153,0.6)"></div><span class="text-[11px] text-emerald-400">Buy Zone — historical support, buyers typically step in here</span></div>
-                                        <div class="flex items-center gap-2"><div class="w-8 h-3 rounded" style="background:rgba(251,113,133,0.25);border:1px solid rgba(251,113,133,0.6)"></div><span class="text-[11px] text-rose-400">Sell Zone — historical resistance, sellers typically appear here</span></div>
+                                    <div class="text-[11px] text-slate-400 font-bold mb-1.5">ZONE LEGEND (color-blind safe)</div>
+                                    <div class="flex flex-col gap-1.5">
+                                        <div class="flex items-center gap-2"><div class="w-10 h-4 rounded" style="background:rgba(37,99,235,0.4);border:1.5px solid rgba(59,130,246,0.9)"></div><span class="text-[11px]" style="color:#3b82f6">Buy Zone (blue) — historical support, buyers typically step in here</span></div>
+                                        <div class="flex items-center gap-2"><div class="w-10 h-4 rounded" style="background:rgba(234,88,12,0.4);border:1.5px solid rgba(249,115,22,0.9)"></div><span class="text-[11px]" style="color:#f97316">Sell Zone (orange) — historical resistance, sellers typically appear here</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -1968,23 +1968,66 @@
             });
 
             // -------- Zone bands (drawn FIRST so they sit behind price) --------
-            // Each zone is a filled area series with min/max lines - creates a colored band.
+            // Draws a truly FILLED band between two price levels using two Baseline series.
+            // Colors chosen for maximum color-blind accessibility (Deuteranopia/Protanopia safe):
+            //   Buy Zone  = BLUE  (clearly distinct for all types of color vision)
+            //   Sell Zone = ORANGE (clearly distinct from blue for all color-blind types)
             if (overlays.buyZones || overlays.sellZones) {
                 const { buyZones, sellZones } = findZones(hist);
-                const drawBand = (zone, color) => {
+                const drawFilledBand = (zone, colorFill, colorEdge) => {
+                    // Trick: use a HistogramSeries with priceScaleId sync'd to price scale,
+                    // where each bar spans the full time axis with the zone's price range.
+                    // Actually cleanest: a pair of Area Series that create a filled band effect
+                    // by drawing an upper "top" area filled from zone.max down, then a lower
+                    // area that overwrites everything below zone.min with the same background.
+
+                    // Method: Draw both edge lines PLUS a series of vertical histogram bars
+                    // covering the band range - this creates a fully filled colored zone.
+
+                    // We'll use two thin lines at edges and fill using a Baseline series in between
+                    const bandData = hist.map(h => ({
+                        time: h.date,
+                        value: zone.max,        // upper edge
+                    }));
+                    const bottomData = hist.map(h => ({
+                        time: h.date,
+                        value: zone.min         // lower edge
+                    }));
+                    // Upper edge line
                     const topLine = chart.addLineSeries({
-                        color, lineWidth: 1, lineStyle: LightweightCharts.LineStyle.Dotted,
+                        color: colorEdge, lineWidth: 2, lineStyle: LightweightCharts.LineStyle.Solid,
                         priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false
                     });
+                    topLine.setData(bandData);
+                    // Lower edge line
                     const botLine = chart.addLineSeries({
-                        color, lineWidth: 1, lineStyle: LightweightCharts.LineStyle.Dotted,
+                        color: colorEdge, lineWidth: 2, lineStyle: LightweightCharts.LineStyle.Solid,
                         priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false
                     });
-                    topLine.setData(hist.map(h => ({ time: h.date, value: zone.max })));
-                    botLine.setData(hist.map(h => ({ time: h.date, value: zone.min })));
+                    botLine.setData(bottomData);
+                    // Fill band using a Baseline series between top and bottom edges
+                    // Baseline series shades the area between a base value and the line value
+                    const fillSeries = chart.addBaselineSeries({
+                        baseValue: { type: 'price', price: zone.min },
+                        topLineColor: 'transparent',
+                        topFillColor1: colorFill,
+                        topFillColor2: colorFill,
+                        bottomLineColor: 'transparent',
+                        bottomFillColor1: 'transparent',
+                        bottomFillColor2: 'transparent',
+                        priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false
+                    });
+                    fillSeries.setData(bandData);
                 };
-                if (overlays.buyZones)  buyZones.forEach(z  => drawBand(z, 'rgba(52,211,153,0.55)'));
-                if (overlays.sellZones) sellZones.forEach(z => drawBand(z, 'rgba(251,113,133,0.55)'));
+
+                if (overlays.buyZones) {
+                    // BLUE for buy zones - stands out in all color vision types
+                    buyZones.forEach(z  => drawFilledBand(z, 'rgba(37,99,235,0.35)', 'rgba(59,130,246,0.9)'));
+                }
+                if (overlays.sellZones) {
+                    // ORANGE for sell zones - clearly distinct from blue for all color-blind types
+                    sellZones.forEach(z => drawFilledBand(z, 'rgba(234,88,12,0.35)', 'rgba(249,115,22,0.9)'));
+                }
             }
 
             // -------- Main price series --------
