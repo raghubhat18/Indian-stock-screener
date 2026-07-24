@@ -54,13 +54,16 @@
   <div class="toc">
     <h2>Contents</h2>
     <a href="#scores">1. How the Momentum Score Works</a>
-    <a href="#indicators">2. All 13 Scoring Factors Explained</a>
+    <a href="#indicators">2. All 13 Technical Scoring Factors Explained</a>
     <a href="#verdicts">3. BUY / HOLD / AVOID — What Do They Mean?</a>
-    <a href="#patterns">4. Chart Patterns Detected</a>
-    <a href="#candlesticks">5. Candlestick Patterns</a>
-    <a href="#charts">6. Reading the Chart</a>
-    <a href="#filters">7. Filters & Sorting</a>
-    <a href="#disclaimer">8. Important Disclaimer</a>
+    <a href="#fundamentals">4. 🏦 Fundamental Score & How It Works</a>
+    <a href="#qualitydip">5. 💎 Quality Dip Tab — The Contrarian Strategy</a>
+    <a href="#valuation">6. UNDERVALUED / OVERVALUED / NEUTRAL Badges</a>
+    <a href="#patterns">7. Chart Patterns Detected</a>
+    <a href="#candlesticks">8. Candlestick Patterns</a>
+    <a href="#charts">9. Reading the Chart</a>
+    <a href="#filters">10. Filters & Sorting</a>
+    <a href="#disclaimer">11. Important Disclaimer</a>
   </div>
 
   <!-- SECTION 1 -->
@@ -272,9 +275,78 @@
     </div>
   </div>
 
-  <!-- SECTION 4 -->
+  <!-- SECTION 4 — FUNDAMENTALS -->
+  <div class="section" id="fundamentals">
+    <h2 class="section-title">4. 🏦 Fundamental Score & How It Works</h2>
+    <p>When you upload a company's XBRL Excel filing to <code>docs/data/xbrl/</code> in Git, the app automatically computes a <strong>Fundamental Score (0–100)</strong> for that company. This is completely separate from the technical momentum score.</p>
+    <p>The <strong>Combined Score</strong> shown on each stock card is calculated as: <code>70% Technical + 30% Fundamental</code>. When no fundamental data is available, the combined score equals the technical score.</p>
+
+    <table>
+      <tr><th>Factor</th><th>Max Points</th><th>What it measures</th></tr>
+      <tr><td>Return on Equity (ROE)</td><td>25</td><td>How profitably the company uses shareholders' money. ROE above 20% = excellent.</td></tr>
+      <tr><td>Debt to Equity</td><td>20</td><td>Financial risk. Lower is better. Below 0.3 = very safe. Above 2.5 = high risk.</td></tr>
+      <tr><td>Net Profit Margin</td><td>20</td><td>How much of every ₹1 in revenue becomes actual profit. Above 20% = exceptional.</td></tr>
+      <tr><td>Current Ratio</td><td>15</td><td>Can the company pay its short-term bills? Above 2 = excellent. Below 1 = concerning.</td></tr>
+      <tr><td>P/E Ratio (live)</td><td>20</td><td>Is the stock cheap or expensive? Computed from today's price ÷ annual EPS. Below 15 = potentially cheap.</td></tr>
+    </table>
+
+    <div class="tip">💡 The Fundamental Score uses three verdicts: <strong style="color:#34d399">STRONG (65+)</strong>, <strong style="color:#fbbf24">FAIR (40-64)</strong>, <strong style="color:#fb7185">WEAK (below 40)</strong>. These are different from the BUY/HOLD/AVOID momentum verdicts — a company can be fundamentally STRONG but technically in an AVOID momentum phase (temporarily oversold — which is actually the Quality Dip opportunity).</div>
+
+    <h3>How to add more companies</h3>
+    <p>Use the <strong>Batch XBRL Converter tool</strong> to convert NSE XBRL filing XML files into Excel format. Upload the resulting Excel files to <code>docs/data/xbrl/</code> in your Git repo via GitHub Desktop. The GitHub Action automatically regenerates <code>fundamentals.csv</code> within minutes of each push.</p>
+  </div>
+
+  <!-- SECTION 5 — QUALITY DIP -->
+  <div class="section" id="qualitydip">
+    <h2 class="section-title">5. 💎 Quality Dip Tab — The Contrarian Strategy</h2>
+    <p>The <strong>💎 Quality Dip</strong> tab represents a completely different investment philosophy from the Momentum tab. Understanding the difference is crucial:</p>
+
+    <table>
+      <tr><th>Strategy</th><th>Momentum Tab</th><th>Quality Dip Tab</th></tr>
+      <tr><td>Philosophy</td><td>Buy what is already rising</td><td>Buy what is temporarily beaten down</td></tr>
+      <tr><td>RSI signal</td><td>55-65 is ideal (rising, not stretched)</td><td>Below 40 is ideal (oversold = opportunity)</td></tr>
+      <tr><td>Time horizon</td><td>Days to weeks (short-term)</td><td>Weeks to months (medium-to-long term)</td></tr>
+      <tr><td>Risk type</td><td>Trend reversal risk</td><td>"Value trap" risk (dip continues deeper)</td></tr>
+      <tr><td>Needs fundamentals?</td><td>No (technical only)</td><td>Yes — strong fundamentals are essential</td></tr>
+    </table>
+
+    <h3>How Quality Dip scoring works</h3>
+    <p>A stock ranks higher on the Quality Dip tab when it combines:</p>
+    <ul>
+      <li><strong>Strong fundamentals</strong> — high ROE, low debt, good profit margins (the company is genuinely good)</li>
+      <li><strong>Low RSI (below 50, ideally below 30)</strong> — the stock is temporarily oversold (the price is down, not the business)</li>
+    </ul>
+    <p>The logic: if a fundamentally strong company's stock drops significantly, it's more likely to recover than a weak company in the same situation. You're buying the dip in a quality business, not catching a falling knife in a poor one.</p>
+
+    <div class="tip">⚠️ Important: A low RSI alone is never enough. Many stocks with RSI below 30 are there for a reason — their business is deteriorating. The Quality Dip tab only shows stocks where BOTH the RSI is low AND the fundamentals are strong. Stocks without uploaded XBRL data won't appear here at all.</div>
+  </div>
+
+  <!-- SECTION 6 — VALUATION -->
+  <div class="section" id="valuation">
+    <h2 class="section-title">6. UNDERVALUED / OVERVALUED / NEUTRAL Badges</h2>
+    <p>When fundamental data is available, each stock card shows a small valuation badge next to the BUY/HOLD/AVOID verdict. This is calculated from three signals:</p>
+
+    <div class="card">
+      <h3><span class="badge bullish">UNDERVALUED</span></h3>
+      <p>The majority of signals suggest the stock is trading below its fair value. Typically: P/E below 15, Price-to-Book below 1.5, AND strong fundamental score. This doesn't mean the price will definitely go up — it means the current price appears cheap relative to the company's financials.</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="badge neutral">NEUTRAL</span></h3>
+      <p>Mixed signals — some metrics suggest the stock is cheap, others suggest it's fairly priced or expensive. Most stocks will fall in this category most of the time.</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="badge bearish">OVERVALUED</span></h3>
+      <p>The majority of signals suggest the stock is trading above its fair value. Typically: P/E above 35, Price-to-Book above 4. An overvalued stock isn't necessarily a bad investment — high-growth companies often trade at high multiples — but it means the price already reflects a lot of optimism, leaving less margin of safety.</p>
+    </div>
+
+    <div class="tip">💡 The best opportunities often combine: <strong>BUY</strong> (momentum signal) + <strong>UNDERVALUED</strong> (valuation signal) + <strong>STRONG</strong> (fundamental signal). All three aligning is relatively rare — and when they do, it's worth paying close attention.</div>
+  </div>
+
+  <!-- SECTION 4 (renumbered) -->
   <div class="section" id="patterns">
-    <h2 class="section-title">4. Chart Patterns Detected (Pattern Tab)</h2>
+    <h2 class="section-title">7. Chart Patterns Detected (Pattern Tab)</h2>
     <p>When you open a stock and click the <strong>🔍 Patterns</strong> tab, the app checks the last 2 sessions for known chart patterns. These are from the Fidelity Technical Analysis guide and academic research on pattern reliability.</p>
 
     <div class="card">
