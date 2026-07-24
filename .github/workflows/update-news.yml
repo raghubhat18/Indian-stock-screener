@@ -1,12 +1,9 @@
 name: Update cached news
 
-# Runs automatically every day after market close (no manual triggering needed).
-# Covers ALL tracked companies using parallel workers - takes ~12-15 minutes.
-# Server-side fetch = no browser CORS restrictions, no proxy dependency.
 on:
   schedule:
-    - cron: '0 12 * * 1-5'    # 5:30 PM IST, Mon-Fri (after market close)
-  workflow_dispatch:           # keep manual trigger as backup
+    - cron: '0 12 * * 1-5'    # 5:30 PM IST, Mon-Fri after market close
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -18,7 +15,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Fetch news for all tracked companies
+      - name: Fetch news for tracked companies
         run: |
           python3 - << 'EOF'
           import csv, json, time, os
@@ -26,34 +23,71 @@ jobs:
           import xml.etree.ElementTree as ET
           from concurrent.futures import ThreadPoolExecutor, as_completed
 
-          CAP_FILE  = 'docs/data/market-cap.csv'
-          OUT_FILE  = 'docs/data/news.json'
-          MAX_ITEMS = 5
-          MAX_WORKERS = 8    # 8 parallel - fast but not aggressive towards Google
-          TIMEOUT   = 10     # seconds per request
+          CAP_FILE    = 'docs/data/market-cap.csv'
+          DATES_FILE  = 'docs/data/dates.json'
+          BHAV_DIR    = 'docs/data/bhavcopy'
+          OUT_FILE    = 'docs/data/news.json'
+          MAX_ITEMS   = 5
+          MAX_WORKERS = 8
+          TIMEOUT     = 10
 
-          if not os.path.exists(CAP_FILE):
-              print(f"{CAP_FILE} not found - skipping.")
-              exit(0)
-
-          # Load ALL symbols from market-cap.csv regardless of category
           symbols = []
-          with open(CAP_FILE, encoding='utf-8-sig') as f:
-              for row in csv.DictReader(f):
-                  sym = (row.get('Symbol') or '').strip().upper()
-                  if sym:
-                      symbols.append(sym)
+
+          # --- Strategy 1: read market-cap.csv (Large + Mid cap only for speed) ---
+          if os.path.exists(CAP_FILE):
+              print(f"Reading symbols from {CAP_FILE}...")
+              with open(CAP_FILE, encoding='utf-8-sig') as f:
+                  for row in csv.DictReader(f):
+                      sym = (row.get('Symbol') or row.get('SYMBOL') or '').strip().upper()
+                      cat = (row.get('Category') or row.get('CATEGORY') or '').strip()
+                      # Only Large + Mid cap to keep runtime reasonable
+                      if sym and cat in ('LargeCap', 'MidCap'):
+                          symbols.append(sym)
+              print(f"  Found {len(symbols)} Large+Mid cap companies in market-cap.csv")
+
+          # --- Strategy 2: fall back to latest bhavcopy file ---
+          if len(symbols) == 0:
+              print(f"market-cap.csv not found or empty. Trying latest bhavcopy file...")
+              latest_csv = None
+              if os.path.exists(DATES_FILE):
+                  with open(DATES_FILE) as f:
+                      dates = json.load(f)
+                  if dates:
+                      latest_date = sorted(dates)[-1]
+                      latest_csv  = os.path.join(BHAV_DIR, f"{latest_date}.csv")
+              if not latest_csv or not os.path.exists(latest_csv):
+                  # Just find the newest CSV in the bhavcopy dir
+                  if os.path.isdir(BHAV_DIR):
+                      csvs = sorted([f for f in os.listdir(BHAV_DIR) if f.endswith('.csv')])
+                      if csvs:
+                          latest_csv = os.path.join(BHAV_DIR, csvs[-1])
+
+              if latest_csv and os.path.exists(latest_csv):
+                  print(f"  Reading symbols from {latest_csv}...")
+                  with open(latest_csv, encoding='utf-8-sig') as f:
+                      for row in csv.DictReader(f):
+                          if (row.get('SctySrs') or '').strip() == 'EQ':
+                              sym = (row.get('TckrSymb') or '').strip().upper()
+                              if sym:
+                                  symbols.append(sym)
+                  symbols = sorted(set(symbols))
+                  print(f"  Found {len(symbols)} EQ symbols in latest bhavcopy")
+              else:
+                  print("No bhavcopy files found either. Nothing to fetch.")
+                  # Write empty but valid news.json so app doesn't error
+                  os.makedirs(os.path.dirname(OUT_FILE), exist_ok=True)
+                  with open(OUT_FILE, 'w') as f:
+                      json.dump({'updatedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'news': {}}, f)
+                  exit(0)
 
           symbols = sorted(set(symbols))
-          print(f"Fetching news for {len(symbols)} companies "
-                f"using {MAX_WORKERS} parallel workers...")
+          print(f"\nFetching news for {len(symbols)} companies using {MAX_WORKERS} parallel workers...")
 
           UA = 'Mozilla/5.0 (compatible; RBK-Stock-Screener/1.0; personal use)'
 
           def fetch_one(symbol):
               query = urllib.parse.quote(f"{symbol} stock India news")
-              url   = (f"https://news.google.com/rss/search"
-                       f"?q={query}&hl=en-IN&gl=IN&ceid=IN:en")
+              url   = f"https://news.google.com/rss/search?q={query}&hl=en-IN&gl=IN&ceid=IN:en"
               req   = urllib.request.Request(url, headers={'User-Agent': UA})
               with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
                   xml_bytes = resp.read()
@@ -84,13 +118,16 @@ jobs:
                       symbol, items = future.result()
                       if items:
                           results[symbol] = items
+                          if done <= 5:  # show first 5 results as proof it's working
+                              print(f"  ✓ {symbol}: {len(items)} articles")
                   except Exception as e:
                       errors += 1
-                  if done % 100 == 0:
+                      if done <= 10:
+                          print(f"  ✗ {sym}: {e}")
+                  if done % 50 == 0:
                       elapsed = time.time() - start
-                      eta = (elapsed / done) * (len(symbols) - done)
-                      print(f"  ...{done}/{len(symbols)} done "
-                            f"({elapsed:.0f}s elapsed, ~{eta:.0f}s remaining)")
+                      eta = (elapsed / done) * (len(symbols) - done) if done > 0 else 0
+                      print(f"  ...{done}/{len(symbols)} ({elapsed:.0f}s elapsed, ~{eta:.0f}s remaining)")
 
           os.makedirs(os.path.dirname(OUT_FILE), exist_ok=True)
           with open(OUT_FILE, 'w', encoding='utf-8') as f:
@@ -100,12 +137,12 @@ jobs:
               }, f, ensure_ascii=False, indent=1)
 
           elapsed = time.time() - start
-          print(f"\nDone in {elapsed:.0f}s. "
-                f"{len(results)} companies with news, "
-                f"{errors} errors. Wrote {OUT_FILE}")
+          print(f"\n✅ Done in {elapsed:.0f}s.")
+          print(f"   {len(results)} companies with news, {errors} errors.")
+          print(f"   Wrote {OUT_FILE}")
           EOF
 
-      - name: Commit updated news.json (only if it changed)
+      - name: Commit updated news.json
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
