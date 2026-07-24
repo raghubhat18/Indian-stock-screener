@@ -1472,24 +1472,86 @@
                     </div>
                     
                     <div class="flex-1 flex flex-col lg:grid lg:grid-cols-3 overflow-y-auto lg:overflow-hidden">
-                        <div id="chart-wrapper" class="lg:col-span-2 p-4 flex flex-col h-[240px] lg:h-full shrink-0 border-r border-slate-500 bg-slate-900">
-                            <div class="flex items-center gap-2 mb-2 shrink-0 flex-wrap">
-                                <button id="btn-chart-candle" onclick="setChartType('candle')" class="px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-700 text-slate-300 border border-transparent hover:text-white">🕯️ Candles</button>
-                                <button id="btn-chart-line" onclick="setChartType('line')" class="px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-600 text-slate-50 border border-slate-400">📈 Line</button>
-                                <button id="btn-chart-pivot" onclick="togglePivotPoints()" class="px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-700 text-slate-300 border border-transparent hover:text-white">🎯 Pivot Points</button>
-                                <button id="btn-chart-fullscreen" onclick="toggleChartFullscreen()" class="px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-700 text-slate-300 border border-transparent hover:text-white ml-auto">⛶ Expand</button>
+                        <div id="chart-wrapper" class="lg:col-span-2 p-3 flex flex-col h-[260px] lg:h-full shrink-0 border-r border-slate-500 bg-slate-900">
+
+                            <!-- TOP TOOLBAR -->
+                            <div class="flex items-center gap-2 mb-2 shrink-0">
+
+                                <!-- Chart type -->
+                                <div class="flex bg-slate-800 rounded-lg border border-slate-600 overflow-hidden">
+                                    <button id="btn-chart-line" onclick="setChartType('line')" class="px-3 py-1.5 text-[12px] font-bold bg-sky-900 text-sky-300 border-r border-slate-600">📈 Line</button>
+                                    <button id="btn-chart-candle" onclick="setChartType('candle')" class="px-3 py-1.5 text-[12px] font-bold text-slate-400 hover:text-white">🕯 Candle</button>
+                                </div>
+
+                                <!-- Range pills -->
+                                <div class="flex bg-slate-800 rounded-lg border border-slate-600 overflow-hidden">
+                                    ${['1W','1M','3M','All'].map(r => `<button id="btn-range-${r}" onclick="setChartRange('${r}')" class="px-2.5 py-1.5 text-[11px] font-bold ${r==='3M'?'bg-sky-900 text-sky-300':'text-slate-400 hover:text-white'} border-r border-slate-600 last:border-0">${r}</button>`).join('')}
+                                </div>
+
+                                <!-- Overlays toggle -->
+                                <button id="btn-overlays" onclick="toggleOverlaysPanel()" class="px-3 py-1.5 rounded-lg text-[12px] font-bold bg-slate-800 border border-slate-600 text-slate-300 hover:text-white flex items-center gap-1">
+                                    ☰ Overlays
+                                </button>
+
+                                <!-- Fullscreen -->
+                                <button id="btn-chart-fullscreen" onclick="toggleChartFullscreen()" class="ml-auto px-2.5 py-1.5 rounded-lg text-[12px] font-bold bg-slate-800 border border-slate-600 text-slate-400 hover:text-white">⛶</button>
                             </div>
-                            <div class="flex items-center gap-1.5 mb-2 shrink-0 flex-wrap">
-                                <span class="text-[11px] text-slate-400 font-mono">Range:</span>
-                                ${['1W','2W','1M','2M','3M','All'].map((r,i) => `<button id="btn-range-${r}" onclick="setChartRange('${r}')" class="px-2 py-1 rounded text-[11px] font-mono font-bold ${r==='3M'?'bg-slate-600 text-slate-50 border border-slate-400':'bg-slate-700 text-slate-300 border border-transparent hover:text-white'}">${r}</button>`).join('')}
+
+                            <!-- OVERLAYS PANEL (hidden by default) -->
+                            <div id="overlays-panel" class="hidden mb-2 bg-slate-800 border border-slate-600 rounded-xl p-3 shrink-0">
+                                <div class="text-[11px] text-slate-400 font-bold uppercase mb-2">Toggle overlays on the chart</div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="ov-sma20" onchange="rerenderChart()" class="accent-amber-400 w-4 h-4">
+                                        <span class="text-[12px] text-amber-400 font-bold">━ SMA 20</span>
+                                        <span class="text-[11px] text-slate-500">Short trend</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="ov-sma50" onchange="rerenderChart()" class="accent-purple-400 w-4 h-4">
+                                        <span class="text-[12px] text-purple-400 font-bold">━ SMA 50</span>
+                                        <span class="text-[11px] text-slate-500">Medium trend</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="ov-zones" onchange="rerenderChart()" class="accent-emerald-400 w-4 h-4">
+                                        <span class="text-[12px] font-bold" style="color:#34d399">▓ Buy Zones</span>
+                                        <span class="text-[11px] text-slate-500">Support bands</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="ov-sellzones" onchange="rerenderChart()" class="accent-rose-400 w-4 h-4">
+                                        <span class="text-[12px] font-bold" style="color:#fb7185">▓ Sell Zones</span>
+                                        <span class="text-[11px] text-slate-500">Resistance bands</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="ov-pivot" onchange="rerenderChart()" class="accent-sky-400 w-4 h-4">
+                                        <span class="text-[12px] text-sky-400 font-bold">─ Pivot</span>
+                                        <span class="text-[11px] text-slate-500">Daily levels</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="ov-volume" onchange="rerenderChart()" checked class="accent-slate-400 w-4 h-4">
+                                        <span class="text-[12px] text-slate-300 font-bold">▐ Volume</span>
+                                        <span class="text-[11px] text-slate-500">Bar chart</span>
+                                    </label>
+                                </div>
+
+                                <!-- Zone legend -->
+                                <div id="zones-legend" class="hidden mt-3 pt-3 border-t border-slate-600">
+                                    <div class="text-[11px] text-slate-400 font-bold mb-1.5">ZONE LEGEND</div>
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center gap-2"><div class="w-8 h-3 rounded" style="background:rgba(52,211,153,0.25);border:1px solid rgba(52,211,153,0.6)"></div><span class="text-[11px] text-emerald-400">Buy Zone — historical support, buyers typically step in here</span></div>
+                                        <div class="flex items-center gap-2"><div class="w-8 h-3 rounded" style="background:rgba(251,113,133,0.25);border:1px solid rgba(251,113,133,0.6)"></div><span class="text-[11px] text-rose-400">Sell Zone — historical resistance, sellers typically appear here</span></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div id="own-chart-container" class="flex-1 w-full bg-slate-700/20 rounded-xl overflow-hidden border border-slate-500/80"></div>
-                            <div class="text-[12px] text-slate-400 font-mono mt-2 flex flex-col sm:flex-row sm:justify-between gap-1">
-                                <span>Source: NSE Bhavcopy · ${data.sessionsTracked} sessions of real price history</span>
-                                <span>Charting: TradingView Lightweight Charts (open-source)</span>
+
+                            <!-- CHART CANVAS -->
+                            <div id="own-chart-container" class="flex-1 w-full rounded-xl overflow-hidden border border-slate-600/50"></div>
+
+                            <div class="text-[11px] text-slate-500 mt-1.5 flex justify-between">
+                                <span>NSE Bhavcopy · ${data.sessionsTracked} sessions</span>
+                                <span id="chart-zone-summary"></span>
                             </div>
                         </div>
-                        
+
                         <div id="info-panel" class="p-4 flex flex-col lg:h-full lg:overflow-hidden bg-slate-800">
                             <div class="grid grid-cols-5 gap-1 mb-4 shrink-0">
                                 <button id="btn-tab-momentum" onclick="toggleWorkspaceTab('momentum', '${cleanTicker}')" class="py-2 px-1 rounded-lg text-center text-[11px] font-bold uppercase tracking-wide border-2 border-sky-500 bg-sky-950 text-sky-400 transition-all cursor-pointer">🚀<br>Score</button>
@@ -1727,45 +1789,52 @@
         // Chart state - remembers the user's chosen view across stock switches
         window.setChartType = function(type) {
             chartType = type;
-            document.getElementById('btn-chart-candle').className = type === 'candle'
-                ? "px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-600 text-slate-50 border border-slate-400"
-                : "px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-700 text-slate-300 border border-transparent hover:text-white";
-            document.getElementById('btn-chart-line').className = type === 'line'
-                ? "px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-600 text-slate-50 border border-slate-400"
-                : "px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-700 text-slate-300 border border-transparent hover:text-white";
+            const activeClass   = 'px-3 py-1.5 text-[12px] font-bold bg-sky-900 text-sky-300 border-r border-slate-600';
+            const inactiveClass = 'px-3 py-1.5 text-[12px] font-bold text-slate-400 hover:text-white border-r border-slate-600 last:border-0';
+            const candleBtn = document.getElementById('btn-chart-candle');
+            const lineBtn   = document.getElementById('btn-chart-line');
+            if (candleBtn) candleBtn.className = type === 'candle' ? activeClass : inactiveClass;
+            if (lineBtn)   lineBtn.className   = type === 'line'   ? activeClass : inactiveClass;
             if (currentChartTicker) renderPriceChart(currentChartTicker);
         };
 
-        window.togglePivotPoints = function() {
-            showPivotPoints = !showPivotPoints;
-            const btn = document.getElementById('btn-chart-pivot');
-            btn.className = showPivotPoints
-                ? "px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-sky-950 text-sky-400 border border-sky-800"
-                : "px-2.5 py-1 rounded-lg text-[12px] font-mono font-bold bg-slate-700 text-slate-300 border border-transparent hover:text-white";
+        window.toggleOverlaysPanel = function() {
+            const panel = document.getElementById('overlays-panel');
+            const btn   = document.getElementById('btn-overlays');
+            if (!panel) return;
+            const isOpen = !panel.classList.contains('hidden');
+            panel.classList.toggle('hidden');
+            if (btn) btn.className = isOpen
+                ? 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-slate-800 border border-slate-600 text-slate-300 hover:text-white flex items-center gap-1'
+                : 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-sky-900 border border-sky-700 text-sky-300 flex items-center gap-1';
+        };
+
+        window.rerenderChart = function() {
+            // Show/hide zone legend based on whether zones are checked
+            const showZones = document.getElementById('ov-zones')?.checked || document.getElementById('ov-sellzones')?.checked;
+            const legend    = document.getElementById('zones-legend');
+            if (legend) legend.classList.toggle('hidden', !showZones);
             if (currentChartTicker) renderPriceChart(currentChartTicker);
         };
 
-        // Expands the chart to fill the workspace, using the browser's real Fullscreen API
-        // so we can also attempt to lock the screen into landscape (works on most Android
-        // browsers; iOS Safari doesn't support orientation locking from the web, so on iPhone
-        // this still gives a bigger view but won't force-rotate - you can rotate manually there).
         window.setChartRange = function(range) {
             chartRange = range;
-            const ranges = ['1W','2W','1M','2M','3M','All'];
+            const ranges = ['1W','1M','3M','All'];
             ranges.forEach(r => {
                 const btn = document.getElementById(`btn-range-${r}`);
                 if (!btn) return;
                 btn.className = r === range
-                    ? 'px-2 py-1 rounded text-[11px] font-mono font-bold bg-slate-600 text-slate-50 border border-slate-400'
-                    : 'px-2 py-1 rounded text-[11px] font-mono font-bold bg-slate-700 text-slate-300 border border-transparent hover:text-white';
+                    ? 'px-2.5 py-1.5 text-[11px] font-bold bg-sky-900 text-sky-300 border-r border-slate-600 last:border-0'
+                    : 'px-2.5 py-1.5 text-[11px] font-bold text-slate-400 hover:text-white border-r border-slate-600 last:border-0';
             });
             if (currentChartTicker) renderPriceChart(currentChartTicker);
         };
 
+        // Expands the chart to fill the workspace, using the browser's real Fullscreen API
         window.toggleChartFullscreen = async function() {
-            const wrapper = document.getElementById('chart-wrapper');
+            const wrapper   = document.getElementById('chart-wrapper');
             const infoPanel = document.getElementById('info-panel');
-            const btn = document.getElementById('btn-chart-fullscreen');
+            const btn       = document.getElementById('btn-chart-fullscreen');
 
             if (!document.fullscreenElement) {
                 try {
@@ -1822,6 +1891,59 @@
         // Draws a chart using our own NSE bhavcopy history (not TradingView's live feed).
         // This is the free, open-source "Lightweight Charts" library from TradingView -
         // it just draws whatever data we give it, no exchange/license restrictions.
+        // Helper: read overlay checkbox states with sensible defaults if UI not present
+        function getOverlayStates() {
+            const get = (id, def = false) => {
+                const el = document.getElementById(id);
+                return el ? el.checked : def;
+            };
+            return {
+                sma20:  get('ov-sma20',  false),
+                sma50:  get('ov-sma50',  false),
+                buyZones:  get('ov-zones',    false),
+                sellZones: get('ov-sellzones',false),
+                pivot:  get('ov-pivot',  false),
+                volume: get('ov-volume', true)
+            };
+        }
+
+        // Detect swing highs and lows over the visible window and cluster nearby prices
+        // into zones (bands with an upper and lower edge — not just a single price line).
+        function findZones(hist) {
+            const highs = [], lows = [];
+            for (let i = 3; i < hist.length - 3; i++) {
+                const h = hist[i].high, l = hist[i].low;
+                if (h > hist[i-1].high && h > hist[i-2].high && h > hist[i+1].high && h > hist[i+2].high) highs.push(h);
+                if (l < hist[i-1].low  && l < hist[i-2].low  && l < hist[i+1].low  && l < hist[i+2].low)  lows.push(l);
+            }
+            // Cluster nearby values (within 1.5% of each other) into zones
+            const cluster = (values, isHigh) => {
+                if (values.length === 0) return [];
+                values.sort((a,b) => a - b);
+                const zones = [];
+                let current = [values[0]];
+                for (let i = 1; i < values.length; i++) {
+                    if (values[i] / current[current.length-1] - 1 < 0.015) {
+                        current.push(values[i]);
+                    } else {
+                        zones.push({ min: Math.min(...current), max: Math.max(...current), count: current.length });
+                        current = [values[i]];
+                    }
+                }
+                zones.push({ min: Math.min(...current), max: Math.max(...current), count: current.length });
+                // Give band a minimum thickness of ~0.75% of price so it renders visibly
+                zones.forEach(z => {
+                    const mid = (z.min + z.max) / 2;
+                    const halfBand = mid * 0.0075;
+                    if (z.max - z.min < halfBand * 2) { z.min = mid - halfBand; z.max = mid + halfBand; }
+                });
+                // Prioritize zones with more touches (more historically significant)
+                zones.sort((a, b) => b.count - a.count);
+                return zones.slice(0, 2); // top 2 most-tested zones per side
+            };
+            return { sellZones: cluster(highs, true), buyZones: cluster(lows, false) };
+        }
+
         function renderPriceChart(ticker) {
             const container = document.getElementById('own-chart-container');
             if (!container) return;
@@ -1832,9 +1954,9 @@
                 return;
             }
 
-            // Slice to the selected range (trading sessions, not calendar days)
             const sessions = RANGE_SESSIONS[chartRange] || 99999;
             const hist = fullHist.slice(-sessions);
+            const overlays = getOverlayStates();
 
             const chart = LightweightCharts.createChart(container, {
                 layout: { background: { color: 'transparent' }, textColor: '#cbd5e1' },
@@ -1845,10 +1967,31 @@
                 autoSize: true
             });
 
+            // -------- Zone bands (drawn FIRST so they sit behind price) --------
+            // Each zone is a filled area series with min/max lines - creates a colored band.
+            if (overlays.buyZones || overlays.sellZones) {
+                const { buyZones, sellZones } = findZones(hist);
+                const drawBand = (zone, color) => {
+                    const topLine = chart.addLineSeries({
+                        color, lineWidth: 1, lineStyle: LightweightCharts.LineStyle.Dotted,
+                        priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false
+                    });
+                    const botLine = chart.addLineSeries({
+                        color, lineWidth: 1, lineStyle: LightweightCharts.LineStyle.Dotted,
+                        priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false
+                    });
+                    topLine.setData(hist.map(h => ({ time: h.date, value: zone.max })));
+                    botLine.setData(hist.map(h => ({ time: h.date, value: zone.min })));
+                };
+                if (overlays.buyZones)  buyZones.forEach(z  => drawBand(z, 'rgba(52,211,153,0.55)'));
+                if (overlays.sellZones) sellZones.forEach(z => drawBand(z, 'rgba(251,113,133,0.55)'));
+            }
+
+            // -------- Main price series --------
             let mainSeries;
             if (chartType === 'line') {
                 const lineData = hist.map(h => ({ time: h.date, value: h.close }));
-                mainSeries = chart.addLineSeries({ color: '#38bdf8', lineWidth: 2 });
+                mainSeries = chart.addLineSeries({ color: '#38bdf8', lineWidth: 2, priceLineVisible: false });
                 mainSeries.setData(lineData);
             } else {
                 const candleData = hist.map(h => ({ time: h.date, open: h.open, high: h.high, low: h.low, close: h.close }));
@@ -1859,55 +2002,38 @@
                 mainSeries.setData(candleData);
             }
 
-            const volumeData = hist.map(h => ({
-                time: h.date,
-                value: h.volume,
-                color: h.close >= h.open ? 'rgba(16,185,129,0.5)' : 'rgba(244,63,94,0.5)'
-            }));
-            const volumeSeries = chart.addHistogramSeries({
-                priceFormat: { type: 'volume' },
-                priceScaleId: '',
-                scaleMargins: { top: 0.8, bottom: 0 }
-            });
-            volumeSeries.setData(volumeData);
+            // -------- Volume (opt-in, on by default) --------
+            if (overlays.volume) {
+                const volumeData = hist.map(h => ({
+                    time: h.date,
+                    value: h.volume,
+                    color: h.close >= h.open ? 'rgba(16,185,129,0.4)' : 'rgba(244,63,94,0.4)'
+                }));
+                const volumeSeries = chart.addHistogramSeries({
+                    priceFormat: { type: 'volume' },
+                    priceScaleId: '',
+                    scaleMargins: { top: 0.82, bottom: 0 }
+                });
+                volumeSeries.setData(volumeData);
+            }
 
-            // SMA overlays — 20-day (short-term trend) and 50-day (medium-term trend)
+            // -------- SMA overlays --------
             const closes = hist.map(h => h.close);
             const addSMA = (period, color, title) => {
+                if (hist.length < period) return;
                 const data = [];
                 for (let i = period - 1; i < hist.length; i++) {
                     const avg = closes.slice(i - period + 1, i + 1).reduce((a, b) => a + b, 0) / period;
                     data.push({ time: hist[i].date, value: avg });
                 }
-                if (data.length === 0) return;
-                const s = chart.addLineSeries({ color, lineWidth: 1, title, priceLineVisible: false, lastValueVisible: true, crosshairMarkerVisible: false });
+                const s = chart.addLineSeries({ color, lineWidth: 2, title, priceLineVisible: false, lastValueVisible: true, crosshairMarkerVisible: false });
                 s.setData(data);
             };
-            addSMA(20, 'rgba(251,191,36,0.8)',  'SMA20');
-            if (hist.length >= 50) addSMA(50, 'rgba(167,139,250,0.8)', 'SMA50');
+            if (overlays.sma20) addSMA(20, 'rgba(251,191,36,0.9)',  'SMA 20');
+            if (overlays.sma50) addSMA(50, 'rgba(167,139,250,0.9)', 'SMA 50');
 
-            // Buyer / Seller zones: find the 3 most significant swing highs and lows
-            // in the visible history as horizontal support/resistance lines
-            const findSwingHighsLows = (data) => {
-                const highs = [], lows = [];
-                for (let i = 3; i < data.length - 3; i++) {
-                    const h = data[i].high, l = data[i].low;
-                    if (h > data[i-1].high && h > data[i-2].high && h > data[i+1].high && h > data[i+2].high) highs.push(h);
-                    if (l < data[i-1].low  && l < data[i-2].low  && l < data[i+1].low  && l < data[i+2].low)  lows.push(l);
-                }
-                highs.sort((a, b) => b - a);
-                lows.sort((a, b) => a - b);
-                return { highs: highs.slice(0, 3), lows: lows.slice(0, 3) };
-            };
-            const { highs, lows } = findSwingHighsLows(hist);
-            highs.forEach((price, i) => {
-                mainSeries.createPriceLine({ price, color: 'rgba(244,63,94,0.6)', lineWidth: 1, lineStyle: LightweightCharts.LineStyle.Dashed, axisLabelVisible: true, title: `R${i+1}` });
-            });
-            lows.forEach((price, i) => {
-                mainSeries.createPriceLine({ price, color: 'rgba(52,211,153,0.6)', lineWidth: 1, lineStyle: LightweightCharts.LineStyle.Dashed, axisLabelVisible: true, title: `S${i+1}` });
-            });
-
-            if (showPivotPoints) {
+            // -------- Pivot Points (opt-in) --------
+            if (overlays.pivot) {
                 const latest = hist[hist.length - 1];
                 const pv = calcPivotPoints(latest);
                 const lines = [
@@ -1926,6 +2052,30 @@
 
             chart.timeScale().fitContent();
         }
+
+        // Called when overlay checkboxes change
+        window.rerenderChart = function() {
+            // Show/hide the zones legend based on whether either zone is enabled
+            const legend = document.getElementById('zones-legend');
+            if (legend) {
+                const st = getOverlayStates();
+                legend.classList.toggle('hidden', !(st.buyZones || st.sellZones));
+            }
+            if (currentChartTicker) renderPriceChart(currentChartTicker);
+        };
+
+        // Toggle the overlays panel visibility
+        window.toggleOverlaysPanel = function() {
+            const panel = document.getElementById('overlays-panel');
+            const btn = document.getElementById('btn-overlays');
+            if (!panel) return;
+            const isHidden = panel.classList.toggle('hidden');
+            if (btn) {
+                btn.className = isHidden
+                    ? 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-slate-800 border border-slate-600 text-slate-300 hover:text-white flex items-center gap-1'
+                    : 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-sky-900 border border-sky-700 text-sky-300 flex items-center gap-1';
+            }
+        };
 
         window.toggleFundaBreakdown = function() {
             const panel = document.getElementById('funda-breakdown-panel');
