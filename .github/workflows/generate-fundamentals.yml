@@ -74,10 +74,10 @@ jobs:
                       errors.append((fname, 'No Symbol field found'))
                       continue
 
-                  equity   = float(get_first(rows,'Equity') or 0)
+                  eq     = float(get_first(rows,'Equity') or 0)
                   bNC      = float(get_first(rows,'BorrowingsNoncurrent') or 0)
                   bC       = float(get_first(rows,'BorrowingsCurrent') or 0)
-                  de_given = get_first(rows,'DebtEquityRatio')   # pre-computed by company
+                  de_given = get_first(rows,'DebtEquityRatio')
                   np_data  = get_longest(rows,'ProfitLossForPeriod')
                   eps_data = get_longest(rows,'BasicEarningsLossPerShareFromContinuingAndDiscontinuedOperations')
                   rev_data = get_longest(rows,'RevenueFromOperations')
@@ -85,26 +85,28 @@ jobs:
                   faceVal  = float(get_first(rows,'FaceValueOfEquityShareCapital') or 1)
                   ca       = float(get_first(rows,'CurrentAssets') or 0)
                   cl       = float(get_first(rows,'CurrentLiabilities') or 0)
+                  segment  = get_first(rows,'DescriptionOfSingleSegment') or get_first(rows,'NatureOfBusiness') or ''
 
                   shares = paidUp / faceVal if faceVal else None
 
-                  roe  = round(np_data[0] / equity * 100, 2)    if equity and np_data                   else ''
+                  roe  = round(np_data[0] / eq * 100, 2)    if eq and np_data                   else ''
                   # Use company's own D/E if available and > 0, otherwise compute
                   if de_given and float(de_given) > 0:
                       de = round(float(de_given), 4)
                   else:
-                      de = round((bNC + bC) / equity, 4)         if equity                               else ''
+                      de = round((bNC + bC) / eq, 4)         if eq                               else ''
                   eps  = round(eps_data[0], 2)                   if eps_data                             else ''
-                  bvps = round(equity / shares, 2)               if equity and shares                    else ''
+                  bvps = round(eq / shares, 2)               if eq and shares                    else ''
                   cr   = round(ca / cl, 2)                       if cl                                   else ''
                   npm  = round(np_data[0] / rev_data[0] * 100,2) if np_data and rev_data and rev_data[0] else ''
 
                   results.append({
                       'Symbol': symbol.upper(),
                       'ROE': roe, 'DebtToEquity': de, 'EPS': eps,
-                      'BookValuePerShare': bvps, 'CurrentRatio': cr, 'NetProfitMargin': npm
+                      'BookValuePerShare': bvps, 'CurrentRatio': cr, 'NetProfitMargin': npm,
+                      'Segment': segment.replace(',','|') if segment else ''
                   })
-                  print(f"  ✓ {symbol:<12} ROE={roe}%  D/E={de}  EPS=₹{eps}  BVPS=₹{bvps}  CR={cr}  NPM={npm}%")
+                  print(f"  ✓ {symbol:<12} ROE={roe}%  D/E={de}  EPS=₹{eps}  Sector segment: {segment[:40] if segment else 'N/A'}")
 
               except Exception as e:
                   errors.append((fname, str(e)))
@@ -113,7 +115,7 @@ jobs:
           # Write CSV
           os.makedirs(os.path.dirname(OUT_FILE), exist_ok=True)
           with open(OUT_FILE, 'w', newline='', encoding='utf-8') as f:
-              writer = csv.DictWriter(f, fieldnames=['Symbol','ROE','DebtToEquity','EPS','BookValuePerShare','CurrentRatio','NetProfitMargin'])
+              writer = csv.DictWriter(f, fieldnames=['Symbol','ROE','DebtToEquity','EPS','BookValuePerShare','CurrentRatio','NetProfitMargin','Segment'])
               writer.writeheader()
               writer.writerows(results)
 
