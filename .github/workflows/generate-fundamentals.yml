@@ -80,12 +80,21 @@ jobs:
                   de_given = get_first(rows,'DebtEquityRatio')
                   np_data  = get_longest(rows,'ProfitLossForPeriod')
                   eps_data = get_longest(rows,'BasicEarningsLossPerShareFromContinuingAndDiscontinuedOperations')
+                  diluted_eps_data = get_longest(rows,'DilutedEarningsLossPerShareFromContinuingAndDiscontinuedOperations')
                   rev_data = get_longest(rows,'RevenueFromOperations')
+                  total_inc_data = get_longest(rows,'Income')
+                  total_exp_data = get_longest(rows,'Expenses')
+                  tax_data = get_longest(rows,'CurrentTax')
+                  op_profit_data = get_longest(rows,'ProfitLossBeforeTax')
                   paidUp   = float(get_first(rows,'PaidUpValueOfEquityShareCapital') or 0)
                   faceVal  = float(get_first(rows,'FaceValueOfEquityShareCapital') or 1)
                   ca       = float(get_first(rows,'CurrentAssets') or 0)
                   cl       = float(get_first(rows,'CurrentLiabilities') or 0)
+                  total_assets = float(get_first(rows,'Assets') or 0)
+                  total_liab   = float(get_first(rows,'Liabilities') or 0)
+                  cash     = float(get_first(rows,'CashAndCashEquivalents') or 0)
                   segment  = get_first(rows,'DescriptionOfSingleSegment') or get_first(rows,'NatureOfBusiness') or ''
+                  divid    = get_longest(rows,'DividendsPaidClassifiedAsFinancingActivities')
 
                   shares = paidUp / faceVal if faceVal else None
 
@@ -96,15 +105,35 @@ jobs:
                   else:
                       de = round((bNC + bC) / eq, 4)         if eq                               else ''
                   eps  = round(eps_data[0], 2)                   if eps_data                             else ''
+                  diluted_eps = round(diluted_eps_data[0], 2)    if diluted_eps_data                     else ''
                   bvps = round(eq / shares, 2)               if eq and shares                    else ''
                   cr   = round(ca / cl, 2)                       if cl                                   else ''
                   npm  = round(np_data[0] / rev_data[0] * 100,2) if np_data and rev_data and rev_data[0] else ''
+                  # New KPIs (info only - not scored)
+                  revenue    = round(rev_data[0]/10000000, 2)     if rev_data                            else ''  # in Cr
+                  net_profit = round(np_data[0]/10000000, 2)      if np_data                             else ''  # in Cr
+                  op_margin  = round(op_profit_data[0] / rev_data[0] * 100, 2) if op_profit_data and rev_data and rev_data[0] else ''
+                  roa        = round(np_data[0] / total_assets * 100, 2) if total_assets and np_data     else ''
+                  debt_total = round((bNC + bC)/10000000, 2)      if (bNC + bC) else ''  # in Cr
+                  eq_cr      = round(eq/10000000, 2)              if eq                                  else ''  # in Cr
+                  assets_cr  = round(total_assets/10000000, 2)    if total_assets                        else ''  # in Cr
+                  cash_cr    = round(cash/10000000, 2)            if cash                                else ''  # in Cr
+                  shares_cr  = round(shares/10000000, 4)          if shares                              else ''  # in Cr
+                  effective_tax = round(tax_data[0] / op_profit_data[0] * 100, 2) if tax_data and op_profit_data and op_profit_data[0] else ''
 
                   results.append({
                       'Symbol': symbol.upper(),
                       'ROE': roe, 'DebtToEquity': de, 'EPS': eps,
                       'BookValuePerShare': bvps, 'CurrentRatio': cr, 'NetProfitMargin': npm,
-                      'Segment': segment.replace(',','|') if segment else ''
+                      'Segment': segment.replace(',','|') if segment else '',
+                      # Info-only KPIs
+                      'DilutedEPS': diluted_eps,
+                      'RevenueCr': revenue, 'NetProfitCr': net_profit,
+                      'OperatingMargin': op_margin, 'ROA': roa,
+                      'TotalDebtCr': debt_total, 'EquityCr': eq_cr,
+                      'TotalAssetsCr': assets_cr, 'CashCr': cash_cr,
+                      'SharesOutstandingCr': shares_cr,
+                      'EffectiveTaxRate': effective_tax
                   })
                   print(f"  ✓ {symbol:<12} ROE={roe}%  D/E={de}  EPS=₹{eps}  Sector segment: {segment[:40] if segment else 'N/A'}")
 
@@ -115,7 +144,11 @@ jobs:
           # Write CSV
           os.makedirs(os.path.dirname(OUT_FILE), exist_ok=True)
           with open(OUT_FILE, 'w', newline='', encoding='utf-8') as f:
-              writer = csv.DictWriter(f, fieldnames=['Symbol','ROE','DebtToEquity','EPS','BookValuePerShare','CurrentRatio','NetProfitMargin','Segment'])
+              writer = csv.DictWriter(f, fieldnames=[
+                  'Symbol','ROE','DebtToEquity','EPS','BookValuePerShare','CurrentRatio','NetProfitMargin','Segment',
+                  'DilutedEPS','RevenueCr','NetProfitCr','OperatingMargin','ROA',
+                  'TotalDebtCr','EquityCr','TotalAssetsCr','CashCr','SharesOutstandingCr','EffectiveTaxRate'
+              ])
               writer.writeheader()
               writer.writerows(results)
 
