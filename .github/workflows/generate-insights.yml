@@ -1,0 +1,229 @@
+name: Generate AI insights
+
+# Runs once a day after market close, generates plain-language AI analysis
+# for the top 100 stocks by combined score using Google Gemini's free tier.
+# Writes to docs/data/insights.json - the app loads this instantly with no API calls.
+on:
+  schedule:
+    - cron: '30 12 * * 1-5'   # 6:00 PM IST, weekdays
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-insights:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: pip install requests --break-system-packages -q
+
+      - name: Generate insights for top stocks
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python3 - << 'EOF'
+          import os, csv, json, time, glob, math
+          import urllib.request
+          from concurrent.futures import ThreadPoolExecutor, as_completed
+
+          API_KEY = os.environ.get('GEMINI_API_KEY')
+          if not API_KEY:
+              print("⚠ GEMINI_API_KEY secret not set — see setup instructions in the workflow file.")
+              # Still write an empty valid file so the app doesn't error
+              os.makedirs('docs/data', exist_ok=True)
+              with open('docs/data/insights.json','w') as f:
+                  json.dump({'updatedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+                             'insights': {}, 'error': 'No API key configured'}, f, indent=1)
+              exit(0)
+
+          # Free tier: gemini-1.5-flash, 15 req/min, 1500/day
+          MODEL = 'gemini-1.5-flash-latest'
+          URL   = f'https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key={API_KEY}'
+          TOP_N       = 100          # process top 100 stocks per day
+          MAX_WORKERS = 4            # stay well under 15 req/min
+          DELAY       = 0.5          # small delay between requests
+
+          # ---------------- LOAD ALL THE DATA ----------------
+          # Latest bhavcopy for current prices
+          BHAV_DIR = 'docs/data/bhavcopy'
+          if not os.path.isdir(BHAV_DIR):
+              print("No bhavcopy directory - nothing to analyse"); exit(0)
+          bhav_files = sorted(glob.glob(f"{BHAV_DIR}/*.csv"))
+          if not bhav_files:
+              print("No bhavcopy files - nothing to analyse"); exit(0)
+
+          # Read the latest bhavcopy
+          latest = {}
+          with open(bhav_files[-1], encoding='utf-8-sig') as f:
+              for row in csv.DictReader(f):
+                  if (row.get('SctySrs') or '').strip() != 'EQ': continue
+                  sym = (row.get('TckrSymb') or '').strip().upper()
+                  if not sym: continue
+                  try:
+                      latest[sym] = {
+                          'name': (row.get('FinInstrmNm') or sym).strip(),
+                          'price': float(row.get('ClsPric') or 0),
+                          'change_pct': ((float(row.get('ClsPric') or 0) - float(row.get('PrvsClsgPric') or 0)) / float(row.get('PrvsClsgPric') or 1)) * 100
+                      }
+                  except: pass
+
+          # Read fundamentals if present
+          fundamentals = {}
+          fpath = 'docs/data/fundamentals.csv'
+          if os.path.exists(fpath):
+              with open(fpath, encoding='utf-8-sig') as f:
+                  for row in csv.DictReader(f):
+                      sym = (row.get('Symbol') or '').strip().upper()
+                      if sym: fundamentals[sym] = row
+
+          # Compute a simple momentum-like score to pick top 100 (just for ranking here -
+          # the app's own scoring stays authoritative for what users see)
+          # Use recent bhavcopy history to compute basic momentum + volume signals
+          history = {}
+          for fp in bhav_files[-30:]:  # last 30 sessions for simple ranking
+              try:
+                  with open(fp, encoding='utf-8-sig') as f:
+                      for row in csv.DictReader(f):
+                          if (row.get('SctySrs') or '').strip() != 'EQ': continue
+                          sym = (row.get('TckrSymb') or '').strip().upper()
+                          try:
+                              c = float(row.get('ClsPric') or 0)
+                              v = float(row.get('TtlTradgVol') or row.get('TotTrdQty') or 0)
+                              history.setdefault(sym, []).append({'c': c, 'v': v})
+                          except: pass
+              except: pass
+
+          # Rank by 30-day return + volume (simple proxy for the app's real combined score)
+          rankings = []
+          for sym, h in history.items():
+              if len(h) < 10 or sym not in latest: continue
+              first_close = h[0]['c']
+              last_close  = h[-1]['c']
+              if not first_close: continue
+              return_pct = (last_close - first_close) / first_close * 100
+              avg_vol    = sum(x['v'] for x in h) / len(h)
+              # Composite: reward positive returns and higher volume (log-scaled)
+              vol_score  = math.log10(max(avg_vol,1))
+              rankings.append((sym, return_pct + vol_score * 5))
+
+          rankings.sort(key=lambda x: x[1], reverse=True)
+          top_syms = [s for s,_ in rankings[:TOP_N]]
+          print(f"Selected top {len(top_syms)} stocks by 30-day momentum+volume for AI analysis")
+
+          # ---------------- GEMINI ANALYSIS ----------------
+          def build_prompt(sym):
+              d = latest.get(sym, {})
+              f = fundamentals.get(sym, {})
+              parts = [
+                  f"Stock: {sym} ({d.get('name','Unknown')})",
+                  f"Current Price: ₹{d.get('price','N/A')}",
+                  f"Change today: {d.get('change_pct',0):.2f}%",
+              ]
+              if f:
+                  parts.append(f"Sector: {f.get('Segment','General')}")
+                  if f.get('ROE'):             parts.append(f"ROE: {f['ROE']}%")
+                  if f.get('DebtToEquity'):    parts.append(f"Debt/Equity: {f['DebtToEquity']}")
+                  if f.get('EPS'):             parts.append(f"EPS (annual): ₹{f['EPS']}")
+                  if f.get('NetProfitMargin'): parts.append(f"Net Profit Margin: {f['NetProfitMargin']}%")
+                  if f.get('CurrentRatio'):    parts.append(f"Current Ratio: {f['CurrentRatio']}")
+                  if f.get('BookValuePerShare'):parts.append(f"Book Value/Share: ₹{f['BookValuePerShare']}")
+
+              # Compute simple recent momentum
+              h = history.get(sym, [])
+              if len(h) >= 20:
+                  closes = [x['c'] for x in h]
+                  ret_10 = (closes[-1] - closes[-10]) / closes[-10] * 100
+                  ret_30 = (closes[-1] - closes[0]) / closes[0] * 100
+                  parts.append(f"10-day return: {ret_10:.1f}%")
+                  parts.append(f"30-day return: {ret_30:.1f}%")
+
+              data_block = "\n".join(parts)
+              return f"""You are an equity market analyst commenting on Indian NSE stocks.
+
+Data for the stock (all official public data from NSE filings):
+{data_block}
+
+Write a brief, plain-English analysis (max 90 words total) with:
+1. One-sentence summary of the current setup
+2. Two short bullet points on positives
+3. Two short bullet points on concerns or watch-outs
+
+Rules:
+- Never say "buy", "sell", "hold", or make specific price targets
+- Use retail-investor-friendly language
+- Be factual and based only on the numbers provided
+- Do not add disclaimers - they are added elsewhere
+
+Format your response as valid JSON:
+{{"summary": "...", "positives": ["...", "..."], "concerns": ["...", "..."]}}"""
+
+          def call_gemini(sym):
+              try:
+                  prompt = build_prompt(sym)
+                  body = json.dumps({
+                      "contents": [{"parts": [{"text": prompt}]}],
+                      "generationConfig": {"temperature": 0.3, "maxOutputTokens": 400, "responseMimeType": "application/json"}
+                  }).encode('utf-8')
+                  req = urllib.request.Request(URL, data=body, headers={'Content-Type':'application/json'}, method='POST')
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      raw = json.loads(resp.read())
+                  text = raw['candidates'][0]['content']['parts'][0]['text']
+                  parsed = json.loads(text)
+                  return sym, parsed
+              except Exception as e:
+                  return sym, {'error': str(e)[:100]}
+
+          # ---------------- RUN IN PARALLEL ----------------
+          insights = {}
+          errors = 0
+          start = time.time()
+
+          with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+              futures = {pool.submit(call_gemini, s): s for s in top_syms}
+              done = 0
+              for future in as_completed(futures):
+                  sym = futures[future]
+                  done += 1
+                  try:
+                      _, result = future.result()
+                      if 'error' in result:
+                          errors += 1
+                          if done <= 5: print(f"  ✗ {sym}: {result['error']}")
+                      else:
+                          insights[sym] = result
+                          if done <= 5: print(f"  ✓ {sym}: {result.get('summary','')[:80]}")
+                  except Exception as e:
+                      errors += 1
+                  if done % 20 == 0:
+                      elapsed = time.time() - start
+                      print(f"  ...{done}/{len(top_syms)} done ({elapsed:.0f}s)")
+                  time.sleep(DELAY)  # keep safely under rate limits
+
+          # ---------------- WRITE OUTPUT ----------------
+          out = {
+              'updatedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+              'model': MODEL,
+              'count': len(insights),
+              'insights': insights
+          }
+          os.makedirs('docs/data', exist_ok=True)
+          with open('docs/data/insights.json','w', encoding='utf-8') as f:
+              json.dump(out, f, ensure_ascii=False, indent=1)
+
+          print(f"\n✅ Done in {time.time()-start:.0f}s.")
+          print(f"   {len(insights)} insights generated, {errors} errors.")
+          print(f"   Wrote docs/data/insights.json")
+          EOF
+
+      - name: Commit insights.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data/insights.json
+          git diff --staged --quiet || git commit -m "Auto-update AI insights"
+          git pull --rebase origin main
+          git push
