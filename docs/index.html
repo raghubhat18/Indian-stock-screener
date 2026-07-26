@@ -16,9 +16,9 @@
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body class="bg-slate-800 text-white font-sans min-h-screen flex flex-col selection:bg-slate-500 selection:text-slate-50">
+<body class="bg-[#1e2a3f] text-white font-sans min-h-screen flex flex-col selection:bg-slate-500 selection:text-slate-50">
 
-    <div id="loading-screen" class="fixed inset-0 z-[70] bg-slate-800 flex flex-col items-center justify-center p-6 text-center transition-opacity duration-500">
+    <div id="loading-screen" class="fixed inset-0 z-[70] bg-[#1a2138] flex flex-col items-center justify-center p-6 text-center transition-opacity duration-500">
         <div class="text-4xl mb-8">📈</div>
         <div id="loading-quote" class="text-slate-50 text-xl sm:text-2xl font-medium max-w-lg mb-3 leading-relaxed transition-opacity duration-300">Loading...</div>
         <div id="loading-attribution" class="text-slate-400 text-base mb-10"></div>
@@ -121,6 +121,8 @@
         let stockNames = {};      // TICKER -> full company name (from FinInstrmNm)
         let marketCapMap = {};    // TICKER -> 'LargeCap' | 'MidCap' | 'SmallCap' (optional, from data/market-cap.csv)
         let fundamentalsMap = {}; // TICKER -> {pe, roe, de, eps} (optional, from data/fundamentals.csv)
+        let insightsMap = {};     // TICKER -> {summary, positives, concerns} (optional, from data/insights.json)
+        let insightsUpdatedAt = null;
         let stockData = {};       // TICKER -> latest snapshot + computed momentum indicators
         let availableDates = [];
         let marketIndexCloses = [];   // synthetic equal-weighted index level per date, built from our own tracked universe
@@ -131,7 +133,7 @@
         let showPivotPoints = false;
         let chartFullscreen = false;
         let chartRange = '3M';   // default — show ~3 months of data
-        const RANGE_SESSIONS = { '1W': 5, '2W': 10, '1M': 22, '2M': 44, '3M': 66, 'All': 99999 };
+        const RANGE_SESSIONS = { '1W': 5, '2W': 10, '1M': 22, '3M': 66, '6M': 132, '1Y': 250, 'All': 99999 };
         let activeTab = 'momentum';   // which preset tab is highlighted (null when a custom sort is chosen)
         let sortKey = 'momentum';     // momentum | change | volume | price | rsi | name
         let sortDir = 'desc';         // desc | asc
@@ -280,9 +282,31 @@
                                 bvps: num(row['BookValuePerShare']),
                                 currentRatio: num(row['CurrentRatio']),
                                 npm: num(row['NetProfitMargin']),
-                                segment: (row['Segment'] || '').trim()
+                                segment: (row['Segment'] || '').trim(),
+                                // Info-only KPIs (don't affect score, just displayed)
+                                dilutedEps: num(row['DilutedEPS']),
+                                revenueCr: num(row['RevenueCr']),
+                                netProfitCr: num(row['NetProfitCr']),
+                                operatingMargin: num(row['OperatingMargin']),
+                                roa: num(row['ROA']),
+                                totalDebtCr: num(row['TotalDebtCr']),
+                                equityCr: num(row['EquityCr']),
+                                totalAssetsCr: num(row['TotalAssetsCr']),
+                                cashCr: num(row['CashCr']),
+                                sharesOutstandingCr: num(row['SharesOutstandingCr']),
+                                effectiveTaxRate: num(row['EffectiveTaxRate'])
                             };
                         });
+                    }
+                } catch (e) { /* optional file - fine if missing */ }
+
+                // Optional: AI-generated insights from the daily Gemini action
+                try {
+                    const insResp = await fetch('data/insights.json');
+                    if (insResp.ok) {
+                        const insJson = await insResp.json();
+                        insightsMap = insJson.insights || {};
+                        insightsUpdatedAt = insJson.updatedAt || null;
                     }
                 } catch (e) { /* optional file - fine if missing */ }
 
@@ -1489,7 +1513,7 @@
 
                                 <!-- Range pills -->
                                 <div class="flex bg-slate-800 rounded-lg border border-slate-600 overflow-hidden">
-                                    ${['1W','1M','3M','All'].map(r => `<button id="btn-range-${r}" onclick="setChartRange('${r}')" class="px-2.5 py-1.5 text-[11px] font-bold ${r==='3M'?'bg-sky-900 text-sky-300':'text-slate-400 hover:text-white'} border-r border-slate-600 last:border-0">${r}</button>`).join('')}
+                                    ${['1W','1M','3M','6M','1Y','All'].map(r => `<button id="btn-range-${r}" onclick="setChartRange('${r}')" class="px-2.5 py-1.5 text-[11px] font-bold ${r==='3M'?'bg-sky-900 text-sky-300':'text-slate-400 hover:text-white'} border-r border-slate-600 last:border-0">${r}</button>`).join('')}
                                 </div>
 
                                 <!-- Overlays toggle -->
@@ -1578,7 +1602,7 @@
                                         <div class="text-[12px] text-slate-300">🏦 Fundamental: <span class="font-bold text-white">${data.fundamentalsScore}</span> <span class="text-[10px] text-slate-500">(${getFundamentalsVerdict(data.fundamentalsScore) ? getFundamentalsVerdict(data.fundamentalsScore).label : ''})</span></div>
                                     </div>
                                     <div class="text-[11px] text-slate-500 mt-1">Combined = 70% technical + 30% fundamental</div>
-                                    ` : `<div class="text-[12px] text-slate-400 mt-1">Technical signals only — upload XBRL Excel to <code class="text-slate-300">docs/data/xbrl/</code> to include fundamentals in the score.</div>`}
+                                    ` : `<div class="text-[12px] text-slate-400 mt-1">Based on technical signals — fundamental data not available for this stock.</div>`}
                                 </div>
 
                                 <div class="grid grid-cols-2 gap-2 mb-3">
@@ -1611,6 +1635,29 @@
                                         <div class="text-white font-bold">${data.volume.toLocaleString('en-IN')}</div>
                                     </div>
                                 </div>
+
+                                ${(() => {
+                                    const ins = insightsMap[ticker];
+                                    if (!ins || ins.error) return '';
+                                    const pos = (ins.positives || []).map(p => `<li class="text-[12px] text-emerald-300 mb-1">✓ ${escapeHtml(p)}</li>`).join('');
+                                    const neg = (ins.concerns  || []).map(p => `<li class="text-[12px] text-amber-300 mb-1">⚠ ${escapeHtml(p)}</li>`).join('');
+                                    const date = insightsUpdatedAt ? new Date(insightsUpdatedAt).toLocaleDateString('en-IN', {day:'numeric', month:'short'}) : '';
+                                    return `
+                                    <div class="bg-gradient-to-br from-sky-950/60 to-slate-800/60 p-4 rounded-lg border border-sky-800/60 mb-3">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <div class="flex items-center gap-2">
+                                                <span class="text-lg">🤖</span>
+                                                <span class="text-sky-300 uppercase text-[11px] font-bold tracking-wider">AI Analysis</span>
+                                            </div>
+                                            <span class="text-[10px] text-slate-400">Updated ${date}</span>
+                                        </div>
+                                        <p class="text-[13px] text-slate-100 leading-relaxed mb-2">${escapeHtml(ins.summary || '')}</p>
+                                        ${pos ? `<ul class="mt-2 mb-1 pl-1">${pos}</ul>` : ''}
+                                        ${neg ? `<ul class="mt-1 pl-1">${neg}</ul>` : ''}
+                                        <div class="text-[10px] text-slate-500 mt-2 pt-2 border-t border-slate-700">Generated by Google Gemini · Not financial advice · Based on your NSE data</div>
+                                    </div>
+                                    `;
+                                })()}
 
                                 <button onclick="toggleBreakdown()" id="breakdown-toggle-btn" class="w-full bg-slate-700/60 hover:bg-slate-600 p-3 rounded-lg border border-slate-500 text-sm flex justify-between items-center transition-colors">
                                     <span class="text-slate-100 font-bold">📋 View Full Score Breakdown</span>
@@ -1661,8 +1708,8 @@
                                     if (!f) {
                                         return `<div class="flex-1 flex flex-col items-center justify-center text-center p-6">
                                             <div class="text-3xl mb-2">📋</div>
-                                            <div class="text-base font-bold text-slate-200">No fundamentals yet for ${cleanTicker}</div>
-                                            <div class="text-sm text-slate-400 mt-2 leading-relaxed">Upload the XBRL Excel for this company to <code class="text-slate-300 bg-slate-700 px-1 rounded">docs/data/xbrl/${cleanTicker}.xlsx</code> in Git. The GitHub Action will auto-generate the fundamentals.csv from it.</div>
+                                            <div class="text-base font-bold text-slate-200">Fundamental data not available</div>
+                                            <div class="text-sm text-slate-400 mt-2 leading-relaxed">This company's fundamental data hasn't been loaded yet. The technical analysis above is still fully available.</div>
                                         </div>`;
                                     }
                                     const fundResult = computeFundamentalsScore(f, data.price);
@@ -1708,6 +1755,45 @@
                                                 <div class="text-white font-bold text-base">${f.currentRatio !== null && f.currentRatio !== undefined ? f.currentRatio : 'N/A'}</div>
                                             </div>
                                         </div>
+
+                                        ${(f.revenueCr || f.netProfitCr || f.totalAssetsCr || f.dilutedEps || f.operatingMargin || f.roa || f.cashCr || f.effectiveTaxRate) ? `
+                                        <div class="text-[12px] text-slate-400 uppercase font-bold mb-2 mt-2">Additional Financial Details</div>
+                                        <div class="grid grid-cols-2 gap-2 mb-3">
+                                            ${f.revenueCr ? `<div class="bg-slate-700/30 p-3 rounded-lg border border-slate-600/60">
+                                                <div class="text-slate-400 text-[11px] mb-0.5">Revenue</div>
+                                                <div class="text-slate-100 font-bold text-base">₹${f.revenueCr.toLocaleString('en-IN')} Cr</div>
+                                            </div>` : ''}
+                                            ${f.netProfitCr ? `<div class="bg-slate-700/30 p-3 rounded-lg border border-slate-600/60">
+                                                <div class="text-slate-400 text-[11px] mb-0.5">Net Profit</div>
+                                                <div class="text-slate-100 font-bold text-base">₹${f.netProfitCr.toLocaleString('en-IN')} Cr</div>
+                                            </div>` : ''}
+                                            ${f.operatingMargin ? `<div class="bg-slate-700/30 p-3 rounded-lg border border-slate-600/60">
+                                                <div class="text-slate-400 text-[11px] mb-0.5">Operating Margin</div>
+                                                <div class="text-slate-100 font-bold text-base">${f.operatingMargin}%</div>
+                                            </div>` : ''}
+                                            ${f.roa ? `<div class="bg-slate-700/30 p-3 rounded-lg border border-slate-600/60">
+                                                <div class="text-slate-400 text-[11px] mb-0.5">Return on Assets (ROA)</div>
+                                                <div class="text-slate-100 font-bold text-base">${f.roa}%</div>
+                                            </div>` : ''}
+                                            ${f.totalAssetsCr ? `<div class="bg-slate-700/30 p-3 rounded-lg border border-slate-600/60">
+                                                <div class="text-slate-400 text-[11px] mb-0.5">Total Assets</div>
+                                                <div class="text-slate-100 font-bold text-base">₹${f.totalAssetsCr.toLocaleString('en-IN')} Cr</div>
+                                            </div>` : ''}
+                                            ${f.cashCr ? `<div class="bg-slate-700/30 p-3 rounded-lg border border-slate-600/60">
+                                                <div class="text-slate-400 text-[11px] mb-0.5">Cash Holdings</div>
+                                                <div class="text-slate-100 font-bold text-base">₹${f.cashCr.toLocaleString('en-IN')} Cr</div>
+                                            </div>` : ''}
+                                            ${f.dilutedEps ? `<div class="bg-slate-700/30 p-3 rounded-lg border border-slate-600/60">
+                                                <div class="text-slate-400 text-[11px] mb-0.5">Diluted EPS</div>
+                                                <div class="text-slate-100 font-bold text-base">₹${f.dilutedEps}</div>
+                                            </div>` : ''}
+                                            ${f.effectiveTaxRate ? `<div class="bg-slate-700/30 p-3 rounded-lg border border-slate-600/60">
+                                                <div class="text-slate-400 text-[11px] mb-0.5">Effective Tax Rate</div>
+                                                <div class="text-slate-100 font-bold text-base">${f.effectiveTaxRate}%</div>
+                                            </div>` : ''}
+                                        </div>
+                                        <div class="text-[11px] text-slate-500 mt-1 mb-3">These KPIs are for reference only and do not affect the score.</div>
+                                        ` : ''}
 
                                         <button onclick="toggleFundaBreakdown()" id="funda-breakdown-btn" class="w-full bg-slate-700/60 hover:bg-slate-600 p-3 rounded-lg border border-slate-500 text-sm flex justify-between items-center transition-colors">
                                             <span class="text-slate-200 font-bold">📋 View Score Breakdown</span>
@@ -1823,7 +1909,7 @@
 
         window.setChartRange = function(range) {
             chartRange = range;
-            const ranges = ['1W','1M','3M','All'];
+            const ranges = ['1W','1M','3M','6M','1Y','All'];
             ranges.forEach(r => {
                 const btn = document.getElementById(`btn-range-${r}`);
                 if (!btn) return;
@@ -2387,8 +2473,16 @@
         let newsCache = null; // loaded once, from the scheduled Action's output (data/news.json)
 
         async function fetchLiveNews(ticker, container) {
-            // 1. Try the pre-fetched cache first (built server-side by a scheduled GitHub Action -
-            //    no CORS issues, no live proxy dependency, and covers the Large/Mid cap universe).
+            // Show loading state IMMEDIATELY - this was the mobile blank issue
+            container.innerHTML = `
+                <div class="p-6 text-center">
+                    <div class="text-2xl mb-2 animate-pulse">📡</div>
+                    <div class="text-base font-bold text-slate-200 mb-1">Fetching news for ${escapeHtml(ticker)}...</div>
+                    <div class="text-sm text-slate-400">This may take a few seconds</div>
+                </div>`;
+
+            // 1. Try the pre-fetched cache first (built by daily GitHub Action)
+            //    Zero CORS issues, works perfectly on mobile.
             try {
                 if (newsCache === null) {
                     const resp = await fetch('data/news.json');
@@ -2403,11 +2497,9 @@
                     container.appendChild(updatedNote);
                     return;
                 }
-            } catch (e) { /* cache missing or unreadable - fall through to live fetch below */ }
+            } catch (e) { /* cache missing - fall through to live fetch */ }
 
-            // 2. Fall back to a live fetch.
-            // Try two different query formats — ticker alone works better for well-known
-            // stocks (RELIANCE, INFY); adding "NSE India" helps for less-known tickers.
+            // 2. Fall back to live proxy fetch
             const companyName = (stockData[ticker] && stockData[ticker].name !== ticker)
                 ? stockData[ticker].name : null;
             const queries = [
@@ -2417,6 +2509,7 @@
             ].filter(Boolean);
 
             let parsedItems = null;
+            let anyProxyReachable = false;
 
             for (const query of queries) {
                 if (parsedItems) break;
@@ -2426,10 +2519,11 @@
                         const proxyUrl = buildProxyUrl(rssUrl);
                         const resp = await fetchWithTimeout(proxyUrl, 15000);
                         if (!resp.ok) continue;
+                        anyProxyReachable = true;
                         const text = await resp.text();
                         if (!text) continue;
 
-                        // Try JSON first (rss2json returns JSON — easier on mobile)
+                        // Try JSON first (rss2json returns JSON, easier on mobile)
                         if (text.trim().startsWith('{')) {
                             try {
                                 const json = JSON.parse(text);
@@ -2442,10 +2536,10 @@
                                     }));
                                     break;
                                 }
-                            } catch (e) { /* not valid JSON, try XML next */ }
+                            } catch (e) { /* try XML next */ }
                         }
 
-                        // Fall back to XML parsing
+                        // XML fallback
                         if (text.includes('<item>')) {
                             const parser = new DOMParser();
                             const xml = parser.parseFromString(text, 'text/xml');
@@ -2461,21 +2555,30 @@
                 }
             }
 
-            if (!parsedItems || parsedItems.length === 0) {
-                container.innerHTML = `
-                    <div class="p-6 text-center">
-                        <div class="text-2xl mb-2">📡</div>
-                        <div class="text-base font-bold text-slate-200 mb-1">News service unavailable</div>
-                        <div class="text-sm text-slate-400">The live news feed couldn't be reached right now. This usually fixes itself — try again in a few minutes.</div>
-                        <div class="text-[13px] text-slate-500 mt-3">Or search directly: <a href="https://news.google.com/search?q=${encodeURIComponent(ticker + ' NSE India')}" target="_blank" class="text-sky-400 underline">Google News → ${escapeHtml(ticker)}</a></div>
-                    </div>`;
+            if (parsedItems && parsedItems.length > 0) {
+                container.innerHTML = renderNewsCards(parsedItems);
                 return;
             }
 
-            try {
-                container.innerHTML = renderNewsCards(parsedItems);
-            } catch (error) {
-                container.innerHTML = '<div class="p-6 text-center text-rose-400 text-sm">⚠️ Error displaying news.</div>';
+            // Distinguish between "no news available" and "service down"
+            if (anyProxyReachable) {
+                // Proxy worked but no articles matched — this stock has no recent news
+                container.innerHTML = `
+                    <div class="p-6 text-center">
+                        <div class="text-2xl mb-2">📭</div>
+                        <div class="text-base font-bold text-slate-200 mb-1">No news available</div>
+                        <div class="text-sm text-slate-400">No recent news articles found for ${escapeHtml(ticker)}.</div>
+                        <div class="text-[13px] text-slate-500 mt-3">Try searching: <a href="https://news.google.com/search?q=${encodeURIComponent(ticker + ' NSE India')}" target="_blank" class="text-sky-400 underline">Google News</a></div>
+                    </div>`;
+            } else {
+                // No proxy responded — network/service issue (common on mobile)
+                container.innerHTML = `
+                    <div class="p-6 text-center">
+                        <div class="text-2xl mb-2">📡</div>
+                        <div class="text-base font-bold text-slate-200 mb-1">News service temporarily unavailable</div>
+                        <div class="text-sm text-slate-400">Can't reach the news service right now. Please try again in a few minutes.</div>
+                        <div class="text-[13px] text-slate-500 mt-3">Or search directly: <a href="https://news.google.com/search?q=${encodeURIComponent(ticker + ' NSE India')}" target="_blank" class="text-sky-400 underline">Google News → ${escapeHtml(ticker)}</a></div>
+                    </div>`;
             }
         }
         </script>
