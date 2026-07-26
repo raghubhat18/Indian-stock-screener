@@ -142,24 +142,27 @@ jobs:
                   parts.append(f"30-day return: {ret_30:.1f}%")
 
               data_block = "\n".join(parts)
-              return f"""You are an equity market analyst commenting on Indian NSE stocks.
-
-Data for the stock (all official public data from NSE filings):
-{data_block}
-
-Write a brief, plain-English analysis (max 90 words total) with:
-1. One-sentence summary of the current setup
-2. Two short bullet points on positives
-3. Two short bullet points on concerns or watch-outs
-
-Rules:
-- Never say "buy", "sell", "hold", or make specific price targets
-- Use retail-investor-friendly language
-- Be factual and based only on the numbers provided
-- Do not add disclaimers - they are added elsewhere
-
-Format your response as valid JSON:
-{{"summary": "...", "positives": ["...", "..."], "concerns": ["...", "..."]}}"""
+              prompt_lines = [
+                  "You are an equity market analyst commenting on Indian NSE stocks.",
+                  "",
+                  "Data for the stock (all official public data from NSE filings):",
+                  data_block,
+                  "",
+                  "Write a brief, plain-English analysis (max 90 words total) with:",
+                  "1. One-sentence summary of the current setup",
+                  "2. Two short bullet points on positives",
+                  "3. Two short bullet points on concerns or watch-outs",
+                  "",
+                  "Rules:",
+                  "- Never say 'buy', 'sell', 'hold', or make specific price targets",
+                  "- Use retail-investor-friendly language",
+                  "- Be factual and based only on the numbers provided",
+                  "- Do not add disclaimers - they are added elsewhere",
+                  "",
+                  "Format your response as valid JSON:",
+                  '{"summary": "...", "positives": ["...", "..."], "concerns": ["...", "..."]}'
+              ]
+              return "\n".join(prompt_lines)
 
           def call_gemini(sym):
               try:
