@@ -178,16 +178,52 @@ jobs:
                   text = raw['candidates'][0]['content']['parts'][0]['text']
                   parsed = json.loads(text)
                   return sym, parsed
+              except urllib.error.HTTPError as e:
+                  err_body = ''
+                  try: err_body = e.read().decode('utf-8', errors='replace')[:300]
+                  except: pass
+                  return sym, {'error': f'HTTP {e.code}: {err_body}'}
               except Exception as e:
-                  return sym, {'error': str(e)[:100]}
+                  return sym, {'error': f'{type(e).__name__}: {str(e)[:200]}'}
 
           # ---------------- RUN IN PARALLEL ----------------
           insights = {}
           errors = 0
           start = time.time()
 
+          # Diagnostic: list which models this API key can actually use
+          try:
+              print("\n🔍 Checking which models your API key can use...")
+              list_url = f'https://generativelanguage.googleapis.com/v1beta/models?key={API_KEY}'
+              with urllib.request.urlopen(list_url, timeout=15) as resp:
+                  models_data = json.loads(resp.read())
+              flash_models = [m['name'].replace('models/','') for m in models_data.get('models',[])
+                              if 'generateContent' in m.get('supportedGenerationMethods',[])
+                              and 'flash' in m['name'].lower()]
+              print(f"   Available flash models: {flash_models[:8]}")
+              if not any(MODEL in m or m in MODEL for m in flash_models):
+                  print(f"   ⚠  Configured MODEL '{MODEL}' does NOT appear in this list!")
+                  print(f"   → Consider changing MODEL to one of the above.")
+          except Exception as e:
+              print(f"   ⚠  Could not list models: {e}")
+
+          # First, do a single test call to make sure the model & key are working
+          # BEFORE we hammer the API 100 times with the same broken config
+          print(f"\n🔍 Test call to model {MODEL}...")
+          test_sym = top_syms[0]
+          test_result = call_gemini(test_sym)
+          if 'error' in test_result[1]:
+              print(f"❌ TEST FAILED: {test_result[1]['error']}")
+              print(f"   Model URL: {URL.split('?')[0]}")
+              print(f"   Will still try all 100 but they'll likely all fail with the same error.")
+          else:
+              print(f"✓ Test call succeeded! Sample: {test_result[1].get('summary','')[:100]}")
+              insights[test_sym] = test_result[1]
+
+          print(f"\n📊 Processing {len(top_syms)} stocks with {MAX_WORKERS} parallel workers...")
+
           with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
-              futures = {pool.submit(call_gemini, s): s for s in top_syms}
+              futures = {pool.submit(call_gemini, s): s for s in top_syms if s != test_sym}
               done = 0
               for future in as_completed(futures):
                   sym = futures[future]
