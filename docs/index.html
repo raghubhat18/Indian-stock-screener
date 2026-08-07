@@ -11,14 +11,104 @@
     <style>
         * { font-family: Arial, Helvetica, sans-serif !important; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #334155; }
-        ::-webkit-scrollbar-thumb { background: #64748b; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        ::-webkit-scrollbar-track { background: var(--scrollbar-track, #334155); }
+        ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb, #64748b); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover, #94a3b8); }
+
+        /* ==================== THEME VARIABLES ==================== */
+        /* Dark theme — clean deep charcoal grey, like VS Code / GitHub dark */
+        body[data-theme="dark"] {
+            --bg-page:    #1c1c1e;
+            --bg-elev-1:  #2c2c2e;
+            --bg-elev-2:  #3a3a3c;
+            --bg-elev-3:  #48484a;
+            --text-primary:   #f5f5f7;
+            --text-secondary: #d1d1d6;
+            --text-muted:     #8e8e93;
+            --border-color:   #3a3a3c;
+            --border-strong:  #58585a;
+            --scrollbar-track:      #2c2c2e;
+            --scrollbar-thumb:      #58585a;
+            --scrollbar-thumb-hover:#8e8e93;
+        }
+        /* Light theme — clean off-white with warm slate */
+        body[data-theme="light"] {
+            --bg-page:    #f2f2f7;
+            --bg-elev-1:  #ffffff;
+            --bg-elev-2:  #f2f2f7;
+            --bg-elev-3:  #e5e5ea;
+            --text-primary:   #1c1c1e;
+            --text-secondary: #3a3a3c;
+            --text-muted:     #6c6c70;
+            --border-color:   #d1d1d6;
+            --border-strong:  #aeaeb2;
+            --scrollbar-track:      #e5e5ea;
+            --scrollbar-thumb:      #aeaeb2;
+            --scrollbar-thumb-hover:#6c6c70;
+        }
+
+        /* ==================== TAILWIND OVERRIDES ==================== */
+        /* Override Tailwind slate/gray backgrounds to use theme vars */
+        body[data-theme] { background-color: var(--bg-page) !important; color: var(--text-primary) !important; }
+        body[data-theme] .bg-slate-800\/60, body[data-theme] .bg-slate-800\/70, body[data-theme] .bg-slate-800\/80, body[data-theme] .bg-slate-800\/90, body[data-theme] .bg-slate-800 { background-color: var(--bg-elev-1) !important; }
+        body[data-theme] .bg-slate-700\/30, body[data-theme] .bg-slate-700\/50, body[data-theme] .bg-slate-700\/60, body[data-theme] .bg-slate-700\/70, body[data-theme] .bg-slate-700 { background-color: var(--bg-elev-2) !important; }
+        body[data-theme] .bg-slate-700\/10, body[data-theme] .bg-slate-700\/20 { background-color: var(--bg-elev-2) !important; opacity: 0.7; }
+        body[data-theme] .bg-slate-900, body[data-theme] .bg-\[\#1c1c1e\], body[data-theme] .bg-\[\#0f1419\] { background-color: var(--bg-page) !important; }
+        body[data-theme] .bg-slate-600, body[data-theme] .bg-slate-600\/50, body[data-theme] .bg-slate-600\/60, body[data-theme] .bg-slate-600\/70 { background-color: var(--bg-elev-3) !important; }
+        body[data-theme] .bg-slate-500 { background-color: var(--bg-elev-3) !important; }
+
+        /* Text colors */
+        body[data-theme] .text-white, body[data-theme] .text-slate-50, body[data-theme] .text-slate-100 { color: var(--text-primary) !important; }
+        body[data-theme] .text-slate-200, body[data-theme] .text-slate-300 { color: var(--text-secondary) !important; }
+        body[data-theme] .text-slate-400, body[data-theme] .text-slate-500 { color: var(--text-muted) !important; }
+
+        /* Borders */
+        body[data-theme] .border-slate-500, body[data-theme] .border-slate-600, body[data-theme] .border-slate-600\/50, body[data-theme] .border-slate-600\/60, body[data-theme] .border-slate-700 { border-color: var(--border-color) !important; }
+        body[data-theme] .border-slate-400 { border-color: var(--border-strong) !important; }
+
+        /* Placeholder text in light mode */
+        body[data-theme="light"] input::placeholder { color: #64748b !important; }
+        body[data-theme="light"] input:focus { outline-color: #0284c7; }
+
+        /* Light theme card gradients (softer for light mode) */
+        body[data-theme="light"] .bg-gradient-to-br { background: linear-gradient(to bottom right, #f0f9ff, #ffffff) !important; border-color: #7dd3fc !important; }
+        body[data-theme="light"] .from-sky-950\/60 { background: linear-gradient(to bottom right, #f0f9ff, #ffffff) !important; }
+
+        /* Adjust selection color for light mode */
+        body[data-theme="light"] { selection: bg-slate-200 text-slate-900; }
+        body[data-theme="light"] ::selection { background: #cbd5e1; color: #0f172a; }
+
+        /* Verdict badges stay colorful in both themes but soften backgrounds in light */
+        body[data-theme="light"] .bg-emerald-950 { background-color: #d1fae5 !important; }
+        body[data-theme="light"] .bg-amber-950 { background-color: #fef3c7 !important; }
+        body[data-theme="light"] .bg-rose-950 { background-color: #ffe4e6 !important; }
+        body[data-theme="light"] .bg-sky-950 { background-color: #e0f2fe !important; }
+        body[data-theme="light"] .bg-emerald-950\/50 { background-color: #d1fae5 !important; }
+        body[data-theme="light"] .bg-rose-950\/50 { background-color: #ffe4e6 !important; }
+        body[data-theme="light"] .bg-amber-950\/50 { background-color: #fef3c7 !important; }
+        body[data-theme="light"] .text-emerald-400, body[data-theme="light"] .text-emerald-300 { color: #047857 !important; }
+        body[data-theme="light"] .text-rose-400, body[data-theme="light"] .text-rose-300 { color: #be123c !important; }
+        body[data-theme="light"] .text-amber-400, body[data-theme="light"] .text-amber-300 { color: #b45309 !important; }
+        body[data-theme="light"] .text-sky-400, body[data-theme="light"] .text-sky-300 { color: #0369a1 !important; }
+        body[data-theme="light"] .border-emerald-700, body[data-theme="light"] .border-emerald-800 { border-color: #10b981 !important; }
+        body[data-theme="light"] .border-rose-700, body[data-theme="light"] .border-rose-800 { border-color: #f43f5e !important; }
+        body[data-theme="light"] .border-amber-700, body[data-theme="light"] .border-amber-800 { border-color: #f59e0b !important; }
+        body[data-theme="light"] .border-sky-700, body[data-theme="light"] .border-sky-800 { border-color: #0ea5e9 !important; }
+
+        /* Theme toggle button */
+        .theme-toggle-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; border-radius: 10px;
+            background: var(--bg-elev-2); color: var(--text-primary);
+            border: 1px solid var(--border-color); cursor: pointer;
+            font-size: 18px; transition: all 0.15s;
+        }
+        .theme-toggle-btn:hover { background: var(--bg-elev-3); }
     </style>
 </head>
-<body class="bg-[#0f1419] text-white font-sans min-h-screen flex flex-col selection:bg-slate-500 selection:text-slate-50">
+<body data-theme="dark" class="bg-[#1c1c1e] text-white font-sans min-h-screen flex flex-col selection:bg-slate-500 selection:text-slate-50">
 
-    <div id="loading-screen" class="fixed inset-0 z-[70] bg-[#0f1419] flex flex-col items-center justify-center p-6 text-center transition-opacity duration-500">
+    <div id="loading-screen" class="fixed inset-0 z-[70] bg-[#1c1c1e] flex flex-col items-center justify-center p-6 text-center transition-opacity duration-500">
         <div class="text-4xl mb-8">📈</div>
         <div id="loading-quote" class="text-slate-50 text-xl sm:text-2xl font-medium max-w-lg mb-3 leading-relaxed transition-opacity duration-300">Loading...</div>
         <div id="loading-attribution" class="text-slate-400 text-base mb-10"></div>
@@ -39,6 +129,9 @@
                 <a href="guide.html" target="_blank" class="flex items-center gap-1.5 bg-slate-700 hover:bg-slate-600 border border-slate-500 px-3 py-2 rounded-xl font-mono text-sm text-slate-200 transition-colors">
                     📚 User Guide
                 </a>
+                <button id="theme-toggle" onclick="toggleTheme()" class="theme-toggle-btn" title="Toggle dark/light theme">
+                    <span id="theme-icon">☀️</span>
+                </button>
                 <div id="market-sentiment-badge" class="hidden"></div>
                 <div class="flex items-center gap-2 bg-slate-700 border border-slate-500 px-3 py-2 rounded-xl font-mono text-sm text-slate-200">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -207,6 +300,26 @@
         // This dramatically speeds up subsequent loads — typically 5-10 seconds
         // instead of the full 20-30 seconds of fetching all files fresh.
         const DB_NAME = 'RBKScreener', DB_VER = 1, STORE = 'bhavcopy';
+
+        // ---------------- THEME TOGGLE ----------------
+        // Restore saved theme on load (default: dark). Persists in localStorage.
+        (function initTheme() {
+            const saved = localStorage.getItem('rbk-theme') || 'dark';
+            document.body.setAttribute('data-theme', saved);
+            const icon = document.getElementById('theme-icon');
+            if (icon) icon.textContent = saved === 'dark' ? '☀️' : '🌙';
+            // Apply theme to loading screen too
+            const ls = document.getElementById('loading-screen');
+            if (ls) ls.style.backgroundColor = saved === 'dark' ? '#1c1c1e' : '#f2f2f7';
+        })();
+        window.toggleTheme = function() {
+            const current = document.body.getAttribute('data-theme') || 'dark';
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', next);
+            localStorage.setItem('rbk-theme', next);
+            const icon = document.getElementById('theme-icon');
+            if (icon) icon.textContent = next === 'dark' ? '☀️' : '🌙';
+        };
 
         function openDB() {
             return new Promise((res, rej) => {
