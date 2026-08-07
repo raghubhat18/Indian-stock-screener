@@ -1947,8 +1947,13 @@
                                 })()}
                             </div>
 
-                            <div id="panel-tab-news" class="flex-1 hidden flex-col h-full bg-slate-700/10 rounded-xl border border-slate-500 overflow-hidden relative">
-                                <div id="tv-news-container" class="w-full h-full overflow-y-auto absolute inset-0"></div>
+                            <div id="panel-tab-news" class="flex-1 hidden flex-col rounded-xl border border-slate-500 overflow-y-auto">
+                                <div id="tv-news-container" class="w-full min-h-[200px]">
+                                    <div class="p-6 text-center">
+                                        <div class="text-2xl mb-2">📰</div>
+                                        <div class="text-sm text-slate-400">Tap to load news</div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div id="panel-tab-patterns" class="flex-1 hidden flex-col overflow-y-auto pr-1">
@@ -2517,8 +2522,14 @@
             
             if (activeTab === 'news') {
                 const container = document.getElementById('tv-news-container');
-                if (container && container.innerHTML.trim() === '') {
-                    container.innerHTML = `<div class="p-6 text-center text-slate-300 text-sm font-mono animate-pulse">📡 Scanning dynamic news matrix for ${ticker}...</div>`;
+                if (container && !container.dataset.loaded) {
+                    container.dataset.loaded = '1';
+                    container.innerHTML = `
+                        <div class="p-6 text-center">
+                            <div class="text-2xl mb-2 animate-pulse">📡</div>
+                            <div class="text-base font-bold text-slate-200 mb-1">Loading news for ${escapeHtml(ticker)}...</div>
+                            <div class="text-sm text-slate-400">Please wait a moment</div>
+                        </div>`;
                     fetchLiveNews(ticker, container);
                 }
             }
@@ -2583,116 +2594,126 @@
             return html;
         }
 
-        let newsCache = null; // loaded once, from the scheduled Action's output (data/news.json)
+        let newsCache = null;
 
         async function fetchLiveNews(ticker, container) {
-            // Show loading state IMMEDIATELY - this was the mobile blank issue
-            container.innerHTML = `
-                <div class="p-6 text-center">
-                    <div class="text-2xl mb-2 animate-pulse">📡</div>
-                    <div class="text-base font-bold text-slate-200 mb-1">Fetching news for ${escapeHtml(ticker)}...</div>
-                    <div class="text-sm text-slate-400">This may take a few seconds</div>
-                </div>`;
-
-            // 1. Try the pre-fetched cache first (built by daily GitHub Action)
-            //    Zero CORS issues, works perfectly on mobile.
+            // STEP 1: Try news.json cache (works on mobile, no CORS issues)
             try {
                 if (newsCache === null) {
-                    const resp = await fetch('data/news.json');
-                    newsCache = resp.ok ? await resp.json() : { news: {} };
+                    const resp = await fetch('data/news.json?t=' + Date.now());
+                    if (resp.ok) {
+                        const json = await resp.json();
+                        newsCache = json;
+                    } else {
+                        newsCache = { news: {} };
+                    }
                 }
                 const cached = newsCache.news && newsCache.news[ticker];
                 if (cached && cached.length > 0) {
                     container.innerHTML = renderNewsCards(cached);
-                    const updatedNote = document.createElement('div');
-                    updatedNote.className = 'text-center text-[11px] text-slate-400 font-mono pb-3';
-                    updatedNote.textContent = newsCache.updatedAt ? `Cached · updated ${new Date(newsCache.updatedAt).toLocaleString('en-IN')}` : 'Cached';
-                    container.appendChild(updatedNote);
+                    const note = document.createElement('div');
+                    note.className = 'text-center text-[11px] text-slate-400 font-mono py-2 px-4';
+                    note.textContent = newsCache.updatedAt
+                        ? `Cached · ${new Date(newsCache.updatedAt).toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'})}`
+                        : 'From daily cache';
+                    container.appendChild(note);
                     return;
                 }
-            } catch (e) { /* cache missing - fall through to live fetch */ }
+            } catch (e) { /* continue to live fetch */ }
 
-            // 2. Fall back to live proxy fetch
-            const companyName = (stockData[ticker] && stockData[ticker].name !== ticker)
+            // STEP 2: Try live proxies with a short timeout
+            // On mobile these often fail — we don't wait long
+            const companyName = (stockData[ticker] && stockData[ticker].name && stockData[ticker].name !== ticker)
                 ? stockData[ticker].name : null;
-            const queries = [
-                companyName ? encodeURIComponent(`${companyName} stock NSE India`) : null,
-                encodeURIComponent(`${ticker} NSE India stock`),
-                encodeURIComponent(`${ticker} share price India`),
-            ].filter(Boolean);
+            const searchQuery = companyName
+                ? encodeURIComponent(`${companyName} stock`)
+                : encodeURIComponent(`${ticker} NSE India`);
+            const rssUrl = `https://news.google.com/rss/search?q=${searchQuery}&hl=en-IN&gl=IN&ceid=IN:en`;
 
             let parsedItems = null;
-            let anyProxyReachable = false;
 
-            for (const query of queries) {
+            // Try each proxy with 8s timeout (short enough not to hang mobile)
+            for (const buildProxyUrl of NEWS_CORS_PROXIES) {
                 if (parsedItems) break;
-                const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=en-IN&gl=IN&ceid=IN:en&num=10`;
-                for (const buildProxyUrl of NEWS_CORS_PROXIES) {
-                    try {
-                        const proxyUrl = buildProxyUrl(rssUrl);
-                        const resp = await fetchWithTimeout(proxyUrl, 15000);
-                        if (!resp.ok) continue;
-                        anyProxyReachable = true;
-                        const text = await resp.text();
-                        if (!text) continue;
+                try {
+                    const resp = await fetchWithTimeout(buildProxyUrl(rssUrl), 8000);
+                    if (!resp.ok) continue;
+                    const text = await resp.text();
+                    if (!text) continue;
 
-                        // Try JSON first (rss2json returns JSON, easier on mobile)
-                        if (text.trim().startsWith('{')) {
-                            try {
-                                const json = JSON.parse(text);
-                                if (json.status === 'ok' && json.items && json.items.length > 0) {
-                                    parsedItems = json.items.slice(0, 10).map(it => ({
-                                        title: it.title || 'Untitled',
-                                        link: it.link || '#',
-                                        pubDate: it.pubDate || null,
-                                        source: it.author || it.source || 'Market Update'
-                                    }));
-                                    break;
-                                }
-                            } catch (e) { /* try XML next */ }
-                        }
-
-                        // XML fallback
-                        if (text.includes('<item>')) {
-                            const parser = new DOMParser();
-                            const xml = parser.parseFromString(text, 'text/xml');
-                            const items = Array.from(xml.querySelectorAll('item')).slice(0, 10).map(item => ({
-                                title: item.querySelector('title')?.textContent || 'Untitled',
-                                link: item.querySelector('link')?.textContent || '#',
-                                pubDate: item.querySelector('pubDate')?.textContent || null,
-                                source: item.querySelector('source')?.textContent || 'Market Update'
+                    // JSON (rss2json format)
+                    if (text.trim().startsWith('{')) {
+                        const json = JSON.parse(text);
+                        if (json.status === 'ok' && json.items?.length > 0) {
+                            parsedItems = json.items.slice(0, 8).map(i => ({
+                                title: i.title || 'Untitled', link: i.link || '#',
+                                pubDate: i.pubDate || null, source: i.author || i.source || ''
                             }));
-                            if (items.length > 0) { parsedItems = items; break; }
+                            break;
                         }
-                    } catch (e) { /* try next proxy */ }
-                }
+                    }
+                    // XML fallback
+                    if (text.includes('<item>')) {
+                        const xml = new DOMParser().parseFromString(text, 'text/xml');
+                        const items = [...xml.querySelectorAll('item')].slice(0, 8).map(el => ({
+                            title: el.querySelector('title')?.textContent || 'Untitled',
+                            link: el.querySelector('link')?.textContent || '#',
+                            pubDate: el.querySelector('pubDate')?.textContent || null,
+                            source: el.querySelector('source')?.textContent || ''
+                        }));
+                        if (items.length > 0) { parsedItems = items; break; }
+                    }
+                } catch (e) { /* try next */ }
             }
 
-            if (parsedItems && parsedItems.length > 0) {
+            if (parsedItems?.length > 0) {
                 container.innerHTML = renderNewsCards(parsedItems);
                 return;
             }
 
-            // Distinguish between "no news available" and "service down"
-            if (anyProxyReachable) {
-                // Proxy worked but no articles matched — this stock has no recent news
-                container.innerHTML = `
-                    <div class="p-6 text-center">
-                        <div class="text-2xl mb-2">📭</div>
-                        <div class="text-base font-bold text-slate-200 mb-1">No news available</div>
-                        <div class="text-sm text-slate-400">No recent news articles found for ${escapeHtml(ticker)}.</div>
-                        <div class="text-[13px] text-slate-500 mt-3">Try searching: <a href="https://news.google.com/search?q=${encodeURIComponent(ticker + ' NSE India')}" target="_blank" class="text-sky-400 underline">Google News</a></div>
-                    </div>`;
-            } else {
-                // No proxy responded — network/service issue (common on mobile)
-                container.innerHTML = `
-                    <div class="p-6 text-center">
-                        <div class="text-2xl mb-2">📡</div>
-                        <div class="text-base font-bold text-slate-200 mb-1">News service temporarily unavailable</div>
-                        <div class="text-sm text-slate-400">Can't reach the news service right now. Please try again in a few minutes.</div>
-                        <div class="text-[13px] text-slate-500 mt-3">Or search directly: <a href="https://news.google.com/search?q=${encodeURIComponent(ticker + ' NSE India')}" target="_blank" class="text-sky-400 underline">Google News → ${escapeHtml(ticker)}</a></div>
-                    </div>`;
-            }
+            // STEP 3: Nothing worked — show a clean fallback with direct search link
+            // This is MUCH better than a blank screen
+            const googleNewsUrl = `https://news.google.com/search?q=${encodeURIComponent((companyName || ticker) + ' NSE India')}&hl=en-IN&gl=IN`;
+            const moneycontrolUrl = `https://www.moneycontrol.com/stocks/cptmarket/compsearchnew.php?search_data=${ticker}&cid=&mbsearch_str=&topsearch_type=1&search_str=${ticker}`;
+
+            container.innerHTML = `
+                <div class="p-5">
+                    <div class="text-center mb-4">
+                        <div class="text-2xl mb-1">📰</div>
+                        <div class="text-base font-bold text-slate-200">News not available offline</div>
+                        <div class="text-sm text-slate-400 mt-1">Live news couldn't be fetched. Search directly:</div>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <a href="${googleNewsUrl}" target="_blank"
+                           class="flex items-center gap-3 p-3 rounded-xl border border-slate-500 bg-slate-700/50 hover:bg-slate-600/50 transition-colors">
+                            <span class="text-xl">📰</span>
+                            <div>
+                                <div class="text-sm font-bold text-slate-100">${escapeHtml(companyName || ticker)} on Google News</div>
+                                <div class="text-[11px] text-slate-400">news.google.com</div>
+                            </div>
+                            <span class="ml-auto text-slate-400 text-xs">↗</span>
+                        </a>
+                        <a href="${moneycontrolUrl}" target="_blank"
+                           class="flex items-center gap-3 p-3 rounded-xl border border-slate-500 bg-slate-700/50 hover:bg-slate-600/50 transition-colors">
+                            <span class="text-xl">📈</span>
+                            <div>
+                                <div class="text-sm font-bold text-slate-100">${escapeHtml(ticker)} on Moneycontrol</div>
+                                <div class="text-[11px] text-slate-400">moneycontrol.com</div>
+                            </div>
+                            <span class="ml-auto text-slate-400 text-xs">↗</span>
+                        </a>
+                    </div>
+                    <div class="text-center mt-4">
+                        <button onclick="
+                            const c = document.getElementById('tv-news-container');
+                            delete c.dataset.loaded;
+                            c.innerHTML = '';
+                            fetchLiveNews('${escapeHtml(ticker)}', c);"
+                           class="text-[12px] text-sky-400 underline cursor-pointer bg-transparent border-none">
+                            🔄 Try again
+                        </button>
+                    </div>
+                </div>`;
         }
         </script>
 </body>
