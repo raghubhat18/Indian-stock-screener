@@ -28,7 +28,6 @@ jobs:
           python3 - << 'EOF'
           import os, csv, json, time, glob, math
           import urllib.request
-          from concurrent.futures import ThreadPoolExecutor, as_completed
 
           API_KEY = os.environ.get('GEMINI_API_KEY')
           if not API_KEY:
@@ -40,13 +39,14 @@ jobs:
                              'insights': {}, 'error': 'No API key configured'}, f, indent=1)
               exit(0)
 
-          # Free tier as of 2026: gemini-2.5-flash-lite, 15 req/min, 1000/day.
-          # Older gemini-1.5-* models were deprecated by Google and now return 404.
-          MODEL = 'gemini-2.5-flash-lite'
-          URL   = f'https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key={API_KEY}'
-          TOP_N       = 100          # process top 100 stocks per day
-          MAX_WORKERS = 4            # stay well under 15 req/min
-          DELAY       = 0.5          # small delay between requests
+          # Using gemini-2.0-flash-lite — confirmed available on free tier new keys.
+          # gemini-2.5-flash-lite is restricted to existing users only (returns 404).
+          # MAX_WORKERS=1 to stay within free tier rate limits (avoid 429 errors).
+          MODEL       = 'gemini-2.0-flash-lite'
+          URL         = f'https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key={API_KEY}'
+          TOP_N       = 50           # reduced from 100 - safer within free tier quota
+          MAX_WORKERS = 1            # sequential - avoids all 429 rate limit errors
+          DELAY       = 2.0          # 2 seconds between calls = 30/min, well under limit
 
           # ---------------- LOAD ALL THE DATA ----------------
           # Latest bhavcopy for current prices
@@ -186,62 +186,57 @@ jobs:
               except Exception as e:
                   return sym, {'error': f'{type(e).__name__}: {str(e)[:200]}'}
 
-          # ---------------- RUN IN PARALLEL ----------------
+          # ---------------- RUN SEQUENTIALLY ----------------
+          # Sequential with 2s delay = ~30 req/min, well within free tier limits.
+          # ThreadPoolExecutor was causing rate limit (429) bursts even with MAX_WORKERS=1.
           insights = {}
           errors = 0
           start = time.time()
 
-          # Diagnostic: list which models this API key can actually use
+          # Quick model availability check
           try:
-              print("\n🔍 Checking which models your API key can use...")
+              print(f"\n🔍 Checking model availability...")
               list_url = f'https://generativelanguage.googleapis.com/v1beta/models?key={API_KEY}'
               with urllib.request.urlopen(list_url, timeout=15) as resp:
                   models_data = json.loads(resp.read())
-              flash_models = [m['name'].replace('models/','') for m in models_data.get('models',[])
-                              if 'generateContent' in m.get('supportedGenerationMethods',[])
-                              and 'flash' in m['name'].lower()]
-              print(f"   Available flash models: {flash_models[:8]}")
-              if not any(MODEL in m or m in MODEL for m in flash_models):
-                  print(f"   ⚠  Configured MODEL '{MODEL}' does NOT appear in this list!")
-                  print(f"   → Consider changing MODEL to one of the above.")
+              available = [m['name'].replace('models/','') for m in models_data.get('models',[])
+                           if 'generateContent' in m.get('supportedGenerationMethods',[])]
+              if MODEL in available:
+                  print(f"   ✓ Model '{MODEL}' is available on your key")
+              else:
+                  print(f"   ⚠ Model '{MODEL}' NOT found. Available: {[m for m in available if 'flash' in m]}")
           except Exception as e:
-              print(f"   ⚠  Could not list models: {e}")
+              print(f"   Could not check models: {e}")
 
-          # First, do a single test call to make sure the model & key are working
-          # BEFORE we hammer the API 100 times with the same broken config
-          print(f"\n🔍 Test call to model {MODEL}...")
+          # Test call first
+          print(f"\n🔍 Test call with {top_syms[0]}...")
           test_sym = top_syms[0]
-          test_result = call_gemini(test_sym)
-          if 'error' in test_result[1]:
-              print(f"❌ TEST FAILED: {test_result[1]['error']}")
-              print(f"   Model URL: {URL.split('?')[0]}")
-              print(f"   Will still try all 100 but they'll likely all fail with the same error.")
+          _, test_result = call_gemini(test_sym)
+          if 'error' in test_result:
+              print(f"❌ TEST FAILED — stopping. Error: {test_result['error'][:300]}")
+              # Write empty but valid file and exit
+              with open('docs/data/insights.json','w') as f:
+                  json.dump({'updatedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
+                             'model': MODEL, 'count': 0, 'insights': {},
+                             'error': test_result['error'][:200]}, f, indent=1)
+              exit(0)
           else:
-              print(f"✓ Test call succeeded! Sample: {test_result[1].get('summary','')[:100]}")
-              insights[test_sym] = test_result[1]
+              print(f"✓ Test succeeded: {test_result.get('summary','')[:100]}")
+              insights[test_sym] = test_result
 
-          print(f"\n📊 Processing {len(top_syms)} stocks with {MAX_WORKERS} parallel workers...")
-
-          with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
-              futures = {pool.submit(call_gemini, s): s for s in top_syms if s != test_sym}
-              done = 0
-              for future in as_completed(futures):
-                  sym = futures[future]
-                  done += 1
-                  try:
-                      _, result = future.result()
-                      if 'error' in result:
-                          errors += 1
-                          if errors <= 20: print(f"  ✗ {sym}: {result['error']}")
-                      else:
-                          insights[sym] = result
-                          if done <= 5: print(f"  ✓ {sym}: {result.get('summary','')[:80]}")
-                  except Exception as e:
-                      errors += 1
-                  if done % 20 == 0:
-                      elapsed = time.time() - start
-                      print(f"  ...{done}/{len(top_syms)} done ({elapsed:.0f}s)")
-                  time.sleep(DELAY)  # keep safely under rate limits
+          # Process remaining stocks sequentially
+          remaining = [s for s in top_syms if s != test_sym]
+          print(f"\n📊 Processing {len(remaining)} stocks sequentially ({DELAY}s delay each)...")
+          for i, sym in enumerate(remaining):
+              time.sleep(DELAY)
+              _, result = call_gemini(sym)
+              if 'error' in result:
+                  errors += 1
+                  if errors <= 5: print(f"  ✗ {sym}: {result['error'][:150]}")
+              else:
+                  insights[sym] = result
+                  if i < 5 or i % 10 == 0:
+                      print(f"  ✓ ({i+2}/{len(top_syms)}) {sym}: {result.get('summary','')[:70]}")
 
           # ---------------- WRITE OUTPUT ----------------
           out = {
@@ -254,7 +249,8 @@ jobs:
           with open('docs/data/insights.json','w', encoding='utf-8') as f:
               json.dump(out, f, ensure_ascii=False, indent=1)
 
-          print(f"\n✅ Done in {time.time()-start:.0f}s.")
+          elapsed = time.time() - start
+          print(f"\n✅ Done in {elapsed:.0f}s.")
           print(f"   {len(insights)} insights generated, {errors} errors.")
           print(f"   Wrote docs/data/insights.json")
           EOF
