@@ -39,13 +39,15 @@ jobs:
                              'insights': {}, 'error': 'No API key configured'}, f, indent=1)
               exit(0)
 
-          # gemini-2.5-flash confirmed available on this key (appeared in model list).
-          # gemini-2.0-flash was retired March 2026 — returns 429/deprecated errors.
-          # gemini-2.5-flash: 1,500 req/day, 15 RPM free tier (as of 2026).
-          MODEL       = 'gemini-2.5-flash'
+          # Using 'gemini-flash-lite-latest' — a stable alias confirmed available
+          # in this account's model list. Aliases always point to the latest model
+          # Google has made available for your specific API key tier.
+          # All specific versioned models (2.5-flash, 2.0-flash etc) are restricted
+          # to pre-existing users. The 'latest' aliases bypass this restriction.
+          MODEL       = 'gemini-flash-lite-latest'
           URL         = f'https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key={API_KEY}'
-          TOP_N       = 10           # start small — 10 stocks, well within any quota
-          DELAY       = 5.0          # 5s between calls = 12/min, safely under 15 RPM limit
+          TOP_N       = 10           # start with 10 to test safely
+          DELAY       = 5.0          # 5s between calls = 12/min, under 15 RPM
 
           # ---------------- LOAD ALL THE DATA ----------------
           # Latest bhavcopy for current prices
@@ -203,50 +205,106 @@ jobs:
           errors = 0
           start = time.time()
 
-          # Quick model availability check
-          try:
-              print(f"\n🔍 Checking model availability...")
-              list_url = f'https://generativelanguage.googleapis.com/v1beta/models?key={API_KEY}'
-              with urllib.request.urlopen(list_url, timeout=15) as resp:
-                  models_data = json.loads(resp.read())
-              available = [m['name'].replace('models/','') for m in models_data.get('models',[])
-                           if 'generateContent' in m.get('supportedGenerationMethods',[])]
-              if MODEL in available:
-                  print(f"   ✓ Model '{MODEL}' is available on your key")
-              else:
-                  print(f"   ⚠ Model '{MODEL}' NOT found. Available: {[m for m in available if 'flash' in m]}")
-          except Exception as e:
-              print(f"   Could not check models: {e}")
+          # Auto-discover working model — tries each available model until one works.
+          # This makes the workflow self-healing: if Google deprecates a model,
+          # it automatically falls through to the next one.
+          CANDIDATE_MODELS = [
+              'gemini-flash-lite-latest',   # stable alias — always points to latest lite
+              'gemini-flash-latest',         # stable alias — always points to latest flash
+              'gemini-2.0-flash-lite-001',  # specific version confirmed in account list
+              'gemini-2.0-flash-001',       # specific version confirmed in account list
+          ]
 
-          # Test call first
-          print(f"\n🔍 Test call with {top_syms[0]}...")
-          test_sym = top_syms[0]
-          _, test_result = call_gemini(test_sym)
-          if 'error' in test_result:
-              print(f"❌ TEST FAILED — stopping. Error: {test_result['error'][:300]}")
-              # Write empty but valid file and exit
+          working_model = None
+          working_url   = None
+
+          print(f"\n🔍 Finding a working model for this API key...")
+          for candidate in CANDIDATE_MODELS:
+              test_url = f'https://generativelanguage.googleapis.com/v1beta/models/{candidate}:generateContent?key={API_KEY}'
+              try:
+                  # Send a minimal test request
+                  test_body = json.dumps({
+                      "contents": [{"parts": [{"text": "Reply with exactly this JSON: {\"ok\": true}"}]}],
+                      "generationConfig": {"maxOutputTokens": 20}
+                  }).encode('utf-8')
+                  req = urllib.request.Request(test_url, data=test_body,
+                        headers={'Content-Type':'application/json'}, method='POST')
+                  with urllib.request.urlopen(req, timeout=15) as resp:
+                      json.loads(resp.read())  # just check it returns valid JSON
+                  print(f"   ✓ {candidate} — WORKS")
+                  working_model = candidate
+                  working_url   = test_url
+                  break
+              except urllib.error.HTTPError as e:
+                  body = ''
+                  try: body = e.read().decode('utf-8', errors='replace')[:100]
+                  except: pass
+                  print(f"   ✗ {candidate} — HTTP {e.code}: {body[:80]}")
+                  time.sleep(2)
+              except Exception as e:
+                  print(f"   ✗ {candidate} — {e}")
+                  time.sleep(2)
+
+          if not working_model:
+              print(f"\n❌ No working model found. All candidates failed.")
+              print(f"   Your API key may have exhausted its daily quota, or all models are restricted.")
+              print(f"   Wait 24 hours for quota reset and try again.")
               with open('docs/data/insights.json','w') as f:
                   json.dump({'updatedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
-                             'model': MODEL, 'count': 0, 'insights': {},
-                             'error': test_result['error'][:200]}, f, indent=1)
+                             'model': 'none', 'count': 0, 'insights': {},
+                             'error': 'All model candidates failed — check Actions log for details'}, f, indent=1)
               exit(0)
-          else:
-              print(f"✓ Test succeeded: {test_result.get('summary','')[:100]}")
-              insights[test_sym] = test_result
 
-          # Process remaining stocks sequentially
-          remaining = [s for s in top_syms if s != test_sym]
-          print(f"\n📊 Processing {len(remaining)} stocks sequentially ({DELAY}s delay each)...")
-          for i, sym in enumerate(remaining):
-              time.sleep(DELAY)
+          print(f"\n✅ Using model: {working_model}")
+          MODEL = working_model
+          URL   = working_url
+
+          def call_gemini(sym):
+              for attempt in range(3):
+                  try:
+                      prompt = build_prompt(sym)
+                      body = json.dumps({
+                          "contents": [{"parts": [{"text": prompt}]}],
+                          "generationConfig": {"temperature": 0.3, "maxOutputTokens": 500}
+                      }).encode('utf-8')
+                      req = urllib.request.Request(URL, data=body,
+                            headers={'Content-Type':'application/json'}, method='POST')
+                      with urllib.request.urlopen(req, timeout=30) as resp:
+                          raw = json.loads(resp.read())
+                      text = raw['candidates'][0]['content']['parts'][0]['text'].strip()
+                      if text.startswith('```'):
+                          text = text.split('\n', 1)[1].rsplit('```', 1)[0].strip()
+                      parsed = json.loads(text)
+                      return sym, parsed
+                  except urllib.error.HTTPError as e:
+                      err_body = ''
+                      try: err_body = e.read().decode('utf-8', errors='replace')[:300]
+                      except: pass
+                      if e.code == 429 and attempt < 2:
+                          wait = 30 * (attempt + 1)
+                          print(f"  ⏳ {sym}: rate limited, waiting {wait}s...")
+                          time.sleep(wait)
+                          continue
+                      return sym, {'error': f'HTTP {e.code}: {err_body}'}
+                  except Exception as e:
+                      return sym, {'error': f'{type(e).__name__}: {str(e)[:200]}'}
+              return sym, {'error': 'Max retries exceeded'}
+
+          # Process stocks sequentially
+          print(f"\n📊 Processing top {len(top_syms)} stocks...")
+          insights = {}
+          errors   = 0
+          start    = time.time()
+          for i, sym in enumerate(top_syms):
+              if i > 0: time.sleep(DELAY)
               _, result = call_gemini(sym)
               if 'error' in result:
                   errors += 1
-                  if errors <= 5: print(f"  ✗ {sym}: {result['error'][:150]}")
+                  if errors <= 5: print(f"  ✗ ({i+1}/{len(top_syms)}) {sym}: {result['error'][:120]}")
               else:
                   insights[sym] = result
-                  if i < 5 or i % 10 == 0:
-                      print(f"  ✓ ({i+2}/{len(top_syms)}) {sym}: {result.get('summary','')[:70]}")
+                  if i < 5 or i % 5 == 0:
+                      print(f"  ✓ ({i+1}/{len(top_syms)}) {sym}: {result.get('summary','')[:80]}")
 
           # ---------------- WRITE OUTPUT ----------------
           out = {
