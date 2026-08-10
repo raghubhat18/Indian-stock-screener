@@ -1,11 +1,8 @@
 name: Generate AI insights
 
-# Runs once a day after market close, generates plain-language AI analysis
-# for the top 100 stocks by combined score using Google Gemini's free tier.
-# Writes to docs/data/insights.json - the app loads this instantly with no API calls.
 on:
   schedule:
-    - cron: '30 12 * * 1-5'   # 6:00 PM IST, weekdays
+    - cron: '30 12 * * 1-5'   # 6:00 PM IST weekdays
   workflow_dispatch:
 
 permissions:
@@ -15,65 +12,70 @@ jobs:
   generate-insights:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: pip install requests --break-system-packages -q
-
-      - name: Generate insights for top stocks
+      - name: Generate insights
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           python3 - << 'EOF'
-          import os, csv, json, time, glob, math
-          import urllib.request
+          import os, csv, json, time, glob, math, urllib.request, urllib.error
 
-          API_KEY = os.environ.get('GEMINI_API_KEY')
-          if not API_KEY:
-              print("⚠ GEMINI_API_KEY secret not set — see setup instructions in the workflow file.")
-              # Still write an empty valid file so the app doesn't error
+          API_KEY  = os.environ.get('GEMINI_API_KEY','')
+          OUT_FILE = 'docs/data/insights.json'
+          DELAY    = 5.0   # seconds between calls (12/min, under 15 RPM free limit)
+          TOP_N    = 10    # stocks per category
+
+          def write_out(insights, model, error=None):
               os.makedirs('docs/data', exist_ok=True)
-              with open('docs/data/insights.json','w') as f:
-                  json.dump({'updatedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
-                             'insights': {}, 'error': 'No API key configured'}, f, indent=1)
+              obj = {
+                  'updatedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+                  'model': model, 'count': len(insights), 'insights': insights
+              }
+              if error: obj['error'] = error
+              with open(OUT_FILE, 'w', encoding='utf-8') as f:
+                  json.dump(obj, f, ensure_ascii=False, indent=1)
+
+          if not API_KEY:
+              print('No GEMINI_API_KEY secret set.')
+              write_out({}, 'none', 'No API key')
               exit(0)
 
-          # Using 'gemini-flash-lite-latest' — a stable alias confirmed available
-          # in this account's model list. Aliases always point to the latest model
-          # Google has made available for your specific API key tier.
-          # All specific versioned models (2.5-flash, 2.0-flash etc) are restricted
-          # to pre-existing users. The 'latest' aliases bypass this restriction.
-          MODEL       = 'gemini-flash-lite-latest'
-          URL         = f'https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key={API_KEY}'
-          TOP_N       = 10           # start with 10 to test safely
-          DELAY       = 5.0          # 5s between calls = 12/min, under 15 RPM
-
-          # ---------------- LOAD ALL THE DATA ----------------
-          # Latest bhavcopy for current prices
+          # ── Load bhavcopy history (last 30 sessions) ──────────────────────
           BHAV_DIR = 'docs/data/bhavcopy'
-          if not os.path.isdir(BHAV_DIR):
-              print("No bhavcopy directory - nothing to analyse"); exit(0)
-          bhav_files = sorted(glob.glob(f"{BHAV_DIR}/*.csv"))
+          bhav_files = sorted(glob.glob(f'{BHAV_DIR}/*.csv'))
           if not bhav_files:
-              print("No bhavcopy files - nothing to analyse"); exit(0)
+              print('No bhavcopy files found.')
+              write_out({}, 'none', 'No bhavcopy data')
+              exit(0)
 
-          # Read the latest bhavcopy
-          latest = {}
-          with open(bhav_files[-1], encoding='utf-8-sig') as f:
-              for row in csv.DictReader(f):
-                  if (row.get('SctySrs') or '').strip() != 'EQ': continue
-                  sym = (row.get('TckrSymb') or '').strip().upper()
-                  if not sym: continue
-                  try:
-                      latest[sym] = {
-                          'name': (row.get('FinInstrmNm') or sym).strip(),
-                          'price': float(row.get('ClsPric') or 0),
-                          'change_pct': ((float(row.get('ClsPric') or 0) - float(row.get('PrvsClsgPric') or 0)) / float(row.get('PrvsClsgPric') or 1)) * 100
-                      }
-                  except: pass
+          latest_prices = {}
+          price_history = {}   # sym -> [{'c':close,'v':vol}, ...]
 
-          # Read fundamentals if present
+          for fp in bhav_files[-30:]:
+              try:
+                  with open(fp, encoding='utf-8-sig') as f:
+                      for row in csv.DictReader(f):
+                          if (row.get('SctySrs') or '').strip() != 'EQ': continue
+                          sym = (row.get('TckrSymb') or '').strip().upper()
+                          if not sym: continue
+                          try:
+                              c = float(row.get('ClsPric') or 0)
+                              v = float(row.get('TtlTradgVol') or row.get('TotTrdQty') or 0)
+                              p = float(row.get('PrvsClsgPric') or c)
+                              if c > 0:
+                                  price_history.setdefault(sym, []).append({'c': c, 'v': v})
+                                  latest_prices[sym] = {
+                                      'name': (row.get('FinInstrmNm') or sym).strip(),
+                                      'price': c,
+                                      'change_pct': (c - p) / p * 100 if p else 0
+                                  }
+                          except: pass
+              except: pass
+
+          print(f'Loaded {len(latest_prices)} symbols from {len(bhav_files[-30:])} sessions.')
+
+          # ── Load fundamentals ──────────────────────────────────────────────
           fundamentals = {}
           fpath = 'docs/data/fundamentals.csv'
           if os.path.exists(fpath):
@@ -81,312 +83,208 @@ jobs:
                   for row in csv.DictReader(f):
                       sym = (row.get('Symbol') or '').strip().upper()
                       if sym: fundamentals[sym] = row
+              print(f'Loaded fundamentals for {len(fundamentals)} symbols.')
 
-          # Read market cap classification
+          # ── Load market cap map ───────────────────────────────────────────
           cap_map = {}
-          cap_file = 'docs/data/market-cap.csv'
-          if os.path.exists(cap_file):
-              with open(cap_file, encoding='utf-8-sig') as f:
+          cap_path = 'docs/data/market-cap.csv'
+          if os.path.exists(cap_path):
+              with open(cap_path, encoding='utf-8-sig') as f:
                   for row in csv.DictReader(f):
                       sym = (row.get('Symbol') or '').strip().upper()
                       cat = (row.get('Category') or '').strip()
                       if sym and cat: cap_map[sym] = cat
 
-          # Build scores for all symbols in latest bhavcopy
-          scores = {}
-          for fp in bhav_files[-30:]:
-              try:
-                  with open(fp, encoding='utf-8-sig') as f:
-                      for row in csv.DictReader(f):
-                          if (row.get('SctySrs') or '').strip() != 'EQ': continue
-                          sym = (row.get('TckrSymb') or '').strip().upper()
-                          try:
-                              c = float(row.get('ClsPric') or 0)
-                              v = float(row.get('TtlTradgVol') or row.get('TotTrdQty') or 0)
-                              scores.setdefault(sym, []).append({'c': c, 'v': v})
-                          except: pass
-              except: pass
-
-          def momentum_score(h):
+          # ── Score functions ───────────────────────────────────────────────
+          def mom_score(sym):
+              h = price_history.get(sym, [])
               if len(h) < 10: return -999
               ret = (h[-1]['c'] - h[0]['c']) / h[0]['c'] * 100 if h[0]['c'] else 0
-              vol = math.log10(max(sum(x['v'] for x in h)/len(h), 1))
+              vol = math.log10(max(sum(x['v'] for x in h) / len(h), 1))
               return ret + vol * 3
 
-          def funda_score(sym):
+          def fund_score(sym):
               f = fundamentals.get(sym, {})
-              s = 0
+              if not f: return -999
               try:
-                  roe = float(f.get('ROE') or 0)
-                  de  = float(f.get('DebtToEquity') or 99)
-                  npm = float(f.get('NetProfitMargin') or 0)
-                  cr  = float(f.get('CurrentRatio') or 0)
-                  s += min(roe, 30)
-                  s += max(0, 20 - de * 5)
-                  s += min(npm, 20)
-                  s += min(cr * 5, 15)
-              except: pass
-              return s
+                  s  = min(float(f.get('ROE') or 0), 30)
+                  s += max(0, 20 - float(f.get('DebtToEquity') or 99) * 5)
+                  s += min(float(f.get('NetProfitMargin') or 0), 20)
+                  s += min(float(f.get('CurrentRatio') or 0) * 5, 15)
+                  return s
+              except: return -999
 
-          # ---- Category pickers ----
-          def top_by(syms, fn, n):
-              ranked = sorted(syms, key=fn, reverse=True)
-              return ranked[:n]
-
-          all_syms = [s for s in scores if s in latest and len(scores[s]) >= 10]
-
-          selected = {}
-
-          # 1. Top 10 by momentum (highest combined score proxy)
-          top_mom = top_by(all_syms, lambda s: momentum_score(scores[s]), 15)
-          for s in top_mom[:10]: selected[s] = 'Top Momentum'
-
-          # 2. Top 10 by fundamentals
+          # ── Select stocks by category ──────────────────────────────────────
+          all_syms = [s for s in price_history if s in latest_prices and len(price_history[s]) >= 10]
           fund_syms = [s for s in all_syms if s in fundamentals]
-          top_fund = top_by(fund_syms, funda_score, 15)
-          for s in top_fund[:10]:
+
+          def top_n(pool, fn, n):
+              return sorted(pool, key=fn, reverse=True)[:n]
+
+          selected = {}  # sym -> category
+
+          for s in top_n(all_syms, mom_score, TOP_N):
+              selected[s] = 'Top Momentum'
+          for s in top_n(fund_syms, fund_score, TOP_N):
               if s not in selected: selected[s] = 'Top Fundamentals'
-
-          # 3. Top 5 Large Cap
-          lc = [s for s in all_syms if cap_map.get(s) == 'LargeCap']
-          for s in top_by(lc, lambda s: momentum_score(scores[s]), 5):
+          for s in top_n([s for s in all_syms if cap_map.get(s) == 'LargeCap'], mom_score, 5):
               if s not in selected: selected[s] = 'Large Cap'
-
-          # 4. Top 5 Mid Cap
-          mc = [s for s in all_syms if cap_map.get(s) == 'MidCap']
-          for s in top_by(mc, lambda s: momentum_score(scores[s]), 5):
+          for s in top_n([s for s in all_syms if cap_map.get(s) == 'MidCap'], mom_score, 5):
               if s not in selected: selected[s] = 'Mid Cap'
-
-          # 5. Top 5 Small Cap
-          sc = [s for s in all_syms if cap_map.get(s) == 'SmallCap']
-          for s in top_by(sc, lambda s: momentum_score(scores[s]), 5):
+          for s in top_n([s for s in all_syms if cap_map.get(s) == 'SmallCap'], mom_score, 5):
               if s not in selected: selected[s] = 'Small Cap'
-
-          # 6. Top 5 Long Term (quality dip - good fundamentals + lower recent return)
-          lt = [s for s in fund_syms if funda_score(s) > 20]
-          lt_ranked = sorted(lt, key=lambda s: funda_score(s) - max(0, momentum_score(scores.get(s,[])) * 0.3), reverse=True)
-          for s in lt_ranked[:5]:
+          # Long term: best fundamentals with lower momentum (quality dip)
+          lt_pool = [s for s in fund_syms if fund_score(s) > 20]
+          for s in top_n(lt_pool, lambda s: fund_score(s) - max(0, mom_score(s) * 0.3), 5):
               if s not in selected: selected[s] = 'Long Term Pick'
 
           top_syms = list(selected.keys())
-          print(f"\nSelected {len(top_syms)} stocks across categories:")
+          print(f'\nSelected {len(top_syms)} stocks:')
           for cat in ['Top Momentum','Top Fundamentals','Large Cap','Mid Cap','Small Cap','Long Term Pick']:
-              syms_in_cat = [s for s,c in selected.items() if c==cat]
-              if syms_in_cat: print(f"  {cat}: {', '.join(syms_in_cat)}")
+              in_cat = [s for s,c in selected.items() if c==cat]
+              if in_cat: print(f'  {cat}: {", ".join(in_cat)}')
 
-
-          # ---------------- GEMINI ANALYSIS ----------------
-          def build_prompt(sym):
-              d = latest.get(sym, {})
-              f = fundamentals.get(sym, {})
-              parts = [
-                  f"Stock: {sym} ({d.get('name','Unknown')})",
-                  f"Current Price: ₹{d.get('price','N/A')}",
-                  f"Change today: {d.get('change_pct',0):.2f}%",
-              ]
-              if f:
-                  parts.append(f"Sector: {f.get('Segment','General')}")
-                  if f.get('ROE'):             parts.append(f"ROE: {f['ROE']}%")
-                  if f.get('DebtToEquity'):    parts.append(f"Debt/Equity: {f['DebtToEquity']}")
-                  if f.get('EPS'):             parts.append(f"EPS (annual): ₹{f['EPS']}")
-                  if f.get('NetProfitMargin'): parts.append(f"Net Profit Margin: {f['NetProfitMargin']}%")
-                  if f.get('CurrentRatio'):    parts.append(f"Current Ratio: {f['CurrentRatio']}")
-                  if f.get('BookValuePerShare'):parts.append(f"Book Value/Share: ₹{f['BookValuePerShare']}")
-
-              # Compute simple recent momentum
-              h = history.get(sym, [])
-              if len(h) >= 20:
-                  closes = [x['c'] for x in h]
-                  ret_10 = (closes[-1] - closes[-10]) / closes[-10] * 100
-                  ret_30 = (closes[-1] - closes[0]) / closes[0] * 100
-                  parts.append(f"10-day return: {ret_10:.1f}%")
-                  parts.append(f"30-day return: {ret_30:.1f}%")
-
-              data_block = "\n".join(parts)
-              prompt_lines = [
-                  "You are an equity market analyst commenting on Indian NSE stocks.",
-                  "",
-                  "Data for the stock (all official public data from NSE filings):",
-                  data_block,
-                  "",
-                  "Write a brief, plain-English analysis (max 90 words total) with:",
-                  "1. One-sentence summary of the current setup",
-                  "2. Two short bullet points on positives",
-                  "3. Two short bullet points on concerns or watch-outs",
-                  "",
-                  "Rules:",
-                  "- Never say 'buy', 'sell', 'hold', or make specific price targets",
-                  "- Use retail-investor-friendly language",
-                  "- Be factual and based only on the numbers provided",
-                  "- Do not add disclaimers - they are added elsewhere",
-                  "",
-                  "Format your response as valid JSON:",
-                  '{"summary": "...", "positives": ["...", "..."], "concerns": ["...", "..."]}'
-              ]
-              return "\n".join(prompt_lines)
-
-          def call_gemini(sym):
-              for attempt in range(3):
-                  try:
-                      prompt = build_prompt(sym)
-                      body = json.dumps({
-                          "contents": [{"parts": [{"text": prompt}]}],
-                          "generationConfig": {"temperature": 0.3, "maxOutputTokens": 500}
-                      }).encode('utf-8')
-                      req = urllib.request.Request(URL, data=body,
-                            headers={'Content-Type':'application/json'}, method='POST')
-                      with urllib.request.urlopen(req, timeout=30) as resp:
-                          raw = json.loads(resp.read())
-                      text = raw['candidates'][0]['content']['parts'][0]['text'].strip()
-                      # Strip markdown code fences if model wraps in ```json ... ```
-                      if text.startswith('```'):
-                          text = text.split('\n', 1)[1].rsplit('```', 1)[0].strip()
-                      parsed = json.loads(text)
-                      return sym, parsed
-                  except urllib.error.HTTPError as e:
-                      err_body = ''
-                      try: err_body = e.read().decode('utf-8', errors='replace')[:300]
-                      except: pass
-                      if e.code == 429 and attempt < 2:
-                          wait = 30 * (attempt + 1)
-                          print(f"  ⏳ {sym}: rate limited, waiting {wait}s (attempt {attempt+1}/3)...")
-                          time.sleep(wait)
-                          continue
-                      return sym, {'error': f'HTTP {e.code}: {err_body}'}
-                  except Exception as e:
-                      return sym, {'error': f'{type(e).__name__}: {str(e)[:200]}'}
-              return sym, {'error': 'Max retries exceeded'}
-
-          # ---------------- RUN SEQUENTIALLY ----------------
-          # Sequential with 2s delay = ~30 req/min, well within free tier limits.
-          # ThreadPoolExecutor was causing rate limit (429) bursts even with MAX_WORKERS=1.
-          insights = {}
-          errors = 0
-          start = time.time()
-
-          # Auto-discover working model — tries each available model until one works.
-          # This makes the workflow self-healing: if Google deprecates a model,
-          # it automatically falls through to the next one.
-          CANDIDATE_MODELS = [
-              'gemini-flash-lite-latest',   # stable alias — always points to latest lite
-              'gemini-flash-latest',         # stable alias — always points to latest flash
-              'gemini-2.0-flash-lite-001',  # specific version confirmed in account list
-              'gemini-2.0-flash-001',       # specific version confirmed in account list
+          # ── Discover working model ─────────────────────────────────────────
+          CANDIDATES = [
+              'gemini-flash-lite-latest',
+              'gemini-flash-latest',
+              'gemini-2.0-flash-lite-001',
+              'gemini-2.0-flash-001',
           ]
 
-          working_model = None
-          working_url   = None
+          WORKING_URL = None
+          WORKING_MODEL = None
 
-          print(f"\n🔍 Finding a working model for this API key...")
-          for candidate in CANDIDATE_MODELS:
-              test_url = f'https://generativelanguage.googleapis.com/v1beta/models/{candidate}:generateContent?key={API_KEY}'
+          print(f'\nFinding working model...')
+          for cand in CANDIDATES:
+              url = f'https://generativelanguage.googleapis.com/v1beta/models/{cand}:generateContent?key={API_KEY}'
               try:
-                  # Send a minimal test request
-                  test_body = json.dumps({
-                      "contents": [{"parts": [{"text": "Reply with exactly this JSON: {\"ok\": true}"}]}],
-                      "generationConfig": {"maxOutputTokens": 20}
-                  }).encode('utf-8')
-                  req = urllib.request.Request(test_url, data=test_body,
-                        headers={'Content-Type':'application/json'}, method='POST')
-                  with urllib.request.urlopen(req, timeout=15) as resp:
-                      json.loads(resp.read())  # just check it returns valid JSON
-                  print(f"   ✓ {candidate} — WORKS")
-                  working_model = candidate
-                  working_url   = test_url
+                  body = json.dumps({'contents':[{'parts':[{'text':'Say OK'}]}],
+                                     'generationConfig':{'maxOutputTokens':5}}).encode()
+                  req = urllib.request.Request(url, data=body, headers={'Content-Type':'application/json'}, method='POST')
+                  with urllib.request.urlopen(req, timeout=10) as resp:
+                      json.loads(resp.read())
+                  print(f'  OK: {cand}')
+                  WORKING_URL = url
+                  WORKING_MODEL = cand
                   break
               except urllib.error.HTTPError as e:
                   body = ''
-                  try: body = e.read().decode('utf-8', errors='replace')[:100]
+                  try: body = e.read().decode('utf-8','replace')[:120]
                   except: pass
-                  print(f"   ✗ {candidate} — HTTP {e.code}: {body[:80]}")
+                  print(f'  FAIL {cand}: HTTP {e.code} {body[:80]}')
                   time.sleep(2)
               except Exception as e:
-                  print(f"   ✗ {candidate} — {e}")
+                  print(f'  FAIL {cand}: {e}')
                   time.sleep(2)
 
-          if not working_model:
-              print(f"\n❌ No working model found. All candidates failed.")
-              print(f"   Your API key may have exhausted its daily quota, or all models are restricted.")
-              print(f"   Wait 24 hours for quota reset and try again.")
-              with open('docs/data/insights.json','w') as f:
-                  json.dump({'updatedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
-                             'model': 'none', 'count': 0, 'insights': {},
-                             'error': 'All model candidates failed — check Actions log for details'}, f, indent=1)
+          if not WORKING_URL:
+              print('No working model found.')
+              write_out({}, 'none', 'All models failed — quota exhausted or restricted')
               exit(0)
 
-          print(f"\n✅ Using model: {working_model}")
-          MODEL = working_model
-          URL   = working_url
+          print(f'Using: {WORKING_MODEL}')
 
+          # ── Build prompt ───────────────────────────────────────────────────
+          def build_prompt(sym):
+              d = latest_prices.get(sym, {})
+              f = fundamentals.get(sym, {})
+              h = price_history.get(sym, [])
+
+              lines = [
+                  f'Stock: {sym} — {d.get("name", sym)}',
+                  f'Price: Rs.{d.get("price", 0):.2f}  Change today: {d.get("change_pct", 0):.2f}%',
+              ]
+              if len(h) >= 20:
+                  closes = [x['c'] for x in h]
+                  r10 = (closes[-1]-closes[-10])/closes[-10]*100 if closes[-10] else 0
+                  r30 = (closes[-1]-closes[0])/closes[0]*100 if closes[0] else 0
+                  lines.append(f'10-day return: {r10:.1f}%  30-day return: {r30:.1f}%')
+              if f:
+                  if f.get('Segment'):        lines.append(f'Sector: {f["Segment"]}')
+                  if f.get('ROE'):            lines.append(f'ROE: {f["ROE"]}%')
+                  if f.get('DebtToEquity'):   lines.append(f'Debt/Equity: {f["DebtToEquity"]}')
+                  if f.get('NetProfitMargin'):lines.append(f'Net Margin: {f["NetProfitMargin"]}%')
+                  if f.get('EPS'):            lines.append(f'EPS: Rs.{f["EPS"]}')
+                  if f.get('CurrentRatio'):   lines.append(f'Current Ratio: {f["CurrentRatio"]}')
+
+              return '\n'.join([
+                  'Analyse this Indian NSE stock. Reply ONLY with a JSON object, no markdown, no extra text.',
+                  'Required JSON format (all keys required):',
+                  '{"summary":"one sentence max 25 words","positives":["strength 1","strength 2"],"concerns":["risk 1","risk 2"]}',
+                  'Rules: no buy/sell/hold advice, factual only, based on data below.',
+                  '',
+                  '\n'.join(lines)
+              ])
+
+          # ── Call Gemini ────────────────────────────────────────────────────
           def call_gemini(sym):
               for attempt in range(3):
                   try:
                       prompt = build_prompt(sym)
                       body = json.dumps({
-                          "contents": [{"parts": [{"text": prompt}]}],
-                          "generationConfig": {"temperature": 0.3, "maxOutputTokens": 500}
+                          'contents': [{'parts': [{'text': prompt}]}],
+                          'generationConfig': {'temperature': 0.1, 'maxOutputTokens': 300}
                       }).encode('utf-8')
-                      req = urllib.request.Request(URL, data=body,
-                            headers={'Content-Type':'application/json'}, method='POST')
+                      req = urllib.request.Request(WORKING_URL, data=body,
+                            headers={'Content-Type': 'application/json'}, method='POST')
                       with urllib.request.urlopen(req, timeout=30) as resp:
                           raw = json.loads(resp.read())
                       text = raw['candidates'][0]['content']['parts'][0]['text'].strip()
-                      if text.startswith('```'):
-                          text = text.split('\n', 1)[1].rsplit('```', 1)[0].strip()
+                      # Strip any markdown fences
+                      if '```' in text:
+                          text = text.split('```')[1]
+                          if text.startswith('json'): text = text[4:]
+                          text = text.strip()
+                      # Extract JSON object
+                      s, e = text.find('{'), text.rfind('}')
+                      if s >= 0 and e > s: text = text[s:e+1]
                       parsed = json.loads(text)
-                      return sym, parsed
+                      if 'summary' in parsed and 'positives' in parsed and 'concerns' in parsed:
+                          return sym, parsed
+                      return sym, {'error': f'Bad keys: {list(parsed.keys())}'}
                   except urllib.error.HTTPError as e:
-                      err_body = ''
-                      try: err_body = e.read().decode('utf-8', errors='replace')[:300]
+                      body = ''
+                      try: body = e.read().decode('utf-8','replace')[:200]
                       except: pass
                       if e.code == 429 and attempt < 2:
                           wait = 30 * (attempt + 1)
-                          print(f"  ⏳ {sym}: rate limited, waiting {wait}s...")
+                          print(f'  Rate limit on {sym}, waiting {wait}s...')
                           time.sleep(wait)
                           continue
-                      return sym, {'error': f'HTTP {e.code}: {err_body}'}
+                      return sym, {'error': f'HTTP {e.code}: {body[:150]}'}
+                  except json.JSONDecodeError as e:
+                      print(f'  JSON error {sym} attempt {attempt+1}: {e}')
+                      if attempt < 2: time.sleep(3); continue
+                      return sym, {'error': f'JSON parse: {e}'}
                   except Exception as e:
-                      return sym, {'error': f'{type(e).__name__}: {str(e)[:200]}'}
-              return sym, {'error': 'Max retries exceeded'}
+                      return sym, {'error': f'{type(e).__name__}: {e}'}
+              return sym, {'error': 'Max retries'}
 
-          # Process stocks sequentially
-          print(f"\n📊 Processing top {len(top_syms)} stocks...")
+          # ── Process ────────────────────────────────────────────────────────
           insights = {}
           errors   = 0
           start    = time.time()
+
           for i, sym in enumerate(top_syms):
               if i > 0: time.sleep(DELAY)
-              _, result = call_gemini(sym)
+              sym_name, result = call_gemini(sym)
               if 'error' in result:
                   errors += 1
-                  if errors <= 5: print(f"  ✗ ({i+1}/{len(top_syms)}) {sym}: {result['error'][:120]}")
+                  print(f'  ERR ({i+1}/{len(top_syms)}) {sym}: {result["error"][:100]}')
               else:
                   result['category'] = selected.get(sym, '')
-                  result['name'] = latest.get(sym, {}).get('name', sym)
-                  result['price'] = latest.get(sym, {}).get('price', 0)
-                  result['changePct'] = round(latest.get(sym, {}).get('change_pct', 0), 2)
+                  result['name']      = latest_prices.get(sym, {}).get('name', sym)
+                  result['price']     = latest_prices.get(sym, {}).get('price', 0)
+                  result['changePct'] = round(latest_prices.get(sym, {}).get('change_pct', 0), 2)
                   insights[sym] = result
-                  if i < 5 or i % 5 == 0:
-                      print(f"  ✓ ({i+1}/{len(top_syms)}) {sym}: {result.get('summary','')[:80]}")
+                  print(f'  OK  ({i+1}/{len(top_syms)}) {sym}: {result["summary"][:70]}')
 
-          # ---------------- WRITE OUTPUT ----------------
-          out = {
-              'updatedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
-              'model': MODEL,
-              'count': len(insights),
-              'insights': insights
-          }
-          os.makedirs('docs/data', exist_ok=True)
-          with open('docs/data/insights.json','w', encoding='utf-8') as f:
-              json.dump(out, f, ensure_ascii=False, indent=1)
-
-          elapsed = time.time() - start
-          print(f"\n✅ Done in {elapsed:.0f}s.")
-          print(f"   {len(insights)} insights generated, {errors} errors.")
-          print(f"   Wrote docs/data/insights.json")
+          write_out(insights, WORKING_MODEL)
+          print(f'\nDone in {time.time()-start:.0f}s: {len(insights)} insights, {errors} errors.')
           EOF
 
-      - name: Commit insights.json
+      - name: Commit
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
