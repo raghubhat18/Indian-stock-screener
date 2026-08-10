@@ -422,8 +422,13 @@
                         const insJson = await insResp.json();
                         insightsMap = insJson.insights || {};
                         insightsUpdatedAt = insJson.updatedAt || null;
+                        const count = Object.keys(insightsMap).length;
+                        console.log(`[RBK] insights.json loaded: ${count} stocks, updated ${insJson.updatedAt}`);
+                        if (count === 0 && insJson.error) console.warn('[RBK] insights.json has error:', insJson.error);
+                    } else {
+                        console.warn('[RBK] insights.json fetch failed:', insResp.status);
                     }
-                } catch (e) { /* optional file - fine if missing */ }
+                } catch (e) { console.warn('[RBK] insights.json load error:', e); }
 
                 // --- SMART CACHE: only fetch dates not already stored locally ---
                 historicalData = {};
@@ -2268,9 +2273,16 @@
             const hist = fullHist.slice(-sessions);
             const overlays = getOverlayStates();
 
+            const isDark = document.body.getAttribute('data-theme') !== 'light';
             const chart = LightweightCharts.createChart(container, {
-                layout: { background: { color: 'transparent' }, textColor: '#cbd5e1' },
-                grid: { vertLines: { color: '#1e293b' }, horzLines: { color: '#1e293b' } },
+                layout: {
+                    background: { color: 'transparent' },
+                    textColor: isDark ? '#cbd5e1' : '#1c1c1e'
+                },
+                grid: {
+                    vertLines: { color: isDark ? '#1e293b' : '#e5e5ea' },
+                    horzLines: { color: isDark ? '#1e293b' : '#e5e5ea' }
+                },
                 timeScale: { borderColor: '#475569' },
                 rightPriceScale: { borderColor: '#475569' },
                 crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
