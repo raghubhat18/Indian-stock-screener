@@ -40,13 +40,13 @@ jobs:
               exit(0)
 
           # Using gemini-2.0-flash-lite — confirmed available on free tier new keys.
-          # gemini-2.5-flash-lite is restricted to existing users only (returns 404).
-          # MAX_WORKERS=1 to stay within free tier rate limits (avoid 429 errors).
+          # Keeping TOP_N=30 and DELAY=3s to stay comfortably within free tier limits.
+          # Free tier: 15 req/min, 200 req/day for gemini-2.0-flash-lite.
           MODEL       = 'gemini-2.0-flash-lite'
           URL         = f'https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key={API_KEY}'
-          TOP_N       = 50           # reduced from 100 - safer within free tier quota
-          MAX_WORKERS = 1            # sequential - avoids all 429 rate limit errors
-          DELAY       = 2.0          # 2 seconds between calls = 30/min, well under limit
+          TOP_N       = 30           # 30 stocks safely within 200/day free quota
+          MAX_WORKERS = 1            # sequential only
+          DELAY       = 4.0          # 4s between calls = 15/min, right at the limit
 
           # ---------------- LOAD ALL THE DATA ----------------
           # Latest bhavcopy for current prices
