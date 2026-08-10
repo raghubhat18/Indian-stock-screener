@@ -1,6 +1,400 @@
 {
- "updatedAt": "2026-08-10T13:56:17Z",
+ "updatedAt": "2026-08-10T17:14:15Z",
  "model": "gemini-flash-lite-latest",
- "count": 0,
- "insights": {}
+ "count": 26,
+ "insights": {
+  "UEL": {
+   "summary": "Ujaas Energy Limited exhibits strong short-term price momentum and low debt, alongside modest profitability and a low earnings per share.",
+   "positives": [
+    "Low debt-to-equity ratio of 0.27",
+    "Healthy net profit margin of 19.01%"
+   ],
+   "concerns": [
+    "Low return on equity of 3.57%",
+    "Very low earnings per share of Rs.0.24"
+   ],
+   "category": "Top Momentum",
+   "name": "UJAAS ENERGY LIMITED",
+   "price": 270.67,
+   "changePct": 5.0
+  },
+  "RSDFIN": {
+   "summary": "R S D Finance Ltd. experienced significant short-term price appreciation with a 9.99% single-day gain and over 90% returns across ten and thirty days.",
+   "positives": [
+    "Strong short-term price momentum with significant gains over 10 and 30-day periods",
+    "High positive daily price change of nearly 10 percent"
+   ],
+   "concerns": [
+    "Extreme short-term volatility indicated by rapid price doubling within a month",
+    "Lack of underlying fundamental data provided alongside sharp speculative movements"
+   ],
+   "category": "Top Momentum",
+   "name": "R S D FINANCE LTD.",
+   "price": 160.46,
+   "changePct": 9.99
+  },
+  "KABRAEXTRU": {
+   "summary": "Kabra Extrusion Technik shows strong short-term momentum with an 89.4% 30-day return despite current negative profitability metrics.",
+   "positives": [
+    "Low debt-to-equity ratio of 0.32",
+    "Adequate short-term liquidity with a current ratio of 1.55"
+   ],
+   "concerns": [
+    "Negative return on equity of -1.22%",
+    "Negative net margin of -1.19% and EPS of -1.53"
+   ],
+   "category": "Top Momentum",
+   "name": "KABRA EXTRUSION TECHNIK L",
+   "price": 510.75,
+   "changePct": 13.85
+  },
+  "SHARDUL": {
+   "summary": "Shardul Securities Ltd trades at Rs.48.88 on the NSE, registering a single-day price increase of 4.98%.",
+   "positives": [
+    "Positive daily price movement of nearly five percent",
+    "Listed equity on the National Stock Exchange"
+   ],
+   "concerns": [
+    "Single-day gain may be driven by market volatility",
+    "Limited fundamental data provided for deeper risk assessment"
+   ],
+   "category": "Top Momentum",
+   "name": "SHARDUL SECURITIES LTD.",
+   "price": 48.88,
+   "changePct": 4.98
+  },
+  "SHALPAINTS": {
+   "summary": "Shalimar Paints exhibits strong short-term stock momentum despite facing persistent negative return on equity, negative net margins, and weak liquidity.",
+   "positives": [
+    "Strong 30-day stock price return of 70.3%",
+    "Positive 10-day price momentum of 37.6%"
+   ],
+   "concerns": [
+    "Negative return on equity of -25.86%",
+    "Negative net profit margin of -11.28%"
+   ],
+   "category": "Top Momentum",
+   "name": "SHALIM PAINTS LTD",
+   "price": 86.19,
+   "changePct": 4.42
+  },
+  "COMSYN": {
+   "summary": "Commercial Syn Bags Ltd shows strong recent price momentum with significant double-digit daily and monthly returns supported by positive profitability metrics.",
+   "positives": [
+    "Strong short-term price momentum with a 19.66% single-day gain and over 50% 10-day return",
+    "Healthy return on equity of 14.83% and positive earnings per share of Rs. 6.59"
+   ],
+   "concerns": [
+    "Moderate debt-to-equity ratio of 0.6768 requiring ongoing capital management",
+    "Modest net profit margin of 6.8%"
+   ],
+   "category": "Top Momentum",
+   "name": "COMMERCIAL SYN BAGS LTD",
+   "price": 269.03,
+   "changePct": 19.66
+  },
+  "FILATEX": {
+   "summary": "Filtex India Ltd is a polyester manufacturer showing strong short-term momentum with low debt and moderate profitability.",
+   "positives": [
+    "Low debt-to-equity ratio of 0.085 indicating strong financial leverage health",
+    "Strong recent price performance with a 63.3% 30-day return"
+   ],
+   "concerns": [
+    "Moderate net profit margin of 4.4%",
+    "Current ratio of 1.43 indicates limited short-term liquidity buffer"
+   ],
+   "category": "Top Momentum",
+   "name": "FILATEX INDIA LTD",
+   "price": 84.78,
+   "changePct": 1.74
+  },
+  "SIKKO": {
+   "summary": "Sikko Industries operates in the agro chemicals sector, showing strong recent short-term returns and healthy liquidity.",
+   "positives": [
+    "Low debt to equity ratio of 0.14",
+    "Strong current ratio of 3.44 indicating good liquidity"
+   ],
+   "concerns": [
+    "Low return on equity at 5.92%",
+    "Very low earnings per share of Rs.0.12"
+   ],
+   "category": "Top Momentum",
+   "name": "SIKKO INDUSTRIES LIMITED",
+   "price": 6.11,
+   "changePct": 1.33
+  },
+  "KALYANKJIL": {
+   "summary": "Kalyan Jewellers exhibits strong recent momentum with high returns, robust return on equity, and low leverage despite moderate net profit margins.",
+   "positives": [
+    "High 30-day return of 55.2%",
+    "Strong ROE of 21.41%",
+    "Low Debt to Equity ratio of 0.083"
+   ],
+   "concerns": [
+    "Low net profit margin of 3.78%",
+    "Short-term negative momentum with a 10-day return of -1.3%"
+   ],
+   "category": "Top Momentum",
+   "name": "KALYAN JEWELLERS IND LTD",
+   "price": 600.25,
+   "changePct": -1.0
+  },
+  "3IINFOLTD": {
+   "summary": "3I Infotech Limited exhibits strong short-term price momentum with low leverage, positive earnings per share, and moderate profitability.",
+   "positives": [
+    "Low debt to equity ratio of 0.1264",
+    "Positive earnings per share of Rs.1.83"
+   ],
+   "concerns": [
+    "Moderate return on equity of 9.29%",
+    "Current ratio of 1.13 indicates modest short-term liquidity buffer"
+   ],
+   "category": "Top Momentum",
+   "name": "3I INFOTECH LIMITED",
+   "price": 27.13,
+   "changePct": 5.2
+  },
+  "ENERGYDEV": {
+   "summary": "Energy Development Company Limited trades at Rs.16.24 with a negative net margin, negative EPS, and weak liquidity.",
+   "positives": [
+    "Low debt-to-equity ratio indicating net cash position",
+    "Positive return on equity of 8.96%"
+   ],
+   "concerns": [
+    "Negative net profit margin and negative earnings per share",
+    "Low current ratio indicating potential short-term liquidity pressure"
+   ],
+   "category": "Top Fundamentals",
+   "name": "ENERGY DEVE. CO.LTD",
+   "price": 16.24,
+   "changePct": -1.58
+  },
+  "GMRAIRPORT": {
+   "summary": "GMR Airports operates in the airport sector with positive net margins and EPS, offset by negative returns and a low current ratio.",
+   "positives": [
+    "Positive net margin of 3.19%",
+    "Positive EPS of Rs.0.17"
+   ],
+   "concerns": [
+    "Negative ROE of -30.49%",
+    "Current ratio below 1 at 0.77"
+   ],
+   "category": "Top Fundamentals",
+   "name": "GMR AIRPORTS LIMITED",
+   "price": 106.3,
+   "changePct": -0.84
+  },
+  "GLOBALVECT": {
+   "summary": "Global Vectra Helicorp provides helicopter services with high ROE, negative net margins, and a low current ratio indicating liquidity pressure.",
+   "positives": [
+    "Exceptionally high return on equity of 398.47%",
+    "Positive earnings per share at Rs. 23.06"
+   ],
+   "concerns": [
+    "Negative net margin of 6.19%",
+    "Low current ratio of 0.45 signaling liquidity risk"
+   ],
+   "category": "Top Fundamentals",
+   "name": "GLOBAL VEC HELICORP LTD",
+   "price": 158.82,
+   "changePct": -0.13
+  },
+  "GOCLCORP": {
+   "summary": "GOCL Corporation shows exceptionally high profitability and zero debt, though net margin figures suggest non-operating income impacts.",
+   "positives": [
+    "Zero debt with a Debt to Equity ratio of 0.0",
+    "Very high Return on Equity at 66.51%"
+   ],
+   "concerns": [
+    "Single segment business concentration",
+    "Extremely high net margin indicating potential exceptional items"
+   ],
+   "category": "Top Fundamentals",
+   "name": "GOCL CORPORATION LIMITED",
+   "price": 428.2,
+   "changePct": -2.29
+  },
+  "WAAREEINDO": {
+   "summary": "Indosolar Limited exhibits exceptional profitability and zero debt in the module manufacturing sector, despite a recent sharp price correction.",
+   "positives": [
+    "Exceptionally high ROE of 85.92%",
+    "Zero debt-to-equity ratio with a strong current ratio of 6.7"
+   ],
+   "concerns": [
+    "Recent steep 30-day return decline of -20.2%",
+    "Significant single-day price drop of -4.99%"
+   ],
+   "category": "Top Fundamentals",
+   "name": "INDOSOLAR LIMITED",
+   "price": 311.25,
+   "changePct": -4.99
+  },
+  "SHILCTECH": {
+   "summary": "Shilchar Technologies operates debt-free in the transformer sector with strong profitability, high return on equity, and robust liquidity.",
+   "positives": [
+    "Zero debt with a Debt-to-Equity ratio of 0.0",
+    "High ROE of 32.22% and net margin of 24.26%"
+   ],
+   "concerns": [
+    "Short-term returns show modest gains",
+    "Current ratio of 5.3 indicates potential underutilization of capital"
+   ],
+   "category": "Top Fundamentals",
+   "name": "SHILCHAR TECHNOLOGIES LTD",
+   "price": 4684.1,
+   "changePct": 1.39
+  },
+  "NAUKRI": {
+   "summary": "Info Edge exhibits strong profitability with high net margins and zero debt, though return on equity remains modest.",
+   "positives": [
+    "zero debt equity ratio",
+    "high net margin of 53.67%"
+   ],
+   "concerns": [
+    "modest return on equity of 4.37%",
+    "low earnings per share of Rs.22.39"
+   ],
+   "category": "Large Cap",
+   "name": "INFO EDGE (I) LTD",
+   "price": 1282.0,
+   "changePct": 4.63
+  },
+  "TVSMOTOR": {
+   "summary": "TVS Motor shows strong short-term momentum and high return on equity with minimal debt, though liquidity is slightly below unity.",
+   "positives": [
+    "Strong 30-day return of 29.1 percent",
+    "High ROE of 29.74 percent",
+    "Very low debt-to-equity ratio of 0.026"
+   ],
+   "concerns": [
+    "Current ratio below 1 at 0.97",
+    "Modest net profit margin of 5.68 percent"
+   ],
+   "category": "Large Cap",
+   "name": "TVS MOTOR COMPANY  LTD",
+   "price": 4466.2,
+   "changePct": 0.57
+  },
+  "LODHA": {
+   "summary": "Lodha Developers shows strong profitability and minimal debt, though short-term momentum has softened recently.",
+   "positives": [
+    "Very low debt-to-equity ratio of 0.0043",
+    "Strong net profit margin of 20.57%"
+   ],
+   "concerns": [
+    "Negative 10-day return of 6.8%",
+    "Current ROE of 14.64% is moderate"
+   ],
+   "category": "Large Cap",
+   "name": "LODHA DEVELOPERS LIMITED",
+   "price": 1213.0,
+   "changePct": -0.47
+  },
+  "HCLTECH": {
+   "summary": "HCL Technologies exhibits strong profitability with high ROE and negligible debt, alongside robust recent short-term price momentum.",
+   "positives": [
+    "Very low debt-to-equity ratio of 0.0004",
+    "High return on equity of 29.45%"
+   ],
+   "concerns": [
+    "Current ratio of 1.49 indicates moderate liquidity",
+    "High recent 30-day return of 26.6% implies potential volatility"
+   ],
+   "category": "Large Cap",
+   "name": "HCL TECHNOLOGIES LTD",
+   "price": 1357.2,
+   "changePct": 0.04
+  },
+  "DIVISLAB": {
+   "summary": "Divis Laboratories shows strong short-term momentum with solid profitability, zero debt, and exceptional liquidity.",
+   "positives": [
+    "zero debt status",
+    "high net profit margin exceeding twenty four percent"
+   ],
+   "concerns": [
+    "elevated short term price gains",
+    "moderate return on equity relative to valuation"
+   ],
+   "net margin": "24.32%",
+   "category": "Large Cap",
+   "name": "DIVI S LABORATORIES LTD",
+   "price": 8300.0,
+   "changePct": 0.3
+  },
+  "PAYTM": {
+   "summary": "One97 Communications shows strong recent price momentum with low debt, positive earnings, and high liquidity, though return on equity remains modest.",
+   "positives": [
+    "Zero debt to equity ratio",
+    "High current ratio of 5.42 indicating strong liquidity"
+   ],
+   "concerns": [
+    "Very low ROE of 0.51%",
+    "Thin net profit margin of 1.15%"
+   ],
+   "category": "Mid Cap",
+   "name": "ONE 97 COMMUNICATIONS LTD",
+   "price": 1584.1,
+   "changePct": 9.88
+  },
+  "M&MFIN": {
+   "summary": "Mahindra & Mahindra Financial Services shows strong short-term momentum with positive returns, solid net margins, and low leverage.",
+   "positives": [
+    "Strong recent price performance with 30.6% 30-day return",
+    "Low debt-to-equity ratio of 0.0482"
+   ],
+   "concerns": [
+    "Moderate return on equity of 10.72%",
+    "Subject to high short-term price volatility"
+   ],
+   "category": "Mid Cap",
+   "name": "M&M FIN. SERVICES LTD",
+   "price": 412.3,
+   "changePct": 0.94
+  },
+  "SONACOMS": {
+   "summary": "Sona BLW Precision Forgings shows strong recent momentum with high returns and low debt, alongside solid net margins.",
+   "positives": [
+    "Low debt to equity ratio of 0.04",
+    "Strong 30-day return of 31.1%"
+   ],
+   "concerns": [
+    "Moderate return on equity of 10.26%",
+    "High short-term price volatility"
+   ],
+   "category": "Mid Cap",
+   "name": "SONA BLW PRECISION FRGS L",
+   "price": 812.5,
+   "changePct": -0.68
+  },
+  "EXIDEIND": {
+   "summary": "Exide Industries shows strong short-term momentum with low debt, though its return on equity remains modest.",
+   "positives": [
+    "Low debt to equity ratio of 0.0785",
+    "Strong recent returns with 14.6% in 10 days and 25.2% in 30 days"
+   ],
+   "concerns": [
+    "Modest ROE of 6.17%",
+    "Single-digit net margin of 4.78%"
+   ],
+   "category": "Mid Cap",
+   "name": "EXIDE INDUSTRIES LTD",
+   "price": 485.4,
+   "changePct": -0.94
+  },
+  "JAYKAY": {
+   "summary": "Jaykay Enterprises shows high profitability and minimal debt, though short-term price momentum is negative.",
+   "positives": [
+    "Very high return on equity of 30.95%",
+    "Extremely low debt-to-equity ratio of 0.0114"
+   ],
+   "concerns": [
+    "Negative 10-day return of -5.7%",
+    "Negative 30-day return of -13.2%"
+   ],
+   "category": "Long Term Pick",
+   "name": "JAYKAY ENTERPRISES LTD",
+   "price": 152.5,
+   "changePct": 2.45
+  }
+ }
 }
