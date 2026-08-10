@@ -1,7 +1,7 @@
 {
- "updatedAt": "2026-08-10T07:38:24Z",
- "model": "gemini-2.0-flash-lite",
+ "updatedAt": "2026-08-10T07:52:16Z",
+ "model": "gemini-2.5-flash",
  "count": 0,
  "insights": {},
- "error": "HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.de"
+ "error": "HTTP 404: {\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use a newer model for the latest features a"
 }
