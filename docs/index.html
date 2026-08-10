@@ -158,6 +158,7 @@
                 <button onclick="loadView('bullish')" id="btn-view-bullish" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">📈 TOP GAINERS</button>
                 <button onclick="loadView('bearish')" id="btn-view-bearish" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">📉 TOP LOSERS</button>
                 <button onclick="loadView('longterm')" id="btn-view-longterm" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">🏆 LONG TERM</button>
+                <button onclick="loadView('aiinsights')" id="btn-view-aiinsights" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">🤖 AI INSIGHTS</button>
             </div>
 
             <div class="flex flex-col gap-3 border-t border-slate-600 pt-3">
@@ -238,9 +239,10 @@
             traded:     { key: 'volume',     dir: 'desc' },
             bullish:    { key: 'change',     dir: 'desc' },
             bearish:    { key: 'change',     dir: 'asc'  },
-            longterm: { key: 'longterm', dir: 'desc' }
+            longterm:   { key: 'longterm',   dir: 'desc' },
+            aiinsights: { key: 'aiinsights', dir: 'desc' }
         };
-        const DEFAULT_DIR = { momentum: 'desc', volume: 'desc', change: 'desc', price: 'desc', rsi: 'asc', name: 'asc', longterm: 'desc' };
+        const DEFAULT_DIR = { momentum: 'desc', volume: 'desc', change: 'desc', price: 'desc', rsi: 'asc', name: 'asc', longterm: 'desc', aiinsights: 'desc' };
 
         window.addEventListener('DOMContentLoaded', () => {
             rotateQuote();
@@ -1379,9 +1381,13 @@
             sortKey = preset.key;
             sortDir = preset.dir;
             syncSortControlsUI();
-            // Show/hide Long Term explanation note
             const qdNote = document.getElementById('longterm-note');
             if (qdNote) qdNote.classList.toggle('hidden', tab !== 'longterm');
+            // Restore grid class when leaving AI insights tab
+            const grid = document.getElementById('stock-directory-list');
+            if (grid && tab !== 'aiinsights') {
+                grid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3';
+            }
             renderList();
         };
 
@@ -1418,7 +1424,7 @@
             const [descLabel, ascLabel] = labels[sortKey] || ['High to Low', 'Low to High'];
             dirBtn.textContent = sortDir === 'desc' ? `↓ ${descLabel}` : `↑ ${ascLabel}`;
 
-            const allTabs = ['momentum', 'traded', 'bullish', 'bearish', 'longterm'];
+            const allTabs = ['momentum', 'traded', 'bullish', 'bearish', 'longterm', 'aiinsights'];
             allTabs.forEach(v => {
                 const btn = document.getElementById(`btn-view-${v}`);
                 if (btn) {
@@ -1433,6 +1439,96 @@
         // Strategy: Find fundamentally strong companies at a reasonable/attractive entry point.
         // Different from Momentum (which chases rising stocks) — this looks for quality at a dip.
         // Factors: ROE quality, debt safety, profit margin, entry point (RSI/price), valuation vs sector.
+        function renderAIInsightsTab(container, searchVal) {
+            // Override the grid to single column for full-width cards
+            container.className = 'flex flex-col gap-3';
+
+            const allInsights = Object.entries(insightsMap);
+            if (allInsights.length === 0) {
+                container.innerHTML = `
+                    <div class="flex flex-col items-center justify-center text-center py-16">
+                        <div class="text-4xl mb-3">🤖</div>
+                        <div class="text-lg font-bold text-slate-200 mb-2">No AI Insights yet</div>
+                        <div class="text-sm text-slate-400 max-w-md">Run the "Generate AI insights" GitHub Action to populate this tab. It analyses top stocks across momentum, fundamentals, and market cap categories.</div>
+                    </div>`;
+                return;
+            }
+
+            // Filter by search
+            let entries = allInsights.filter(([sym, ins]) => {
+                if (!searchVal) return true;
+                return sym.includes(searchVal) || (ins.name || '').toUpperCase().includes(searchVal);
+            });
+
+            // Group by category
+            const CATEGORY_ORDER = ['Top Momentum','Top Fundamentals','Large Cap','Mid Cap','Small Cap','Long Term Pick',''];
+            const groups = {};
+            entries.forEach(([sym, ins]) => {
+                const cat = ins.category || 'Other';
+                if (!groups[cat]) groups[cat] = [];
+                groups[cat].push([sym, ins]);
+            });
+
+            // Update timestamp
+            if (insightsUpdatedAt) {
+                const dateStr = new Date(insightsUpdatedAt).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+                const notice = document.createElement('div');
+                notice.className = 'text-[12px] text-slate-400 font-mono mb-1';
+                notice.innerHTML = `🤖 AI Analysis · ${entries.length} stocks · Updated ${dateStr} · <span class="text-slate-500">Not financial advice</span>`;
+                container.appendChild(notice);
+            }
+
+            CATEGORY_ORDER.forEach(cat => {
+                const items = groups[cat] || groups['Other'] || [];
+                if (!items || !items.length) return;
+
+                // Category header
+                const catIcons = {
+                    'Top Momentum': '🚀', 'Top Fundamentals': '🏦',
+                    'Large Cap': '🏢', 'Mid Cap': '🏬', 'Small Cap': '🏪',
+                    'Long Term Pick': '🏆', 'Other': '📊'
+                };
+                const header = document.createElement('div');
+                header.className = 'text-[12px] font-bold text-slate-400 uppercase tracking-widest mt-2 mb-1 flex items-center gap-2';
+                header.innerHTML = `<span>${catIcons[cat] || '📊'} ${cat || 'Other'}</span><div class="flex-1 h-px bg-slate-700"></div>`;
+                container.appendChild(header);
+
+                items.forEach(([sym, ins]) => {
+                    const d = stockData[sym] || {};
+                    const changeColor = (ins.changePct || d.change || 0) >= 0 ? 'text-emerald-400' : 'text-rose-400';
+                    const changeSign  = (ins.changePct || d.change || 0) >= 0 ? '+' : '';
+                    const price = ins.price || d.price || 0;
+                    const change = ins.changePct !== undefined ? ins.changePct : (d.change || 0);
+
+                    const card = document.createElement('div');
+                    card.className = 'bg-slate-700/40 border border-slate-600 rounded-xl p-4 cursor-pointer hover:border-slate-400 transition-all';
+                    card.onclick = () => openWorkspace(sym);
+
+                    const posItems = (ins.positives || []).map(p => `<li class="flex gap-1.5 text-[12px] text-emerald-300"><span class="shrink-0 mt-0.5">✓</span><span>${escapeHtml(p)}</span></li>`).join('');
+                    const negItems = (ins.concerns || []).map(p => `<li class="flex gap-1.5 text-[12px] text-amber-300"><span class="shrink-0 mt-0.5">⚠</span><span>${escapeHtml(p)}</span></li>`).join('');
+
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <span class="text-base font-bold text-white">${escapeHtml(sym)}</span>
+                                <span class="text-[11px] text-slate-400 ml-2">${escapeHtml(ins.name || stockNames[sym] || '')}</span>
+                            </div>
+                            <div class="text-right shrink-0 ml-3">
+                                <div class="text-base font-bold text-slate-100">₹${price.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                                <div class="text-[12px] font-bold ${changeColor}">${changeSign}${change.toFixed(2)}%</div>
+                            </div>
+                        </div>
+                        <p class="text-[13px] text-slate-200 leading-relaxed mb-2">${escapeHtml(ins.summary || '')}</p>
+                        <ul class="space-y-0.5 mb-1">${posItems}${negItems}</ul>
+                        <div class="text-[10px] text-slate-500 mt-2">Tap to open full analysis →</div>`;
+                    container.appendChild(card);
+                });
+            });
+
+            // Reset grid class after render (other tabs use grid)
+            // Stored so next renderList() call can restore it
+        }
+
         function calcLongTermScore(ticker) {
             const d = stockData[ticker];
             if (!d) return -Infinity;
@@ -1522,6 +1618,12 @@
             const searchVal = document.getElementById('search-input').value.toUpperCase().trim();
             const container = document.getElementById('stock-directory-list');
             container.innerHTML = '';
+
+            // ---- AI INSIGHTS TAB — completely different layout ----
+            if (activeTab === 'aiinsights') {
+                renderAIInsightsTab(container, searchVal);
+                return;
+            }
 
             let keys = Object.keys(stockData);
 
