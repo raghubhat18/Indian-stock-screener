@@ -82,11 +82,19 @@ jobs:
                       sym = (row.get('Symbol') or '').strip().upper()
                       if sym: fundamentals[sym] = row
 
-          # Compute a simple momentum-like score to pick top 100 (just for ranking here -
-          # the app's own scoring stays authoritative for what users see)
-          # Use recent bhavcopy history to compute basic momentum + volume signals
-          history = {}
-          for fp in bhav_files[-30:]:  # last 30 sessions for simple ranking
+          # Read market cap classification
+          cap_map = {}
+          cap_file = 'docs/data/market-cap.csv'
+          if os.path.exists(cap_file):
+              with open(cap_file, encoding='utf-8-sig') as f:
+                  for row in csv.DictReader(f):
+                      sym = (row.get('Symbol') or '').strip().upper()
+                      cat = (row.get('Category') or '').strip()
+                      if sym and cat: cap_map[sym] = cat
+
+          # Build scores for all symbols in latest bhavcopy
+          scores = {}
+          for fp in bhav_files[-30:]:
               try:
                   with open(fp, encoding='utf-8-sig') as f:
                       for row in csv.DictReader(f):
@@ -95,26 +103,77 @@ jobs:
                           try:
                               c = float(row.get('ClsPric') or 0)
                               v = float(row.get('TtlTradgVol') or row.get('TotTrdQty') or 0)
-                              history.setdefault(sym, []).append({'c': c, 'v': v})
+                              scores.setdefault(sym, []).append({'c': c, 'v': v})
                           except: pass
               except: pass
 
-          # Rank by 30-day return + volume (simple proxy for the app's real combined score)
-          rankings = []
-          for sym, h in history.items():
-              if len(h) < 10 or sym not in latest: continue
-              first_close = h[0]['c']
-              last_close  = h[-1]['c']
-              if not first_close: continue
-              return_pct = (last_close - first_close) / first_close * 100
-              avg_vol    = sum(x['v'] for x in h) / len(h)
-              # Composite: reward positive returns and higher volume (log-scaled)
-              vol_score  = math.log10(max(avg_vol,1))
-              rankings.append((sym, return_pct + vol_score * 5))
+          def momentum_score(h):
+              if len(h) < 10: return -999
+              ret = (h[-1]['c'] - h[0]['c']) / h[0]['c'] * 100 if h[0]['c'] else 0
+              vol = math.log10(max(sum(x['v'] for x in h)/len(h), 1))
+              return ret + vol * 3
 
-          rankings.sort(key=lambda x: x[1], reverse=True)
-          top_syms = [s for s,_ in rankings[:TOP_N]]
-          print(f"Selected top {len(top_syms)} stocks by 30-day momentum+volume for AI analysis")
+          def funda_score(sym):
+              f = fundamentals.get(sym, {})
+              s = 0
+              try:
+                  roe = float(f.get('ROE') or 0)
+                  de  = float(f.get('DebtToEquity') or 99)
+                  npm = float(f.get('NetProfitMargin') or 0)
+                  cr  = float(f.get('CurrentRatio') or 0)
+                  s += min(roe, 30)
+                  s += max(0, 20 - de * 5)
+                  s += min(npm, 20)
+                  s += min(cr * 5, 15)
+              except: pass
+              return s
+
+          # ---- Category pickers ----
+          def top_by(syms, fn, n):
+              ranked = sorted(syms, key=fn, reverse=True)
+              return ranked[:n]
+
+          all_syms = [s for s in scores if s in latest and len(scores[s]) >= 10]
+
+          selected = {}
+
+          # 1. Top 10 by momentum (highest combined score proxy)
+          top_mom = top_by(all_syms, lambda s: momentum_score(scores[s]), 15)
+          for s in top_mom[:10]: selected[s] = 'Top Momentum'
+
+          # 2. Top 10 by fundamentals
+          fund_syms = [s for s in all_syms if s in fundamentals]
+          top_fund = top_by(fund_syms, funda_score, 15)
+          for s in top_fund[:10]:
+              if s not in selected: selected[s] = 'Top Fundamentals'
+
+          # 3. Top 5 Large Cap
+          lc = [s for s in all_syms if cap_map.get(s) == 'LargeCap']
+          for s in top_by(lc, lambda s: momentum_score(scores[s]), 5):
+              if s not in selected: selected[s] = 'Large Cap'
+
+          # 4. Top 5 Mid Cap
+          mc = [s for s in all_syms if cap_map.get(s) == 'MidCap']
+          for s in top_by(mc, lambda s: momentum_score(scores[s]), 5):
+              if s not in selected: selected[s] = 'Mid Cap'
+
+          # 5. Top 5 Small Cap
+          sc = [s for s in all_syms if cap_map.get(s) == 'SmallCap']
+          for s in top_by(sc, lambda s: momentum_score(scores[s]), 5):
+              if s not in selected: selected[s] = 'Small Cap'
+
+          # 6. Top 5 Long Term (quality dip - good fundamentals + lower recent return)
+          lt = [s for s in fund_syms if funda_score(s) > 20]
+          lt_ranked = sorted(lt, key=lambda s: funda_score(s) - max(0, momentum_score(scores.get(s,[])) * 0.3), reverse=True)
+          for s in lt_ranked[:5]:
+              if s not in selected: selected[s] = 'Long Term Pick'
+
+          top_syms = list(selected.keys())
+          print(f"\nSelected {len(top_syms)} stocks across categories:")
+          for cat in ['Top Momentum','Top Fundamentals','Large Cap','Mid Cap','Small Cap','Long Term Pick']:
+              syms_in_cat = [s for s,c in selected.items() if c==cat]
+              if syms_in_cat: print(f"  {cat}: {', '.join(syms_in_cat)}")
+
 
           # ---------------- GEMINI ANALYSIS ----------------
           def build_prompt(sym):
@@ -302,6 +361,10 @@ jobs:
                   errors += 1
                   if errors <= 5: print(f"  ✗ ({i+1}/{len(top_syms)}) {sym}: {result['error'][:120]}")
               else:
+                  result['category'] = selected.get(sym, '')
+                  result['name'] = latest.get(sym, {}).get('name', sym)
+                  result['price'] = latest.get(sym, {}).get('price', 0)
+                  result['changePct'] = round(latest.get(sym, {}).get('change_pct', 0), 2)
                   insights[sym] = result
                   if i < 5 or i % 5 == 0:
                       print(f"  ✓ ({i+1}/{len(top_syms)}) {sym}: {result.get('summary','')[:80]}")
