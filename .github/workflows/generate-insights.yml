@@ -191,31 +191,70 @@ jobs:
               f = fundamentals.get(sym, {})
               h = price_history.get(sym, [])
 
-              lines = [
-                  f'Stock: {sym} — {d.get("name", sym)}',
-                  f'Price: Rs.{d.get("price", 0):.2f}  Change today: {d.get("change_pct", 0):.2f}%',
+              data_lines = [
+                  f'Symbol: {sym}',
+                  f'Company: {d.get("name", sym)}',
+                  f'Current Price: Rs.{d.get("price", 0):.2f}',
+                  f'Change today: {d.get("change_pct", 0):.2f}%',
               ]
               if len(h) >= 20:
                   closes = [x['c'] for x in h]
+                  vols   = [x['v'] for x in h]
                   r10 = (closes[-1]-closes[-10])/closes[-10]*100 if closes[-10] else 0
                   r30 = (closes[-1]-closes[0])/closes[0]*100 if closes[0] else 0
-                  lines.append(f'10-day return: {r10:.1f}%  30-day return: {r30:.1f}%')
+                  avg_vol = sum(vols)/len(vols)
+                  recent_vol = sum(vols[-5:])/5
+                  vol_surge = recent_vol/avg_vol if avg_vol else 1
+                  hi52 = max(closes)
+                  lo52 = min(closes)
+                  pct_from_hi = (closes[-1]-hi52)/hi52*100
+                  pct_from_lo = (closes[-1]-lo52)/lo52*100
+                  data_lines += [
+                      f'10-day return: {r10:.1f}%',
+                      f'30-day return: {r30:.1f}%',
+                      f'52-week high: Rs.{hi52:.2f} (current is {pct_from_hi:.1f}% from high)',
+                      f'52-week low: Rs.{lo52:.2f} (current is {pct_from_lo:.1f}% from low)',
+                      f'Volume surge vs 30-day avg: {vol_surge:.2f}x',
+                  ]
               if f:
-                  if f.get('Segment'):        lines.append(f'Sector: {f["Segment"]}')
-                  if f.get('ROE'):            lines.append(f'ROE: {f["ROE"]}%')
-                  if f.get('DebtToEquity'):   lines.append(f'Debt/Equity: {f["DebtToEquity"]}')
-                  if f.get('NetProfitMargin'):lines.append(f'Net Margin: {f["NetProfitMargin"]}%')
-                  if f.get('EPS'):            lines.append(f'EPS: Rs.{f["EPS"]}')
-                  if f.get('CurrentRatio'):   lines.append(f'Current Ratio: {f["CurrentRatio"]}')
+                  if f.get('Segment'):         data_lines.append(f'Sector: {f["Segment"]}')
+                  if f.get('ROE'):             data_lines.append(f'Return on Equity (ROE): {f["ROE"]}%')
+                  if f.get('DebtToEquity'):    data_lines.append(f'Debt to Equity: {f["DebtToEquity"]}')
+                  if f.get('NetProfitMargin'): data_lines.append(f'Net Profit Margin: {f["NetProfitMargin"]}%')
+                  if f.get('OperatingMargin'): data_lines.append(f'Operating Margin: {f["OperatingMargin"]}%')
+                  if f.get('EPS'):             data_lines.append(f'EPS (annual): Rs.{f["EPS"]}')
+                  if f.get('CurrentRatio'):    data_lines.append(f'Current Ratio: {f["CurrentRatio"]}')
+                  if f.get('BookValuePerShare'):data_lines.append(f'Book Value per Share: Rs.{f["BookValuePerShare"]}')
+                  if f.get('RevenueCr'):       data_lines.append(f'Revenue: Rs.{f["RevenueCr"]} Cr')
+                  if f.get('NetProfitCr'):     data_lines.append(f'Net Profit: Rs.{f["NetProfitCr"]} Cr')
+                  if f.get('ROA'):             data_lines.append(f'Return on Assets: {f["ROA"]}%')
 
-              return '\n'.join([
-                  'Analyse this Indian NSE stock. Reply ONLY with a JSON object, no markdown, no extra text.',
-                  'Required JSON format (all keys required):',
-                  '{"summary":"one sentence max 25 words","positives":["strength 1","strength 2"],"concerns":["risk 1","risk 2"]}',
-                  'Rules: no buy/sell/hold advice, factual only, based on data below.',
+              data_block = '\n'.join(data_lines)
+
+              json_format = '{"headline":"...","summary":"...","technicalView":"...","fundamentalView":"...","positives":["...","...","..."],"concerns":["...","...","..."],"watchFor":"..."}'
+
+              prompt_parts = [
+                  'You are a senior equity research analyst covering Indian NSE stocks.',
+                  'Analyse the stock data below and produce a detailed research note.',
+                  'Reply ONLY with a single valid JSON object. No markdown, no code blocks, no extra text.',
                   '',
-                  '\n'.join(lines)
-              ])
+                  'Required JSON keys (all required):',
+                  '- headline: 8-10 word punchy headline summarising the situation',
+                  '- summary: 2-3 sentences covering momentum, valuation, and business quality',
+                  '- technicalView: 1-2 sentences on price action, trend, volume, 52-week range',
+                  '- fundamentalView: 1-2 sentences on ROE, debt, margins, valuation (say "No fundamental data available" if missing)',
+                  '- positives: array of exactly 3 specific data-backed strengths (10-15 words each)',
+                  '- concerns: array of exactly 3 specific data-backed risks (10-15 words each)',
+                  '- watchFor: one specific signal or catalyst to watch for next',
+                  '',
+                  'Format example: ' + json_format,
+                  '',
+                  'Rules: no buy/sell/hold advice, no price targets, all observations must cite actual numbers.',
+                  '',
+                  'Stock data:',
+                  data_block
+              ]
+              return '\n'.join(prompt_parts)
 
           # ── Call Gemini ────────────────────────────────────────────────────
           def call_gemini(sym):
@@ -224,7 +263,7 @@ jobs:
                       prompt = build_prompt(sym)
                       body = json.dumps({
                           'contents': [{'parts': [{'text': prompt}]}],
-                          'generationConfig': {'temperature': 0.1, 'maxOutputTokens': 300}
+                          'generationConfig': {'temperature': 0.3, 'maxOutputTokens': 800}
                       }).encode('utf-8')
                       req = urllib.request.Request(WORKING_URL, data=body,
                             headers={'Content-Type': 'application/json'}, method='POST')
@@ -241,6 +280,9 @@ jobs:
                       if s >= 0 and e > s: text = text[s:e+1]
                       parsed = json.loads(text)
                       if 'summary' in parsed and 'positives' in parsed and 'concerns' in parsed:
+                          return sym, parsed
+                      # Accept partial response — at minimum need summary
+                      if 'summary' in parsed:
                           return sym, parsed
                       return sym, {'error': f'Bad keys: {list(parsed.keys())}'}
                   except urllib.error.HTTPError as e:
@@ -282,6 +324,141 @@ jobs:
 
           write_out(insights, WORKING_MODEL)
           print(f'\nDone in {time.time()-start:.0f}s: {len(insights)} insights, {errors} errors.')
+
+          # ── MOMENTUM RADAR — one AI call analysing top stocks across 4 timeframes ──
+          print('\n📡 Building Momentum Radar...')
+
+          TIMEFRAMES = [
+              ('1W',  5,  '1 Week'),
+              ('2W',  10, '2 Weeks'),
+              ('1M',  22, '1 Month'),
+              ('6M',  132,'6 Months'),
+          ]
+
+          def get_return(sym, sessions):
+              h = price_history.get(sym, [])
+              if len(h) < sessions: return None
+              start_c = h[-sessions]['c']
+              end_c   = h[-1]['c']
+              return (end_c - start_c) / start_c * 100 if start_c else None
+
+          def get_vol_surge(sym, sessions):
+              h = price_history.get(sym, [])
+              if len(h) < 30: return 1.0
+              recent = sum(x['v'] for x in h[-sessions:]) / sessions
+              avg30  = sum(x['v'] for x in h[-30:]) / 30
+              return round(recent / avg30, 2) if avg30 else 1.0
+
+          # Build a compact data table for each timeframe
+          radar_data = {}
+          for tf_key, sessions, tf_label in TIMEFRAMES:
+              # Get all symbols with enough history
+              candidates = []
+              for sym in all_syms:
+                  ret = get_return(sym, sessions)
+                  if ret is None: continue
+                  f = fundamentals.get(sym, {})
+                  d = latest_prices.get(sym, {})
+                  candidates.append({
+                      'sym': sym,
+                      'name': d.get('name', sym),
+                      'return': ret,
+                      'price': d.get('price', 0),
+                      'volSurge': get_vol_surge(sym, min(sessions, 5)),
+                      'cap': cap_map.get(sym, ''),
+                      'roe': f.get('ROE', ''),
+                      'de': f.get('DebtToEquity', ''),
+                      'npm': f.get('NetProfitMargin', ''),
+                  })
+              # Sort by return, take top 15 for AI to consider
+              candidates.sort(key=lambda x: x['return'], reverse=True)
+              radar_data[tf_key] = {'label': tf_label, 'sessions': sessions, 'top': candidates[:15]}
+
+          # Build one compact prompt with all 4 timeframes
+          radar_lines = [
+              'You are an equity research analyst covering Indian NSE stocks.',
+              'Below is performance data for top stocks across 4 momentum timeframes.',
+              'For each timeframe, pick the 3 most interesting stocks and explain why.',
+              'Consider: Is the momentum backed by volume? Quality fundamentals? Broad market or sector-specific?',
+              'Avoid stocks that appear across multiple timeframes unless the case is exceptional.',
+              'Reply ONLY with valid JSON, no markdown.',
+              '',
+              'Required format:',
+              '{"1W":{"picks":[{"sym":"SYMBOL","name":"Company Name","return":12.5,"reason":"2-3 sentence analyst note grounded in the data"}]},"2W":{...},"1M":{...},"6M":{...},"marketPulse":"2-3 sentences on overall market conditions and what the momentum patterns suggest"}',
+              '',
+              'Rules: no buy/sell/hold, no price targets, cite actual numbers, be specific.',
+              '',
+          ]
+
+          for tf_key, sessions, tf_label in TIMEFRAMES:
+              data = radar_data[tf_key]
+              radar_lines.append(f'--- {tf_label} Top Performers ---')
+              for c in data['top']:
+                  parts = [f'{c["sym"]} ({c["name"][:25]}): {c["return"]:+.1f}% return']
+                  parts.append(f'Price Rs.{c["price"]:.2f}')
+                  if c['volSurge'] != 1.0: parts.append(f'Vol surge {c["volSurge"]}x')
+                  if c['cap']: parts.append(c['cap'])
+                  if c['roe']: parts.append(f'ROE {c["roe"]}%')
+                  if c['de']:  parts.append(f'D/E {c["de"]}')
+                  if c['npm']: parts.append(f'Margin {c["npm"]}%')
+                  radar_lines.append('  ' + ' | '.join(parts))
+              radar_lines.append('')
+
+          radar_prompt = '\n'.join(radar_lines)
+
+          # Single Gemini call for the entire radar
+          radar_result = None
+          for attempt in range(3):
+              try:
+                  body = json.dumps({
+                      'contents': [{'parts': [{'text': radar_prompt}]}],
+                      'generationConfig': {'temperature': 0.4, 'maxOutputTokens': 1500}
+                  }).encode('utf-8')
+                  req = urllib.request.Request(WORKING_URL, data=body,
+                        headers={'Content-Type': 'application/json'}, method='POST')
+                  with urllib.request.urlopen(req, timeout=45) as resp:
+                      raw = json.loads(resp.read())
+                  text = raw['candidates'][0]['content']['parts'][0]['text'].strip()
+                  if '```' in text:
+                      text = text.split('```')[1]
+                      if text.startswith('json'): text = text[4:]
+                      text = text.strip()
+                  s, e = text.find('{'), text.rfind('}')
+                  if s >= 0 and e > s: text = text[s:e+1]
+                  radar_result = json.loads(text)
+                  print(f'  Radar generated: {list(radar_result.keys())}')
+                  break
+              except urllib.error.HTTPError as e:
+                  body = ''
+                  try: body = e.read().decode('utf-8','replace')[:200]
+                  except: pass
+                  if e.code == 429 and attempt < 2:
+                      print(f'  Rate limit on radar, waiting 30s...')
+                      time.sleep(30); continue
+                  print(f'  Radar failed: HTTP {e.code}: {body[:100]}')
+                  break
+              except Exception as e:
+                  print(f'  Radar error: {e}')
+                  if attempt < 2: time.sleep(5); continue
+                  break
+
+          # Re-read the existing insights.json and add radar to it
+          try:
+              with open(OUT_FILE) as f:
+                  existing = json.load(f)
+          except:
+              existing = {'updatedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+                          'model': WORKING_MODEL, 'count': 0, 'insights': {}}
+
+          if radar_result:
+              existing['radar'] = radar_result
+              existing['radarUpdatedAt'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+
+          with open(OUT_FILE, 'w', encoding='utf-8') as f:
+              json.dump(existing, f, ensure_ascii=False, indent=1)
+
+          print(f'Radar written to {OUT_FILE}')
+          print(f'\nAll done in {time.time()-start:.0f}s.')
           EOF
 
       - name: Commit
