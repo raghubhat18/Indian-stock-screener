@@ -1,7 +1,117 @@
 {
- "updatedAt": "2026-08-10T07:52:16Z",
- "model": "gemini-2.5-flash",
- "count": 0,
- "insights": {},
- "error": "HTTP 404: {\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use a newer model for the latest features a"
+ "updatedAt": "2026-08-10T07:59:02Z",
+ "model": "gemini-flash-lite-latest",
+ "count": 10,
+ "insights": {
+  "UEL": {
+   "summary": "Ujaas Energy Limited is experiencing aggressive upward momentum, delivering triple-digit returns over the past month alongside a locked upper circuit of 5.00% at ₹257.79.",
+   "positives": [
+    "Healthy liquidity profile supported by a current ratio of 2.65.",
+    "Conservative leverage with a low debt-to-equity ratio of 0.27."
+   ],
+   "concerns": [
+    "Extremely high short-term price appreciation of over 113% in ten days.",
+    "Very low annual EPS of ₹0.24 relative to the current market price, resulting in an exceptionally high valuation."
+   ]
+  },
+  "KABRAEXTRU": {
+   "summary": "Kabra Extrusion Technik is experiencing a sharp intraday pullback of 6.07% after witnessing a massive multi-week rally of 72.7% over the last 30 days.",
+   "positives": [
+    "Short-term momentum remains strong with a 10-day return of 10.8% alongside a 30-day surge of 72.7%.",
+    "Short-term liquidity is manageable, supported by a current ratio of 1.55."
+   ],
+   "concerns": [
+    "Profitability is under pressure, reflected in a negative annual EPS of ₹-1.53 and a net profit margin of -1.19%.",
+    "Return on Equity is negative at -1.22%, indicating challenges in generating returns on shareholder funds."
+   ]
+  },
+  "KALYANKJIL": {
+   "summary": "Kalyan Jewellers is experiencing strong short-term momentum, gaining over 60% in the past month alongside a healthy return on equity.",
+   "positives": [
+    "Strong return on equity of 21.41% indicates efficient use of shareholder funds.",
+    "Very low debt-to-equity ratio of 0.083 shows a conservative financial structure."
+   ],
+   "concerns": [
+    "Rapid price appreciation of 60.5% over 30 days raises questions about near-term valuation stretch.",
+    "Thin net profit margin of 3.78% leaves little room for error if operational costs rise."
+   ]
+  },
+  "FILATEX": {
+   "summary": "Filatex India Ltd is experiencing strong near-term momentum, trading at ₹83.33 with a 61.1% return over the past 30 days while operating in the polyester manufacturing sector.",
+   "positives": [
+    "Very low debt-to-equity ratio of 0.085 indicates a strong balance sheet.",
+    "Solid short-term price action, highlighted by an 11.6% return over the last 10 days."
+   ],
+   "concerns": [
+    "Modest net profit margin of 4.4% leaves little room for operational hiccups.",
+    "Current ratio of 1.43 suggests relatively modest short-term liquidity buffers."
+   ]
+  },
+  "TFCILTD": {
+   "summary": "TFCILTD is experiencing strong upward momentum, surging over 55% in the last month on heavy buying interest.",
+   "positives": [
+    "Completely debt-free balance sheet with a debt-to-equity ratio of 0.0.",
+    "Exceptional net profit margin of 45.11%, indicating high operational efficiency."
+   ],
+   "concerns": [
+    "Rapid short-term price gains of nearly 56% in 30 days increase the risk of a near-term correction.",
+    "Modest return on equity (ROE) of 9.39% relative to its sharp valuation run-up."
+   ]
+  },
+  "SIKKO": {
+   "summary": "Sikko Industries is experiencing strong short-term momentum, backed by a solid balance sheet and a healthy liquidity position.",
+   "positives": [
+    "Strong short-term price momentum with a 59.1% return over the last 30 days.",
+    "Conservative financial leverage with a low debt-to-equity ratio of 0.14."
+   ],
+   "concerns": [
+    "Low return on equity of 5.92% indicates modest profitability relative to shareholder funds.",
+    "Very low annual earnings per share of ₹0.12 despite a small stock price."
+   ]
+  },
+  "BLUESTONE": {
+   "summary": "Bluestone is experiencing a minor daily pullback after a massive recent rally, supported by a healthy balance sheet and positive short-term momentum.",
+   "positives": [
+    "Strong 30-day return of 51.3% shows intense short-term buying interest.",
+    "Manageable debt-to-equity ratio of 0.41 indicates a conservative financial structure."
+   ],
+   "concerns": [
+    "Extremely thin net profit margin of 0.54% leaves little room for operational error.",
+    "Very low return on equity (ROE) of 0.73% highlights weak profitability relative to shareholder funds."
+   ]
+  },
+  "FERMENTA": {
+   "summary": "Fermenta Biotech Ltd. is experiencing strong upward momentum, driven by an impressive 26.8% gain over the last 10 days and a 56.7% surge over the past month.",
+   "positives": [
+    "Delivering robust short-term momentum with a 1.45% gain in today's session.",
+    "Strong multi-week performance, showing significant buyer interest over the past month."
+   ],
+   "concerns": [
+    "Extremely rapid price appreciation increases the risk of near-term profit booking.",
+    "Such steep gains often lead to heightened volatility in subsequent trading sessions."
+   ]
+  },
+  "MOREPENLAB": {
+   "summary": "Morepen Laboratories is experiencing strong short-term momentum, backed by a solid balance sheet and steady profitability.",
+   "positives": [
+    "Low debt-to-equity ratio of 0.16 indicates a conservative financial structure.",
+    "Healthy current ratio of 2.37 shows strong short-term liquidity."
+   ],
+   "concerns": [
+    "Rapid price appreciation, with a 10-day return of 41.6%, suggests potential overextended momentum.",
+    "Modest return on equity of 7.61% reflects relatively low profitability on shareholder funds."
+   ]
+  },
+  "GSPCROP": {
+   "summary": "GSP Crop Science is experiencing strong upward momentum, surging over 54% in the last month alongside a stable underlying financial foundation.",
+   "positives": [
+    "Conservative debt management, reflected in a low Debt-to-Equity ratio of 0.29.",
+    "Healthy short-term liquidity with a Current Ratio of 1.55."
+   ],
+   "concerns": [
+    "Rapid recent price gains of 54.3% in 30 days increase the risk of short-term volatility.",
+    "Moderate profitability, with a Net Profit Margin of 5.59% and an ROE of 12.23%."
+   ]
+  }
+ }
 }
