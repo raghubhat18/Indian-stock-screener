@@ -422,6 +422,7 @@
                         const insJson = await insResp.json();
                         insightsMap = insJson.insights || {};
                         insightsUpdatedAt = insJson.updatedAt || null;
+                        window._radarData = insJson.radar || null;
                         const count = Object.keys(insightsMap).length;
                         console.log(`[RBK] insights.json loaded: ${count} stocks, updated ${insJson.updatedAt}`);
                         if (count === 0 && insJson.error) console.warn('[RBK] insights.json has error:', insJson.error);
@@ -1444,28 +1445,120 @@
         // Strategy: Find fundamentally strong companies at a reasonable/attractive entry point.
         // Different from Momentum (which chases rising stocks) — this looks for quality at a dip.
         // Factors: ROE quality, debt safety, profit margin, entry point (RSI/price), valuation vs sector.
+        // Current AI insights sub-view: 'stocks' or 'radar'
+        let aiView = 'stocks';
+
+        window.setAiView = function(v) {
+            aiView = v;
+            document.getElementById('ai-view-stocks').className = v === 'stocks'
+                ? 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-sky-900 text-sky-300 border border-sky-700'
+                : 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-slate-700 text-slate-300 border border-slate-600 hover:text-white';
+            document.getElementById('ai-view-radar').className = v === 'radar'
+                ? 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-sky-900 text-sky-300 border border-sky-700'
+                : 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-slate-700 text-slate-300 border border-slate-600 hover:text-white';
+            const container = document.getElementById('stock-directory-list');
+            if (container) renderAIInsightsTab(container, document.getElementById('search-input').value.toUpperCase().trim());
+        };
+
         function renderAIInsightsTab(container, searchVal) {
-            // Override the grid to single column for full-width cards
             container.className = 'flex flex-col gap-3';
 
-            const allInsights = Object.entries(insightsMap);
-            if (allInsights.length === 0) {
-                container.innerHTML = `
-                    <div class="flex flex-col items-center justify-center text-center py-16">
-                        <div class="text-4xl mb-3">🤖</div>
-                        <div class="text-lg font-bold text-slate-200 mb-2">No AI Insights yet</div>
-                        <div class="text-sm text-slate-400 max-w-md">Run the "Generate AI insights" GitHub Action to populate this tab. It analyses top stocks across momentum, fundamentals, and market cap categories.</div>
+            const hasInsights = Object.keys(insightsMap).length > 0;
+            const radarData   = window._radarData || null;
+
+            // Sub-view toggle bar
+            const toggleBar = document.createElement('div');
+            toggleBar.className = 'flex items-center gap-2 mb-1';
+            toggleBar.innerHTML = `
+                <button id="ai-view-stocks" onclick="setAiView('stocks')"
+                    class="px-3 py-1.5 rounded-lg text-[12px] font-bold ${aiView==='stocks' ? 'bg-sky-900 text-sky-300 border border-sky-700' : 'bg-slate-700 text-slate-300 border border-slate-600 hover:text-white'}">
+                    🤖 Stock Insights
+                </button>
+                <button id="ai-view-radar" onclick="setAiView('radar')"
+                    class="px-3 py-1.5 rounded-lg text-[12px] font-bold ${aiView==='radar' ? 'bg-sky-900 text-sky-300 border border-sky-700' : 'bg-slate-700 text-slate-300 border border-slate-600 hover:text-white'}">
+                    📡 Momentum Radar
+                </button>
+                <span class="text-[11px] text-slate-500 ml-auto">Not financial advice</span>`;
+            container.appendChild(toggleBar);
+
+            // ── MOMENTUM RADAR VIEW ──────────────────────────────────────
+            if (aiView === 'radar') {
+                if (!radarData) {
+                    container.innerHTML += `<div class="flex flex-col items-center justify-center text-center py-16">
+                        <div class="text-4xl mb-3">📡</div>
+                        <div class="text-lg font-bold text-slate-200 mb-2">Momentum Radar not yet generated</div>
+                        <div class="text-sm text-slate-400 max-w-md">Run the "Generate AI insights" Action to populate this. The radar analyses top performers across 1W, 2W, 1M, and 6M timeframes.</div>
                     </div>`;
+                    return;
+                }
+
+                // Market pulse first
+                if (radarData.marketPulse) {
+                    const pulse = document.createElement('div');
+                    pulse.className = 'bg-sky-950/50 border border-sky-800 rounded-xl p-4 mb-2';
+                    pulse.innerHTML = `<div class="text-[11px] text-sky-400 uppercase font-bold mb-1.5">🌐 Market Pulse</div>
+                        <p class="text-[13px] text-slate-100 leading-relaxed">${escapeHtml(radarData.marketPulse)}</p>`;
+                    container.appendChild(pulse);
+                }
+
+                const TF_CONFIG = [
+                    { key: '1W',  icon: '⚡', label: '1 Week Momentum',  color: 'emerald', border: 'border-emerald-800', bg: 'bg-emerald-950/40', header: 'text-emerald-400' },
+                    { key: '2W',  icon: '📈', label: '2 Week Momentum',  color: 'sky',     border: 'border-sky-800',     bg: 'bg-sky-950/40',     header: 'text-sky-400' },
+                    { key: '1M',  icon: '🗓', label: '1 Month Momentum', color: 'violet',  border: 'border-violet-800',  bg: 'bg-violet-950/40',  header: 'text-violet-400' },
+                    { key: '6M',  icon: '📊', label: '6 Month Momentum', color: 'amber',   border: 'border-amber-800',   bg: 'bg-amber-950/40',   header: 'text-amber-400' },
+                ];
+
+                TF_CONFIG.forEach(tf => {
+                    const tfData = radarData[tf.key];
+                    if (!tfData || !tfData.picks) return;
+
+                    const section = document.createElement('div');
+                    section.className = `${tf.bg} ${tf.border} border rounded-xl p-4 mb-2`;
+                    let picksHtml = tfData.picks.map(pick => {
+                        const d = stockData[pick.sym] || {};
+                        const price = pick.price || d.price || 0;
+                        const ret = pick.return;
+                        const retColor = ret >= 0 ? 'text-emerald-400' : 'text-rose-400';
+                        return `<div class="bg-slate-800/60 rounded-lg p-3 cursor-pointer hover:bg-slate-700/60 transition-all"
+                                     onclick="openWorkspace('${escapeHtml(pick.sym)}')">
+                            <div class="flex justify-between items-start mb-1.5">
+                                <div>
+                                    <span class="text-sm font-bold text-white">${escapeHtml(pick.sym)}</span>
+                                    <span class="text-[11px] text-slate-400 ml-1.5">${escapeHtml(pick.name || '')}</span>
+                                </div>
+                                <div class="text-right shrink-0 ml-2">
+                                    <div class="text-[12px] font-bold text-slate-100">₹${price.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                                    ${ret !== undefined ? `<div class="text-[12px] font-bold ${retColor}">${ret >= 0 ? '+' : ''}${ret.toFixed(1)}%</div>` : ''}
+                                </div>
+                            </div>
+                            <p class="text-[12px] text-slate-300 leading-relaxed">${escapeHtml(pick.reason || '')}</p>
+                        </div>`;
+                    }).join('');
+
+                    section.innerHTML = `<div class="${tf.header} text-[12px] font-bold uppercase tracking-wider mb-3">${tf.icon} ${tf.label}</div>
+                        <div class="flex flex-col gap-2">${picksHtml}</div>`;
+                    container.appendChild(section);
+                });
+
                 return;
             }
 
-            // Filter by search
+            // ── STOCK INSIGHTS VIEW ──────────────────────────────────────
+            const allInsights = Object.entries(insightsMap);
+            if (allInsights.length === 0) {
+                container.innerHTML += `<div class="flex flex-col items-center justify-center text-center py-12">
+                    <div class="text-4xl mb-3">🤖</div>
+                    <div class="text-lg font-bold text-slate-200 mb-2">No AI Insights yet</div>
+                    <div class="text-sm text-slate-400 max-w-md">Run the "Generate AI insights" GitHub Action to populate this tab.</div>
+                </div>`;
+                return;
+            }
+
             let entries = allInsights.filter(([sym, ins]) => {
                 if (!searchVal) return true;
                 return sym.includes(searchVal) || (ins.name || '').toUpperCase().includes(searchVal);
             });
 
-            // Group by category
             const CATEGORY_ORDER = ['Top Momentum','Top Fundamentals','Large Cap','Mid Cap','Small Cap','Long Term Pick',''];
             const groups = {};
             entries.forEach(([sym, ins]) => {
@@ -1474,12 +1567,11 @@
                 groups[cat].push([sym, ins]);
             });
 
-            // Update timestamp
             if (insightsUpdatedAt) {
-                const dateStr = new Date(insightsUpdatedAt).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+                const dateStr = new Date(insightsUpdatedAt).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
                 const notice = document.createElement('div');
                 notice.className = 'text-[12px] text-slate-400 font-mono mb-1';
-                notice.innerHTML = `🤖 AI Analysis · ${entries.length} stocks · Updated ${dateStr} · <span class="text-slate-500">Not financial advice</span>`;
+                notice.innerHTML = `🤖 ${entries.length} stocks analysed · Updated ${dateStr}`;
                 container.appendChild(notice);
             }
 
@@ -1506,26 +1598,52 @@
                     const change = ins.changePct !== undefined ? ins.changePct : (d.change || 0);
 
                     const card = document.createElement('div');
-                    card.className = 'bg-slate-700/40 border border-slate-600 rounded-xl p-4 cursor-pointer hover:border-slate-400 transition-all';
+                    card.className = 'bg-slate-700/40 border border-slate-600 rounded-xl p-4 cursor-pointer hover:border-sky-700 transition-all';
                     card.onclick = () => openWorkspace(sym);
 
-                    const posItems = (ins.positives || []).map(p => `<li class="flex gap-1.5 text-[12px] text-emerald-300"><span class="shrink-0 mt-0.5">✓</span><span>${escapeHtml(p)}</span></li>`).join('');
-                    const negItems = (ins.concerns || []).map(p => `<li class="flex gap-1.5 text-[12px] text-amber-300"><span class="shrink-0 mt-0.5">⚠</span><span>${escapeHtml(p)}</span></li>`).join('');
+                    const posItems = (ins.positives || []).map(p => `<li class="flex gap-1.5 text-[12px] text-emerald-300 leading-relaxed"><span class="shrink-0">✓</span><span>${escapeHtml(p)}</span></li>`).join('');
+                    const negItems = (ins.concerns  || []).map(p => `<li class="flex gap-1.5 text-[12px] text-amber-300 leading-relaxed"><span class="shrink-0">⚠</span><span>${escapeHtml(p)}</span></li>`).join('');
 
                     card.innerHTML = `
                         <div class="flex justify-between items-start mb-2">
-                            <div>
-                                <span class="text-base font-bold text-white">${escapeHtml(sym)}</span>
-                                <span class="text-[11px] text-slate-400 ml-2">${escapeHtml(ins.name || stockNames[sym] || '')}</span>
+                            <div class="flex-1 mr-3">
+                                <div class="flex items-center gap-2 flex-wrap mb-0.5">
+                                    <span class="text-base font-bold text-white">${escapeHtml(sym)}</span>
+                                    <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-600 text-slate-300 uppercase">${escapeHtml(ins.category || '')}</span>
+                                </div>
+                                <div class="text-[11px] text-slate-400">${escapeHtml(ins.name || stockNames[sym] || '')}</div>
+                                ${ins.headline ? `<div class="text-[13px] font-bold text-sky-300 mt-1.5 leading-snug">${escapeHtml(ins.headline)}</div>` : ''}
                             </div>
-                            <div class="text-right shrink-0 ml-3">
-                                <div class="text-base font-bold text-slate-100">₹${price.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                            <div class="text-right shrink-0">
+                                <div class="text-sm font-bold text-slate-100">₹${price.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
                                 <div class="text-[12px] font-bold ${changeColor}">${changeSign}${change.toFixed(2)}%</div>
                             </div>
                         </div>
-                        <p class="text-[13px] text-slate-200 leading-relaxed mb-2">${escapeHtml(ins.summary || '')}</p>
-                        <ul class="space-y-0.5 mb-1">${posItems}${negItems}</ul>
-                        <div class="text-[10px] text-slate-500 mt-2">Tap to open full analysis →</div>`;
+
+                        <p class="text-[13px] text-slate-100 leading-relaxed mb-3 border-l-2 border-slate-500 pl-2">${escapeHtml(ins.summary || '')}</p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
+                            ${ins.technicalView ? `<div class="bg-slate-800/60 rounded-lg p-2.5">
+                                <div class="text-[10px] text-sky-400 uppercase font-bold mb-1">📈 Technical</div>
+                                <p class="text-[12px] text-slate-300 leading-relaxed">${escapeHtml(ins.technicalView)}</p>
+                            </div>` : ''}
+                            ${ins.fundamentalView ? `<div class="bg-slate-800/60 rounded-lg p-2.5">
+                                <div class="text-[10px] text-purple-400 uppercase font-bold mb-1">🏦 Fundamental</div>
+                                <p class="text-[12px] text-slate-300 leading-relaxed">${escapeHtml(ins.fundamentalView)}</p>
+                            </div>` : ''}
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 mb-2">
+                            ${posItems ? `<div><div class="text-[10px] text-emerald-500 uppercase font-bold mb-1.5">Strengths</div><ul class="space-y-1.5">${posItems}</ul></div>` : ''}
+                            ${negItems ? `<div><div class="text-[10px] text-amber-500 uppercase font-bold mb-1.5">Watch out</div><ul class="space-y-1.5">${negItems}</ul></div>` : ''}
+                        </div>
+
+                        ${ins.watchFor ? `<div class="border-t border-slate-600/60 pt-2.5 mt-1">
+                            <span class="text-[10px] text-slate-400 uppercase font-bold">👁 Watch for: </span>
+                            <span class="text-[12px] text-slate-200">${escapeHtml(ins.watchFor)}</span>
+                        </div>` : ''}
+
+                        <div class="text-[10px] text-slate-500 mt-2.5 text-right">Tap to open full chart & analysis →</div>`;
                     container.appendChild(card);
                 });
             });
@@ -1859,8 +1977,8 @@
                                 ${(() => {
                                     const ins = insightsMap[ticker];
                                     if (!ins || ins.error) return '';
-                                    const pos = (ins.positives || []).map(p => `<li class="text-[12px] text-emerald-300 mb-1">✓ ${escapeHtml(p)}</li>`).join('');
-                                    const neg = (ins.concerns  || []).map(p => `<li class="text-[12px] text-amber-300 mb-1">⚠ ${escapeHtml(p)}</li>`).join('');
+                                    const pos = (ins.positives || []).map(p => `<li class="text-[12px] text-emerald-300 leading-relaxed">✓ ${escapeHtml(p)}</li>`).join('');
+                                    const neg = (ins.concerns  || []).map(p => `<li class="text-[12px] text-amber-300 leading-relaxed">⚠ ${escapeHtml(p)}</li>`).join('');
                                     const date = insightsUpdatedAt ? new Date(insightsUpdatedAt).toLocaleDateString('en-IN', {day:'numeric', month:'short'}) : '';
                                     return `
                                     <div class="bg-gradient-to-br from-sky-950/60 to-slate-800/60 p-4 rounded-lg border border-sky-800/60 mb-3">
@@ -1871,10 +1989,14 @@
                                             </div>
                                             <span class="text-[10px] text-slate-400">Updated ${date}</span>
                                         </div>
-                                        <p class="text-[13px] text-slate-100 leading-relaxed mb-2">${escapeHtml(ins.summary || '')}</p>
-                                        ${pos ? `<ul class="mt-2 mb-1 pl-1">${pos}</ul>` : ''}
-                                        ${neg ? `<ul class="mt-1 pl-1">${neg}</ul>` : ''}
-                                        <div class="text-[10px] text-slate-500 mt-2 pt-2 border-t border-slate-700">Generated by Google Gemini · Not financial advice · Based on your NSE data</div>
+                                        ${ins.headline ? `<div class="text-[13px] font-bold text-sky-300 mb-2">${escapeHtml(ins.headline)}</div>` : ''}
+                                        <p class="text-[13px] text-slate-100 leading-relaxed mb-2 border-l-2 border-sky-800 pl-2">${escapeHtml(ins.summary || '')}</p>
+                                        ${ins.technicalView ? `<div class="mb-1.5"><span class="text-[10px] text-sky-400 font-bold uppercase">📈 Technical: </span><span class="text-[12px] text-slate-300">${escapeHtml(ins.technicalView)}</span></div>` : ''}
+                                        ${ins.fundamentalView ? `<div class="mb-2"><span class="text-[10px] text-purple-400 font-bold uppercase">🏦 Fundamental: </span><span class="text-[12px] text-slate-300">${escapeHtml(ins.fundamentalView)}</span></div>` : ''}
+                                        ${pos ? `<ul class="mt-1 mb-1 space-y-0.5">${pos}</ul>` : ''}
+                                        ${neg ? `<ul class="mt-1 mb-1 space-y-0.5">${neg}</ul>` : ''}
+                                        ${ins.watchFor ? `<div class="mt-2 pt-2 border-t border-slate-700"><span class="text-[10px] text-slate-400 font-bold uppercase">👁 Watch for: </span><span class="text-[12px] text-slate-200">${escapeHtml(ins.watchFor)}</span></div>` : ''}
+                                        <div class="text-[10px] text-slate-500 mt-2 pt-2 border-t border-slate-700">Google Gemini · Not financial advice · Based on NSE data</div>
                                     </div>
                                     `;
                                 })()}
