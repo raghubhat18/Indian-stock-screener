@@ -423,6 +423,7 @@
                         insightsMap = insJson.insights || {};
                         insightsUpdatedAt = insJson.updatedAt || null;
                         window._radarData = insJson.radar || null;
+                        window._calibData = insJson.calibration || null;
                         const count = Object.keys(insightsMap).length;
                         console.log(`[RBK] insights.json loaded: ${count} stocks, updated ${insJson.updatedAt}`);
                         if (count === 0 && insJson.error) console.warn('[RBK] insights.json has error:', insJson.error);
@@ -1450,12 +1451,13 @@
 
         window.setAiView = function(v) {
             aiView = v;
-            document.getElementById('ai-view-stocks').className = v === 'stocks'
-                ? 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-sky-900 text-sky-300 border border-sky-700'
-                : 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-slate-700 text-slate-300 border border-slate-600 hover:text-white';
-            document.getElementById('ai-view-radar').className = v === 'radar'
-                ? 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-sky-900 text-sky-300 border border-sky-700'
-                : 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-slate-700 text-slate-300 border border-slate-600 hover:text-white';
+            ['stocks','radar','calib'].forEach(id => {
+                const btn = document.getElementById(`ai-view-${id}`);
+                if (!btn) return;
+                btn.className = v === id
+                    ? 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-sky-900 text-sky-300 border border-sky-700'
+                    : 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-slate-700 text-slate-300 border border-slate-600 hover:text-white';
+            });
             const container = document.getElementById('stock-directory-list');
             if (container) renderAIInsightsTab(container, document.getElementById('search-input').value.toUpperCase().trim());
         };
@@ -1477,6 +1479,10 @@
                 <button id="ai-view-radar" onclick="setAiView('radar')"
                     class="px-3 py-1.5 rounded-lg text-[12px] font-bold ${aiView==='radar' ? 'bg-sky-900 text-sky-300 border border-sky-700' : 'bg-slate-700 text-slate-300 border border-slate-600 hover:text-white'}">
                     📡 Momentum Radar
+                </button>
+                <button id="ai-view-calib" onclick="setAiView('calib')"
+                    class="px-3 py-1.5 rounded-lg text-[12px] font-bold ${aiView==='calib' ? 'bg-sky-900 text-sky-300 border border-sky-700' : 'bg-slate-700 text-slate-300 border border-slate-600 hover:text-white'}">
+                    📊 Calibration
                 </button>
                 <span class="text-[11px] text-slate-500 ml-auto">Not financial advice</span>`;
             container.appendChild(toggleBar);
@@ -1540,6 +1546,143 @@
                     container.appendChild(section);
                 });
 
+                return;
+            }
+
+            // ── CALIBRATION VIEW ─────────────────────────────────────────
+            if (aiView === 'calib') {
+                const calib = window._calibData;
+                if (!calib) {
+                    container.innerHTML += `<div class="flex flex-col items-center justify-center text-center py-12">
+                        <div class="text-4xl mb-3">📊</div>
+                        <div class="text-lg font-bold text-slate-200 mb-2">Calibration not yet available</div>
+                        <div class="text-sm text-slate-400 max-w-md leading-relaxed">
+                            The calibration report needs at least 10 days of score snapshots to compare predictions vs actual returns.<br><br>
+                            <strong class="text-slate-300">Step 1:</strong> Add <code class="bg-slate-700 px-1 rounded">save-snapshots.yml</code> to your GitHub workflows — it runs every day automatically.<br>
+                            <strong class="text-slate-300">Step 2:</strong> After 2+ weeks of snapshots, the insights workflow will generate a calibration report automatically.
+                        </div>
+                    </div>`;
+                    return;
+                }
+
+                const acc = calib.accuracy || {};
+                const fp  = calib.factorPower || {};
+                const ai  = calib.aiReport || {};
+
+                // Overall accuracy card
+                const accCard = document.createElement('div');
+                accCard.className = 'bg-slate-700/40 border border-slate-600 rounded-xl p-4 mb-3';
+                const buyAcc  = acc.BUY   || {};
+                const holdAcc = acc.HOLD  || {};
+                const avoidAcc= acc.AVOID || {};
+                const buyColor  = buyAcc.avg   >= 0 ? 'text-emerald-400' : 'text-rose-400';
+                const avoidColor= avoidAcc.avg  <= 0 ? 'text-emerald-400' : 'text-rose-400';
+                accCard.innerHTML = `
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-[12px] font-bold text-slate-300 uppercase tracking-wider">📊 Prediction Accuracy (5-day return)</div>
+                        ${ai.calibrationScore ? `<div class="text-[11px] bg-sky-900 text-sky-300 px-2 py-0.5 rounded border border-sky-700">Model Score: ${ai.calibrationScore}/10</div>` : ''}
+                    </div>
+                    <div class="grid grid-cols-3 gap-3 mb-3">
+                        <div class="bg-emerald-950/50 rounded-lg p-3 text-center border border-emerald-900">
+                            <div class="text-[10px] text-emerald-400 uppercase font-bold mb-1">BUY Signal</div>
+                            <div class="text-lg font-bold ${buyColor}">${buyAcc.avg >= 0 ? '+' : ''}${buyAcc.avg || 0}%</div>
+                            <div class="text-[11px] text-slate-400">${buyAcc.win_rate || 0}% win rate</div>
+                            <div class="text-[10px] text-slate-500">${buyAcc.count || 0} predictions</div>
+                        </div>
+                        <div class="bg-slate-800/50 rounded-lg p-3 text-center border border-slate-700">
+                            <div class="text-[10px] text-amber-400 uppercase font-bold mb-1">HOLD Signal</div>
+                            <div class="text-lg font-bold text-amber-400">${holdAcc.avg >= 0 ? '+' : ''}${holdAcc.avg || 0}%</div>
+                            <div class="text-[11px] text-slate-400">${holdAcc.win_rate || 0}% win rate</div>
+                            <div class="text-[10px] text-slate-500">${holdAcc.count || 0} predictions</div>
+                        </div>
+                        <div class="bg-rose-950/50 rounded-lg p-3 text-center border border-rose-900">
+                            <div class="text-[10px] text-rose-400 uppercase font-bold mb-1">AVOID Signal</div>
+                            <div class="text-lg font-bold ${avoidColor}">${avoidAcc.avg >= 0 ? '+' : ''}${avoidAcc.avg || 0}%</div>
+                            <div class="text-[11px] text-slate-400">${avoidAcc.win_rate || 0}% win rate</div>
+                            <div class="text-[10px] text-slate-500">${avoidAcc.count || 0} predictions</div>
+                        </div>
+                    </div>
+                    ${ai.overallVerdict ? `<p class="text-[13px] text-slate-100 leading-relaxed border-l-2 border-sky-700 pl-3">${escapeHtml(ai.overallVerdict)}</p>` : ''}`;
+                container.appendChild(accCard);
+
+                // Factor power chart
+                const FACTOR_LABELS = {
+                    roc5:'5-Day Momentum', roc10:'10-Day Momentum', vsma20:'Price vs SMA20',
+                    sma20dir:'SMA20 Direction', rsi:'RSI', volume:'Volume Surge',
+                    relstrength:'Relative Strength', macd:'MACD', bollinger:'Bollinger Bands',
+                    hi52:'52-Week High', gap:'Price Gap', cross:'Golden/Death Cross', adx:'ADX'
+                };
+                const sortedFactors = Object.entries(fp).sort((a,b) => b[1]-a[1]);
+                if (sortedFactors.length > 0) {
+                    const factorCard = document.createElement('div');
+                    factorCard.className = 'bg-slate-700/40 border border-slate-600 rounded-xl p-4 mb-3';
+                    const maxPower = Math.max(...sortedFactors.map(([,v]) => Math.abs(v)), 1);
+                    factorCard.innerHTML = `<div class="text-[12px] font-bold text-slate-300 uppercase tracking-wider mb-3">⚡ Factor Predictive Power</div>
+                        <div class="text-[11px] text-slate-500 mb-3">Higher = more predictive. Negative = counter-productive (consider reducing weight).</div>
+                        <div class="space-y-2">
+                        ${sortedFactors.map(([key, power]) => {
+                            const label = FACTOR_LABELS[key] || key;
+                            const isGood = power > 1;
+                            const isWeak = power >= 0 && power <= 1;
+                            const isBad  = power < 0;
+                            const color = isGood ? 'bg-emerald-500' : (isBad ? 'bg-rose-500' : 'bg-amber-500');
+                            const textColor = isGood ? 'text-emerald-400' : (isBad ? 'text-rose-400' : 'text-amber-400');
+                            const badge = isGood ? '✅' : (isBad ? '❌' : '⚠️');
+                            const pct = Math.min(Math.abs(power) / maxPower * 100, 100);
+                            return `<div>
+                                <div class="flex justify-between items-center mb-0.5">
+                                    <span class="text-[12px] text-slate-200">${badge} ${label}</span>
+                                    <span class="text-[12px] font-bold ${textColor}">${power >= 0 ? '+' : ''}${power}%</span>
+                                </div>
+                                <div class="w-full bg-slate-600 rounded-full h-1.5 overflow-hidden">
+                                    <div class="${color} h-1.5 rounded-full transition-all" style="width:${pct}%"></div>
+                                </div>
+                            </div>`;
+                        }).join('')}
+                        </div>`;
+                    container.appendChild(factorCard);
+                }
+
+                // AI recommendations
+                if (ai.recommendations || ai.factorInsights) {
+                    const recCard = document.createElement('div');
+                    recCard.className = 'bg-sky-950/40 border border-sky-800 rounded-xl p-4 mb-3';
+                    const recs = (ai.recommendations || []).map(r => `<li class="text-[12px] text-slate-200 leading-relaxed mb-1.5">→ ${escapeHtml(r)}</li>`).join('');
+                    const obs  = (ai.factorInsights  || []).map(r => `<li class="text-[12px] text-slate-300 leading-relaxed mb-1.5">• ${escapeHtml(r)}</li>`).join('');
+                    recCard.innerHTML = `
+                        <div class="text-[11px] text-sky-400 uppercase font-bold mb-2">🤖 AI Recommendations</div>
+                        ${obs  ? `<ul class="mb-3">${obs}</ul>` : ''}
+                        ${recs ? `<div class="text-[11px] text-slate-400 uppercase font-bold mb-1.5">Suggested Weight Adjustments</div><ul>${recs}</ul>` : ''}`;
+                    container.appendChild(recCard);
+                }
+
+                // Wins and misses
+                const wm = document.createElement('div');
+                wm.className = 'grid grid-cols-2 gap-3 mb-3';
+                const topWins   = calib.topWins   || [];
+                const topMisses = calib.topMisses || [];
+                const winsHtml = topWins.slice(0,3).map(([sym,date,score,ret]) =>
+                    `<div class="bg-emerald-950/40 rounded-lg p-2 border border-emerald-900/50">
+                        <div class="font-bold text-white text-[13px]">${escapeHtml(sym)}</div>
+                        <div class="text-emerald-400 font-bold text-[13px]">+${ret.toFixed(1)}%</div>
+                        <div class="text-[10px] text-slate-500">Score ${score} · ${date}</div>
+                    </div>`).join('');
+                const missHtml = topMisses.slice(0,3).map(([sym,date,score,ret]) =>
+                    `<div class="bg-rose-950/40 rounded-lg p-2 border border-rose-900/50">
+                        <div class="font-bold text-white text-[13px]">${escapeHtml(sym)}</div>
+                        <div class="text-rose-400 font-bold text-[13px]">${ret.toFixed(1)}%</div>
+                        <div class="text-[10px] text-slate-500">Score ${score} · ${date}</div>
+                    </div>`).join('');
+                wm.innerHTML = `
+                    <div><div class="text-[11px] text-emerald-400 font-bold uppercase mb-2">🏆 Top Wins</div><div class="flex flex-col gap-2">${winsHtml || '<div class="text-[11px] text-slate-500">Not enough data yet</div>'}</div></div>
+                    <div><div class="text-[11px] text-rose-400 font-bold uppercase mb-2">💔 Biggest Misses</div><div class="flex flex-col gap-2">${missHtml || '<div class="text-[11px] text-slate-500">Not enough data yet</div>'}</div></div>`;
+                container.appendChild(wm);
+
+                const updatedAt = calib.updatedAt ? new Date(calib.updatedAt).toLocaleDateString('en-IN', {day:'numeric',month:'short',year:'numeric'}) : '';
+                const note = document.createElement('div');
+                note.className = 'text-[11px] text-slate-500 text-center mt-1';
+                note.textContent = `Based on ${buyAcc.count || 0} BUY predictions · Updated ${updatedAt} · 5-day return window`;
+                container.appendChild(note);
                 return;
             }
 
