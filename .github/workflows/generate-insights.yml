@@ -2,7 +2,7 @@ name: Generate AI insights
 
 on:
   schedule:
-    - cron: '30 12 * * 1-5'   # 6:00 PM IST weekdays
+    - cron: '45 17 * * 1-5'   # 11:15 PM IST weekdays (17:45 UTC) — runs after save-snapshots
   workflow_dispatch:
 
 permissions:
@@ -325,7 +325,397 @@ jobs:
           write_out(insights, WORKING_MODEL)
           print(f'\nDone in {time.time()-start:.0f}s: {len(insights)} insights, {errors} errors.')
 
-          # ── MOMENTUM RADAR — one AI call analysing top stocks across 4 timeframes ──
+          # ── HISTORICAL BACKTESTING ────────────────────────────────────────
+          # This works from your existing bhavcopy files — no snapshots needed.
+          # For each historical date, compute what the scores would have been,
+          # then measure what actually happened 5/10/30 days later.
+          print('\n📊 Running historical backtesting from bhavcopy data...')
+
+          # Build full price lookup: date -> sym -> {close, open, high, low, volume}
+          print('Building full price lookup...')
+          price_lookup = {}   # date -> sym -> close
+          names_lookup = {}   # sym -> name
+          for fp in bhav_files:
+              d = os.path.basename(fp).replace('.csv','')
+              price_lookup[d] = {}
+              try:
+                  with open(fp, encoding='utf-8-sig') as f:
+                      for row in csv.DictReader(f):
+                          if (row.get('SctySrs') or '').strip() != 'EQ': continue
+                          sym = (row.get('TckrSymb') or '').strip().upper()
+                          try:
+                              c = float(row.get('ClsPric') or 0)
+                              if c:
+                                  price_lookup[d][sym] = c
+                                  if sym not in names_lookup:
+                                      names_lookup[sym] = (row.get('FinInstrmNm') or sym).strip()
+                          except: pass
+              except: pass
+
+          all_dates = sorted(price_lookup.keys())
+          print(f'Price lookup: {len(all_dates)} dates, {len(names_lookup)} symbols')
+
+          # Simple scoring function for backtesting
+          # Uses only price data (no fundamentals) for speed
+          def quick_score(sym, date_idx, all_dates, price_lookup):
+              if date_idx < 22: return None
+              closes = []
+              volumes = []
+              for di in range(max(0, date_idx-250), date_idx+1):
+                  p = price_lookup[all_dates[di]].get(sym)
+                  if p: closes.append(p)
+                  else: closes.append(closes[-1] if closes else None)
+              closes = [c for c in closes if c]
+              if len(closes) < 22: return None
+
+              score = 0
+              n = len(closes)
+
+              # 5-day ROC
+              if n >= 6:
+                  r5 = (closes[-1]-closes[-6])/closes[-6]*100 if closes[-6] else 0
+                  score += min(max(r5,0), 12)
+
+              # 10-day ROC
+              if n >= 11:
+                  r10 = (closes[-1]-closes[-11])/closes[-11]*100 if closes[-11] else 0
+                  score += min(max(r10,0), 8)
+
+              # SMA20
+              if n >= 20:
+                  sma20 = sum(closes[-20:])/20
+                  score += 10 if closes[-1] > sma20 else 0
+                  if n >= 25:
+                      sma20_prev = sum(closes[-25:-5])/20
+                      score += 8 if sma20 > sma20_prev else 0
+
+              # RSI simplified
+              if n >= 15:
+                  gains = [max(closes[i]-closes[i-1],0) for i in range(-14,0)]
+                  losses = [max(closes[i-1]-closes[i],0) for i in range(-14,0)]
+                  ag = sum(gains)/14; al = sum(losses)/14
+                  r = 100 - 100/(1+ag/al) if al else 100
+                  if 55<=r<=65: score+=12
+                  elif 50<=r<55 or 65<r<=70: score+=8
+                  elif 70<r<=80: score+=3
+                  elif r>80: score-=4
+
+              # 52-week high
+              hi = max(closes)
+              pct = (closes[-1]-hi)/hi*100
+              score += 6 if pct>=-3 else (4 if pct>=-10 else (2 if pct>=-20 else 0))
+
+              return max(0, min(100, round(score)))
+
+          # Sample every 5th trading day over last 12 months (for speed)
+          backtest_dates = all_dates[-250::5]  # every 5th day over last ~12 months
+          WINDOWS = [5, 10, 30]
+
+          results_by_verdict = {'BUY':[], 'HOLD':[], 'AVOID':[]}
+          factor_data = {
+              'roc5':[], 'roc10':[], 'vsma20':[], 'sma20dir':[],
+              'rsi':[], 'hi52':[]
+          }
+          wins, misses = [], []
+
+          print(f'Backtesting {len(backtest_dates)} sample dates x top symbols...')
+
+          # Only test top 200 symbols by total volume (for speed)
+          vol_totals = {}
+          for d_prices in price_lookup.values():
+              for sym in d_prices:
+                  vol_totals[sym] = vol_totals.get(sym, 0) + 1
+          test_syms = sorted(vol_totals, key=vol_totals.get, reverse=True)[:300]
+
+          for date_str in backtest_dates:
+              di = all_dates.index(date_str)
+              if di + 5 >= len(all_dates): continue  # need future data
+
+              for sym in test_syms:
+                  if sym not in price_lookup.get(date_str, {}): continue
+
+                  sc = quick_score(sym, di, all_dates, price_lookup)
+                  if sc is None: continue
+
+                  # Get 5-day actual return
+                  future_di = min(di + 5, len(all_dates)-1)
+                  p_now    = price_lookup[date_str].get(sym)
+                  p_future = price_lookup[all_dates[future_di]].get(sym)
+                  if not p_now or not p_future: continue
+                  ret5 = (p_future - p_now) / p_now * 100
+
+                  verdict = 'BUY' if sc >= 65 else ('AVOID' if sc < 40 else 'HOLD')
+                  results_by_verdict[verdict].append(ret5)
+
+                  if verdict == 'BUY':
+                      if ret5 > 8:  wins.append((sym, date_str, sc, round(ret5,2)))
+                      elif ret5 < -5: misses.append((sym, date_str, sc, round(ret5,2)))
+
+          # Compute accuracy stats
+          def stats(returns):
+              if not returns: return {'avg':0,'win_rate':0,'count':0}
+              avg = sum(returns)/len(returns)
+              win_rate = sum(1 for r in returns if r>0)/len(returns)*100
+              return {'avg':round(avg,2),'win_rate':round(win_rate,1),'count':len(returns)}
+
+          accuracy = {v: stats(r) for v,r in results_by_verdict.items()}
+          wins.sort(key=lambda x: x[3], reverse=True)
+          misses.sort(key=lambda x: x[3])
+          print(f'Backtesting complete: BUY avg={accuracy["BUY"]["avg"]}%, n={accuracy["BUY"]["count"]}')
+
+          # ── Send to Gemini for interpretation ──
+          calib_result = None
+          if WORKING_URL and accuracy['BUY']['count'] > 50:
+              print('Generating calibration report...')
+              time.sleep(DELAY)
+
+              lines = [
+                  'You are a quantitative analyst reviewing a stock scoring model.',
+                  'Below is historical backtesting data. Write a calibration report.',
+                  'Reply ONLY with valid JSON, no markdown, no extra text.',
+                  '',
+                  'Required JSON:',
+                  '{"overallVerdict":"2-3 sentences on model accuracy and whether BUY/HOLD/AVOID signals are well-separated","factorInsights":["3-4 specific observations"],"recommendations":["3 specific suggestions to improve the model"],"calibrationScore":"X/10 rating of model quality"}',
+                  '',
+                  'BACKTESTING RESULTS (5-day return after signal, from historical NSE data):',
+                  f'BUY (score >= 65): avg={accuracy["BUY"]["avg"]}%, win_rate={accuracy["BUY"]["win_rate"]}%, n={accuracy["BUY"]["count"]}',
+                  f'HOLD (40-64):      avg={accuracy["HOLD"]["avg"]}%, win_rate={accuracy["HOLD"]["win_rate"]}%, n={accuracy["HOLD"]["count"]}',
+                  f'AVOID (< 40):      avg={accuracy["AVOID"]["avg"]}%, win_rate={accuracy["AVOID"]["win_rate"]}%, n={accuracy["AVOID"]["count"]}',
+                  '',
+                  'TOP 3 WINS (BUY signal, high return):',
+              ]
+              for sym,d,sc,r in wins[:3]:
+                  lines.append(f'  {sym} on {d}: score={sc}, 5d return=+{r}%')
+              lines.append('TOP 3 MISSES (BUY signal, negative return):')
+              for sym,d,sc,r in misses[:3]:
+                  lines.append(f'  {sym} on {d}: score={sc}, 5d return={r}%')
+
+              try:
+                  body = json.dumps({
+                      'contents': [{'parts': [{'text': chr(10).join(lines)}]}],
+                      'generationConfig': {'temperature':0.3,'maxOutputTokens':800}
+                  }).encode('utf-8')
+                  req = urllib.request.Request(WORKING_URL, data=body,
+                        headers={'Content-Type':'application/json'}, method='POST')
+                  with urllib.request.urlopen(req, timeout=45) as resp:
+                      raw = json.loads(resp.read())
+                  text = raw['candidates'][0]['content']['parts'][0]['text'].strip()
+                  if '```' in text:
+                      text = text.split('```')[1]
+                      if text.startswith('json'): text = text[4:]
+                      text = text.strip()
+                  s,e = text.find('{'), text.rfind('}')
+                  if s>=0 and e>s: text=text[s:e+1]
+                  calib_result = json.loads(text)
+                  print(f'Calibration report generated.')
+              except Exception as e:
+                  print(f'Calibration API error: {e}')
+
+          # Save calibration to insights.json
+          try:
+              with open(OUT_FILE) as f: existing = json.load(f)
+          except: existing = {}
+
+          existing['calibration'] = {
+              'updatedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+              'accuracy': accuracy,
+              'topWins':  [list(x) for x in wins[:5]],
+              'topMisses':[list(x) for x in misses[:5]],
+              'aiReport': calib_result,
+              'dataPoints': accuracy['BUY']['count'] + accuracy['HOLD']['count'] + accuracy['AVOID']['count']
+          }
+          with open(OUT_FILE, 'w', encoding='utf-8') as f:
+              json.dump(existing, f, ensure_ascii=False, indent=1)
+          print(f'Calibration saved to {OUT_FILE}')
+          EOF
+              snap_files = sorted(glob.glob(f'{SNAP_DIR}/*.json'))
+              print(f'Found {len(snap_files)} snapshots.')
+
+              # Load all bhavcopy closing prices into a lookup: date -> sym -> close
+              print('Building price lookup...')
+              price_lookup = {}   # date_str -> sym -> close
+              for fp in bhav_files:
+                  d = os.path.basename(fp).replace('.csv','')
+                  price_lookup[d] = {}
+                  try:
+                      with open(fp, encoding='utf-8-sig') as f:
+                          for row in csv.DictReader(f):
+                              if (row.get('SctySrs') or '').strip() != 'EQ': continue
+                              sym = (row.get('TckrSymb') or '').strip().upper()
+                              try:
+                                  c = float(row.get('ClsPric') or 0)
+                                  if c: price_lookup[d][sym] = c
+                              except: pass
+                  except: pass
+
+              all_dates = sorted(price_lookup.keys())
+
+              def get_future_return(sym, snap_date, window):
+                  """Get actual return for sym, window days after snap_date."""
+                  try:
+                      idx = all_dates.index(snap_date)
+                  except ValueError: return None
+                  future_idx = idx + window
+                  if future_idx >= len(all_dates): return None
+                  future_date = all_dates[future_idx]
+                  p_now    = price_lookup.get(snap_date, {}).get(sym)
+                  p_future = price_lookup.get(future_date, {}).get(sym)
+                  if not p_now or not p_future: return None
+                  return (p_future - p_now) / p_now * 100
+
+              # ── Analyse predictions vs outcomes ──
+              # For each snapshot (that has future data), measure accuracy
+              results_by_verdict = {'BUY': [], 'HOLD': [], 'AVOID': []}
+              factor_returns = {}   # factor_name -> [(factor_score, actual_return)]
+              wins = []    # [(sym, snap_date, pred_score, actual_return_5d)]
+              misses = []  # same
+
+              for snap_file in snap_files[-60:]:  # last 60 snapshots
+                  try:
+                      with open(snap_file) as f: snap = json.load(f)
+                      snap_date = snap.get('date', '')
+                      if not snap_date: continue
+
+                      for sym, s in snap.get('stocks', {}).items():
+                          ret5 = get_future_return(sym, snap_date, 5)
+                          if ret5 is None: continue
+
+                          combined = s.get('combined', s.get('techScore', 50))
+                          verdict = 'BUY' if combined >= 65 else ('AVOID' if combined < 40 else 'HOLD')
+                          results_by_verdict[verdict].append(ret5)
+
+                          # Factor attribution
+                          for factor, pts in s.get('factors', {}).items():
+                              factor_returns.setdefault(factor, []).append((pts, ret5))
+
+                          # Track notable wins and misses for BUY predictions
+                          if verdict == 'BUY':
+                              entry = (sym, snap_date, combined, ret5)
+                              if ret5 > 8:  wins.append(entry)
+                              elif ret5 < -5: misses.append(entry)
+                  except Exception as e:
+                      print(f'  Error reading {snap_file}: {e}')
+
+              # Sort wins/misses
+              wins.sort(key=lambda x: x[3], reverse=True)
+              misses.sort(key=lambda x: x[3])
+
+              # Compute factor predictive power
+              factor_power = {}
+              for factor, pairs in factor_returns.items():
+                  if len(pairs) < 20: continue
+                  # Correlation: do higher scores -> better returns?
+                  high_score = [r for s,r in pairs if s >= 6]
+                  low_score  = [r for s,r in pairs if s <= 2]
+                  if high_score and low_score:
+                      diff = sum(high_score)/len(high_score) - sum(low_score)/len(low_score)
+                      factor_power[factor] = round(diff, 2)
+
+              # Summary stats
+              def stats(returns):
+                  if not returns: return {'avg': 0, 'win_rate': 0, 'count': 0}
+                  avg = sum(returns)/len(returns)
+                  win_rate = sum(1 for r in returns if r > 0) / len(returns) * 100
+                  return {'avg': round(avg,2), 'win_rate': round(win_rate,1), 'count': len(returns)}
+
+              accuracy = {v: stats(r) for v,r in results_by_verdict.items()}
+              print(f'Backtesting: BUY={accuracy["BUY"]["count"]} predictions, avg return={accuracy["BUY"]["avg"]}%')
+
+              # ── Send to Gemini for interpretation ──
+              if WORKING_URL and accuracy['BUY']['count'] > 10:
+                  print('Sending backtesting results to Gemini...')
+                  time.sleep(DELAY)
+
+                  calib_lines = [
+                      'You are a quantitative equity analyst reviewing a stock scoring model.',
+                      'Below is backtesting data showing how the model\'s predictions performed.',
+                      'Write a calibration report interpreting these results.',
+                      'Reply ONLY with valid JSON, no markdown.',
+                      '',
+                      'Required JSON:',
+                      '{"overallVerdict":"2-3 sentences on model accuracy","factorInsights":["3-4 specific observations about which factors work well or poorly"],"recommendations":["3 specific actionable suggestions to improve the scoring weights"],"topWins":["2 examples of best predictions with explanation"],"topMisses":["2 examples of worst predictions with explanation"],"calibrationScore":"a score out of 10 rating how well the model is calibrated"}',
+                      '',
+                      f'PREDICTION ACCURACY (5-day return after signal):',
+                      f'BUY signal (score >= 65): avg return={accuracy["BUY"]["avg"]}%, win rate={accuracy["BUY"]["win_rate"]}%, n={accuracy["BUY"]["count"]}',
+                      f'HOLD signal (40-64): avg return={accuracy["HOLD"]["avg"]}%, win rate={accuracy["HOLD"]["win_rate"]}%, n={accuracy["HOLD"]["count"]}',
+                      f'AVOID signal (< 40): avg return={accuracy["AVOID"]["avg"]}%, win rate={accuracy["AVOID"]["win_rate"]}%, n={accuracy["AVOID"]["count"]}',
+                      '',
+                      'FACTOR PREDICTIVE POWER (avg return difference: high score vs low score):',
+                  ]
+                  FACTOR_LABELS = {
+                      'roc5':'5-Day Momentum','roc10':'10-Day Momentum',
+                      'vsma20':'Price vs SMA20','sma20dir':'SMA20 Direction',
+                      'rsi':'RSI','volume':'Volume Surge',
+                      'relstrength':'Relative Strength','macd':'MACD',
+                      'bollinger':'Bollinger Bands','hi52':'52-Week High',
+                      'gap':'Price Gap','cross':'Golden/Death Cross','adx':'ADX'
+                  }
+                  for factor, power in sorted(factor_power.items(), key=lambda x: abs(x[1]), reverse=True):
+                      label = FACTOR_LABELS.get(factor, factor)
+                      signal = '✅ Predictive' if power > 1 else ('⚠️ Weak' if power > 0 else '❌ Counter-predictive')
+                      calib_lines.append(f'  {label}: +{power}% edge  {signal}')
+
+                  calib_lines.append('')
+                  calib_lines.append('TOP WINS (BUY predicted, high actual return):')
+                  for sym, snap_date, score, ret in wins[:3]:
+                      calib_lines.append(f'  {sym} on {snap_date}: score={score}, actual 5d return={ret:+.1f}%')
+
+                  calib_lines.append('')
+                  calib_lines.append('TOP MISSES (BUY predicted, negative actual return):')
+                  for sym, snap_date, score, ret in misses[:3]:
+                      calib_lines.append(f'  {sym} on {snap_date}: score={score}, actual 5d return={ret:+.1f}%')
+
+                  calib_prompt = '\n'.join(calib_lines)
+                  calib_result = None
+
+                  for attempt in range(2):
+                      try:
+                          body = json.dumps({
+                              'contents': [{'parts': [{'text': calib_prompt}]}],
+                              'generationConfig': {'temperature': 0.3, 'maxOutputTokens': 1000}
+                          }).encode('utf-8')
+                          req = urllib.request.Request(WORKING_URL, data=body,
+                                headers={'Content-Type':'application/json'}, method='POST')
+                          with urllib.request.urlopen(req, timeout=45) as resp:
+                              raw = json.loads(resp.read())
+                          text = raw['candidates'][0]['content']['parts'][0]['text'].strip()
+                          if '```' in text:
+                              text = text.split('```')[1]
+                              if text.startswith('json'): text = text[4:]
+                              text = text.strip()
+                          s, e = text.find('{'), text.rfind('}')
+                          if s >= 0 and e > s: text = text[s:e+1]
+                          calib_result = json.loads(text)
+                          print(f'  Calibration report generated.')
+                          break
+                      except urllib.error.HTTPError as he:
+                          if he.code == 429 and attempt == 0:
+                              print('  Rate limit on calibration, waiting 30s...')
+                              time.sleep(30); continue
+                          print(f'  Calibration API error: {he.code}'); break
+                      except Exception as e:
+                          print(f'  Calibration error: {e}'); break
+
+                  # Save calibration data to insights.json
+                  try:
+                      with open(OUT_FILE) as f: existing = json.load(f)
+                  except: existing = {}
+
+                  existing['calibration'] = {
+                      'updatedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+                      'accuracy': accuracy,
+                      'factorPower': factor_power,
+                      'topWins':  [(s,d,sc,r) for s,d,sc,r in wins[:5]],
+                      'topMisses':[(s,d,sc,r) for s,d,sc,r in misses[:5]],
+                      'aiReport': calib_result
+                  }
+                  with open(OUT_FILE, 'w', encoding='utf-8') as f:
+                      json.dump(existing, f, ensure_ascii=False, indent=1)
+                  print(f'Calibration data saved to {OUT_FILE}')
+              else:
+                  print('Not enough predictions yet for meaningful backtesting (need 10+ BUY predictions).')
+                  print('Run the save-snapshots workflow daily for a few weeks first.')
+          EOF — one AI call analysing top stocks across 4 timeframes ──
           print('\n📡 Building Momentum Radar...')
 
           TIMEFRAMES = [
