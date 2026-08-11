@@ -2,7 +2,7 @@ name: Update cached news
 
 on:
   schedule:
-    - cron: '0 12 * * 1-5'    # 5:30 PM IST, Mon-Fri after market close
+    - cron: '30 17 * * 1-5'    # 11:00 PM IST, Mon-Fri
   workflow_dispatch:
 
 permissions:
