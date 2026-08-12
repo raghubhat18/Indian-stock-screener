@@ -1593,27 +1593,26 @@
             const isMobile = window.innerWidth < 768;
 
             panel.innerHTML = `
-                <div class="flex ${isMobile ? 'flex-col' : 'h-full overflow-hidden'}">
-                    <!-- Stock list -->
-                    <div class="${isMobile ? 'flex overflow-x-auto gap-2 p-2 border-b border-slate-700' : 'w-36 shrink-0 border-r border-slate-600 overflow-y-auto flex flex-col gap-1 p-2'}">
+                <div class="flex h-full overflow-hidden">
+                    <!-- Stock list — wider, more readable -->
+                    <div class="w-44 shrink-0 border-r border-slate-600 overflow-y-auto flex flex-col gap-0.5 p-2">
                         ${stocks.map(([sym, ins]) => {
                             const d = stockData[sym] || {};
                             const sc = d.combinedScore ?? d.momentumScore ?? 0;
                             const color = sc >= 65 ? 'text-emerald-400' : sc >= 40 ? 'text-amber-400' : 'text-rose-400';
                             const chg = d.change || ins.changePct || 0;
                             const chgColor = chg >= 0 ? 'text-emerald-400' : 'text-rose-400';
-                            return `<button class="ai-stock-btn ${isMobile ? 'shrink-0 min-w-[80px] text-center p-2 rounded-xl border border-slate-600 bg-slate-700/60' : 'text-left p-2 rounded-lg border border-transparent hover:border-slate-500 transition-all w-full'}"
+                            return `<button class="ai-stock-btn text-left p-2.5 rounded-lg border border-transparent hover:border-slate-500 hover:bg-slate-700/40 transition-all w-full"
                                 data-sym="${sym}" onclick="setAiStock('${sym}')">
-                                <div class="text-[12px] font-bold text-white ${isMobile ? '' : 'truncate'}">${sym}</div>
-                                <div class="text-[10px] ${color} font-bold">${sc}/100</div>
-                                <div class="text-[10px] ${chgColor}">${chg >= 0 ? '+' : ''}${typeof chg === 'number' ? chg.toFixed(1) : chg}%</div>
+                                <div class="text-sm font-bold text-white">${sym}</div>
+                                <div class="text-xs ${color} font-bold">${sc}/100</div>
+                                <div class="text-xs ${chgColor}">${chg >= 0 ? '+' : ''}${typeof chg==='number'?chg.toFixed(1):chg}%</div>
                             </button>`;
                         }).join('')}
                     </div>
-                    <!-- Detail panel -->
-                    <div id="ai-stock-detail" class="${isMobile ? 'flex-1 overflow-y-auto p-3' : 'flex-1 overflow-y-auto p-4'}">
-                        <div class="flex flex-col items-center justify-center h-full text-center text-slate-500 text-sm py-8">
-                            ↑ Select a stock above
+                    <div id="ai-stock-detail" class="flex-1 overflow-y-auto p-5">
+                        <div class="flex flex-col items-center justify-center h-full text-center text-slate-500">
+                            ← Select a stock
                         </div>
                     </div>
                 </div>`;
@@ -1629,127 +1628,144 @@
             if (!panel) return;
             const ins = insightsMap[sym];
             const d   = stockData[sym] || {};
-            if (!ins) { panel.innerHTML = '<div class="text-slate-400 p-4">No data</div>'; return; }
+            if (!ins) { panel.innerHTML = '<div class="text-slate-400 p-6 text-base">No insight data for this stock</div>'; return; }
 
-            const techScore  = d.momentumScore ?? 0;
-            const fundScore  = d.fundamentalsScore ?? null;
-            const combScore  = d.combinedScore ?? techScore;
-            const price      = d.price || ins.price || 0;
-            const chg        = d.change ?? ins.changePct ?? 0;
-            const chgColor   = chg >= 0 ? 'text-emerald-400' : 'text-rose-400';
-
-            // Build sparkline from historical closes
-            const hist = historicalData[sym] || [];
-            const closes30 = hist.slice(-30).map(h => h.close);
-
-            // Factor bar (which factors contributed most)
+            const techScore = d.momentumScore ?? 0;
+            const fundScore = d.fundamentalsScore ?? null;
+            const combScore = d.combinedScore ?? techScore;
+            const price     = d.price || ins.price || 0;
+            const chg       = d.change ?? ins.changePct ?? 0;
+            const chgPos    = chg >= 0;
+            const hist      = historicalData[sym] || [];
+            const closes30  = hist.slice(-30).map(h => h.close);
             const breakdown = d.breakdown || [];
             const topFactors = breakdown.filter(b => b.points > 0 && b.max > 0)
                 .sort((a,b) => b.points/b.max - a.points/a.max).slice(0, 5);
 
-            const isMobileDetail = window.innerWidth < 768;
             panel.innerHTML = `
-                <div class="space-y-3">
-                    <!-- Header -->
-                    <div class="flex items-start justify-between">
-                        <div class="flex-1 mr-2">
-                            <div class="text-base font-bold text-white">${sym}</div>
-                            <div class="text-[11px] text-slate-400">${escapeHtml(d.name || ins.name || '')}</div>
-                            ${ins.headline ? `<div class="text-[12px] text-sky-300 mt-1 font-medium leading-snug">${escapeHtml(ins.headline)}</div>` : ''}
+                <div class="flex flex-col gap-5 p-2">
+
+                    <!-- ① HEADER: symbol, company, price, change -->
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex-1 min-w-0">
+                            <div class="text-xl font-black text-white tracking-tight">${sym}</div>
+                            <div class="text-sm text-slate-400 truncate">${escapeHtml(d.name || ins.name || '')}</div>
+                            ${ins.headline ? `<div class="text-sm text-sky-300 mt-1.5 font-semibold leading-snug">${escapeHtml(ins.headline)}</div>` : ''}
                         </div>
                         <div class="text-right shrink-0">
-                            <div class="text-sm font-bold text-white">₹${price.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
-                            <div class="text-[12px] font-bold ${chgColor}">${chg >= 0 ? '+' : ''}${typeof chg === 'number' ? chg.toFixed(2) : chg}%</div>
+                            <div class="text-xl font-bold text-white">₹${price.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                            <div class="text-base font-bold ${chgPos?'text-emerald-400':'text-rose-400'}">${chgPos?'+':''}${typeof chg==='number'?chg.toFixed(2):chg}%</div>
                         </div>
                     </div>
 
-                    <!-- Gauges row — smaller on mobile -->
-                    <div class="flex gap-3 items-end flex-wrap">
-                        <div class="text-center">
-                            ${drawGauge(combScore, isMobileDetail ? 72 : 90)}
-                            <div class="text-[9px] text-slate-400 mt-0.5">Combined</div>
+                    <!-- ② SCORES: gauges on their own row, clearly separated -->
+                    <div>
+                        <div class="text-xs text-slate-500 uppercase font-bold mb-2 tracking-wider">Score Breakdown</div>
+                        <div class="flex gap-6 items-end">
+                            <div class="text-center">
+                                ${drawGauge(combScore, 96)}
+                                <div class="text-xs text-slate-400 mt-1 font-medium">Combined</div>
+                            </div>
+                            <div class="text-center">
+                                ${drawGauge(techScore, 76)}
+                                <div class="text-xs text-slate-400 mt-1">Technical</div>
+                            </div>
+                            ${fundScore !== null ? `<div class="text-center">
+                                ${drawGauge(fundScore, 76)}
+                                <div class="text-xs text-slate-400 mt-1">Fundamental</div>
+                            </div>` : `<div class="text-center opacity-40">
+                                ${drawGauge(0, 76)}
+                                <div class="text-xs text-slate-500 mt-1">No funda data</div>
+                            </div>`}
                         </div>
-                        <div class="text-center">
-                            ${drawGauge(techScore, isMobileDetail ? 56 : 70)}
-                            <div class="text-[9px] text-slate-400 mt-0.5">Technical</div>
-                        </div>
-                        ${fundScore !== null ? `<div class="text-center">
-                            ${drawGauge(fundScore, isMobileDetail ? 56 : 70)}
-                            <div class="text-[9px] text-slate-400 mt-0.5">Fundamental</div>
-                        </div>` : ''}
-                        ${closes30.length > 5 && !isMobileDetail ? `<div class="ml-auto text-right">
-                            ${drawSparkline(closes30, 100, 36)}
-                            <div class="text-[10px] text-slate-500 mt-0.5">30-day trend</div>
-                        </div>` : closes30.length > 5 ? `<div class="ml-auto">
-                            ${drawSparkline(closes30, 80, 28)}
-                        </div>` : ''}
                     </div>
 
-                    <!-- AI Summary -->
-                    ${ins.summary ? `<div class="bg-slate-800/60 rounded-xl p-3 border-l-2 border-sky-700">
-                        <div class="text-[9px] text-sky-400 uppercase font-bold mb-1">🤖 AI Summary</div>
-                        <p class="text-[12px] text-slate-100 leading-relaxed">${escapeHtml(ins.summary)}</p>
+                    <!-- ③ SPARKLINE: own row, clearly labelled -->
+                    ${closes30.length > 5 ? `<div>
+                        <div class="text-xs text-slate-500 uppercase font-bold mb-2 tracking-wider">30-Day Price Trend</div>
+                        <div class="bg-slate-800/60 rounded-xl p-3">
+                            ${drawSparkline(closes30, Math.min(320, panel.offsetWidth - 48), 52)}
+                            <div class="flex justify-between text-xs text-slate-500 mt-1">
+                                <span>₹${Math.min(...closes30).toLocaleString('en-IN',{maximumFractionDigits:0})}</span>
+                                <span>₹${Math.max(...closes30).toLocaleString('en-IN',{maximumFractionDigits:0})}</span>
+                            </div>
+                        </div>
                     </div>` : ''}
 
-                    <!-- Technical + Fundamental — stack on mobile -->
-                    <div class="${isMobileDetail ? 'space-y-2' : 'grid grid-cols-2 gap-2'}">
-                        ${ins.technicalView ? `<div class="bg-slate-800/50 rounded-lg p-2.5">
-                            <div class="text-[9px] text-sky-400 font-bold uppercase mb-1">📈 Technical</div>
-                            <p class="text-[11px] text-slate-300 leading-relaxed">${escapeHtml(ins.technicalView)}</p>
+                    <!-- ④ AI SUMMARY -->
+                    ${ins.summary ? `<div class="bg-sky-950/40 rounded-xl p-4 border-l-2 border-sky-600">
+                        <div class="text-xs text-sky-400 uppercase font-bold mb-2">🤖 AI Summary</div>
+                        <p class="text-sm text-slate-100 leading-relaxed">${escapeHtml(ins.summary)}</p>
+                    </div>` : ''}
+
+                    <!-- ⑤ TECHNICAL + FUNDAMENTAL VIEWS -->
+                    <div class="grid grid-cols-2 gap-3">
+                        ${ins.technicalView ? `<div class="bg-slate-800/60 rounded-xl p-3">
+                            <div class="text-xs text-sky-400 font-bold uppercase mb-2">📈 Technical</div>
+                            <p class="text-sm text-slate-300 leading-relaxed">${escapeHtml(ins.technicalView)}</p>
                         </div>` : ''}
-                        ${ins.fundamentalView ? `<div class="bg-slate-800/50 rounded-lg p-2.5">
-                            <div class="text-[9px] text-purple-400 font-bold uppercase mb-1">🏦 Fundamental</div>
-                            <p class="text-[11px] text-slate-300 leading-relaxed">${escapeHtml(ins.fundamentalView)}</p>
+                        ${ins.fundamentalView ? `<div class="bg-slate-800/60 rounded-xl p-3">
+                            <div class="text-xs text-purple-400 font-bold uppercase mb-2">🏦 Fundamental</div>
+                            <p class="text-sm text-slate-300 leading-relaxed">${escapeHtml(ins.fundamentalView)}</p>
                         </div>` : ''}
                     </div>
 
-                    <!-- Top factors — hide on very small screens if no room -->
+                    <!-- ⑥ SCORE DRIVERS: taller bars, readable labels -->
                     ${topFactors.length > 0 ? `<div>
-                        <div class="text-[9px] text-slate-400 uppercase font-bold mb-1.5">Top Score Drivers</div>
-                        <div class="space-y-1.5">
+                        <div class="text-xs text-slate-500 uppercase font-bold mb-3 tracking-wider">Top Score Drivers</div>
+                        <div class="space-y-3">
                         ${topFactors.map(b => {
                             const pct = Math.round(b.points/b.max*100);
+                            const label = b.label.replace(/\s*\(.*?\)\s*/g,'').substring(0,35);
                             return `<div>
-                                <div class="flex justify-between text-[10px] mb-0.5">
-                                    <span class="text-slate-300 truncate mr-2">${b.label.replace(/\s*\(.*?\)\s*/g,'').substring(0,30)}</span>
-                                    <span class="text-emerald-400 font-bold shrink-0">${b.points}/${b.max}</span>
+                                <div class="flex justify-between items-center mb-1.5">
+                                    <span class="text-sm text-slate-200">${label}</span>
+                                    <span class="text-sm font-bold text-emerald-400">${b.points}/${b.max}</span>
                                 </div>
-                                <div class="w-full bg-slate-700 rounded-full h-1 overflow-hidden">
-                                    <div class="bg-emerald-500 h-1 rounded-full" style="width:${pct}%"></div>
+                                <div class="w-full bg-slate-700 rounded-full h-2.5 overflow-hidden">
+                                    <div class="bg-gradient-to-r from-emerald-600 to-emerald-400 h-2.5 rounded-full transition-all" style="width:${pct}%"></div>
                                 </div>
                             </div>`;
                         }).join('')}
                         </div>
                     </div>` : ''}
 
-                    <!-- Positives + Concerns -->
-                    <div class="${isMobileDetail ? 'space-y-2' : 'grid grid-cols-2 gap-2'}">
-                        ${(ins.positives||[]).length ? `<div>
-                            <div class="text-[9px] text-emerald-500 font-bold uppercase mb-1">✓ Strengths</div>
-                            <ul class="space-y-1">${(ins.positives||[]).map(p=>`<li class="text-[11px] text-emerald-300 leading-relaxed">${escapeHtml(p)}</li>`).join('')}</ul>
+                    <!-- ⑦ STRENGTHS + CONCERNS -->
+                    <div class="grid grid-cols-2 gap-3">
+                        ${(ins.positives||[]).length ? `<div class="bg-emerald-950/30 rounded-xl p-3 border border-emerald-900/50">
+                            <div class="text-xs text-emerald-400 font-bold uppercase mb-2">✓ Strengths</div>
+                            <ul class="space-y-2">${(ins.positives||[]).map(p=>
+                                `<li class="text-sm text-emerald-200 leading-relaxed">${escapeHtml(p)}</li>`
+                            ).join('')}</ul>
                         </div>` : ''}
-                        ${(ins.concerns||[]).length ? `<div>
-                            <div class="text-[9px] text-amber-500 font-bold uppercase mb-1">⚠ Watch out</div>
-                            <ul class="space-y-1">${(ins.concerns||[]).map(p=>`<li class="text-[11px] text-amber-300 leading-relaxed">${escapeHtml(p)}</li>`).join('')}</ul>
+                        ${(ins.concerns||[]).length ? `<div class="bg-amber-950/30 rounded-xl p-3 border border-amber-900/50">
+                            <div class="text-xs text-amber-400 font-bold uppercase mb-2">⚠ Watch Out</div>
+                            <ul class="space-y-2">${(ins.concerns||[]).map(p=>
+                                `<li class="text-sm text-amber-200 leading-relaxed">${escapeHtml(p)}</li>`
+                            ).join('')}</ul>
                         </div>` : ''}
                     </div>
 
-                    ${ins.watchFor ? `<div class="border-t border-slate-700 pt-2">
-                        <span class="text-[9px] text-slate-400 uppercase font-bold">👁 Watch for: </span>
-                        <span class="text-[11px] text-slate-200">${escapeHtml(ins.watchFor)}</span>
+                    <!-- ⑧ WATCH FOR -->
+                    ${ins.watchFor ? `<div class="bg-slate-800/40 rounded-xl p-4 border border-slate-700">
+                        <span class="text-xs text-slate-400 uppercase font-bold">👁 Watch For: </span>
+                        <span class="text-sm text-slate-100 leading-relaxed">${escapeHtml(ins.watchFor)}</span>
                     </div>` : ''}
 
+                    <!-- ⑨ CTA -->
                     <button onclick="openWorkspace('${sym}')"
-                        class="w-full py-2.5 rounded-lg bg-sky-900/50 border border-sky-700 text-sky-300 text-[12px] font-bold hover:bg-sky-800/50 transition-all">
+                        class="w-full py-3 rounded-xl text-sm font-bold transition-all"
+                        style="background:rgba(56,189,248,0.1);border:1px solid #0369a1;color:#38bdf8">
                         Open Full Chart & Analysis →
                     </button>
+
                 </div>`;
 
-            // Highlight selected stock button
+            // Highlight selected stock
             document.querySelectorAll('.ai-stock-btn').forEach(b => {
-                b.classList.toggle('active-stock', b.dataset.sym === sym);
-                b.style.borderColor = b.dataset.sym === sym ? '#38bdf8' : 'transparent';
-                b.style.background  = b.dataset.sym === sym ? 'rgba(56,189,248,0.08)' : '';
+                const isActive = b.dataset.sym === sym;
+                b.style.borderColor = isActive ? '#38bdf8' : 'transparent';
+                b.style.background  = isActive ? 'rgba(56,189,248,0.08)' : '';
             });
         }
 
@@ -2012,7 +2028,13 @@
                 renderDesktopSplitLayout(container, hasData, updatedAt);
             }
 
-            setTimeout(() => setAiCategory(aiSelectedCategory), 30);
+            setTimeout(() => {
+                if (window.innerWidth < 768) {
+                    if (window.setAiCategoryMobile) setAiCategoryMobile(aiSelectedCategory);
+                } else {
+                    setAiCategory(aiSelectedCategory);
+                }
+            }, 30);
         }
 
         // ── MOBILE: Story card layout ─────────────────────────────────────
