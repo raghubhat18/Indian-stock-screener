@@ -1446,24 +1446,428 @@
         // Strategy: Find fundamentally strong companies at a reasonable/attractive entry point.
         // Different from Momentum (which chases rising stocks) — this looks for quality at a dip.
         // Factors: ROE quality, debt safety, profit margin, entry point (RSI/price), valuation vs sector.
-        // Current AI insights sub-view: 'stocks' or 'radar'
-        let aiView = 'stocks';
+        // ── AI INSIGHTS DASHBOARD ────────────────────────────────────────
+        // Split panel: left nav (categories) + right content panel
+        // Score gauges + sparklines instead of text walls
+        let aiSelectedCategory = 'momentum';
+        let aiSelectedStock    = null;
 
-        window.setAiView = function(v) {
-            aiView = v;
-            ['stocks','radar','calib'].forEach(id => {
-                const btn = document.getElementById(`ai-view-${id}`);
-                if (!btn) return;
-                btn.className = v === id
-                    ? 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-sky-900 text-sky-300 border border-sky-700'
-                    : 'px-3 py-1.5 rounded-lg text-[12px] font-bold bg-slate-700 text-slate-300 border border-slate-600 hover:text-white';
+        window.setAiCategory = function(cat) {
+            aiSelectedCategory = cat;
+            aiSelectedStock    = null;
+            document.querySelectorAll('.ai-nav-btn').forEach(b => {
+                b.classList.toggle('active-nav', b.dataset.cat === cat);
             });
-            const container = document.getElementById('stock-directory-list');
-            if (container) renderAIInsightsTab(container, document.getElementById('search-input').value.toUpperCase().trim());
+            renderAIContent();
         };
 
+        window.setAiStock = function(sym) {
+            aiSelectedStock = sym;
+            document.querySelectorAll('.ai-stock-btn').forEach(b => {
+                b.classList.toggle('active-stock', b.dataset.sym === sym);
+            });
+            renderAIStockDetail(sym);
+        };
+
+        // Draw a score gauge as inline SVG (0-100 scale, semicircle)
+        function drawGauge(score, size = 80) {
+            if (score === null || score === undefined) return '<div class="text-slate-400 text-sm">N/A</div>';
+            const r = size * 0.38;
+            const cx = size / 2, cy = size * 0.55;
+            const startAngle = Math.PI, endAngle = 2 * Math.PI;
+            const pct = Math.max(0, Math.min(100, score)) / 100;
+            const angle = startAngle + pct * Math.PI;
+            const x1 = cx + r * Math.cos(startAngle);
+            const y1 = cy + r * Math.sin(startAngle);
+            const x2 = cx + r * Math.cos(angle);
+            const y2 = cy + r * Math.sin(angle);
+            const largeArc = pct > 0.5 ? 1 : 0;
+            const color = score >= 65 ? '#34d399' : score >= 40 ? '#fbbf24' : '#f87171';
+            const label = score >= 65 ? 'BUY' : score >= 40 ? 'HOLD' : 'AVOID';
+            return `<svg width="${size}" height="${size*0.65}" viewBox="0 0 ${size} ${size*0.65}">
+                <path d="M ${x1} ${y1} A ${r} ${r} 0 1 1 ${cx+r} ${cy}" stroke="#334155" stroke-width="6" fill="none" stroke-linecap="round"/>
+                ${pct > 0.02 ? `<path d="M ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2}" stroke="${color}" stroke-width="6" fill="none" stroke-linecap="round"/>` : ''}
+                <text x="${cx}" y="${cy}" text-anchor="middle" fill="${color}" font-size="${size*0.22}" font-weight="700">${score}</text>
+                <text x="${cx}" y="${cy + size*0.18}" text-anchor="middle" fill="${color}" font-size="${size*0.12}" font-weight="600">${label}</text>
+            </svg>`;
+        }
+
+        // Draw a tiny sparkline
+        function drawSparkline(values, width=80, height=24, color='#38bdf8') {
+            if (!values || values.length < 2) return '';
+            const min = Math.min(...values), max = Math.max(...values);
+            const range = max - min || 1;
+            const pts = values.map((v, i) => {
+                const x = (i / (values.length-1)) * width;
+                const y = height - ((v - min) / range) * (height - 2) - 1;
+                return `${x},${y}`;
+            }).join(' ');
+            const trend = values[values.length-1] >= values[0];
+            const c = trend ? '#34d399' : '#f87171';
+            return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+                <polyline points="${pts}" fill="none" stroke="${c}" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>`;
+        }
+
+        function getCategoryStocks(cat) {
+            const radar = window._radarData;
+            switch(cat) {
+                case 'momentum':   return Object.entries(insightsMap).filter(([,i]) => i.category==='Top Momentum');
+                case 'funda':      return Object.entries(insightsMap).filter(([,i]) => i.category==='Top Fundamentals');
+                case 'largecap':   return Object.entries(insightsMap).filter(([,i]) => i.category==='Large Cap');
+                case 'midcap':     return Object.entries(insightsMap).filter(([,i]) => i.category==='Mid Cap');
+                case 'smallcap':   return Object.entries(insightsMap).filter(([,i]) => i.category==='Small Cap');
+                case 'longterm':   return Object.entries(insightsMap).filter(([,i]) => i.category==='Long Term Pick');
+                case 'radar':      return [];
+                case 'calib':      return [];
+                default:           return Object.entries(insightsMap);
+            }
+        }
+
+        function renderAIContent() {
+            const panel = document.getElementById('ai-content-panel');
+            if (!panel) return;
+
+            if (aiSelectedCategory === 'radar') { renderRadarPanel(panel); return; }
+            if (aiSelectedCategory === 'calib') { renderCalibPanel(panel);  return; }
+
+            const stocks = getCategoryStocks(aiSelectedCategory);
+            if (stocks.length === 0) {
+                panel.innerHTML = `<div class="flex flex-col items-center justify-center h-full text-center p-8">
+                    <div class="text-3xl mb-2">🤖</div>
+                    <div class="text-slate-300 font-bold">No stocks in this category yet</div>
+                    <div class="text-slate-500 text-sm mt-1">Run the Generate AI insights Action</div>
+                </div>`; return;
+            }
+
+            // Left: stock list, right: detail — split within the content panel
+            panel.innerHTML = `
+                <div class="flex h-full overflow-hidden">
+                    <div class="w-36 shrink-0 border-r border-slate-600 overflow-y-auto flex flex-col gap-1 p-2">
+                        ${stocks.map(([sym, ins]) => {
+                            const d = stockData[sym] || {};
+                            const sc = d.combinedScore ?? d.momentumScore ?? 0;
+                            const color = sc >= 65 ? 'text-emerald-400' : sc >= 40 ? 'text-amber-400' : 'text-rose-400';
+                            const chg = d.change || ins.changePct || 0;
+                            const chgColor = chg >= 0 ? 'text-emerald-400' : 'text-rose-400';
+                            return `<button class="ai-stock-btn text-left p-2 rounded-lg border border-transparent hover:border-slate-500 transition-all w-full"
+                                data-sym="${sym}" onclick="setAiStock('${sym}')">
+                                <div class="text-[12px] font-bold text-white truncate">${sym}</div>
+                                <div class="text-[10px] ${color} font-bold">${sc}/100</div>
+                                <div class="text-[10px] ${chgColor}">${chg >= 0 ? '+' : ''}${chg.toFixed ? chg.toFixed(1) : chg}%</div>
+                            </button>`;
+                        }).join('')}
+                    </div>
+                    <div id="ai-stock-detail" class="flex-1 overflow-y-auto p-4">
+                        <div class="flex flex-col items-center justify-center h-full text-center text-slate-500 text-sm">
+                            ← Select a stock
+                        </div>
+                    </div>
+                </div>`;
+
+            // Auto-select first stock
+            if (stocks.length > 0) {
+                setTimeout(() => setAiStock(stocks[0][0]), 50);
+            }
+        }
+
+        function renderAIStockDetail(sym) {
+            const panel = document.getElementById('ai-stock-detail');
+            if (!panel) return;
+            const ins = insightsMap[sym];
+            const d   = stockData[sym] || {};
+            if (!ins) { panel.innerHTML = '<div class="text-slate-400 p-4">No data</div>'; return; }
+
+            const techScore  = d.momentumScore ?? 0;
+            const fundScore  = d.fundamentalsScore ?? null;
+            const combScore  = d.combinedScore ?? techScore;
+            const price      = d.price || ins.price || 0;
+            const chg        = d.change ?? ins.changePct ?? 0;
+            const chgColor   = chg >= 0 ? 'text-emerald-400' : 'text-rose-400';
+
+            // Build sparkline from historical closes
+            const hist = historicalData[sym] || [];
+            const closes30 = hist.slice(-30).map(h => h.close);
+
+            // Factor bar (which factors contributed most)
+            const breakdown = d.breakdown || [];
+            const topFactors = breakdown.filter(b => b.points > 0 && b.max > 0)
+                .sort((a,b) => b.points/b.max - a.points/a.max).slice(0, 5);
+
+            panel.innerHTML = `
+                <div class="space-y-4">
+                    <!-- Header -->
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <div class="text-lg font-bold text-white">${sym}</div>
+                            <div class="text-[12px] text-slate-400">${escapeHtml(d.name || ins.name || '')}</div>
+                            ${ins.headline ? `<div class="text-[12px] text-sky-300 mt-1 font-medium">${escapeHtml(ins.headline)}</div>` : ''}
+                        </div>
+                        <div class="text-right">
+                            <div class="text-base font-bold text-white">₹${price.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                            <div class="text-[13px] font-bold ${chgColor}">${chg >= 0 ? '+' : ''}${typeof chg === 'number' ? chg.toFixed(2) : chg}%</div>
+                        </div>
+                    </div>
+
+                    <!-- Gauges row -->
+                    <div class="flex gap-4 items-end">
+                        <div class="text-center">
+                            ${drawGauge(combScore, 90)}
+                            <div class="text-[10px] text-slate-400 mt-0.5">Combined</div>
+                        </div>
+                        <div class="text-center">
+                            ${drawGauge(techScore, 70)}
+                            <div class="text-[10px] text-slate-400 mt-0.5">Technical</div>
+                        </div>
+                        ${fundScore !== null ? `<div class="text-center">
+                            ${drawGauge(fundScore, 70)}
+                            <div class="text-[10px] text-slate-400 mt-0.5">Fundamental</div>
+                        </div>` : ''}
+                        ${closes30.length > 5 ? `<div class="ml-auto text-right">
+                            ${drawSparkline(closes30, 100, 36)}
+                            <div class="text-[10px] text-slate-500 mt-0.5">30-day price</div>
+                        </div>` : ''}
+                    </div>
+
+                    <!-- AI Summary -->
+                    ${ins.summary ? `<div class="bg-slate-800/60 rounded-xl p-3 border-l-2 border-sky-700">
+                        <div class="text-[10px] text-sky-400 uppercase font-bold mb-1">🤖 AI Summary</div>
+                        <p class="text-[13px] text-slate-100 leading-relaxed">${escapeHtml(ins.summary)}</p>
+                    </div>` : ''}
+
+                    <!-- Technical + Fundamental views -->
+                    <div class="grid grid-cols-2 gap-2">
+                        ${ins.technicalView ? `<div class="bg-slate-800/50 rounded-lg p-2.5">
+                            <div class="text-[10px] text-sky-400 font-bold uppercase mb-1">📈 Technical</div>
+                            <p class="text-[11px] text-slate-300 leading-relaxed">${escapeHtml(ins.technicalView)}</p>
+                        </div>` : ''}
+                        ${ins.fundamentalView ? `<div class="bg-slate-800/50 rounded-lg p-2.5">
+                            <div class="text-[10px] text-purple-400 font-bold uppercase mb-1">🏦 Fundamental</div>
+                            <p class="text-[11px] text-slate-300 leading-relaxed">${escapeHtml(ins.fundamentalView)}</p>
+                        </div>` : ''}
+                    </div>
+
+                    <!-- Top contributing factors -->
+                    ${topFactors.length > 0 ? `<div>
+                        <div class="text-[10px] text-slate-400 uppercase font-bold mb-1.5">Top Score Drivers</div>
+                        <div class="space-y-1.5">
+                        ${topFactors.map(b => {
+                            const pct = Math.round(b.points/b.max*100);
+                            return `<div>
+                                <div class="flex justify-between text-[11px] mb-0.5">
+                                    <span class="text-slate-300">${b.label.replace(/\s*\(.*?\)\s*/g,'').substring(0,35)}</span>
+                                    <span class="text-emerald-400 font-bold">${b.points}/${b.max}</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-1 overflow-hidden">
+                                    <div class="bg-emerald-500 h-1 rounded-full" style="width:${pct}%"></div>
+                                </div>
+                            </div>`;
+                        }).join('')}
+                        </div>
+                    </div>` : ''}
+
+                    <!-- Positives + Concerns -->
+                    <div class="grid grid-cols-2 gap-2">
+                        ${(ins.positives||[]).length ? `<div>
+                            <div class="text-[10px] text-emerald-500 font-bold uppercase mb-1">✓ Strengths</div>
+                            <ul class="space-y-1">${(ins.positives||[]).map(p=>`<li class="text-[11px] text-emerald-300 leading-relaxed">${escapeHtml(p)}</li>`).join('')}</ul>
+                        </div>` : ''}
+                        ${(ins.concerns||[]).length ? `<div>
+                            <div class="text-[10px] text-amber-500 font-bold uppercase mb-1">⚠ Watch out</div>
+                            <ul class="space-y-1">${(ins.concerns||[]).map(p=>`<li class="text-[11px] text-amber-300 leading-relaxed">${escapeHtml(p)}</li>`).join('')}</ul>
+                        </div>` : ''}
+                    </div>
+
+                    ${ins.watchFor ? `<div class="border-t border-slate-700 pt-2">
+                        <span class="text-[10px] text-slate-400 uppercase font-bold">👁 Watch for: </span>
+                        <span class="text-[11px] text-slate-200">${escapeHtml(ins.watchFor)}</span>
+                    </div>` : ''}
+
+                    <button onclick="openWorkspace('${sym}')"
+                        class="w-full py-2 rounded-lg bg-sky-900/50 border border-sky-700 text-sky-300 text-[12px] font-bold hover:bg-sky-800/50 transition-all">
+                        Open Full Chart & Analysis →
+                    </button>
+                </div>`;
+
+            // Highlight selected stock button
+            document.querySelectorAll('.ai-stock-btn').forEach(b => {
+                b.classList.toggle('active-stock', b.dataset.sym === sym);
+                b.style.borderColor = b.dataset.sym === sym ? '#38bdf8' : 'transparent';
+                b.style.background  = b.dataset.sym === sym ? 'rgba(56,189,248,0.08)' : '';
+            });
+        }
+
+        function renderRadarPanel(panel) {
+            const radar = window._radarData;
+            if (!radar) {
+                panel.innerHTML = `<div class="flex flex-col items-center justify-center h-full text-center p-8">
+                    <div class="text-3xl mb-2">📡</div>
+                    <div class="text-slate-300 font-bold">Momentum Radar not generated yet</div>
+                    <div class="text-slate-500 text-sm mt-1">Run the Generate AI insights Action</div>
+                </div>`; return;
+            }
+            const TFS = [
+                {key:'1W', icon:'⚡', label:'1 Week',  col:'emerald'},
+                {key:'2W', icon:'📈', label:'2 Weeks', col:'sky'},
+                {key:'1M', icon:'🗓', label:'1 Month', col:'violet'},
+                {key:'6M', icon:'📊', label:'6 Months',col:'amber'},
+            ];
+            panel.innerHTML = `<div class="p-4 space-y-4 overflow-y-auto h-full">
+                ${radar.marketPulse ? `<div class="bg-sky-950/40 border border-sky-800 rounded-xl p-3">
+                    <div class="text-[10px] text-sky-400 font-bold uppercase mb-1">🌐 Market Pulse</div>
+                    <p class="text-[12px] text-slate-100 leading-relaxed">${escapeHtml(radar.marketPulse)}</p>
+                </div>` : ''}
+                <div class="grid grid-cols-2 gap-3">
+                ${TFS.map(tf => {
+                    const data = radar[tf.key];
+                    if (!data || !data.picks) return '';
+                    const colorMap = {emerald:'border-emerald-800 bg-emerald-950/30 text-emerald-400', sky:'border-sky-800 bg-sky-950/30 text-sky-400', violet:'border-violet-800 bg-violet-950/30 text-violet-400', amber:'border-amber-800 bg-amber-950/30 text-amber-400'};
+                    const cls = colorMap[tf.col];
+                    return `<div class="border rounded-xl p-3 ${cls}">
+                        <div class="text-[11px] font-bold uppercase mb-2">${tf.icon} ${tf.label}</div>
+                        <div class="space-y-2">
+                        ${data.picks.slice(0,3).map(pick => {
+                            const hist = historicalData[pick.sym] || [];
+                            const closes = hist.slice(-20).map(h=>h.close);
+                            return `<div class="cursor-pointer" onclick="openWorkspace('${escapeHtml(pick.sym)}')">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[12px] font-bold text-white">${escapeHtml(pick.sym)}</span>
+                                    <span class="text-[12px] font-bold text-emerald-400">${pick.return !== undefined ? (pick.return >= 0 ? '+' : '') + pick.return.toFixed(1) + '%' : ''}</span>
+                                </div>
+                                ${closes.length > 5 ? drawSparkline(closes, 100, 20) : ''}
+                                <p class="text-[10px] text-slate-400 mt-1 line-clamp-2">${escapeHtml((pick.reason||'').substring(0,80))}${pick.reason && pick.reason.length > 80 ? '...' : ''}</p>
+                            </div>`;
+                        }).join('<hr class="border-slate-700 my-1"/>')}
+                        </div>
+                    </div>`;
+                }).join('')}
+                </div>
+            </div>`;
+        }
+
+        function renderCalibPanel(panel) {
+            const calib = window._calibData;
+            if (!calib) {
+                panel.innerHTML = `<div class="flex flex-col items-center justify-center h-full text-center p-8">
+                    <div class="text-3xl mb-2">📊</div>
+                    <div class="text-slate-300 font-bold">Calibration not available yet</div>
+                    <div class="text-slate-500 text-sm mt-1 max-w-xs">Needs bhavcopy history to backtest predictions vs actual returns</div>
+                </div>`; return;
+            }
+            const acc = calib.accuracy || {};
+            const ai  = calib.aiReport || {};
+            const fp  = calib.factorPower || {};
+            const FLABELS = {roc5:'5D Momentum',roc10:'10D Momentum',vsma20:'vs SMA20',sma20dir:'SMA Dir',rsi:'RSI',volume:'Volume',relstrength:'Rel Strength',macd:'MACD',bollinger:'Bollinger',hi52:'52W High',gap:'Gap',cross:'Golden Cross',adx:'ADX'};
+            const sortedFP = Object.entries(fp).sort((a,b)=>b[1]-a[1]);
+            const maxFP = Math.max(...sortedFP.map(([,v])=>Math.abs(v)), 1);
+            panel.innerHTML = `<div class="p-4 space-y-4 overflow-y-auto h-full">
+                <!-- Accuracy gauges -->
+                <div>
+                    <div class="text-[11px] text-slate-400 uppercase font-bold mb-2">Prediction Accuracy (5-day return)</div>
+                    <div class="flex gap-4 items-end justify-around">
+                        ${['BUY','HOLD','AVOID'].map(v => {
+                            const a = acc[v] || {};
+                            const sc = v==='BUY' ? Math.round(a.win_rate||0) : v==='AVOID' ? Math.round(100-(a.win_rate||0)) : 50;
+                            return `<div class="text-center">
+                                ${drawGauge(sc, 75)}
+                                <div class="text-[10px] font-bold text-slate-300 mt-0.5">${v}</div>
+                                <div class="text-[10px] text-slate-400">${a.avg >= 0 ? '+' : ''}${a.avg||0}% avg</div>
+                                <div class="text-[10px] text-slate-500">${a.count||0} pred.</div>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                </div>
+                <!-- Factor bars -->
+                ${sortedFP.length > 0 ? `<div>
+                    <div class="text-[11px] text-slate-400 uppercase font-bold mb-2">Factor Predictive Power</div>
+                    <div class="space-y-1.5">
+                    ${sortedFP.map(([k,v]) => {
+                        const pct = Math.round(Math.abs(v)/maxFP*100);
+                        const c = v > 1 ? 'bg-emerald-500' : v < 0 ? 'bg-rose-500' : 'bg-amber-500';
+                        const tc = v > 1 ? 'text-emerald-400' : v < 0 ? 'text-rose-400' : 'text-amber-400';
+                        return `<div class="flex items-center gap-2">
+                            <span class="text-[10px] text-slate-400 w-20 shrink-0">${FLABELS[k]||k}</span>
+                            <div class="flex-1 bg-slate-700 rounded-full h-2 overflow-hidden">
+                                <div class="${c} h-2 rounded-full" style="width:${pct}%"></div>
+                            </div>
+                            <span class="text-[10px] font-bold ${tc} w-12 text-right">${v>=0?'+':''}${v}%</span>
+                        </div>`;
+                    }).join('')}
+                    </div>
+                </div>` : ''}
+                <!-- AI verdict -->
+                ${ai.overallVerdict ? `<div class="bg-sky-950/40 border border-sky-800 rounded-xl p-3">
+                    <div class="text-[10px] text-sky-400 font-bold uppercase mb-1">🤖 AI Verdict</div>
+                    <p class="text-[11px] text-slate-100 leading-relaxed">${escapeHtml(ai.overallVerdict)}</p>
+                    ${(ai.recommendations||[]).length ? `<ul class="mt-2 space-y-0.5">${ai.recommendations.map(r=>`<li class="text-[10px] text-slate-300">→ ${escapeHtml(r)}</li>`).join('')}</ul>` : ''}
+                </div>` : ''}
+            </div>`;
+        }
+
         function renderAIInsightsTab(container, searchVal) {
-            container.className = 'flex flex-col gap-3';
+            const hasData = Object.keys(insightsMap).length > 0;
+
+            // Build the fixed split-panel layout
+            container.className = 'flex flex-col';
+            container.style.height = 'calc(100vh - 280px)';
+            container.style.minHeight = '480px';
+
+            const NAV_ITEMS = [
+                {cat:'momentum', icon:'🚀', label:'Momentum'},
+                {cat:'funda',    icon:'🏦', label:'Fundamentals'},
+                {cat:'largecap', icon:'🏢', label:'Large Cap'},
+                {cat:'midcap',   icon:'🏬', label:'Mid Cap'},
+                {cat:'smallcap', icon:'🏪', label:'Small Cap'},
+                {cat:'longterm', icon:'🏆', label:'Long Term'},
+                {cat:'radar',    icon:'📡', label:'Radar'},
+                {cat:'calib',    icon:'📊', label:'Calibration'},
+            ];
+
+            const updatedAt = insightsUpdatedAt
+                ? new Date(insightsUpdatedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short'})
+                : '';
+
+            container.innerHTML = `
+                <div class="text-[11px] text-slate-500 mb-1.5 font-mono shrink-0">
+                    🤖 AI Insights ${updatedAt ? '· Updated ' + updatedAt : ''} · Not financial advice
+                </div>
+                <div class="flex flex-1 overflow-hidden border border-slate-600 rounded-xl bg-slate-800/40">
+                    <!-- Left nav -->
+                    <div class="w-28 shrink-0 border-r border-slate-600 flex flex-col py-2 gap-0.5">
+                        ${NAV_ITEMS.map(n => {
+                            const count = n.cat === 'radar' || n.cat === 'calib' ? null
+                                : getCategoryStocks(n.cat).length;
+                            return `<button class="ai-nav-btn text-left px-2 py-2 text-[11px] font-bold transition-all hover:bg-slate-700/60 rounded-lg mx-1 flex items-center gap-1.5"
+                                data-cat="${n.cat}" onclick="setAiCategory('${n.cat}')">
+                                <span>${n.icon}</span>
+                                <span class="text-slate-300">${n.label}</span>
+                                ${count !== null && count > 0 ? `<span class="ml-auto text-[9px] text-slate-500">${count}</span>` : ''}
+                            </button>`;
+                        }).join('')}
+                    </div>
+                    <!-- Right content -->
+                    <div id="ai-content-panel" class="flex-1 overflow-hidden">
+                        <div class="flex items-center justify-center h-full text-slate-500 text-sm">
+                            ${hasData ? 'Select a category' : 'Run Generate AI insights Action to populate'}
+                        </div>
+                    </div>
+                </div>`;
+
+            // Add active nav styling
+            const style = document.getElementById('ai-nav-style') || (() => {
+                const s = document.createElement('style');
+                s.id = 'ai-nav-style';
+                document.head.appendChild(s);
+                return s;
+            })();
+            style.textContent = `.ai-nav-btn.active-nav { background: rgba(56,189,248,0.12); color: #38bdf8; border-left: 2px solid #38bdf8; padding-left: 6px; }
+            .ai-nav-btn.active-nav span { color: #38bdf8; }`;
+
+            // Auto-select first category
+            setTimeout(() => setAiCategory(aiSelectedCategory), 30);
+        }
+
+        function calcLongTermScore(ticker) {
 
             const hasInsights = Object.keys(insightsMap).length > 0;
             const radarData   = window._radarData || null;
