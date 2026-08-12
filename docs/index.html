@@ -1526,30 +1526,30 @@
             return all.filter(([,i]) => i.category === MAP[cat]);
         }
 
-        // Semicircle gauge — clean and minimal, no text overlap
+        // Circular progress ring gauge — reliable, no clipping issues
         function drawGauge(score, size=90) {
             if (score === null || score === undefined) return '';
-            const r = size * 0.36;
-            const cx = size/2, cy = size * 0.52;
-            const pct = Math.max(0, Math.min(100, score)) / 100;
-            const angle = Math.PI + pct * Math.PI;
-            const x2 = cx + r * Math.cos(angle);
-            const y2 = cy + r * Math.sin(angle);
-            const lg = pct > 0.5 ? 1 : 0;
-            const col = score >= 65 ? '#34d399' : score >= 40 ? '#fbbf24' : '#f87171';
-            const lbl = score >= 65 ? 'BUY' : score >= 40 ? 'HOLD' : 'AVOID';
-            const trackX1 = cx - r;
-            const trackX2 = cx + r;
-            // SVG height = cy + a bit of room below center point
-            const svgH = cy + size * 0.12;
-            return `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px">
-                <svg width="${size}" height="${svgH}" viewBox="0 0 ${size} ${svgH}">
-                    <path d="M ${trackX1} ${cy} A ${r} ${r} 0 1 1 ${trackX2} ${cy}" stroke="#1e293b" stroke-width="8" fill="none" stroke-linecap="round"/>
-                    ${pct > 0.02 ? `<path d="M ${trackX1} ${cy} A ${r} ${r} 0 ${lg} 1 ${x2} ${y2}" stroke="${col}" stroke-width="8" fill="none" stroke-linecap="round"/>` : ''}
-                    <text x="${cx}" y="${cy - r*0.1}" text-anchor="middle" fill="${col}" font-size="${size*0.26}" font-weight="900" font-family="monospace">${score}</text>
-                    <text x="${cx}" y="${cy + r*0.32}" text-anchor="middle" fill="${col}" font-size="${size*0.14}" font-weight="700" letter-spacing="1">${lbl}</text>
+            const s = Math.max(0, Math.min(100, score));
+            const col = s >= 65 ? '#34d399' : s >= 40 ? '#fbbf24' : '#f87171';
+            const bg  = s >= 65 ? '#052e16' : s >= 40 ? '#1c1000' : '#1f0a0a';
+            const lbl = s >= 65 ? 'BUY' : s >= 40 ? 'HOLD' : 'AVOID';
+            const r = 42, cx = 50, cy = 50;
+            const circ = 2 * Math.PI * r;
+            const dash = (s / 100) * circ;
+            const fontSize = size >= 90 ? 18 : 15;
+            const lblSize  = size >= 90 ? 9  : 8;
+            return `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:5px">
+                <svg width="${size}" height="${size}" viewBox="0 0 100 100">
+                    <circle cx="${cx}" cy="${cy}" r="${r}" fill="${bg}" stroke="#1e293b" stroke-width="10"/>
+                    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${col}" stroke-width="10"
+                        stroke-dasharray="${dash} ${circ}" stroke-dashoffset="${circ * 0.25}"
+                        stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/>
+                    <text x="${cx}" y="${cy - 4}" text-anchor="middle" fill="${col}"
+                        font-size="${fontSize}" font-weight="900" font-family="monospace">${s}</text>
+                    <text x="${cx}" y="${cy + 12}" text-anchor="middle" fill="${col}"
+                        font-size="${lblSize}" font-weight="800" letter-spacing="1">${lbl}</text>
                 </svg>
-            </div>`;
+            </div>`
         }
 
         // Sparkline — clean trend line
