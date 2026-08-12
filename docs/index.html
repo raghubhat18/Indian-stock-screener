@@ -215,8 +215,31 @@
         let stockNames = {};      // TICKER -> full company name (from FinInstrmNm)
         let marketCapMap = {};    // TICKER -> 'LargeCap' | 'MidCap' | 'SmallCap' (optional, from data/market-cap.csv)
         let fundamentalsMap = {}; // TICKER -> {pe, roe, de, eps} (optional, from data/fundamentals.csv)
-        let insightsMap = {};     // TICKER -> {summary, positives, concerns} (optional, from data/insights.json)
+        let insightsMap = {};
         let insightsUpdatedAt = null;
+
+        // Active scoring weights — loaded from localStorage if user has approved calibrated weights
+        // Falls back to built-in defaults (matching the hardcoded scoring in computeMomentumScore)
+        const DEFAULT_WEIGHTS = {
+            roc5:12, roc10:8, vsma20:10, sma20dir:8, rsi:12,
+            volume:8, relstrength:14, macd:12, bollinger:8,
+            adx:8, cross:8, hi52:6, gap:6
+        };
+        let activeWeights = (() => {
+            try {
+                const saved = localStorage.getItem('rbk-weights');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    // Validate it has all expected keys
+                    if (Object.keys(DEFAULT_WEIGHTS).every(k => k in parsed)) {
+                        console.log('[RBK] Using calibrated weights from localStorage');
+                        return parsed;
+                    }
+                }
+            } catch(e) {}
+            return { ...DEFAULT_WEIGHTS };
+        })();
+        let activeWeightsApprovedAt = localStorage.getItem('rbk-weights-date') || null;
         let stockData = {};       // TICKER -> latest snapshot + computed momentum indicators
         let availableDates = [];
         let marketIndexCloses = [];   // synthetic equal-weighted index level per date, built from our own tracked universe
@@ -702,6 +725,13 @@
         }
 
         function computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price, volSurge, relStrength, macd, bollinger, adx, crossSignal, pctFrom52High, hasGapUp, hasGapDown, gapPct }) {
+            // Helper: scale a factor's points by the ratio of active weight to default weight
+            // This means approving calibrated weights changes the scoring proportionally
+            const w = (key, pts) => {
+                const def = DEFAULT_WEIGHTS[key] || 1;
+                const act = activeWeights[key] || def;
+                return pts * (act / def);
+            };
             let score = 0;
             const breakdown = [];
 
@@ -913,11 +943,29 @@
                 breakdown.push({ label: 'Price Gap Detection', value: hasGapUp ? `Gap Up +${gapPct ? gapPct.toFixed(1) : ''}%` : hasGapDown ? `Gap Down ${gapPct ? gapPct.toFixed(1) : ''}%` : 'No gap', points: pts, max: 6, note });
             }
 
+            // Apply weight scaling: if user has approved calibrated weights,
+            // adjust each factor's contribution proportionally before final clamp
+            if (JSON.stringify(activeWeights) !== JSON.stringify(DEFAULT_WEIGHTS)) {
+                let adjustedScore = 0;
+                for (const b of breakdown) {
+                    const key = Object.keys(DEFAULT_WEIGHTS).find(k => {
+                        const labels = {roc5:'5-Day',roc10:'10-Day',vsma20:'Price vs 20',sma20dir:'20-Day Moving',rsi:'Relative Strength Index',volume:'Volume vs 20',relstrength:'Relative Strength vs Broader',macd:'Moving Average Convergence',bollinger:'Bollinger',adx:'Average Directional',cross:'Golden Cross',hi52:'52-Week',gap:'Price Gap'};
+                        return b.label.startsWith(labels[k] || '___');
+                    });
+                    if (key && b.points > 0) {
+                        const def = DEFAULT_WEIGHTS[key] || 1;
+                        const act = activeWeights[key] || def;
+                        adjustedScore += b.points * (act / def);
+                    } else {
+                        adjustedScore += (b.points || 0);
+                    }
+                }
+                score = adjustedScore;
+            }
+
             score = Math.max(0, Math.min(100, Math.round(score)));
             return { score, breakdown };
         }
-
-        // ---------------------------------------------------------
         // FUNDAMENTAL SCORE (0-100) - computed separately from
         // the technical momentum score so users can see both.
         // Only computed when fundamentals.csv has been uploaded.
@@ -1541,26 +1589,31 @@
             }
 
             // Left: stock list, right: detail — split within the content panel
+            // On mobile: show stock list first, tap to see detail (full width)
+            const isMobile = window.innerWidth < 768;
+
             panel.innerHTML = `
-                <div class="flex h-full overflow-hidden">
-                    <div class="w-36 shrink-0 border-r border-slate-600 overflow-y-auto flex flex-col gap-1 p-2">
+                <div class="flex ${isMobile ? 'flex-col' : 'h-full overflow-hidden'}">
+                    <!-- Stock list -->
+                    <div class="${isMobile ? 'flex overflow-x-auto gap-2 p-2 border-b border-slate-700' : 'w-36 shrink-0 border-r border-slate-600 overflow-y-auto flex flex-col gap-1 p-2'}">
                         ${stocks.map(([sym, ins]) => {
                             const d = stockData[sym] || {};
                             const sc = d.combinedScore ?? d.momentumScore ?? 0;
                             const color = sc >= 65 ? 'text-emerald-400' : sc >= 40 ? 'text-amber-400' : 'text-rose-400';
                             const chg = d.change || ins.changePct || 0;
                             const chgColor = chg >= 0 ? 'text-emerald-400' : 'text-rose-400';
-                            return `<button class="ai-stock-btn text-left p-2 rounded-lg border border-transparent hover:border-slate-500 transition-all w-full"
+                            return `<button class="ai-stock-btn ${isMobile ? 'shrink-0 min-w-[80px] text-center p-2 rounded-xl border border-slate-600 bg-slate-700/60' : 'text-left p-2 rounded-lg border border-transparent hover:border-slate-500 transition-all w-full'}"
                                 data-sym="${sym}" onclick="setAiStock('${sym}')">
-                                <div class="text-[12px] font-bold text-white truncate">${sym}</div>
+                                <div class="text-[12px] font-bold text-white ${isMobile ? '' : 'truncate'}">${sym}</div>
                                 <div class="text-[10px] ${color} font-bold">${sc}/100</div>
-                                <div class="text-[10px] ${chgColor}">${chg >= 0 ? '+' : ''}${chg.toFixed ? chg.toFixed(1) : chg}%</div>
+                                <div class="text-[10px] ${chgColor}">${chg >= 0 ? '+' : ''}${typeof chg === 'number' ? chg.toFixed(1) : chg}%</div>
                             </button>`;
                         }).join('')}
                     </div>
-                    <div id="ai-stock-detail" class="flex-1 overflow-y-auto p-4">
-                        <div class="flex flex-col items-center justify-center h-full text-center text-slate-500 text-sm">
-                            ← Select a stock
+                    <!-- Detail panel -->
+                    <div id="ai-stock-detail" class="${isMobile ? 'flex-1 overflow-y-auto p-3' : 'flex-1 overflow-y-auto p-4'}">
+                        <div class="flex flex-col items-center justify-center h-full text-center text-slate-500 text-sm py-8">
+                            ↑ Select a stock above
                         </div>
                     </div>
                 </div>`;
@@ -1594,69 +1647,72 @@
             const topFactors = breakdown.filter(b => b.points > 0 && b.max > 0)
                 .sort((a,b) => b.points/b.max - a.points/a.max).slice(0, 5);
 
+            const isMobileDetail = window.innerWidth < 768;
             panel.innerHTML = `
-                <div class="space-y-4">
+                <div class="space-y-3">
                     <!-- Header -->
                     <div class="flex items-start justify-between">
-                        <div>
-                            <div class="text-lg font-bold text-white">${sym}</div>
-                            <div class="text-[12px] text-slate-400">${escapeHtml(d.name || ins.name || '')}</div>
-                            ${ins.headline ? `<div class="text-[12px] text-sky-300 mt-1 font-medium">${escapeHtml(ins.headline)}</div>` : ''}
+                        <div class="flex-1 mr-2">
+                            <div class="text-base font-bold text-white">${sym}</div>
+                            <div class="text-[11px] text-slate-400">${escapeHtml(d.name || ins.name || '')}</div>
+                            ${ins.headline ? `<div class="text-[12px] text-sky-300 mt-1 font-medium leading-snug">${escapeHtml(ins.headline)}</div>` : ''}
                         </div>
-                        <div class="text-right">
-                            <div class="text-base font-bold text-white">₹${price.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
-                            <div class="text-[13px] font-bold ${chgColor}">${chg >= 0 ? '+' : ''}${typeof chg === 'number' ? chg.toFixed(2) : chg}%</div>
+                        <div class="text-right shrink-0">
+                            <div class="text-sm font-bold text-white">₹${price.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                            <div class="text-[12px] font-bold ${chgColor}">${chg >= 0 ? '+' : ''}${typeof chg === 'number' ? chg.toFixed(2) : chg}%</div>
                         </div>
                     </div>
 
-                    <!-- Gauges row -->
-                    <div class="flex gap-4 items-end">
+                    <!-- Gauges row — smaller on mobile -->
+                    <div class="flex gap-3 items-end flex-wrap">
                         <div class="text-center">
-                            ${drawGauge(combScore, 90)}
-                            <div class="text-[10px] text-slate-400 mt-0.5">Combined</div>
+                            ${drawGauge(combScore, isMobileDetail ? 72 : 90)}
+                            <div class="text-[9px] text-slate-400 mt-0.5">Combined</div>
                         </div>
                         <div class="text-center">
-                            ${drawGauge(techScore, 70)}
-                            <div class="text-[10px] text-slate-400 mt-0.5">Technical</div>
+                            ${drawGauge(techScore, isMobileDetail ? 56 : 70)}
+                            <div class="text-[9px] text-slate-400 mt-0.5">Technical</div>
                         </div>
                         ${fundScore !== null ? `<div class="text-center">
-                            ${drawGauge(fundScore, 70)}
-                            <div class="text-[10px] text-slate-400 mt-0.5">Fundamental</div>
+                            ${drawGauge(fundScore, isMobileDetail ? 56 : 70)}
+                            <div class="text-[9px] text-slate-400 mt-0.5">Fundamental</div>
                         </div>` : ''}
-                        ${closes30.length > 5 ? `<div class="ml-auto text-right">
+                        ${closes30.length > 5 && !isMobileDetail ? `<div class="ml-auto text-right">
                             ${drawSparkline(closes30, 100, 36)}
-                            <div class="text-[10px] text-slate-500 mt-0.5">30-day price</div>
+                            <div class="text-[10px] text-slate-500 mt-0.5">30-day trend</div>
+                        </div>` : closes30.length > 5 ? `<div class="ml-auto">
+                            ${drawSparkline(closes30, 80, 28)}
                         </div>` : ''}
                     </div>
 
                     <!-- AI Summary -->
                     ${ins.summary ? `<div class="bg-slate-800/60 rounded-xl p-3 border-l-2 border-sky-700">
-                        <div class="text-[10px] text-sky-400 uppercase font-bold mb-1">🤖 AI Summary</div>
-                        <p class="text-[13px] text-slate-100 leading-relaxed">${escapeHtml(ins.summary)}</p>
+                        <div class="text-[9px] text-sky-400 uppercase font-bold mb-1">🤖 AI Summary</div>
+                        <p class="text-[12px] text-slate-100 leading-relaxed">${escapeHtml(ins.summary)}</p>
                     </div>` : ''}
 
-                    <!-- Technical + Fundamental views -->
-                    <div class="grid grid-cols-2 gap-2">
+                    <!-- Technical + Fundamental — stack on mobile -->
+                    <div class="${isMobileDetail ? 'space-y-2' : 'grid grid-cols-2 gap-2'}">
                         ${ins.technicalView ? `<div class="bg-slate-800/50 rounded-lg p-2.5">
-                            <div class="text-[10px] text-sky-400 font-bold uppercase mb-1">📈 Technical</div>
+                            <div class="text-[9px] text-sky-400 font-bold uppercase mb-1">📈 Technical</div>
                             <p class="text-[11px] text-slate-300 leading-relaxed">${escapeHtml(ins.technicalView)}</p>
                         </div>` : ''}
                         ${ins.fundamentalView ? `<div class="bg-slate-800/50 rounded-lg p-2.5">
-                            <div class="text-[10px] text-purple-400 font-bold uppercase mb-1">🏦 Fundamental</div>
+                            <div class="text-[9px] text-purple-400 font-bold uppercase mb-1">🏦 Fundamental</div>
                             <p class="text-[11px] text-slate-300 leading-relaxed">${escapeHtml(ins.fundamentalView)}</p>
                         </div>` : ''}
                     </div>
 
-                    <!-- Top contributing factors -->
+                    <!-- Top factors — hide on very small screens if no room -->
                     ${topFactors.length > 0 ? `<div>
-                        <div class="text-[10px] text-slate-400 uppercase font-bold mb-1.5">Top Score Drivers</div>
+                        <div class="text-[9px] text-slate-400 uppercase font-bold mb-1.5">Top Score Drivers</div>
                         <div class="space-y-1.5">
                         ${topFactors.map(b => {
                             const pct = Math.round(b.points/b.max*100);
                             return `<div>
-                                <div class="flex justify-between text-[11px] mb-0.5">
-                                    <span class="text-slate-300">${b.label.replace(/\s*\(.*?\)\s*/g,'').substring(0,35)}</span>
-                                    <span class="text-emerald-400 font-bold">${b.points}/${b.max}</span>
+                                <div class="flex justify-between text-[10px] mb-0.5">
+                                    <span class="text-slate-300 truncate mr-2">${b.label.replace(/\s*\(.*?\)\s*/g,'').substring(0,30)}</span>
+                                    <span class="text-emerald-400 font-bold shrink-0">${b.points}/${b.max}</span>
                                 </div>
                                 <div class="w-full bg-slate-700 rounded-full h-1 overflow-hidden">
                                     <div class="bg-emerald-500 h-1 rounded-full" style="width:${pct}%"></div>
@@ -1667,24 +1723,24 @@
                     </div>` : ''}
 
                     <!-- Positives + Concerns -->
-                    <div class="grid grid-cols-2 gap-2">
+                    <div class="${isMobileDetail ? 'space-y-2' : 'grid grid-cols-2 gap-2'}">
                         ${(ins.positives||[]).length ? `<div>
-                            <div class="text-[10px] text-emerald-500 font-bold uppercase mb-1">✓ Strengths</div>
+                            <div class="text-[9px] text-emerald-500 font-bold uppercase mb-1">✓ Strengths</div>
                             <ul class="space-y-1">${(ins.positives||[]).map(p=>`<li class="text-[11px] text-emerald-300 leading-relaxed">${escapeHtml(p)}</li>`).join('')}</ul>
                         </div>` : ''}
                         ${(ins.concerns||[]).length ? `<div>
-                            <div class="text-[10px] text-amber-500 font-bold uppercase mb-1">⚠ Watch out</div>
+                            <div class="text-[9px] text-amber-500 font-bold uppercase mb-1">⚠ Watch out</div>
                             <ul class="space-y-1">${(ins.concerns||[]).map(p=>`<li class="text-[11px] text-amber-300 leading-relaxed">${escapeHtml(p)}</li>`).join('')}</ul>
                         </div>` : ''}
                     </div>
 
                     ${ins.watchFor ? `<div class="border-t border-slate-700 pt-2">
-                        <span class="text-[10px] text-slate-400 uppercase font-bold">👁 Watch for: </span>
+                        <span class="text-[9px] text-slate-400 uppercase font-bold">👁 Watch for: </span>
                         <span class="text-[11px] text-slate-200">${escapeHtml(ins.watchFor)}</span>
                     </div>` : ''}
 
                     <button onclick="openWorkspace('${sym}')"
-                        class="w-full py-2 rounded-lg bg-sky-900/50 border border-sky-700 text-sky-300 text-[12px] font-bold hover:bg-sky-800/50 transition-all">
+                        class="w-full py-2.5 rounded-lg bg-sky-900/50 border border-sky-700 text-sky-300 text-[12px] font-bold hover:bg-sky-800/50 transition-all">
                         Open Full Chart & Analysis →
                     </button>
                 </div>`;
@@ -1751,67 +1807,551 @@
                 panel.innerHTML = `<div class="flex flex-col items-center justify-center h-full text-center p-8">
                     <div class="text-3xl mb-2">📊</div>
                     <div class="text-slate-300 font-bold">Calibration not available yet</div>
-                    <div class="text-slate-500 text-sm mt-1 max-w-xs">Needs bhavcopy history to backtest predictions vs actual returns</div>
+                    <div class="text-slate-500 text-sm mt-1 max-w-xs">Needs bhavcopy history to backtest predictions vs actual returns. Run the Generate AI insights Action after uploading more data.</div>
                 </div>`; return;
             }
-            const acc = calib.accuracy || {};
-            const ai  = calib.aiReport || {};
-            const fp  = calib.factorPower || {};
-            const FLABELS = {roc5:'5D Momentum',roc10:'10D Momentum',vsma20:'vs SMA20',sma20dir:'SMA Dir',rsi:'RSI',volume:'Volume',relstrength:'Rel Strength',macd:'MACD',bollinger:'Bollinger',hi52:'52W High',gap:'Gap',cross:'Golden Cross',adx:'ADX'};
-            const sortedFP = Object.entries(fp).sort((a,b)=>b[1]-a[1]);
-            const maxFP = Math.max(...sortedFP.map(([,v])=>Math.abs(v)), 1);
+
+            const acc  = calib.accuracy || {};
+            const ai   = calib.aiReport || {};
+            const fp   = calib.factorPower || {};
+            const cur  = calib.currentWeights   || DEFAULT_WEIGHTS;
+            const sug  = calib.suggestedWeights || {};
+            const isApproved = calib.status === 'applied';
+            const usingCalibrated = JSON.stringify(activeWeights) !== JSON.stringify(DEFAULT_WEIGHTS);
+
+            const FLABELS = {
+                roc5:'5-Day Momentum', roc10:'10-Day Momentum', vsma20:'vs SMA20',
+                sma20dir:'SMA20 Dir', rsi:'RSI', volume:'Volume Surge',
+                relstrength:'Rel Strength', macd:'MACD', bollinger:'Bollinger',
+                adx:'ADX', cross:'Golden Cross', hi52:'52W High', gap:'Gap'
+            };
+
+            const hasChanges = Object.keys(sug).some(k => sug[k] !== cur[k]);
+            const dataPoints = calib.dataPoints || 0;
+            const confidence = ai.confidenceLevel || (dataPoints > 5000 ? 'High' : dataPoints > 1000 ? 'Medium' : 'Low');
+            const confColor  = confidence === 'High' ? 'text-emerald-400' : confidence === 'Medium' ? 'text-amber-400' : 'text-rose-400';
+
             panel.innerHTML = `<div class="p-4 space-y-4 overflow-y-auto h-full">
-                <!-- Accuracy gauges -->
-                <div>
-                    <div class="text-[11px] text-slate-400 uppercase font-bold mb-2">Prediction Accuracy (5-day return)</div>
-                    <div class="flex gap-4 items-end justify-around">
+
+                <!-- Status banner -->
+                ${usingCalibrated ? `<div class="bg-emerald-950/50 border border-emerald-800 rounded-xl p-3 flex items-center gap-2">
+                    <span class="text-emerald-400 text-lg">✅</span>
+                    <div>
+                        <div class="text-[12px] font-bold text-emerald-300">Calibrated weights active</div>
+                        <div class="text-[10px] text-emerald-600">Applied ${activeWeightsApprovedAt || ''}  ·  <button onclick="resetWeights()" class="underline text-emerald-600 hover:text-emerald-400">Reset to defaults</button></div>
+                    </div>
+                </div>` : ''}
+
+                <!-- Accuracy -->
+                <div class="bg-slate-800/60 rounded-xl p-3">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="text-[11px] text-slate-400 uppercase font-bold">Prediction Accuracy (5-day)</div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] ${confColor} font-bold">${confidence} confidence</span>
+                            <span class="text-[10px] text-slate-500">${dataPoints.toLocaleString()} data points</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-3 justify-around">
                         ${['BUY','HOLD','AVOID'].map(v => {
                             const a = acc[v] || {};
-                            const sc = v==='BUY' ? Math.round(a.win_rate||0) : v==='AVOID' ? Math.round(100-(a.win_rate||0)) : 50;
+                            const gaugeScore = v==='BUY' ? Math.round(a.win_rate||0) : v==='AVOID' ? Math.round(100-(a.win_rate||50)) : 50;
                             return `<div class="text-center">
-                                ${drawGauge(sc, 75)}
-                                <div class="text-[10px] font-bold text-slate-300 mt-0.5">${v}</div>
-                                <div class="text-[10px] text-slate-400">${a.avg >= 0 ? '+' : ''}${a.avg||0}% avg</div>
-                                <div class="text-[10px] text-slate-500">${a.count||0} pred.</div>
+                                ${drawGauge(gaugeScore, 70)}
+                                <div class="text-[10px] font-bold text-slate-300">${v}</div>
+                                <div class="text-[10px] ${(a.avg||0)>=0?'text-emerald-400':'text-rose-400'}">${(a.avg||0)>=0?'+':''}${a.avg||0}%</div>
+                                <div class="text-[10px] text-slate-500">${(a.count||0).toLocaleString()} pred</div>
                             </div>`;
                         }).join('')}
                     </div>
                 </div>
-                <!-- Factor bars -->
-                ${sortedFP.length > 0 ? `<div>
-                    <div class="text-[11px] text-slate-400 uppercase font-bold mb-2">Factor Predictive Power</div>
-                    <div class="space-y-1.5">
-                    ${sortedFP.map(([k,v]) => {
-                        const pct = Math.round(Math.abs(v)/maxFP*100);
-                        const c = v > 1 ? 'bg-emerald-500' : v < 0 ? 'bg-rose-500' : 'bg-amber-500';
-                        const tc = v > 1 ? 'text-emerald-400' : v < 0 ? 'text-rose-400' : 'text-amber-400';
-                        return `<div class="flex items-center gap-2">
-                            <span class="text-[10px] text-slate-400 w-20 shrink-0">${FLABELS[k]||k}</span>
-                            <div class="flex-1 bg-slate-700 rounded-full h-2 overflow-hidden">
-                                <div class="${c} h-2 rounded-full" style="width:${pct}%"></div>
-                            </div>
-                            <span class="text-[10px] font-bold ${tc} w-12 text-right">${v>=0?'+':''}${v}%</span>
+
+                <!-- Weight comparison table -->
+                ${hasChanges ? `<div class="bg-slate-800/60 rounded-xl p-3">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="text-[11px] text-slate-400 uppercase font-bold">⚖️ Suggested Weight Changes</div>
+                        <div class="text-[10px] text-slate-500">Based on predictive power</div>
+                    </div>
+                    <div class="grid grid-cols-4 gap-x-2 mb-1.5">
+                        <div class="text-[9px] text-slate-500 uppercase">Factor</div>
+                        <div class="text-[9px] text-slate-500 uppercase text-center">Current</div>
+                        <div class="text-[9px] text-slate-500 uppercase text-center">Suggested</div>
+                        <div class="text-[9px] text-slate-500 uppercase text-center">Power</div>
+                    </div>
+                    <div class="space-y-1.5 max-h-48 overflow-y-auto">
+                    ${Object.keys(cur).map(k => {
+                        const c = cur[k] || 0;
+                        const s = sug[k] || c;
+                        const p = fp[k];
+                        const diff = s - c;
+                        const changed = diff !== 0;
+                        const diffColor = diff > 0 ? 'text-emerald-400' : diff < 0 ? 'text-rose-400' : 'text-slate-500';
+                        const rowBg = changed ? 'bg-slate-700/40' : '';
+                        return `<div class="grid grid-cols-4 gap-x-2 items-center rounded px-1 py-0.5 ${rowBg}">
+                            <div class="text-[10px] text-slate-300 truncate">${FLABELS[k]||k}</div>
+                            <div class="text-[11px] text-slate-400 text-center font-mono">${c}</div>
+                            <div class="text-[11px] ${diffColor} text-center font-bold font-mono">${s} ${diff!==0 ? `(${diff>0?'+':''}${diff})` : ''}</div>
+                            <div class="text-[10px] ${p!==undefined?(p>1?'text-emerald-400':p<0?'text-rose-400':'text-amber-400'):'text-slate-600'} text-center">${p!==undefined?(p>=0?'+':'')+p+'%':'N/A'}</div>
                         </div>`;
                     }).join('')}
                     </div>
-                </div>` : ''}
+
+                    <!-- AI justification -->
+                    ${ai.weightJustification ? `<div class="mt-3 pt-2 border-t border-slate-700">
+                        <div class="text-[10px] text-sky-400 font-bold uppercase mb-1">🤖 Why these changes?</div>
+                        <ul class="space-y-0.5">${(ai.weightJustification||[]).map(r=>`<li class="text-[10px] text-slate-300 leading-relaxed">→ ${escapeHtml(r)}</li>`).join('')}</ul>
+                    </div>` : ''}
+
+                    <!-- Approval buttons -->
+                    ${!usingCalibrated ? `<div class="mt-3 flex gap-2">
+                        <button onclick="applyWeights()" class="flex-1 py-2 rounded-lg bg-emerald-900/60 border border-emerald-700 text-emerald-300 text-[12px] font-bold hover:bg-emerald-800/60 transition-all">
+                            ✅ Apply These Weights
+                        </button>
+                        <button onclick="previewWeights()" class="px-3 py-2 rounded-lg bg-slate-700 border border-slate-600 text-slate-300 text-[12px] hover:bg-slate-600 transition-all">
+                            👁 Preview
+                        </button>
+                    </div>` : `<div class="mt-3 text-center">
+                        <div class="text-[11px] text-emerald-400">✅ These weights are currently active</div>
+                        <button onclick="resetWeights()" class="mt-1 text-[10px] text-slate-400 underline hover:text-slate-200">Reset to default weights</button>
+                    </div>`}
+                </div>` : `<div class="bg-slate-800/40 border border-slate-700 rounded-xl p-3 text-center text-[12px] text-slate-400">
+                    No weight changes suggested — current weights are already well-calibrated.
+                </div>`}
+
                 <!-- AI verdict -->
                 ${ai.overallVerdict ? `<div class="bg-sky-950/40 border border-sky-800 rounded-xl p-3">
-                    <div class="text-[10px] text-sky-400 font-bold uppercase mb-1">🤖 AI Verdict</div>
+                    <div class="flex justify-between mb-1">
+                        <div class="text-[10px] text-sky-400 font-bold uppercase">🤖 AI Assessment</div>
+                        ${ai.calibrationScore ? `<div class="text-[10px] bg-sky-900 text-sky-300 px-2 py-0.5 rounded border border-sky-700">${ai.calibrationScore}/10</div>` : ''}
+                    </div>
                     <p class="text-[11px] text-slate-100 leading-relaxed">${escapeHtml(ai.overallVerdict)}</p>
-                    ${(ai.recommendations||[]).length ? `<ul class="mt-2 space-y-0.5">${ai.recommendations.map(r=>`<li class="text-[10px] text-slate-300">→ ${escapeHtml(r)}</li>`).join('')}</ul>` : ''}
+                    ${(ai.recommendations||[]).length ? `<ul class="mt-1.5 space-y-0.5">${ai.recommendations.map(r=>`<li class="text-[10px] text-slate-300">→ ${escapeHtml(r)}</li>`).join('')}</ul>` : ''}
+                </div>` : ''}
+
+                <!-- Top wins/misses -->
+                ${(calib.topWins||[]).length > 0 ? `<div class="grid grid-cols-2 gap-2">
+                    <div><div class="text-[10px] text-emerald-500 font-bold uppercase mb-1.5">🏆 Best Calls</div>
+                    <div class="space-y-1">${(calib.topWins||[]).slice(0,3).map(([s,d,sc,r])=>`
+                        <div class="bg-emerald-950/30 rounded p-1.5 cursor-pointer" onclick="openWorkspace('${escapeHtml(s)}')">
+                            <div class="text-[11px] font-bold text-white">${s}</div>
+                            <div class="text-[10px] text-emerald-400 font-bold">+${r}% · score ${sc}</div>
+                            <div class="text-[9px] text-slate-500">${d}</div>
+                        </div>`).join('')}
+                    </div></div>
+                    <div><div class="text-[10px] text-rose-500 font-bold uppercase mb-1.5">💔 Misses</div>
+                    <div class="space-y-1">${(calib.topMisses||[]).slice(0,3).map(([s,d,sc,r])=>`
+                        <div class="bg-rose-950/30 rounded p-1.5 cursor-pointer" onclick="openWorkspace('${escapeHtml(s)}')">
+                            <div class="text-[11px] font-bold text-white">${s}</div>
+                            <div class="text-[10px] text-rose-400 font-bold">${r}% · score ${sc}</div>
+                            <div class="text-[9px] text-slate-500">${d}</div>
+                        </div>`).join('')}
+                    </div></div>
+                </div>` : ''}
+
+                <div class="text-[10px] text-slate-600 text-center">
+                    Backtesting period: ${calib.updatedAt ? new Date(calib.updatedAt).toLocaleDateString('en-IN') : 'N/A'} · 5-day return window · Not financial advice
+                </div>
+            </div>`;
+        }
+
+        // Apply the suggested weights — saves to localStorage and re-scores
+        window.applyWeights = function() {
+            const calib = window._calibData;
+            if (!calib || !calib.suggestedWeights) return;
+            if (!confirm('Apply the AI-suggested weights? This will re-score all stocks immediately. You can reset anytime.')) return;
+            activeWeights = { ...calib.suggestedWeights };
+            activeWeightsApprovedAt = new Date().toLocaleDateString('en-IN', {day:'numeric',month:'short',year:'numeric'});
+            localStorage.setItem('rbk-weights', JSON.stringify(activeWeights));
+            localStorage.setItem('rbk-weights-date', activeWeightsApprovedAt);
+            // Re-run scoring with new weights
+            buildMomentumSnapshot();
+            renderList();
+            // Refresh the calibration panel
+            const panel = document.getElementById('ai-content-panel');
+            if (panel) renderCalibPanel(panel);
+            alert('✅ New weights applied! All scores have been recalculated.');
+        };
+
+        window.resetWeights = function() {
+            if (!confirm('Reset to default weights? Calibrated weights will be removed.')) return;
+            activeWeights = { ...DEFAULT_WEIGHTS };
+            activeWeightsApprovedAt = null;
+            localStorage.removeItem('rbk-weights');
+            localStorage.removeItem('rbk-weights-date');
+            buildMomentumSnapshot();
+            renderList();
+            const panel = document.getElementById('ai-content-panel');
+            if (panel) renderCalibPanel(panel);
+        };
+
+        window.previewWeights = function() {
+            const calib = window._calibData;
+            if (!calib || !calib.suggestedWeights) return;
+            // Temporarily apply and rebuild
+            const prev = { ...activeWeights };
+            activeWeights = { ...calib.suggestedWeights };
+            buildMomentumSnapshot();
+            renderList();
+            activeWeights = prev;
+            alert('👁 Preview mode: scores shown with suggested weights. Click "Apply" to make permanent, or refresh to revert.');
+        };
+
+        function renderAIInsightsTab(container, searchVal) {
+            const hasData = Object.keys(insightsMap).length > 0;
+            const isMobile = window.innerWidth < 768;
+            const updatedAt = insightsUpdatedAt
+                ? new Date(insightsUpdatedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short'})
+                : '';
+
+            container.className = 'flex flex-col';
+            container.style.height = '';
+            container.style.minHeight = '';
+
+            if (isMobile) {
+                renderMobileStoryLayout(container, hasData, updatedAt);
+            } else {
+                renderDesktopSplitLayout(container, hasData, updatedAt);
+            }
+
+            setTimeout(() => setAiCategory(aiSelectedCategory), 30);
+        }
+
+        // ── MOBILE: Story card layout ─────────────────────────────────────
+        let storyIndex = 0;
+
+        function renderMobileStoryLayout(container, hasData, updatedAt) {
+            const NAV_ITEMS = [
+                {cat:'momentum', icon:'🚀', label:'Momentum'},
+                {cat:'funda',    icon:'🏦', label:'Funda'},
+                {cat:'largecap', icon:'🏢', label:'Large'},
+                {cat:'midcap',   icon:'🏬', label:'Mid'},
+                {cat:'smallcap', icon:'🏪', label:'Small'},
+                {cat:'longterm', icon:'🏆', label:'LT'},
+                {cat:'radar',    icon:'📡', label:'Radar'},
+                {cat:'calib',    icon:'📊', label:'Calib'},
+            ];
+
+            // Inject global styles for story UI
+            let styleEl = document.getElementById('ai-story-style');
+            if (!styleEl) {
+                styleEl = document.createElement('style');
+                styleEl.id = 'ai-story-style';
+                document.head.appendChild(styleEl);
+            }
+            styleEl.textContent = `
+                .story-cat-btn { flex-shrink:0; padding:6px 12px; border-radius:20px; font-size:11px; font-weight:700;
+                    border:1px solid #334155; background:#1e293b; color:#64748b; transition:all .15s; }
+                .story-cat-btn.active { background:#0c1e33; border-color:#38bdf8; color:#38bdf8; }
+                .story-card { touch-action:pan-y; user-select:none; }
+                .story-progress-bar { height:2px; border-radius:2px; background:#334155; flex:1; overflow:hidden; }
+                .story-progress-fill { height:100%; background:#38bdf8; border-radius:2px; }
+            `;
+
+            container.innerHTML = `
+                <!-- Category tabs — horizontal scroll -->
+                <div class="flex overflow-x-auto gap-2 pb-2 mb-2" style="scrollbar-width:none;">
+                    ${NAV_ITEMS.map(n => {
+                        const count = n.cat==='radar'||n.cat==='calib' ? '' : getCategoryStocks(n.cat).length;
+                        return `<button class="story-cat-btn" data-cat="${n.cat}"
+                            onclick="setAiCategoryMobile('${n.cat}')">
+                            ${n.icon} ${n.label}${count ? ` (${count})` : ''}
+                        </button>`;
+                    }).join('')}
+                </div>
+
+                <!-- Story card area -->
+                <div id="story-area" class="flex-1"></div>
+
+                <!-- Footer -->
+                <div class="text-[10px] text-slate-600 text-center pt-1 shrink-0">
+                    🤖 AI Insights${updatedAt ? ' · '+updatedAt : ''} · Not financial advice
+                </div>`;
+
+            window.setAiCategoryMobile = function(cat) {
+                aiSelectedCategory = cat;
+                storyIndex = 0;
+                document.querySelectorAll('.story-cat-btn').forEach(b => {
+                    b.classList.toggle('active', b.dataset.cat === cat);
+                });
+                renderStoryCards(cat);
+            };
+
+            // Activate current category
+            setTimeout(() => {
+                document.querySelectorAll('.story-cat-btn').forEach(b => {
+                    b.classList.toggle('active', b.dataset.cat === aiSelectedCategory);
+                });
+                renderStoryCards(aiSelectedCategory);
+            }, 20);
+        }
+
+        function renderStoryCards(cat) {
+            const area = document.getElementById('story-area');
+            if (!area) return;
+
+            // Special views
+            if (cat === 'radar') { renderRadarStory(area); return; }
+            if (cat === 'calib') { renderCalibStory(area); return; }
+
+            const stocks = getCategoryStocks(cat);
+            if (!stocks.length) {
+                area.innerHTML = `<div class="flex flex-col items-center justify-center text-center py-16 px-6">
+                    <div class="text-5xl mb-3">🤖</div>
+                    <div class="text-slate-200 font-bold text-lg mb-1">No insights yet</div>
+                    <div class="text-slate-400 text-sm">Run the Generate AI insights Action to populate this category.</div>
+                </div>`; return;
+            }
+
+            storyIndex = Math.max(0, Math.min(storyIndex, stocks.length - 1));
+            renderOneStoryCard(area, stocks, storyIndex);
+        }
+
+        function renderOneStoryCard(area, stocks, idx) {
+            const [sym, ins] = stocks[idx];
+            const d   = stockData[sym] || {};
+            const hist = historicalData[sym] || [];
+            const closes = hist.slice(-20).map(h => h.close);
+            const price  = d.price || ins.price || 0;
+            const chg    = d.change ?? ins.changePct ?? 0;
+            const score  = d.combinedScore ?? d.momentumScore ?? 0;
+            const fScore = d.fundamentalsScore ?? null;
+            const chgPos = chg >= 0;
+            const verdict = score >= 65 ? {l:'BUY',c:'#34d399',bg:'rgba(16,185,129,0.1)',border:'#065f46'}
+                          : score >= 40 ? {l:'HOLD',c:'#fbbf24',bg:'rgba(251,191,36,0.1)',border:'#78350f'}
+                          :               {l:'AVOID',c:'#f87171',bg:'rgba(248,113,113,0.1)',border:'#7f1d1d'};
+
+            // Progress dots
+            const dots = stocks.map((_, i) => i === idx
+                ? `<div class="story-progress-bar"><div class="story-progress-fill" style="width:100%"></div></div>`
+                : `<div class="story-progress-bar"></div>`
+            ).join('');
+
+            area.innerHTML = `
+                <div class="story-card flex flex-col rounded-2xl border overflow-hidden"
+                     style="border-color:${verdict.border}; background:${verdict.bg}; min-height:520px;"
+                     id="story-swipe-target">
+
+                    <!-- Progress + nav -->
+                    <div class="flex gap-1 p-3 items-center">
+                        ${dots}
+                        <span class="text-[10px] text-slate-500 ml-1 shrink-0">${idx+1}/${stocks.length}</span>
+                    </div>
+
+                    <!-- Main content -->
+                    <div class="flex-1 px-5 pb-4 flex flex-col gap-4">
+
+                        <!-- Stock header -->
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <div class="text-2xl font-black text-white tracking-tight">${sym}</div>
+                                <div class="text-[12px] text-slate-400 mt-0.5">${escapeHtml(ins.name || d.name || '')}</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xl font-bold text-white">₹${price.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                                <div class="text-sm font-bold" style="color:${chgPos?'#34d399':'#f87171'}">${chgPos?'+':''}${typeof chg==='number'?chg.toFixed(2):chg}%</div>
+                            </div>
+                        </div>
+
+                        <!-- Gauge + sparkline row -->
+                        <div class="flex items-center gap-4">
+                            <div class="text-center">
+                                ${drawGauge(score, 88)}
+                                <div class="text-[10px] text-slate-400 -mt-1">Score</div>
+                            </div>
+                            ${fScore !== null ? `<div class="text-center">
+                                ${drawGauge(fScore, 60)}
+                                <div class="text-[10px] text-slate-400 -mt-1">Funda</div>
+                            </div>` : ''}
+                            ${closes.length > 4 ? `<div class="ml-auto flex flex-col items-end">
+                                ${drawSparkline(closes, 110, 40)}
+                                <div class="text-[10px] text-slate-500 mt-0.5">20-day trend</div>
+                            </div>` : ''}
+                        </div>
+
+                        <!-- Verdict badge -->
+                        <div class="flex items-center gap-2">
+                            <div class="px-4 py-1 rounded-full font-black text-sm" style="background:${verdict.bg};color:${verdict.c};border:1px solid ${verdict.border}">
+                                ${verdict.l}
+                            </div>
+                            ${ins.headline ? `<div class="text-[12px] font-semibold flex-1" style="color:${verdict.c}">${escapeHtml(ins.headline)}</div>` : ''}
+                        </div>
+
+                        <!-- AI Summary -->
+                        ${ins.summary ? `<div class="rounded-xl p-3" style="background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.2)">
+                            <p class="text-[13px] text-slate-100 leading-relaxed">${escapeHtml(ins.summary)}</p>
+                        </div>` : ''}
+
+                        <!-- Positives + Concerns compact -->
+                        <div class="grid grid-cols-2 gap-2">
+                            ${(ins.positives||[]).length ? `<div>
+                                <div class="text-[9px] text-emerald-500 font-bold uppercase mb-1.5">✓ Strengths</div>
+                                ${(ins.positives||[]).map(p=>`<div class="text-[11px] text-emerald-300 leading-relaxed mb-1">• ${escapeHtml(p)}</div>`).join('')}
+                            </div>` : ''}
+                            ${(ins.concerns||[]).length ? `<div>
+                                <div class="text-[9px] text-amber-500 font-bold uppercase mb-1.5">⚠ Watch out</div>
+                                ${(ins.concerns||[]).map(p=>`<div class="text-[11px] text-amber-300 leading-relaxed mb-1">• ${escapeHtml(p)}</div>`).join('')}
+                            </div>` : ''}
+                        </div>
+
+                        ${ins.watchFor ? `<div class="rounded-lg px-3 py-2" style="background:rgba(255,255,255,0.04)">
+                            <span class="text-[9px] text-slate-400 uppercase font-bold">👁 Watch for: </span>
+                            <span class="text-[11px] text-slate-200">${escapeHtml(ins.watchFor)}</span>
+                        </div>` : ''}
+                    </div>
+
+                    <!-- Nav buttons + open -->
+                    <div class="flex gap-2 px-4 pb-4 shrink-0">
+                        <button onclick="storyNav(-1,'${cat}')"
+                            class="flex-1 py-2.5 rounded-xl font-bold text-[13px] text-slate-300 transition-all"
+                            style="background:rgba(255,255,255,0.06);${idx===0?'opacity:0.3;pointer-events:none':''}"
+                            ${idx===0?'disabled':''}>← Prev</button>
+                        <button onclick="openWorkspace('${sym}')"
+                            class="flex-1 py-2.5 rounded-xl font-bold text-[13px] transition-all"
+                            style="background:${verdict.c}22;color:${verdict.c};border:1px solid ${verdict.border}">
+                            Open Chart
+                        </button>
+                        <button onclick="storyNav(1,'${cat}')"
+                            class="flex-1 py-2.5 rounded-xl font-bold text-[13px] text-slate-300 transition-all"
+                            style="background:rgba(255,255,255,0.06);${idx===stocks.length-1?'opacity:0.3;pointer-events:none':''}"
+                            ${idx===stocks.length-1?'disabled':''}>Next →</button>
+                    </div>
+                </div>`;
+
+            // Touch swipe support
+            let touchStartX = 0;
+            const card = document.getElementById('story-swipe-target');
+            if (card) {
+                card.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive:true});
+                card.addEventListener('touchend', e => {
+                    const diff = touchStartX - e.changedTouches[0].clientX;
+                    if (Math.abs(diff) > 50) storyNav(diff > 0 ? 1 : -1, cat);
+                }, {passive:true});
+            }
+        }
+
+        window.storyNav = function(dir, cat) {
+            const stocks = getCategoryStocks(cat);
+            storyIndex = Math.max(0, Math.min(storyIndex + dir, stocks.length - 1));
+            const area = document.getElementById('story-area');
+            if (area) renderOneStoryCard(area, stocks, storyIndex);
+        };
+
+        function renderRadarStory(area) {
+            const radar = window._radarData;
+            if (!radar) {
+                area.innerHTML = `<div class="flex flex-col items-center justify-center text-center py-16 px-6">
+                    <div class="text-5xl mb-3">📡</div>
+                    <div class="text-slate-200 font-bold text-lg">Radar not generated yet</div>
+                    <div class="text-slate-400 text-sm mt-1">Run Generate AI insights Action</div>
+                </div>`; return;
+            }
+            const TFS = [{key:'1W',icon:'⚡',label:'1 Week',color:'#34d399'},{key:'2W',icon:'📈',label:'2 Weeks',color:'#38bdf8'},{key:'1M',icon:'🗓',label:'1 Month',color:'#a78bfa'},{key:'6M',icon:'📊',label:'6 Months',color:'#fbbf24'}];
+            area.innerHTML = `<div class="space-y-3 overflow-y-auto pb-4" style="max-height:70vh">
+                ${radar.marketPulse ? `<div class="rounded-2xl p-4" style="background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.2)">
+                    <div class="text-[10px] text-sky-400 font-bold uppercase mb-1.5">🌐 Market Pulse</div>
+                    <p class="text-[13px] text-slate-100 leading-relaxed">${escapeHtml(radar.marketPulse)}</p>
+                </div>` : ''}
+                ${TFS.map(tf => {
+                    const data = radar[tf.key];
+                    if (!data||!data.picks) return '';
+                    return `<div class="rounded-2xl p-4" style="border:1px solid ${tf.color}33;background:${tf.color}08">
+                        <div class="text-[11px] font-bold mb-3" style="color:${tf.color}">${tf.icon} ${tf.label} Momentum</div>
+                        <div class="space-y-3">
+                        ${data.picks.slice(0,3).map(pick => {
+                            const h = historicalData[pick.sym]||[];
+                            const cl = h.slice(-15).map(x=>x.close);
+                            return `<div class="flex items-center gap-3 cursor-pointer" onclick="openWorkspace('${escapeHtml(pick.sym)}')">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-bold text-white text-[13px]">${escapeHtml(pick.sym)}</span>
+                                        ${pick.return!==undefined ? `<span class="font-bold text-[12px]" style="color:${(pick.return||0)>=0?'#34d399':'#f87171'}">${(pick.return||0)>=0?'+':''}${pick.return.toFixed(1)}%</span>` : ''}
+                                    </div>
+                                    <p class="text-[10px] text-slate-400 mt-0.5 leading-relaxed line-clamp-2">${escapeHtml((pick.reason||'').substring(0,90))}${(pick.reason||'').length>90?'...':''}</p>
+                                </div>
+                                ${cl.length>4 ? `<div class="shrink-0">${drawSparkline(cl,70,24)}</div>` : ''}
+                            </div>`;
+                        }).join('<div style="height:1px;background:#334155;margin:4px 0"></div>')}
+                        </div>
+                    </div>`;
+                }).join('')}
+            </div>`;
+        }
+
+        function renderCalibStory(area) {
+            const calib = window._calibData;
+            if (!calib) {
+                area.innerHTML = `<div class="flex flex-col items-center justify-center text-center py-16 px-6">
+                    <div class="text-5xl mb-3">📊</div>
+                    <div class="text-slate-200 font-bold text-lg">Calibration not ready</div>
+                    <div class="text-slate-400 text-sm mt-2 leading-relaxed">Upload 2024 bhavcopy data and run Generate AI insights to backtest the scoring model.</div>
+                </div>`; return;
+            }
+            const acc = calib.accuracy||{};
+            const ai  = calib.aiReport||{};
+            const cur = calib.currentWeights||DEFAULT_WEIGHTS;
+            const sug = calib.suggestedWeights||{};
+            const usingCalib = JSON.stringify(activeWeights) !== JSON.stringify(DEFAULT_WEIGHTS);
+            const hasChanges = Object.keys(sug).some(k=>sug[k]!==cur[k]);
+            area.innerHTML = `<div class="space-y-3 overflow-y-auto pb-4" style="max-height:70vh">
+
+                ${usingCalib ? `<div class="rounded-2xl p-3 flex gap-2 items-center" style="background:rgba(52,211,153,0.1);border:1px solid #065f46">
+                    <span class="text-emerald-400 text-xl">✅</span>
+                    <div><div class="text-[12px] font-bold text-emerald-300">Calibrated weights active</div>
+                    <button onclick="resetWeights()" class="text-[10px] text-emerald-600 underline">Reset to defaults</button></div>
+                </div>` : ''}
+
+                <!-- Accuracy gauges -->
+                <div class="rounded-2xl p-4" style="background:rgba(255,255,255,0.03);border:1px solid #334155">
+                    <div class="text-[10px] text-slate-400 uppercase font-bold mb-3">Prediction Accuracy · 5-day return</div>
+                    <div class="flex justify-around">
+                        ${['BUY','HOLD','AVOID'].map(v => {
+                            const a = acc[v]||{};
+                            const gs = v==='BUY'?Math.round(a.win_rate||0):v==='AVOID'?Math.round(100-(a.win_rate||50)):50;
+                            return `<div class="text-center">
+                                ${drawGauge(gs, 70)}
+                                <div class="text-[10px] font-bold text-slate-300 -mt-1">${v}</div>
+                                <div class="text-[10px] ${(a.avg||0)>=0?'text-emerald-400':'text-rose-400'}">${(a.avg||0)>=0?'+':''}${a.avg||0}%</div>
+                                <div class="text-[9px] text-slate-500">${(a.count||0).toLocaleString()}</div>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                </div>
+
+                ${ai.overallVerdict ? `<div class="rounded-2xl p-4" style="background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.2)">
+                    <div class="text-[10px] text-sky-400 font-bold uppercase mb-1.5">🤖 AI Verdict${ai.calibrationScore?' · '+ai.calibrationScore+'/10':''}</div>
+                    <p class="text-[12px] text-slate-100 leading-relaxed">${escapeHtml(ai.overallVerdict)}</p>
+                </div>` : ''}
+
+                ${hasChanges && !usingCalib ? `<div class="rounded-2xl p-4" style="border:1px solid #334155;background:rgba(255,255,255,0.03)">
+                    <div class="text-[10px] text-slate-400 uppercase font-bold mb-2">⚖️ Suggested Weight Changes</div>
+                    <div class="space-y-1.5 mb-3">
+                    ${Object.keys(cur).filter(k=>sug[k]!==cur[k]).slice(0,6).map(k=>{
+                        const diff=((sug[k]||cur[k])-cur[k]);
+                        const c=diff>0?'#34d399':'#f87171';
+                        return `<div class="flex items-center gap-2">
+                            <span class="text-[10px] text-slate-400 flex-1">${k}</span>
+                            <span class="text-[10px] text-slate-500">${cur[k]}</span>
+                            <span class="text-[10px]" style="color:${c}">${diff>0?'→ +':'→ '}${diff} = ${sug[k]||cur[k]}</span>
+                        </div>`;
+                    }).join('')}
+                    </div>
+                    <button onclick="applyWeights()" class="w-full py-2.5 rounded-xl font-bold text-[13px]" style="background:rgba(52,211,153,0.15);color:#34d399;border:1px solid #065f46">
+                        ✅ Apply These Weights
+                    </button>
                 </div>` : ''}
             </div>`;
         }
 
-        function renderAIInsightsTab(container, searchVal) {
-            const hasData = Object.keys(insightsMap).length > 0;
+        window.setAiCategory = function(cat) {
+            aiSelectedCategory = cat;
+            aiSelectedStock = null;
+            document.querySelectorAll('.ai-nav-btn').forEach(b => {
+                b.classList.toggle('active-nav', b.dataset.cat === cat);
+            });
+            renderAIContent();
+        };
 
-            // Build the fixed split-panel layout
-            container.className = 'flex flex-col';
-            container.style.height = 'calc(100vh - 280px)';
-            container.style.minHeight = '480px';
-
+        // ── DESKTOP: left sidebar layout (unchanged) ──────────────────────
+        function renderDesktopSplitLayout(container, hasData, updatedAt) {
             const NAV_ITEMS = [
                 {cat:'momentum', icon:'🚀', label:'Momentum'},
                 {cat:'funda',    icon:'🏦', label:'Fundamentals'},
@@ -1822,381 +2362,33 @@
                 {cat:'radar',    icon:'📡', label:'Radar'},
                 {cat:'calib',    icon:'📊', label:'Calibration'},
             ];
-
-            const updatedAt = insightsUpdatedAt
-                ? new Date(insightsUpdatedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short'})
-                : '';
-
+            container.style.height = 'calc(100vh - 280px)';
+            container.style.minHeight = '480px';
             container.innerHTML = `
                 <div class="text-[11px] text-slate-500 mb-1.5 font-mono shrink-0">
                     🤖 AI Insights ${updatedAt ? '· Updated ' + updatedAt : ''} · Not financial advice
                 </div>
                 <div class="flex flex-1 overflow-hidden border border-slate-600 rounded-xl bg-slate-800/40">
-                    <!-- Left nav -->
-                    <div class="w-28 shrink-0 border-r border-slate-600 flex flex-col py-2 gap-0.5">
+                    <div class="w-28 shrink-0 border-r border-slate-600 flex flex-col py-2 gap-0.5 overflow-y-auto">
                         ${NAV_ITEMS.map(n => {
-                            const count = n.cat === 'radar' || n.cat === 'calib' ? null
-                                : getCategoryStocks(n.cat).length;
+                            const count = n.cat==='radar'||n.cat==='calib' ? null : getCategoryStocks(n.cat).length;
                             return `<button class="ai-nav-btn text-left px-2 py-2 text-[11px] font-bold transition-all hover:bg-slate-700/60 rounded-lg mx-1 flex items-center gap-1.5"
                                 data-cat="${n.cat}" onclick="setAiCategory('${n.cat}')">
-                                <span>${n.icon}</span>
-                                <span class="text-slate-300">${n.label}</span>
-                                ${count !== null && count > 0 ? `<span class="ml-auto text-[9px] text-slate-500">${count}</span>` : ''}
+                                <span>${n.icon}</span><span class="text-slate-300">${n.label}</span>
+                                ${count!==null&&count>0?`<span class="ml-auto text-[9px] text-slate-500">${count}</span>`:''}
                             </button>`;
                         }).join('')}
                     </div>
-                    <!-- Right content -->
                     <div id="ai-content-panel" class="flex-1 overflow-hidden">
                         <div class="flex items-center justify-center h-full text-slate-500 text-sm">
                             ${hasData ? 'Select a category' : 'Run Generate AI insights Action to populate'}
                         </div>
                     </div>
                 </div>`;
-
-            // Add active nav styling
             const style = document.getElementById('ai-nav-style') || (() => {
-                const s = document.createElement('style');
-                s.id = 'ai-nav-style';
-                document.head.appendChild(s);
-                return s;
+                const s = document.createElement('style'); s.id = 'ai-nav-style'; document.head.appendChild(s); return s;
             })();
-            style.textContent = `.ai-nav-btn.active-nav { background: rgba(56,189,248,0.12); color: #38bdf8; border-left: 2px solid #38bdf8; padding-left: 6px; }
-            .ai-nav-btn.active-nav span { color: #38bdf8; }`;
-
-            // Auto-select first category
-            setTimeout(() => setAiCategory(aiSelectedCategory), 30);
-        }
-
-        function calcLongTermScore(ticker) {
-
-            const hasInsights = Object.keys(insightsMap).length > 0;
-            const radarData   = window._radarData || null;
-
-            // Sub-view toggle bar
-            const toggleBar = document.createElement('div');
-            toggleBar.className = 'flex items-center gap-2 mb-1';
-            toggleBar.innerHTML = `
-                <button id="ai-view-stocks" onclick="setAiView('stocks')"
-                    class="px-3 py-1.5 rounded-lg text-[12px] font-bold ${aiView==='stocks' ? 'bg-sky-900 text-sky-300 border border-sky-700' : 'bg-slate-700 text-slate-300 border border-slate-600 hover:text-white'}">
-                    🤖 Stock Insights
-                </button>
-                <button id="ai-view-radar" onclick="setAiView('radar')"
-                    class="px-3 py-1.5 rounded-lg text-[12px] font-bold ${aiView==='radar' ? 'bg-sky-900 text-sky-300 border border-sky-700' : 'bg-slate-700 text-slate-300 border border-slate-600 hover:text-white'}">
-                    📡 Momentum Radar
-                </button>
-                <button id="ai-view-calib" onclick="setAiView('calib')"
-                    class="px-3 py-1.5 rounded-lg text-[12px] font-bold ${aiView==='calib' ? 'bg-sky-900 text-sky-300 border border-sky-700' : 'bg-slate-700 text-slate-300 border border-slate-600 hover:text-white'}">
-                    📊 Calibration
-                </button>
-                <span class="text-[11px] text-slate-500 ml-auto">Not financial advice</span>`;
-            container.appendChild(toggleBar);
-
-            // ── MOMENTUM RADAR VIEW ──────────────────────────────────────
-            if (aiView === 'radar') {
-                if (!radarData) {
-                    container.innerHTML += `<div class="flex flex-col items-center justify-center text-center py-16">
-                        <div class="text-4xl mb-3">📡</div>
-                        <div class="text-lg font-bold text-slate-200 mb-2">Momentum Radar not yet generated</div>
-                        <div class="text-sm text-slate-400 max-w-md">Run the "Generate AI insights" Action to populate this. The radar analyses top performers across 1W, 2W, 1M, and 6M timeframes.</div>
-                    </div>`;
-                    return;
-                }
-
-                // Market pulse first
-                if (radarData.marketPulse) {
-                    const pulse = document.createElement('div');
-                    pulse.className = 'bg-sky-950/50 border border-sky-800 rounded-xl p-4 mb-2';
-                    pulse.innerHTML = `<div class="text-[11px] text-sky-400 uppercase font-bold mb-1.5">🌐 Market Pulse</div>
-                        <p class="text-[13px] text-slate-100 leading-relaxed">${escapeHtml(radarData.marketPulse)}</p>`;
-                    container.appendChild(pulse);
-                }
-
-                const TF_CONFIG = [
-                    { key: '1W',  icon: '⚡', label: '1 Week Momentum',  color: 'emerald', border: 'border-emerald-800', bg: 'bg-emerald-950/40', header: 'text-emerald-400' },
-                    { key: '2W',  icon: '📈', label: '2 Week Momentum',  color: 'sky',     border: 'border-sky-800',     bg: 'bg-sky-950/40',     header: 'text-sky-400' },
-                    { key: '1M',  icon: '🗓', label: '1 Month Momentum', color: 'violet',  border: 'border-violet-800',  bg: 'bg-violet-950/40',  header: 'text-violet-400' },
-                    { key: '6M',  icon: '📊', label: '6 Month Momentum', color: 'amber',   border: 'border-amber-800',   bg: 'bg-amber-950/40',   header: 'text-amber-400' },
-                ];
-
-                TF_CONFIG.forEach(tf => {
-                    const tfData = radarData[tf.key];
-                    if (!tfData || !tfData.picks) return;
-
-                    const section = document.createElement('div');
-                    section.className = `${tf.bg} ${tf.border} border rounded-xl p-4 mb-2`;
-                    let picksHtml = tfData.picks.map(pick => {
-                        const d = stockData[pick.sym] || {};
-                        const price = pick.price || d.price || 0;
-                        const ret = pick.return;
-                        const retColor = ret >= 0 ? 'text-emerald-400' : 'text-rose-400';
-                        return `<div class="bg-slate-800/60 rounded-lg p-3 cursor-pointer hover:bg-slate-700/60 transition-all"
-                                     onclick="openWorkspace('${escapeHtml(pick.sym)}')">
-                            <div class="flex justify-between items-start mb-1.5">
-                                <div>
-                                    <span class="text-sm font-bold text-white">${escapeHtml(pick.sym)}</span>
-                                    <span class="text-[11px] text-slate-400 ml-1.5">${escapeHtml(pick.name || '')}</span>
-                                </div>
-                                <div class="text-right shrink-0 ml-2">
-                                    <div class="text-[12px] font-bold text-slate-100">₹${price.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
-                                    ${ret !== undefined ? `<div class="text-[12px] font-bold ${retColor}">${ret >= 0 ? '+' : ''}${ret.toFixed(1)}%</div>` : ''}
-                                </div>
-                            </div>
-                            <p class="text-[12px] text-slate-300 leading-relaxed">${escapeHtml(pick.reason || '')}</p>
-                        </div>`;
-                    }).join('');
-
-                    section.innerHTML = `<div class="${tf.header} text-[12px] font-bold uppercase tracking-wider mb-3">${tf.icon} ${tf.label}</div>
-                        <div class="flex flex-col gap-2">${picksHtml}</div>`;
-                    container.appendChild(section);
-                });
-
-                return;
-            }
-
-            // ── CALIBRATION VIEW ─────────────────────────────────────────
-            if (aiView === 'calib') {
-                const calib = window._calibData;
-                if (!calib) {
-                    container.innerHTML += `<div class="flex flex-col items-center justify-center text-center py-12">
-                        <div class="text-4xl mb-3">📊</div>
-                        <div class="text-lg font-bold text-slate-200 mb-2">Calibration not yet available</div>
-                        <div class="text-sm text-slate-400 max-w-md leading-relaxed">
-                            The calibration report needs at least 10 days of score snapshots to compare predictions vs actual returns.<br><br>
-                            <strong class="text-slate-300">Step 1:</strong> Add <code class="bg-slate-700 px-1 rounded">save-snapshots.yml</code> to your GitHub workflows — it runs every day automatically.<br>
-                            <strong class="text-slate-300">Step 2:</strong> After 2+ weeks of snapshots, the insights workflow will generate a calibration report automatically.
-                        </div>
-                    </div>`;
-                    return;
-                }
-
-                const acc = calib.accuracy || {};
-                const fp  = calib.factorPower || {};
-                const ai  = calib.aiReport || {};
-
-                // Overall accuracy card
-                const accCard = document.createElement('div');
-                accCard.className = 'bg-slate-700/40 border border-slate-600 rounded-xl p-4 mb-3';
-                const buyAcc  = acc.BUY   || {};
-                const holdAcc = acc.HOLD  || {};
-                const avoidAcc= acc.AVOID || {};
-                const buyColor  = buyAcc.avg   >= 0 ? 'text-emerald-400' : 'text-rose-400';
-                const avoidColor= avoidAcc.avg  <= 0 ? 'text-emerald-400' : 'text-rose-400';
-                accCard.innerHTML = `
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="text-[12px] font-bold text-slate-300 uppercase tracking-wider">📊 Prediction Accuracy (5-day return)</div>
-                        ${ai.calibrationScore ? `<div class="text-[11px] bg-sky-900 text-sky-300 px-2 py-0.5 rounded border border-sky-700">Model Score: ${ai.calibrationScore}/10</div>` : ''}
-                    </div>
-                    <div class="grid grid-cols-3 gap-3 mb-3">
-                        <div class="bg-emerald-950/50 rounded-lg p-3 text-center border border-emerald-900">
-                            <div class="text-[10px] text-emerald-400 uppercase font-bold mb-1">BUY Signal</div>
-                            <div class="text-lg font-bold ${buyColor}">${buyAcc.avg >= 0 ? '+' : ''}${buyAcc.avg || 0}%</div>
-                            <div class="text-[11px] text-slate-400">${buyAcc.win_rate || 0}% win rate</div>
-                            <div class="text-[10px] text-slate-500">${buyAcc.count || 0} predictions</div>
-                        </div>
-                        <div class="bg-slate-800/50 rounded-lg p-3 text-center border border-slate-700">
-                            <div class="text-[10px] text-amber-400 uppercase font-bold mb-1">HOLD Signal</div>
-                            <div class="text-lg font-bold text-amber-400">${holdAcc.avg >= 0 ? '+' : ''}${holdAcc.avg || 0}%</div>
-                            <div class="text-[11px] text-slate-400">${holdAcc.win_rate || 0}% win rate</div>
-                            <div class="text-[10px] text-slate-500">${holdAcc.count || 0} predictions</div>
-                        </div>
-                        <div class="bg-rose-950/50 rounded-lg p-3 text-center border border-rose-900">
-                            <div class="text-[10px] text-rose-400 uppercase font-bold mb-1">AVOID Signal</div>
-                            <div class="text-lg font-bold ${avoidColor}">${avoidAcc.avg >= 0 ? '+' : ''}${avoidAcc.avg || 0}%</div>
-                            <div class="text-[11px] text-slate-400">${avoidAcc.win_rate || 0}% win rate</div>
-                            <div class="text-[10px] text-slate-500">${avoidAcc.count || 0} predictions</div>
-                        </div>
-                    </div>
-                    ${ai.overallVerdict ? `<p class="text-[13px] text-slate-100 leading-relaxed border-l-2 border-sky-700 pl-3">${escapeHtml(ai.overallVerdict)}</p>` : ''}`;
-                container.appendChild(accCard);
-
-                // Factor power chart
-                const FACTOR_LABELS = {
-                    roc5:'5-Day Momentum', roc10:'10-Day Momentum', vsma20:'Price vs SMA20',
-                    sma20dir:'SMA20 Direction', rsi:'RSI', volume:'Volume Surge',
-                    relstrength:'Relative Strength', macd:'MACD', bollinger:'Bollinger Bands',
-                    hi52:'52-Week High', gap:'Price Gap', cross:'Golden/Death Cross', adx:'ADX'
-                };
-                const sortedFactors = Object.entries(fp).sort((a,b) => b[1]-a[1]);
-                if (sortedFactors.length > 0) {
-                    const factorCard = document.createElement('div');
-                    factorCard.className = 'bg-slate-700/40 border border-slate-600 rounded-xl p-4 mb-3';
-                    const maxPower = Math.max(...sortedFactors.map(([,v]) => Math.abs(v)), 1);
-                    factorCard.innerHTML = `<div class="text-[12px] font-bold text-slate-300 uppercase tracking-wider mb-3">⚡ Factor Predictive Power</div>
-                        <div class="text-[11px] text-slate-500 mb-3">Higher = more predictive. Negative = counter-productive (consider reducing weight).</div>
-                        <div class="space-y-2">
-                        ${sortedFactors.map(([key, power]) => {
-                            const label = FACTOR_LABELS[key] || key;
-                            const isGood = power > 1;
-                            const isWeak = power >= 0 && power <= 1;
-                            const isBad  = power < 0;
-                            const color = isGood ? 'bg-emerald-500' : (isBad ? 'bg-rose-500' : 'bg-amber-500');
-                            const textColor = isGood ? 'text-emerald-400' : (isBad ? 'text-rose-400' : 'text-amber-400');
-                            const badge = isGood ? '✅' : (isBad ? '❌' : '⚠️');
-                            const pct = Math.min(Math.abs(power) / maxPower * 100, 100);
-                            return `<div>
-                                <div class="flex justify-between items-center mb-0.5">
-                                    <span class="text-[12px] text-slate-200">${badge} ${label}</span>
-                                    <span class="text-[12px] font-bold ${textColor}">${power >= 0 ? '+' : ''}${power}%</span>
-                                </div>
-                                <div class="w-full bg-slate-600 rounded-full h-1.5 overflow-hidden">
-                                    <div class="${color} h-1.5 rounded-full transition-all" style="width:${pct}%"></div>
-                                </div>
-                            </div>`;
-                        }).join('')}
-                        </div>`;
-                    container.appendChild(factorCard);
-                }
-
-                // AI recommendations
-                if (ai.recommendations || ai.factorInsights) {
-                    const recCard = document.createElement('div');
-                    recCard.className = 'bg-sky-950/40 border border-sky-800 rounded-xl p-4 mb-3';
-                    const recs = (ai.recommendations || []).map(r => `<li class="text-[12px] text-slate-200 leading-relaxed mb-1.5">→ ${escapeHtml(r)}</li>`).join('');
-                    const obs  = (ai.factorInsights  || []).map(r => `<li class="text-[12px] text-slate-300 leading-relaxed mb-1.5">• ${escapeHtml(r)}</li>`).join('');
-                    recCard.innerHTML = `
-                        <div class="text-[11px] text-sky-400 uppercase font-bold mb-2">🤖 AI Recommendations</div>
-                        ${obs  ? `<ul class="mb-3">${obs}</ul>` : ''}
-                        ${recs ? `<div class="text-[11px] text-slate-400 uppercase font-bold mb-1.5">Suggested Weight Adjustments</div><ul>${recs}</ul>` : ''}`;
-                    container.appendChild(recCard);
-                }
-
-                // Wins and misses
-                const wm = document.createElement('div');
-                wm.className = 'grid grid-cols-2 gap-3 mb-3';
-                const topWins   = calib.topWins   || [];
-                const topMisses = calib.topMisses || [];
-                const winsHtml = topWins.slice(0,3).map(([sym,date,score,ret]) =>
-                    `<div class="bg-emerald-950/40 rounded-lg p-2 border border-emerald-900/50">
-                        <div class="font-bold text-white text-[13px]">${escapeHtml(sym)}</div>
-                        <div class="text-emerald-400 font-bold text-[13px]">+${ret.toFixed(1)}%</div>
-                        <div class="text-[10px] text-slate-500">Score ${score} · ${date}</div>
-                    </div>`).join('');
-                const missHtml = topMisses.slice(0,3).map(([sym,date,score,ret]) =>
-                    `<div class="bg-rose-950/40 rounded-lg p-2 border border-rose-900/50">
-                        <div class="font-bold text-white text-[13px]">${escapeHtml(sym)}</div>
-                        <div class="text-rose-400 font-bold text-[13px]">${ret.toFixed(1)}%</div>
-                        <div class="text-[10px] text-slate-500">Score ${score} · ${date}</div>
-                    </div>`).join('');
-                wm.innerHTML = `
-                    <div><div class="text-[11px] text-emerald-400 font-bold uppercase mb-2">🏆 Top Wins</div><div class="flex flex-col gap-2">${winsHtml || '<div class="text-[11px] text-slate-500">Not enough data yet</div>'}</div></div>
-                    <div><div class="text-[11px] text-rose-400 font-bold uppercase mb-2">💔 Biggest Misses</div><div class="flex flex-col gap-2">${missHtml || '<div class="text-[11px] text-slate-500">Not enough data yet</div>'}</div></div>`;
-                container.appendChild(wm);
-
-                const updatedAt = calib.updatedAt ? new Date(calib.updatedAt).toLocaleDateString('en-IN', {day:'numeric',month:'short',year:'numeric'}) : '';
-                const note = document.createElement('div');
-                note.className = 'text-[11px] text-slate-500 text-center mt-1';
-                note.textContent = `Based on ${buyAcc.count || 0} BUY predictions · Updated ${updatedAt} · 5-day return window`;
-                container.appendChild(note);
-                return;
-            }
-
-            // ── STOCK INSIGHTS VIEW ──────────────────────────────────────
-            const allInsights = Object.entries(insightsMap);
-            if (allInsights.length === 0) {
-                container.innerHTML += `<div class="flex flex-col items-center justify-center text-center py-12">
-                    <div class="text-4xl mb-3">🤖</div>
-                    <div class="text-lg font-bold text-slate-200 mb-2">No AI Insights yet</div>
-                    <div class="text-sm text-slate-400 max-w-md">Run the "Generate AI insights" GitHub Action to populate this tab.</div>
-                </div>`;
-                return;
-            }
-
-            let entries = allInsights.filter(([sym, ins]) => {
-                if (!searchVal) return true;
-                return sym.includes(searchVal) || (ins.name || '').toUpperCase().includes(searchVal);
-            });
-
-            const CATEGORY_ORDER = ['Top Momentum','Top Fundamentals','Large Cap','Mid Cap','Small Cap','Long Term Pick',''];
-            const groups = {};
-            entries.forEach(([sym, ins]) => {
-                const cat = ins.category || 'Other';
-                if (!groups[cat]) groups[cat] = [];
-                groups[cat].push([sym, ins]);
-            });
-
-            if (insightsUpdatedAt) {
-                const dateStr = new Date(insightsUpdatedAt).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
-                const notice = document.createElement('div');
-                notice.className = 'text-[12px] text-slate-400 font-mono mb-1';
-                notice.innerHTML = `🤖 ${entries.length} stocks analysed · Updated ${dateStr}`;
-                container.appendChild(notice);
-            }
-
-            CATEGORY_ORDER.forEach(cat => {
-                const items = groups[cat] || groups['Other'] || [];
-                if (!items || !items.length) return;
-
-                // Category header
-                const catIcons = {
-                    'Top Momentum': '🚀', 'Top Fundamentals': '🏦',
-                    'Large Cap': '🏢', 'Mid Cap': '🏬', 'Small Cap': '🏪',
-                    'Long Term Pick': '🏆', 'Other': '📊'
-                };
-                const header = document.createElement('div');
-                header.className = 'text-[12px] font-bold text-slate-400 uppercase tracking-widest mt-2 mb-1 flex items-center gap-2';
-                header.innerHTML = `<span>${catIcons[cat] || '📊'} ${cat || 'Other'}</span><div class="flex-1 h-px bg-slate-700"></div>`;
-                container.appendChild(header);
-
-                items.forEach(([sym, ins]) => {
-                    const d = stockData[sym] || {};
-                    const changeColor = (ins.changePct || d.change || 0) >= 0 ? 'text-emerald-400' : 'text-rose-400';
-                    const changeSign  = (ins.changePct || d.change || 0) >= 0 ? '+' : '';
-                    const price = ins.price || d.price || 0;
-                    const change = ins.changePct !== undefined ? ins.changePct : (d.change || 0);
-
-                    const card = document.createElement('div');
-                    card.className = 'bg-slate-700/40 border border-slate-600 rounded-xl p-4 cursor-pointer hover:border-sky-700 transition-all';
-                    card.onclick = () => openWorkspace(sym);
-
-                    const posItems = (ins.positives || []).map(p => `<li class="flex gap-1.5 text-[12px] text-emerald-300 leading-relaxed"><span class="shrink-0">✓</span><span>${escapeHtml(p)}</span></li>`).join('');
-                    const negItems = (ins.concerns  || []).map(p => `<li class="flex gap-1.5 text-[12px] text-amber-300 leading-relaxed"><span class="shrink-0">⚠</span><span>${escapeHtml(p)}</span></li>`).join('');
-
-                    card.innerHTML = `
-                        <div class="flex justify-between items-start mb-2">
-                            <div class="flex-1 mr-3">
-                                <div class="flex items-center gap-2 flex-wrap mb-0.5">
-                                    <span class="text-base font-bold text-white">${escapeHtml(sym)}</span>
-                                    <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-600 text-slate-300 uppercase">${escapeHtml(ins.category || '')}</span>
-                                </div>
-                                <div class="text-[11px] text-slate-400">${escapeHtml(ins.name || stockNames[sym] || '')}</div>
-                                ${ins.headline ? `<div class="text-[13px] font-bold text-sky-300 mt-1.5 leading-snug">${escapeHtml(ins.headline)}</div>` : ''}
-                            </div>
-                            <div class="text-right shrink-0">
-                                <div class="text-sm font-bold text-slate-100">₹${price.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
-                                <div class="text-[12px] font-bold ${changeColor}">${changeSign}${change.toFixed(2)}%</div>
-                            </div>
-                        </div>
-
-                        <p class="text-[13px] text-slate-100 leading-relaxed mb-3 border-l-2 border-slate-500 pl-2">${escapeHtml(ins.summary || '')}</p>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
-                            ${ins.technicalView ? `<div class="bg-slate-800/60 rounded-lg p-2.5">
-                                <div class="text-[10px] text-sky-400 uppercase font-bold mb-1">📈 Technical</div>
-                                <p class="text-[12px] text-slate-300 leading-relaxed">${escapeHtml(ins.technicalView)}</p>
-                            </div>` : ''}
-                            ${ins.fundamentalView ? `<div class="bg-slate-800/60 rounded-lg p-2.5">
-                                <div class="text-[10px] text-purple-400 uppercase font-bold mb-1">🏦 Fundamental</div>
-                                <p class="text-[12px] text-slate-300 leading-relaxed">${escapeHtml(ins.fundamentalView)}</p>
-                            </div>` : ''}
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-2 mb-2">
-                            ${posItems ? `<div><div class="text-[10px] text-emerald-500 uppercase font-bold mb-1.5">Strengths</div><ul class="space-y-1.5">${posItems}</ul></div>` : ''}
-                            ${negItems ? `<div><div class="text-[10px] text-amber-500 uppercase font-bold mb-1.5">Watch out</div><ul class="space-y-1.5">${negItems}</ul></div>` : ''}
-                        </div>
-
-                        ${ins.watchFor ? `<div class="border-t border-slate-600/60 pt-2.5 mt-1">
-                            <span class="text-[10px] text-slate-400 uppercase font-bold">👁 Watch for: </span>
-                            <span class="text-[12px] text-slate-200">${escapeHtml(ins.watchFor)}</span>
-                        </div>` : ''}
-
-                        <div class="text-[10px] text-slate-500 mt-2.5 text-right">Tap to open full chart & analysis →</div>`;
-                    container.appendChild(card);
-                });
-            });
-
-            // Reset grid class after render (other tabs use grid)
-            // Stored so next renderList() call can restore it
+            style.textContent = `.ai-nav-btn.active-nav{background:rgba(56,189,248,0.12);color:#38bdf8;border-left:2px solid #38bdf8;padding-left:6px}.ai-nav-btn.active-nav span{color:#38bdf8}.ai-stock-btn.active-stock{border-color:#38bdf8!important;background:rgba(56,189,248,0.08)!important}`;
         }
 
         function calcLongTermScore(ticker) {
