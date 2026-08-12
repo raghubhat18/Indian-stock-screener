@@ -458,70 +458,140 @@ jobs:
           misses.sort(key=lambda x: x[3])
           print(f'Backtesting complete: BUY avg={accuracy["BUY"]["avg"]}%, n={accuracy["BUY"]["count"]}')
 
-          # ── Send to Gemini for interpretation ──
+          # ── Current factor weights (must match index.html scoring) ──
+          CURRENT_WEIGHTS = {
+              'roc5':12, 'roc10':8, 'vsma20':10, 'sma20dir':8, 'rsi':12,
+              'volume':8, 'relstrength':14, 'macd':12, 'bollinger':8,
+              'adx':8, 'cross':8, 'hi52':6, 'gap':6
+          }
+          FACTOR_LABELS = {
+              'roc5':'5-Day Momentum','roc10':'10-Day Momentum',
+              'vsma20':'Price vs SMA20','sma20dir':'SMA20 Direction',
+              'rsi':'RSI','volume':'Volume Surge',
+              'relstrength':'Relative Strength','macd':'MACD',
+              'bollinger':'Bollinger Bands','adx':'ADX',
+              'cross':'Golden/Death Cross','hi52':'52-Week High','gap':'Price Gap'
+          }
+
+          # ── Factor-level predictive power from backtesting ──
+          factor_buckets = {}
+          for date_str in backtest_dates:
+              di = all_dates.index(date_str)
+              if di + 5 >= len(all_dates): continue
+              for sym in test_syms:
+                  p_now = price_lookup[date_str].get(sym)
+                  if not p_now: continue
+                  closes = []
+                  for lb in range(min(di,249),-1,-1):
+                      p = price_lookup[all_dates[di-lb]].get(sym)
+                      if p: closes.insert(0,p)
+                  closes = closes[-250:]
+                  if len(closes) < 10: continue
+                  p_future = price_lookup[all_dates[di+5]].get(sym)
+                  if not p_future: continue
+                  ret5 = (p_future-p_now)/p_now*100
+                  n = len(closes)
+                  fscores = {}
+                  if n>=6 and closes[-6]: fscores['roc5'] = min(max((closes[-1]-closes[-6])/closes[-6]*100,0),12)
+                  if n>=11 and closes[-11]: fscores['roc10'] = min(max((closes[-1]-closes[-11])/closes[-11]*100,0),8)
+                  if n>=20:
+                      s20=sum(closes[-20:])/20
+                      fscores['vsma20']=10 if closes[-1]>s20 else 0
+                      if n>=25: fscores['sma20dir']=8 if s20>sum(closes[-25:-5])/20 else 0
+                  if n>=15:
+                      g=[max(closes[i]-closes[i-1],0) for i in range(n-14,n)]
+                      l=[max(closes[i-1]-closes[i],0) for i in range(n-14,n)]
+                      ag=sum(g)/14; al=sum(l)/14
+                      r=100-100/(1+ag/al) if al else 100
+                      fscores['rsi']=12 if 55<=r<=65 else (8 if 50<=r<70 else (3 if r<=80 else -4))
+                  hi=max(closes); pct=(closes[-1]-hi)/hi*100 if hi else 0
+                  fscores['hi52']=6 if pct>=-3 else (4 if pct>=-10 else (2 if pct>=-20 else 0))
+                  for factor,score in fscores.items():
+                      bucket='high' if score>=CURRENT_WEIGHTS.get(factor,8)*0.6 else 'low'
+                      fb=factor_buckets.setdefault(factor,{'high':[],'low':[]})
+                      fb[bucket].append(ret5)
+
+          factor_power = {}
+          for factor,buckets in factor_buckets.items():
+              if len(buckets['high'])>=20 and len(buckets['low'])>=20:
+                  ha=sum(buckets['high'])/len(buckets['high'])
+                  la=sum(buckets['low'])/len(buckets['low'])
+                  factor_power[factor]=round(ha-la,2)
+          print(f'Factor power: {factor_power}')
+
+          # ── Compute suggested weights proportional to predictive power ──
+          total_current = sum(CURRENT_WEIGHTS.values())
+          suggested_weights = dict(CURRENT_WEIGHTS)
+          if factor_power:
+              min_p=min(factor_power.values()); shift=max(0,-min_p+0.5)
+              adjusted={f:v+shift for f,v in factor_power.items()}
+              total_adj=sum(adjusted.values())
+              for factor in CURRENT_WEIGHTS:
+                  if factor in adjusted:
+                      raw=adjusted[factor]/total_adj*total_current
+                      suggested_weights[factor]=max(2,round(raw/2)*2)
+              diff=total_current-sum(suggested_weights.values())
+              if diff!=0 and factor_power:
+                  top=max(factor_power,key=factor_power.get)
+                  suggested_weights[top]=max(2,suggested_weights[top]+diff)
+
+          # ── Send to Gemini for interpretation + weight justification ──
           calib_result = None
           if WORKING_URL and accuracy['BUY']['count'] > 50:
               print('Generating calibration report...')
               time.sleep(DELAY)
-
-              lines = [
-                  'You are a quantitative analyst reviewing a stock scoring model.',
-                  'Below is historical backtesting data. Write a calibration report.',
-                  'Reply ONLY with valid JSON, no markdown, no extra text.',
+              factor_lines=['FACTOR ANALYSIS (current | power | suggested):']
+              for f,cur in CURRENT_WEIGHTS.items():
+                  power=factor_power.get(f,'N/A')
+                  sug=suggested_weights.get(f,cur)
+                  ch='↑' if sug>cur else ('↓' if sug<cur else '→')
+                  factor_lines.append(f'  {FACTOR_LABELS.get(f,f)}: {cur}pts | power={power} | suggested={sug}pts {ch}')
+              lines=[
+                  'You are a quantitative analyst. Reply ONLY with valid JSON, no markdown.',
+                  'Required JSON: {"overallVerdict":"...","calibrationScore":"X/10","confidenceLevel":"High/Medium/Low","factorInsights":["3 observations"],"weightJustification":["explain top 3 weight changes with actual numbers"],"recommendations":["2 other improvements"]}',
                   '',
-                  'Required JSON:',
-                  '{"overallVerdict":"2-3 sentences on model accuracy and whether BUY/HOLD/AVOID signals are well-separated","factorInsights":["3-4 specific observations"],"recommendations":["3 specific suggestions to improve the model"],"calibrationScore":"X/10 rating of model quality"}',
+                  f'BUY(>=65): avg={accuracy["BUY"]["avg"]}%, win_rate={accuracy["BUY"]["win_rate"]}%, n={accuracy["BUY"]["count"]}',
+                  f'HOLD(40-64): avg={accuracy["HOLD"]["avg"]}%, n={accuracy["HOLD"]["count"]}',
+                  f'AVOID(<40): avg={accuracy["AVOID"]["avg"]}%, n={accuracy["AVOID"]["count"]}',
                   '',
-                  'BACKTESTING RESULTS (5-day return after signal, from historical NSE data):',
-                  f'BUY (score >= 65): avg={accuracy["BUY"]["avg"]}%, win_rate={accuracy["BUY"]["win_rate"]}%, n={accuracy["BUY"]["count"]}',
-                  f'HOLD (40-64):      avg={accuracy["HOLD"]["avg"]}%, win_rate={accuracy["HOLD"]["win_rate"]}%, n={accuracy["HOLD"]["count"]}',
-                  f'AVOID (< 40):      avg={accuracy["AVOID"]["avg"]}%, win_rate={accuracy["AVOID"]["win_rate"]}%, n={accuracy["AVOID"]["count"]}',
-                  '',
-                  'TOP 3 WINS (BUY signal, high return):',
+              ]+factor_lines+[
+                  'TOP WINS:',
+                  *[f'  {s} {d}: score={sc}, return=+{r}%' for s,d,sc,r in wins[:3]],
+                  'TOP MISSES:',
+                  *[f'  {s} {d}: score={sc}, return={r}%' for s,d,sc,r in misses[:3]],
               ]
-              for sym,d,sc,r in wins[:3]:
-                  lines.append(f'  {sym} on {d}: score={sc}, 5d return=+{r}%')
-              lines.append('TOP 3 MISSES (BUY signal, negative return):')
-              for sym,d,sc,r in misses[:3]:
-                  lines.append(f'  {sym} on {d}: score={sc}, 5d return={r}%')
-
               try:
-                  body = json.dumps({
-                      'contents': [{'parts': [{'text': chr(10).join(lines)}]}],
-                      'generationConfig': {'temperature':0.3,'maxOutputTokens':800}
-                  }).encode('utf-8')
-                  req = urllib.request.Request(WORKING_URL, data=body,
-                        headers={'Content-Type':'application/json'}, method='POST')
-                  with urllib.request.urlopen(req, timeout=45) as resp:
-                      raw = json.loads(resp.read())
-                  text = raw['candidates'][0]['content']['parts'][0]['text'].strip()
+                  body=json.dumps({'contents':[{'parts':[{'text':chr(10).join(lines)}]}],'generationConfig':{'temperature':0.3,'maxOutputTokens':1000}}).encode()
+                  req=urllib.request.Request(WORKING_URL,data=body,headers={'Content-Type':'application/json'},method='POST')
+                  with urllib.request.urlopen(req,timeout=45) as resp: raw=json.loads(resp.read())
+                  text=raw['candidates'][0]['content']['parts'][0]['text'].strip()
                   if '```' in text:
-                      text = text.split('```')[1]
-                      if text.startswith('json'): text = text[4:]
-                      text = text.strip()
-                  s,e = text.find('{'), text.rfind('}')
+                      text=text.split('```')[1]
+                      if text.startswith('json'): text=text[4:]
+                  s,e=text.find('{'),text.rfind('}')
                   if s>=0 and e>s: text=text[s:e+1]
-                  calib_result = json.loads(text)
-                  print(f'Calibration report generated.')
-              except Exception as e:
-                  print(f'Calibration API error: {e}')
+                  calib_result=json.loads(text)
+                  print('Calibration report generated.')
+              except Exception as e: print(f'Calibration API error: {e}')
 
-          # Save calibration to insights.json
+          # Save calibration + suggested weights to insights.json
           try:
-              with open(OUT_FILE) as f: existing = json.load(f)
-          except: existing = {}
-
-          existing['calibration'] = {
-              'updatedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+              with open(OUT_FILE) as f: existing=json.load(f)
+          except: existing={}
+          existing['calibration']={
+              'updatedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
               'accuracy': accuracy,
+              'factorPower': factor_power,
+              'currentWeights': CURRENT_WEIGHTS,
+              'suggestedWeights': suggested_weights,
               'topWins':  [list(x) for x in wins[:5]],
               'topMisses':[list(x) for x in misses[:5]],
               'aiReport': calib_result,
-              'dataPoints': accuracy['BUY']['count'] + accuracy['HOLD']['count'] + accuracy['AVOID']['count']
+              'dataPoints': accuracy['BUY']['count']+accuracy['HOLD']['count']+accuracy['AVOID']['count'],
+              'status': 'pending_approval'
           }
-          with open(OUT_FILE, 'w', encoding='utf-8') as f:
-              json.dump(existing, f, ensure_ascii=False, indent=1)
-          print(f'Calibration saved to {OUT_FILE}')
+          with open(OUT_FILE,'w',encoding='utf-8') as f: json.dump(existing,f,ensure_ascii=False,indent=1)
+          print(f'Calibration saved with suggested weights.')
           EOF
 
 
