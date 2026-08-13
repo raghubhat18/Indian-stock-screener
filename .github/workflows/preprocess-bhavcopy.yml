@@ -1,0 +1,143 @@
+name: Pre-process bhavcopy data
+
+# Runs after you push new bhavcopy files.
+# Reads all CSVs, strips them to essentials, writes one compact JSON.
+# Result: app loads in 3-5 seconds instead of 30-60 seconds, even after cache clear.
+on:
+  push:
+    paths:
+      - 'docs/data/bhavcopy/**'   # auto-triggers when you push new bhavcopy files
+  workflow_run:
+    workflows: ["Update dates index"]  # also runs after update-dates.yml finishes
+    types: [completed]
+  workflow_dispatch:               # manual trigger anytime
+
+permissions:
+  contents: write
+
+jobs:
+  preprocess:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pre-process bhavcopy CSVs into compact JSON
+        run: |
+          python3 - << 'EOF'
+          import os, csv, json, glob, time, gzip
+
+          BHAV_DIR  = 'docs/data/bhavcopy'
+          OUT_FILE  = 'docs/data/prices.json'
+          OUT_GZ    = 'docs/data/prices.json.gz'
+
+          bhav_files = sorted(glob.glob(f'{BHAV_DIR}/*.csv'))
+          if not bhav_files:
+              print('No bhavcopy files found'); exit(0)
+
+          print(f'Processing {len(bhav_files)} bhavcopy files...')
+          start = time.time()
+
+          # Output structure:
+          # {
+          #   "dates": ["2024-01-01", ...],           sorted date list
+          #   "symbols": { "RELIANCE": {...}, ... }    one entry per symbol
+          #   "data": {
+          #     "RELIANCE": [[c,o,h,l,v], ...]        aligned to dates array
+          #   }
+          # }
+          # Null values for dates where the stock didn't trade
+
+          all_dates = []
+          # raw_data[sym][date] = [close, open, high, low, volume]
+          raw_data  = {}
+          names     = {}   # sym -> company name
+
+          for fp in bhav_files:
+              date_str = os.path.basename(fp).replace('.csv', '')
+              all_dates.append(date_str)
+              try:
+                  with open(fp, encoding='utf-8-sig') as f:
+                      for row in csv.DictReader(f):
+                          if (row.get('SctySrs') or '').strip() != 'EQ':
+                              continue
+                          sym = (row.get('TckrSymb') or '').strip().upper()
+                          if not sym: continue
+                          try:
+                              c = float(row.get('ClsPric')     or 0)
+                              o = float(row.get('OpnPric')     or c)
+                              h = float(row.get('HghPric')     or c)
+                              l = float(row.get('LwPric')      or c)
+                              v = float(row.get('TtlTradgVol') or row.get('TotTrdQty') or 0)
+                              if not c: continue
+                              if sym not in raw_data:
+                                  raw_data[sym] = {}
+                              raw_data[sym][date_str] = [
+                                  round(c, 2),
+                                  round(o, 2),
+                                  round(h, 2),
+                                  round(l, 2),
+                                  int(v)
+                              ]
+                              name = (row.get('FinInstrmNm') or '').strip()
+                              if name and sym not in names:
+                                  names[sym] = name
+                          except: pass
+              except Exception as e:
+                  print(f'  Error reading {fp}: {e}')
+
+          all_dates.sort()
+          print(f'  Dates: {len(all_dates)}, Symbols: {len(raw_data)}')
+
+          # Build aligned arrays — null for missing dates
+          # Only keep symbols that traded on at least 10% of dates (filter penny/suspended)
+          min_sessions = max(1, len(all_dates) // 10)
+          data = {}
+          for sym, date_map in raw_data.items():
+              if len(date_map) < min_sessions: continue
+              arr = []
+              for d in all_dates:
+                  if d in date_map:
+                      arr.append(date_map[d])
+                  else:
+                      arr.append(None)   # didn't trade that day
+              data[sym] = arr
+
+          print(f'  Retained {len(data)} symbols (filtered low-activity)')
+
+          out = {
+              'generatedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+              'dates':  all_dates,
+              'names':  names,
+              'data':   data
+          }
+
+          os.makedirs(os.path.dirname(OUT_FILE), exist_ok=True)
+
+          # Write plain JSON
+          json_str = json.dumps(out, separators=(',', ':'))
+          with open(OUT_FILE, 'w', encoding='utf-8') as f:
+              f.write(json_str)
+
+          json_size = os.path.getsize(OUT_FILE) / 1024 / 1024
+
+          # Write gzipped version for even faster loading
+          with gzip.open(OUT_GZ, 'wb') as f:
+              f.write(json_str.encode('utf-8'))
+
+          gz_size = os.path.getsize(OUT_GZ) / 1024 / 1024
+
+          elapsed = time.time() - start
+          print(f'\n✅ Done in {elapsed:.1f}s')
+          print(f'   prices.json:    {json_size:.1f} MB')
+          print(f'   prices.json.gz: {gz_size:.1f} MB')
+          print(f'   {len(all_dates)} dates × {len(data)} symbols')
+          EOF
+
+      - name: Commit processed data
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data/prices.json docs/data/prices.json.gz
+          git diff --staged --quiet || git commit -m "Pre-process bhavcopy → prices.json ($(date +%Y-%m-%d))"
+          git pull --rebase origin main
+          git push
