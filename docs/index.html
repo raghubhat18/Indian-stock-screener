@@ -1953,39 +1953,73 @@
             buildMomentumSnapshot(); renderList();
         };
 
-        // ── NEWS BRIEFING TAB ─────────────────────────────────────────────
-        let briefingCache = null;
+        // ── NEWS BRIEFING TAB — Inshorts-style swipeable cards ───────────
+        let briefingCache    = null;
         let briefingCategory = 'Markets';
+        let briefingIndex    = 0;
 
         const BRIEFING_CATS = [
-            {key:'Markets',      icon:'📈'},
-            {key:'Geo-Political',icon:'🌍'},
-            {key:'AI & Tech',    icon:'🤖'},
+            {key:'Markets',        icon:'📈'},
+            {key:'Geo-Political',  icon:'🌍'},
+            {key:'AI & Tech',      icon:'🤖'},
             {key:'Data & Insights',icon:'📊'},
-            {key:'India',        icon:'🇮🇳'},
-            {key:'General',      icon:'🌐'},
+            {key:'India',          icon:'🇮🇳'},
+            {key:'General',        icon:'🌐'},
         ];
 
+        const BRIEFING_COLORS = {
+            'Markets':         {c:'#34d399', bg:'rgba(52,211,153,0.07)',  bd:'rgba(52,211,153,0.25)'},
+            'Geo-Political':   {c:'#f87171', bg:'rgba(248,113,113,0.07)', bd:'rgba(248,113,113,0.25)'},
+            'AI & Tech':       {c:'#a78bfa', bg:'rgba(167,139,250,0.07)', bd:'rgba(167,139,250,0.25)'},
+            'Data & Insights': {c:'#38bdf8', bg:'rgba(56,189,248,0.07)',  bd:'rgba(56,189,248,0.25)'},
+            'India':           {c:'#fb923c', bg:'rgba(251,146,60,0.07)',  bd:'rgba(251,146,60,0.25)'},
+            'General':         {c:'#e2e8f0', bg:'rgba(226,232,240,0.05)', bd:'rgba(226,232,240,0.15)'},
+        };
+
         async function renderBriefingTab(container) {
+            // Inject styles once
+            if (!document.getElementById('briefing-style')) {
+                const s = document.createElement('style');
+                s.id = 'briefing-style';
+                s.textContent = `
+                    .br-cat { flex-shrink:0; padding:7px 14px; border-radius:20px; font-size:13px;
+                        font-weight:700; border:1px solid #1e293b; background:#0f172a;
+                        color:#475569; cursor:pointer; transition:all .15s; white-space:nowrap; }
+                    .br-cat:hover { color:#94a3b8; }
+                    .br-cat.br-active { color:var(--br-col); border-color:var(--br-col);
+                        background:rgba(255,255,255,0.04); }
+                    .br-card { border-radius:20px; overflow:hidden; transition:transform .15s; }
+                    .br-card:active { transform:scale(0.99); }
+                `;
+                document.head.appendChild(s);
+            }
+
             container.innerHTML = `
-                <div id="briefing-wrap" class="flex flex-col gap-3">
+                <div class="flex flex-col gap-3">
+                    <!-- Category strip -->
                     <div class="flex overflow-x-auto gap-2 pb-1 shrink-0" style="scrollbar-width:none">
                         ${BRIEFING_CATS.map(c =>
-                            `<button class="briefing-cat-btn" data-cat="${escapeHtml(c.key)}"
-                                onclick="setBriefingCat('${escapeHtml(c.key)}')"
-                                style="flex-shrink:0;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid #334155;background:#1e293b;color:#64748b;cursor:pointer;white-space:nowrap;transition:all .15s">
+                            `<button class="br-cat" data-cat="${escapeHtml(c.key)}"
+                                onclick="setBriefingCat('${escapeHtml(c.key)}')">
                                 ${c.icon} ${c.key}
                             </button>`
                         ).join('')}
                     </div>
-                    <div id="briefing-body">
-                        <div style="display:flex;align-items:center;justify-content:center;height:200px;color:#475569;font-size:14px">
-                            Loading briefing...
-                        </div>
+                    <!-- Card area -->
+                    <div id="briefing-card-area"></div>
+                    <!-- Not financial advice footer -->
+                    <div style="font-size:10px;color:#1e293b;text-align:center">
+                        Summarised by AI · Tap card to read full article
                     </div>
                 </div>`;
 
+            // Load cache
             if (!briefingCache) {
+                document.getElementById('briefing-card-area').innerHTML = `
+                    <div style="text-align:center;padding:48px 24px;color:#475569">
+                        <div style="font-size:36px;margin-bottom:12px">📡</div>
+                        <div style="font-size:15px;font-weight:700;color:#64748b">Loading briefing...</div>
+                    </div>`;
                 try {
                     const resp = await fetch('data/briefing.json');
                     if (resp.ok) briefingCache = await resp.json();
@@ -1997,74 +2031,122 @@
 
         window.setBriefingCat = function(cat) {
             briefingCategory = cat;
-            document.querySelectorAll('.briefing-cat-btn').forEach(b => {
-                const active = b.dataset.cat === cat;
-                b.style.background   = active ? '#0c1829' : '#1e293b';
-                b.style.borderColor  = active ? '#38bdf8' : '#334155';
-                b.style.color        = active ? '#38bdf8' : '#64748b';
+            briefingIndex    = 0;
+            const col = (BRIEFING_COLORS[cat] || BRIEFING_COLORS['General']).c;
+            document.querySelectorAll('.br-cat').forEach(b => {
+                b.classList.toggle('br-active', b.dataset.cat === cat);
+                if (b.dataset.cat === cat) b.style.setProperty('--br-col', col);
             });
-            renderBriefingStories(cat);
+            renderBriefingCard();
         };
 
-        function renderBriefingStories(cat) {
-            const body = document.getElementById('briefing-body');
-            if (!body) return;
+        window.briefingNav = function(dir) {
+            const stories = ((briefingCache||{}).briefing||{})[briefingCategory] || [];
+            briefingIndex = Math.max(0, Math.min(briefingIndex + dir, stories.length - 1));
+            renderBriefingCard();
+        };
+
+        function renderBriefingCard() {
+            const area = document.getElementById('briefing-card-area');
+            if (!area) return;
 
             if (!briefingCache) {
-                body.innerHTML = `
-                    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:280px;gap:12px;text-align:center">
-                        <div style="font-size:40px">📰</div>
-                        <div style="font-size:16px;font-weight:700;color:#94a3b8">Briefing not generated yet</div>
-                        <div style="font-size:13px;color:#475569;max-width:280px;line-height:1.6">
+                area.innerHTML = `
+                    <div style="text-align:center;padding:48px 24px">
+                        <div style="font-size:36px;margin-bottom:12px">📰</div>
+                        <div style="font-size:16px;font-weight:700;color:#94a3b8;margin-bottom:8px">Briefing not generated yet</div>
+                        <div style="font-size:13px;color:#475569;line-height:1.6;max-width:280px;margin:0 auto">
                             Add <code style="background:#1e293b;padding:2px 6px;border-radius:4px;color:#38bdf8">update-briefing.yml</code>
-                            to your GitHub workflows and run it once.
+                            to your GitHub workflows and run it once to populate this feed.
                         </div>
                     </div>`; return;
             }
 
-            const stories = (briefingCache.briefing || {})[cat] || [];
-            const updatedAt = briefingCache.updatedAt
-                ? new Date(briefingCache.updatedAt).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})
-                : '';
-            const isMobile = window.innerWidth < 768;
-
+            const stories = ((briefingCache.briefing)||{})[briefingCategory] || [];
             if (!stories.length) {
-                body.innerHTML = `<div style="text-align:center;padding:40px;color:#475569;font-size:14px">No stories in this category yet</div>`;
+                area.innerHTML = `<div style="text-align:center;padding:48px 24px;color:#475569;font-size:14px">No stories in this category</div>`;
                 return;
             }
 
-            const ICONS = {'Markets':'📈','Geo-Political':'🌍','AI & Tech':'🤖','Data & Insights':'📊','India':'🇮🇳','General':'🌐'};
-            const icon = ICONS[cat] || '📰';
+            const idx  = Math.max(0, Math.min(briefingIndex, stories.length - 1));
+            const s    = stories[idx];
+            const pal  = BRIEFING_COLORS[briefingCategory] || BRIEFING_COLORS['General'];
+            const cat  = BRIEFING_CATS.find(c => c.key === briefingCategory);
+            const icon = cat ? cat.icon : '📰';
 
-            body.innerHTML = `
-                <div style="font-size:11px;color:#334155;margin-bottom:8px;font-family:monospace">
-                    ${icon} ${cat} · ${stories.length} stories · Updated ${updatedAt}
-                </div>
-                <div style="display:flex;flex-direction:column;gap:${isMobile?'10':'12'}px">
-                    ${stories.map((s, i) => {
-                        // Parse pubDate to relative time
-                        let timeStr = '';
-                        try {
-                            const d = new Date(s.pubDate);
-                            const diff = (Date.now() - d) / 3600000;
-                            timeStr = diff < 1 ? 'Just now' : diff < 24 ? Math.round(diff) + 'h ago' : Math.round(diff/24) + 'd ago';
-                        } catch(e) {}
+            // Relative time
+            let timeStr = '';
+            try {
+                const diff = (Date.now() - new Date(s.pubDate)) / 3600000;
+                timeStr = diff < 1 ? 'Just now' : diff < 24 ? Math.round(diff) + 'h ago' : Math.round(diff/24) + 'd ago';
+            } catch(e) {}
 
-                        return `<a href="${escapeHtml(s.link)}" target="_blank" rel="noopener"
-                            style="display:block;text-decoration:none;background:#0f172a;border:1px solid #1e293b;border-radius:${isMobile?'14':'16'}px;padding:${isMobile?'14px 16px':'16px 20px'};transition:border-color .15s;cursor:pointer"
-                            onmouseover="this.style.borderColor='#334155'" onmouseout="this.style.borderColor='#1e293b'">
-                            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px">
-                                <div style="font-size:${isMobile?'14':'15'}px;font-weight:700;color:#f1f5f9;line-height:1.4;flex:1">${escapeHtml(s.title)}</div>
-                                <div style="flex-shrink:0;font-size:10px;color:#334155;text-align:right;margin-top:2px;line-height:1.4">
-                                    ${timeStr ? `<div style="color:#475569">${timeStr}</div>` : ''}
-                                    <div style="color:#334155;margin-top:2px">${escapeHtml(s.source||'')}</div>
-                                </div>
+            // Progress dots
+            const dots = stories.map((_,i) =>
+                `<div style="flex:1;height:3px;border-radius:2px;background:${i <= idx ? pal.c : '#1e293b'}"></div>`
+            ).join('');
+
+            area.innerHTML = `
+                <div class="br-card" style="border:1px solid ${pal.bd};background:${pal.bg}"
+                     id="br-swipe"
+                     ontouchstart="this._tx=event.touches[0].clientX"
+                     ontouchend="const d=this._tx-event.changedTouches[0].clientX;if(Math.abs(d)>50)briefingNav(d>0?1:-1)">
+
+                    <!-- Progress + counter -->
+                    <div style="display:flex;gap:4px;padding:14px 16px 10px;align-items:center">
+                        ${dots}
+                        <span style="font-size:11px;color:#334155;margin-left:6px;flex-shrink:0;font-weight:600">${idx+1}/${stories.length}</span>
+                    </div>
+
+                    <div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:14px">
+
+                        <!-- Category badge + time -->
+                        <div style="display:flex;justify-content:space-between;align-items:center">
+                            <div style="font-size:12px;font-weight:700;color:${pal.c};background:${pal.bg};border:1px solid ${pal.bd};padding:4px 12px;border-radius:20px">
+                                ${icon} ${briefingCategory}
                             </div>
-                            <p style="font-size:${isMobile?'13':'14'}px;color:#94a3b8;line-height:1.7;margin:0">${escapeHtml(s.summary||'')}</p>
-                            <div style="margin-top:10px;font-size:11px;color:#334155;font-weight:600;letter-spacing:.03em">READ MORE →</div>
-                        </a>`;
-                    }).join('')}
-                </div>`;
+                            <div style="text-align:right">
+                                ${timeStr ? `<div style="font-size:11px;color:#334155;font-weight:600">${timeStr}</div>` : ''}
+                                <div style="font-size:10px;color:#1e293b;margin-top:1px">${escapeHtml(s.source||'')}</div>
+                            </div>
+                        </div>
+
+                        <!-- Headline — big and bold -->
+                        <div style="font-size:20px;font-weight:800;color:#f1f5f9;line-height:1.35">
+                            ${escapeHtml(s.title)}
+                        </div>
+
+                        <!-- Divider -->
+                        <div style="height:1px;background:${pal.bd}"></div>
+
+                        <!-- AI Summary — the Inshorts-style body -->
+                        <p style="font-size:15px;color:#cbd5e1;line-height:1.75;margin:0">
+                            ${escapeHtml(s.summary || '')}
+                        </p>
+
+                        <!-- Read more link -->
+                        <a href="${escapeHtml(s.link)}" target="_blank" rel="noopener"
+                           style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:${pal.c};text-decoration:none;letter-spacing:.04em;margin-top:2px">
+                            READ FULL ARTICLE ↗
+                        </a>
+
+                        <!-- Nav buttons -->
+                        <div style="display:flex;gap:8px;margin-top:4px">
+                            <button onclick="briefingNav(-1)"
+                                style="flex:1;padding:12px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid #1e293b;color:${idx===0?'#1e293b':'#64748b'};font-size:14px;font-weight:700;cursor:pointer"
+                                ${idx===0?'disabled':''}>← Prev</button>
+                            <button onclick="briefingNav(1)"
+                                style="flex:1;padding:12px;border-radius:12px;background:${pal.bg};border:1px solid ${pal.bd};color:${pal.c};font-size:14px;font-weight:700;cursor:pointer"
+                                ${idx===stories.length-1?'disabled':''}>Next →</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Last updated -->
+                ${briefingCache.updatedAt ? `<div style="text-align:center;font-size:10px;color:#1e293b;margin-top:8px">
+                    Last updated ${new Date(briefingCache.updatedAt).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}
+                </div>` : ''}`;
         }
 
         function calcLongTermScore(ticker) {
