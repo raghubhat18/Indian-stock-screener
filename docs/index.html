@@ -159,6 +159,7 @@
                 <button onclick="loadView('bearish')" id="btn-view-bearish" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">📉 TOP LOSERS</button>
                 <button onclick="loadView('longterm')" id="btn-view-longterm" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">🏆 LONG TERM</button>
                 <button onclick="loadView('aiinsights')" id="btn-view-aiinsights" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">🤖 AI INSIGHTS</button>
+                <button onclick="loadView('briefing')" id="btn-view-briefing" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">📰 BRIEFING</button>
             </div>
 
             <div class="flex flex-col gap-3 border-t border-slate-600 pt-3">
@@ -263,7 +264,8 @@
             bullish:    { key: 'change',     dir: 'desc' },
             bearish:    { key: 'change',     dir: 'asc'  },
             longterm:   { key: 'longterm',   dir: 'desc' },
-            aiinsights: { key: 'aiinsights', dir: 'desc' }
+            aiinsights: { key: 'aiinsights', dir: 'desc' },
+            briefing:   { key: 'briefing',   dir: 'desc' }
         };
         const DEFAULT_DIR = { momentum: 'desc', volume: 'desc', change: 'desc', price: 'desc', rsi: 'asc', name: 'asc', longterm: 'desc', aiinsights: 'desc' };
 
@@ -1479,7 +1481,7 @@
             const [descLabel, ascLabel] = labels[sortKey] || ['High to Low', 'Low to High'];
             dirBtn.textContent = sortDir === 'desc' ? `↓ ${descLabel}` : `↑ ${ascLabel}`;
 
-            const allTabs = ['momentum', 'traded', 'bullish', 'bearish', 'longterm', 'aiinsights'];
+            const allTabs = ['momentum', 'traded', 'bullish', 'bearish', 'longterm', 'aiinsights', 'briefing'];
             allTabs.forEach(v => {
                 const btn = document.getElementById(`btn-view-${v}`);
                 if (btn) {
@@ -1951,6 +1953,120 @@
             buildMomentumSnapshot(); renderList();
         };
 
+        // ── NEWS BRIEFING TAB ─────────────────────────────────────────────
+        let briefingCache = null;
+        let briefingCategory = 'Markets';
+
+        const BRIEFING_CATS = [
+            {key:'Markets',      icon:'📈'},
+            {key:'Geo-Political',icon:'🌍'},
+            {key:'AI & Tech',    icon:'🤖'},
+            {key:'Data & Insights',icon:'📊'},
+            {key:'India',        icon:'🇮🇳'},
+            {key:'General',      icon:'🌐'},
+        ];
+
+        async function renderBriefingTab(container) {
+            container.innerHTML = `
+                <div id="briefing-wrap" class="flex flex-col gap-3">
+                    <div class="flex overflow-x-auto gap-2 pb-1 shrink-0" style="scrollbar-width:none">
+                        ${BRIEFING_CATS.map(c =>
+                            `<button class="briefing-cat-btn" data-cat="${escapeHtml(c.key)}"
+                                onclick="setBriefingCat('${escapeHtml(c.key)}')"
+                                style="flex-shrink:0;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid #334155;background:#1e293b;color:#64748b;cursor:pointer;white-space:nowrap;transition:all .15s">
+                                ${c.icon} ${c.key}
+                            </button>`
+                        ).join('')}
+                    </div>
+                    <div id="briefing-body">
+                        <div style="display:flex;align-items:center;justify-content:center;height:200px;color:#475569;font-size:14px">
+                            Loading briefing...
+                        </div>
+                    </div>
+                </div>`;
+
+            if (!briefingCache) {
+                try {
+                    const resp = await fetch('data/briefing.json');
+                    if (resp.ok) briefingCache = await resp.json();
+                } catch(e) {}
+            }
+
+            setBriefingCat(briefingCategory);
+        }
+
+        window.setBriefingCat = function(cat) {
+            briefingCategory = cat;
+            document.querySelectorAll('.briefing-cat-btn').forEach(b => {
+                const active = b.dataset.cat === cat;
+                b.style.background   = active ? '#0c1829' : '#1e293b';
+                b.style.borderColor  = active ? '#38bdf8' : '#334155';
+                b.style.color        = active ? '#38bdf8' : '#64748b';
+            });
+            renderBriefingStories(cat);
+        };
+
+        function renderBriefingStories(cat) {
+            const body = document.getElementById('briefing-body');
+            if (!body) return;
+
+            if (!briefingCache) {
+                body.innerHTML = `
+                    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:280px;gap:12px;text-align:center">
+                        <div style="font-size:40px">📰</div>
+                        <div style="font-size:16px;font-weight:700;color:#94a3b8">Briefing not generated yet</div>
+                        <div style="font-size:13px;color:#475569;max-width:280px;line-height:1.6">
+                            Add <code style="background:#1e293b;padding:2px 6px;border-radius:4px;color:#38bdf8">update-briefing.yml</code>
+                            to your GitHub workflows and run it once.
+                        </div>
+                    </div>`; return;
+            }
+
+            const stories = (briefingCache.briefing || {})[cat] || [];
+            const updatedAt = briefingCache.updatedAt
+                ? new Date(briefingCache.updatedAt).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})
+                : '';
+            const isMobile = window.innerWidth < 768;
+
+            if (!stories.length) {
+                body.innerHTML = `<div style="text-align:center;padding:40px;color:#475569;font-size:14px">No stories in this category yet</div>`;
+                return;
+            }
+
+            const ICONS = {'Markets':'📈','Geo-Political':'🌍','AI & Tech':'🤖','Data & Insights':'📊','India':'🇮🇳','General':'🌐'};
+            const icon = ICONS[cat] || '📰';
+
+            body.innerHTML = `
+                <div style="font-size:11px;color:#334155;margin-bottom:8px;font-family:monospace">
+                    ${icon} ${cat} · ${stories.length} stories · Updated ${updatedAt}
+                </div>
+                <div style="display:flex;flex-direction:column;gap:${isMobile?'10':'12'}px">
+                    ${stories.map((s, i) => {
+                        // Parse pubDate to relative time
+                        let timeStr = '';
+                        try {
+                            const d = new Date(s.pubDate);
+                            const diff = (Date.now() - d) / 3600000;
+                            timeStr = diff < 1 ? 'Just now' : diff < 24 ? Math.round(diff) + 'h ago' : Math.round(diff/24) + 'd ago';
+                        } catch(e) {}
+
+                        return `<a href="${escapeHtml(s.link)}" target="_blank" rel="noopener"
+                            style="display:block;text-decoration:none;background:#0f172a;border:1px solid #1e293b;border-radius:${isMobile?'14':'16'}px;padding:${isMobile?'14px 16px':'16px 20px'};transition:border-color .15s;cursor:pointer"
+                            onmouseover="this.style.borderColor='#334155'" onmouseout="this.style.borderColor='#1e293b'">
+                            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px">
+                                <div style="font-size:${isMobile?'14':'15'}px;font-weight:700;color:#f1f5f9;line-height:1.4;flex:1">${escapeHtml(s.title)}</div>
+                                <div style="flex-shrink:0;font-size:10px;color:#334155;text-align:right;margin-top:2px;line-height:1.4">
+                                    ${timeStr ? `<div style="color:#475569">${timeStr}</div>` : ''}
+                                    <div style="color:#334155;margin-top:2px">${escapeHtml(s.source||'')}</div>
+                                </div>
+                            </div>
+                            <p style="font-size:${isMobile?'13':'14'}px;color:#94a3b8;line-height:1.7;margin:0">${escapeHtml(s.summary||'')}</p>
+                            <div style="margin-top:10px;font-size:11px;color:#334155;font-weight:600;letter-spacing:.03em">READ MORE →</div>
+                        </a>`;
+                    }).join('')}
+                </div>`;
+        }
+
         function calcLongTermScore(ticker) {
             const d = stockData[ticker];
             if (!d) return -Infinity;
@@ -2043,7 +2159,16 @@
 
             // ---- AI INSIGHTS TAB — completely different layout ----
             if (activeTab === 'aiinsights') {
-                renderAIInsightsTab(container, searchVal);
+                container.className = 'flex flex-col gap-3';
+                container.style.height = '';
+                renderAIInsightsTab(container);
+                return;
+            }
+
+            if (activeTab === 'briefing') {
+                container.className = 'flex flex-col';
+                container.style.height = '';
+                renderBriefingTab(container);
                 return;
             }
 
