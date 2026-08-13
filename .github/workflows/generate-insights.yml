@@ -121,28 +121,30 @@ jobs:
           def top_n(pool, fn, n):
               return sorted(pool, key=fn, reverse=True)[:n]
 
-          selected = {}  # sym -> category
+          # Each category is INDEPENDENT — no deduplication.
+          # A stock can appear in multiple categories (e.g. RELIANCE in both Large Cap and Momentum).
+          # This ensures every category always has stocks.
+          categories = {
+              'Top Momentum':   top_n(all_syms, mom_score, TOP_N),
+              'Top Fundamentals': top_n(fund_syms, fund_score, TOP_N),
+              'Large Cap':      top_n([s for s in all_syms if cap_map.get(s) == 'LargeCap'],  mom_score, 5),
+              'Mid Cap':        top_n([s for s in all_syms if cap_map.get(s) == 'MidCap'],    mom_score, 5),
+              'Small Cap':      top_n([s for s in all_syms if cap_map.get(s) == 'SmallCap'],  mom_score, 5),
+              'Long Term Pick': top_n([s for s in fund_syms if fund_score(s) > 20],
+                                     lambda s: fund_score(s) - max(0, mom_score(s) * 0.3), 5),
+          }
 
-          for s in top_n(all_syms, mom_score, TOP_N):
-              selected[s] = 'Top Momentum'
-          for s in top_n(fund_syms, fund_score, TOP_N):
-              if s not in selected: selected[s] = 'Top Fundamentals'
-          for s in top_n([s for s in all_syms if cap_map.get(s) == 'LargeCap'], mom_score, 5):
-              if s not in selected: selected[s] = 'Large Cap'
-          for s in top_n([s for s in all_syms if cap_map.get(s) == 'MidCap'], mom_score, 5):
-              if s not in selected: selected[s] = 'Mid Cap'
-          for s in top_n([s for s in all_syms if cap_map.get(s) == 'SmallCap'], mom_score, 5):
-              if s not in selected: selected[s] = 'Small Cap'
-          # Long term: best fundamentals with lower momentum (quality dip)
-          lt_pool = [s for s in fund_syms if fund_score(s) > 20]
-          for s in top_n(lt_pool, lambda s: fund_score(s) - max(0, mom_score(s) * 0.3), 5):
-              if s not in selected: selected[s] = 'Long Term Pick'
+          # Build a flat list of unique syms to analyse, preserving first-seen category
+          selected = {}  # sym -> primary category (for display)
+          for cat, syms in categories.items():
+              for s in syms:
+                  if s not in selected:
+                      selected[s] = cat  # first category wins for primary label
 
           top_syms = list(selected.keys())
-          print(f'\nSelected {len(top_syms)} stocks:')
-          for cat in ['Top Momentum','Top Fundamentals','Large Cap','Mid Cap','Small Cap','Long Term Pick']:
-              in_cat = [s for s,c in selected.items() if c==cat]
-              if in_cat: print(f'  {cat}: {", ".join(in_cat)}')
+          print(f'\nSelected {len(top_syms)} unique stocks across categories:')
+          for cat, syms in categories.items():
+              print(f'  {cat} ({len(syms)}): {", ".join(syms[:5])}{"..." if len(syms)>5 else ""}')
 
           # ── Discover working model ─────────────────────────────────────────
           CANDIDATES = [
@@ -315,15 +317,88 @@ jobs:
                   errors += 1
                   print(f'  ERR ({i+1}/{len(top_syms)}) {sym}: {result["error"][:100]}')
               else:
-                  result['category'] = selected.get(sym, '')
-                  result['name']      = latest_prices.get(sym, {}).get('name', sym)
-                  result['price']     = latest_prices.get(sym, {}).get('price', 0)
-                  result['changePct'] = round(latest_prices.get(sym, {}).get('change_pct', 0), 2)
+                  all_cats = [cat for cat, syms in categories.items() if sym in syms]
+                  result['category']   = selected.get(sym, '')
+                  result['categories'] = all_cats
+                  result['name']       = latest_prices.get(sym, {}).get('name', sym)
+                  result['price']      = latest_prices.get(sym, {}).get('price', 0)
+                  result['changePct']  = round(latest_prices.get(sym, {}).get('change_pct', 0), 2)
                   insights[sym] = result
                   print(f'  OK  ({i+1}/{len(top_syms)}) {sym}: {result["summary"][:70]}')
 
           write_out(insights, WORKING_MODEL)
           print(f'\nDone in {time.time()-start:.0f}s: {len(insights)} insights, {errors} errors.')
+
+          # ── MOMENTUM RADAR ────────────────────────────────────────────────
+          # One Gemini call that looks at top performers across 4 timeframes
+          # and picks the most interesting ones with reasoning.
+          print('\n📡 Building Momentum Radar...')
+          time.sleep(DELAY)
+
+          TIMEFRAMES = [('1W',5,'1 Week'),('2W',10,'2 Weeks'),('1M',22,'1 Month'),('6M',132,'6 Months')]
+
+          def get_ret(sym, n):
+              h = price_history.get(sym,[])
+              if len(h) < n: return None
+              s,e = h[-n]['c'], h[-1]['c']
+              return (e-s)/s*100 if s else None
+
+          radar_lines = [
+              'You are an equity analyst. Below are top NSE momentum stocks across 4 timeframes.',
+              'Pick the 3 most interesting stocks per timeframe and explain why in 1-2 sentences.',
+              'Consider: volume backing, fundamental quality, sustainability of move.',
+              'Reply ONLY with valid JSON, no markdown.',
+              'Format: {"1W":{"picks":[{"sym":"X","name":"Y","return":12.5,"reason":"..."}]},"2W":{...},"1M":{...},"6M":{...},"marketPulse":"2-3 sentences on current market conditions"}',
+              '',
+          ]
+          for tf_key, sessions, tf_label in TIMEFRAMES:
+              candidates = []
+              for sym in all_syms:
+                  ret = get_ret(sym, sessions)
+                  if ret is None: continue
+                  d = latest_prices.get(sym,{})
+                  f = fundamentals.get(sym,{})
+                  row = f'{sym}({d.get("name","")[:20]}): {ret:+.1f}% | ₹{d.get("price",0):.0f}'
+                  if cap_map.get(sym): row += f' | {cap_map[sym]}'
+                  if f.get('ROE'):          row += f' | ROE {f["ROE"]}%'
+                  if f.get('DebtToEquity'): row += f' | D/E {f["DebtToEquity"]}'
+                  candidates.append((ret, sym, row))
+              candidates.sort(reverse=True)
+              radar_lines.append(f'--- {tf_label} Top 15 ---')
+              radar_lines += [r for _,_,r in candidates[:15]]
+              radar_lines.append('')
+
+          radar_result = None
+          try:
+              body = json.dumps({
+                  'contents':[{'parts':[{'text':chr(10).join(radar_lines)}]}],
+                  'generationConfig':{'temperature':0.4,'maxOutputTokens':1200}
+              }).encode()
+              req = urllib.request.Request(WORKING_URL, data=body,
+                    headers={'Content-Type':'application/json'}, method='POST')
+              with urllib.request.urlopen(req, timeout=45) as resp:
+                  raw = json.loads(resp.read())
+              text = raw['candidates'][0]['content']['parts'][0]['text'].strip()
+              if '```' in text:
+                  text = text.split('```')[1]
+                  if text.startswith('json'): text = text[4:]
+              s,e = text.find('{'), text.rfind('}')
+              if s>=0 and e>s: text=text[s:e+1]
+              radar_result = json.loads(text)
+              print(f'  Radar generated: {list(radar_result.keys())}')
+          except Exception as ex:
+              print(f'  Radar error: {ex}')
+
+          # Merge radar into insights.json
+          try:
+              with open(OUT_FILE) as f: existing = json.load(f)
+          except: existing = {}
+          if radar_result:
+              existing['radar'] = radar_result
+              existing['radarUpdatedAt'] = time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
+              with open(OUT_FILE,'w',encoding='utf-8') as f:
+                  json.dump(existing, f, ensure_ascii=False, indent=1)
+              print(f'Radar saved.')
 
           # ── HISTORICAL BACKTESTING ────────────────────────────────────────
           # This works from your existing bhavcopy files — no snapshots needed.
