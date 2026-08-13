@@ -1523,7 +1523,12 @@
                 longterm:  'Long Term Pick',
             };
             if (!MAP[cat]) return [];
-            return all.filter(([,i]) => i.category === MAP[cat]);
+            const target = MAP[cat];
+            // Check both 'category' (primary) and 'categories' (all) fields
+            return all.filter(([,i]) =>
+                i.category === target ||
+                (Array.isArray(i.categories) && i.categories.includes(target))
+            );
         }
 
         // Circular progress ring gauge — reliable, no clipping issues
