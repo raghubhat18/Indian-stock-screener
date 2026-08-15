@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-08-14T23:27:33Z",
+ "updatedAt": "2026-08-15T04:25:05Z",
  "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
@@ -12,15 +12,29 @@
  "briefing": {
   "Markets": [
    {
+    "title": "RBI to close FCNR(B) swaps a month earlier due to gush",
+    "summary": "The Reserve Bank of India has moved the FCNR(B) deposit swap deadline to August 31 due to stronger-than-expected foreign currency inflows. Meanwhile, swap schemes for External Commercial Borrowings and Overseas Foreign Currency Borrowings will proceed as planned.",
+    "link": "https://economictimes.indiatimes.com/markets/forex/rbi-to-close-fcnrb-swaps-a-month-earlier-due-to-gush/articleshow/133255361.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Sat, 15 Aug 2026 09:26:17 +0530"
+   },
+   {
+    "title": "Wall St Week Ahead: With US Fed silent on next move, investors look to earnings to keep stocks afloat",
+    "summary": "Investors are focusing on corporate earnings to offset economic risks and interest rate concerns as the Federal Reserve remains silent on its next policy move. Strong financial results and positive company guidance are currently boosting market confidence and outweighing broader macroeconomic worries.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/wall-st-week-ahead-with-us-fed-silent-on-next-move-investors-look-to-earnings-to-keep-stocks-afloat/articleshow/133255266.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Sat, 15 Aug 2026 09:20:05 +0530"
+   },
+   {
     "title": "US stock: S&amp;P 500 ends lower as investors weigh data, Middle East tensions",
-    "summary": "The S&P 500 fell from its peak as weaker retail sales and rising Middle East tensions weighed on investor sentiment. Meanwhile, declines in Applied Materials dragged down AI-related stocks, though rising oil prices and Reddit's index inclusion provided some gains.",
+    "summary": "The S&P 500 fell from its peak as weaker retail sales and rising Middle East tensions caused investor caution. Declines in Applied Materials dragged down AI stocks, while rising oil prices lifted the energy index and Reddit surged on index inclusion news.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/us-stock-sp-500-ends-lower-as-investors-weigh-data-middle-east-tensions/articleshow/133251425.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sat, 15 Aug 2026 01:40:33 +0530"
    },
    {
     "title": "Nvidia’s $500 billion plan envelops Wall Street in its AI frenzy",
-    "summary": "Nvidia has launched a $500 billion financing initiative with major financial institutions to help AI startups purchase computing chips. This strategy aims to address the surging global demand for artificial intelligence hardware and digital infrastructure.",
+    "summary": "Nvidia has launched a financing initiative with major financial institutions to provide debt solutions for AI startups. This strategy aims to help these companies acquire artificial intelligence chips and address the high demand for computing power.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/nvidias-500-billion-plan-envelops-wall-street-in-its-ai-frenzy/articleshow/133249552.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 14 Aug 2026 23:41:45 +0530"
@@ -34,65 +48,51 @@
    },
    {
     "title": "Patanjali Foods Q1 Results: Gross profit rises 35% YoY to Rs 1,521 crore",
-    "summary": "Patanjali Foods reported a 29.33% increase in revenue to ₹11,337 crore and a 35.22% rise in gross profit to ₹1,521 crore for the first quarter of fiscal 2027. The company also declared two interim dividends driven by strong execution across its business segments.",
+    "summary": "Patanjali Foods reported a 29.33% increase in revenue to ₹11,337 crore and a 35.22% rise in gross profit to ₹1,521 crore for the first quarter of FY27. Driven by record revenues and strong execution, the company also declared two interim dividends.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/earnings/patanjali-foods-q1-results-gross-profit-rises-35-yoy-to-rs-1521-crore/articleshow/133246238.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 14 Aug 2026 21:20:21 +0530"
-   },
-   {
-    "title": "Global Markets: Hotter Europe isn't cooling investor fervor for stocks",
-    "summary": "Despite costly summer heatwaves impacting European industries like agriculture and tourism, stock exchanges in Paris, Frankfurt, Madrid, and Milan reached record highs in August. These European market milestones mirrored recent all-time highs for key Wall Street indexes.",
-    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/global-markets-hotter-europe-isnt-cooling-investor-fervor-for-stocks/articleshow/133245914.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Fri, 14 Aug 2026 21:02:01 +0530"
-   },
-   {
-    "title": "Accel India IV offloads 1.3 pc stake in Urban Company",
-    "summary": "Investor Accel India IV sold a 1.3 percent stake in Urban Company through open market deals on August 13, 2026. This transaction reduced the Mauritius-based firm's holdings to 4.84 percent of the home services company.",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/news/accel-india-iv-offloads-1-3-pc-stake-in-urban-company/articleshow/133245881.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Fri, 14 Aug 2026 20:58:38 +0530"
    }
   ],
   "Geo-Political": [
    {
     "title": "Mangione admits killing healthcare CEO and pleads guilty to federal charges",
-    "summary": "Twenty-eight-year-old Mangione pleaded guilty to federal stalking charges resulting in death. He admitted in court to shooting and killing UnitedHealthcare CEO Brian Thompson in Manhattan.",
+    "summary": "Twenty-eight-year-old Mangione admitted to shooting and killing a healthcare CEO in Manhattan. He subsequently pleaded guilty in federal court to charges of stalking resulting in death.",
     "link": "https://www.bbc.co.uk/news/articles/cwy0nlq1l2wo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 14 Aug 2026 19:20:43 GMT"
    },
    {
     "title": "Afghan women tell the BBC their lives are unrecognisable after five years of Taliban rule",
-    "summary": "Five years after the Taliban took control of Afghanistan, women report that their lives are unrecognizable due to severe restrictions. They face public floggings, job losses, and dangerous barriers to accessing healthcare.",
+    "summary": "Five years after the Taliban took control of Afghanistan, women report that their lives are unrecognizable due to severe restrictions. They face public floggings, job losses, and dangerous barriers to healthcare.",
     "link": "https://www.bbc.co.uk/news/articles/clyje43dz4eo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 14 Aug 2026 18:25:38 GMT"
    },
    {
     "title": "US aircraft carrier on way to relieve USS Lincoln after issues reported on board",
-    "summary": "A US aircraft carrier has been deployed to relieve the USS Lincoln following reports of food shortages and broken plumbing on board. Some sailors on the Lincoln have reportedly considered jumping overboard due to these conditions.",
+    "summary": "A US aircraft carrier is deploying to relieve the USS Lincoln following reports of food shortages and broken plumbing on board. Some sailors on the Lincoln have reportedly considered jumping overboard due to these conditions.",
     "link": "https://www.bbc.co.uk/news/articles/c171yp5zdrxo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 14 Aug 2026 17:36:27 GMT"
    },
    {
     "title": "Instagram accounts fuelling Ceuta crisis with paid advice for help to cross",
-    "summary": "A BBC investigation revealed that Instagram accounts are promoting and providing paid advice on how to illegally swim around the Morocco-Ceuta border fence. These profiles are actively fueling the ongoing migration crisis at the Spanish enclave.",
+    "summary": "The BBC's Top Comment podcast uncovered a network of Instagram accounts that romanticize the swim around the Morocco-Ceuta border fence. These profiles provide paid advice to individuals seeking help to cross the border.",
     "link": "https://www.bbc.co.uk/news/articles/c89n20wj9kko?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 14 Aug 2026 12:19:21 GMT"
    },
    {
     "title": "Activists try to deliver aid to Palestinians in homes besieged by Israeli settlers",
-    "summary": "Activists attempted to deliver humanitarian aid to two Palestinian families trapped in their West Bank homes by Israeli settlers. The families have been besieged in their residences for several days.",
+    "summary": "Activists are attempting to deliver humanitarian aid to two Palestinian families trapped in their West Bank homes by Israeli settlers. These families have been besieged inside their residences for several days.",
     "link": "https://www.bbc.co.uk/news/articles/c1w1ylw0p3no?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 14 Aug 2026 17:03:17 GMT"
    },
    {
     "title": "'Unprecedented' rain in Japan kills eight people",
-    "summary": "Unprecedented rain in Japan killed eight people and cut power to more than 20,000 households. The severe storm also left 7,000 people stranded at Tokyo's Narita airport.",
+    "summary": "Unprecedented rain in Japan has killed eight people and left over 20,000 households without power. The severe storm also stranded 7,000 people at Tokyo's Narita airport.",
     "link": "https://www.bbc.co.uk/news/articles/cq561gpen8lo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 14 Aug 2026 10:36:14 GMT"
@@ -101,42 +101,42 @@
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "An affiliate marketer discovered their WordPress SaaS course was recommended as the top result when they asked ChatGPT for the best course on the subject. The author achieved this free traffic without using paid advertising.",
+    "summary": "An online course creator recently discovered that ChatGPT recommended their WordPress SaaS course as the top result without any paid advertising. This experiment highlights a shift in organic traffic generation from traditional SEO to AI optimization.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "This article introduces the top 10 AI tools designed to help digital creators improve their content creation in 2025. It explains that these essential tools are revolutionizing the industry and making the content creation process easier.",
+    "summary": "Looking to level up your content creation game in 2025? You're in the right place! The digital landscape has evolved dra...",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "LimeWire is a generative AI platform that allows users to create digital content. The tool also provides features for creators to share and monetize their work.",
+    "summary": "&nbsp;In the rapidly advancing landscape of AI technology and innovation, LimeWire emerges as a unique platform in the r...",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovation and efficiency in various industries. ...",
+    "summary": "This article explores ten of the most advanced and widely used AI tools in 2023. These applications are designed to automate repetitive tasks, improve workflows, and increase productivity across various industries.",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "This article helps readers navigate the crowded market of artificial intelligence content generators. It highlights the top 10 AI writing tools available in 2022 to help users create efficient and engaging content.",
+    "summary": "This article reviews the top ten artificial intelligence content generator tools available in 2022. It aims to help readers choose the right software to efficiently create engaging and relevant content for their audiences.",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
    },
    {
     "title": "Beginner Guide to CJ Affiliate (Commission Junction) in 2022",
-    "summary": "Image by vectorjuice on FreepikIn this CJ Affiliate guide, I will share with you everything you need to get started on t...",
+    "summary": "This guide explains how beginners can use the CJ Affiliate network to earn money. It also highlights top CJ affiliate programs and alternative platforms.",
     "link": "https://techncruncher.blogspot.com/2022/09/cj-affiliate-ultimate-guide-to.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Sat, 10 Sep 2022 08:57:00 +0000"
@@ -144,134 +144,134 @@
   ],
   "Data & Insights": [
    {
+    "title": "The week in charts: Price pressures, youth unemployment, chairman exit",
+    "summary": "This weekly compilation presents data-driven charts analyzing recent stories reported by Mint. The insights cover topics including price pressures, youth unemployment, and a chairman exit.",
+    "link": "https://www.livemint.com/economy/india-inflation-cpi-rbi-natarajan-chandrasekaran-tata-sons-youth-unemployment-fuel-demand-school-enrolment-11786608180840.html",
+    "source": "livemint.com",
+    "pubDate": "Sat, 15 Aug 2026 06:31:05 +0530"
+   },
+   {
     "title": "India's WPI inflation cools marginally to 9.78% in July as fuel prices ease",
-    "summary": "India's Wholesale Price Index inflation cooled marginally to 9.78% in July as fuel and power inflation moderated to 20.05% from 27.41% in June. Meanwhile, inflation in primary articles and manufactured products accelerated during the same period.",
+    "summary": "India's Wholesale Price Index inflation eased slightly to 9.78% in July due to a moderation in fuel and power inflation to 20.05%. However, inflation for primary articles and manufactured products accelerated during the same period.",
     "link": "https://www.livemint.com/economy/indias-wpi-inflation-cools-marginally-to-9-78-in-july-as-fuel-prices-ease-11786703070968.html",
     "source": "livemint.com",
     "pubDate": "Fri, 14 Aug 2026 17:16:34 +0530"
    },
    {
     "title": "India’s merchandise trade gap widens to a six-month high of $31.98 bn in July",
-    "summary": "India's merchandise trade gap widened to a six-month high of $31.98 billion in July. Meanwhile, merchandise exports for the April-July period rose 17% to $173.78 billion compared to the previous year.",
+    "summary": "India’s merchandise trade deficit widened to a six-month high of $31.98 billion in July. However, merchandise exports grew 17% to $173.78 billion during the April-July period compared to the previous year.",
     "link": "https://www.livemint.com/economy/india-merchandise-exports-record-44-24-billion-july-exports-trade-deficit-imports-engineering-goods-petroleum-products-11786607191019.html",
     "source": "livemint.com",
     "pubDate": "Thu, 13 Aug 2026 15:01:15 +0530"
    },
    {
     "title": "US consumer inflation falls to 3.4% year-on-year in July: Govt",
-    "summary": "U.S. consumer inflation slowed to 3.4% year-on-year in July amid fluctuating oil prices. This decrease matched analyst expectations and may offer the Federal Reserve greater flexibility regarding interest rates.",
+    "summary": "US consumer inflation slowed to 3.4% year-on-year in July, matching analyst expectations. This decline, driven by volatile oil prices, may give the Federal Reserve more flexibility regarding interest rates.",
     "link": "https://www.livemint.com/economy/us-consumer-inflation-falls-to-3-4-year-on-year-in-july-govt-11786539378118.html",
     "source": "livemint.com",
     "pubDate": "Wed, 12 Aug 2026 18:29:22 +0530"
    },
    {
     "title": "India's retail inflation breaches RBI's midpoint target for second successive month, rises to 4.45% in July",
-    "summary": "India's retail inflation rose to 4.45% in July, staying above the Reserve Bank of India's 4% midpoint target for the second consecutive month. This increase was driven by higher food and fuel prices, while elevated oil prices continue to pose economic risks.",
+    "summary": "India's retail inflation rose to 4.45% in July, staying above the Reserve Bank of India's 4% midpoint target for the second consecutive month. This increase was driven by higher food and fuel prices, compounded by rising global oil costs.",
     "link": "https://www.livemint.com/economy/india-inflation-cpi-retail-inflation-july-inflation-rbi-food-inflation-fuel-prices-interest-rates-mpc-gdp-growth-11786518716734.html",
     "source": "livemint.com",
     "pubDate": "Wed, 12 Aug 2026 16:57:40 +0530"
    },
    {
     "title": "Fitch retains India's BBB- sovereign credit rating for 20th year, forecasts GDP growth at 6.4% — Here's what it means",
-    "summary": "Fitch Ratings has maintained India's BBB- sovereign credit rating for the twentieth consecutive year due to a strong growth outlook, while projecting a 6.4% GDP growth rate. The agency also highlighted potential fiscal risks stemming from youth protests over employment issues.",
+    "summary": "Fitch Ratings has maintained India's BBB- sovereign credit rating for the 20th consecutive year, supported by a strong economic growth outlook of 6.4%. However, the agency also highlighted potential fiscal risks stemming from youth protests over employment issues.",
     "link": "https://www.livemint.com/economy/fitch-retains-india-bbb-sovereign-credit-rating-20-year-what-means-growth-gdp-6-4-pc-flags-risks-youth-protest-jobs-war-11786446739555.html",
     "source": "livemint.com",
     "pubDate": "Tue, 11 Aug 2026 17:40:41 +0530"
-   },
-   {
-    "title": "The Sanjeev Sanyal interview: A new age of ideas for India",
-    "summary": "Sanjeev Sanyal states that artificial intelligence is making traditional university models obsolete. He also believes that ensuring workforce employability is a greater challenge for India than simply creating jobs.",
-    "link": "https://www.livemint.com/economy/sanjeev-sanyal-ai-education-jobs-future-of-work-11786447490049.html",
-    "source": "livemint.com",
-    "pubDate": "Tue, 11 Aug 2026 17:13:31 +0530"
    }
   ],
   "India": [
    {
-    "title": "6 Arrested In Connection With Occultist's Murder In UP: Cops",
-    "summary": "Varanasi police in Uttar Pradesh have arrested six people for the alleged murder of occultist Anish Upadhyay. Upadhyay was reportedly killed after being called to perform rituals for a family experiencing financial troubles and illness.",
-    "link": "https://www.ndtv.com/india-news/6-arrested-in-connection-with-occultists-murder-in-ups-varanasi-11912310#publisher=newsstand",
+    "title": "NEET MDS Counselling 2026 Dates Out: Round 1 Registration From August 18",
+    "summary": "The dates for the 2026 NEET MDS counselling have been officially released. Round 1 registration will start on August 18, leading into the choice filling, seat allotment, and admission procedures.",
+    "link": "https://www.ndtv.com/education/neet-mds-counselling-2026-dates-out-round-1-registration-from-august-18-11912905#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Sat, 15 Aug 2026 04:41:31 +0530"
+    "pubDate": "Sat, 15 Aug 2026 09:32:36 +0530"
    },
    {
-    "title": "Man Accused Of Attacking Sukhbir Badal Sent To Police Custody Till August 24",
-    "summary": "Jaspal Singh was sent to police custody until August 24 by a Nanded court on Friday. The 62-year-old is accused of attacking Shiromani Akali Dal chief Sukhbir Singh Badal.",
-    "link": "https://www.ndtv.com/india-news/maharashtra-man-accused-of-attacking-sukhbir-badal-sent-to-police-custody-till-august-24-11912179#publisher=newsstand",
+    "title": "IPS Officer Nupur Prasad, Who Led Sushant Singh Rajput Probe, Awarded President's Medal",
+    "summary": "IPS officer Nupur Prasad has been selected to receive the President's Medal for Distinguished Service. She previously led the CBI investigation into the death of actor Sushant Singh Rajput.",
+    "link": "https://www.ndtv.com/india-news/ips-officer-nupur-prasad-who-led-sushant-singh-rajput-probe-awarded-presidents-medal-11912947#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Sat, 15 Aug 2026 02:33:38 +0530"
+    "pubDate": "Sat, 15 Aug 2026 09:28:37 +0530"
    },
    {
-    "title": "Green India Mission Fell Short By 98% In Increasing Forest Cover: CAG",
-    "summary": "The Comptroller and Auditor General reported that the Green India Mission achieved a forest cover increase of only 0.03 million hectares between 2015 and 2025. This result fell 97.57 percent short of the targeted 1.4 million hectares.",
-    "link": "https://www.ndtv.com/india-news/green-india-mission-fell-short-by-98-in-increasing-forest-cover-cag-11912065#publisher=newsstand",
+    "title": "\"Dimaagi Naxals Need To Be Identified, Isolated\": PM Warns In I-Day Speech",
+    "summary": "During his Independence Day speech, Prime Minister Modi warned that individuals with \"urban Naxal\" mentalities must be identified and isolated. He stated that these ideological extremists pose a threat to the nation and need to be separated from society.",
+    "link": "https://www.ndtv.com/india-news/dimaagi-naxals-need-to-be-identified-isolated-pms-warning-in-independence-day-speech-11912815#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Sat, 15 Aug 2026 01:14:00 +0530"
+    "pubDate": "Sat, 15 Aug 2026 09:27:10 +0530"
    },
    {
-    "title": "Man Arrested For Allegedly Threatening To Kill Hemant Soren",
-    "summary": "A man was arrested in Ranchi on Friday for allegedly threatening to kill Jharkhand Chief Minister Hemant Soren. The threat was made during protests regarding alleged irregularities in recruitment examinations.",
-    "link": "https://www.ndtv.com/india-news/man-arrested-for-allegedly-threatening-to-kill-jharkhand-chief-minister-hemant-soren-11912010#publisher=newsstand",
+    "title": "Brought 650 New Universities, Doubled Medical Seats, Since 2014: Modi",
+    "summary": "During his Independence Day address, Prime Minister Narendra Modi stated that India has added 650 new universities since 2014. He also highlighted that the country has more than doubled its medical seats during the same period.",
+    "link": "https://www.ndtv.com/education/brought-650-new-universities-doubled-medical-seats-since-2014-modi-11912968#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Sat, 15 Aug 2026 00:36:53 +0530"
+    "pubDate": "Sat, 15 Aug 2026 09:25:22 +0530"
    },
    {
-    "title": "Census 2027 To Collect Mobile, Aadhaar, Bank Account Details",
-    "summary": "The upcoming Census 2027 will collect respondents' mobile numbers, Aadhaar details, and bank account information. This marks a departure from previous censuses conducted between 1872 and 2011, which did not request these document details.",
-    "link": "https://www.ndtv.com/india-news/census-2027-to-collect-mobile-aadhaar-bank-account-details-11911984#publisher=newsstand",
+    "title": "Mallikarjun Kharge, Rahul Gandhi Skip Independence Day Event For 2nd Straight Year",
+    "summary": "Congress leaders Mallikarjun Kharge and Rahul Gandhi skipped the official Independence Day celebrations at Red Fort for the second consecutive year. Kharge, who serves as the Leader of the Opposition in the Rajya Sabha, instead hoisted the national flag at the Congress headquarters in New Delhi.",
+    "link": "https://www.ndtv.com/india-news/mallikarjun-kharge-rahul-gandhi-absent-from-independence-day-event-for-2nd-straight-year-11912678#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Sat, 15 Aug 2026 00:25:13 +0530"
+    "pubDate": "Sat, 15 Aug 2026 09:25:17 +0530"
    },
    {
-    "title": "Homoeopaths Can't Practice Other System Of Medicine: Homoeopathy Panel",
-    "summary": "A homeopathy panel stated that homeopaths are prohibited from practicing any other system of medicine. However, an exception to this regulation exists for practitioners working under government programs.",
-    "link": "https://www.ndtv.com/india-news/homoeopaths-cant-practice-other-system-of-medicine-homoeopathy-panel-11911982#publisher=newsstand",
+    "title": "80th Independence Day Live Updates: \"Take Credit, But...\": PM Modi's Appeal To Political Parties On Women Quota",
+    "summary": "Prime Minister Narendra Modi led India's 80th Independence Day celebrations at the Red Fort in Delhi. During the event, he urged political parties to take credit for the women's reservation quota.",
+    "link": "https://www.ndtv.com/india-news/80th-independence-day-2026-live-updates-from-red-fort-pm-modi-speech-on-15-august-celebration-vande-mataram-11912013#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Sat, 15 Aug 2026 00:24:02 +0530"
+    "pubDate": "Sat, 15 Aug 2026 09:24:58 +0530"
    }
   ],
   "General": [
    {
     "title": "Jason Arday, ex-Cambridge professor at centre of plagiarism row, found dead",
-    "summary": "Jason Arday, a former Cambridge professor who was recently at the center of a plagiarism controversy, was found dead in London on Friday. His family expressed profound shock at the loss of the academic, father, partner, brother, uncle, and son.",
+    "summary": "Jason Arday, a former Cambridge professor who was recently at the center of a plagiarism controversy, was found dead in London on Friday. His family expressed profound shock at the loss of the academic, father, and partner.",
     "link": "https://www.bbc.co.uk/news/articles/c1j1ye6n30no?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 14 Aug 2026 22:05:27 GMT"
+    "pubDate": "Sat, 15 Aug 2026 01:41:24 GMT"
    },
    {
     "title": "Fires prompt national alert as 19 homes destroyed",
-    "summary": "Thirty-seven fires are currently burning across England and Wales, prompting a national alert. The blazes have destroyed 19 homes, according to the prime minister.",
+    "summary": "Nineteen homes were destroyed by 37 active fires burning across England and Wales. The situation has prompted the prime minister to issue a national alert.",
     "link": "https://www.bbc.co.uk/news/articles/c2k7y4k98x3o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 14 Aug 2026 20:56:53 GMT"
+    "pubDate": "Sat, 15 Aug 2026 02:54:04 GMT"
    },
    {
-    "title": "Temporary ban on sale of disposable BBQs over wildfire risk",
-    "summary": "The government has temporarily banned the sale of disposable barbecues due to the severe wildfire risk caused by ongoing drought and heatwave conditions. Officials warn that single-use grills pose a significant danger to the public during this extreme weather.",
+    "title": "Temporary ban on disposable BBQs as military deployed to help battle wildfires",
+    "summary": "The government has temporarily banned disposable barbecues due to the severe risk of wildfires during current drought and heatwave conditions. Meanwhile, the military has been deployed to help emergency services battle the ongoing blazes.",
     "link": "https://www.bbc.co.uk/news/articles/c0jlyqdj6geo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 14 Aug 2026 19:17:16 GMT"
+    "pubDate": "Sat, 15 Aug 2026 03:58:31 GMT"
    },
    {
     "title": "Five years after the Taliban swept to power, does the West have any influence?",
-    "summary": "Five years after the Taliban took control of Afghanistan, experts are questioning whether Western nations retain any leverage or bargaining power. The situation prompts debate over the effectiveness of current international policies regarding the regime.",
+    "summary": "Five years after the Taliban swept to power, many are asking whether the West has any bargaining chips left",
     "link": "https://www.bbc.co.uk/news/articles/cm2gp5g0xngo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 14 Aug 2026 17:00:14 GMT"
    },
    {
+    "title": "BBC seeks to subpoena Trump's family members in Panorama lawsuit",
+    "summary": "The BBC's lawyers argue Trump's family members \"have personal knowledge\" of his intentions in the speech he gave outside...",
+    "link": "https://www.bbc.co.uk/news/articles/cd69ely319eo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Sat, 15 Aug 2026 00:01:53 GMT"
+   },
+   {
     "title": "Mangione admits killing healthcare CEO and pleads guilty to federal charges",
-    "summary": "Twenty-eight-year-old Mangione admitted to shooting and killing a healthcare CEO in Manhattan. He pleaded guilty to federal charges of stalking resulting in death.",
+    "summary": "\"I shot Mr Thompson in Manhattan and he died,\" the 28-year-old said after pleading guilty to charges of stalking resulti...",
     "link": "https://www.bbc.co.uk/news/articles/cwy0nlq1l2wo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 14 Aug 2026 19:20:43 GMT"
-   },
-   {
-    "title": "Derailed Essex to London train leads to travel chaos",
-    "summary": "A derailed Essex to London train caused widespread travel chaos for commuters. Ambulance crews evaluated more than 60 patients at the scene, all of whom were discharged.",
-    "link": "https://www.bbc.co.uk/news/articles/cq561qvg7qgo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Fri, 14 Aug 2026 19:57:50 GMT"
    }
   ]
  }
