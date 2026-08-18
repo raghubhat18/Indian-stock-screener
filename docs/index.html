@@ -11,14 +11,104 @@
     <style>
         * { font-family: Arial, Helvetica, sans-serif !important; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #334155; }
-        ::-webkit-scrollbar-thumb { background: #64748b; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        ::-webkit-scrollbar-track { background: var(--scrollbar-track, #334155); }
+        ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb, #64748b); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover, #94a3b8); }
+
+        /* ==================== THEME VARIABLES ==================== */
+        /* Dark theme — clean deep charcoal grey, like VS Code / GitHub dark */
+        body[data-theme="dark"] {
+            --bg-page:    #1c1c1e;
+            --bg-elev-1:  #2c2c2e;
+            --bg-elev-2:  #3a3a3c;
+            --bg-elev-3:  #48484a;
+            --text-primary:   #f5f5f7;
+            --text-secondary: #d1d1d6;
+            --text-muted:     #8e8e93;
+            --border-color:   #3a3a3c;
+            --border-strong:  #58585a;
+            --scrollbar-track:      #2c2c2e;
+            --scrollbar-thumb:      #58585a;
+            --scrollbar-thumb-hover:#8e8e93;
+        }
+        /* Light theme — clean off-white with warm slate */
+        body[data-theme="light"] {
+            --bg-page:    #f2f2f7;
+            --bg-elev-1:  #ffffff;
+            --bg-elev-2:  #f2f2f7;
+            --bg-elev-3:  #e5e5ea;
+            --text-primary:   #1c1c1e;
+            --text-secondary: #3a3a3c;
+            --text-muted:     #6c6c70;
+            --border-color:   #d1d1d6;
+            --border-strong:  #aeaeb2;
+            --scrollbar-track:      #e5e5ea;
+            --scrollbar-thumb:      #aeaeb2;
+            --scrollbar-thumb-hover:#6c6c70;
+        }
+
+        /* ==================== TAILWIND OVERRIDES ==================== */
+        /* Override Tailwind slate/gray backgrounds to use theme vars */
+        body[data-theme] { background-color: var(--bg-page) !important; color: var(--text-primary) !important; }
+        body[data-theme] .bg-slate-800\/60, body[data-theme] .bg-slate-800\/70, body[data-theme] .bg-slate-800\/80, body[data-theme] .bg-slate-800\/90, body[data-theme] .bg-slate-800 { background-color: var(--bg-elev-1) !important; }
+        body[data-theme] .bg-slate-700\/30, body[data-theme] .bg-slate-700\/50, body[data-theme] .bg-slate-700\/60, body[data-theme] .bg-slate-700\/70, body[data-theme] .bg-slate-700 { background-color: var(--bg-elev-2) !important; }
+        body[data-theme] .bg-slate-700\/10, body[data-theme] .bg-slate-700\/20 { background-color: var(--bg-elev-2) !important; opacity: 0.7; }
+        body[data-theme] .bg-slate-900, body[data-theme] .bg-\[\#1c1c1e\], body[data-theme] .bg-\[\#0f1419\] { background-color: var(--bg-page) !important; }
+        body[data-theme] .bg-slate-600, body[data-theme] .bg-slate-600\/50, body[data-theme] .bg-slate-600\/60, body[data-theme] .bg-slate-600\/70 { background-color: var(--bg-elev-3) !important; }
+        body[data-theme] .bg-slate-500 { background-color: var(--bg-elev-3) !important; }
+
+        /* Text colors */
+        body[data-theme] .text-white, body[data-theme] .text-slate-50, body[data-theme] .text-slate-100 { color: var(--text-primary) !important; }
+        body[data-theme] .text-slate-200, body[data-theme] .text-slate-300 { color: var(--text-secondary) !important; }
+        body[data-theme] .text-slate-400, body[data-theme] .text-slate-500 { color: var(--text-muted) !important; }
+
+        /* Borders */
+        body[data-theme] .border-slate-500, body[data-theme] .border-slate-600, body[data-theme] .border-slate-600\/50, body[data-theme] .border-slate-600\/60, body[data-theme] .border-slate-700 { border-color: var(--border-color) !important; }
+        body[data-theme] .border-slate-400 { border-color: var(--border-strong) !important; }
+
+        /* Placeholder text in light mode */
+        body[data-theme="light"] input::placeholder { color: #64748b !important; }
+        body[data-theme="light"] input:focus { outline-color: #0284c7; }
+
+        /* Light theme card gradients (softer for light mode) */
+        body[data-theme="light"] .bg-gradient-to-br { background: linear-gradient(to bottom right, #f0f9ff, #ffffff) !important; border-color: #7dd3fc !important; }
+        body[data-theme="light"] .from-sky-950\/60 { background: linear-gradient(to bottom right, #f0f9ff, #ffffff) !important; }
+
+        /* Adjust selection color for light mode */
+        body[data-theme="light"] { selection: bg-slate-200 text-slate-900; }
+        body[data-theme="light"] ::selection { background: #cbd5e1; color: #0f172a; }
+
+        /* Verdict badges stay colorful in both themes but soften backgrounds in light */
+        body[data-theme="light"] .bg-emerald-950 { background-color: #d1fae5 !important; }
+        body[data-theme="light"] .bg-amber-950 { background-color: #fef3c7 !important; }
+        body[data-theme="light"] .bg-rose-950 { background-color: #ffe4e6 !important; }
+        body[data-theme="light"] .bg-sky-950 { background-color: #e0f2fe !important; }
+        body[data-theme="light"] .bg-emerald-950\/50 { background-color: #d1fae5 !important; }
+        body[data-theme="light"] .bg-rose-950\/50 { background-color: #ffe4e6 !important; }
+        body[data-theme="light"] .bg-amber-950\/50 { background-color: #fef3c7 !important; }
+        body[data-theme="light"] .text-emerald-400, body[data-theme="light"] .text-emerald-300 { color: #047857 !important; }
+        body[data-theme="light"] .text-rose-400, body[data-theme="light"] .text-rose-300 { color: #be123c !important; }
+        body[data-theme="light"] .text-amber-400, body[data-theme="light"] .text-amber-300 { color: #b45309 !important; }
+        body[data-theme="light"] .text-sky-400, body[data-theme="light"] .text-sky-300 { color: #0369a1 !important; }
+        body[data-theme="light"] .border-emerald-700, body[data-theme="light"] .border-emerald-800 { border-color: #10b981 !important; }
+        body[data-theme="light"] .border-rose-700, body[data-theme="light"] .border-rose-800 { border-color: #f43f5e !important; }
+        body[data-theme="light"] .border-amber-700, body[data-theme="light"] .border-amber-800 { border-color: #f59e0b !important; }
+        body[data-theme="light"] .border-sky-700, body[data-theme="light"] .border-sky-800 { border-color: #0ea5e9 !important; }
+
+        /* Theme toggle button */
+        .theme-toggle-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; border-radius: 10px;
+            background: var(--bg-elev-2); color: var(--text-primary);
+            border: 1px solid var(--border-color); cursor: pointer;
+            font-size: 18px; transition: all 0.15s;
+        }
+        .theme-toggle-btn:hover { background: var(--bg-elev-3); }
     </style>
 </head>
-<body class="bg-[#0f1419] text-white font-sans min-h-screen flex flex-col selection:bg-slate-500 selection:text-slate-50">
+<body data-theme="dark" class="bg-[#1c1c1e] text-white font-sans min-h-screen flex flex-col selection:bg-slate-500 selection:text-slate-50">
 
-    <div id="loading-screen" class="fixed inset-0 z-[70] bg-[#0f1419] flex flex-col items-center justify-center p-6 text-center transition-opacity duration-500">
+    <div id="loading-screen" class="fixed inset-0 z-[70] bg-[#1c1c1e] flex flex-col items-center justify-center p-6 text-center transition-opacity duration-500">
         <div class="text-4xl mb-8">📈</div>
         <div id="loading-quote" class="text-slate-50 text-xl sm:text-2xl font-medium max-w-lg mb-3 leading-relaxed transition-opacity duration-300">Loading...</div>
         <div id="loading-attribution" class="text-slate-400 text-base mb-10"></div>
@@ -39,6 +129,9 @@
                 <a href="guide.html" target="_blank" class="flex items-center gap-1.5 bg-slate-700 hover:bg-slate-600 border border-slate-500 px-3 py-2 rounded-xl font-mono text-sm text-slate-200 transition-colors">
                     📚 User Guide
                 </a>
+                <button id="theme-toggle" onclick="toggleTheme()" class="theme-toggle-btn" title="Toggle dark/light theme">
+                    <span id="theme-icon">☀️</span>
+                </button>
                 <div id="market-sentiment-badge" class="hidden"></div>
                 <div class="flex items-center gap-2 bg-slate-700 border border-slate-500 px-3 py-2 rounded-xl font-mono text-sm text-slate-200">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -65,6 +158,8 @@
                 <button onclick="loadView('bullish')" id="btn-view-bullish" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">📈 TOP GAINERS</button>
                 <button onclick="loadView('bearish')" id="btn-view-bearish" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">📉 TOP LOSERS</button>
                 <button onclick="loadView('longterm')" id="btn-view-longterm" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">🏆 LONG TERM</button>
+                <button onclick="loadView('aiinsights')" id="btn-view-aiinsights" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">🤖 AI INSIGHTS</button>
+                <button onclick="loadView('briefing')" id="btn-view-briefing" class="px-3 sm:px-4 py-2.5 rounded-lg text-sm sm:text-base font-mono font-bold transition-all bg-slate-700 text-slate-300 border border-transparent hover:text-white whitespace-nowrap">📰 BRIEFING</button>
             </div>
 
             <div class="flex flex-col gap-3 border-t border-slate-600 pt-3">
@@ -121,8 +216,31 @@
         let stockNames = {};      // TICKER -> full company name (from FinInstrmNm)
         let marketCapMap = {};    // TICKER -> 'LargeCap' | 'MidCap' | 'SmallCap' (optional, from data/market-cap.csv)
         let fundamentalsMap = {}; // TICKER -> {pe, roe, de, eps} (optional, from data/fundamentals.csv)
-        let insightsMap = {};     // TICKER -> {summary, positives, concerns} (optional, from data/insights.json)
+        let insightsMap = {};
         let insightsUpdatedAt = null;
+
+        // Active scoring weights — loaded from localStorage if user has approved calibrated weights
+        // Falls back to built-in defaults (matching the hardcoded scoring in computeMomentumScore)
+        const DEFAULT_WEIGHTS = {
+            roc5:12, roc10:8, vsma20:10, sma20dir:8, rsi:12,
+            volume:8, relstrength:14, macd:12, bollinger:8,
+            adx:8, cross:8, hi52:6, gap:6
+        };
+        let activeWeights = (() => {
+            try {
+                const saved = localStorage.getItem('rbk-weights');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    // Validate it has all expected keys
+                    if (Object.keys(DEFAULT_WEIGHTS).every(k => k in parsed)) {
+                        console.log('[RBK] Using calibrated weights from localStorage');
+                        return parsed;
+                    }
+                }
+            } catch(e) {}
+            return { ...DEFAULT_WEIGHTS };
+        })();
+        let activeWeightsApprovedAt = localStorage.getItem('rbk-weights-date') || null;
         let stockData = {};       // TICKER -> latest snapshot + computed momentum indicators
         let availableDates = [];
         let marketIndexCloses = [];   // synthetic equal-weighted index level per date, built from our own tracked universe
@@ -145,9 +263,11 @@
             traded:     { key: 'volume',     dir: 'desc' },
             bullish:    { key: 'change',     dir: 'desc' },
             bearish:    { key: 'change',     dir: 'asc'  },
-            longterm: { key: 'longterm', dir: 'desc' }
+            longterm:   { key: 'longterm',   dir: 'desc' },
+            aiinsights: { key: 'aiinsights', dir: 'desc' },
+            briefing:   { key: 'briefing',   dir: 'desc' }
         };
-        const DEFAULT_DIR = { momentum: 'desc', volume: 'desc', change: 'desc', price: 'desc', rsi: 'asc', name: 'asc', longterm: 'desc' };
+        const DEFAULT_DIR = { momentum: 'desc', volume: 'desc', change: 'desc', price: 'desc', rsi: 'asc', name: 'asc', longterm: 'desc', aiinsights: 'desc' };
 
         window.addEventListener('DOMContentLoaded', () => {
             rotateQuote();
@@ -207,6 +327,26 @@
         // This dramatically speeds up subsequent loads — typically 5-10 seconds
         // instead of the full 20-30 seconds of fetching all files fresh.
         const DB_NAME = 'RBKScreener', DB_VER = 1, STORE = 'bhavcopy';
+
+        // ---------------- THEME TOGGLE ----------------
+        // Restore saved theme on load (default: dark). Persists in localStorage.
+        (function initTheme() {
+            const saved = localStorage.getItem('rbk-theme') || 'dark';
+            document.body.setAttribute('data-theme', saved);
+            const icon = document.getElementById('theme-icon');
+            if (icon) icon.textContent = saved === 'dark' ? '☀️' : '🌙';
+            // Apply theme to loading screen too
+            const ls = document.getElementById('loading-screen');
+            if (ls) ls.style.backgroundColor = saved === 'dark' ? '#1c1c1e' : '#f2f2f7';
+        })();
+        window.toggleTheme = function() {
+            const current = document.body.getAttribute('data-theme') || 'dark';
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', next);
+            localStorage.setItem('rbk-theme', next);
+            const icon = document.getElementById('theme-icon');
+            if (icon) icon.textContent = next === 'dark' ? '☀️' : '🌙';
+        };
 
         function openDB() {
             return new Promise((res, rej) => {
@@ -307,90 +447,138 @@
                         const insJson = await insResp.json();
                         insightsMap = insJson.insights || {};
                         insightsUpdatedAt = insJson.updatedAt || null;
+                        window._radarData = insJson.radar || null;
+                        window._calibData = insJson.calibration || null;
+                        const count = Object.keys(insightsMap).length;
+                        console.log(`[RBK] insights.json loaded: ${count} stocks, updated ${insJson.updatedAt}`);
+                        if (count === 0 && insJson.error) console.warn('[RBK] insights.json has error:', insJson.error);
+                    } else {
+                        console.warn('[RBK] insights.json fetch failed:', insResp.status);
                     }
-                } catch (e) { /* optional file - fine if missing */ }
+                } catch (e) { console.warn('[RBK] insights.json load error:', e); }
 
-                // --- SMART CACHE: only fetch dates not already stored locally ---
+                // ── FAST PATH: load from pre-processed prices.json (1 request, 3-5 seconds) ──
+                // This file is generated by the preprocess-bhavcopy.yml GitHub Action.
+                // Falls back to the individual CSV loading if prices.json doesn't exist yet.
                 historicalData = {};
-                stockNames = {};
-                let db = null;
-                let cachedDates = new Set();
-                let cachedEntries = [];
+                stockNames     = {};
 
+                let usedFastPath = false;
                 try {
-                    db = await openDB();
-                    cachedDates = await dbGetDates(db);
-                    cachedEntries = await dbGetAll(db);
-                    if (cachedEntries.length > 0) {
-                        setStatus(`READING ${cachedEntries.length} CACHED SESSIONS FROM LOCAL STORAGE...`);
-                        // Load what we have from cache first
-                        cachedEntries.forEach(entry => {
-                            if (entry.rows) {
-                                entry.rows.forEach(row => {
+                    setStatus('CHECKING FOR PRE-PROCESSED DATA...');
+                    const priceResp = await fetch('data/prices.json');
+                    if (priceResp.ok) {
+                        setStatus('LOADING PRE-PROCESSED DATA...');
+                        const priceData = await priceResp.json();
+                        const dates  = priceData.dates  || [];
+                        const names  = priceData.names  || {};
+                        const data   = priceData.data   || {};
+
+                        availableDates = dates;
+                        Object.assign(stockNames, names);
+
+                        // Convert aligned arrays back to historicalData format
+                        let symCount = 0;
+                        for (const [sym, arr] of Object.entries(data)) {
+                            const hist = [];
+                            let prevClose = null;
+                            for (let i = 0; i < dates.length; i++) {
+                                if (!arr[i]) continue;  // null = didn't trade
+                                const [c, o, h, l, v] = arr[i];
+                                hist.push({
+                                    date:      dates[i],
+                                    close:     c,
+                                    open:      o,
+                                    high:      h,
+                                    low:       l,
+                                    volume:    v,
+                                    prevClose: prevClose !== null ? prevClose : c
+                                });
+                                prevClose = c;
+                            }
+                            if (hist.length > 0) {
+                                historicalData[sym] = hist;
+                                symCount++;
+                            }
+                        }
+                        setStatus(`LOADED ${symCount} STOCKS FROM ${dates.length} SESSIONS`);
+                        usedFastPath = true;
+                        console.log(`[RBK] Fast path: ${symCount} symbols, ${dates.length} dates from prices.json`);
+                    }
+                } catch (e) {
+                    console.log('[RBK] prices.json not available, falling back to individual CSVs');
+                }
+
+                // ── SLOW PATH: individual CSVs with IndexedDB caching (fallback) ──
+                if (!usedFastPath) {
+                    setStatus('LOADING DATE INDEX...');
+                    const datesResp2 = await fetch('data/dates.json');
+                    if (!datesResp2.ok) throw new Error("No prices.json or dates.json found");
+                    availableDates = await datesResp2.json();
+                    availableDates.sort();
+
+                    let db = null, cachedDates = new Set(), cachedEntries = [];
+                    try {
+                        db = await openDB();
+                        cachedDates  = await dbGetDates(db);
+                        cachedEntries = await dbGetAll(db);
+                        if (cachedEntries.length > 0) {
+                            setStatus(`READING ${cachedEntries.length} CACHED SESSIONS...`);
+                            cachedEntries.forEach(entry => {
+                                if (entry.rows) entry.rows.forEach(row => {
                                     if (!historicalData[row.t]) historicalData[row.t] = [];
                                     historicalData[row.t].push({ date: entry.date, open: row.o, high: row.h, low: row.l, close: row.c, volume: row.v });
                                     if (row.n) stockNames[row.t] = row.n;
                                 });
-                            }
+                            });
+                        }
+                    } catch (e) { db = null; }
+
+                    const datesToFetch = availableDates.filter(d => !cachedDates.has(d));
+                    const total = datesToFetch.length;
+
+                    if (total === 0) {
+                        setStatus(`USING CACHED DATA (${availableDates.length} SESSIONS)`);
+                    } else {
+                        setStatus(`FETCHING ${total} NEW SESSION${total > 1 ? 'S' : ''}...`);
+                        let completed = 0;
+                        const newEntries = [];
+                        const fetchPromises = datesToFetch.map(date =>
+                            fetch(`data/bhavcopy/${date}.csv`)
+                                .then(r => r.ok ? r.text() : null).catch(() => null)
+                                .then(text => { completed++; if (total > 5) setStatus(`LOADING ${completed}/${total} SESSIONS...`); return { date, text }; })
+                        );
+                        const results = await Promise.all(fetchPromises);
+                        results.forEach(({ date, text }) => {
+                            if (!text) return;
+                            const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+                            const rows = [];
+                            parsed.data.forEach(row => {
+                                if (row['SctySrs'] !== 'EQ') return;
+                                const ticker = row['TckrSymb'];
+                                if (!ticker) return;
+                                const close = parseFloat(row['ClsPric'] || 0);
+                                const open  = parseFloat(row['OpnPric'] || 0);
+                                const high  = parseFloat(row['HghPric'] || 0);
+                                const low   = parseFloat(row['LwPric']  || 0);
+                                const vol   = parseFloat(row['TtlTradgVol'] || row['TotTrdQty'] || 0);
+                                if (!close) return;
+                                rows.push({ t: ticker, o: open, h: high, l: low, c: close, v: vol, n: row['FinInstrmNm'] || null });
+                                if (!historicalData[ticker]) historicalData[ticker] = [];
+                                historicalData[ticker].push({ date, open, high, low, close, volume: vol });
+                                if (row['FinInstrmNm']) stockNames[ticker] = row['FinInstrmNm'];
+                            });
+                            newEntries.push({ date, rows });
                         });
+                        if (db && newEntries.length > 0) {
+                            try { await dbPutMany(db, newEntries); } catch (e) {}
+                        }
                     }
-                } catch (e) { db = null; /* IndexedDB not available — fall back to full fetch */ }
 
-                const datesToFetch = availableDates.filter(d => !cachedDates.has(d));
-                const total = datesToFetch.length;
-
-                if (total === 0) {
-                    setStatus(`USING CACHED DATA (${availableDates.length} SESSIONS) — INSTANT LOAD`);
-                } else {
-                    setStatus(`FETCHING ${total} NEW SESSION${total > 1 ? 'S' : ''} (${cachedDates.size} ALREADY CACHED)...`);
-
-                    let completed = 0;
-                    const newEntries = [];
-
-                    const fetchPromises = datesToFetch.map(date =>
-                        fetch(`data/bhavcopy/${date}.csv`)
-                            .then(r => r.ok ? r.text() : null)
-                            .catch(() => null)
-                            .then(text => {
-                                completed++;
-                                if (total > 5) setStatus(`LOADING ${completed}/${total} NEW SESSIONS...`);
-                                return { date, text };
-                            })
-                    );
-
-                    const results = await Promise.all(fetchPromises);
-
-                    results.forEach(({ date, text }) => {
-                        if (!text) return;
-                        const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
-                        const rows = [];
-                        parsed.data.forEach(row => {
-                            if (row['SctySrs'] !== 'EQ') return;
-                            const ticker = row['TckrSymb'];
-                            if (!ticker) return;
-                            const close = parseFloat(row['ClsPric'] || 0);
-                            const open  = parseFloat(row['OpnPric'] || 0);
-                            const high  = parseFloat(row['HghPric'] || 0);
-                            const low   = parseFloat(row['LwPric']  || 0);
-                            const vol   = parseFloat(row['TtlTradgVol'] || row['TOTTRDQTY'] || row['TotTrdQty'] || 0);
-                            if (!close) return;
-                            rows.push({ t: ticker, o: open, h: high, l: low, c: close, v: vol, n: row['FinInstrmNm'] || null });
-                            if (!historicalData[ticker]) historicalData[ticker] = [];
-                            historicalData[ticker].push({ date, open, high, low, close, volume: vol });
-                            if (row['FinInstrmNm']) stockNames[ticker] = row['FinInstrmNm'];
-                        });
-                        newEntries.push({ date, rows });
+                    Object.keys(historicalData).forEach(t => {
+                        historicalData[t].sort((a, b) => a.date.localeCompare(b.date));
                     });
-
-                    // Save new entries to cache for next load
-                    if (db && newEntries.length > 0) {
-                        try { await dbPutMany(db, newEntries); } catch (e) { /* cache save failed — non-fatal */ }
-                    }
                 }
-
-                Object.keys(historicalData).forEach(t => {
-                    historicalData[t].sort((a, b) => a.date.localeCompare(b.date));
-                });
 
                 buildMarketContext();
                 buildMomentumSnapshot();
@@ -580,6 +768,13 @@
         }
 
         function computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price, volSurge, relStrength, macd, bollinger, adx, crossSignal, pctFrom52High, hasGapUp, hasGapDown, gapPct }) {
+            // Helper: scale a factor's points by the ratio of active weight to default weight
+            // This means approving calibrated weights changes the scoring proportionally
+            const w = (key, pts) => {
+                const def = DEFAULT_WEIGHTS[key] || 1;
+                const act = activeWeights[key] || def;
+                return pts * (act / def);
+            };
             let score = 0;
             const breakdown = [];
 
@@ -791,11 +986,29 @@
                 breakdown.push({ label: 'Price Gap Detection', value: hasGapUp ? `Gap Up +${gapPct ? gapPct.toFixed(1) : ''}%` : hasGapDown ? `Gap Down ${gapPct ? gapPct.toFixed(1) : ''}%` : 'No gap', points: pts, max: 6, note });
             }
 
+            // Apply weight scaling: if user has approved calibrated weights,
+            // adjust each factor's contribution proportionally before final clamp
+            if (JSON.stringify(activeWeights) !== JSON.stringify(DEFAULT_WEIGHTS)) {
+                let adjustedScore = 0;
+                for (const b of breakdown) {
+                    const key = Object.keys(DEFAULT_WEIGHTS).find(k => {
+                        const labels = {roc5:'5-Day',roc10:'10-Day',vsma20:'Price vs 20',sma20dir:'20-Day Moving',rsi:'Relative Strength Index',volume:'Volume vs 20',relstrength:'Relative Strength vs Broader',macd:'Moving Average Convergence',bollinger:'Bollinger',adx:'Average Directional',cross:'Golden Cross',hi52:'52-Week',gap:'Price Gap'};
+                        return b.label.startsWith(labels[k] || '___');
+                    });
+                    if (key && b.points > 0) {
+                        const def = DEFAULT_WEIGHTS[key] || 1;
+                        const act = activeWeights[key] || def;
+                        adjustedScore += b.points * (act / def);
+                    } else {
+                        adjustedScore += (b.points || 0);
+                    }
+                }
+                score = adjustedScore;
+            }
+
             score = Math.max(0, Math.min(100, Math.round(score)));
             return { score, breakdown };
         }
-
-        // ---------------------------------------------------------
         // FUNDAMENTAL SCORE (0-100) - computed separately from
         // the technical momentum score so users can see both.
         // Only computed when fundamentals.csv has been uploaded.
@@ -1266,9 +1479,13 @@
             sortKey = preset.key;
             sortDir = preset.dir;
             syncSortControlsUI();
-            // Show/hide Long Term explanation note
             const qdNote = document.getElementById('longterm-note');
             if (qdNote) qdNote.classList.toggle('hidden', tab !== 'longterm');
+            // Restore grid class when leaving AI insights tab
+            const grid = document.getElementById('stock-directory-list');
+            if (grid && tab !== 'aiinsights') {
+                grid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3';
+            }
             renderList();
         };
 
@@ -1305,7 +1522,7 @@
             const [descLabel, ascLabel] = labels[sortKey] || ['High to Low', 'Low to High'];
             dirBtn.textContent = sortDir === 'desc' ? `↓ ${descLabel}` : `↑ ${ascLabel}`;
 
-            const allTabs = ['momentum', 'traded', 'bullish', 'bearish', 'longterm'];
+            const allTabs = ['momentum', 'traded', 'bullish', 'bearish', 'longterm', 'aiinsights', 'briefing'];
             allTabs.forEach(v => {
                 const btn = document.getElementById(`btn-view-${v}`);
                 if (btn) {
@@ -1320,6 +1537,821 @@
         // Strategy: Find fundamentally strong companies at a reasonable/attractive entry point.
         // Different from Momentum (which chases rising stocks) — this looks for quality at a dip.
         // Factors: ROE quality, debt safety, profit margin, entry point (RSI/price), valuation vs sector.
+        // ── AI INSIGHTS DASHBOARD ────────────────────────────────────────
+        // Split panel: left nav (categories) + right content panel
+        // Score gauges + sparklines instead of text walls
+        // ── AI INSIGHTS — clean visual-first design ─────────────────────
+        let aiSelectedCategory = 'momentum';
+        let aiSelectedStock    = null;
+        let storyIndex         = 0;
+
+        const AI_CATEGORIES = [
+            {cat:'momentum', icon:'🚀', label:'Momentum'},
+            {cat:'funda',    icon:'🏦', label:'Fundamentals'},
+            {cat:'largecap', icon:'🏢', label:'Large Cap'},
+            {cat:'midcap',   icon:'🏬', label:'Mid Cap'},
+            {cat:'smallcap', icon:'🏪', label:'Small Cap'},
+            {cat:'longterm', icon:'🏆', label:'Long Term'},
+            {cat:'radar',    icon:'📡', label:'Radar'},
+            {cat:'calib',    icon:'📊', label:'Calibration'},
+        ];
+
+        function getCategoryStocks(cat) {
+            const all = Object.entries(insightsMap);
+            const MAP = {
+                momentum:  'Top Momentum',
+                funda:     'Top Fundamentals',
+                largecap:  'Large Cap',
+                midcap:    'Mid Cap',
+                smallcap:  'Small Cap',
+                longterm:  'Long Term Pick',
+            };
+            if (!MAP[cat]) return [];
+            const target = MAP[cat];
+            // Check both 'category' (primary) and 'categories' (all) fields
+            return all.filter(([,i]) =>
+                i.category === target ||
+                (Array.isArray(i.categories) && i.categories.includes(target))
+            );
+        }
+
+        // Circular progress ring gauge — reliable, no clipping issues
+        function drawGauge(score, size=90) {
+            if (score === null || score === undefined) return '';
+            const s = Math.max(0, Math.min(100, score));
+            const col = s >= 65 ? '#34d399' : s >= 40 ? '#fbbf24' : '#f87171';
+            const bg  = s >= 65 ? '#052e16' : s >= 40 ? '#1c1000' : '#1f0a0a';
+            const lbl = s >= 65 ? 'BUY' : s >= 40 ? 'HOLD' : 'AVOID';
+            const r = 42, cx = 50, cy = 50;
+            const circ = 2 * Math.PI * r;
+            const dash = (s / 100) * circ;
+            const fontSize = size >= 90 ? 18 : 15;
+            const lblSize  = size >= 90 ? 9  : 8;
+            return `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:5px">
+                <svg width="${size}" height="${size}" viewBox="0 0 100 100">
+                    <circle cx="${cx}" cy="${cy}" r="${r}" fill="${bg}" stroke="#1e293b" stroke-width="10"/>
+                    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${col}" stroke-width="10"
+                        stroke-dasharray="${dash} ${circ}" stroke-dashoffset="${circ * 0.25}"
+                        stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/>
+                    <text x="${cx}" y="${cy - 4}" text-anchor="middle" fill="${col}"
+                        font-size="${fontSize}" font-weight="900" font-family="monospace">${s}</text>
+                    <text x="${cx}" y="${cy + 12}" text-anchor="middle" fill="${col}"
+                        font-size="${lblSize}" font-weight="800" letter-spacing="1">${lbl}</text>
+                </svg>
+            </div>`
+        }
+
+        // Sparkline — clean trend line
+        function drawSparkline(values, width=120, height=36) {
+            if (!values || values.length < 2) return '';
+            const min = Math.min(...values), max = Math.max(...values);
+            const range = max - min || 1;
+            const pts = values.map((v,i) => {
+                const x = 4 + (i/(values.length-1))*(width-8);
+                const y = height-4 - ((v-min)/range)*(height-8);
+                return `${x},${y}`;
+            }).join(' ');
+            const rising = values[values.length-1] >= values[0];
+            const col = rising ? '#34d399' : '#f87171';
+            const gradId = `sg${Math.random().toString(36).slice(2,7)}`;
+            const lastX = 4 + (width-8);
+            const lastY = height-4 - ((values[values.length-1]-min)/range)*(height-8);
+            return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+                <defs><linearGradient id="${gradId}" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="${col}" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="${col}" stop-opacity="0"/>
+                </linearGradient></defs>
+                <polyline points="${pts}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round"/>
+                <circle cx="${lastX}" cy="${lastY}" r="3" fill="${col}"/>
+            </svg>`;
+        }
+
+        window.setAiCategory = function(cat) {
+            aiSelectedCategory = cat;
+            storyIndex = 0;
+            document.querySelectorAll('.ai-cat-btn').forEach(b =>
+                b.classList.toggle('ai-cat-active', b.dataset.cat === cat));
+            renderAIInsightsContent();
+        };
+
+        window.storyNav = function(dir) {
+            const stocks = getCategoryStocks(aiSelectedCategory);
+            storyIndex = Math.max(0, Math.min(storyIndex + dir, stocks.length - 1));
+            renderStockStory(stocks, storyIndex);
+        };
+
+        function renderAIInsightsTab(container) {
+            const isMobile = window.innerWidth < 768;
+            const updatedAt = insightsUpdatedAt
+                ? new Date(insightsUpdatedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short'})
+                : '';
+
+            // Inject styles once
+            if (!document.getElementById('ai-ins-style')) {
+                const s = document.createElement('style');
+                s.id = 'ai-ins-style';
+                s.textContent = `
+                    .ai-cat-btn { padding:6px 14px; border-radius:20px; font-size:13px; font-weight:700;
+                        border:1px solid #334155; background:#1e293b; color:#64748b;
+                        cursor:pointer; transition:all .15s; white-space:nowrap; }
+                    .ai-cat-btn:hover { color:#94a3b8; border-color:#475569; }
+                    .ai-cat-active { background:#0c1829 !important; border-color:#38bdf8 !important; color:#38bdf8 !important; }
+                    .ai-stock-pill { padding:8px 14px; border-radius:12px; font-size:13px; font-weight:700;
+                        border:1px solid #334155; background:#1e293b; color:#94a3b8;
+                        cursor:pointer; transition:all .15s; white-space:nowrap; text-align:left; }
+                    .ai-stock-pill:hover { border-color:#475569; }
+                    .ai-stock-active { border-color:#38bdf8 !important; background:rgba(56,189,248,0.08) !important; color:#38bdf8 !important; }
+                `;
+                document.head.appendChild(s);
+            }
+
+            container.className = 'flex flex-col gap-3';
+            container.style.height = '';
+
+            // Category tab strip
+            const hasData = Object.keys(insightsMap).length > 0;
+            container.innerHTML = `
+                <div class="flex items-center justify-between gap-2 shrink-0">
+                    <div class="flex overflow-x-auto gap-2 pb-1" style="scrollbar-width:none">
+                        ${AI_CATEGORIES.map(n => {
+                            const cnt = n.cat==='radar' ? '' : getCategoryStocks(n.cat).length;
+                            return `<button class="ai-cat-btn" data-cat="${n.cat}" onclick="setAiCategory('${n.cat}')">
+                                ${n.icon} ${n.label}${cnt ? ` <span style="opacity:.6;font-size:11px">${cnt}</span>` : ''}
+                            </button>`;
+                        }).join('')}
+                    </div>
+                    ${updatedAt ? `<span style="font-size:11px;color:#475569;white-space:nowrap">${updatedAt}</span>` : ''}
+                </div>
+                <div id="ai-ins-body" class="flex-1"></div>
+                <div style="font-size:10px;color:#475569;text-align:center">🤖 AI generated · Not financial advice</div>`;
+
+            setTimeout(() => setAiCategory(aiSelectedCategory), 20);
+        }
+
+        function renderAIInsightsContent() {
+            const body = document.getElementById('ai-ins-body');
+            if (!body) return;
+
+            if (aiSelectedCategory === 'radar') {
+                renderRadarView(body);
+                return;
+            }
+
+            if (aiSelectedCategory === 'calib') {
+                renderCalibView(body);
+                return;
+            }
+
+            const stocks = getCategoryStocks(aiSelectedCategory);
+            if (!stocks.length) {
+                body.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:280px;color:#475569;text-align:center;gap:8px">
+                    <div style="font-size:40px">🤖</div>
+                    <div style="font-size:16px;font-weight:700;color:#94a3b8">No insights yet</div>
+                    <div style="font-size:13px">Run Generate AI insights Action</div>
+                </div>`;
+                return;
+            }
+
+            const isMobile = window.innerWidth < 768;
+            if (isMobile) {
+                renderStockStory(stocks, storyIndex);
+            } else {
+                renderDesktopGrid(stocks, body);
+            }
+        }
+
+        // ── DESKTOP: stock pill list + detail card ─────────────────────────
+        function renderDesktopGrid(stocks, body) {
+            body.style.display = 'flex';
+            body.style.gap = '12px';
+            body.style.overflow = 'hidden';
+            body.style.height = 'calc(100vh - 340px)';
+            body.style.minHeight = '400px';
+
+            body.innerHTML = `
+                <div style="width:160px;flex-shrink:0;display:flex;flex-direction:column;gap:4px;overflow-y:auto;padding-right:4px">
+                    ${stocks.map(([sym,ins]) => {
+                        const d = stockData[sym]||{};
+                        const sc = d.combinedScore ?? d.momentumScore ?? 0;
+                        const chg = d.change ?? ins.changePct ?? 0;
+                        const col = sc>=65?'#34d399':sc>=40?'#fbbf24':'#f87171';
+                        const cc  = chg>=0?'#34d399':'#f87171';
+                        return `<button class="ai-stock-pill" data-sym="${sym}" onclick="selectDesktopStock('${sym}')">
+                            <div style="font-size:14px;font-weight:800;color:#f1f5f9">${sym}</div>
+                            <div style="font-size:12px;font-weight:700;color:${col}">${sc}/100</div>
+                            <div style="font-size:12px;color:${cc}">${chg>=0?'+':''}${typeof chg==='number'?chg.toFixed(1):chg}%</div>
+                        </button>`;
+                    }).join('')}
+                </div>
+                <div id="ai-desktop-detail" style="flex:1;overflow-y:auto;border:1px solid #334155;border-radius:16px;background:rgba(30,41,59,0.4)">
+                    <div style="display:flex;align-items:center;justify-content:center;height:100%;color:#475569;font-size:14px">
+                        ← Select a stock
+                    </div>
+                </div>`;
+
+            setTimeout(() => selectDesktopStock(stocks[0][0]), 30);
+        }
+
+        window.selectDesktopStock = function(sym) {
+            document.querySelectorAll('.ai-stock-pill').forEach(b =>
+                b.classList.toggle('ai-stock-active', b.dataset.sym === sym));
+            const panel = document.getElementById('ai-desktop-detail');
+            if (!panel) return;
+            renderCleanStockCard(sym, panel);
+        };
+
+        function renderCleanStockCard(sym, panel) {
+            const ins = insightsMap[sym];
+            const d   = stockData[sym] || {};
+            if (!ins) { panel.innerHTML = '<div style="padding:24px;color:#64748b">No data</div>'; return; }
+
+            const combScore = d.combinedScore ?? d.momentumScore ?? 0;
+            const techScore = d.momentumScore ?? 0;
+            const fundScore = d.fundamentalsScore ?? null;
+            const price     = d.price || ins.price || 0;
+            const chg       = d.change ?? ins.changePct ?? 0;
+            const chgPos    = chg >= 0;
+            const hist      = historicalData[sym] || [];
+            const closes    = hist.slice(-30).map(h => h.close);
+            const verdict   = combScore>=65?{l:'BUY',c:'#34d399'}:combScore>=40?{l:'HOLD',c:'#fbbf24'}:{l:'AVOID',c:'#f87171'};
+
+            panel.innerHTML = `
+                <div style="padding:24px;display:flex;flex-direction:column;gap:20px">
+
+                    <!-- Header -->
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                        <div>
+                            <div style="font-size:24px;font-weight:900;color:#f1f5f9;line-height:1">${sym}</div>
+                            <div style="font-size:13px;color:#64748b;margin-top:4px">${escapeHtml(d.name||ins.name||'')}</div>
+                            ${ins.headline?`<div style="font-size:14px;color:#7dd3fc;margin-top:8px;font-weight:600;line-height:1.4">${escapeHtml(ins.headline)}</div>`:''}
+                        </div>
+                        <div style="text-align:right;flex-shrink:0">
+                            <div style="font-size:22px;font-weight:800;color:#f1f5f9">₹${price.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                            <div style="font-size:16px;font-weight:700;color:${chgPos?'#34d399':'#f87171'}">${chgPos?'+':''}${typeof chg==='number'?chg.toFixed(2):chg}%</div>
+                        </div>
+                    </div>
+
+                    <!-- Gauges — labels below, never overlapping -->
+                    <div style="display:flex;gap:28px;align-items:flex-end">
+                        <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+                            ${drawGauge(combScore, 100)}
+                            <div style="font-size:12px;color:#64748b;font-weight:600">Combined</div>
+                        </div>
+                        <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+                            ${drawGauge(techScore, 78)}
+                            <div style="font-size:12px;color:#64748b;font-weight:600">Technical</div>
+                        </div>
+                        ${fundScore!==null?`<div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+                            ${drawGauge(fundScore, 78)}
+                            <div style="font-size:12px;color:#64748b;font-weight:600">Fundamental</div>
+                        </div>`:''}
+                    </div>
+
+                    ${closes.length>4?`<div>
+                        <div style="font-size:11px;color:#475569;text-transform:uppercase;font-weight:700;letter-spacing:.05em;margin-bottom:8px">30-Day Trend</div>
+                        <div style="background:#0f172a;border-radius:12px;padding:12px 16px">
+                            ${drawSparkline(closes, 360, 56)}
+                        </div>
+                    </div>`:''}
+
+                    <!-- Summary — the ONLY text, clean and readable -->
+                    ${ins.summary?`<div style="background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.2);border-radius:12px;padding:16px">
+                        <div style="font-size:11px;color:#38bdf8;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">🤖 Summary</div>
+                        <p style="font-size:15px;color:#e2e8f0;line-height:1.7;margin:0">${escapeHtml(ins.summary)}</p>
+                    </div>`:''}
+
+                    <!-- Strengths + Concerns — 2 per side max, visual pills -->
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                        ${(ins.positives||[]).length?`<div style="background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.2);border-radius:12px;padding:14px">
+                            <div style="font-size:11px;color:#34d399;font-weight:700;text-transform:uppercase;margin-bottom:10px">✓ Strengths</div>
+                            ${(ins.positives||[]).slice(0,3).map(p=>`<div style="font-size:13px;color:#a7f3d0;line-height:1.5;margin-bottom:6px;padding-left:8px;border-left:2px solid #34d399">${escapeHtml(p)}</div>`).join('')}
+                        </div>`:''}
+                        ${(ins.concerns||[]).length?`<div style="background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);border-radius:12px;padding:14px">
+                            <div style="font-size:11px;color:#fbbf24;font-weight:700;text-transform:uppercase;margin-bottom:10px">⚠ Watch Out</div>
+                            ${(ins.concerns||[]).slice(0,3).map(p=>`<div style="font-size:13px;color:#fde68a;line-height:1.5;margin-bottom:6px;padding-left:8px;border-left:2px solid #fbbf24">${escapeHtml(p)}</div>`).join('')}
+                        </div>`:''}
+                    </div>
+
+                    ${ins.watchFor?`<div style="font-size:13px;color:#94a3b8;padding:12px 16px;background:rgba(255,255,255,0.03);border-radius:10px;border:1px solid #334155">
+                        <span style="color:#64748b;font-weight:700;font-size:11px;text-transform:uppercase">👁 Watch for: </span>${escapeHtml(ins.watchFor)}
+                    </div>`:''}
+
+                    <button onclick="openWorkspace('${sym}')" style="width:100%;padding:14px;border-radius:12px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.3);color:#38bdf8;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s">
+                        Open Full Chart & Analysis →
+                    </button>
+                </div>`;
+        }
+
+        // ── MOBILE: full-screen story cards ───────────────────────────────
+        function renderStockStory(stocks, idx) {
+            const body = document.getElementById('ai-ins-body');
+            if (!body) return;
+            body.style.display = 'block';
+            body.style.height = '';
+
+            storyIndex = Math.max(0, Math.min(idx, stocks.length-1));
+            const [sym, ins] = stocks[storyIndex];
+            const d   = stockData[sym] || {};
+            const sc  = d.combinedScore ?? d.momentumScore ?? 0;
+            const chg = d.change ?? ins.changePct ?? 0;
+            const chgPos = chg >= 0;
+            const hist = historicalData[sym] || [];
+            const closes = hist.slice(-20).map(h => h.close);
+            const verdict = sc>=65?{l:'BUY',c:'#34d399',bg:'rgba(52,211,153,0.08)',bd:'rgba(52,211,153,0.3)'}
+                          : sc>=40?{l:'HOLD',c:'#fbbf24',bg:'rgba(251,191,36,0.08)',bd:'rgba(251,191,36,0.3)'}
+                          :        {l:'AVOID',c:'#f87171',bg:'rgba(248,113,113,0.08)',bd:'rgba(248,113,113,0.3)'};
+
+            // Progress dots
+            const dots = stocks.map((_,i)=>`<div style="flex:1;height:3px;border-radius:2px;background:${i<=storyIndex?verdict.c:'#334155'}"></div>`).join('');
+
+            body.innerHTML = `
+                <div id="story-card" style="border-radius:20px;border:1px solid ${verdict.bd};background:${verdict.bg};overflow:hidden"
+                     ontouchstart="this._tx=event.touches[0].clientX"
+                     ontouchend="const d=this._tx-event.changedTouches[0].clientX;if(Math.abs(d)>50)storyNav(d>0?1:-1)">
+
+                    <!-- Progress + counter -->
+                    <div style="display:flex;gap:4px;padding:14px 16px 10px;align-items:center">
+                        ${dots}
+                        <span style="font-size:11px;color:#475569;margin-left:6px;flex-shrink:0">${storyIndex+1}/${stocks.length}</span>
+                    </div>
+
+                    <div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:16px">
+
+                        <!-- Symbol + price -->
+                        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                            <div>
+                                <div style="font-size:28px;font-weight:900;color:#f1f5f9;line-height:1">${sym}</div>
+                                <div style="font-size:13px;color:#64748b;margin-top:4px">${escapeHtml(ins.name||d.name||'')}</div>
+                            </div>
+                            <div style="text-align:right">
+                                <div style="font-size:20px;font-weight:800;color:#f1f5f9">₹${(d.price||ins.price||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                                <div style="font-size:15px;font-weight:700;color:${chgPos?'#34d399':'#f87171'}">${chgPos?'+':''}${typeof chg==='number'?chg.toFixed(2):chg}%</div>
+                            </div>
+                        </div>
+
+                        <!-- Score gauge + sparkline side by side, no overlap -->
+                        <div style="display:flex;align-items:flex-end;gap:16px">
+                            <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+                                ${drawGauge(sc, 96)}
+                                <div style="font-size:11px;color:#64748b;font-weight:600">Score</div>
+                            </div>
+                            ${closes.length>4?`<div style="flex:1">
+                                <div style="font-size:11px;color:#475569;margin-bottom:6px;font-weight:600">20-day trend</div>
+                                <div style="background:#0f172a;border-radius:10px;padding:8px 10px">
+                                    ${drawSparkline(closes, 180, 44)}
+                                </div>
+                            </div>`:''}
+                        </div>
+
+                        <!-- Summary — just one clean paragraph -->
+                        ${ins.summary?`<div style="background:rgba(56,189,248,0.06);border-left:3px solid #38bdf8;border-radius:0 10px 10px 0;padding:12px 14px">
+                            <p style="font-size:14px;color:#e2e8f0;line-height:1.6;margin:0">${escapeHtml(ins.summary)}</p>
+                        </div>`:''}
+
+                        <!-- Strengths + concerns — compact -->
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                            ${(ins.positives||[]).length?`<div>
+                                <div style="font-size:10px;color:#34d399;font-weight:700;text-transform:uppercase;margin-bottom:6px">✓ Strengths</div>
+                                ${(ins.positives||[]).slice(0,2).map(p=>`<div style="font-size:12px;color:#a7f3d0;line-height:1.5;margin-bottom:5px">• ${escapeHtml(p)}</div>`).join('')}
+                            </div>`:''}
+                            ${(ins.concerns||[]).length?`<div>
+                                <div style="font-size:10px;color:#fbbf24;font-weight:700;text-transform:uppercase;margin-bottom:6px">⚠ Watch</div>
+                                ${(ins.concerns||[]).slice(0,2).map(p=>`<div style="font-size:12px;color:#fde68a;line-height:1.5;margin-bottom:5px">• ${escapeHtml(p)}</div>`).join('')}
+                            </div>`:''}
+                        </div>
+
+                        <!-- Nav buttons -->
+                        <div style="display:flex;gap:8px">
+                            <button onclick="storyNav(-1)" style="flex:1;padding:12px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid #334155;color:${storyIndex===0?'#334155':'#94a3b8'};font-size:14px;font-weight:700;cursor:pointer" ${storyIndex===0?'disabled':''}>← Prev</button>
+                            <button onclick="openWorkspace('${sym}')" style="flex:2;padding:12px;border-radius:12px;background:${verdict.bg};border:1px solid ${verdict.bd};color:${verdict.c};font-size:14px;font-weight:700;cursor:pointer">Open Chart</button>
+                            <button onclick="storyNav(1)" style="flex:1;padding:12px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid #334155;color:${storyIndex===stocks.length-1?'#334155':'#94a3b8'};font-size:14px;font-weight:700;cursor:pointer" ${storyIndex===stocks.length-1?'disabled':''}>Next →</button>
+                        </div>
+                    </div>
+                </div>`;
+        }
+
+        // ── RADAR VIEW ───────────────────────────────────────────────────
+        function renderRadarView(body) {
+            const radar = window._radarData;
+            body.style.display = 'block';
+            if (!radar) {
+                body.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:280px;color:#475569;text-align:center;gap:8px">
+                    <div style="font-size:40px">📡</div>
+                    <div style="font-size:16px;font-weight:700;color:#94a3b8">Radar not generated yet</div>
+                    <div style="font-size:13px">Run Generate AI insights Action</div>
+                </div>`;
+                return;
+            }
+            const TFS = [
+                {key:'1W',icon:'⚡',label:'1 Week',  c:'#34d399'},
+                {key:'2W',icon:'📈',label:'2 Weeks', c:'#38bdf8'},
+                {key:'1M',icon:'🗓',label:'1 Month', c:'#a78bfa'},
+                {key:'6M',icon:'📊',label:'6 Months',c:'#fbbf24'},
+            ];
+            const isMobile = window.innerWidth < 768;
+            body.innerHTML = `
+                <div style="display:flex;flex-direction:column;gap:12px;overflow-y:auto;max-height:${isMobile?'65vh':'calc(100vh-380px)'}">
+                    ${radar.marketPulse?`<div style="background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.2);border-radius:14px;padding:16px">
+                        <div style="font-size:11px;color:#38bdf8;font-weight:700;text-transform:uppercase;margin-bottom:8px">🌐 Market Pulse</div>
+                        <p style="font-size:14px;color:#e2e8f0;line-height:1.6;margin:0">${escapeHtml(radar.marketPulse)}</p>
+                    </div>`:''}
+                    <div style="display:grid;grid-template-columns:${isMobile?'1fr':'1fr 1fr'};gap:12px">
+                    ${TFS.map(tf => {
+                        const data = radar[tf.key];
+                        if (!data||!data.picks) return '';
+                        return `<div style="background:${tf.c}0d;border:1px solid ${tf.c}33;border-radius:14px;padding:16px">
+                            <div style="font-size:13px;font-weight:800;color:${tf.c};margin-bottom:12px">${tf.icon} ${tf.label}</div>
+                            ${data.picks.slice(0,3).map((pick,i) => {
+                                const h=historicalData[pick.sym]||[];
+                                const cl=h.slice(-15).map(x=>x.close);
+                                const ret=pick.return;
+                                return `<div onclick="openWorkspace('${escapeHtml(pick.sym)}')" style="cursor:pointer;${i>0?'border-top:1px solid '+tf.c+'22;margin-top:10px;padding-top:10px':''}">
+                                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+                                        <span style="font-size:15px;font-weight:800;color:#f1f5f9">${escapeHtml(pick.sym)}</span>
+                                        ${ret!==undefined?`<span style="font-size:14px;font-weight:700;color:${(ret||0)>=0?'#34d399':'#f87171'}">${(ret||0)>=0?'+':''}${ret.toFixed(1)}%</span>`:''}
+                                    </div>
+                                    ${cl.length>4?drawSparkline(cl, isMobile?140:180, 28):''}
+                                    <p style="font-size:12px;color:#64748b;margin:4px 0 0;line-height:1.5">${escapeHtml((pick.reason||'').substring(0,80))}${(pick.reason||'').length>80?'...':''}</p>
+                                </div>`;
+                            }).join('')}
+                        </div>`;
+                    }).join('')}
+                    </div>
+                </div>`;
+        }
+
+        // ── CALIBRATION VIEW ──────────────────────────────────────────────
+        function renderCalibView(body) {
+            body.style.display = 'block';
+            const calib = window._calibData;
+            const usingCalib = JSON.stringify(activeWeights) !== JSON.stringify(DEFAULT_WEIGHTS);
+
+            if (!calib) {
+                body.innerHTML = `
+                    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:280px;gap:12px;text-align:center;padding:24px">
+                        <div style="font-size:40px">📊</div>
+                        <div style="font-size:18px;font-weight:800;color:#94a3b8">Calibration not ready yet</div>
+                        <div style="font-size:14px;color:#475569;max-width:320px;line-height:1.7">
+                            Needs historical snapshots to backtest predictions.<br><br>
+                            1. Add <code style="background:#1e293b;padding:2px 6px;border-radius:4px;color:#38bdf8">save-snapshots.yml</code> to your workflows<br>
+                            2. Wait 2+ weeks for snapshots to accumulate<br>
+                            3. Run <code style="background:#1e293b;padding:2px 6px;border-radius:4px;color:#38bdf8">generate-insights.yml</code>
+                        </div>
+                    </div>`; return;
+            }
+
+            const acc = calib.accuracy || {};
+            const ai  = calib.aiReport || {};
+            const cur = calib.currentWeights   || DEFAULT_WEIGHTS;
+            const sug = calib.suggestedWeights || {};
+            const fp  = calib.factorPower      || {};
+            const hasChanges = Object.keys(sug).some(k => sug[k] !== cur[k]);
+            const dataPoints = calib.dataPoints || 0;
+            const updatedAt  = calib.updatedAt
+                ? new Date(calib.updatedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})
+                : '';
+
+            const FLABELS = {
+                roc5:'5-Day Momentum', roc10:'10-Day Momentum', vsma20:'Price vs SMA20',
+                sma20dir:'SMA20 Direction', rsi:'RSI', volume:'Volume Surge',
+                relstrength:'Relative Strength', macd:'MACD', bollinger:'Bollinger Bands',
+                adx:'ADX', cross:'Golden/Death Cross', hi52:'52-Week High', gap:'Price Gap'
+            };
+            const isMobile = window.innerWidth < 768;
+
+            body.innerHTML = `
+                <div style="display:flex;flex-direction:column;gap:16px;padding:${isMobile?'0':'0 4px'}">
+
+                    ${usingCalib ? `<div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.25)">
+                        <span style="font-size:20px">✅</span>
+                        <div style="flex:1">
+                            <div style="font-size:14px;font-weight:700;color:#34d399">Calibrated weights active</div>
+                            <div style="font-size:12px;color:#065f46;margin-top:2px">Applied ${activeWeightsApprovedAt||''}</div>
+                        </div>
+                        <button onclick="resetWeights()" style="padding:6px 14px;border-radius:10px;background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.3);color:#34d399;font-size:12px;font-weight:700;cursor:pointer">Reset</button>
+                    </div>` : ''}
+
+                    <!-- Accuracy gauges -->
+                    <div style="background:#0f172a;border:1px solid #1e293b;border-radius:16px;padding:20px">
+                        <div style="font-size:11px;color:#334155;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px">
+                            Prediction Accuracy · 5-day return · ${dataPoints.toLocaleString()} data points
+                        </div>
+                        <div style="display:flex;justify-content:space-around">
+                            ${['BUY','HOLD','AVOID'].map(v => {
+                                const a = acc[v]||{};
+                                const gs = v==='BUY'?Math.round(a.win_rate||0):v==='AVOID'?Math.round(100-(a.win_rate||50)):50;
+                                const avgCol = (a.avg||0)>=0?'#34d399':'#f87171';
+                                return `<div style="text-align:center">
+                                    ${drawGauge(gs, isMobile?72:88)}
+                                    <div style="font-size:13px;font-weight:700;color:#64748b;margin-top:4px">${v}</div>
+                                    <div style="font-size:13px;font-weight:700;color:${avgCol}">${(a.avg||0)>=0?'+':''}${a.avg||0}%</div>
+                                    <div style="font-size:11px;color:#334155">${(a.count||0).toLocaleString()}</div>
+                                </div>`;
+                            }).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Factor power + weight comparison -->
+                    <div style="background:#0f172a;border:1px solid #1e293b;border-radius:16px;padding:20px">
+                        <div style="font-size:11px;color:#334155;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px">
+                            ⚖️ Factor Power & Suggested Weights
+                        </div>
+                        <div style="display:grid;grid-template-columns:3fr 1fr 1fr 2fr;gap:6px;margin-bottom:8px">
+                            <div style="font-size:10px;color:#1e293b;font-weight:700">FACTOR</div>
+                            <div style="font-size:10px;color:#1e293b;font-weight:700;text-align:center">NOW</div>
+                            <div style="font-size:10px;color:#1e293b;font-weight:700;text-align:center">NEW</div>
+                            <div style="font-size:10px;color:#1e293b;font-weight:700">POWER</div>
+                        </div>
+                        <div style="display:flex;flex-direction:column;gap:8px">
+                        ${Object.keys(cur).map(k => {
+                            const c = cur[k]||0, s = sug[k]||c, p = fp[k];
+                            const diff = s-c;
+                            const changed = diff !== 0;
+                            const barCol = p===undefined?'#1e293b':p>1?'#34d399':p<0?'#f87171':'#fbbf24';
+                            const textCol = p===undefined?'#334155':p>1?'#34d399':p<0?'#f87171':'#fbbf24';
+                            const maxP = Math.max(...Object.values(fp).map(v=>Math.abs(v)),1);
+                            const barW = p!==undefined?Math.round(Math.abs(p)/maxP*100):0;
+                            const diffLabel = diff>0?`<span style="color:#34d399">↑${s}</span>`:diff<0?`<span style="color:#f87171">↓${s}</span>`:`<span style="color:#334155">${s}</span>`;
+                            return `<div style="${changed?'background:rgba(255,255,255,0.02);border-radius:8px;padding:4px 6px':''}">
+                                <div style="display:grid;grid-template-columns:3fr 1fr 1fr 2fr;gap:6px;align-items:center;margin-bottom:3px">
+                                    <span style="font-size:12px;color:${changed?'#e2e8f0':'#64748b'};font-weight:${changed?'700':'400'}">${FLABELS[k]||k}</span>
+                                    <span style="font-size:12px;color:#475569;text-align:center;font-family:monospace">${c}</span>
+                                    <span style="font-size:12px;font-family:monospace;text-align:center">${diffLabel}</span>
+                                    <div style="display:flex;align-items:center;gap:4px">
+                                        <div style="flex:1;background:#1e293b;border-radius:3px;height:5px;overflow:hidden">
+                                            <div style="width:${barW}%;height:5px;background:${barCol};border-radius:3px"></div>
+                                        </div>
+                                        <span style="font-size:10px;color:${textCol};width:28px;text-align:right;font-weight:700">${p!==undefined?(p>=0?'+':'')+p+'%':'—'}</span>
+                                    </div>
+                                </div>
+                            </div>`;
+                        }).join('')}
+                        </div>
+                    </div>
+
+                    <!-- AI verdict -->
+                    ${ai.overallVerdict?`<div style="background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.15);border-radius:16px;padding:20px">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+                            <div style="font-size:11px;color:#38bdf8;font-weight:700;text-transform:uppercase">🤖 AI Assessment</div>
+                            ${ai.calibrationScore?`<div style="font-size:12px;font-weight:700;color:#38bdf8;background:rgba(56,189,248,0.1);padding:4px 10px;border-radius:8px">${ai.calibrationScore}/10</div>`:''}
+                        </div>
+                        <p style="font-size:14px;color:#e2e8f0;line-height:1.7;margin:0 0 10px">${escapeHtml(ai.overallVerdict)}</p>
+                        ${(ai.weightJustification||[]).map(r=>`<div style="font-size:12px;color:#7dd3fc;line-height:1.6;padding:4px 0 4px 10px;border-left:2px solid #0369a1;margin-bottom:4px">→ ${escapeHtml(r)}</div>`).join('')}
+                    </div>`:''}
+
+                    <!-- Apply / Reset -->
+                    <div style="display:flex;gap:10px">
+                        ${hasChanges&&!usingCalib?`<button onclick="applyWeights()"
+                            style="flex:2;padding:16px;border-radius:14px;background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.3);color:#34d399;font-size:15px;font-weight:800;cursor:pointer">
+                            ✅ Apply Suggested Weights
+                        </button>`:''}
+                        <button onclick="resetWeights()"
+                            style="flex:1;padding:16px;border-radius:14px;background:rgba(255,255,255,0.03);border:1px solid #1e293b;color:#475569;font-size:14px;font-weight:700;cursor:pointer">
+                            ↺ Reset to Defaults
+                        </button>
+                    </div>
+
+                    <!-- Wins / Misses -->
+                    ${(calib.topWins||[]).length?`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                        <div style="background:#0f172a;border:1px solid #1e293b;border-radius:14px;padding:14px">
+                            <div style="font-size:11px;color:#34d399;font-weight:700;text-transform:uppercase;margin-bottom:10px">🏆 Best Calls</div>
+                            ${(calib.topWins||[]).slice(0,3).map(([s,d,sc,r])=>`<div onclick="openWorkspace('${escapeHtml(s)}')" style="cursor:pointer;padding:8px;border-radius:8px;background:rgba(52,211,153,0.05);margin-bottom:6px">
+                                <div style="font-size:13px;font-weight:800;color:#f1f5f9">${s}</div>
+                                <div style="font-size:12px;color:#34d399;font-weight:700">+${r}% · ${sc}pts</div>
+                                <div style="font-size:10px;color:#334155">${d}</div>
+                            </div>`).join('')}
+                        </div>
+                        <div style="background:#0f172a;border:1px solid #1e293b;border-radius:14px;padding:14px">
+                            <div style="font-size:11px;color:#f87171;font-weight:700;text-transform:uppercase;margin-bottom:10px">💔 Misses</div>
+                            ${(calib.topMisses||[]).slice(0,3).map(([s,d,sc,r])=>`<div onclick="openWorkspace('${escapeHtml(s)}')" style="cursor:pointer;padding:8px;border-radius:8px;background:rgba(248,113,113,0.05);margin-bottom:6px">
+                                <div style="font-size:13px;font-weight:800;color:#f1f5f9">${s}</div>
+                                <div style="font-size:12px;color:#f87171;font-weight:700">${r}% · ${sc}pts</div>
+                                <div style="font-size:10px;color:#334155">${d}</div>
+                            </div>`).join('')}
+                        </div>
+                    </div>`:''}
+
+                    <div style="text-align:center;font-size:10px;color:#1e293b;padding-bottom:8px">
+                        Updated ${updatedAt} · ${dataPoints.toLocaleString()} predictions backtested · 5-day return window
+                    </div>
+                </div>`;
+        }
+
+        window.applyWeights = function() {
+            const calib = window._calibData;
+            if (!calib || !calib.suggestedWeights) return;
+            if (!confirm('Apply AI-suggested weights? This re-scores all stocks. You can reset anytime.')) return;
+            activeWeights = { ...calib.suggestedWeights };
+            activeWeightsApprovedAt = new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+            localStorage.setItem('rbk-weights', JSON.stringify(activeWeights));
+            localStorage.setItem('rbk-weights-date', activeWeightsApprovedAt);
+            buildMomentumSnapshot(); renderList();
+            alert('✅ Calibrated weights applied!');
+        };
+        window.resetWeights = function() {
+            if (!confirm('Reset to default weights?')) return;
+            activeWeights = { ...DEFAULT_WEIGHTS };
+            localStorage.removeItem('rbk-weights');
+            localStorage.removeItem('rbk-weights-date');
+            buildMomentumSnapshot(); renderList();
+        };
+
+        // ── NEWS BRIEFING TAB — Inshorts-style swipeable cards ───────────
+        let briefingCache    = null;
+        let briefingCategory = 'Markets';
+        let briefingIndex    = 0;
+
+        const BRIEFING_CATS = [
+            {key:'Markets',        icon:'📈'},
+            {key:'Geo-Political',  icon:'🌍'},
+            {key:'AI & Tech',      icon:'🤖'},
+            {key:'Data & Insights',icon:'📊'},
+            {key:'India',          icon:'🇮🇳'},
+            {key:'General',        icon:'🌐'},
+        ];
+
+        const BRIEFING_COLORS = {
+            'Markets':         {c:'#34d399', bg:'rgba(52,211,153,0.07)',  bd:'rgba(52,211,153,0.25)'},
+            'Geo-Political':   {c:'#f87171', bg:'rgba(248,113,113,0.07)', bd:'rgba(248,113,113,0.25)'},
+            'AI & Tech':       {c:'#a78bfa', bg:'rgba(167,139,250,0.07)', bd:'rgba(167,139,250,0.25)'},
+            'Data & Insights': {c:'#38bdf8', bg:'rgba(56,189,248,0.07)',  bd:'rgba(56,189,248,0.25)'},
+            'India':           {c:'#fb923c', bg:'rgba(251,146,60,0.07)',  bd:'rgba(251,146,60,0.25)'},
+            'General':         {c:'#e2e8f0', bg:'rgba(226,232,240,0.05)', bd:'rgba(226,232,240,0.15)'},
+        };
+
+        async function renderBriefingTab(container) {
+            // Inject styles once
+            if (!document.getElementById('briefing-style')) {
+                const s = document.createElement('style');
+                s.id = 'briefing-style';
+                s.textContent = `
+                    .br-cat { flex-shrink:0; padding:7px 14px; border-radius:20px; font-size:13px;
+                        font-weight:700; border:1px solid #1e293b; background:#0f172a;
+                        color:#475569; cursor:pointer; transition:all .15s; white-space:nowrap; }
+                    .br-cat:hover { color:#94a3b8; }
+                    .br-cat.br-active { color:var(--br-col); border-color:var(--br-col);
+                        background:rgba(255,255,255,0.04); }
+                    .br-card { border-radius:20px; overflow:hidden; transition:transform .15s; }
+                    .br-card:active { transform:scale(0.99); }
+                `;
+                document.head.appendChild(s);
+            }
+
+            container.innerHTML = `
+                <div class="flex flex-col gap-3">
+                    <!-- Category strip -->
+                    <div class="flex overflow-x-auto gap-2 pb-1 shrink-0" style="scrollbar-width:none">
+                        ${BRIEFING_CATS.map(c =>
+                            `<button class="br-cat" data-cat="${escapeHtml(c.key)}"
+                                onclick="setBriefingCat('${escapeHtml(c.key)}')">
+                                ${c.icon} ${c.key}
+                            </button>`
+                        ).join('')}
+                    </div>
+                    <!-- Card area -->
+                    <div id="briefing-card-area"></div>
+                    <!-- Not financial advice footer -->
+                    <div style="font-size:10px;color:#1e293b;text-align:center">
+                        Summarised by AI · Tap card to read full article
+                    </div>
+                </div>`;
+
+            // Load cache
+            if (!briefingCache) {
+                document.getElementById('briefing-card-area').innerHTML = `
+                    <div style="text-align:center;padding:48px 24px;color:#475569">
+                        <div style="font-size:36px;margin-bottom:12px">📡</div>
+                        <div style="font-size:15px;font-weight:700;color:#64748b">Loading briefing...</div>
+                    </div>`;
+                try {
+                    const resp = await fetch('data/briefing.json');
+                    if (resp.ok) briefingCache = await resp.json();
+                } catch(e) {}
+            }
+
+            setBriefingCat(briefingCategory);
+        }
+
+        window.setBriefingCat = function(cat) {
+            briefingCategory = cat;
+            briefingIndex    = 0;
+            const col = (BRIEFING_COLORS[cat] || BRIEFING_COLORS['General']).c;
+            document.querySelectorAll('.br-cat').forEach(b => {
+                b.classList.toggle('br-active', b.dataset.cat === cat);
+                if (b.dataset.cat === cat) b.style.setProperty('--br-col', col);
+            });
+            renderBriefingCard();
+        };
+
+        window.briefingNav = function(dir) {
+            const stories = ((briefingCache||{}).briefing||{})[briefingCategory] || [];
+            briefingIndex = Math.max(0, Math.min(briefingIndex + dir, stories.length - 1));
+            renderBriefingCard();
+        };
+
+        function renderBriefingCard() {
+            const area = document.getElementById('briefing-card-area');
+            if (!area) return;
+
+            if (!briefingCache) {
+                area.innerHTML = `
+                    <div style="text-align:center;padding:48px 24px">
+                        <div style="font-size:36px;margin-bottom:12px">📰</div>
+                        <div style="font-size:16px;font-weight:700;color:#94a3b8;margin-bottom:8px">Briefing not generated yet</div>
+                        <div style="font-size:13px;color:#475569;line-height:1.6;max-width:280px;margin:0 auto">
+                            Add <code style="background:#1e293b;padding:2px 6px;border-radius:4px;color:#38bdf8">update-briefing.yml</code>
+                            to your GitHub workflows and run it once to populate this feed.
+                        </div>
+                    </div>`; return;
+            }
+
+            const stories = ((briefingCache.briefing)||{})[briefingCategory] || [];
+            if (!stories.length) {
+                area.innerHTML = `<div style="text-align:center;padding:48px 24px;color:#475569;font-size:14px">No stories in this category</div>`;
+                return;
+            }
+
+            const idx  = Math.max(0, Math.min(briefingIndex, stories.length - 1));
+            const s    = stories[idx];
+            const pal  = BRIEFING_COLORS[briefingCategory] || BRIEFING_COLORS['General'];
+            const cat  = BRIEFING_CATS.find(c => c.key === briefingCategory);
+            const icon = cat ? cat.icon : '📰';
+
+            // Relative time
+            let timeStr = '';
+            try {
+                const diff = (Date.now() - new Date(s.pubDate)) / 3600000;
+                timeStr = diff < 1 ? 'Just now' : diff < 24 ? Math.round(diff) + 'h ago' : Math.round(diff/24) + 'd ago';
+            } catch(e) {}
+
+            // Progress dots
+            const dots = stories.map((_,i) =>
+                `<div style="flex:1;height:3px;border-radius:2px;background:${i <= idx ? pal.c : '#1e293b'}"></div>`
+            ).join('');
+
+            area.innerHTML = `
+                <div class="br-card" style="border:1px solid ${pal.bd};background:${pal.bg}"
+                     id="br-swipe"
+                     ontouchstart="this._tx=event.touches[0].clientX"
+                     ontouchend="const d=this._tx-event.changedTouches[0].clientX;if(Math.abs(d)>50)briefingNav(d>0?1:-1)">
+
+                    <!-- Progress + counter -->
+                    <div style="display:flex;gap:4px;padding:14px 16px 10px;align-items:center">
+                        ${dots}
+                        <span style="font-size:11px;color:#334155;margin-left:6px;flex-shrink:0;font-weight:600">${idx+1}/${stories.length}</span>
+                    </div>
+
+                    <div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:14px">
+
+                        <!-- Category badge + time -->
+                        <div style="display:flex;justify-content:space-between;align-items:center">
+                            <div style="font-size:12px;font-weight:700;color:${pal.c};background:${pal.bg};border:1px solid ${pal.bd};padding:4px 12px;border-radius:20px">
+                                ${icon} ${briefingCategory}
+                            </div>
+                            <div style="text-align:right">
+                                ${timeStr ? `<div style="font-size:11px;color:#334155;font-weight:600">${timeStr}</div>` : ''}
+                                <div style="font-size:10px;color:#1e293b;margin-top:1px">${escapeHtml(s.source||'')}</div>
+                            </div>
+                        </div>
+
+                        <!-- Headline — big and bold -->
+                        <div style="font-size:20px;font-weight:800;color:#f1f5f9;line-height:1.35">
+                            ${escapeHtml(s.title)}
+                        </div>
+
+                        <!-- Divider -->
+                        <div style="height:1px;background:${pal.bd}"></div>
+
+                        <!-- AI Summary — the Inshorts-style body -->
+                        <p style="font-size:15px;color:#cbd5e1;line-height:1.75;margin:0">
+                            ${escapeHtml(s.summary || '')}
+                        </p>
+
+                        <!-- Read more link -->
+                        <a href="${escapeHtml(s.link)}" target="_blank" rel="noopener"
+                           style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:${pal.c};text-decoration:none;letter-spacing:.04em;margin-top:2px">
+                            READ FULL ARTICLE ↗
+                        </a>
+
+                        <!-- Nav buttons -->
+                        <div style="display:flex;gap:8px;margin-top:4px">
+                            <button onclick="briefingNav(-1)"
+                                style="flex:1;padding:12px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid #1e293b;color:${idx===0?'#1e293b':'#64748b'};font-size:14px;font-weight:700;cursor:pointer"
+                                ${idx===0?'disabled':''}>← Prev</button>
+                            <button onclick="briefingNav(1)"
+                                style="flex:1;padding:12px;border-radius:12px;background:${pal.bg};border:1px solid ${pal.bd};color:${pal.c};font-size:14px;font-weight:700;cursor:pointer"
+                                ${idx===stories.length-1?'disabled':''}>Next →</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Last updated -->
+                ${briefingCache.updatedAt ? `<div style="text-align:center;font-size:10px;color:#1e293b;margin-top:8px">
+                    Last updated ${new Date(briefingCache.updatedAt).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}
+                </div>` : ''}`;
+        }
+
         function calcLongTermScore(ticker) {
             const d = stockData[ticker];
             if (!d) return -Infinity;
@@ -1409,6 +2441,21 @@
             const searchVal = document.getElementById('search-input').value.toUpperCase().trim();
             const container = document.getElementById('stock-directory-list');
             container.innerHTML = '';
+
+            // ---- AI INSIGHTS TAB — completely different layout ----
+            if (activeTab === 'aiinsights') {
+                container.className = 'flex flex-col gap-3';
+                container.style.height = '';
+                renderAIInsightsTab(container);
+                return;
+            }
+
+            if (activeTab === 'briefing') {
+                container.className = 'flex flex-col';
+                container.style.height = '';
+                renderBriefingTab(container);
+                return;
+            }
 
             let keys = Object.keys(stockData);
 
@@ -1639,8 +2686,8 @@
                                 ${(() => {
                                     const ins = insightsMap[ticker];
                                     if (!ins || ins.error) return '';
-                                    const pos = (ins.positives || []).map(p => `<li class="text-[12px] text-emerald-300 mb-1">✓ ${escapeHtml(p)}</li>`).join('');
-                                    const neg = (ins.concerns  || []).map(p => `<li class="text-[12px] text-amber-300 mb-1">⚠ ${escapeHtml(p)}</li>`).join('');
+                                    const pos = (ins.positives || []).map(p => `<li class="text-[12px] text-emerald-300 leading-relaxed">✓ ${escapeHtml(p)}</li>`).join('');
+                                    const neg = (ins.concerns  || []).map(p => `<li class="text-[12px] text-amber-300 leading-relaxed">⚠ ${escapeHtml(p)}</li>`).join('');
                                     const date = insightsUpdatedAt ? new Date(insightsUpdatedAt).toLocaleDateString('en-IN', {day:'numeric', month:'short'}) : '';
                                     return `
                                     <div class="bg-gradient-to-br from-sky-950/60 to-slate-800/60 p-4 rounded-lg border border-sky-800/60 mb-3">
@@ -1651,10 +2698,14 @@
                                             </div>
                                             <span class="text-[10px] text-slate-400">Updated ${date}</span>
                                         </div>
-                                        <p class="text-[13px] text-slate-100 leading-relaxed mb-2">${escapeHtml(ins.summary || '')}</p>
-                                        ${pos ? `<ul class="mt-2 mb-1 pl-1">${pos}</ul>` : ''}
-                                        ${neg ? `<ul class="mt-1 pl-1">${neg}</ul>` : ''}
-                                        <div class="text-[10px] text-slate-500 mt-2 pt-2 border-t border-slate-700">Generated by Google Gemini · Not financial advice · Based on your NSE data</div>
+                                        ${ins.headline ? `<div class="text-[13px] font-bold text-sky-300 mb-2">${escapeHtml(ins.headline)}</div>` : ''}
+                                        <p class="text-[13px] text-slate-100 leading-relaxed mb-2 border-l-2 border-sky-800 pl-2">${escapeHtml(ins.summary || '')}</p>
+                                        ${ins.technicalView ? `<div class="mb-1.5"><span class="text-[10px] text-sky-400 font-bold uppercase">📈 Technical: </span><span class="text-[12px] text-slate-300">${escapeHtml(ins.technicalView)}</span></div>` : ''}
+                                        ${ins.fundamentalView ? `<div class="mb-2"><span class="text-[10px] text-purple-400 font-bold uppercase">🏦 Fundamental: </span><span class="text-[12px] text-slate-300">${escapeHtml(ins.fundamentalView)}</span></div>` : ''}
+                                        ${pos ? `<ul class="mt-1 mb-1 space-y-0.5">${pos}</ul>` : ''}
+                                        ${neg ? `<ul class="mt-1 mb-1 space-y-0.5">${neg}</ul>` : ''}
+                                        ${ins.watchFor ? `<div class="mt-2 pt-2 border-t border-slate-700"><span class="text-[10px] text-slate-400 font-bold uppercase">👁 Watch for: </span><span class="text-[12px] text-slate-200">${escapeHtml(ins.watchFor)}</span></div>` : ''}
+                                        <div class="text-[10px] text-slate-500 mt-2 pt-2 border-t border-slate-700">Google Gemini · Not financial advice · Based on NSE data</div>
                                     </div>
                                     `;
                                 })()}
@@ -1834,8 +2885,13 @@
                                 })()}
                             </div>
 
-                            <div id="panel-tab-news" class="flex-1 hidden flex-col h-full bg-slate-700/10 rounded-xl border border-slate-500 overflow-hidden relative">
-                                <div id="tv-news-container" class="w-full h-full overflow-y-auto absolute inset-0"></div>
+                            <div id="panel-tab-news" class="flex-1 hidden flex-col rounded-xl border border-slate-500 overflow-y-auto">
+                                <div id="tv-news-container" class="w-full min-h-[200px]">
+                                    <div class="p-6 text-center">
+                                        <div class="text-2xl mb-2">📰</div>
+                                        <div class="text-sm text-slate-400">Tap to load news</div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div id="panel-tab-patterns" class="flex-1 hidden flex-col overflow-y-auto pr-1">
@@ -2048,9 +3104,16 @@
             const hist = fullHist.slice(-sessions);
             const overlays = getOverlayStates();
 
+            const isDark = document.body.getAttribute('data-theme') !== 'light';
             const chart = LightweightCharts.createChart(container, {
-                layout: { background: { color: 'transparent' }, textColor: '#cbd5e1' },
-                grid: { vertLines: { color: '#1e293b' }, horzLines: { color: '#1e293b' } },
+                layout: {
+                    background: { color: 'transparent' },
+                    textColor: isDark ? '#cbd5e1' : '#1c1c1e'
+                },
+                grid: {
+                    vertLines: { color: isDark ? '#1e293b' : '#e5e5ea' },
+                    horzLines: { color: isDark ? '#1e293b' : '#e5e5ea' }
+                },
                 timeScale: { borderColor: '#475569' },
                 rightPriceScale: { borderColor: '#475569' },
                 crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
@@ -2404,8 +3467,14 @@
             
             if (activeTab === 'news') {
                 const container = document.getElementById('tv-news-container');
-                if (container && container.innerHTML.trim() === '') {
-                    container.innerHTML = `<div class="p-6 text-center text-slate-300 text-sm font-mono animate-pulse">📡 Scanning dynamic news matrix for ${ticker}...</div>`;
+                if (container && !container.dataset.loaded) {
+                    container.dataset.loaded = '1';
+                    container.innerHTML = `
+                        <div class="p-6 text-center">
+                            <div class="text-2xl mb-2 animate-pulse">📡</div>
+                            <div class="text-base font-bold text-slate-200 mb-1">Loading news for ${escapeHtml(ticker)}...</div>
+                            <div class="text-sm text-slate-400">Please wait a moment</div>
+                        </div>`;
                     fetchLiveNews(ticker, container);
                 }
             }
@@ -2470,116 +3539,126 @@
             return html;
         }
 
-        let newsCache = null; // loaded once, from the scheduled Action's output (data/news.json)
+        let newsCache = null;
 
         async function fetchLiveNews(ticker, container) {
-            // Show loading state IMMEDIATELY - this was the mobile blank issue
-            container.innerHTML = `
-                <div class="p-6 text-center">
-                    <div class="text-2xl mb-2 animate-pulse">📡</div>
-                    <div class="text-base font-bold text-slate-200 mb-1">Fetching news for ${escapeHtml(ticker)}...</div>
-                    <div class="text-sm text-slate-400">This may take a few seconds</div>
-                </div>`;
-
-            // 1. Try the pre-fetched cache first (built by daily GitHub Action)
-            //    Zero CORS issues, works perfectly on mobile.
+            // STEP 1: Try news.json cache (works on mobile, no CORS issues)
             try {
                 if (newsCache === null) {
-                    const resp = await fetch('data/news.json');
-                    newsCache = resp.ok ? await resp.json() : { news: {} };
+                    const resp = await fetch('data/news.json?t=' + Date.now());
+                    if (resp.ok) {
+                        const json = await resp.json();
+                        newsCache = json;
+                    } else {
+                        newsCache = { news: {} };
+                    }
                 }
                 const cached = newsCache.news && newsCache.news[ticker];
                 if (cached && cached.length > 0) {
                     container.innerHTML = renderNewsCards(cached);
-                    const updatedNote = document.createElement('div');
-                    updatedNote.className = 'text-center text-[11px] text-slate-400 font-mono pb-3';
-                    updatedNote.textContent = newsCache.updatedAt ? `Cached · updated ${new Date(newsCache.updatedAt).toLocaleString('en-IN')}` : 'Cached';
-                    container.appendChild(updatedNote);
+                    const note = document.createElement('div');
+                    note.className = 'text-center text-[11px] text-slate-400 font-mono py-2 px-4';
+                    note.textContent = newsCache.updatedAt
+                        ? `Cached · ${new Date(newsCache.updatedAt).toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'})}`
+                        : 'From daily cache';
+                    container.appendChild(note);
                     return;
                 }
-            } catch (e) { /* cache missing - fall through to live fetch */ }
+            } catch (e) { /* continue to live fetch */ }
 
-            // 2. Fall back to live proxy fetch
-            const companyName = (stockData[ticker] && stockData[ticker].name !== ticker)
+            // STEP 2: Try live proxies with a short timeout
+            // On mobile these often fail — we don't wait long
+            const companyName = (stockData[ticker] && stockData[ticker].name && stockData[ticker].name !== ticker)
                 ? stockData[ticker].name : null;
-            const queries = [
-                companyName ? encodeURIComponent(`${companyName} stock NSE India`) : null,
-                encodeURIComponent(`${ticker} NSE India stock`),
-                encodeURIComponent(`${ticker} share price India`),
-            ].filter(Boolean);
+            const searchQuery = companyName
+                ? encodeURIComponent(`${companyName} stock`)
+                : encodeURIComponent(`${ticker} NSE India`);
+            const rssUrl = `https://news.google.com/rss/search?q=${searchQuery}&hl=en-IN&gl=IN&ceid=IN:en`;
 
             let parsedItems = null;
-            let anyProxyReachable = false;
 
-            for (const query of queries) {
+            // Try each proxy with 8s timeout (short enough not to hang mobile)
+            for (const buildProxyUrl of NEWS_CORS_PROXIES) {
                 if (parsedItems) break;
-                const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=en-IN&gl=IN&ceid=IN:en&num=10`;
-                for (const buildProxyUrl of NEWS_CORS_PROXIES) {
-                    try {
-                        const proxyUrl = buildProxyUrl(rssUrl);
-                        const resp = await fetchWithTimeout(proxyUrl, 15000);
-                        if (!resp.ok) continue;
-                        anyProxyReachable = true;
-                        const text = await resp.text();
-                        if (!text) continue;
+                try {
+                    const resp = await fetchWithTimeout(buildProxyUrl(rssUrl), 8000);
+                    if (!resp.ok) continue;
+                    const text = await resp.text();
+                    if (!text) continue;
 
-                        // Try JSON first (rss2json returns JSON, easier on mobile)
-                        if (text.trim().startsWith('{')) {
-                            try {
-                                const json = JSON.parse(text);
-                                if (json.status === 'ok' && json.items && json.items.length > 0) {
-                                    parsedItems = json.items.slice(0, 10).map(it => ({
-                                        title: it.title || 'Untitled',
-                                        link: it.link || '#',
-                                        pubDate: it.pubDate || null,
-                                        source: it.author || it.source || 'Market Update'
-                                    }));
-                                    break;
-                                }
-                            } catch (e) { /* try XML next */ }
-                        }
-
-                        // XML fallback
-                        if (text.includes('<item>')) {
-                            const parser = new DOMParser();
-                            const xml = parser.parseFromString(text, 'text/xml');
-                            const items = Array.from(xml.querySelectorAll('item')).slice(0, 10).map(item => ({
-                                title: item.querySelector('title')?.textContent || 'Untitled',
-                                link: item.querySelector('link')?.textContent || '#',
-                                pubDate: item.querySelector('pubDate')?.textContent || null,
-                                source: item.querySelector('source')?.textContent || 'Market Update'
+                    // JSON (rss2json format)
+                    if (text.trim().startsWith('{')) {
+                        const json = JSON.parse(text);
+                        if (json.status === 'ok' && json.items?.length > 0) {
+                            parsedItems = json.items.slice(0, 8).map(i => ({
+                                title: i.title || 'Untitled', link: i.link || '#',
+                                pubDate: i.pubDate || null, source: i.author || i.source || ''
                             }));
-                            if (items.length > 0) { parsedItems = items; break; }
+                            break;
                         }
-                    } catch (e) { /* try next proxy */ }
-                }
+                    }
+                    // XML fallback
+                    if (text.includes('<item>')) {
+                        const xml = new DOMParser().parseFromString(text, 'text/xml');
+                        const items = [...xml.querySelectorAll('item')].slice(0, 8).map(el => ({
+                            title: el.querySelector('title')?.textContent || 'Untitled',
+                            link: el.querySelector('link')?.textContent || '#',
+                            pubDate: el.querySelector('pubDate')?.textContent || null,
+                            source: el.querySelector('source')?.textContent || ''
+                        }));
+                        if (items.length > 0) { parsedItems = items; break; }
+                    }
+                } catch (e) { /* try next */ }
             }
 
-            if (parsedItems && parsedItems.length > 0) {
+            if (parsedItems?.length > 0) {
                 container.innerHTML = renderNewsCards(parsedItems);
                 return;
             }
 
-            // Distinguish between "no news available" and "service down"
-            if (anyProxyReachable) {
-                // Proxy worked but no articles matched — this stock has no recent news
-                container.innerHTML = `
-                    <div class="p-6 text-center">
-                        <div class="text-2xl mb-2">📭</div>
-                        <div class="text-base font-bold text-slate-200 mb-1">No news available</div>
-                        <div class="text-sm text-slate-400">No recent news articles found for ${escapeHtml(ticker)}.</div>
-                        <div class="text-[13px] text-slate-500 mt-3">Try searching: <a href="https://news.google.com/search?q=${encodeURIComponent(ticker + ' NSE India')}" target="_blank" class="text-sky-400 underline">Google News</a></div>
-                    </div>`;
-            } else {
-                // No proxy responded — network/service issue (common on mobile)
-                container.innerHTML = `
-                    <div class="p-6 text-center">
-                        <div class="text-2xl mb-2">📡</div>
-                        <div class="text-base font-bold text-slate-200 mb-1">News service temporarily unavailable</div>
-                        <div class="text-sm text-slate-400">Can't reach the news service right now. Please try again in a few minutes.</div>
-                        <div class="text-[13px] text-slate-500 mt-3">Or search directly: <a href="https://news.google.com/search?q=${encodeURIComponent(ticker + ' NSE India')}" target="_blank" class="text-sky-400 underline">Google News → ${escapeHtml(ticker)}</a></div>
-                    </div>`;
-            }
+            // STEP 3: Nothing worked — show a clean fallback with direct search link
+            // This is MUCH better than a blank screen
+            const googleNewsUrl = `https://news.google.com/search?q=${encodeURIComponent((companyName || ticker) + ' NSE India')}&hl=en-IN&gl=IN`;
+            const moneycontrolUrl = `https://www.moneycontrol.com/stocks/cptmarket/compsearchnew.php?search_data=${ticker}&cid=&mbsearch_str=&topsearch_type=1&search_str=${ticker}`;
+
+            container.innerHTML = `
+                <div class="p-5">
+                    <div class="text-center mb-4">
+                        <div class="text-2xl mb-1">📰</div>
+                        <div class="text-base font-bold text-slate-200">News not available offline</div>
+                        <div class="text-sm text-slate-400 mt-1">Live news couldn't be fetched. Search directly:</div>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <a href="${googleNewsUrl}" target="_blank"
+                           class="flex items-center gap-3 p-3 rounded-xl border border-slate-500 bg-slate-700/50 hover:bg-slate-600/50 transition-colors">
+                            <span class="text-xl">📰</span>
+                            <div>
+                                <div class="text-sm font-bold text-slate-100">${escapeHtml(companyName || ticker)} on Google News</div>
+                                <div class="text-[11px] text-slate-400">news.google.com</div>
+                            </div>
+                            <span class="ml-auto text-slate-400 text-xs">↗</span>
+                        </a>
+                        <a href="${moneycontrolUrl}" target="_blank"
+                           class="flex items-center gap-3 p-3 rounded-xl border border-slate-500 bg-slate-700/50 hover:bg-slate-600/50 transition-colors">
+                            <span class="text-xl">📈</span>
+                            <div>
+                                <div class="text-sm font-bold text-slate-100">${escapeHtml(ticker)} on Moneycontrol</div>
+                                <div class="text-[11px] text-slate-400">moneycontrol.com</div>
+                            </div>
+                            <span class="ml-auto text-slate-400 text-xs">↗</span>
+                        </a>
+                    </div>
+                    <div class="text-center mt-4">
+                        <button onclick="
+                            const c = document.getElementById('tv-news-container');
+                            delete c.dataset.loaded;
+                            c.innerHTML = '';
+                            fetchLiveNews('${escapeHtml(ticker)}', c);"
+                           class="text-[12px] text-sky-400 underline cursor-pointer bg-transparent border-none">
+                            🔄 Try again
+                        </button>
+                    </div>
+                </div>`;
         }
         </script>
 </body>

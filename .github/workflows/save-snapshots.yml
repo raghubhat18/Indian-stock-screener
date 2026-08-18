@@ -1,0 +1,262 @@
+name: Save daily score snapshot
+
+# Runs every day after market close.
+# Computes scores for all stocks and saves them to docs/data/snapshots/YYYY-MM-DD.json
+# These snapshots are the "predictions" that the backtesting workflow later evaluates.
+on:
+  schedule:
+    - cron: '30 17 * * 1-5'    # 11:00 PM IST Mon-Fri (17:30 UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compute and save snapshot
+        run: |
+          python3 - << 'EOF'
+          import os, csv, json, glob, math, time
+          from datetime import date
+
+          BHAV_DIR  = 'docs/data/bhavcopy'
+          SNAP_DIR  = 'docs/data/snapshots'
+          FUND_FILE = 'docs/data/fundamentals.csv'
+          CAP_FILE  = 'docs/data/market-cap.csv'
+
+          os.makedirs(SNAP_DIR, exist_ok=True)
+
+          # ── Load bhavcopy files (last 250 sessions for full indicator coverage) ──
+          bhav_files = sorted(glob.glob(f'{BHAV_DIR}/*.csv'))
+          if not bhav_files:
+              print('No bhavcopy files found'); exit(0)
+
+          print(f'Loading {min(250, len(bhav_files))} sessions...')
+          history = {}   # sym -> [{date, close, open, high, low, volume}]
+          for fp in bhav_files[-250:]:
+              date_str = os.path.basename(fp).replace('.csv','')
+              try:
+                  with open(fp, encoding='utf-8-sig') as f:
+                      for row in csv.DictReader(f):
+                          if (row.get('SctySrs') or '').strip() != 'EQ': continue
+                          sym = (row.get('TckrSymb') or '').strip().upper()
+                          if not sym: continue
+                          try:
+                              c = float(row.get('ClsPric') or 0)
+                              if not c: continue
+                              history.setdefault(sym, []).append({
+                                  'date': date_str,
+                                  'close': c,
+                                  'open':  float(row.get('OpnPric') or c),
+                                  'high':  float(row.get('HghPric') or c),
+                                  'low':   float(row.get('LwPric')  or c),
+                                  'volume':float(row.get('TtlTradgVol') or row.get('TotTrdQty') or 0),
+                                  'name':  (row.get('FinInstrmNm') or sym).strip()
+                              })
+                          except: pass
+              except: pass
+
+          # Sort each symbol's history by date
+          for sym in history:
+              history[sym].sort(key=lambda x: x['date'])
+
+          print(f'Loaded {len(history)} symbols.')
+
+          # ── Load fundamentals ──
+          fundamentals = {}
+          if os.path.exists(FUND_FILE):
+              with open(FUND_FILE, encoding='utf-8-sig') as f:
+                  for row in csv.DictReader(f):
+                      sym = (row.get('Symbol') or '').strip().upper()
+                      if sym: fundamentals[sym] = row
+
+          # ── Load cap map ──
+          cap_map = {}
+          if os.path.exists(CAP_FILE):
+              with open(CAP_FILE, encoding='utf-8-sig') as f:
+                  for row in csv.DictReader(f):
+                      sym = (row.get('Symbol') or '').strip().upper()
+                      cat = (row.get('Category') or '').strip()
+                      if sym and cat: cap_map[sym] = cat
+
+          # ── Score computation (mirrors index.html logic in Python) ──
+          def sma(closes, n):
+              if len(closes) < n: return None
+              return sum(closes[-n:]) / n
+
+          def rsi(closes, n=14):
+              if len(closes) < n + 1: return None
+              gains, losses = [], []
+              for i in range(1, len(closes)):
+                  d = closes[i] - closes[i-1]
+                  gains.append(max(d, 0)); losses.append(max(-d, 0))
+              ag = sum(gains[-n:]) / n
+              al = sum(losses[-n:]) / n
+              if al == 0: return 100
+              return 100 - 100 / (1 + ag / al)
+
+          def roc(closes, n):
+              if len(closes) < n + 1: return None
+              return (closes[-1] - closes[-n-1]) / closes[-n-1] * 100 if closes[-n-1] else None
+
+          def score_stock(sym):
+              h = history.get(sym, [])
+              if len(h) < 22: return None
+              closes  = [x['close']  for x in h]
+              volumes = [x['volume'] for x in h]
+              latest  = h[-1]
+              prev    = h[-2]
+              f = fundamentals.get(sym, {})
+
+              scores = {}
+
+              # Factor 1: 5-day ROC (max 12)
+              r5 = roc(closes, 5)
+              scores['roc5'] = min(max(r5, 0), 12) if r5 is not None else 0
+
+              # Factor 2: 10-day ROC (max 8)
+              r10 = roc(closes, 10)
+              scores['roc10'] = min(max(r10, 0), 8) if r10 is not None else 0
+
+              # Factor 3: Price vs SMA20 (max 10)
+              s20 = sma(closes, 20)
+              scores['vsma20'] = 10 if s20 and closes[-1] > s20 else 0
+
+              # Factor 4: SMA20 direction (max 8)
+              s20_5ago = sma(closes[:-5], 20) if len(closes) > 25 else None
+              scores['sma20dir'] = 8 if s20 and s20_5ago and s20 > s20_5ago else 0
+
+              # Factor 5: RSI bell curve (max 12, can go negative)
+              r = rsi(closes)
+              if r is not None:
+                  if 55 <= r <= 65:   pts = 12
+                  elif 50 <= r < 55:  pts = 8
+                  elif 65 < r <= 70:  pts = 8
+                  elif 45 <= r < 50:  pts = 4
+                  elif 70 < r <= 80:  pts = 3
+                  elif 30 <= r < 45:  pts = 2
+                  elif r > 80:        pts = -4
+                  else:               pts = -2
+                  scores['rsi'] = pts
+              else:
+                  scores['rsi'] = 0
+
+              # Factor 6: Volume surge (max 8)
+              avg_vol = sma(volumes[:-1], min(20, len(volumes)-1))
+              vsurge = latest['volume'] / avg_vol if avg_vol and avg_vol > 0 else 0
+              scores['volume'] = 8 if vsurge >= 1.5 else (5 if vsurge >= 1.2 else 0)
+
+              # Factor 7: Relative strength (simplified — vs 200-stock avg)
+              scores['relstrength'] = min(max(r10 or 0, 0) * 0.5, 14)
+
+              # Factor 8: MACD simplified (max 12)
+              if len(closes) >= 35:
+                  def ema(vals, n):
+                      k = 2/(n+1); e = vals[0]
+                      for v in vals[1:]: e = v*k + e*(1-k)
+                      return e
+                  macd_line = ema(closes[-26:], 12) - ema(closes[-26:], 26)
+                  scores['macd'] = 8 if macd_line > 0 else 0
+              else:
+                  scores['macd'] = 0
+
+              # Factor 9: 52-week high proximity (max 6)
+              hi52 = max(closes)
+              pct_from_hi = (closes[-1] - hi52) / hi52 * 100
+              scores['hi52'] = 6 if pct_from_hi >= -3 else (4 if pct_from_hi >= -10 else (2 if pct_from_hi >= -20 else 0))
+
+              # Factor 10: Gap (max 6)
+              gap = (latest['open'] - prev['close']) / prev['close'] * 100 if prev['close'] else 0
+              scores['gap'] = 6 if gap > 1.5 else (0 if gap < -1.5 else 3)
+
+              # Factor 11: Golden/Death cross (max 8)
+              s50  = sma(closes, 50)
+              s200 = sma(closes, 200)
+              if s50 and s200:
+                  scores['cross'] = 8 if s50 > s200 else 0
+              else:
+                  scores['cross'] = 0
+
+              # Factor 12: ADX simplified (max 8)
+              scores['adx'] = 4  # neutral when not computed fully
+
+              # Factor 13: Bollinger (max 8)
+              if s20 and len(closes) >= 20:
+                  std = (sum((c - s20)**2 for c in closes[-20:]) / 20) ** 0.5
+                  upper = s20 + 2*std
+                  lower = s20 - 2*std
+                  pctb = (closes[-1] - lower) / (upper - lower) if upper != lower else 0.5
+                  scores['bollinger'] = 8 if 0.5 <= pctb <= 0.95 else (4 if pctb < 0.5 else 2)
+              else:
+                  scores['bollinger'] = 0
+
+              total = sum(scores.values())
+              total = max(0, min(100, round(total)))
+
+              # Fundamental score (simplified)
+              fscore = None
+              try:
+                  roe = float(f.get('ROE') or 0)
+                  de  = float(f.get('DebtToEquity') or 99)
+                  npm = float(f.get('NetProfitMargin') or 0)
+                  cr  = float(f.get('CurrentRatio') or 0)
+                  eps = float(f.get('EPS') or 0)
+                  price = closes[-1]
+                  pe = price / eps if eps > 0 else None
+                  fs = min(roe, 25) + max(0, 20 - de*5) + min(npm, 20) + min(cr*5, 15)
+                  if pe: fs += 20 if pe < 15 else (15 if pe < 25 else (8 if pe < 40 else 0))
+                  fscore = round(min(100, max(0, fs)))
+              except: pass
+
+              combined = round(total * 0.7 + fscore * 0.3) if fscore is not None else total
+
+              return {
+                  'sym':      sym,
+                  'close':    closes[-1],
+                  'techScore': total,
+                  'fundScore': fscore,
+                  'combined':  combined,
+                  'factors':   scores,
+                  'cap':       cap_map.get(sym, ''),
+                  'hasFunda':  fscore is not None
+              }
+
+          # ── Compute scores for all symbols ──
+          print('Computing scores...')
+          snapshot = {}
+          for sym in history:
+              result = score_stock(sym)
+              if result: snapshot[sym] = result
+
+          today = date.today().strftime('%Y-%m-%d')
+          out_path = os.path.join(SNAP_DIR, f'{today}.json')
+          with open(out_path, 'w') as f:
+              json.dump({
+                  'date': today,
+                  'generatedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+                  'count': len(snapshot),
+                  'stocks': snapshot
+              }, f, indent=1)
+
+          print(f'Saved snapshot: {out_path} ({len(snapshot)} stocks)')
+
+          # Keep only last 90 snapshots to avoid repo bloat
+          all_snaps = sorted(glob.glob(f'{SNAP_DIR}/*.json'))
+          if len(all_snaps) > 90:
+              for old in all_snaps[:-90]:
+                  os.remove(old)
+                  print(f'Removed old snapshot: {old}')
+          EOF
+
+      - name: Commit snapshot
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data/snapshots/
+          git diff --staged --quiet || git commit -m "Daily score snapshot $(date +%Y-%m-%d)"
+          git pull --rebase origin main
+          git push
