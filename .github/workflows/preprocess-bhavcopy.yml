@@ -6,11 +6,13 @@ name: Pre-process bhavcopy data
 on:
   push:
     paths:
-      - 'docs/data/bhavcopy/**'   # auto-triggers when you push new bhavcopy files
+      - 'docs/data/bhavcopy/**'
+  schedule:
+    - cron: '5 16 * * 1-5'    # 9:35 PM IST Mon-Fri (Step 2 — runs after update-dates)
   workflow_run:
-    workflows: ["Update dates index"]  # also runs after update-dates.yml finishes
+    workflows: ["Update bhavcopy date index"]
     types: [completed]
-  workflow_dispatch:               # manual trigger anytime
+  workflow_dispatch:
 
 permissions:
   contents: write
