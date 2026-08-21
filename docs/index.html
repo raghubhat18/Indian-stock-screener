@@ -74,37 +74,106 @@
         body[data-theme="light"] .bg-gradient-to-br { background: linear-gradient(to bottom right, #f0f9ff, #ffffff) !important; border-color: #7dd3fc !important; }
         body[data-theme="light"] .from-sky-950\/60 { background: linear-gradient(to bottom right, #f0f9ff, #ffffff) !important; }
 
-        /* Light mode for inline-styled sections (AI Insights, Briefing, Chart) */
-        /* These sections use style="" attributes so we use CSS filters + variable injection */
-        body[data-theme="light"] #ai-ins-body,
-        body[data-theme="light"] #briefing-card-area,
-        body[data-theme="light"] #briefing-wrap { color: #1c1c1e; }
+        /* ── LIGHT THEME — comprehensive overrides for inline-styled sections ── */
+        body[data-theme="light"] {
+            --card-bg:     #ffffff;
+            --card-bg2:    #f2f2f7;
+            --card-border: #e5e5ea;
+            --text1: #1c1c1e; --text2: #3a3a3c; --text3: #6c6c70; --text4: #aeaeb2;
+        }
+        body[data-theme="dark"] {
+            --card-bg:     #0f172a;
+            --card-bg2:    #1e293b;
+            --card-border: #1e293b;
+            --text1: #f1f5f9; --text2: #cbd5e1; --text3: #94a3b8; --text4: #475569;
+        }
 
-        /* Override the hardcoded dark backgrounds in inline styles */
-        body[data-theme="light"] .br-card { background: #f2f2f7 !important; }
-        body[data-theme="light"] .ai-cat-btn { background: #ffffff !important; border-color: #d1d1d6 !important; color: #6c6c70 !important; }
-        body[data-theme="light"] .ai-cat-btn:hover { color: #3a3a3c !important; }
-        body[data-theme="light"] .ai-cat-active { background: #eff6ff !important; color: #1d4ed8 !important; border-color: #93c5fd !important; }
-        body[data-theme="light"] .br-cat { background: #ffffff !important; border-color: #d1d1d6 !important; color: #6c6c70 !important; }
-        body[data-theme="light"] .br-cat.br-active { background: #eff6ff !important; border-color: var(--br-col) !important; }
-        body[data-theme="light"] .ai-stock-pill { background: #ffffff !important; border-color: #d1d1d6 !important; color: #6c6c70 !important; }
-        body[data-theme="light"] .ai-stock-active { background: #eff6ff !important; border-color: #93c5fd !important; color: #1d4ed8 !important; }
+        /* AI Insights + Briefing panels — force light backgrounds */
+        body[data-theme="light"] #ai-ins-body > div,
+        body[data-theme="light"] #briefing-card-area > div { color: #1c1c1e; }
 
-        /* Light mode JS-rendered cards — inject CSS vars that JS can read */
-        body[data-theme="light"] { --card-bg: #ffffff; --card-border: #e5e5ea; --card-bg2: #f2f2f7;
-            --text1: #1c1c1e; --text2: #3a3a3c; --text3: #6c6c70; --text4: #aeaeb2; }
-        body[data-theme="dark"]  { --card-bg: #0f172a; --card-border: #1e293b; --card-bg2: #1e293b;
-            --text1: #f1f5f9; --text2: #cbd5e1; --text3: #94a3b8; --text4: #475569; }
+        /* Any div/section inside ai-ins-body or briefing-card-area with dark bg */
+        body[data-theme="light"] #ai-ins-body [style*="background:#0f172a"],
+        body[data-theme="light"] #ai-ins-body [style*="background: #0f172a"],
+        body[data-theme="light"] #briefing-card-area [style*="background:#0f172a"] {
+            background: #ffffff !important; border-color: #e5e5ea !important;
+        }
+        body[data-theme="light"] #ai-ins-body [style*="background:#1e293b"],
+        body[data-theme="light"] #ai-ins-body [style*="background: #1e293b"],
+        body[data-theme="light"] #briefing-card-area [style*="background:#1e293b"] {
+            background: #f2f2f7 !important; border-color: #e5e5ea !important;
+        }
+        /* Dark text colors → light mode equivalents */
+        body[data-theme="light"] #ai-ins-body [style*="color:#f1f5f9"],
+        body[data-theme="light"] #ai-ins-body [style*="color: #f1f5f9"] { color: #1c1c1e !important; }
+        body[data-theme="light"] #ai-ins-body [style*="color:#e2e8f0"],
+        body[data-theme="light"] #ai-ins-body [style*="color: #e2e8f0"] { color: #3a3a3c !important; }
+        body[data-theme="light"] #ai-ins-body [style*="color:#cbd5e1"],
+        body[data-theme="light"] #ai-ins-body [style*="color: #cbd5e1"] { color: #3a3a3c !important; }
+        body[data-theme="light"] #ai-ins-body [style*="color:#94a3b8"],
+        body[data-theme="light"] #ai-ins-body [style*="color: #94a3b8"] { color: #6c6c70 !important; }
+        body[data-theme="light"] #ai-ins-body [style*="color:#64748b"],
+        body[data-theme="light"] #ai-ins-body [style*="color: #64748b"] { color: #6c6c70 !important; }
+        body[data-theme="light"] #ai-ins-body [style*="color:#475569"],
+        body[data-theme="light"] #ai-ins-body [style*="color: #475569"] { color: #aeaeb2 !important; }
+        body[data-theme="light"] #ai-ins-body [style*="color:#334155"],
+        body[data-theme="light"] #ai-ins-body [style*="color: #334155"] { color: #c7c7cc !important; }
 
-        /* Chart in light mode */
-        body[data-theme="light"] #own-chart-container { background: #ffffff !important; border-radius: 12px; }
+        /* Briefing card text */
+        body[data-theme="light"] #briefing-card-area [style*="color:#f1f5f9"] { color: #1c1c1e !important; }
+        body[data-theme="light"] #briefing-card-area [style*="color:#cbd5e1"] { color: #3a3a3c !important; }
+        body[data-theme="light"] #briefing-card-area [style*="color:#94a3b8"] { color: #6c6c70 !important; }
+        body[data-theme="light"] #briefing-card-area [style*="color:#64748b"] { color: #6c6c70 !important; }
+        body[data-theme="light"] #briefing-card-area [style*="color:#475569"] { color: #aeaeb2 !important; }
+        body[data-theme="light"] #briefing-card-area [style*="color:#334155"] { color: #c7c7cc !important; }
+        body[data-theme="light"] #briefing-card-area [style*="color:#1e293b"] { color: #e5e5ea !important; }
 
-        /* Technical panel (score breakdown bars) */
-        body[data-theme="light"] .bg-slate-600 { background-color: #d1d1d6 !important; }
+        /* Calibration panel */
+        body[data-theme="light"] #ai-ins-body [style*="color:#e2e8f0"] { color: #3a3a3c !important; }
+        body[data-theme="light"] #ai-ins-body [style*="color:#7dd3fc"] { color: #0369a1 !important; }
 
-        /* Adjust selection color for light mode */
-        body[data-theme="light"] { selection: bg-slate-200 text-slate-900; }
-        body[data-theme="light"] ::selection { background: #cbd5e1; color: #0f172a; }
+        /* Desktop stock pill list */
+        body[data-theme="light"] .ai-stock-pill {
+            background: #ffffff !important; border-color: #e5e5ea !important; color: #6c6c70 !important;
+        }
+        body[data-theme="light"] .ai-stock-active {
+            background: #eff6ff !important; border-color: #93c5fd !important; color: #1d4ed8 !important;
+        }
+
+        /* Category pill buttons */
+        body[data-theme="light"] .ai-cat-btn {
+            background: #ffffff !important; border-color: #e5e5ea !important; color: #6c6c70 !important;
+        }
+        body[data-theme="light"] .ai-cat-active {
+            background: #eff6ff !important; border-color: #38bdf8 !important; color: #0369a1 !important;
+        }
+        body[data-theme="light"] .br-cat {
+            background: #ffffff !important; border-color: #e5e5ea !important; color: #6c6c70 !important;
+        }
+        body[data-theme="light"] .br-cat.br-active {
+            background: #f0f9ff !important; color: var(--br-col) !important;
+        }
+        body[data-theme="light"] .br-card { background: #f8fafc !important; }
+
+        /* Desktop split panel border */
+        body[data-theme="light"] #ai-ins-body { background: #ffffff; }
+
+        /* Chart workspace overlay */
+        body[data-theme="light"] #workspace-overlay { background: rgba(255,255,255,0.95) !important; }
+        body[data-theme="light"] .bg-zinc-950 { background-color: #f9fafb !important; }
+        body[data-theme="light"] .bg-slate-700\/40 { background-color: rgba(241,245,249,0.8) !important; }
+        body[data-theme="light"] .bg-slate-800\/60 { background-color: rgba(248,250,252,0.9) !important; }
+        body[data-theme="light"] .border-slate-600 { border-color: #e2e8f0 !important; }
+        body[data-theme="light"] .border-slate-700 { border-color: #e2e8f0 !important; }
+        body[data-theme="light"] .text-slate-100 { color: #1c1c1e !important; }
+        body[data-theme="light"] .text-slate-200 { color: #3a3a3c !important; }
+        body[data-theme="light"] .text-slate-300 { color: #6c6c70 !important; }
+        body[data-theme="light"] .text-slate-400 { color: #8e8e93 !important; }
+        body[data-theme="light"] .text-slate-500 { color: #aeaeb2 !important; }
+
+        /* Score breakdown bars inside workspace */
+        body[data-theme="light"] .bg-slate-700 { background-color: #e5e5ea !important; }
+        body[data-theme="light"] .bg-slate-800\/40 { background-color: #f2f2f7 !important; }
 
         /* Verdict badges stay colorful in both themes but soften backgrounds in light */
         body[data-theme="light"] .bg-emerald-950 { background-color: #d1fae5 !important; }
@@ -401,6 +470,17 @@
             localStorage.setItem('rbk-theme', next);
             const icon = document.getElementById('theme-icon');
             if (icon) icon.textContent = next === 'dark' ? '☀️' : '🌙';
+            // Re-render current view so inline-styled sections pick up new theme colors
+            const container = document.getElementById('stock-directory-list');
+            if (container) {
+                if (activeTab === 'aiinsights') {
+                    renderAIInsightsTab(container);
+                } else if (activeTab === 'briefing') {
+                    renderBriefingTab(container);
+                } else {
+                    renderList();
+                }
+            }
         };
 
         function openDB() {
