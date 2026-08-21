@@ -4,8 +4,9 @@ name: Daily news briefing
 # Fetches from curated RSS sources, AI-summarises each story, saves to briefing.json
 on:
   schedule:
-    - cron: '0 2,5,8,11,14,17,20,23 * * 1-5'   # Every 3 hours, Mon-Fri (7:30 AM to 4:30 AM IST)
-    - cron: '0 4,10,16,22 * * 0,6'              # Every 6 hours, Sat-Sun
+    - cron: '0 17 * * 1-5'              # 10:30 PM IST Mon-Fri (Step 6 — end of daily chain)
+    - cron: '0 2,5,8,11,14,20,23 * * 1-5'  # Every 3 hours rest of day Mon-Fri (skip 17:00 — handled above)
+    - cron: '0 4,10,16,22 * * 0,6'          # Every 6 hours Sat-Sun
   workflow_dispatch:
 
 permissions:
