@@ -2,7 +2,7 @@ name: Generate AI insights
 
 on:
   schedule:
-    - cron: '45 17 * * 1-5'   # 11:15 PM IST weekdays (17:45 UTC) — runs after save-snapshots
+    - cron: '30 16 * * 1-5'   # 10:00 PM IST weekdays (Step 4 — after snapshots, 15min gap for AI)
   workflow_dispatch:
 
 permissions:
