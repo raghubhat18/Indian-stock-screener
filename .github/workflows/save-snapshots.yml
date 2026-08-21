@@ -5,7 +5,7 @@ name: Save daily score snapshot
 # These snapshots are the "predictions" that the backtesting workflow later evaluates.
 on:
   schedule:
-    - cron: '30 17 * * 1-5'    # 11:00 PM IST Mon-Fri (17:30 UTC)
+    - cron: '15 16 * * 1-5'    # 9:45 PM IST Mon-Fri (Step 3 — after pre-process)
   workflow_dispatch:
 
 permissions:
