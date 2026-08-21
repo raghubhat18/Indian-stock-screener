@@ -1,11 +1,11 @@
 name: Update bhavcopy date index
 
-# Runs automatically whenever files change inside docs/data/bhavcopy/
-# Also runs manually from the Actions tab (needed once for your existing 68 files)
 on:
   push:
     paths:
       - 'docs/data/bhavcopy/**'
+  schedule:
+    - cron: '0 16 * * 1-5'    # 9:30 PM IST Mon-Fri (Step 1 of chain)
   workflow_dispatch:
 
 permissions:
@@ -32,4 +32,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/data/dates.json
           git diff --staged --quiet || git commit -m "Auto-update dates.json"
+          git pull --rebase origin main
           git push
