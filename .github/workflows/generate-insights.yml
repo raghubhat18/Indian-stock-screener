@@ -41,7 +41,9 @@ jobs:
               write_out({}, 'none', 'No API key')
               exit(0)
 
-          # ── Load bhavcopy history (last 30 sessions) ──────────────────────
+          # ── Load bhavcopy history ──────────────────────────────────────────
+          # AI prompts need last 30 sessions (recent momentum)
+          # Backtesting needs ALL history (250+ sessions for meaningful statistics)
           BHAV_DIR = 'docs/data/bhavcopy'
           bhav_files = sorted(glob.glob(f'{BHAV_DIR}/*.csv'))
           if not bhav_files:
@@ -49,6 +51,44 @@ jobs:
               write_out({}, 'none', 'No bhavcopy data')
               exit(0)
 
+          # Fast path: try prices.json first (pre-processed, all history)
+          prices_json_path = 'docs/data/prices.json'
+          price_lookup = {}    # date -> sym -> close  (for backtesting)
+          all_dates    = []
+
+          if os.path.exists(prices_json_path):
+              print('Loading prices.json for full history...')
+              with open(prices_json_path, encoding='utf-8') as f:
+                  pj = json.load(f)
+              all_dates = pj.get('dates', [])
+              pj_data   = pj.get('data', {})
+              pj_names  = pj.get('names', {})
+              # Build price_lookup and price_history from prices.json
+              for sym, arr in pj_data.items():
+                  for i, entry in enumerate(arr):
+                      if not entry: continue
+                      d = all_dates[i]
+                      price_lookup.setdefault(d, {})[sym] = entry[0]  # close
+              print(f'prices.json: {len(all_dates)} dates, {len(pj_data)} symbols')
+          else:
+              print('No prices.json — using individual CSVs for backtesting')
+              for fp in bhav_files:
+                  d = os.path.basename(fp).replace('.csv','')
+                  all_dates.append(d)
+                  price_lookup[d] = {}
+                  try:
+                      with open(fp, encoding='utf-8-sig') as f:
+                          for row in csv.DictReader(f):
+                              if (row.get('SctySrs') or '').strip() != 'EQ': continue
+                              sym = (row.get('TckrSymb') or '').strip().upper()
+                              try:
+                                  c = float(row.get('ClsPric') or 0)
+                                  if c: price_lookup[d][sym] = c
+                              except: pass
+                  except: pass
+              all_dates.sort()
+
+          # Now load last 30 sessions for AI prompts (price_history + latest_prices)
           latest_prices = {}
           price_history = {}   # sym -> [{'c':close,'v':vol}, ...]
 
@@ -73,7 +113,8 @@ jobs:
                           except: pass
               except: pass
 
-          print(f'Loaded {len(latest_prices)} symbols from {len(bhav_files[-30:])} sessions.')
+          print(f'Loaded {len(latest_prices)} symbols from last 30 sessions.')
+          print(f'Backtesting history: {len(all_dates)} dates available.')
 
           # ── Load fundamentals ──────────────────────────────────────────────
           fundamentals = {}
@@ -401,37 +442,18 @@ jobs:
               print(f'Radar saved.')
 
           # ── HISTORICAL BACKTESTING ────────────────────────────────────────
-          # This works from your existing bhavcopy files — no snapshots needed.
-          # For each historical date, compute what the scores would have been,
-          # then measure what actually happened 5/10/30 days later.
-          print('\n📊 Running historical backtesting from bhavcopy data...')
+          # Uses price_lookup + all_dates already built above from prices.json.
+          # With prices.json covering 400+ dates, this produces statistically
+          # meaningful results immediately — no need to wait for snapshots.
+          print(f'\n📊 Running historical backtesting ({len(all_dates)} dates available)...')
 
-          # Build full price lookup: date -> sym -> {close, open, high, low, volume}
-          print('Building full price lookup...')
-          price_lookup = {}   # date -> sym -> close
-          names_lookup = {}   # sym -> name
-          for fp in bhav_files:
-              d = os.path.basename(fp).replace('.csv','')
-              price_lookup[d] = {}
-              try:
-                  with open(fp, encoding='utf-8-sig') as f:
-                      for row in csv.DictReader(f):
-                          if (row.get('SctySrs') or '').strip() != 'EQ': continue
-                          sym = (row.get('TckrSymb') or '').strip().upper()
-                          try:
-                              c = float(row.get('ClsPric') or 0)
-                              if c:
-                                  price_lookup[d][sym] = c
-                                  if sym not in names_lookup:
-                                      names_lookup[sym] = (row.get('FinInstrmNm') or sym).strip()
-                          except: pass
-              except: pass
+          if len(all_dates) < 30:
+              print('Not enough history (need 30+ dates). Skipping backtesting.')
+              all_dates = []
 
-          all_dates = sorted(price_lookup.keys())
-          print(f'Price lookup: {len(all_dates)} dates, {len(names_lookup)} symbols')
-
-          # Sample every 5th trading day over last 6 months (for speed)
-          backtest_dates = all_dates[-132::5]  # every 5th day over last ~6 months
+          # Sample every 5th day across ALL available history for maximum data points
+          # With 400+ dates of history this gives ~76 sample dates x 300 stocks = 22,800+ data points
+          backtest_dates = all_dates[22::5]  # skip first 22 (need for scoring), every 5th
           WINDOWS = [5, 10, 30]
 
           results_by_verdict = {'BUY':[], 'HOLD':[], 'AVOID':[]}
