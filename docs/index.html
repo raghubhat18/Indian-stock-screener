@@ -1710,30 +1710,33 @@
             );
         }
 
-        // Circular progress ring gauge — reliable, no clipping issues
+        // Circular progress ring gauge — theme-aware, no clipping
         function drawGauge(score, size=90) {
             if (score === null || score === undefined) return '';
-            const s = Math.max(0, Math.min(100, score));
-            const col = s >= 65 ? '#34d399' : s >= 40 ? '#fbbf24' : '#f87171';
-            const bg  = s >= 65 ? '#052e16' : s >= 40 ? '#1c1000' : '#1f0a0a';
-            const lbl = s >= 65 ? 'BUY' : s >= 40 ? 'HOLD' : 'AVOID';
+            const s   = Math.max(0, Math.min(100, score));
+            const col = s >= 65 ? '#16a34a' : s >= 40 ? '#d97706' : '#dc2626';
+            const lbl = s >= 65 ? 'BUY'     : s >= 40 ? 'HOLD'    : 'AVOID';
+            const light = document.body.getAttribute('data-theme') === 'light';
+            const ringBg   = light ? '#e5e7eb' : '#1e293b';
+            const circleBg = light ? '#f9fafb' : (s>=65?'#052e16':s>=40?'#1c1000':'#1f0a0a');
+            const textCol  = light ? col       : (s>=65?'#34d399':s>=40?'#fbbf24':'#f87171');
             const r = 42, cx = 50, cy = 50;
             const circ = 2 * Math.PI * r;
             const dash = (s / 100) * circ;
-            const fontSize = size >= 90 ? 18 : 15;
-            const lblSize  = size >= 90 ? 9  : 8;
+            const fScore = size >= 90 ? 18 : 15;
+            const fLabel = size >= 90 ? 9  : 8;
             return `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:5px">
                 <svg width="${size}" height="${size}" viewBox="0 0 100 100">
-                    <circle cx="${cx}" cy="${cy}" r="${r}" fill="${bg}" stroke="#1e293b" stroke-width="10"/>
-                    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${col}" stroke-width="10"
-                        stroke-dasharray="${dash} ${circ}" stroke-dashoffset="${circ * 0.25}"
+                    <circle cx="${cx}" cy="${cy}" r="${r}" fill="${circleBg}" stroke="${ringBg}" stroke-width="10"/>
+                    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${textCol}" stroke-width="10"
+                        stroke-dasharray="${dash} ${circ}" stroke-dashoffset="${circ*0.25}"
                         stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/>
-                    <text x="${cx}" y="${cy - 4}" text-anchor="middle" fill="${col}"
-                        font-size="${fontSize}" font-weight="900" font-family="monospace">${s}</text>
-                    <text x="${cx}" y="${cy + 12}" text-anchor="middle" fill="${col}"
-                        font-size="${lblSize}" font-weight="800" letter-spacing="1">${lbl}</text>
+                    <text x="${cx}" y="${cy-4}" text-anchor="middle" fill="${textCol}"
+                        font-size="${fScore}" font-weight="900" font-family="monospace">${s}</text>
+                    <text x="${cx}" y="${cy+12}" text-anchor="middle" fill="${textCol}"
+                        font-size="${fLabel}" font-weight="800" letter-spacing="1">${lbl}</text>
                 </svg>
-            </div>`
+            </div>`;
         }
 
         // Sparkline — clean trend line
@@ -1898,7 +1901,7 @@
         function renderCleanStockCard(sym, panel) {
             const ins = insightsMap[sym];
             const d   = stockData[sym] || {};
-            if (!ins) { panel.innerHTML = '<div style="padding:24px;color:#64748b">No data</div>'; return; }
+            if (!ins) { panel.innerHTML = `<div style="padding:24px;font-size:16px;color:#64748b">No data</div>`; return; }
             const th = themeColors();
 
             const combScore = d.combinedScore ?? d.momentumScore ?? 0;
@@ -1909,62 +1912,84 @@
             const chgPos    = chg >= 0;
             const hist      = historicalData[sym] || [];
             const closes    = hist.slice(-30).map(h => h.close);
-            const verdict   = combScore>=65?{l:'BUY',c:'#34d399'}:combScore>=40?{l:'HOLD',c:'#fbbf24'}:{l:'AVOID',c:'#f87171'};
+
+            // Set panel background directly — this is the root fix for the white/dark background
+            panel.style.background = th.cardBg;
+            panel.style.color      = th.text1;
 
             panel.innerHTML = `
-                <div style="padding:24px;display:flex;flex-direction:column;gap:20px">
+                <div style="padding:28px;display:flex;flex-direction:column;gap:24px;background:${th.cardBg};min-height:100%">
 
-                    <div style="display:flex;justify-content:space-between;align-items:flex-start">
-                        <div>
-                            <div style="font-size:24px;font-weight:900;color:${th.text1};line-height:1">${sym}</div>
-                            <div style="font-size:13px;color:${th.text3};margin-top:4px">${escapeHtml(d.name||ins.name||'')}</div>
-                            ${ins.headline?`<div style="font-size:14px;color:#7dd3fc;margin-top:8px;font-weight:600;line-height:1.4">${escapeHtml(ins.headline)}</div>`:''}
+                    <!-- Header: bigger fonts -->
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+                        <div style="flex:1;min-width:0">
+                            <div style="font-size:28px;font-weight:900;color:${th.text1};line-height:1;letter-spacing:-0.5px">${sym}</div>
+                            <div style="font-size:15px;color:${th.text3};margin-top:6px">${escapeHtml(d.name||ins.name||'')}</div>
+                            ${ins.headline?`<div style="font-size:16px;color:${th.cardBg==='#ffffff'?'#0369a1':'#7dd3fc'};margin-top:10px;font-weight:600;line-height:1.5">${escapeHtml(ins.headline)}</div>`:''}
                         </div>
                         <div style="text-align:right;flex-shrink:0">
-                            <div style="font-size:22px;font-weight:800;color:${th.text1}">₹${price.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
-                            <div style="font-size:16px;font-weight:700;color:${chgPos?'#16a34a':'#dc2626'}">${chgPos?'+':''}${typeof chg==='number'?chg.toFixed(2):chg}%</div>
+                            <div style="font-size:26px;font-weight:800;color:${th.text1}">₹${price.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+                            <div style="font-size:18px;font-weight:700;color:${chgPos?'#16a34a':'#dc2626'}">${chgPos?'+':''}${typeof chg==='number'?chg.toFixed(2):chg}%</div>
                         </div>
                     </div>
-                    <div style="display:flex;gap:28px;align-items:flex-end">
-                        <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
-                            ${drawGauge(combScore, 100)}
-                            <div style="font-size:12px;color:${th.text3};font-weight:600">Combined</div>
+
+                    <!-- Gauges -->
+                    <div>
+                        <div style="font-size:13px;color:${th.text4};text-transform:uppercase;font-weight:700;letter-spacing:.06em;margin-bottom:14px">Score Breakdown</div>
+                        <div style="display:flex;gap:28px;align-items:flex-end">
+                            <div style="text-align:center">
+                                ${drawGauge(combScore, 104)}
+                                <div style="font-size:14px;color:${th.text3};margin-top:6px;font-weight:600">Combined</div>
+                            </div>
+                            <div style="text-align:center">
+                                ${drawGauge(techScore, 82)}
+                                <div style="font-size:13px;color:${th.text3};margin-top:6px">Technical</div>
+                            </div>
+                            ${fundScore!==null?`<div style="text-align:center">
+                                ${drawGauge(fundScore, 82)}
+                                <div style="font-size:13px;color:${th.text3};margin-top:6px">Fundamental</div>
+                            </div>`:''}
                         </div>
-                        <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
-                            ${drawGauge(techScore, 78)}
-                            <div style="font-size:12px;color:${th.text3};font-weight:600">Technical</div>
-                        </div>
-                        ${fundScore!==null?`<div style="display:flex;flex-direction:column;align-items:center;gap:4px">
-                            ${drawGauge(fundScore, 78)}
-                            <div style="font-size:12px;color:${th.text3};font-weight:600">Fundamental</div>
-                        </div>`:''}
                     </div>
+
+                    <!-- Sparkline -->
                     ${closes.length>4?`<div>
-                        <div style="font-size:11px;color:${th.text4};text-transform:uppercase;font-weight:700;letter-spacing:.05em;margin-bottom:8px">30-Day Trend</div>
-                        <div style="background:${th.cardBg};border:1px solid ${th.cardBorder};border-radius:12px;padding:12px 16px">
-                            ${drawSparkline(closes, 360, 56)}
+                        <div style="font-size:13px;color:${th.text4};text-transform:uppercase;font-weight:700;letter-spacing:.06em;margin-bottom:10px">30-Day Trend</div>
+                        <div style="background:${th.cardBg2};border:1px solid ${th.cardBorder};border-radius:14px;padding:14px 18px">
+                            ${drawSparkline(closes, 380, 64)}
+                            <div style="display:flex;justify-content:space-between;font-size:12px;color:${th.text4};margin-top:4px">
+                                <span>₹${Math.min(...closes).toLocaleString('en-IN',{maximumFractionDigits:0})}</span>
+                                <span>₹${Math.max(...closes).toLocaleString('en-IN',{maximumFractionDigits:0})}</span>
+                            </div>
                         </div>
                     </div>`:''}
-                    ${ins.summary?`<div style="background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.2);border-radius:12px;padding:16px">
-                        <div style="font-size:11px;color:#38bdf8;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">🤖 Summary</div>
-                        <p style="font-size:15px;color:${th.text2};line-height:1.7;margin:0">${escapeHtml(ins.summary)}</p>
+
+                    <!-- AI Summary -->
+                    ${ins.summary?`<div style="background:${th.cardBg==='#ffffff'?'#eff6ff':'rgba(56,189,248,0.06)'};border:1px solid ${th.cardBg==='#ffffff'?'#93c5fd':'rgba(56,189,248,0.2)'};border-left:4px solid ${th.cardBg==='#ffffff'?'#3b82f6':'#38bdf8'};border-radius:12px;padding:18px">
+                        <div style="font-size:13px;color:${th.cardBg==='#ffffff'?'#1d4ed8':'#38bdf8'};font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">🤖 Summary</div>
+                        <p style="font-size:16px;color:${th.text2};line-height:1.75;margin:0">${escapeHtml(ins.summary)}</p>
                     </div>`:''}
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-                        ${(ins.positives||[]).length?`<div style="background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.2);border-radius:12px;padding:14px">
-                            <div style="font-size:11px;color:#34d399;font-weight:700;text-transform:uppercase;margin-bottom:10px">✓ Strengths</div>
-                            ${(ins.positives||[]).slice(0,3).map(p=>`<div style="font-size:13px;color:${th.text2};line-height:1.5;margin-bottom:6px;padding-left:8px;border-left:2px solid #34d399">${escapeHtml(p)}</div>`).join('')}
+
+                    <!-- Strengths + Concerns -->
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                        ${(ins.positives||[]).length?`<div style="background:${th.cardBg==='#ffffff'?'#f0fdf4':'rgba(52,211,153,0.06)'};border:1px solid ${th.cardBg==='#ffffff'?'#86efac':'rgba(52,211,153,0.2)'};border-radius:14px;padding:16px">
+                            <div style="font-size:13px;color:${th.cardBg==='#ffffff'?'#15803d':'#34d399'};font-weight:700;text-transform:uppercase;margin-bottom:12px">✓ Strengths</div>
+                            ${(ins.positives||[]).slice(0,3).map(p=>`<div style="font-size:14px;color:${th.text2};line-height:1.6;margin-bottom:8px;padding-left:10px;border-left:3px solid ${th.cardBg==='#ffffff'?'#22c55e':'#34d399'}">${escapeHtml(p)}</div>`).join('')}
                         </div>`:''}
-                        ${(ins.concerns||[]).length?`<div style="background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);border-radius:12px;padding:14px">
-                            <div style="font-size:11px;color:#fbbf24;font-weight:700;text-transform:uppercase;margin-bottom:10px">⚠ Watch Out</div>
-                            ${(ins.concerns||[]).slice(0,3).map(p=>`<div style="font-size:13px;color:${th.text2};line-height:1.5;margin-bottom:6px;padding-left:8px;border-left:2px solid #fbbf24">${escapeHtml(p)}</div>`).join('')}
+                        ${(ins.concerns||[]).length?`<div style="background:${th.cardBg==='#ffffff'?'#fffbeb':'rgba(251,191,36,0.06)'};border:1px solid ${th.cardBg==='#ffffff'?'#fcd34d':'rgba(251,191,36,0.2)'};border-radius:14px;padding:16px">
+                            <div style="font-size:13px;color:${th.cardBg==='#ffffff'?'#b45309':'#fbbf24'};font-weight:700;text-transform:uppercase;margin-bottom:12px">⚠ Watch Out</div>
+                            ${(ins.concerns||[]).slice(0,3).map(p=>`<div style="font-size:14px;color:${th.text2};line-height:1.6;margin-bottom:8px;padding-left:10px;border-left:3px solid ${th.cardBg==='#ffffff'?'#f59e0b':'#fbbf24'}">${escapeHtml(p)}</div>`).join('')}
                         </div>`:''}
                     </div>
-                    ${ins.watchFor?`<div style="font-size:13px;color:${th.text3};padding:12px 16px;background:${th.cardBg2};border-radius:10px;border:1px solid ${th.cardBorder}">
-                        <span style="color:${th.text4};font-weight:700;font-size:11px;text-transform:uppercase">👁 Watch for: </span>${escapeHtml(ins.watchFor)}
+
+                    <!-- Watch for -->
+                    ${ins.watchFor?`<div style="font-size:15px;color:${th.text3};padding:14px 18px;background:${th.cardBg2};border-radius:12px;border:1px solid ${th.cardBorder};line-height:1.6">
+                        <span style="color:${th.text4};font-weight:700;font-size:13px;text-transform:uppercase">👁 Watch for: </span>${escapeHtml(ins.watchFor)}
                     </div>`:''}
-                    <button onclick="openWorkspace('${sym}')" style="width:100%;padding:14px;border-radius:12px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.3);color:#38bdf8;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s">
+
+                    <!-- CTA -->
+                    <button onclick="openWorkspace('${sym}')" style="width:100%;padding:16px;border-radius:14px;background:${th.cardBg==='#ffffff'?'rgba(59,130,246,0.08)':'rgba(56,189,248,0.08)'};border:1px solid ${th.cardBg==='#ffffff'?'#93c5fd':'rgba(56,189,248,0.3)'};color:${th.cardBg==='#ffffff'?'#2563eb':'#38bdf8'};font-size:16px;font-weight:700;cursor:pointer;transition:all .15s">
                         Open Full Chart & Analysis →
-                    </button>
                     </button>
                 </div>`;
         }
