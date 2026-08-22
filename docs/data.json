@@ -104,18 +104,18 @@
     {
         "ticker": "VOLTAS",
         "name": "Voltas Ltd.",
-        "price": 1235.0,
+        "price": NaN,
         "cap": "Mid",
         "sector": "Consumer Durables",
         "returns": {
-            "1D": 1.27,
-            "1W": -6.47,
-            "1M": -5.74,
-            "1Y": -10.15,
-            "2Y": -19.64,
-            "3Y": 56.8,
-            "4Y": 25.74,
-            "5Y": 29.93
+            "1D": NaN,
+            "1W": NaN,
+            "1M": NaN,
+            "1Y": NaN,
+            "2Y": NaN,
+            "3Y": NaN,
+            "4Y": NaN,
+            "5Y": NaN
         }
     },
     {
@@ -172,18 +172,18 @@
     {
         "ticker": "ANGELONE",
         "name": "Angel One Ltd.",
-        "price": 287.8,
+        "price": NaN,
         "cap": "Small",
         "sector": "Capital Markets",
         "returns": {
-            "1D": -0.59,
-            "1W": 0.17,
-            "1M": -5.96,
-            "1Y": 9.55,
-            "2Y": 41.28,
-            "3Y": 98.92,
-            "4Y": 119.7,
-            "5Y": 195.75
+            "1D": NaN,
+            "1W": NaN,
+            "1M": NaN,
+            "1Y": NaN,
+            "2Y": NaN,
+            "3Y": NaN,
+            "4Y": NaN,
+            "5Y": NaN
         }
     },
     {
@@ -206,35 +206,35 @@
     {
         "ticker": "CEATLTD",
         "name": "CEAT Ltd.",
-        "price": 3563.4,
+        "price": NaN,
         "cap": "Small",
         "sector": "Automobile",
         "returns": {
-            "1D": -0.69,
-            "1W": -3.4,
-            "1M": 7.63,
-            "1Y": 12.08,
-            "2Y": 39.12,
-            "3Y": 50.0,
-            "4Y": 207.18,
-            "5Y": 192.23
+            "1D": NaN,
+            "1W": NaN,
+            "1M": NaN,
+            "1Y": NaN,
+            "2Y": NaN,
+            "3Y": NaN,
+            "4Y": NaN,
+            "5Y": NaN
         }
     },
     {
         "ticker": "CENTURYPLY",
         "name": "Century Plyboards (India) Ltd.",
-        "price": 762.4,
+        "price": NaN,
         "cap": "Small",
         "sector": "Materials",
         "returns": {
-            "1D": -1.34,
-            "1W": 0.77,
-            "1M": -1.45,
-            "1Y": 0.38,
-            "2Y": 4.68,
-            "3Y": 16.24,
-            "4Y": 33.93,
-            "5Y": 94.36
+            "1D": NaN,
+            "1W": NaN,
+            "1M": NaN,
+            "1Y": NaN,
+            "2Y": NaN,
+            "3Y": NaN,
+            "4Y": NaN,
+            "5Y": NaN
         }
     },
     {
