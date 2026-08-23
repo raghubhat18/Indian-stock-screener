@@ -1,10 +1,10 @@
 {
   "weights": {
-    "roc5": 10,
+    "roc5": 12,
     "roc10": 2,
-    "vsma20": 18,
-    "sma20dir": 26,
-    "rsi": 20,
+    "vsma20": 24,
+    "sma20dir": 20,
+    "rsi": 22,
     "volume": 8,
     "relstrength": 14,
     "macd": 12,
@@ -14,7 +14,7 @@
     "hi52": 20,
     "gap": 6
   },
-  "appliedAt": "19 Aug 2026",
+  "appliedAt": "23 Aug 2026",
   "appliedBy": "RBK Compass Calibration",
   "defaultWeights": {
     "roc5": 12,
@@ -29,14 +29,14 @@
     "adx": 8,
     "cross": 8,
     "hi52": 6,
-    "gap": 6
+    "gap": 6,
+    "delivery": 10,
+    "vwap": 8,
+    "revgrowth": 10,
+    "profitgrowth": 10,
+    "cfomargin": 8
   },
   "changedFactors": [
-    {
-      "factor": "roc5",
-      "from": 12,
-      "to": 10
-    },
     {
       "factor": "roc10",
       "from": 8,
@@ -45,17 +45,17 @@
     {
       "factor": "vsma20",
       "from": 10,
-      "to": 18
+      "to": 24
     },
     {
       "factor": "sma20dir",
       "from": 8,
-      "to": 26
+      "to": 20
     },
     {
       "factor": "rsi",
       "from": 12,
-      "to": 20
+      "to": 22
     },
     {
       "factor": "hi52",
