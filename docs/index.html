@@ -321,7 +321,13 @@
         const DEFAULT_WEIGHTS = {
             roc5:12, roc10:8, vsma20:10, sma20dir:8, rsi:12,
             volume:8, relstrength:14, macd:12, bollinger:8,
-            adx:8, cross:8, hi52:6, gap:6
+            adx:8, cross:8, hi52:6, gap:6,
+            // Phase 1 new factors
+            delivery:10,    // Delivery % — conviction vs speculation
+            vwap:8,         // Price vs VWAP — institutional benchmark
+            revgrowth:10,   // Revenue growth YoY
+            profitgrowth:10,// Profit growth YoY
+            cfomargin:8,    // Cash flow from operations / revenue
         };
 
         // Weight loading priority:
@@ -619,15 +625,17 @@
                             let prevClose = null;
                             for (let i = 0; i < dates.length; i++) {
                                 if (!arr[i]) continue;  // null = didn't trade
-                                const [c, o, h, l, v] = arr[i];
+                                const [c, o, h, l, v, dq, tv] = arr[i];
                                 hist.push({
-                                    date:      dates[i],
-                                    close:     c,
-                                    open:      o,
-                                    high:      h,
-                                    low:       l,
-                                    volume:    v,
-                                    prevClose: prevClose !== null ? prevClose : c
+                                    date:         dates[i],
+                                    close:        c,
+                                    open:         o,
+                                    high:         h,
+                                    low:          l,
+                                    volume:       v,
+                                    deliveryQty:  dq || 0,    // index 5
+                                    tradedValue:  tv || 0,    // index 6
+                                    prevClose:    prevClose !== null ? prevClose : c
                                 });
                                 prevClose = c;
                             }
@@ -902,7 +910,9 @@
             el.classList.remove('hidden');
         }
 
-        function computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price, volSurge, relStrength, macd, bollinger, adx, crossSignal, pctFrom52High, hasGapUp, hasGapDown, gapPct }) {
+        function computeMomentumScore({ roc5, roc10, rsi14, sma20, sma20Prev, price, volSurge, relStrength, macd, bollinger, adx, crossSignal, pctFrom52High, hasGapUp, hasGapDown, gapPct,
+            // Phase 1 new parameters
+            deliveryPct, vwapRatio, revenueGrowth, profitGrowth, cfoMargin }) {
             // Helper: scale a factor's points by the ratio of active weight to default weight
             // This means approving calibrated weights changes the scoring proportionally
             const w = (key, pts) => {
@@ -1119,6 +1129,73 @@
                 else { pts = 3; note = 'No significant gap — normal session open, neutral signal'; }
                 score += pts;
                 breakdown.push({ label: 'Price Gap Detection', value: hasGapUp ? `Gap Up +${gapPct ? gapPct.toFixed(1) : ''}%` : hasGapDown ? `Gap Down ${gapPct ? gapPct.toFixed(1) : ''}%` : 'No gap', points: pts, max: 6, note });
+            }
+
+            // ── PHASE 1: NEW FACTORS ──────────────────────────────────────
+            // Delivery % — high delivery = conviction buying, not speculation
+            if (deliveryPct !== null && deliveryPct !== undefined) {
+                let pts = 0;
+                if      (deliveryPct >= 60) pts = 10;   // strong conviction
+                else if (deliveryPct >= 45) pts = 7;    // moderate conviction
+                else if (deliveryPct >= 30) pts = 4;    // below average
+                else                        pts = 0;    // speculative / noisy
+                score += pts;
+                breakdown.push({ label: 'Delivery % (Conviction)', value: `${deliveryPct.toFixed(1)}%`, points: pts, max: 10,
+                    note: deliveryPct >= 60 ? 'High delivery — institutional conviction' : deliveryPct >= 45 ? 'Moderate delivery' : 'Low delivery — speculative move' });
+            }
+
+            // VWAP position — price above VWAP means buyers are in control today
+            if (vwapRatio !== null && vwapRatio !== undefined) {
+                let pts = 0;
+                if      (vwapRatio >= 1.02) pts = 8;    // strongly above VWAP
+                else if (vwapRatio >= 1.00) pts = 5;    // at/above VWAP
+                else if (vwapRatio >= 0.98) pts = 2;    // slightly below
+                else                        pts = 0;    // well below VWAP
+                score += pts;
+                breakdown.push({ label: 'Price vs VWAP', value: `${((vwapRatio-1)*100).toFixed(2)}% vs VWAP`, points: pts, max: 8,
+                    note: vwapRatio >= 1 ? 'Price above VWAP — buyers in control' : 'Price below VWAP — selling pressure' });
+            }
+
+            // Revenue Growth YoY — positive growth is a business momentum signal
+            if (revenueGrowth !== null && revenueGrowth !== undefined && !isNaN(revenueGrowth)) {
+                let pts = 0;
+                if      (revenueGrowth >= 25) pts = 10;  // exceptional growth
+                else if (revenueGrowth >= 15) pts = 8;   // strong growth
+                else if (revenueGrowth >= 8)  pts = 6;   // healthy growth
+                else if (revenueGrowth >= 0)  pts = 3;   // flat/marginal
+                else if (revenueGrowth >= -10) pts = 1;  // mild decline
+                else                           pts = 0;  // contracting business
+                score += pts;
+                breakdown.push({ label: 'Revenue Growth YoY', value: `${revenueGrowth > 0 ? '+' : ''}${revenueGrowth.toFixed(1)}%`, points: pts, max: 10,
+                    note: revenueGrowth >= 15 ? 'Strong revenue growth' : revenueGrowth >= 0 ? 'Positive revenue trend' : 'Revenue declining' });
+            }
+
+            // Profit Growth YoY — earnings acceleration is a strong signal
+            if (profitGrowth !== null && profitGrowth !== undefined && !isNaN(profitGrowth)) {
+                let pts = 0;
+                if      (profitGrowth >= 30) pts = 10;   // exceptional earnings growth
+                else if (profitGrowth >= 20) pts = 8;    // strong earnings growth
+                else if (profitGrowth >= 10) pts = 6;    // healthy growth
+                else if (profitGrowth >= 0)  pts = 3;    // flat
+                else if (profitGrowth >= -15) pts = 1;   // mild decline
+                else                          pts = 0;   // declining earnings
+                score += pts;
+                breakdown.push({ label: 'Profit Growth YoY', value: `${profitGrowth > 0 ? '+' : ''}${profitGrowth.toFixed(1)}%`, points: pts, max: 10,
+                    note: profitGrowth >= 20 ? 'Strong earnings growth' : profitGrowth >= 0 ? 'Positive earnings trend' : 'Earnings declining' });
+            }
+
+            // CFO Margin — cash flow quality check
+            // High CFO margin means profits are backed by real cash (not just accounting)
+            if (cfoMargin !== null && cfoMargin !== undefined && !isNaN(cfoMargin)) {
+                let pts = 0;
+                if      (cfoMargin >= 20) pts = 8;    // excellent cash conversion
+                else if (cfoMargin >= 12) pts = 6;    // good
+                else if (cfoMargin >= 5)  pts = 4;    // acceptable
+                else if (cfoMargin >= 0)  pts = 2;    // weak but positive
+                else                      pts = 0;    // negative CFO = red flag
+                score += pts;
+                breakdown.push({ label: 'Cash Flow Quality (CFO/Rev)', value: `${cfoMargin.toFixed(1)}%`, points: pts, max: 8,
+                    note: cfoMargin >= 15 ? 'Excellent cash conversion' : cfoMargin >= 0 ? 'Positive cash flow' : '⚠ Negative operating cash flow' });
             }
 
             // Apply weight scaling: if user has approved calibrated weights,
@@ -1398,13 +1475,35 @@
                     else crossSignal = 'below200';
                 }
 
+                // ── PHASE 1: New factor inputs ──────────────────────────
+                // Delivery % — from prices.json index 5 (delivery qty) / index 4 (total vol)
+                let deliveryPct = null;
+                if (latest.volume > 0 && latest.deliveryQty > 0) {
+                    deliveryPct = (latest.deliveryQty / latest.volume) * 100;
+                }
+
+                // VWAP = total traded value / total volume (index 6 / index 4)
+                let vwapRatio = null;
+                if (latest.volume > 0 && latest.tradedValue > 0) {
+                    const vwap = latest.tradedValue / latest.volume;
+                    vwapRatio = vwap > 0 ? latest.close / vwap : null;
+                }
+
+                // Revenue/profit growth — from fundamentals
+                const fData = fundamentalsMap[ticker];
+                const revenueGrowth = fData ? parseFloat(fData.RevenueGrowthPct) || null : null;
+                const profitGrowth  = fData ? parseFloat(fData.ProfitGrowthPct)  || null : null;
+                const cfoMargin     = fData ? parseFloat(fData.CFOMarginPct)     || null : null;
+
                 // Detect candlestick and chart patterns from last 2 sessions
                 const patterns = detectPatterns(hist);
 
                 const { score, breakdown } = computeMomentumScore({
                     roc5, roc10, rsi14, sma20, sma20Prev, price: latest.close,
                     volSurge, relStrength, macd, bollinger, adx,
-                    pctFrom52High, crossSignal, hasGapUp, hasGapDown
+                    pctFrom52High, crossSignal, hasGapUp, hasGapDown, gapPct,
+                    // Phase 1
+                    deliveryPct, vwapRatio, revenueGrowth, profitGrowth, cfoMargin
                 });
 
                 // Fundamental score — only computed when this stock has data in fundamentalsMap
