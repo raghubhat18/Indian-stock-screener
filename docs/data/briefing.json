@@ -1,6 +1,6 @@
 {
- "updatedAt": "2026-08-22T22:18:48Z",
- "model": "gemini-flash-latest",
+ "updatedAt": "2026-08-23T04:33:43Z",
+ "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
   "Geo-Political",
@@ -12,29 +12,36 @@
  "briefing": {
   "Markets": [
    {
+    "title": "How will Sensex, Nifty behave on Monday? 4 factors to drive D-Street action this week",
+    "summary": "This week's Dalal Street movements are set to be heavily influenced by the ongoing tensions between Iran and the US, alo...",
+    "link": "https://economictimes.indiatimes.com/markets/stocks/news/how-will-sensex-nifty-behave-on-monday-4-factors-to-drive-d-street-action-this-week/articleshow/133433930.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Sun, 23 Aug 2026 09:17:51 +0530"
+   },
+   {
     "title": "Sebi proposes tighter curbs on promotional claims by online bond platforms",
-    "summary": "[text",
+    "summary": "Sebi has proposed stricter advertising rules for online bond platforms to protect investors from making hasty financial decisions. Under the new guidelines, promotional content must include standardized security information, explicit risk disclaimers for terms like \"fixed returns,\" and restrictions on ambiguous claims such as \"high yield.\"",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/sebi-proposes-tighter-curbs-on-promotional-claims-by-online-bond-platforms/articleshow/133424265.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sat, 22 Aug 2026 17:51:46 +0530"
    },
    {
     "title": "Dalal Street Week Ahead: Selective buying favoured as Nifty remains rangebound",
-    "summary": "The Nifty index fell",
+    "summary": "The Nifty fell 0.47% to close at 24,252 while remaining range-bound within key support and resistance levels. Analysts recommend selective stock picking in sectors with improving momentum, such as IT and PSU banks, until a decisive market breakout occurs.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/dalal-street-week-ahead-selective-buying-favoured-as-nifty-remains-range-bound/articleshow/133423333.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sat, 22 Aug 2026 17:16:05 +0530"
    },
    {
     "title": "Freedom Oils maker Gemini Edibles &amp; Fats India files DRHP with Sebi for IPO",
-    "summary": "Gemini Edibles &amp; Fats India, maker of Freedom Oils, filed IPO papers with Sebi for an entirely offer-for-sale issue ...",
+    "summary": "Gemini Edibles & Fats India, the maker of Freedom Oils, has filed preliminary papers with SEBI for an initial public offering consisting entirely of an offer-for-sale of up to 4.12 crore shares. The company's revenue increased to Rs 12,650 crore in fiscal year 2026, driven by strong growth in its branded oil segment.",
     "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/freedom-oils-maker-gemini-edibles-fats-india-files-drhp-with-sebi-for-ipo/articleshow/133421580.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sat, 22 Aug 2026 15:31:46 +0530"
    },
    {
     "title": "Zee Entertainment allots 20.94 cr convertible warrants to promoter group entity",
-    "summary": "Zee Entertainment Enterprises",
+    "summary": "Zee Entertainment has issued 20.94 crore convertible warrants to Sunbright Mauritius Investments Ltd, raising Rs 659.76 crore. This funding initiative allows the promoter group entity to secure a substantial stake in the company upon full conversion.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/zee-entertainment-allots-20-94-cr-convertible-warrants-to-promoter-group-entity/articleshow/133421533.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sat, 22 Aug 2026 15:21:31 +0530"
@@ -45,212 +52,22 @@
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/cas-chaos-triggers-liquidity-spiral-nuvama-says-higher-participation-needed-to-break-cycle/articleshow/133421238.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sat, 22 Aug 2026 14:58:53 +0530"
-   },
-   {
-    "title": "Mom's Belief operator to launch IPO on Sep 1",
-    "summary": "On September 1, Rays of Belief Ltd will make its debut in the stock market with an initial public offering. With ambitio...",
-    "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/moms-belief-operator-to-launch-ipo-on-sep-1/articleshow/133420812.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Sat, 22 Aug 2026 14:25:28 +0530"
    }
   ],
   "Geo-Political": [
    {
-    "title": "Carney calls Trump's fresh tariffs a 'miscalculation' after trade talks collapse",
-    "summary": "ONLY the 2-",
+    "title": "Carney say Trump started trade war with fresh tarrifs 'attack'",
+    "summary": "Canada's prime minister accused the United States of initiating a trade war with new tariffs. In response, Canada announced that it is reluctantly implementing retaliatory tariffs against the U.S.",
     "link": "https://www.bbc.co.uk/news/articles/cx272np7vgyo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Sat, 22 Aug 2026 20:10:00 GMT"
    },
    {
     "title": "Carney faces crucial test after walking away from Trump's deal",
-    "summary": "The Canadian prime minister will have to sell his gamble that walking away from talks with the White House will be worth...",
+    "summary": "Canadian Prime Minister Mark Carney faces a major political test after abandoning trade negotiations with the White House. He must now prove to the public that rejecting the Trump administration's deal will benefit Canada despite the potential consequences.",
     "link": "https://www.bbc.co.uk/news/articles/c3040pn8lmmo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Sat, 22 Aug 2026 20:02:46 GMT"
-   },
-   {
-    "title": "TikTok to pay $400m to US in one of largest child privacy settlements",
-    "summary": "The deal stems from a 2024 lawsuit alleging TikTok and its parent company ByteDance collected \"vast amounts of data\" on ...",
-    "link": "https://www.bbc.co.uk/news/articles/cwyr0l45xjro?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Fri, 21 Aug 2026 22:36:12 GMT"
-   },
-   {
-    "title": "Fourteen killed in strike on Myanmar monastery",
-    "summary": "An attack on",
-    "link": "https://www.bbc.co.uk/news/articles/cqlxlvz01z1o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Sat, 22 Aug 2026 13:48:06 GMT"
-   },
-   {
-    "title": "Rescuers dig through Ukraine mall wreckage as Zelensky condemns 'despicable' Russian strike",
-    "summary": "ONLY the",
-    "link": "https://www.bbc.co.uk/news/articles/c39egw7nmk2o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Sat, 22 Aug 2026 13:13:16 GMT"
-   },
-   {
-    "title": "US military newspaper editor voices censorship fears after being fired",
-    "summary": "Erik Slavin believes he was fired for saying in an interview that \"in a hypothetical situation, censorship would be a re...",
-    "link": "https://www.bbc.co.uk/news/articles/cm2g23ng8p4o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Sat, 22 Aug 2026 16:57:19 GMT"
-   }
-  ],
-  "AI & Tech": [
-   {
-    "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "An online course creator discovered",
-    "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
-    "source": "techncruncher.blogspot.com",
-    "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
-   },
-   {
-    "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "Looking to level up your content creation game in 2025? You're in the right place! The digital landscape has evolved dra...",
-    "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
-    "source": "techncruncher.blogspot.com",
-    "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
-   },
-   {
-    "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "&nbsp;In the rapidly advancing landscape of AI technology and innovation, LimeWire emerges as a unique platform in the r...",
-    "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
-    "source": "techncruncher.blogspot.com",
-    "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
-   },
-   {
-    "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovation and efficiency in various industries. ...",
-    "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
-    "source": "techncruncher.blogspot.com",
-    "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
-   },
-   {
-    "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "Are you looking for a way to create content that is both effective and efficient? If so, then you should consider using ...",
-    "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
-    "source": "techncruncher.blogspot.com",
-    "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
-   },
-   {
-    "title": "Beginner Guide to CJ Affiliate (Commission Junction) in 2022",
-    "summary": "This beginner's guide",
-    "link": "https://techncruncher.blogspot.com/2022/09/cj-affiliate-ultimate-guide-to.html",
-    "source": "techncruncher.blogspot.com",
-    "pubDate": "Sat, 10 Sep 2022 08:57:00 +0000"
-   }
-  ],
-  "Data & Insights": [
-   {
-    "title": "The week in charts: Hawkish RBI minutes, drought warning, rural workforce",
-    "summary": "In this weekly Plain Facts compilation, we present to you data-based insights, with easy-to-read charts, to help you del...",
-    "link": "https://www.livemint.com/economy/the-week-in-charts-hawkish-rbi-minutes-drought-warning-rural-workforce-11787216573972.html",
-    "source": "livemint.com",
-    "pubDate": "Sat, 22 Aug 2026 07:00:40 +0530"
-   },
-   {
-    "title": "India gets FDI approvals of  ₹4,896 cr under eased norms for land-border countries; not clear origin is from China",
-    "summary": "The proposed investments totalling  ₹4,895.65 crore as of 20 August are in sectors such as information technology, artif...",
-    "link": "https://www.livemint.com/economy/india-fdi-proposals-4-896-crore-easier-land-border-rules-it-ai-manufacturing-pharma-data-centres-11787316119117.html",
-    "source": "livemint.com",
-    "pubDate": "Fri, 21 Aug 2026 19:43:14 +0530"
-   },
-   {
-    "title": "India economic growth may beat RBI forecast: Deputy governor says 7% pace possible as indicators improve",
-    "summary": "RBI Deputy Governor Poonam Gupta said India's economic growth could beat the central bank’s 6.7% forecast, with growth n...",
-    "link": "https://www.livemint.com/economy/india-economic-growth-may-beat-rbi-forecast-deputy-governor-says-7-pace-possible-as-indicators-improve-11787315737135.html",
-    "source": "livemint.com",
-    "pubDate": "Fri, 21 Aug 2026 18:25:04 +0530"
-   },
-   {
-    "title": "India’s private sector growth likely picked up in August: HSBC Flash India PMI",
-    "summary": "The flash survey, an advance estimate ahead of final readings, offers an early indication of shifts in economic sentimen...",
-    "link": "https://www.livemint.com/economy/private-sector-growth-growth-in-august-july-low-service-sector-strengthens-hsbc-flash-india-pmi-manufacturing-orders-11787290897213.html",
-    "source": "livemint.com",
-    "pubDate": "Fri, 21 Aug 2026 12:03:19 +0530"
-   },
-   {
-    "title": "Consumers queue up for premium petrol as E20 concerns refuse to die down",
-    "summary": "Amid concerns that ethanol-blended E20 petrol could hurt vehicle mileage and engine life, consumers are increasingly tra...",
-    "link": "https://www.livemint.com/economy/consumers-queue-up-for-premium-petrol-as-e20-concerns-refuse-to-die-down-11787223782784.html",
-    "source": "livemint.com",
-    "pubDate": "Fri, 21 Aug 2026 05:50:17 +0530"
-   },
-   {
-    "title": "India allows duty-free sugar imports as prices surge",
-    "summary": "After banning sugar exports and tightening stock holding curbs, the government has cut import duty to zero to cool recor...",
-    "link": "https://www.livemint.com/economy/india-allows-duty-free-sugar-imports-as-prices-surge-11787245667354.html",
-    "source": "livemint.com",
-    "pubDate": "Thu, 20 Aug 2026 23:19:23 +0530"
-   }
-  ],
-  "India": [
-   {
-    "title": "In Leaked Audio, Gangster Goldy Brar Claims He Killed Hardeep Nijjar In Canada",
-    "summary": "Goldy Brarmade the claim during a conversation with Khalistani terrorist Paramjit Singh Pamma.",
-    "link": "https://www.ndtv.com/india-news/in-leaked-audio-gangster-goldy-brar-claims-he-killed-hardeep-nijjar-in-canada-11946027#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Sun, 23 Aug 2026 00:19:31 +0530"
-   },
-   {
-    "title": "'Matter Of National Economy Security': Rajnath Singh On Preventive Healthcare",
-    "summary": "Rajnath Singh said non-communicable diseases such as diabetes, hypertension, heart disease, cancer, kidney failure and m...",
-    "link": "https://www.ndtv.com/india-news/matter-of-national-economy-security-rajnath-singh-on-preventive-healthcare-11946098#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Sun, 23 Aug 2026 00:16:23 +0530"
-   },
-   {
-    "title": "UP Class 12 Student Found Hanging Hours After Being Accused Of Molestation",
-    "summary": ". Reply with",
-    "link": "https://www.ndtv.com/india-news/up-class-12-student-found-hanging-hours-after-being-accused-of-molestation-11946073#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Sun, 23 Aug 2026 00:00:54 +0530"
-   },
-   {
-    "title": "\"GIFT City Is India's International Financial Centre\": HSBC's Sandeep Batra To NDTV",
-    "summary": "In Walk The Talk, HSBC international banking head says GIFT City is seeing financial activity ranging from muti-currency...",
-    "link": "https://www.ndtv.com/india-news/gift-city-is-indias-international-financial-centre-hsbcs-sandeep-batra-spotlights-pace-of-growth-11946026#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Sat, 22 Aug 2026 23:49:30 +0530"
-   },
-   {
-    "title": "Raids Across J&K's 5 Districts In Cross-Border Terror Conspiracy Case",
-    "summary": "The simultaneous searches were conducted in Srinagar, Kupwara, Anantnag, Pulwama, and Budgam districts",
-    "link": "https://www.ndtv.com/india-news/raids-across-jammu-and-kashmirs-5-districts-in-cross-border-terror-conspiracy-case-11946025#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Sat, 22 Aug 2026 23:46:10 +0530"
-   },
-   {
-    "title": "FIRs Against 14 Named, 200 Unnamed Persons Over Ranchi Students-Cops Clash",
-    "summary": "An official said one of the FIRs was lodged by police against alleged miscreants for obstructing government duty and vio...",
-    "link": "https://www.ndtv.com/india-news/firs-against-14-named-200-unnamed-persons-over-ranchi-students-cops-clash-11946023#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Sat, 22 Aug 2026 23:45:01 +0530"
-   }
-  ],
-  "General": [
-   {
-    "title": "Two police officers among seven killed in wrong-way car crash",
-    "summary": "PC Matthew Blades and PC Tom Clough died after a car driving the wrong way down the A66 near Middlesbrough collided with...",
-    "link": "https://www.bbc.co.uk/news/articles/cx272ly3g00o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Sat, 22 Aug 2026 19:28:14 GMT"
-   },
-   {
-    "title": "Video appears to show police chase minutes before fatal A66 crash",
-    "summary": "Several police vehicles are seen chasing a car just three minutes before the crash on the A66 near Middlesbrough.",
-    "link": "https://www.bbc.co.uk/news/videos/c4gxgpqzdz6o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Sat, 22 Aug 2026 20:14:04 GMT"
-   },
-   {
-    "title": "Canadian PM calls Trump's fresh tariffs a 'miscalculation' after trade talks collapse",
-    "summary": "Canada's prime minister said he was \"reluctantly\" announcing retaliatory tariffs as he accused the US of starting a trad...",
-    "link": "https://www.bbc.co.uk/news/articles/cx272np7vgyo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Sat, 22 Aug 2026 20:10:00 GMT"
    },
    {
     "title": "Rescuers dig through Ukraine mall wreckage as Zelensky condemns 'despicable' Russian strike",
@@ -260,18 +77,201 @@
     "pubDate": "Sat, 22 Aug 2026 13:13:16 GMT"
    },
    {
-    "title": "Lucy Davis 'grateful' for support over cancer diagnosis",
-    "summary": "The Office star was appearing at convention in London, less than two weeks after announcing her condition.",
-    "link": "https://www.bbc.co.uk/news/articles/cd9w9l9v8w8o?at_medium=RSS&at_campaign=rss",
+    "title": "Father leaves 7-year-old son alone on Mount Fuji to continue hike",
+    "summary": "The man had taken his two boys on the trip but is said to have left one behind when he got tired.",
+    "link": "https://www.bbc.co.uk/news/articles/c93403wg288o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Sat, 22 Aug 2026 21:50:29 GMT"
+    "pubDate": "Sat, 22 Aug 2026 14:35:11 GMT"
    },
    {
-    "title": "How this 1960s ex-council house is managing to stay cool without air con",
-    "summary": "The Passivhaus standard is growing in popularity as UK homeowners adapt to hotter summer temperatures.",
-    "link": "https://www.bbc.co.uk/news/articles/cg5l3z7p922o?at_medium=RSS&at_campaign=rss",
+    "title": "Syria says Israeli strike near Damascus violation of international law",
+    "summary": "Syria stated that a recent Israeli airstrike near Damascus violated international law. This incident follows reports of another Israeli strike on a military airbase near the Turkish border days earlier.",
+    "link": "https://www.bbc.co.uk/news/articles/c2dkdegr2xeo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 21 Aug 2026 23:56:48 GMT"
+    "pubDate": "Sat, 22 Aug 2026 21:42:42 GMT"
+   },
+   {
+    "title": "TikTok to pay $400m to US in one of largest child privacy settlements",
+    "summary": "TikTok and ByteDance will pay $400 million to settle a 2024 lawsuit with the United States. The lawsuit alleged the companies illegally collected massive amounts of data from millions of users under 13.",
+    "link": "https://www.bbc.co.uk/news/articles/cwyr0l45xjro?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Fri, 21 Aug 2026 22:36:12 GMT"
+   }
+  ],
+  "AI & Tech": [
+   {
+    "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
+    "summary": "The author tested getting organic traffic from ChatGPT and found their WordPress SaaS course was recommended first by the AI. This occurred without using paid advertising or traditional search engine optimization.",
+    "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
+    "source": "techncruncher.blogspot.com",
+    "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
+   },
+   {
+    "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
+    "summary": "Artificial intelligence tools have become essential for digital creators looking to stay ahead in 2025. This guide highlights the top 10 AI tools designed to revolutionize and simplify the content creation process.",
+    "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
+    "source": "techncruncher.blogspot.com",
+    "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
+   },
+   {
+    "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
+    "summary": "LimeWire is an AI content generation platform that helps users create various types of media. The platform also allows creators to share and monetize their AI-generated content.",
+    "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
+    "source": "techncruncher.blogspot.com",
+    "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
+   },
+   {
+    "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
+    "summary": "This article explores the top 10 advanced artificial intelligence tools of 2023 that automate tasks and improve workplace productivity. These widely used market solutions are designed to drive efficiency and innovation across various industry applications.",
+    "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
+    "source": "techncruncher.blogspot.com",
+    "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
+   },
+   {
+    "title": "Top 10 AI Content Generator & Writer Tools in 2022",
+    "summary": "Artificial intelligence content generators help users efficiently create engaging and relevant material for their audiences. Because many different tools are available on the market, choosing the right one for your specific needs can be challenging.",
+    "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
+    "source": "techncruncher.blogspot.com",
+    "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
+   },
+   {
+    "title": "Beginner Guide to CJ Affiliate (Commission Junction) in 2022",
+    "summary": "This beginner's guide to CJ Affiliate explains how the network works and how to earn money on the platform. It also highlights top CJ affiliate programs and alternative platforms.",
+    "link": "https://techncruncher.blogspot.com/2022/09/cj-affiliate-ultimate-guide-to.html",
+    "source": "techncruncher.blogspot.com",
+    "pubDate": "Sat, 10 Sep 2022 08:57:00 +0000"
+   }
+  ],
+  "Data & Insights": [
+   {
+    "title": "The week in charts: Hawkish RBI minutes, drought warning, rural workforce",
+    "summary": "This weekly data compilation highlights recent Mint reports featuring easy-to-read charts on key economic and environmental trends. The insights cover a hawkish stance in Reserve Bank of India minutes, a developing drought warning, and the state of the rural workforce.",
+    "link": "https://www.livemint.com/economy/the-week-in-charts-hawkish-rbi-minutes-drought-warning-rural-workforce-11787216573972.html",
+    "source": "livemint.com",
+    "pubDate": "Sat, 22 Aug 2026 07:00:40 +0530"
+   },
+   {
+    "title": "India gets FDI approvals of  ₹4,896 cr under eased norms for land-border countries; not clear origin is from China",
+    "summary": "India approved ₹4,896 crore in foreign direct investments across various sectors under eased norms for land-border countries by August 20. However, it remains unclear whether the origin of these investments is from China.",
+    "link": "https://www.livemint.com/economy/india-fdi-proposals-4-896-crore-easier-land-border-rules-it-ai-manufacturing-pharma-data-centres-11787316119117.html",
+    "source": "livemint.com",
+    "pubDate": "Fri, 21 Aug 2026 19:43:14 +0530"
+   },
+   {
+    "title": "India economic growth may beat RBI forecast: Deputy governor says 7% pace possible as indicators improve",
+    "summary": "RBI Deputy Governor Poonam Gupta stated that India's economic growth could surpass the central bank's 6.7% forecast and approach 7%. This positive outlook is driven by stronger-than-expected economic indicators, while financial markets increasingly anticipate a rate hike later this year.",
+    "link": "https://www.livemint.com/economy/india-economic-growth-may-beat-rbi-forecast-deputy-governor-says-7-pace-possible-as-indicators-improve-11787315737135.html",
+    "source": "livemint.com",
+    "pubDate": "Fri, 21 Aug 2026 18:25:04 +0530"
+   },
+   {
+    "title": "India’s private sector growth likely picked up in August: HSBC Flash India PMI",
+    "summary": "India's private sector growth likely accelerated in August, according to the HSBC Flash India PMI survey. This advance estimate provides an early indicator of positive shifts in the country's economic sentiment and output.",
+    "link": "https://www.livemint.com/economy/private-sector-growth-growth-in-august-july-low-service-sector-strengthens-hsbc-flash-india-pmi-manufacturing-orders-11787290897213.html",
+    "source": "livemint.com",
+    "pubDate": "Fri, 21 Aug 2026 12:03:19 +0530"
+   },
+   {
+    "title": "Consumers queue up for premium petrol as E20 concerns refuse to die down",
+    "summary": "Fears that ethanol-blended E20 petrol reduces vehicle mileage and engine life have caused consumers to increasingly switch to premium fuels. This trend has driven the sales share of high-octane petrol from roughly 4% in March to between 12% and 15%.",
+    "link": "https://www.livemint.com/economy/consumers-queue-up-for-premium-petrol-as-e20-concerns-refuse-to-die-down-11787223782784.html",
+    "source": "livemint.com",
+    "pubDate": "Fri, 21 Aug 2026 05:50:17 +0530"
+   },
+   {
+    "title": "India allows duty-free sugar imports as prices surge",
+    "summary": "India has eliminated import duties on sugar to lower record-high domestic prices. This action follows the government's earlier decisions to ban sugar exports and restrict stock holdings.",
+    "link": "https://www.livemint.com/economy/india-allows-duty-free-sugar-imports-as-prices-surge-11787245667354.html",
+    "source": "livemint.com",
+    "pubDate": "Thu, 20 Aug 2026 23:19:23 +0530"
+   }
+  ],
+  "India": [
+   {
+    "title": "2 Killed, 5 Injured As 22-Foot Ganesh Idol Falls On Them In Mumbai",
+    "summary": "Two people were killed and five others injured when a 22-foot Ganesh idol collapsed on them in Mumbai. The accident was caused by loose nuts and bolts in the idol's frame.",
+    "link": "https://www.ndtv.com/india-news/2-killed-5-injured-as-22-foot-ganesh-idol-falls-on-them-during-arrival-ceremony-in-mumbai-bhuleshwaracha-raja-11946469#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Sun, 23 Aug 2026 08:37:42 +0530"
+   },
+   {
+    "title": "Justice Sanjay Karol, Known As 'Chachaji' In Supreme Court, Retires",
+    "summary": "Supreme Court Justice Sanjay Karol, affectionately known as 'Chachaji' and originally from Himachal Pradesh's first heritage village of Garli, has retired. He was widely respected for his simple and approachable manner.",
+    "link": "https://www.ndtv.com/india-news/justice-sanjay-karol-known-as-chachaji-in-supreme-court-retires-11946583#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Sun, 23 Aug 2026 08:32:18 +0530"
+   },
+   {
+    "title": "In Group Pic With PM Modi, BJP's New Team Sends A Nari Shakti Message",
+    "summary": "Prime Minister Narendra Modi posed for a group photograph with the BJP's newly announced team. The reshuffled leadership highlights an emphasis on women's empowerment alongside diverse regional, social, and generational representation.",
+    "link": "https://www.ndtv.com/india-news/in-group-pic-with-pm-modi-bjps-new-team-sends-a-nari-shakti-message-11946580#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Sun, 23 Aug 2026 08:31:24 +0530"
+   },
+   {
+    "title": "3 Minutes, 6 Stanzas, Century-Old Debate: The Many Turns In Vande Mataram's Journey",
+    "summary": "Prime Minister Narendra Modi launched a year-long commemoration of the 150th anniversary of Vande Mataram on November 7, 2025. Parliament held special discussions in December, during which lawmakers scrutinized a 1937 Congress decision regarding the song.",
+    "link": "https://www.ndtv.com/india-news/150-yrs-on-vande-mataram-debate-has-new-chapters-what-cong-dropped-what-modi-govt-now-protects-11945608#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Sun, 23 Aug 2026 08:11:59 +0530"
+   },
+   {
+    "title": "Hotel Owner Arrested In Kolkata Blaze That Killed 9, Including 7 Bangladeshis",
+    "summary": "The owner of a Kolkata hotel has been arrested following a fire that killed nine people. Seven of the victims were from Bangladesh, while the other two were from Jharkhand and West Bengal.",
+    "link": "https://www.ndtv.com/india-news/kolkata-fire-news-hotel-shikha-inn-owner-bireswar-mitra-arrested-in-kolkata-blaze-that-killed-9-including-7-bangladeshis-11946527#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Sun, 23 Aug 2026 07:58:06 +0530"
+   },
+   {
+    "title": "SSC Selection Post Phase 14 Exam Date 2026 Out, Exams From September 16, Check Schedule",
+    "summary": "SSC Selection Post Phase 14 exam date 2026 has been announced. The computer-based examination will be held from Septembe...",
+    "link": "https://www.ndtv.com/education/ssc-selection-post-phase-14-exam-date-2026-out-exams-from-september-16-check-schedule-11946502#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Sun, 23 Aug 2026 07:47:46 +0530"
+   }
+  ],
+  "General": [
+   {
+    "title": "Mayors to get powers to overrule local councils on planning decisions",
+    "summary": "Housing minister Matthew Pennycook announced that mayors will receive new powers to overrule local councils on planning decisions. The government describes this change as essential for helping mayors effectively deliver new homes.",
+    "link": "https://www.bbc.co.uk/news/articles/cy8m0gxexl4o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Sun, 23 Aug 2026 03:10:51 GMT"
+   },
+   {
+    "title": "Two police officers among seven killed in wrong-way car crash",
+    "summary": "PC Matthew Blades and PC Tom Clough died after a car driving the wrong way down the A66 near Middlesbrough collided with...",
+    "link": "https://www.bbc.co.uk/news/articles/cx272ly3g00o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Sat, 22 Aug 2026 19:28:14 GMT"
+   },
+   {
+    "title": "Struggling households need more help with bills, energy industry says",
+    "summary": "Energy UK stated that the current financial assistance provided to struggling households is insufficient. The industry body is calling for increased support to help vulnerable consumers with their bills.",
+    "link": "https://www.bbc.co.uk/news/articles/cm2g5x7l4mko?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Sat, 22 Aug 2026 23:00:03 GMT"
+   },
+   {
+    "title": "Restriction zone scheme for offenders to start in October",
+    "summary": "Starting in October, serious violent and sexual offenders may be confined to small geographic areas upon release from prison on probation. This restriction zone scheme limits these individuals to areas of just a few miles.",
+    "link": "https://www.bbc.co.uk/news/articles/cy8e8jx0x5wo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Sun, 23 Aug 2026 02:37:03 GMT"
+   },
+   {
+    "title": "Canadian PM calls Trump's fresh tariffs a 'miscalculation' after trade talks collapse",
+    "summary": "Canadian Prime Minister Justin Trudeau announced retaliatory tariffs after trade talks with the United States collapsed. Trudeau accused the U.S. of starting a trade war and described the new American tariffs as a miscalculation.",
+    "link": "https://www.bbc.co.uk/news/articles/cx272np7vgyo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Sat, 22 Aug 2026 20:10:00 GMT"
+   },
+   {
+    "title": "Cyber attack shut down small power plant",
+    "summary": "A cyber attack shut down a small power plant in the UK in July. The government stated that the UK's overall energy system was never at risk during the incident.",
+    "link": "https://www.bbc.co.uk/news/articles/ce9793g34yvo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Sun, 23 Aug 2026 02:48:41 GMT"
    }
   ]
  }
