@@ -95,11 +95,12 @@ jobs:
                   cash     = float(get_first(rows,'CashAndCashEquivalents') or 0)
                   segment  = get_first(rows,'DescriptionOfSingleSegment') or get_first(rows,'NatureOfBusiness') or ''
                   divid    = get_longest(rows,'DividendsPaidClassifiedAsFinancingActivities')
+                  cfo_data = get_longest(rows,'CashFlowsFromUsedInOperatingActivities')
+                  interest_data = get_longest(rows,'FinanceCosts')
 
                   shares = paidUp / faceVal if faceVal else None
 
                   roe  = round(np_data[0] / eq * 100, 2)    if eq and np_data                   else ''
-                  # Use company's own D/E if available and > 0, otherwise compute
                   if de_given and float(de_given) > 0:
                       de = round(float(de_given), 4)
                   else:
@@ -109,33 +110,59 @@ jobs:
                   bvps = round(eq / shares, 2)               if eq and shares                    else ''
                   cr   = round(ca / cl, 2)                       if cl                                   else ''
                   npm  = round(np_data[0] / rev_data[0] * 100,2) if np_data and rev_data and rev_data[0] else ''
-                  # New KPIs (info only - not scored)
-                  revenue    = round(rev_data[0]/10000000, 2)     if rev_data                            else ''  # in Cr
-                  net_profit = round(np_data[0]/10000000, 2)      if np_data                             else ''  # in Cr
+                  revenue    = round(rev_data[0]/10000000, 2)     if rev_data                            else ''
+                  net_profit = round(np_data[0]/10000000, 2)      if np_data                             else ''
                   op_margin  = round(op_profit_data[0] / rev_data[0] * 100, 2) if op_profit_data and rev_data and rev_data[0] else ''
                   roa        = round(np_data[0] / total_assets * 100, 2) if total_assets and np_data     else ''
-                  debt_total = round((bNC + bC)/10000000, 2)      if (bNC + bC) else ''  # in Cr
-                  eq_cr      = round(eq/10000000, 2)              if eq                                  else ''  # in Cr
-                  assets_cr  = round(total_assets/10000000, 2)    if total_assets                        else ''  # in Cr
-                  cash_cr    = round(cash/10000000, 2)            if cash                                else ''  # in Cr
-                  shares_cr  = round(shares/10000000, 4)          if shares                              else ''  # in Cr
+                  debt_total = round((bNC + bC)/10000000, 2)      if (bNC + bC) else ''
+                  eq_cr      = round(eq/10000000, 2)              if eq                                  else ''
+                  assets_cr  = round(total_assets/10000000, 2)    if total_assets                        else ''
+                  cash_cr    = round(cash/10000000, 2)            if cash                                else ''
+                  shares_cr  = round(shares/10000000, 4)          if shares                              else ''
                   effective_tax = round(tax_data[0] / op_profit_data[0] * 100, 2) if tax_data and op_profit_data and op_profit_data[0] else ''
+
+                  # ── NEW: Growth metrics ────────────────────────────────
+                  # YoY Revenue Growth: (this year - last year) / last year * 100
+                  rev_growth = ''
+                  if rev_data and len(rev_data) >= 2 and rev_data[1]:
+                      rev_growth = round((rev_data[0] - rev_data[1]) / abs(rev_data[1]) * 100, 2)
+
+                  # YoY Profit Growth
+                  profit_growth = ''
+                  if np_data and len(np_data) >= 2 and np_data[1] and np_data[1] > 0:
+                      profit_growth = round((np_data[0] - np_data[1]) / abs(np_data[1]) * 100, 2)
+
+                  # CFO Margin: Cash Flow from Operations / Revenue (quality of earnings)
+                  # High CFO margin = profits are backed by real cash
+                  cfo_margin = ''
+                  if cfo_data and rev_data and rev_data[0]:
+                      cfo_margin = round(cfo_data[0] / rev_data[0] * 100, 2)
+
+                  # Interest Coverage: Operating Profit / Finance Costs
+                  # > 3x = comfortable, > 5x = strong, < 1.5x = risky
+                  interest_coverage = ''
+                  if op_profit_data and interest_data and interest_data[0]:
+                      interest_coverage = round(op_profit_data[0] / interest_data[0], 2)
 
                   results.append({
                       'Symbol': symbol.upper(),
                       'ROE': roe, 'DebtToEquity': de, 'EPS': eps,
                       'BookValuePerShare': bvps, 'CurrentRatio': cr, 'NetProfitMargin': npm,
                       'Segment': segment.replace(',','|') if segment else '',
-                      # Info-only KPIs
                       'DilutedEPS': diluted_eps,
                       'RevenueCr': revenue, 'NetProfitCr': net_profit,
                       'OperatingMargin': op_margin, 'ROA': roa,
                       'TotalDebtCr': debt_total, 'EquityCr': eq_cr,
                       'TotalAssetsCr': assets_cr, 'CashCr': cash_cr,
                       'SharesOutstandingCr': shares_cr,
-                      'EffectiveTaxRate': effective_tax
+                      'EffectiveTaxRate': effective_tax,
+                      # New growth + quality metrics
+                      'RevenueGrowthPct': rev_growth,
+                      'ProfitGrowthPct':  profit_growth,
+                      'CFOMarginPct':     cfo_margin,
+                      'InterestCoverage': interest_coverage,
                   })
-                  print(f"  ✓ {symbol:<12} ROE={roe}%  D/E={de}  EPS=₹{eps}  Sector segment: {segment[:40] if segment else 'N/A'}")
+                  print(f"  ✓ {symbol:<12} ROE={roe}%  RevGrowth={rev_growth}%  ProfitGrowth={profit_growth}%  CFO={cfo_margin}%")
 
               except Exception as e:
                   errors.append((fname, str(e)))
@@ -147,7 +174,8 @@ jobs:
               writer = csv.DictWriter(f, fieldnames=[
                   'Symbol','ROE','DebtToEquity','EPS','BookValuePerShare','CurrentRatio','NetProfitMargin','Segment',
                   'DilutedEPS','RevenueCr','NetProfitCr','OperatingMargin','ROA',
-                  'TotalDebtCr','EquityCr','TotalAssetsCr','CashCr','SharesOutstandingCr','EffectiveTaxRate'
+                  'TotalDebtCr','EquityCr','TotalAssetsCr','CashCr','SharesOutstandingCr','EffectiveTaxRate',
+                  'RevenueGrowthPct','ProfitGrowthPct','CFOMarginPct','InterestCoverage',
               ])
               writer.writeheader()
               writer.writerows(results)
