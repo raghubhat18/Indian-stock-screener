@@ -70,15 +70,21 @@ jobs:
                               h = float(row.get('HghPric')     or c)
                               l = float(row.get('LwPric')      or c)
                               v = float(row.get('TtlTradgVol') or row.get('TotTrdQty') or 0)
+                              # Delivery qty — tells us conviction vs speculation
+                              dq = float(row.get('DlvryQty') or row.get('DELQTY') or 0)
+                              # Total traded value ₹ — for VWAP = val/vol
+                              tv = float(row.get('TtlTrdgVal') or row.get('TOTTRDVAL') or 0)
                               if not c: continue
                               if sym not in raw_data:
                                   raw_data[sym] = {}
                               raw_data[sym][date_str] = [
-                                  round(c, 2),
-                                  round(o, 2),
-                                  round(h, 2),
-                                  round(l, 2),
-                                  int(v)
+                                  round(c, 2),   # 0: close
+                                  round(o, 2),   # 1: open
+                                  round(h, 2),   # 2: high
+                                  round(l, 2),   # 3: low
+                                  int(v),        # 4: volume (shares)
+                                  int(dq),       # 5: delivery qty
+                                  round(tv, 0)   # 6: total traded value ₹
                               ]
                               name = (row.get('FinInstrmNm') or '').strip()
                               if name and sym not in names:
