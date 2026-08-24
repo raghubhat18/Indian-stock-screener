@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-08-24T20:21:01Z",
+ "updatedAt": "2026-08-24T23:17:00Z",
  "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
@@ -12,29 +12,36 @@
  "briefing": {
   "Markets": [
    {
+    "title": "US stocks today: S&amp;P 500, Nasdaq decline as tech sector falls, US prepares to impose more Iran sanctions",
+    "summary": "Wall Street’s S&amp;P 500 and Nasdaq declined on Monday, dragged down by a sharp sell-off in technology and semiconducto...",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-stocks-today-sp-500-nasdaq-decline-as-tech-sector-falls-us-prepares-to-impose-more-iran-sanctions/articleshow/133478615.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Tue, 25 Aug 2026 01:48:24 +0530"
+   },
+   {
     "title": "Donald Trump bought up to $50,000 worth SpaceX shares in June, financial disclosure shows",
-    "summary": "President Donald Trump invested up to $50,000 in Elon Musk's SpaceX on June 23. Independent third-party institutions manage the president's investment portfolio.",
+    "summary": "In June, financial disclosures revealed that U.S. President Donald Trump purchased up to $50,000 in SpaceX shares following its initial public offering. The president's investment portfolio is managed independently by third-party institutions.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/donald-trump-bought-up-to-50000-worth-spacex-shares-in-june-financial-disclosure-shows/articleshow/133476208.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Mon, 24 Aug 2026 23:57:35 +0530"
    },
    {
     "title": "Gold rallies past three-month high as Treasury buyback and weak dollar boost demand",
-    "summary": "Gold prices hit a three-month high on Monday due to a weaker U.S. dollar and a Treasury buyback. The rally was further driven by technical buying and strong exchange-traded fund inflows.",
+    "summary": "Gold prices hit a three-month high on Monday, driven by a weaker U.S. dollar and a Treasury buyback. The rally was further supported by technical buying and strong inflows into exchange-traded funds.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/gold-rallies-past-three-month-high-as-treasury-buyback-and-weak-dollar-boost-demand/articleshow/133473806.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Mon, 24 Aug 2026 22:31:48 +0530"
    },
    {
     "title": "Sebi drops proceedings against Max Financial, Axis Bank in Max Life deal case",
-    "summary": "Capital markets regulator Sebi has dropped proceedings against Max Financial Services and Axis Bank entities regarding a Max Life insurance deal. Sebi concluded that allegations of disclosure lapses and a fraudulent scheme involving transactions from FY10 to FY22 were not established.",
+    "summary": "Markets regulator SEBI has dropped proceedings against Max Financial Services and Axis Bank entities regarding a Max Life insurance deal. SEBI concluded that allegations of disclosure lapses and fraud from FY10 to FY22 were not established.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/sebi-drops-proceedings-against-max-financial-axis-bank-in-max-life-deal-case/articleshow/133473094.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Mon, 24 Aug 2026 21:56:38 +0530"
    },
    {
     "title": "India's house price growth slows to 3.6% in Q1 FY27: RBI",
-    "summary": "India's annual house price growth slowed to 3.6 percent in the first quarter of fiscal year 2027, down from 4.5 percent in the previous quarter. Despite this yearly deceleration, the All-India House Price Index rose 1.1 percent from the prior quarter, driven largely by contributions from Chandigarh and Lucknow.",
+    "summary": "India's annual house price growth slowed to 3.6% in the first quarter of fiscal year 2027, down from 4.5% in the previous quarter. Despite this yearly deceleration, the All-India House Price Index rose 1.1% from the prior quarter, driven largely by contributions from Chandigarh and Lucknow.",
     "link": "https://economictimes.indiatimes.com/markets/digital-real-estate/realty-news/indias-house-price-growth-slows-to-3-6-in-q1-fy27-rbi/articleshow/133472740.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Mon, 24 Aug 2026 21:24:31 +0530"
@@ -45,47 +52,40 @@
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/softbank-pares-nearly-2-6-stake-in-lenskart-for-rs-2888-crore/articleshow/133472713.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Mon, 24 Aug 2026 21:23:30 +0530"
-   },
-   {
-    "title": "Ahead of Market: 10 things that will decide stock market action on Tuesday",
-    "summary": "Indian equities closed lower on Monday due to rising bond yields, Iran sanctions uncertainty, and weak Asian markets. Analysts expect market volatility to continue on Tuesday.",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/news/ahead-of-market-10-things-that-will-decide-stock-market-action-on-tuesday/articleshow/133472692.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Mon, 24 Aug 2026 21:21:36 +0530"
    }
   ],
   "Geo-Political": [
    {
     "title": "Iran faces 'greatest financial offensive ever', says US treasury secretary",
-    "summary": "US Treasury Secretary Scott Bessent announced that the United States will completely sever economic ties with Iran in a major financial offensive. He also stated that any nation continuing to partner financially with Iran will face international isolation.",
+    "summary": "US Treasury Secretary Scott Bessent announced that the United States will sever all economic ties with Iran in what he called its greatest financial offensive ever. He added that any nation partnering financially with Iran will also face international isolation.",
     "link": "https://www.bbc.co.uk/news/articles/c0qxew81y83o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 24 Aug 2026 19:12:35 GMT"
    },
    {
     "title": "UK PM Burnham vows support for Ukraine despite 'outrageous threats' from Russia",
-    "summary": "British Prime Minister Burnham has pledged continued support for Ukraine following Russian warnings of consequences over the reported use of British drones. Moscow had issued outrageous threats regarding Ukraine's military actions involving British-supplied equipment.",
+    "summary": "UK Prime Minister Burnham has pledged continued support for Ukraine following Russian warnings of consequences over the reported use of British drones. Moscow had issued outrageous threats regarding UK involvement in the conflict.",
     "link": "https://www.bbc.co.uk/news/articles/clyqypkrzq5o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 24 Aug 2026 17:29:59 GMT"
    },
    {
     "title": "Russia's second-biggest online retailer targeted in Ukrainian strikes",
-    "summary": "Overnight Ukrainian strikes targeted warehouses belonging to Ozon, Russia's second-biggest online retailer. The affected facilities are located across southern Russia, including in Dagestan and Krasnodar.",
+    "summary": "Overnight Ukrainian strikes hit warehouses belonging to Ozon, Russia's second-biggest online retailer, in southern regions including Dagestan and Krasnodar. The company confirmed the attacks on its facilities across the area.",
     "link": "https://www.bbc.co.uk/news/articles/cg598yvrzpro?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 24 Aug 2026 10:40:22 GMT"
    },
    {
     "title": "Israel warns of 'forceful' response to kites flown from Gaza",
-    "summary": "Israel has threatened a forceful response to kites carrying incendiary devices that have been flown across the border from the Gaza Strip. Hamas claims that these kites were launched by children within Gaza.",
+    "summary": "Israel has warned of a forceful response after kites were flown from Gaza into Israeli border communities. Hamas stated that children in Gaza launched these kites.",
     "link": "https://www.bbc.co.uk/news/articles/c5y58g2dp3xo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 24 Aug 2026 13:56:22 GMT"
    },
    {
     "title": "King of Norway's health has worsened, palace says",
-    "summary": "Norway's King Harald remains hospitalized for a bloodstream bacterial infection. The royal palace reports that his health has worsened.",
+    "summary": "The palace announced that the health of Norway's King Harald has worsened. He remains hospitalized while receiving antibiotics for a bacterial infection in his bloodstream.",
     "link": "https://www.bbc.co.uk/news/articles/c36lnekj659o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 24 Aug 2026 08:31:55 GMT"
@@ -101,35 +101,35 @@
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "An online course creator recently discovered that ChatGPT recommended their WordPress SaaS course as the top organic result for a user query. This visibility occurred without any paid advertising or traditional search engine optimization.",
+    "summary": "An online course creator recently discovered that ChatGPT recommended their WordPress SaaS course as the top result without any paid advertising. This experiment highlights a shift in organic traffic generation toward AI optimization (AIO) over traditional SEO.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "This article highlights the top 10 artificial intelligence tools designed to revolutionize content creation in 2025. These essential technologies help digital creators streamline their workflows and stay ahead in a rapidly evolving landscape.",
+    "summary": "The digital landscape in 2025 requires creators to use artificial intelligence tools to stay competitive. This guide outlines the top ten AI applications designed to streamline and improve the content creation process.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "&nbsp;In the rapidly advancing landscape of AI technology and innovation, LimeWire emerges as a unique platform in the r...",
+    "summary": "LimeWire has evolved into a generative AI platform that allows users to create digital content. The tool also provides features for creators to share and monetize their AI-generated work.",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovation and efficiency in various industries. ...",
+    "summary": "This article highlights ten advanced artificial intelligence tools used across various industries to automate repetitive tasks and boost productivity. These widely adopted technologies are designed to streamline workflows and improve overall efficiency.",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "Are you looking for a way to create content that is both effective and efficient? If so, then you should consider using ...",
+    "summary": "This article reviews the top ten AI content generator tools available in 2022. It helps readers choose the right software to create efficient and engaging content for their audiences.",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
@@ -145,42 +145,42 @@
   "Data & Insights": [
    {
     "title": "Scott Bessent eying US Treasury cashpile, could use $1 trillion General Account for debt buybacks, says report",
-    "summary": "US Treasury Secretary Scott Bessent is reportedly considering using the department's $1 trillion General Account to fund buybacks of older, higher-yielding securities. This strategy, cited by two senior officials according to CNBC, aims to restructure government debt.",
+    "summary": "US Treasury Secretary Scott Bessent is reportedly considering using the department's $1 trillion General Account to fund buybacks of older, higher-yielding securities. This strategy, cited by CNBC sources, aims to manage government debt more efficiently.",
     "link": "https://www.livemint.com/economy/scott-bessent-eying-1-trillion-us-treasury-general-account-tga-cashpile-debt-buybacks-high-yield-older-securities-report-11787578578447.html",
     "source": "livemint.com",
     "pubDate": "Mon, 24 Aug 2026 20:10:56 +0530"
    },
    {
     "title": "India negotiating trade deals with nations, blocs worth $15 trillion GDP: Piyush Goyal",
-    "summary": "Indian Commerce Minister Piyush Goyal stated that India is negotiating trade agreements with countries and blocs representing a combined $15 trillion GDP. Goyal announced this during a visit to Japan, where he is leading a delegation of over 200 business representatives to enhance bilateral trade and investment.",
+    "summary": "Commerce Minister Piyush Goyal stated that India is negotiating trade agreements with countries and blocs representing a $15 trillion GDP. Goyal is currently visiting Japan with a delegation of over 200 business representatives to strengthen bilateral trade and investment.",
     "link": "https://www.livemint.com/economy/india-negotiating-trade-deals-with-nations-blocs-worth-15-trillion-gdp-piyush-goyal-11787573509613.html",
     "source": "livemint.com",
     "pubDate": "Mon, 24 Aug 2026 19:04:34 +0530"
    },
    {
     "title": "Iranian rial hits record low of 2.02 million against US dollar amid threat of new Trump sanctions — Here's what we know",
-    "summary": "On August 24, the Iranian rial fell 4.5% to a record low of 2.02 million against the US dollar. This currency drop occurred after US President Donald Trump announced a new \"crushing economic operation\" against Tehran.",
+    "summary": "The Iranian rial dropped 4.5% to a record low of 2.02 million against the US dollar on August 24. The currency plunge followed US President Donald Trump's announcement of new economic sanctions against Tehran.",
     "link": "https://www.livemint.com/economy/iranian-currency-rial-hits-record-low-2-02-million-against-us-dollar-donald-trump-threatens-new-sanctions-trade-economy-11787560908377.html",
     "source": "livemint.com",
     "pubDate": "Mon, 24 Aug 2026 14:44:10 +0530"
    },
    {
     "title": "Service producer prices index mixed in Q1; air passenger services surge 32%",
-    "summary": "The government released mixed service producer price indices for the first quarter using a 2022-23 base year, noting that aggregate weights were not assigned because the data does not cover the entire sector. Within the report, air passenger services experienced a significant surge of 32%.",
+    "summary": "Service producer prices showed mixed results in the first quarter of the year. During this period, the cost of air passenger services surged by 32 percent.",
     "link": "https://www.livemint.com/economy/india-service-producer-prices-index-ppi-air-passenger-services-banking-11787556465633.html",
     "source": "livemint.com",
     "pubDate": "Mon, 24 Aug 2026 13:17:50 +0530"
    },
    {
     "title": "AI, semicon, global value chains: How globalization isn't dying—it's evolving",
-    "summary": "Global trade is shifting away from physical goods toward services and strategic technologies like semiconductors and AI. Rather than disappearing, globalization is reconfiguring its supply chains and capital flows.",
+    "summary": "Global trade is shifting away from physical goods toward services and strategic technologies like semiconductors and AI. Supply chains and capital investments are reconfiguring rather than disappearing, signaling an evolution in globalization.",
     "link": "https://www.livemint.com/economy/globalization-india-global-trade-supply-chains-ai-semiconductors-foreign-investment-services-11787503402788.html",
     "source": "livemint.com",
     "pubDate": "Mon, 24 Aug 2026 10:01:04 +0530"
    },
    {
     "title": "The week in charts: Hawkish RBI minutes, drought warning, rural workforce",
-    "summary": "This weekly compilation uses easy-to-read charts to present data-based insights on stories reported by Mint. Key topics covered this week include hawkish Reserve Bank of India minutes, a drought warning, and the rural workforce.",
+    "summary": "This weekly compilation features data-driven charts analyzing Mint's recent reports on the Reserve Bank of India's hawkish minutes, a drought warning, and the rural workforce. These visual insights help readers delve deeper into key economic and environmental stories from the past week.",
     "link": "https://www.livemint.com/economy/the-week-in-charts-hawkish-rbi-minutes-drought-warning-rural-workforce-11787216573972.html",
     "source": "livemint.com",
     "pubDate": "Sat, 22 Aug 2026 07:00:40 +0530"
@@ -188,52 +188,52 @@
   ],
   "India": [
    {
-    "title": "Akali Dal Spell Checks Classroom Posters, AAP's 'Hatred For Punjab' Reply",
-    "summary": "The Shiromani Akali Dal used sarcasm to criticize a government minister regarding errors on classroom posters. In response, the Aam Aadmi Party accused the opposition of showing hatred toward Punjab.",
-    "link": "https://www.ndtv.com/india-news/akali-dal-spell-checks-classroom-posters-aaps-hatred-for-punjab-reply-11953622#publisher=newsstand",
+    "title": "15% Decline In Indian Students Seeking Undergraduate Courses In US: Report",
+    "summary": "A recent report shows a 15 percent decrease in Indian students applying for undergraduate courses in the US. Despite this decline, India remains the leading source of international students for the United States.",
+    "link": "https://www.ndtv.com/india-news/15-decline-in-indian-students-seeking-undergraduate-courses-in-us-report-11954120#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Mon, 24 Aug 2026 23:12:27 +0530"
+    "pubDate": "Tue, 25 Aug 2026 03:42:04 +0530"
    },
    {
-    "title": "Video: School Buses Stranded On Flooded Gurugram Roads, Students Trapped",
-    "summary": "Severe waterlogging at Subhash Chowk in Gurugram trapped several school buses carrying children on flooded streets for hours. The heavy flooding occurred throughout the city's affected areas, leaving the vehicles stranded.",
-    "link": "https://www.ndtv.com/india-news/video-school-buses-stranded-on-flooded-gurugram-roads-students-trapped-11953216#publisher=newsstand",
+    "title": "Physical Abuse, Forced Smoking, Blackmail: Ragging Case At Gujarat Hostel",
+    "summary": "A father reported that senior students physically abused and blackmailed his son at a Gujarat hostel. The victim was allegedly beaten, forced to do chores and give massages, and made to smoke while being filmed.",
+    "link": "https://www.ndtv.com/india-news/physical-abuse-forced-smoking-blackmail-ragging-case-at-gujarat-hostel-11953983#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Mon, 24 Aug 2026 23:11:12 +0530"
+    "pubDate": "Tue, 25 Aug 2026 02:01:01 +0530"
    },
    {
-    "title": "Amazon, Swiggy, BigBasket Lose Food Licences Over 'Datura' Sales In Karnataka",
-    "summary": "Karnataka authorities suspended the food licenses of Amazon, Swiggy, and BigBasket for selling products containing datura. In response, BigBasket stopped selling the fruits online, while Amazon and Swiggy failed to provide timely compliance documents.",
-    "link": "https://www.ndtv.com/india-news/amazon-swiggy-bigbasket-lose-food-licences-over-datura-sales-in-karnataka-11953495#publisher=newsstand",
+    "title": "36 Years On, Thane Man Wanted For Attacking Cricket Umpire With Bat Arrested",
+    "summary": "A 55-year-old man living in Thane has been arrested nearly 36 years after he allegedly attacked a cricket umpire with a bat. He is currently facing a charge of attempted murder for the incident.",
+    "link": "https://www.ndtv.com/india-news/36-years-on-thane-man-wanted-for-attacking-cricket-umpire-with-bat-arrested-11953906#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Mon, 24 Aug 2026 22:38:20 +0530"
+    "pubDate": "Tue, 25 Aug 2026 00:58:23 +0530"
    },
    {
-    "title": "Exclusive: Malayalam Actor Says TVK Offered Him Top Post In Kerala After He Quit BJP",
-    "summary": "Malayalam actor Devan resigned from the BJP on August 16 after stating he was not given a meaningful role during his nearly five years in the party. Following his resignation, he revealed that Vijay's TVK party offered him a top leadership position in Kerala.",
-    "link": "https://www.ndtv.com/india-news/vijay-malayalam-actor-devan-says-tvk-offered-him-top-post-in-kerala-after-he-quit-bjp-11953422#publisher=newsstand",
+    "title": "BJP, AAP's Sports Outreach In Big Gen Z Push In Punjab",
+    "summary": "Prime Minister Narendra Modi will interact with students on August 27 through the \"Khelo India Samvad\" programme. This event is part of a major sports outreach in Punjab by the BJP and AAP aimed at engaging Gen Z voters.",
+    "link": "https://www.ndtv.com/india-news/eye-on-punjab-assembly-polls-aap-bjp-in-race-over-youth-brigade-outreach-11953881#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Mon, 24 Aug 2026 22:24:28 +0530"
+    "pubDate": "Tue, 25 Aug 2026 00:45:33 +0530"
    },
    {
-    "title": "Class 1 Student Hospitalised After Snakebite In Kolkata Government School",
-    "summary": "A Class 1 student at a Kolkata government school was hospitalised after being bitten by a snake. School authorities took the child to SSKM Hospital, where he remains admitted under observation.",
-    "link": "https://www.ndtv.com/india-news/class-1-student-hospitalised-after-snakebite-in-kolkata-government-school-11953396#publisher=newsstand",
+    "title": "Video: Live Worm Found In Sandwich At Posh Gurugram Restaurant",
+    "summary": "A customer at a Gurugram restaurant found a live worm in his sandwich after eating almost half of it. He recorded and uploaded a video of the incident on social media.",
+    "link": "https://www.ndtv.com/india-news/video-live-worm-found-in-sandwich-at-posh-gurugram-restaurant-11948895#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Mon, 24 Aug 2026 22:18:54 +0530"
+    "pubDate": "Tue, 25 Aug 2026 00:32:45 +0530"
    },
    {
-    "title": "Protests In Manipur Over Inclusion Of 2 Non-Muslim Members In Waqf Board",
-    "summary": "Protests are occurring in Manipur because the state government included two non-Muslim members in the Waqf Board. Organisers have warned of further agitation across the state if the government does not reconsider the board's composition.",
-    "link": "https://www.ndtv.com/india-news/protests-in-manipur-over-inclusion-of-2-non-muslim-members-in-waqf-board-11953332#publisher=newsstand",
+    "title": "BJP Says Will Contest All Seats In Punjab Assembly Polls, AAP Scoffs",
+    "summary": "The BJP announced it will contest all seats in the upcoming Punjab Assembly elections, prompting mockery from the AAP. This decision followed the arrival of BJP leader BL Santosh at the Mohali airport, where he was greeted by state party officials.",
+    "link": "https://www.ndtv.com/india-news/bjp-says-will-contest-all-seats-in-punjab-assembly-polls-aap-scoffs-11953844#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Mon, 24 Aug 2026 22:04:14 +0530"
+    "pubDate": "Tue, 25 Aug 2026 00:28:59 +0530"
    }
   ],
   "General": [
    {
     "title": "Organised crime arrests as police investigate A66 crash that killed two officers",
-    "summary": "Police investigating a crash on the A66 that killed two officers and five others have arrested nine men and three women. The suspects were detained as part of an organised crime investigation into the events leading up to the fatal collision.",
+    "summary": "Police arrested 12 people for suspected organized crime involvement before a crash. The collision resulted in the deaths of seven people, including two police officers.",
     "link": "https://www.bbc.co.uk/news/articles/c36d6975dzno?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 24 Aug 2026 17:53:40 GMT"
@@ -247,31 +247,31 @@
    },
    {
     "title": "Burnham vows support for Ukraine despite 'outrageous threats' from Russia",
-    "summary": "It comes after Moscow warned of \"consequences\" over the reported use of British drones by Ukraine.",
+    "summary": "Andy Burnham has pledged his continued support for Ukraine following threats from Moscow. Russia warned of unspecified consequences after reports that Ukraine used British drones.",
     "link": "https://www.bbc.co.uk/news/articles/clyqypkrzq5o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 24 Aug 2026 17:29:59 GMT"
    },
    {
-    "title": "Is UK's Storm Shadow missile a game changer for Ukraine?",
-    "summary": "Correspondent Joe Inwood breaks down the weapons technology that could make a difference in the Russia-Ukraine war.",
-    "link": "https://www.bbc.co.uk/news/videos/cx2znjly4dno?at_medium=RSS&at_campaign=rss",
+    "title": "Beyond China's humanoid robots, a quieter machine revolution is unfolding",
+    "summary": "China's factories currently employ more than two million industrial robots. These machines are rapidly expanding their presence and scaling up fast across the country.",
+    "link": "https://www.bbc.co.uk/news/articles/c62m4zn1q6mo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Mon, 24 Aug 2026 15:14:14 GMT"
+    "pubDate": "Mon, 24 Aug 2026 22:13:20 GMT"
    },
    {
-    "title": "Charity? Acting? The Cotswolds? What will Harry and Meghan's UK life look like?",
-    "summary": "Prince Harry and Meghan Markle are preparing to return to the UK. Details regarding their upcoming projects and focus areas in the country are beginning to emerge.",
-    "link": "https://www.bbc.co.uk/news/articles/c6243glyqv7o?at_medium=RSS&at_campaign=rss",
+    "title": "Iran faces 'greatest financial offensive ever', says US treasury secretary",
+    "summary": "US Treasury Secretary Scott Bessent announced that the United States will sever all economic ties with Iran in what he called its greatest financial offensive ever. He also warned that any nation that continues to partner financially with Iran will face international isolation.",
+    "link": "https://www.bbc.co.uk/news/articles/c0qxew81y83o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Mon, 24 Aug 2026 19:43:51 GMT"
+    "pubDate": "Mon, 24 Aug 2026 19:12:35 GMT"
    },
    {
-    "title": "World's oceans hit highest temperature on record as El Niño grows",
-    "summary": "The world's oceans have reached their highest temperature on record as the El Niño climate pattern intensifies. Scientists describe this milestone as a clear signal that marine environments are under growing stress.",
-    "link": "https://www.bbc.co.uk/news/articles/c62m4gpnp78o?at_medium=RSS&at_campaign=rss",
+    "title": "The grieving family who says the coroner's courts aren't working",
+    "summary": "The death of a British man highlights the severe strain currently facing the UK's coroner's courts. His grieving family argues that the existing coroner system is failing and no longer working effectively.",
+    "link": "https://www.bbc.co.uk/news/articles/cvgydn9k4p2o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Mon, 24 Aug 2026 16:27:28 GMT"
+    "pubDate": "Mon, 24 Aug 2026 23:09:16 GMT"
    }
   ]
  }
