@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-08-25T17:31:24Z",
+ "updatedAt": "2026-08-25T20:20:23Z",
  "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
@@ -12,22 +12,36 @@
  "briefing": {
   "Markets": [
    {
+    "title": "US stocks today: US stocks close higher as tech rebound puts Nvidia in focus",
+    "summary": "US stocks closed higher, driven by a rebound in technology and semiconductor shares ahead of Nvidia's upcoming earnings report. Lower oil prices and Treasury yields also provided relief, even as investors weighed economic concerns, consumer confidence, and upcoming inflation data.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-stocks-today-us-stocks-close-higher-as-tech-rebound-puts-nvidia-in-focus/articleshow/133524166.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Wed, 26 Aug 2026 01:38:36 +0530"
+   },
+   {
+    "title": "Crude oil prices slide 4% as markets look past Iran sanctions",
+    "summary": "Crude oil prices fell about 4% to their lowest levels since mid-August after the U.S. announced milder sanctions on Iran than traders expected. Despite this drop, ongoing shipping risks and potential supply disruptions in Russia and Kazakhstan continue to concern the market.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/crude-oil-prices-slide-4-as-markets-look-past-iran-sanctions/articleshow/133521800.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Tue, 25 Aug 2026 23:35:05 +0530"
+   },
+   {
     "title": "Anthropic expected to tell investors it sees over $30 trillion in potential revenue, WSJ reports",
-    "summary": "Anthropic reportedly plans to tell investors that its total addressable market exceeds $30 trillion in preparation for an upcoming IPO. The company aims to use this valuation to justify heavy infrastructure spending and support a projected 2028 revenue target of $200 billion.",
+    "summary": "Anthropic plans to tell investors that its total addressable market exceeds $30 trillion in preparation for an upcoming IPO. The company is using this projection to justify massive infrastructure spending and support its 2028 revenue target of $200 billion.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/anthropic-expected-to-tell-investors-it-sees-over-30-trillion-in-potential-revenue-wsj-reports/articleshow/133520014.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Tue, 25 Aug 2026 22:34:38 +0530"
    },
    {
     "title": "Japanese bond funds see record inflows as rising yields attract global investors",
-    "summary": "Rising yields on Japanese government bonds have driven record inflows into Japanese bond funds this year. European investors are primarily responsible for increasing these global allocations.",
+    "summary": "Foreign investors, particularly from Europe, are pouring record amounts of capital into Japanese government bonds. This surge is driven by rising yields that have made the bonds increasingly attractive to global markets.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/japanese-bond-funds-see-record-inflows-as-rising-yields-attract-global-investors/articleshow/133518488.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Tue, 25 Aug 2026 22:21:32 +0530"
    },
    {
     "title": "Lumino Industries raises Rs 207 crore from anchor investors; IPO opens on August 27",
-    "summary": "Lumino Industries has raised Rs 206.99 crore from anchor investors ahead of its Rs 700 crore initial public offering. The public subscription period for the share sale, priced between Rs 78 and Rs 82 per share, runs from August 27 to August 31, 2026.",
+    "summary": "Lumino Industries raised Rs 206.99 crore from anchor investors ahead of its Rs 700 crore initial public offering. The public subscription period for the share sale, priced between Rs 78 and Rs 82 per share, runs from August 27 to August 31, 2026.",
     "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/lumino-industries-raises-rs-207-crore-from-anchor-investors-ipo-opens-on-august-27/articleshow/133518684.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Tue, 25 Aug 2026 22:04:29 +0530"
@@ -38,77 +52,63 @@
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/ahead-of-market-10-things-that-will-decide-stock-market-action-on-wednesday/articleshow/133518214.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Tue, 25 Aug 2026 21:38:38 +0530"
-   },
-   {
-    "title": "Welspun Corp promoter group, CEO to sell up to Rs 1,417 crore stake via block deal",
-    "summary": "Welspun Corp's promoter group and CEO Vipul Mathur plan to sell up to 63 lakh shares, representing a 2.4% stake, through a block deal worth Rs 1,417.5 crore. The planned share sale follows a sharp rally in the company's stock price.",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/news/welspun-corp-promoter-group-ceo-to-sell-up-to-rs-1417-crore-stake-via-block-deal/articleshow/133516717.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Tue, 25 Aug 2026 20:48:23 +0530"
-   },
-   {
-    "title": "Market Trading Guide: Adani Enterprises, Dixon Tech among 4 stock recommendations for Wednesday",
-    "summary": "Indian equities rose as milder-than-expected US sanctions on Iran lowered crude oil prices and bond yields. Analysts recommend Adani Enterprises, HDFC AMC, Hyundai Motor India, and Dixon Technologies as bullish stock picks.",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/news/market-trading-guide-adani-enterprises-dixontechamong-4-stock-recommendations-for-wednesday/slideshow/133515517.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Tue, 25 Aug 2026 20:08:18 +0530"
    }
   ],
   "Geo-Political": [
    {
+    "title": "Canada announces 'dollar-for-dollar' retaliatory tariffs on US as high as 50%",
+    "summary": "Canada has announced retaliatory tariffs of up to 50% on American goods, including steel, furniture, tuna, and makeup. This move marks the latest escalation in the ongoing trade war between the United States and Canada.",
+    "link": "https://www.bbc.co.uk/news/articles/c3v4xg5klx7o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Tue, 25 Aug 2026 19:50:57 GMT"
+   },
+   {
     "title": "China hits out at 'illegal' new US sanctions on Iran and trading partners",
-    "summary": "China criticized new United States sanctions targeting Iran and its trading partners as illegal. The United States threatened to isolate any nations that continue conducting business with Tehran.",
+    "summary": "China criticized new United States sanctions targeting Iran and its trading partners as illegal. The United States threatened to isolate countries that continue doing business with Tehran, which is a major oil supplier to Beijing.",
     "link": "https://www.bbc.co.uk/news/articles/clyl8965j5go?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Tue, 25 Aug 2026 11:53:36 GMT"
    },
    {
     "title": "CIA chief travels to Moscow for unannounced talks, US media reports",
-    "summary": "US media reports that the CIA director traveled to Moscow for unannounced discussions. Flight tracking data verified that an American military aircraft flew from the United States to Russia through Latvia on Tuesday.",
+    "summary": "US media report that the CIA director traveled to Moscow for unannounced discussions. Flight tracking data confirms an American military aircraft flew from the United States to Russia via Latvia on Tuesday.",
     "link": "https://www.bbc.co.uk/news/articles/c87vg9x5d7do?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Tue, 25 Aug 2026 16:56:20 GMT"
+    "pubDate": "Tue, 25 Aug 2026 19:48:14 GMT"
+   },
+   {
+    "title": "Mass arrests in global crackdown on West African cyber-crime networks",
+    "summary": "Global law enforcement launched a crackdown on West African cyber-crime networks. This operation included the arrest of 39 individuals in South Africa for involvement in romance and investment scams.",
+    "link": "https://www.bbc.co.uk/news/articles/cq5xdnxppl4o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Tue, 25 Aug 2026 19:30:37 GMT"
    },
    {
     "title": "Brain disease in dead NFL players 'higher than previously shown'",
-    "summary": "A recent study reveals that at least one in four former NFL players who died between 2016 and 2021 suffered from a degenerative brain disease. Researchers note that the actual rate among deceased players is likely much higher.",
+    "summary": "A recent study found that at least 25 percent of former NFL players who died between 2016 and 2021 suffered from a degenerative brain disease. Researchers note that the actual rate of the disease among these deceased players is likely much higher.",
     "link": "https://www.bbc.co.uk/sport/american-football/articles/cew9l95kyp0o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Tue, 25 Aug 2026 11:54:40 GMT"
    },
    {
     "title": "Tornado tears through French village, leaving dozens hurt and homes ravaged",
-    "summary": "A severe tornado struck the south-western French village of Pomas, damaging hundreds of homes. Fifteen people were hospitalized with injuries resulting from the storm.",
+    "summary": "A tornado struck the south-western French village of Pomas, damaging hundreds of homes. Fifteen people were hospitalized with injuries following the severe weather.",
     "link": "https://www.bbc.co.uk/news/articles/c0m3npvpgdno?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Tue, 25 Aug 2026 08:52:17 GMT"
-   },
-   {
-    "title": "Two unvaccinated people die of measles in Pennsylvania",
-    "summary": "Two unvaccinated people died of measles in Pennsylvania amid a nationwide decline in vaccination rates. Consequently, U.S. measles cases have reached their highest level since the virus was eliminated.",
-    "link": "https://www.bbc.co.uk/news/articles/c5yednen30go?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Tue, 25 Aug 2026 16:43:08 GMT"
-   },
-   {
-    "title": "European rights court orders Turkey to free imprisoned businessman",
-    "summary": "The European Court of Human Rights has ordered Turkey to release imprisoned philanthropist and activist Osman Kavala. Kavala has spent nearly a decade in jail on politically motivated charges.",
-    "link": "https://www.bbc.co.uk/news/articles/cn5drvyg92no?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Tue, 25 Aug 2026 15:58:20 GMT"
    }
   ],
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "An online course creator recently discovered that ChatGPT recommended their WordPress SaaS course as the top result without any paid advertising. This experiment highlights a growing shift in digital marketing from traditional SEO to AI optimization.",
+    "summary": "An entrepreneur discovered their WordPress SaaS course was recommended as the top result by ChatGPT without using paid advertising. This experiment demonstrated a shift in organic traffic from traditional search engine optimization to artificial intelligence optimization.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "This guide outlines ten essential artificial intelligence tools designed to revolutionize content creation in 2025. These applications help digital creators streamline their workflows and stay competitive in a rapidly evolving technological landscape.",
+    "summary": "This guide outlines the top 10 artificial intelligence tools designed to revolutionize content creation in 2025. These essential technologies help digital creators streamline their workflows and stay ahead in a rapidly evolving landscape.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
@@ -129,14 +129,14 @@
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "The article discusses the benefits of using AI content generators to create effective and engaging material for audiences. It notes that numerous tools are currently available on the market, which can make selecting the right one a challenge.",
+    "summary": "This article reviews the top ten artificial intelligence content generator tools available in 2022. It aims to help readers choose the right software to efficiently create engaging and relevant material for their audience.",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
    },
    {
     "title": "Beginner Guide to CJ Affiliate (Commission Junction) in 2022",
-    "summary": "This beginner's guide explains how to use the CJ Affiliate network to earn money online. It also highlights top CJ affiliate programs, alternatives, and answers common questions about the platform.",
+    "summary": "This beginner's guide to CJ Affiliate (Commission Junction) explains how the network works and how to earn money on the platform. It also highlights top CJ affiliate programs and alternative platforms.",
     "link": "https://techncruncher.blogspot.com/2022/09/cj-affiliate-ultimate-guide-to.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Sat, 10 Sep 2022 08:57:00 +0000"
@@ -145,42 +145,42 @@
   "Data & Insights": [
    {
     "title": "Piyush Goyal offers BIS exemptions to high-tech chipmakers, AI firms to boost ‘Make in India’",
-    "summary": "Commerce Minister Piyush Goyal has granted Bureau of Indian Standards (BIS) exemptions to semiconductor and artificial intelligence companies to accelerate their operations in India. This decision addresses concerns raised by Japanese firms regarding delays caused by previous certification requirements.",
+    "summary": "Commerce Minister Piyush Goyal has granted Bureau of Indian Standards (BIS) exemptions to semiconductor and AI companies. This policy change addresses concerns raised by Japanese firms and aims to accelerate advanced technology operations in India.",
     "link": "https://www.livemint.com/economy/piyush-goyal-offers-bis-exemptions-to-high-tech-chipmakers-ai-firms-to-boost-make-in-india-11787671528159.html",
     "source": "livemint.com",
     "pubDate": "Tue, 25 Aug 2026 21:32:13 +0530"
    },
    {
     "title": "India plans 100 new ships to cut $75 billion foreign freight bill",
-    "summary": "India plans to add 100 new ships to reduce its $75 billion foreign freight bill. This expansion addresses a current cost disadvantage, as operating Indian-flagged vessels is 16-20% more expensive than operating foreign-flagged ships.",
+    "summary": "India plans to add 100 new ships to reduce its $75 billion foreign freight bill. This expansion addresses a current disadvantage where operating under the Indian flag is 16-20% more expensive than operating under foreign flags.",
     "link": "https://www.livemint.com/economy/india-plans-100-new-ships-to-cut-75-billion-foreign-freight-bill-11787663294560.html",
     "source": "livemint.com",
     "pubDate": "Tue, 25 Aug 2026 20:48:41 +0530"
    },
    {
     "title": "India’s macro strength cushions global shocks as war, tariffs cloud outlook: RBI",
-    "summary": "The Reserve Bank of India stated that strong domestic economic momentum is protecting the country from international shocks like wars and tariffs. According to its August bulletin, high-frequency indicators show continued growth in both the manufacturing and services sectors.",
+    "summary": "According to the Reserve Bank of India's August bulletin, the country's strong macroeconomic foundation is protecting it from global economic shocks, geopolitical conflicts, and tariff uncertainties. High-frequency indicators show that economic momentum remains solid, driven by sustained activity in both the manufacturing and services sectors.",
     "link": "https://www.livemint.com/economy/rbi-august-bulletin-indian-economy-global-shocks-war-tariffs-inflation-11787662214144.html",
     "source": "livemint.com",
     "pubDate": "Tue, 25 Aug 2026 19:21:29 +0530"
    },
    {
     "title": "EMT: India secures top rank again in July among EM peers as stock market posts gains",
-    "summary": "India ranked first on Mint's Emerging Markets Tracker for July for the third consecutive month. This top ranking was driven by resilient economic performance and strong stock market inflows despite rising inflationary pressures.",
+    "summary": "India secured the top rank in Mint's Emerging Markets Tracker for July due to resilient economic performance and strong stock market inflows. The country maintained this leading position for the third consecutive month despite rising inflationary pressures.",
     "link": "https://www.livemint.com/economy/india-emerging-markets-mint-emerging-markets-tracker-emt-vietnam-malaysia-gdp-growth-manufacturing-pmi-exports-11787634309811.html",
     "source": "livemint.com",
     "pubDate": "Tue, 25 Aug 2026 11:40:12 +0530"
    },
    {
     "title": "India leads South Asia’s growth, but China+1 gains remain uncertain: World Bank economist",
-    "summary": "World Bank economist Franziska Ohnsorge states that while India is driving South Asia's economic growth, its ability to capture China+1 manufacturing shifts remains uncertain. She notes that artificial intelligence holds greater potential than the China+1 strategy to serve as a major growth driver for India.",
+    "summary": "World Bank economist Franziska Ohnsorge states that India is leading South Asia's economic growth, though its potential gains from the China+1 strategy have not yet materialized. She also suggests that artificial intelligence represents a significantly larger potential driver for the country's future growth.",
     "link": "https://www.livemint.com/economy/india-growth-south-asia-world-bank-franziska-ohnsorge-china-plus-1-global-supply-chains-merchandise-exports-11787627682469.html",
     "source": "livemint.com",
     "pubDate": "Tue, 25 Aug 2026 10:22:23 +0530"
    },
    {
     "title": "Scott Bessent eying US Treasury cashpile, could use $1 trillion General Account for debt buybacks, says report",
-    "summary": "US Treasury Secretary Scott Bessent plans to use the department's $1 trillion General Account to fund expanded buybacks of older, higher-yielding securities. This strategy, reported by CNBC citing senior officials, aims to manage the national debt more effectively.",
+    "summary": "US Treasury Secretary Scott Bessent plans to use the department's $1 trillion General Account to fund expanded buybacks of older, higher-yielding securities. This strategy, reported by CNBC, was cited by two senior officials.",
     "link": "https://www.livemint.com/economy/scott-bessent-eying-1-trillion-us-treasury-general-account-tga-cashpile-debt-buybacks-high-yield-older-securities-report-11787578578447.html",
     "source": "livemint.com",
     "pubDate": "Mon, 24 Aug 2026 20:10:56 +0530"
@@ -188,90 +188,90 @@
   ],
   "India": [
    {
-    "title": "'August 25' Big Reveal Leaves Users Disappointed, Rs 8.5 Crore Scam Allegations Surface",
-    "summary": "Social media users have accused a platform of running an Rs 8.5 crore scam following a disappointing \"August 25\" big reveal. The allegations claim that approximately 166,000 people deposited Rs 500 each.",
-    "link": "https://www.ndtv.com/india-news/august-25-big-reveal-leaves-users-disappointed-rs-8-5-crore-scam-allegations-surface-11957981#publisher=newsstand",
+    "title": "Weather Highlights: Heavy Rain In Delhi, Waterlogging, Traffic Jams In Many Areas",
+    "summary": "Heavy rain and thunderstorms hit Delhi-NCR, prompting an IMD weather alert for the region. The downpour caused widespread waterlogging and traffic jams across multiple areas.",
+    "link": "https://www.ndtv.com/india-news/weather-today-live-updates-delhi-ncrrain-live-monsoon-update-heavy-rain-in-delhi-waterlogging-traffic-jams-in-many-areas-11954468#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Tue, 25 Aug 2026 21:42:50 +0530"
+    "pubDate": "Wed, 26 Aug 2026 00:24:54 +0530"
    },
    {
-    "title": "Rahul Gandhi Wades Into Kriti Sanon-Kangana Ranaut Instagram Fight: \"What A Woman Wears...\"",
-    "summary": "Rahul Gandhi reacted amid a dispute that began as a social media argument over a brand campaign and escalated when Kanga...",
-    "link": "https://www.ndtv.com/india-news/stop-trolling-women-rahul-gandhi-wades-into-kriti-sanon-vs-kangana-ranaut-over-rakhi-ad-dress-11957930#publisher=newsstand",
+    "title": "PM Modi Chairs PRAGATI Meet, Pushes AI Use In Farming And Cyber Fraud Fight",
+    "summary": "Prime Minister Modi chaired a PRAGATI meeting where he stressed that infrastructure delays harm citizens, businesses, and the economy beyond just increasing costs. He also pushed for the increased use of artificial intelligence in agriculture and the fight against cyber fraud.",
+    "link": "https://www.ndtv.com/india-news/pm-modi-chairs-pragati-meet-pushes-ai-use-in-farming-and-cyber-fraud-fight-11958736#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Tue, 25 Aug 2026 21:37:34 +0530"
+    "pubDate": "Wed, 26 Aug 2026 00:17:27 +0530"
    },
    {
-    "title": "Technical Fault In Mumbai Metro Station Lift Traps Passengers, All Rescued",
-    "summary": "Passengers were trapped inside a glass lift at a Mumbai metro station due to a technical fault. Metro staff spotted the trapped individuals through the transparent walls and safely rescued them.",
-    "link": "https://www.ndtv.com/india-news/technical-fault-in-mumbai-metro-station-lift-traps-passengers-all-rescued-11958085#publisher=newsstand",
+    "title": "Madhya Pradesh Forest Department To Launch Snake-Catcher App Soon",
+    "summary": "The Madhya Pradesh Forest Department is launching a digital platform called SHIVAA. The app will connect citizens with trained snake rescuers and guide snakebite victims to treatment.",
+    "link": "https://www.ndtv.com/india-news/madhya-pradesh-forest-department-to-launch-snake-catcher-app-soon-11958728#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Tue, 25 Aug 2026 21:33:59 +0530"
+    "pubDate": "Wed, 26 Aug 2026 00:16:36 +0530"
    },
    {
-    "title": "Chaos At House Panel Meet After Priyanka Gandhi Raises July 20 Police Action",
-    "summary": "A parliamentary committee meeting became chaotic after Priyanka Gandhi raised the issue of a July 20 police lathi charge. Opposition and BJP MPs argued over whether the committee had jurisdiction, as minors were among the injured.",
-    "link": "https://www.ndtv.com/india-news/priyanka-gandhi-raises-july-20-police-action-at-parliamentary-panel-meet-chaos-follows-11957709#publisher=newsstand",
+    "title": "Man Detained For Throwing Stones At Vande Bharat. UP Governor Was On Board",
+    "summary": "A man was detained for throwing stones at a Vande Bharat train in Uttar Pradesh. UP Governor Anandiben Patel was on board the train at the time of the incident.",
+    "link": "https://www.ndtv.com/india-news/man-detained-for-throwing-stones-at-vande-bharat-up-governor-was-on-board-11958719#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Tue, 25 Aug 2026 21:07:59 +0530"
+    "pubDate": "Wed, 26 Aug 2026 00:13:39 +0530"
    },
    {
-    "title": "District Collectors Get Power To Grant Citizenship In 8 Regions Under CAA",
-    "summary": "India's Ministry of Home Affairs has empowered District Collectors in eight regions to grant citizenship under the Citizenship Amendment Act (CAA). This policy change aims to simplify and accelerate the processing of citizenship applications for eligible migrants.",
-    "link": "https://www.ndtv.com/india-news/district-collectors-get-power-to-grant-citizenship-in-8-regions-under-caa-11957888#publisher=newsstand",
+    "title": "Meghalaya To Restore Vandalised Netaji, Vivekananda Statues In Shillong",
+    "summary": "The Meghalaya government will restore statues of Netaji Subhas Chandra Bose and Swami Vivekananda that were vandalized during a Khasi Students Union rally in Shillong. The statues were damaged on August 19.",
+    "link": "https://www.ndtv.com/india-news/meghalaya-to-restore-vandalised-netaji-vivekananda-statues-in-shillong-11958709#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Tue, 25 Aug 2026 20:56:31 +0530"
+    "pubDate": "Wed, 26 Aug 2026 00:06:33 +0530"
    },
    {
-    "title": "Delhi Records Wettest August Day In 2 Years, Several Areas Waterlogged",
-    "summary": "Delhi experienced its wettest August day in two years, resulting in severe waterlogging across several areas. Weather stations across the city recorded heavy rainfall, ranging from 68.0 mm in Palam to 101.9 mm in Ayanagar.",
-    "link": "https://www.ndtv.com/india-news/delhi-records-wettest-august-day-in-2-years-several-areas-waterlogged-11957787#publisher=newsstand",
+    "title": "\"This Country Not A Dharamshala\": Amit Shah Unveils 2047 Security Blueprint",
+    "summary": "Home Minister Amit Shah stated that a developed India requires stronger internal security because the nation is not a \"dharamshala\" (shelter house). He unveiled a 2047 security blueprint, linking national security directly to the country's economic and social progress.",
+    "link": "https://www.ndtv.com/india-news/this-country-not-a-dharamshala-amit-shah-unveils-2047-security-blueprint-11958686#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Tue, 25 Aug 2026 20:52:09 +0530"
+    "pubDate": "Tue, 25 Aug 2026 23:59:33 +0530"
    }
   ],
   "General": [
    {
+    "title": "Dolly Parton: The life of an iconic country singer",
+    "summary": "Iconic country musician Dolly Parton has died at the age of 80. Her team announced the news on social media.",
+    "link": "https://www.bbc.co.uk/news/videos/c7831ld8e73o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Tue, 25 Aug 2026 18:27:22 GMT"
+   },
+   {
     "title": "Father's house rammed before son died in A66 crash",
-    "summary": "Cole Worthy's father's house sustained significant damage, including smashed windows, after being rammed. Shortly after, Cole Worthy died in a crash on the A66.",
+    "summary": "A father's house was significantly damaged after being rammed, with its windows smashed. The incident preceded a crash on the A66 that resulted in the death of his son, Cole Worthy.",
     "link": "https://www.bbc.co.uk/news/articles/cevwjww8p08o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Tue, 25 Aug 2026 17:21:18 GMT"
+    "pubDate": "Tue, 25 Aug 2026 17:30:40 GMT"
    },
    {
     "title": "CIA chief travels to Moscow for unannounced talks, US media reports",
-    "summary": "US media reports that the CIA director traveled to Moscow for unannounced discussions. Flight tracking data verified that an American military aircraft flew from the United States to Russia through Latvia on Tuesday.",
+    "summary": "US media reports that the CIA director traveled to Moscow for unannounced discussions. Flight tracking data verifies that an American military plane flew from the United States to Russia through Latvia on Tuesday.",
     "link": "https://www.bbc.co.uk/news/articles/c87vg9x5d7do?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Tue, 25 Aug 2026 16:56:20 GMT"
+    "pubDate": "Tue, 25 Aug 2026 19:48:14 GMT"
    },
    {
-    "title": "Trump says all mines cleared from Strait of Hormuz",
-    "summary": "Iran has closed the vital waterway since the beginning of the conflict causing wild fluctuations in oil prices worldwide...",
-    "link": "https://www.bbc.co.uk/news/articles/cwyzw836d05o?at_medium=RSS&at_campaign=rss",
+    "title": "Canada announces 'dollar-for-dollar' retaliatory tariffs on US as high as 50%",
+    "summary": "Canada has announced retaliatory tariffs of up to 50% on American goods, including steel, furniture, fresh tuna, and makeup. This move marks the latest escalation in an ongoing trade war between the United States and Canada.",
+    "link": "https://www.bbc.co.uk/news/articles/c3v4xg5klx7o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Tue, 25 Aug 2026 16:43:58 GMT"
-   },
-   {
-    "title": "Who does Iran trade with and what could Trump's 'economic D-Day' mean?",
-    "summary": "Despite existing US sanctions, Iran has built strong economic relationships with several international partners. Donald Trump's proposed \"economic D-Day\" threatens these vital trade ties and further isolates Iran's economy.",
-    "link": "https://www.bbc.co.uk/news/articles/cqxvj1zd4qjo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Tue, 25 Aug 2026 15:04:52 GMT"
+    "pubDate": "Tue, 25 Aug 2026 19:50:57 GMT"
    },
    {
     "title": "Man dies in crash after police pursuit",
     "summary": "A man died in a car crash following a police pursuit. Two women were also injured, with one remaining hospitalized in critical condition.",
     "link": "https://www.bbc.co.uk/news/articles/cly7ne4xegmo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Tue, 25 Aug 2026 16:06:56 GMT"
+    "pubDate": "Tue, 25 Aug 2026 19:39:44 GMT"
    },
    {
-    "title": "Yellow weather warnings issued as thunderstorms and flooding forecast",
-    "summary": "The Met Office has issued a yellow weather warning for heavy showers and thunderstorms moving northwards across the UK on Wednesday. These severe conditions could lead to localized flooding in affected areas.",
-    "link": "https://www.bbc.co.uk/weather/articles/c770lyg4318o?at_medium=RSS&at_campaign=rss",
+    "title": "Trump says all mines cleared from Strait of Hormuz",
+    "summary": "President Trump stated that all mines have been cleared from the Strait of Hormuz. Iran had previously closed the vital waterway since the conflict began, which caused wild fluctuations in global oil prices.",
+    "link": "https://www.bbc.co.uk/news/articles/cwyzw836d05o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Tue, 25 Aug 2026 10:06:04 GMT"
+    "pubDate": "Tue, 25 Aug 2026 17:32:50 GMT"
    }
   ]
  }
