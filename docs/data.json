@@ -2,256 +2,256 @@
     {
         "ticker": "RELIANCE",
         "name": "Reliance Industries Ltd.",
-        "price": NaN,
+        "price": 1277.0,
         "cap": "Large",
         "sector": "Energy",
         "returns": {
-            "1D": NaN,
-            "1W": NaN,
-            "1M": NaN,
-            "1Y": NaN,
-            "2Y": NaN,
-            "3Y": NaN,
-            "4Y": NaN,
-            "5Y": NaN
+            "1D": -0.78,
+            "1W": -2.5,
+            "1M": -2.36,
+            "1Y": -7.43,
+            "2Y": -14.13,
+            "3Y": 2.72,
+            "4Y": 9.09,
+            "5Y": 24.86
         }
     },
     {
         "ticker": "TCS",
         "name": "Tata Consultancy Services Ltd.",
-        "price": NaN,
+        "price": 2399.3,
         "cap": "Large",
         "sector": "IT",
         "returns": {
-            "1D": NaN,
-            "1W": NaN,
-            "1M": NaN,
-            "1Y": NaN,
-            "2Y": NaN,
-            "3Y": NaN,
-            "4Y": NaN,
-            "5Y": NaN
+            "1D": 2.45,
+            "1W": 5.04,
+            "1M": 1.42,
+            "1Y": -19.23,
+            "2Y": -42.15,
+            "3Y": -23.98,
+            "4Y": -17.18,
+            "5Y": -27.06
         }
     },
     {
         "ticker": "HDFCBANK",
         "name": "HDFC Bank Ltd.",
-        "price": NaN,
+        "price": 709.0,
         "cap": "Large",
         "sector": "Banking & Finance",
         "returns": {
-            "1D": NaN,
-            "1W": NaN,
-            "1M": NaN,
-            "1Y": NaN,
-            "2Y": NaN,
-            "3Y": NaN,
-            "4Y": NaN,
-            "5Y": NaN
+            "1D": -1.57,
+            "1W": -2.74,
+            "1M": -5.23,
+            "1Y": -24.75,
+            "2Y": -10.1,
+            "3Y": -10.28,
+            "4Y": 4.73,
+            "5Y": -4.18
         }
     },
     {
         "ticker": "ITC",
         "name": "ITC Ltd.",
-        "price": NaN,
+        "price": 255.5,
         "cap": "Large",
         "sector": "FMCG",
         "returns": {
-            "1D": NaN,
-            "1W": NaN,
-            "1M": NaN,
-            "1Y": NaN,
-            "2Y": NaN,
-            "3Y": NaN,
-            "4Y": NaN,
-            "5Y": NaN
+            "1D": -3.95,
+            "1W": -5.27,
+            "1M": -9.07,
+            "1Y": -33.16,
+            "2Y": -43.08,
+            "3Y": -35.1,
+            "4Y": -0.2,
+            "5Y": 53.57
         }
     },
     {
         "ticker": "LT",
         "name": "Larsen & Toubro Ltd.",
-        "price": NaN,
+        "price": 4044.9,
         "cap": "Large",
         "sector": "Capital Goods",
         "returns": {
-            "1D": NaN,
-            "1W": NaN,
-            "1M": NaN,
-            "1Y": NaN,
-            "2Y": NaN,
-            "3Y": NaN,
-            "4Y": NaN,
-            "5Y": NaN
+            "1D": -0.02,
+            "1W": -1.1,
+            "1M": 2.69,
+            "1Y": 14.73,
+            "2Y": 14.56,
+            "3Y": 56.69,
+            "4Y": 134.36,
+            "5Y": 154.51
         }
     },
     {
         "ticker": "KPITTECH",
         "name": "KPIT Technologies Ltd.",
-        "price": NaN,
+        "price": 585.0,
         "cap": "Mid",
         "sector": "IT",
         "returns": {
-            "1D": NaN,
-            "1W": NaN,
-            "1M": NaN,
-            "1Y": NaN,
-            "2Y": NaN,
-            "3Y": NaN,
-            "4Y": NaN,
-            "5Y": NaN
+            "1D": -4.0,
+            "1W": 0.33,
+            "1M": -1.41,
+            "1Y": -50.08,
+            "2Y": -67.41,
+            "3Y": -47.43,
+            "4Y": 13.14,
+            "5Y": 79.13
         }
     },
     {
         "ticker": "VOLTAS",
         "name": "Voltas Ltd.",
-        "price": NaN,
+        "price": 1194.4,
         "cap": "Mid",
         "sector": "Consumer Durables",
         "returns": {
-            "1D": NaN,
-            "1W": NaN,
-            "1M": NaN,
-            "1Y": NaN,
-            "2Y": NaN,
-            "3Y": NaN,
-            "4Y": NaN,
-            "5Y": NaN
+            "1D": -0.47,
+            "1W": -3.83,
+            "1M": -10.12,
+            "1Y": -11.86,
+            "2Y": -28.73,
+            "3Y": 42.36,
+            "4Y": 21.61,
+            "5Y": 22.75
         }
     },
     {
         "ticker": "BHARATFORG",
         "name": "Bharat Forge Ltd.",
-        "price": NaN,
+        "price": 2104.9,
         "cap": "Mid",
         "sector": "Capital Goods",
         "returns": {
-            "1D": NaN,
-            "1W": NaN,
-            "1M": NaN,
-            "1Y": NaN,
-            "2Y": NaN,
-            "3Y": NaN,
-            "4Y": NaN,
-            "5Y": NaN
+            "1D": 3.3,
+            "1W": 3.13,
+            "1M": -4.31,
+            "1Y": 88.34,
+            "2Y": 31.29,
+            "3Y": 136.43,
+            "4Y": 187.85,
+            "5Y": 184.46
         }
     },
     {
         "ticker": "MRF",
         "name": "MRF Ltd.",
-        "price": NaN,
+        "price": 133745.0,
         "cap": "Mid",
         "sector": "Automobile",
         "returns": {
-            "1D": NaN,
-            "1W": NaN,
-            "1M": NaN,
-            "1Y": NaN,
-            "2Y": NaN,
-            "3Y": NaN,
-            "4Y": NaN,
-            "5Y": NaN
+            "1D": 1.26,
+            "1W": -0.46,
+            "1M": 0.73,
+            "1Y": -5.9,
+            "2Y": -3.88,
+            "3Y": 24.86,
+            "4Y": 54.83,
+            "5Y": 69.14
         }
     },
     {
         "ticker": "CDSL",
         "name": "Central Depository Services (India) Ltd.",
-        "price": NaN,
+        "price": 1402.5,
         "cap": "Small",
         "sector": "Capital Markets",
         "returns": {
-            "1D": NaN,
-            "1W": NaN,
-            "1M": NaN,
-            "1Y": NaN,
-            "2Y": NaN,
-            "3Y": NaN,
-            "4Y": NaN,
-            "5Y": NaN
+            "1D": -0.86,
+            "1W": 1.26,
+            "1M": 5.21,
+            "1Y": -2.53,
+            "2Y": -9.03,
+            "3Y": 138.74,
+            "4Y": 150.44,
+            "5Y": 150.31
         }
     },
     {
         "ticker": "ANGELONE",
         "name": "Angel One Ltd.",
-        "price": NaN,
+        "price": 286.9,
         "cap": "Small",
         "sector": "Capital Markets",
         "returns": {
-            "1D": NaN,
-            "1W": NaN,
-            "1M": NaN,
-            "1Y": NaN,
-            "2Y": NaN,
-            "3Y": NaN,
-            "4Y": NaN,
-            "5Y": NaN
+            "1D": -2.41,
+            "1W": 0.31,
+            "1M": -3.71,
+            "1Y": 29.43,
+            "2Y": 16.16,
+            "3Y": 73.34,
+            "4Y": 128.74,
+            "5Y": 161.81
         }
     },
     {
         "ticker": "CYIENT",
         "name": "Cyient Ltd.",
-        "price": NaN,
+        "price": 1174.8,
         "cap": "Small",
         "sector": "IT",
         "returns": {
-            "1D": NaN,
-            "1W": NaN,
-            "1M": NaN,
-            "1Y": NaN,
-            "2Y": NaN,
-            "3Y": NaN,
-            "4Y": NaN,
-            "5Y": NaN
+            "1D": 6.08,
+            "1W": 29.23,
+            "1M": 38.59,
+            "1Y": 1.18,
+            "2Y": -38.18,
+            "3Y": -20.99,
+            "4Y": 55.1,
+            "5Y": 32.83
         }
     },
     {
         "ticker": "CEATLTD",
         "name": "CEAT Ltd.",
-        "price": NaN,
+        "price": 3419.7,
         "cap": "Small",
         "sector": "Automobile",
         "returns": {
-            "1D": NaN,
-            "1W": NaN,
-            "1M": NaN,
-            "1Y": NaN,
-            "2Y": NaN,
-            "3Y": NaN,
-            "4Y": NaN,
-            "5Y": NaN
+            "1D": -2.61,
+            "1W": -4.1,
+            "1M": -0.3,
+            "1Y": 11.0,
+            "2Y": 22.41,
+            "3Y": 46.8,
+            "4Y": 167.02,
+            "5Y": 178.45
         }
     },
     {
         "ticker": "CENTURYPLY",
         "name": "Century Plyboards (India) Ltd.",
-        "price": NaN,
+        "price": 757.25,
         "cap": "Small",
         "sector": "Materials",
         "returns": {
-            "1D": NaN,
-            "1W": NaN,
-            "1M": NaN,
-            "1Y": NaN,
-            "2Y": NaN,
-            "3Y": NaN,
-            "4Y": NaN,
-            "5Y": NaN
+            "1D": 0.46,
+            "1W": 1.65,
+            "1M": -5.28,
+            "1Y": 2.52,
+            "2Y": -0.12,
+            "3Y": 21.54,
+            "4Y": 29.12,
+            "5Y": 89.29
         }
     },
     {
         "ticker": "HFCL",
         "name": "HFCL Ltd.",
-        "price": NaN,
+        "price": 249.09,
         "cap": "Small",
         "sector": "Telecom",
         "returns": {
-            "1D": NaN,
-            "1W": NaN,
-            "1M": NaN,
-            "1Y": NaN,
-            "2Y": NaN,
-            "3Y": NaN,
-            "4Y": NaN,
-            "5Y": NaN
+            "1D": -0.95,
+            "1W": 4.48,
+            "1M": 28.45,
+            "1Y": 257.84,
+            "2Y": 66.53,
+            "3Y": 248.79,
+            "4Y": 269.98,
+            "5Y": 269.37
         }
     }
 ]
