@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-09-06T13:25:09Z",
+ "updatedAt": "2026-09-06T17:56:58Z",
  "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
@@ -13,35 +13,35 @@
   "Markets": [
    {
     "title": "Market Trading Guide: Emcure Pharma among 2 stock recommendations for Monday",
-    "summary": "",
+    "summary": "Emcure Pharma is featured in a new market trading guide as one of two recommended stocks for Monday. The publication highlights these specific equities for investors looking at upcoming trading opportunities.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/market-trading-guide-emcure-pharma-among-2-stock-recommendations-for-monday/slideshow/133835557.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sun, 06 Sep 2026 16:54:52 +0530"
    },
    {
     "title": "Ahead of Market: 10 things that will decide stock market action on Monday",
-    "summary": "Indian benchmark indices ended slightly higher on Friday, with the Sensex rising 363 points and Nifty closing below 23,8...",
+    "summary": "Indian benchmark indices closed slightly higher on Friday, with the Sensex rising 363 points and the Nifty finishing below 23,898. Investors monitored global cues, US economic data, and inflation reports as stock-specific movements drove intraday activity.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/ahead-of-market-10-things-that-will-decide-stock-market-action-on-monday/articleshow/133834844.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sun, 06 Sep 2026 16:35:16 +0530"
    },
    {
     "title": "MCX electricity futures clock record Rs 245 crore turnover as OI touches all-time high",
-    "summary": "On September 4, MCX electricity futures reached a record turnover of Rs 245 crore with an all-time high open interest. This surge highlights strong market interest and increased participation in managing price risks.",
+    "summary": "On September 4, MCX electricity futures reached a record turnover of Rs 245 crore alongside all-time high open interest and volume. This growth reflects increased market interest and greater participation in managing price risks this fiscal year.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/mcx-electricity-futures-clock-record-rs-245-crore-turnover-as-oi-touches-all-time-high/articleshow/133834763.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sun, 06 Sep 2026 16:32:40 +0530"
    },
    {
     "title": "16 IPOs on investors' radar next week. GMPs signal up to 38% returns",
-    "summary": "A total of 16 IPOs across mainboard and SME segments are scheduled to launch next week, including Rentomojo and Kanohar ...",
+    "summary": "Sixteen initial public offerings across mainboard and SME segments, including Rentomojo and Kanohar Electricals, are scheduled to launch next week. Grey market premiums indicate positive investor sentiment, with expected listing gains of up to 38% led by Rentomojo.",
     "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/16-ipos-on-investors-radar-next-week-gmps-signal-up-to-38-returns/slideshow/133833526.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sun, 06 Sep 2026 15:34:41 +0530"
    },
    {
     "title": "One month of CAS: How 4 expiry days turned into a 6,000-point Sensex scare for investors",
-    "summary": "Sebi's latest initiative, the Closing Auction Session, has introduced complexities for Sensex options traders, especiall...",
+    "summary": "SEBI's new Closing Auction Session has introduced market complexities and sharp volatility for Sensex options traders on expiry days. This auction period determines the closing price for derivative contracts, directly linking cash market fluctuations to options values.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/one-month-of-cas-how-4-expiry-days-turned-into-a-6000-point-sensex-scare-for-investors/articleshow/133832524.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sun, 06 Sep 2026 15:07:51 +0530"
@@ -56,93 +56,107 @@
   ],
   "Geo-Political": [
    {
-    "title": "US envoys meet Zelensky in Ukraine after meeting Putin in Russia",
-    "summary": "Steve Witkoff and Jared Kushner arrive in Kyiv, having held talks with Putin in Moscow on Saturday.",
+    "title": "US envoys hold talks with Zelensky in Kyiv after meeting Putin",
+    "summary": "US envoys met with Ukrainian President Volodymyr Zelensky in Kyiv following discussions with Russian President Vladimir Putin. US envoy Steve Witkoff stated that the team felt encouraged by the substantive talks.",
     "link": "https://www.bbc.co.uk/news/articles/c6248nvqy8po?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Sun, 06 Sep 2026 13:16:21 GMT"
+    "pubDate": "Sun, 06 Sep 2026 15:32:27 GMT"
    },
    {
-    "title": "US and Iran trade retaliatory attacks on ships as conflict flares",
-    "summary": "The United States military stated that it struck three Iranian oil tankers in retaliation. In response, Iran reported that it targeted three US-linked ships.",
-    "link": "https://www.bbc.co.uk/news/articles/cj64rrne643o?at_medium=RSS&at_campaign=rss",
+    "title": "German far-right set for big win in eastern state - projections",
+    "summary": "Projections show Germany's far-right AfD party winning over 44% of the vote in an eastern state election. This result places them far ahead of the conservative CDU party, which is projected to receive 18.4%.",
+    "link": "https://www.bbc.co.uk/news/articles/cy4zejgz3z9o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Sat, 05 Sep 2026 22:44:07 GMT"
+    "pubDate": "Sun, 06 Sep 2026 17:42:19 GMT"
+   },
+   {
+    "title": "Volcano eruption leaves 170,000 passengers stranded in Indonesia",
+    "summary": "Volcanic eruptions near Jakarta, Indonesia, have released ash into the surrounding airspace. This has left more than 170,000 airline passengers stranded.",
+    "link": "https://www.bbc.co.uk/news/articles/cvgy5k4n07ko?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Sun, 06 Sep 2026 16:00:21 GMT"
+   },
+   {
+    "title": "Dozens feared trapped in collapsed building in Delhi",
+    "summary": "A five-storey hostel collapsed in Delhi with an estimated 50 people inside. Dozens of individuals are feared trapped in the wreckage.",
+    "link": "https://www.bbc.co.uk/news/articles/c8r6ezx1jmro?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Sun, 06 Sep 2026 16:54:34 GMT"
    },
    {
     "title": "TV presenter among 12 sentenced to death in Egypt drugs case",
-    "summary": "Egyptian television presenter Sarah Khalifa is among twelve people sentenced to death in a drug trafficking case. Khalifa was previously known for hosting a crime-focused television programme titled Mission Impossible.",
+    "summary": "Egyptian TV presenter Sarah Khalifa is among 12 people who have been sentenced to death in a drug trafficking case. Khalifa was previously known for hosting the crime-focused television programme Mission Impossible.",
     "link": "https://www.bbc.co.uk/news/articles/c5y7gk9knnlo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Sun, 06 Sep 2026 08:05:22 GMT"
    },
    {
-    "title": "Volcano eruption leaves 150,000 passengers stranded in Indonesia",
-    "summary": "Volcanic eruptions near Jakarta, Indonesia, have filled the local airspace with ash. This disruption has left more than 150,000 airline passengers stranded.",
-    "link": "https://www.bbc.co.uk/news/articles/cvgy5k4n07ko?at_medium=RSS&at_campaign=rss",
+    "title": "Iran warns of 'faster, heavier, more painful response' to US attacks",
+    "summary": "Iran threatened a severe response after the United States military struck Iranian oil tankers. Washington carried out the strikes in retaliation for previous Iranian attacks on US warships in the region.",
+    "link": "https://www.bbc.co.uk/news/articles/cp8d56w7d9po?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Sun, 06 Sep 2026 09:56:39 GMT"
-   },
-   {
-    "title": "Watch: Moment 64-year-old Nepali woman is found alive in mud-buried home",
-    "summary": "A 64-year-old Nepali woman named Chandika Shrestha was rescued alive after spending more than 10 days trapped inside her mud-buried home. She was subsequently airlifted to a hospital for medical treatment.",
-    "link": "https://www.bbc.co.uk/news/videos/c4gd24d1d0do?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Sun, 06 Sep 2026 01:54:29 GMT"
-   },
-   {
-    "title": "Prince William to attend King Harald's funeral in Norway",
-    "summary": "Prince William will represent the British monarch at the funeral of Norway's King Harald V in Oslo next week. The service will honor the late Norwegian king.",
-    "link": "https://www.bbc.co.uk/news/articles/cp301rw6kvro?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Sat, 05 Sep 2026 21:00:02 GMT"
+    "pubDate": "Sun, 06 Sep 2026 17:00:56 GMT"
    }
   ],
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "An experiment revealed that ChatGPT recommended a specific WordPress SaaS course as the top result without any paid advertising. This outcome demonstrates the growing importance of AI optimization compared to traditional SEO for generating organic traffic.",
+    "summary": "An author discovered their WordPress SaaS course was recommended as the top result when asking ChatGPT for the best course on the subject. The author achieved this visibility without paying for advertising or traditional search engine optimization.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "This guide highlights the top 10 artificial intelligence tools designed to revolutionize content creation in 2025. These essential technologies help digital creators streamline their workflows and stay ahead in a rapidly evolving landscape.",
+    "summary": "This guide highlights ten essential artificial intelligence tools designed to revolutionize content creation in 2025. These applications help digital creators streamline their workflows and stay competitive in a rapidly evolving technological landscape.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "&nbsp;In the rapidly advancing landscape of AI technology and innovation, LimeWire emerges as a unique platform in the r...",
+    "summary": "LimeWire has transformed into a generative AI platform that allows users to create digital content. The tool also provides features for creators to share and monetize their work.",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "This article highlights ten advanced AI tools from 2023 that automate tasks and boost productivity across various industries. These widely used market solutions are designed to improve workflows and drive innovation for multiple applications.",
+    "summary": "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovation and efficiency in various industries. ...",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "This 2022 article introduces AI content generator tools as effective solutions for creating engaging and relevant material. Because many options exist on the market, the piece aims to help readers choose the right tool for their needs.",
+    "summary": "Artificial intelligence content generators help users efficiently create engaging and relevant material for their audiences. Because many tools are available on the market, it can be difficult to choose the right one.",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
    },
    {
     "title": "Beginner Guide to CJ Affiliate (Commission Junction) in 2022",
-    "summary": "This beginner's guide to CJ Affiliate explains how the network works and how to earn money on the platform. It also highlights top CJ affiliate programs and alternative options.",
+    "summary": "This guide explains how beginners can use the CJ Affiliate network to earn money. It also provides a look at top affiliate programs and platform alternatives.",
     "link": "https://techncruncher.blogspot.com/2022/09/cj-affiliate-ultimate-guide-to.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Sat, 10 Sep 2022 08:57:00 +0000"
    }
   ],
   "Data & Insights": [
+   {
+    "title": "GST Council meeting postponed to 7 October from 12 September",
+    "summary": "The GST Council meeting has been rescheduled from 12 September to 7 October. Ahead of this meeting, preparatory sessions for government officers are scheduled for 5 and 6 October.",
+    "link": "https://www.livemint.com/economy/gst-council-meeting-postponed-to-7-october-from-12-september-11788695783913.html",
+    "source": "livemint.com",
+    "pubDate": "Sun, 06 Sep 2026 20:25:42 +0530"
+   },
+   {
+    "title": "Mint Explainer | Why the era of cheap money is ending",
+    "summary": "Moody's Ratings states that a new macroeconomic regime is shifting financial markets toward higher interest rates. This shift is causing differentiated repricing across various financial assets.",
+    "link": "https://www.livemint.com/economy/mint-explainer-why-the-era-of-cheap-money-is-ending-11788685096874.html",
+    "source": "livemint.com",
+    "pubDate": "Sun, 06 Sep 2026 18:54:38 +0530"
+   },
    {
     "title": "GST Council meeting rescheduled: BRICS Summit clash pushes 57th meet to October 7",
     "summary": "The 57th GST Council meeting has been rescheduled from September 12 to October 7 due to a scheduling conflict with the BRICS Summit. The upcoming meeting is expected to address pending tax issues, including input tax credit, corporate guarantees, and rate rationalisation.",
@@ -152,126 +166,112 @@
    },
    {
     "title": "Smaller economy, PPI inclusion: Why India’s GDP is facing fresh scrutiny",
-    "summary": "India's updated GDP methodology addresses past statistical issues but includes downward nominal revisions. Additionally, the sudden inclusion of the Producer Price Index raises credibility concerns.",
+    "summary": "India's updated GDP methodology resolves previous statistical problems, but downward nominal revisions and the addition of the Producer Price Index have created credibility worries. These changes to how the economy is measured have sparked fresh scrutiny regarding the accuracy of the data.",
     "link": "https://www.livemint.com/economy/smaller-economy-ppi-inclusion-why-india-s-gdp-is-facing-fresh-scrutiny-11788682014639.html",
     "source": "livemint.com",
     "pubDate": "Sun, 06 Sep 2026 15:04:00 +0530"
    },
    {
     "title": "India GDP grows 7.8%, but PM Modi urges less gold purchase, foreign travel: Does it help the economy? Expert weighs in",
-    "summary": "Prime Minister Narendra Modi urged Indians to reduce foreign travel and gold purchases to help achieve the goal of a developed economy by 2047. The appeal follows India's GDP growth of 7.8 percent, prompting experts to weigh in on how these domestic spending choices impact the economy.",
+    "summary": "Despite India's 7.8% GDP growth, Prime Minister Modi urged citizens to reduce foreign travel and gold purchases on September 1. He linked these personal spending choices to the national goal of achieving a developed economy by 2047.",
     "link": "https://www.livemint.com/economy/india-gdp-grows-7-8-per-cent-but-pm-modi-urges-less-gold-purchase-foreign-travel-can-it-really-help-the-economy-11788266387936.html",
     "source": "livemint.com",
     "pubDate": "Sat, 05 Sep 2026 23:17:02 +0530"
    },
    {
     "title": "Trump wants rate cuts to unleash 15% growth, but economists warn cash influx could worsen inflation | Explained",
-    "summary": "President Trump is pressuring the Federal Reserve to cut interest rates to spur economic growth. However, economists warn that this influx of cash could reignite inflation.",
+    "summary": "President Trump is urging the Federal Reserve to cut interest rates to stimulate the economy. Economists warn that this policy could increase the money supply and worsen inflation.",
     "link": "https://www.livemint.com/economy/trump-wants-rate-cuts-to-unleash-15-growth-but-economists-warn-cash-influx-could-worsen-inflation-explained-11788620854357.html",
     "source": "livemint.com",
     "pubDate": "Sat, 05 Sep 2026 21:38:26 +0530"
-   },
-   {
-    "title": "Trump wants Kevin Warsh to cut rates, markets bet on a hike: Fed chief faces first big test | Explained",
-    "summary": "President Trump is pressuring Federal Reserve Chair Kevin Warsh to lower interest rates, conflicting with market expectations for a hike following a strong jobs report. Next week's inflation data will likely determine the Fed's upcoming decision.",
-    "link": "https://www.livemint.com/economy/trump-wants-kevin-warsh-to-cut-rates-markets-bet-on-a-hike-fed-chief-faces-first-big-test-explained-11788617173485.html",
-    "source": "livemint.com",
-    "pubDate": "Sat, 05 Sep 2026 20:35:50 +0530"
-   },
-   {
-    "title": "Boost for Indian economy after 7.8% GDP; Japan agency upgrades sovereign rating from BBB+ to A- | Difference explained",
-    "summary": "Japan Credit Rating Agency upgraded India's sovereign credit rating from BBB+ to A- with a stable outlook. This upgrade follows India's strong 7.8 percent GDP growth.",
-    "link": "https://www.livemint.com/economy/boost-for-indian-economy-after-7-8-gdp-japan-agency-upgrades-sovereign-rating-from-bbb-to-a-difference-explained-11788601374997.html",
-    "source": "livemint.com",
-    "pubDate": "Sat, 05 Sep 2026 17:17:46 +0530"
    }
   ],
   "India": [
    {
-    "title": "Delhi Building Collapse LIVE Updates: Delhi Chief Minister Rekha Gupta At Building Collapse Site",
-    "summary": "Delhi Chief Minister Rekha Gupta visited the site of a building collapse in the densely populated student area of Satya Niketan. The locality near Delhi University's South Campus contains numerous student hostels and accommodations.",
+    "title": "Customer Claims Maggot Found In KFC Fried Chicken At Greater Noida Outlet, Company Responds",
+    "summary": "A customer at a KFC outlet in Greater Noida claimed to have found a maggot in their fried chicken and shared the discovery on X. KFC responded to the viral post, though the specific details of their reply were not provided in the original text.",
+    "link": "https://www.ndtv.com/india-news/customer-claims-maggot-found-in-kfc-fried-chicken-at-greater-noida-outlet-company-responds-12009904#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Sun, 06 Sep 2026 20:32:21 +0530"
+   },
+   {
+    "title": "3 Dead, Several Feared Trapped After Six-Storey Building Collapses In Delhi",
+    "summary": "A six-storey building collapsed in Delhi, resulting in three deaths and fears that several others are trapped. An eyewitness reported that at least 50 students were believed to be inside the structure at the time of the collapse.",
+    "link": "https://www.ndtv.com/india-news/building-collapses-in-delhi-several-feared-trapped-under-debris-12008840#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Sun, 06 Sep 2026 20:10:40 +0530"
+   },
+   {
+    "title": "Delhi Building Collapse LIVE Updates: Case Against Building Owner, PM Modi Condoles Deaths",
+    "summary": "A building collapse in the densely populated student area of Satya Niketan in Delhi has prompted authorities to file a case against the property owner. Prime Minister Narendra Modi has expressed condolences for the deaths resulting from the incident.",
     "link": "https://www.ndtv.com/india-news/delhi-building-collapse-live-updates-rescue-teams-race-to-save-people-trapped-under-debris-in-satya-niketan-12008905#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Sun, 06 Sep 2026 18:02:01 +0530"
+    "pubDate": "Sun, 06 Sep 2026 19:51:15 +0530"
    },
    {
-    "title": "Andhra Pradesh ICET 2026 Web Options Change Window Opens Today; Check Revised Counselling Schedule",
-    "summary": "The Andhra Pradesh ICET 2026 web options change window opens today, September 6. Candidates can review the revised first-phase counselling schedule, seat allotment date, and reporting details.",
-    "link": "https://www.ndtv.com/education/ap-icet-2026-web-options-change-today-check-revised-counselling-schedule-12009321#publisher=newsstand",
+    "title": "Woman Comments On Sister-In-Law's Brother. Gets Killed, Body Dumped In Tank",
+    "summary": "An Indian woman was murdered after making a comment about her sister-in-law's brother. The perpetrators then dumped her body in a tank, leading police to identify the suspects through local CCTV footage.",
+    "link": "https://www.ndtv.com/india-news/woman-comments-on-sister-in-laws-brother-gets-killed-body-dumped-in-tank-12009727#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Sun, 06 Sep 2026 17:58:38 +0530"
+    "pubDate": "Sun, 06 Sep 2026 19:39:12 +0530"
    },
    {
-    "title": "Massive Landslide In Sikkim Partially Blocks Teesta River Flow",
-    "summary": "A massive landslide in Sikkim has partially blocked the flow of the Teesta River. This blockage has sparked panic and speculation on social media due to recent disasters in the region.",
-    "link": "https://www.ndtv.com/india-news/massive-landslide-in-sikkim-blocks-teesta-river-flow-advisory-issued-12009451#publisher=newsstand",
+    "title": "WBJEE 2026 Decentralised Counselling Begins Soon: Check Schedule And Seat Rules",
+    "summary": "The schedule and rules for the WBJEE 2026 decentralised counselling have been released. Students can now check the registration dates, seat matrix, fees, and admission process for Rounds 1 and 2.",
+    "link": "https://www.ndtv.com/education/wbjee-2026-decentralised-counselling-begins-soon-check-schedule-and-seat-rules-12009627#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Sun, 06 Sep 2026 17:47:13 +0530"
+    "pubDate": "Sun, 06 Sep 2026 19:22:30 +0530"
    },
    {
-    "title": "Family Stops Bike To Answer Call, Gets Run Over By Speeding Car In Keralam",
-    "summary": "A family was struck and killed by a speeding car on the Guruvayur-Kunnamkulam road in Thrissur district. The fatal accident occurred just before midnight on Saturday after they stopped their motorcycle to answer a phone call.",
-    "link": "https://www.ndtv.com/india-news/kerala-thrissur-family-stops-bike-to-answer-call-gets-run-over-by-speeding-car-12008755#publisher=newsstand",
+    "title": "5 Myanmar Nationals Arrested in Arunachal Amid Crackdown On Drug Trade",
+    "summary": "Five Myanmar nationals were arrested in the Changlang district of Arunachal Pradesh during a crackdown on the illegal drug trade. Changlang shares a major boundary with Myanmar and has recently emerged as a new route for drug trafficking.",
+    "link": "https://www.ndtv.com/india-news/5-myanmar-nationals-arrested-in-arunachal-amid-crackdown-on-drug-trade-12009649#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Sun, 06 Sep 2026 17:45:06 +0530"
-   },
-   {
-    "title": "Popular Kalyan Bakery Sealed By Food Regulator Over Wood-Fired Furnace",
-    "summary": "Food regulators sealed a popular bakery in Kalyan for using a wood-fired furnace. This action complies with a Bombay High Court directive requiring Maharashtra bakeries to switch to cleaner energy sources like gas or electricity.",
-    "link": "https://www.ndtv.com/india-news/popular-thane-bakery-sealed-by-food-regulator-over-wood-fired-furnace-12006791#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Sun, 06 Sep 2026 17:40:59 +0530"
-   },
-   {
-    "title": "'Trapped Students Making Phone Calls': BJP MLA On Delhi Building Collapse",
-    "summary": "A Delhi building collapse left one person dead and two in critical condition, with many others feared trapped. A BJP MLA stated that trapped students are currently making phone calls from the site.",
-    "link": "https://www.ndtv.com/india-news/bjp-mla-on-delhi-building-collapse-trapped-students-making-phone-calls-12009205#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Sun, 06 Sep 2026 17:32:38 +0530"
+    "pubDate": "Sun, 06 Sep 2026 18:31:35 +0530"
    }
   ],
   "General": [
    {
-    "title": "US envoys meet Zelensky in Ukraine after talks with Putin in Russia",
-    "summary": "US envoys Steve Witkoff and Jared Kushner arrived in Kyiv to meet with Ukrainian President Volodymyr Zelensky. This visit followed their talks with Russian President Vladimir Putin in Moscow on Saturday.",
+    "title": "US envoys hold talks with Zelensky in Kyiv after meeting Putin",
+    "summary": "US envoys traveled to Kyiv to meet with Ukrainian President Volodymyr Zelensky. The visit followed a prior meeting with Russian President Vladimir Putin, leaving the US team feeling encouraged.",
     "link": "https://www.bbc.co.uk/news/articles/c6248nvqy8po?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Sun, 06 Sep 2026 13:16:21 GMT"
+    "pubDate": "Sun, 06 Sep 2026 15:32:27 GMT"
    },
    {
-    "title": "Police slow to respond to Dover protest, says council boss",
-    "summary": "The leader of the Dover council stated that police were slow to respond to a protest. He explained that the well-organized demonstration caught multiple agencies off guard.",
-    "link": "https://www.bbc.co.uk/news/articles/cew9dq9we5eo?at_medium=RSS&at_campaign=rss",
+    "title": "German far-right set for big win in eastern state - projections",
+    "summary": "Germany's far-right Alternative for Germany (AfD) party is projected to win a historic state election with over 44% of the vote. The conservative CDU party trails far behind in second place with 18.4% of the vote.",
+    "link": "https://www.bbc.co.uk/news/articles/cy4zejgz3z9o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Sun, 06 Sep 2026 10:59:35 GMT"
+    "pubDate": "Sun, 06 Sep 2026 17:42:19 GMT"
    },
    {
     "title": "Minister to meet Jaguar Land Rover boss as thousands of job cuts expected",
-    "summary": "A government minister will meet the head of Jaguar Land Rover as the company prepares to cut thousands of jobs. The carmaker is facing financial pressure due to trade tariffs and the lingering effects of a cyber attack.",
+    "summary": "The company is struggling with the impact of tariffs as well as the fallout from a major cyber attack last year.",
     "link": "https://www.bbc.co.uk/news/articles/crer948xq00o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Sun, 06 Sep 2026 10:29:03 GMT"
+    "pubDate": "Sun, 06 Sep 2026 16:32:59 GMT"
    },
    {
-    "title": "TV presenter among 12 sentenced to death in Egypt drugs case",
-    "summary": "Egyptian TV presenter Sarah Khalifa, known for hosting the crime show *Mission Impossible*, is among 12 people sentenced to death in a drug case. The defendants were convicted of involvement in international drug trafficking.",
-    "link": "https://www.bbc.co.uk/news/articles/c5y7gk9knnlo?at_medium=RSS&at_campaign=rss",
+    "title": "Jamaica to bring slavery reparations petition to King Charles",
+    "summary": "Jamaica is petitioning King Charles to refer three slavery reparation questions to the Judicial Committee of the Privy Council. This legal move seeks formal review regarding compensation for historical slavery.",
+    "link": "https://www.bbc.co.uk/news/articles/clyqvkyekkeo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Sun, 06 Sep 2026 08:05:22 GMT"
+    "pubDate": "Sun, 06 Sep 2026 16:39:45 GMT"
    },
    {
-    "title": "The next James Bond: The (00)7 questions fans want answered",
-    "summary": "Speculation has been building recently that an announcement about Daniel Craig's successor could be close.",
-    "link": "https://www.bbc.co.uk/news/articles/cm2qnq0py5vo?at_medium=RSS&at_campaign=rss",
+    "title": "Iran warns of 'faster, heavier, more painful response' to US attacks",
+    "summary": "The comments came a day after Washington said it had struck Iranian oil tankers in response to Tehran's attacks on US wa...",
+    "link": "https://www.bbc.co.uk/news/articles/cp8d56w7d9po?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Sun, 06 Sep 2026 00:06:10 GMT"
+    "pubDate": "Sun, 06 Sep 2026 17:00:56 GMT"
    },
    {
-    "title": "Volcano eruption leaves 150,000 passengers stranded in Indonesia",
-    "summary": "More than 150,000 airline passengers are stranded after ash was detected in airspace near Jakarta following the eruption...",
+    "title": "Volcano eruption leaves 170,000 passengers stranded in Indonesia",
+    "summary": "Volcanic eruptions in Indonesia have released ash into the airspace near Jakarta. As a result, more than 170,000 airline passengers are currently stranded.",
     "link": "https://www.bbc.co.uk/news/articles/cvgy5k4n07ko?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Sun, 06 Sep 2026 09:56:39 GMT"
+    "pubDate": "Sun, 06 Sep 2026 16:00:21 GMT"
    }
   ]
  }
