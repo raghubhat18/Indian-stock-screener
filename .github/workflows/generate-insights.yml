@@ -534,7 +534,12 @@ jobs:
                   if not p_future: continue
                   ret5 = (p_future - p_now) / p_now * 100
 
-                  verdict = 'BUY' if sc >= 65 else ('AVOID' if sc < 40 else 'HOLD')
+                  # Simplified scoring max = 56 pts (roc5=12,roc10=8,sma20=10,sma20dir=8,rsi=12,hi52=6)
+                  # Scale thresholds: BUY=65% of max=36, AVOID=40% of max=22
+                  SIMPLE_MAX = 56
+                  buy_thresh   = round(SIMPLE_MAX * 0.65)  # 36
+                  avoid_thresh = round(SIMPLE_MAX * 0.40)  # 22
+                  verdict = 'BUY' if sc >= buy_thresh else ('AVOID' if sc < avoid_thresh else 'HOLD')
                   results_by_verdict[verdict].append(ret5)
 
                   if verdict == 'BUY':
