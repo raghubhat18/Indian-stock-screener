@@ -1,6 +1,6 @@
 {
- "updatedAt": "2026-09-07T20:24:54Z",
- "model": "gemini-flash-latest",
+ "updatedAt": "2026-09-07T22:25:27Z",
+ "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
   "Geo-Political",
@@ -13,42 +13,42 @@
   "Markets": [
    {
     "title": "RBI easing drives Indian companies’ $7.70 billion overseas borrowing",
-    "summary": "Indian companies filed proposals worth $7.70 billion for external commercial borrowings in July. This marked a significa...",
+    "summary": "Indian companies filed $7.70 billion in overseas borrowing proposals in July, marking a 27% increase from the previous month. This surge follows the Reserve Bank of India's decision earlier this year to ease its borrowing framework by raising caps and removing cost ceilings.",
     "link": "https://economictimes.indiatimes.com/markets/forex/forex-news/rbi-easing-drives-indian-companies-7-70-billion-overseas-borrowing/articleshow/133890574.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Mon, 07 Sep 2026 22:32:58 +0530"
    },
    {
     "title": "Prasol Chemicals mobilises Rs 150 cr from anchor investors ahead of IPO",
-    "summary": "Prasol Chemicals",
+    "summary": "Prasol Chemicals raised Rs 150 crore from anchor investors by pricing its shares at Rs 676 each ahead of its September 8 IPO. The investors participating in this share allocation included Tata Mutual Fund, Kotak Mahindra Mutual Fund, and Aditya Birla Sun Life Insurance.",
     "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/prasol-chemicals-mobilises-rs-150-cr-from-anchor-investors-ahead-of-ipo/articleshow/133889916.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Mon, 07 Sep 2026 22:18:47 +0530"
    },
    {
     "title": "Taiwan's Wistron raises $1.5 billion in global share sale to fund raw material purchases",
-    "summary": "Nvidia supplier Wistron is raising $1.47 billion through a global share sale as surging AI spending drives demand for se...",
+    "summary": "Nvidia supplier Wistron is raising $1.47 billion through a global share sale to fund foreign currency raw material purchases. The Taiwanese company is also using the funds to expand production, including a new $700 million AI systems plant in Texas.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/taiwans-wistron-raises-1-5-billion-in-global-share-sale-to-fund-raw-material-purchases/articleshow/133889813.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Mon, 07 Sep 2026 22:15:21 +0530"
    },
    {
     "title": "European shares subdued as surging crude sharpens focus on ECB rate path",
-    "summary": "European shares closed largely flat as higher oil prices and renewed US-Iran tensions raised inflation concerns, offsett...",
+    "summary": "European stock markets closed largely flat as rising oil prices and geopolitical tensions heightened inflation worries. At the same time, investors increased their bets on further interest rate hikes by the European Central Bank.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/european-shares-subdued-as-surging-crude-sharpens-focus-on-ecb-rate-path/articleshow/133889738.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Mon, 07 Sep 2026 22:11:47 +0530"
    },
    {
     "title": "Copper prices scale fresh record high as focus turns to tight supplies outside US",
-    "summary": "Copper prices hit a record high as concerns over shortages outside the US boosted buying, while a weaker dollar supporte...",
+    "summary": "Copper prices reached a record high of $14,533 per metric ton due to supply shortages outside the United States and a weaker dollar. This increase highlights a growing divergence, driven by falling inventories in Shanghai and strong inventories in the US.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/copper-price-touches-record-high-focus-on-tight-supplies-outside-us/articleshow/133889161.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Mon, 07 Sep 2026 21:54:59 +0530"
    },
    {
     "title": "Ahead of Market: 10 things that will decide stock market action on Tuesday",
-    "summary": "US-",
+    "summary": "Rising oil prices and US-Iran tensions caused the Sensex and Nifty to extend their four-week losing streak. Although supply disruptions and stretched valuations pose downside risks, earnings improvements and selective buying supported small-cap and mid-cap stocks.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/ahead-of-market-10-things-that-will-decide-stock-market-action-on-tuesday/articleshow/133888719.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Mon, 07 Sep 2026 21:35:18 +0530"
@@ -56,43 +56,43 @@
   ],
   "Geo-Political": [
    {
+    "title": "Palestinian parents fear for children's lives at school as settler attacks grow",
+    "summary": "Palestinian parents in the occupied West Bank fear for their children's safety as settler attacks increase. A headteacher has installed new barbed wire fencing after three pupils were killed this year.",
+    "link": "https://www.bbc.co.uk/news/articles/c3wj45g73g1o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Mon, 07 Sep 2026 21:12:37 GMT"
+   },
+   {
     "title": "Germany's far-right AfD says 'democracy demands' parties work with them after state election win",
-    "summary": "The far-right party is trying to form a government in the state after falling three seats short of a majority.",
+    "summary": "After winning a state election, Germany's far-right AfD party stated that democracy requires other political parties to cooperate with them. The party fell three seats short of a majority and is currently attempting to form a government.",
     "link": "https://www.bbc.co.uk/news/articles/cpd0113082eo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 07 Sep 2026 14:04:01 GMT"
    },
    {
     "title": "Thousands turn out in Serbia for funeral of  'Butcher of Bosnia' Ratko Mladić",
-    "summary": "Mladić was jailed for genocide during the 1990s Bosnian war and the EU warned Serbia not to glorify the convicted war cr...",
+    "summary": "Thousands of people attended the funeral in Serbia for Ratko Mladić, the convicted war criminal known as the \"Butcher of Bosnia.\" Mladić was serving a life sentence for genocide committed during the Bosnian war of the 1990s.",
     "link": "https://www.bbc.co.uk/news/articles/cn5dkk7yw74o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 07 Sep 2026 14:50:50 GMT"
    },
    {
     "title": "Israeli strikes in southern Lebanese village kill 12",
-    "summary": "Lebanon says a recent Israeli escalation is jeopardising a US-brokered ceasefire meant to end the conflict between Israe...",
+    "summary": "Israeli strikes in a southern Lebanese village killed 12 people. Lebanon stated that this escalation threatens the US-brokered ceasefire aimed at ending the conflict between Israel and Hezbollah.",
     "link": "https://www.bbc.co.uk/news/articles/c5yl96vz0edo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 07 Sep 2026 13:39:23 GMT"
    },
    {
-    "title": "Investigators begin work on why cargo plane overran Miami runway",
-    "summary": "ONLY the 2-",
-    "link": "https://www.bbc.co.uk/news/articles/c0e3p1j7n3ro?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Mon, 07 Sep 2026 17:46:25 GMT"
-   },
-   {
     "title": "Grindr to pay £26m to settle claims it allegedly shared users' HIV status",
-    "summary": "Grindr has",
+    "summary": "Grindr has agreed to pay £26 million to settle a lawsuit alleging it breached UK privacy laws. The claim stated the dating app shared users' sensitive data, including HIV status, with third-party companies.",
     "link": "https://www.bbc.co.uk/news/articles/cn8e63qdqwzo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 07 Sep 2026 15:27:50 GMT"
    },
    {
     "title": "Nepal observes national day of mourning for victims of flash flood disaster",
-    "summary": "Flags flew at half mast on the 13th day since the disaster, the last day of the Hindu mourning period.",
+    "summary": "Nepal observed a national day of mourning for the victims of a recent flash flood disaster. Flags flew at half-mast to mark the final day of the traditional Hindu mourning period.",
     "link": "https://www.bbc.co.uk/news/articles/c2kw1qek7gdo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 07 Sep 2026 09:31:26 GMT"
@@ -101,21 +101,21 @@
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and aske...",
+    "summary": "The author discovered their WordPress SaaS course was recommended as the top result when querying ChatGPT. This free visibility was achieved without paid advertising or traditional search engine optimization.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "Looking to level up your content creation game in 2025? You're in the right place! The digital landscape has evolved dra...",
+    "summary": "This guide highlights the top 10 artificial intelligence tools designed to revolutionize content creation in 2025. These essential technologies help digital creators streamline their workflows and stay competitive in a rapidly evolving landscape.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "&nbsp;In the rapidly advancing landscape of AI technology and innovation, LimeWire emerges as a unique platform in the r...",
+    "summary": "LimeWire has evolved into a generative AI platform that allows users to create digital content. The tool also provides features for creators to share and monetize their AI-generated work.",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
@@ -129,7 +129,7 @@
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "AI",
+    "summary": "Artificial intelligence content generators help users create engaging and relevant material efficiently. Because many different tools are available on the market, choosing the right one can be difficult.",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
@@ -145,42 +145,42 @@
   "Data & Insights": [
    {
     "title": "CII business confidence rebounds in Q2 on improving demand, hiring and investment outlook",
-    "summary": "The CII Business Confidence Index rose to 66 in Q2FY27, as stronger domestic demand, higher capacity utilization and eas...",
+    "summary": "The CII Business Confidence Index rose to 66 in Q2FY27. This rebound was driven by stronger domestic demand, higher capacity utilization, and easing cost pressures.",
     "link": "https://www.livemint.com/economy/cii-business-confidence-rebounds-q2-improving-demand-hiring-investment-outlook-11788775949795.html",
     "source": "livemint.com",
     "pubDate": "Mon, 07 Sep 2026 18:09:47 +0530"
    },
    {
     "title": "Tech glitch or weak demand? Conflicting claims emerge as RBI launches another liquidity withdrawal op; check details",
-    "summary": "The RBI is set to conduct a  ₹5 trillion VRRR auction on 7 September, following a disappointing longer-tenor auction tha...",
+    "summary": "The Reserve Bank of India is holding a 5 trillion rupee Variable Rate Reverse Repo auction on September 7. This follows a previous longer-tenor auction that received only 2.59 trillion rupees in offers, raising questions about market demand and technical issues.",
     "link": "https://www.livemint.com/economy/tech-glitch-or-weak-demand-conflicting-claims-emerge-as-rbi-launches-another-liquidity-withdrawal-op-check-details-11788782967942.html",
     "source": "livemint.com",
     "pubDate": "Mon, 07 Sep 2026 17:48:38 +0530"
    },
    {
     "title": "GST Council meeting postponed to 7 October from 12 September",
-    "summary": "The preparatory meetings of government officers will now be held on 5 October from 3pm and on 6 October from 11am onward...",
+    "summary": "The GST Council meeting has been postponed from 12 September to 7 October. Ahead of this meeting, preparatory sessions for government officers are scheduled for 5 and 6 October.",
     "link": "https://www.livemint.com/economy/gst-council-meeting-postponed-to-7-october-from-12-september-11788695783913.html",
     "source": "livemint.com",
     "pubDate": "Sun, 06 Sep 2026 20:25:42 +0530"
    },
    {
     "title": "Mint Explainer | Why the era of cheap money is ending",
-    "summary": "Moody’s Ratings, in a recent report, said a new macroeconomic regime is driving differentiated repricing across financia...",
+    "summary": "Moody's Ratings reports that a shift toward higher interest rates is driving differentiated repricing across financial assets. This change marks the end of the era of cheap money and the beginning of a new macroeconomic regime.",
     "link": "https://www.livemint.com/economy/mint-explainer-why-the-era-of-cheap-money-is-ending-11788685096874.html",
     "source": "livemint.com",
     "pubDate": "Sun, 06 Sep 2026 18:54:38 +0530"
    },
    {
     "title": "GST Council meeting rescheduled: BRICS Summit clash pushes 57th meet to October 7",
-    "summary": "The 57th GST Council meeting, scheduled for September 12 has been rescheduled due to a clash with the BRICS Summit in Ne...",
+    "summary": "The 57th GST Council meeting has been rescheduled from September 12 to October 7 due to a scheduling conflict with the BRICS Summit in New Delhi. The upcoming meeting is expected to address pending tax issues such as input tax credits, corporate guarantees, and rate rationalisation.",
     "link": "https://www.livemint.com/economy/gst-council-meeting-rescheduled-brics-summit-clash-pushes-57th-meet-to-october-7-11788692587486.html",
     "source": "livemint.com",
     "pubDate": "Sun, 06 Sep 2026 16:49:38 +0530"
    },
    {
     "title": "Smaller economy, PPI inclusion: Why India’s GDP is facing fresh scrutiny",
-    "summary": "India has updated its",
+    "summary": "India's new gross domestic product methodology resolves past statistical problems, but downward nominal revisions create credibility concerns. Additionally, the unexpected inclusion of the Producer Price Index has sparked fresh scrutiny over the country's economic data.",
     "link": "https://www.livemint.com/economy/smaller-economy-ppi-inclusion-why-india-s-gdp-is-facing-fresh-scrutiny-11788682014639.html",
     "source": "livemint.com",
     "pubDate": "Sun, 06 Sep 2026 15:04:00 +0530"
@@ -188,90 +188,90 @@
   ],
   "India": [
    {
+    "title": "Gift Amid Grief: Delhi Building Collapse Victim's Family Donates His Corneas",
+    "summary": "Following the tragic death of their son Arpit in a Delhi building collapse, his grieving family donated his corneas. This selfless decision ensures that Arpit's gift will help others regain their sight.",
+    "link": "https://www.ndtv.com/india-news/delhi-building-collapse-victim-arpits-family-donates-his-corneas-12015406#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Tue, 08 Sep 2026 02:23:08 +0530"
+   },
+   {
     "title": "Baba Ramdev's Aide Balkrishna Acquitted In 15-Year Old Forged Documents Case",
-    "summary": "The court of the Special Judicial Magistrate (CBI) also acquitted Naresh Chandra Dwivedi, a co-accused charged with prov...",
+    "summary": "A CBI court in India has acquitted Baba Ramdev's aide, Balkrishna, in a 15-year-old forged documents case. Co-accused Naresh Chandra Dwivedi, who was charged with providing the forged papers, was also acquitted by the court.",
     "link": "https://www.ndtv.com/india-news/baba-ramdevs-aide-balkrishna-acquitted-in-15-year-old-forged-documents-case-12015306#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 08 Sep 2026 01:04:22 +0530"
    },
    {
     "title": "Ground Report | Sunlight Is A Luxury In Delhi Students' Hub Where Building Collapse Killed 7",
-    "summary": "The civic infrastructure in Delhi's Satya Niketan hasn't caught up with the pace of development and appears to be crumbl...",
+    "summary": "A building collapse in Delhi's Satya Niketan killed seven people due to failing civic infrastructure and overcrowded living conditions. Landlord greed and an influx of tenants have caused the area's development to crumble under the strain.",
     "link": "https://www.ndtv.com/india-news/high-rent-congestion-in-delhis-satya-niketan-where-sunlight-is-a-luxury-12014355#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 08 Sep 2026 00:56:56 +0530"
    },
    {
     "title": "Delhi Tragedy: Building Owner Retired From Air Force, Runs Shop In Gurugram",
-    "summary": "The building was 50 years old. The Gupta family had it repaired and turned it into a paying-guest facility to leverage t...",
+    "summary": "A 50-year-old building owned by a retired Air Force personnel was converted into a paying-guest facility near Delhi University. The Gupta family had previously repaired the structure to accommodate students in the area.",
     "link": "https://www.ndtv.com/india-news/delhi-tragedy-building-owner-retired-from-air-force-runs-shop-in-gurugram-12015218#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 08 Sep 2026 00:52:01 +0530"
    },
    {
     "title": "Key Officer, 4 Civic Body Officials Suspended After Delhi Tragedy Kills 7",
-    "summary": "The Satya Niketan area is home to hundreds of university students living in crowded accommodation.",
+    "summary": "Following a tragedy in Delhi's Satya Niketan area that killed seven people, authorities suspended a key officer and four civic body officials. The densely populated neighborhood primarily houses hundreds of university students in crowded accommodations.",
     "link": "https://www.ndtv.com/india-news/satya-niketan-building-collapse-key-officer-4-civic-body-officials-suspended-after-delhi-tragedy-kills-7-12012273#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 08 Sep 2026 00:33:18 +0530"
    },
    {
     "title": "Dry Day, Grants Cut: Suvendu Adhikari's Big-Ticket Changes For Durga Puja",
-    "summary": "Last puja, the Trinamool government had given a grant of Rs 1.10 lakh to each puja committee. Adhikari said as the Chief...",
+    "summary": "BJP leader Suvendu Adhikari promised to stop government grants for Durga Puja if he becomes Chief Minister. He also stated that he would declare the festival a dry day.",
     "link": "https://www.ndtv.com/india-news/dry-day-grants-cut-suvendu-adhikaris-big-ticket-changes-for-durga-puja-12014598#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 08 Sep 2026 00:33:01 +0530"
-   },
-   {
-    "title": "India, Bangladesh To Discuss Restarting Train Services At Key Meeting",
-    "summary": "The process of restarting the Maitree, Mitali and Bandhan Express trains operating between India and Bangladesh will be ...",
-    "link": "https://www.ndtv.com/india-news/india-bangladesh-to-discuss-restarting-train-services-at-key-meeting-12015229#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Tue, 08 Sep 2026 00:18:58 +0530"
    }
   ],
   "General": [
    {
     "title": "Minister condemns disorder at Portsmouth anti-migrant protest after police officers hurt",
-    "summary": "Sarah Jones told MPs the violence sparked by the arrival of 120 migrants in a single dinghy was \"intimidating and thuggi...",
+    "summary": "Minister Sarah Jones condemned violent disorder at an anti-migrant protest in Portsmouth that resulted in injuries to police officers. She described the unrest, sparked by the arrival of 120 migrants in a single dinghy, as intimidating and thuggish.",
     "link": "https://www.bbc.co.uk/news/articles/cqxv2335je1o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 07 Sep 2026 19:04:09 GMT"
    },
    {
     "title": "What we know about anti-migrant protests and organiser Danny Thomas",
-    "summary": "UK correspondent Daniel Sandford looks at the link between small boat protests in Dover and Portsmouth over the weekend.",
+    "summary": "Anti-migrant protests occurred in Dover and Portsmouth over the weekend involving small boat demonstrations. UK correspondent Daniel Sandford investigated these events and their connection to organiser Danny Thomas.",
     "link": "https://www.bbc.co.uk/news/videos/cx2z4rxdnnpo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 07 Sep 2026 15:20:48 GMT"
    },
    {
-    "title": "Jaguar Land Rover to cut 4,000 jobs over next two years",
-    "summary": "The cuts come as the carmaker struggles with Chinese competition, US tariffs, and the transition to electric vehicles.",
-    "link": "https://www.bbc.co.uk/news/articles/c36lx560jjko?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Mon, 07 Sep 2026 14:57:30 GMT"
-   },
-   {
     "title": "King makes clear Harry and Meghan remain non-working royals",
-    "summary": "The letter has been sent to Prince Harry's team, the government, military and Lord Lieutenants, Palace sources say.",
+    "summary": "King Charles has clarified that Prince Harry and Meghan Markle will not return as working members of the royal family. Palace sources confirmed that official notices outlining this decision have been sent to the government, military, Lord Lieutenants, and Harry's team.",
     "link": "https://www.bbc.co.uk/news/articles/c20lpevv7jlo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 07 Sep 2026 18:23:31 GMT"
    },
    {
     "title": "Faisal Islam: Chancellor's attempts to boost vibes may limit tax rises",
-    "summary": "The new leadership is trying to maintain both confidence and the promotion of economic animal spirits.",
+    "summary": "The new government leadership is attempting to boost public and economic confidence. This focus on maintaining market optimism may limit the need for future tax increases.",
     "link": "https://www.bbc.co.uk/news/articles/c39mz7xlvjzo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 07 Sep 2026 15:41:52 GMT"
    },
    {
-    "title": "Grindr to pay £26m to settle claims it allegedly shared users' HIV status",
-    "summary": "Grindr has",
-    "link": "https://www.bbc.co.uk/news/articles/cn8e63qdqwzo?at_medium=RSS&at_campaign=rss",
+    "title": "Jaguar Land Rover to cut 4,000 jobs over next two years",
+    "summary": "Jaguar Land Rover will cut 4,000 jobs over the next two years. The automaker is struggling with Chinese competition, US tariffs, and the transition to electric vehicles.",
+    "link": "https://www.bbc.co.uk/news/articles/c36lx560jjko?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Mon, 07 Sep 2026 15:27:50 GMT"
+    "pubDate": "Mon, 07 Sep 2026 14:57:30 GMT"
+   },
+   {
+    "title": "Palestinian parents fear for children's lives at school as settler attacks grow",
+    "summary": "A headteacher in the occupied West Bank has installed new barbed wire fencing after three pupils were killed this year.",
+    "link": "https://www.bbc.co.uk/news/articles/c3wj45g73g1o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Mon, 07 Sep 2026 21:12:37 GMT"
    }
   ]
  }
