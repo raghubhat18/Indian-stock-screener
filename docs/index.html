@@ -339,7 +339,7 @@
         let weightsSource = 'default'; // 'repo' | 'local' | 'default'
 
         async function loadWeights() {
-            // Try repo weights.json first
+            // Priority: 1) weights.json in repo, 2) localStorage, 3) defaults
             try {
                 const resp = await fetch('data/weights.json?t=' + Date.now());
                 if (resp.ok) {
@@ -348,12 +348,11 @@
                         activeWeights = w.weights;
                         activeWeightsApprovedAt = w.appliedAt || null;
                         weightsSource = 'repo';
-                        console.log('[RBK] Loaded calibrated weights from weights.json');
+                        console.log('[RBK] Weights loaded from repo ✓');
                         return;
                     }
                 }
             } catch(e) {}
-            // Fall back to localStorage
             try {
                 const saved = localStorage.getItem('rbk-weights');
                 if (saved) {
@@ -362,13 +361,29 @@
                         activeWeights = parsed;
                         activeWeightsApprovedAt = localStorage.getItem('rbk-weights-date') || null;
                         weightsSource = 'local';
-                        console.log('[RBK] Loaded calibrated weights from localStorage');
+                        console.log('[RBK] Weights loaded from localStorage ✓');
                         return;
                     }
                 }
             } catch(e) {}
             weightsSource = 'default';
-            console.log('[RBK] Using default weights');
+        }
+
+        // ── GitHub token storage — persists in localStorage so never asked again ──
+        function getGHToken() {
+            // Try localStorage first (persists across sessions + devices if same browser)
+            let token = localStorage.getItem('rbk-gh-token') || '';
+            if (!token) {
+                token = prompt(
+                    '🔑 GitHub Personal Access Token needed to save weights permanently.\n\n' +
+                    'Create at: github.com/settings/personal-access-tokens/new\n' +
+                    'Permission needed: Contents → Read & Write on Indian-stock-screener\n\n' +
+                    'This is stored in your browser and never asked again on this device.'
+                );
+                if (!token) return null;
+                localStorage.setItem('rbk-gh-token', token.trim());
+            }
+            return token.trim();
         }
         let stockData = {};       // TICKER -> latest snapshot + computed momentum indicators
         let availableDates = [];
@@ -2403,100 +2418,68 @@
         const GH_BRANCH= 'main';
 
         async function writeWeightsToRepo(weights, appliedAt) {
-            // Ask for Personal Access Token (stored in sessionStorage so user doesn't re-enter each time)
-            let token = sessionStorage.getItem('rbk-gh-token') || '';
-            if (!token) {
-                token = prompt(
-                    'Enter your GitHub Personal Access Token to save weights permanently.\n' +
-                    '(Settings → Developer Settings → Personal Access Tokens → Fine-grained → Contents: Read & Write)\n\n' +
-                    'The token is only stored in this browser session and never sent anywhere except GitHub.'
-                );
-                if (!token) return false;
-                sessionStorage.setItem('rbk-gh-token', token.trim());
-            }
-            token = token.trim();
+            const token = getGHToken();
+            if (!token) return false;
 
             const payload = {
                 weights,
                 appliedAt,
-                appliedBy: 'RBK Compass Calibration',
+                appliedBy: 'RBK Compass',
                 defaultWeights: DEFAULT_WEIGHTS,
-                changedFactors: Object.keys(weights).filter(k => weights[k] !== DEFAULT_WEIGHTS[k])
+                changedFactors: Object.keys(weights)
+                    .filter(k => weights[k] !== DEFAULT_WEIGHTS[k])
                     .map(k => ({ factor: k, from: DEFAULT_WEIGHTS[k], to: weights[k] }))
             };
 
             try {
-                // First: get the current file SHA (required for updates)
-                const getUrl = `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}?ref=${GH_BRANCH}`;
+                // Get current file SHA if exists
                 let sha = null;
                 try {
-                    const getResp = await fetch(getUrl, {
-                        headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
-                    });
-                    if (getResp.ok) {
-                        const existing = await getResp.json();
-                        sha = existing.sha;
-                    }
-                } catch(e) {} // File doesn't exist yet — that's fine, sha stays null
+                    const getResp = await fetch(
+                        `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}?ref=${GH_BRANCH}`,
+                        { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } }
+                    );
+                    if (getResp.ok) sha = (await getResp.json()).sha;
+                } catch(e) {}
 
-                // Write the file
                 const body = {
                     message: `Calibrate weights — ${appliedAt}`,
                     content: btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2)))),
                     branch: GH_BRANCH
                 };
-                if (sha) body.sha = sha;  // required when updating existing file
+                if (sha) body.sha = sha;
 
-                const putResp = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${token}`,
-                        'Accept': 'application/vnd.github.v3+json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(body)
-                });
+                const putResp = await fetch(
+                    `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`,
+                    { method: 'PUT', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' }, body: JSON.stringify(body) }
+                );
 
-                if (putResp.ok) {
-                    weightsSource = 'repo';
-                    return true;
-                } else {
-                    const err = await putResp.json();
-                    // Token might be wrong — clear it so user can re-enter
-                    if (putResp.status === 401 || putResp.status === 403) {
-                        sessionStorage.removeItem('rbk-gh-token');
-                        alert(`GitHub auth failed (${putResp.status}). Check your token has "Contents: Read & Write" permission.\n\nWeights saved locally for this session only.`);
-                    } else {
-                        alert(`GitHub write failed: ${err.message || putResp.status}\n\nWeights saved locally for this session only.`);
-                    }
-                    return false;
+                if (putResp.ok) { weightsSource = 'repo'; return true; }
+
+                // Bad token — clear it so user is asked again
+                if (putResp.status === 401 || putResp.status === 403) {
+                    localStorage.removeItem('rbk-gh-token');
+                    alert('GitHub token rejected. It has been cleared — you will be asked again next time.');
                 }
-            } catch(e) {
-                alert(`Network error writing to GitHub: ${e.message}\n\nWeights saved locally for this session only.`);
                 return false;
-            }
+            } catch(e) { return false; }
         }
 
         async function deleteWeightsFromRepo() {
-            let token = sessionStorage.getItem('rbk-gh-token') || '';
-            if (!token) {
-                token = prompt('Enter your GitHub Personal Access Token to remove the weights file from repo:');
-                if (!token) return false;
-                sessionStorage.setItem('rbk-gh-token', token.trim());
-            }
-            token = token.trim();
+            const token = getGHToken();
+            if (!token) return false;
             try {
                 const getResp = await fetch(
                     `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}?ref=${GH_BRANCH}`,
                     { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } }
                 );
-                if (!getResp.ok) return true; // File doesn't exist — nothing to delete
+                if (!getResp.ok) return true; // doesn't exist
                 const existing = await getResp.json();
-                const delResp = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`, {
-                    method: 'DELETE',
-                    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: 'Reset to default weights', sha: existing.sha, branch: GH_BRANCH })
-                });
+                const delResp = await fetch(
+                    `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`,
+                    { method: 'DELETE', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' },
+                      body: JSON.stringify({ message: 'Reset to default weights', sha: existing.sha, branch: GH_BRANCH }) }
+                );
                 return delResp.ok;
             } catch(e) { return false; }
         }
@@ -2505,42 +2488,56 @@
             const calib = window._calibData;
             if (!calib || !calib.suggestedWeights) return;
 
-            // Show what will change
             const changes = Object.keys(DEFAULT_WEIGHTS)
                 .filter(k => calib.suggestedWeights[k] !== DEFAULT_WEIGHTS[k])
                 .map(k => {
-                    const LABELS = {roc5:'5D Momentum',roc10:'10D Momentum',vsma20:'vs SMA20',sma20dir:'SMA20 Dir',rsi:'RSI',volume:'Volume',relstrength:'Rel Strength',macd:'MACD',bollinger:'Bollinger',adx:'ADX',cross:'Golden Cross',hi52:'52W High',gap:'Gap'};
+                    const LABELS = {roc5:'5D Mom',roc10:'10D Mom',vsma20:'vs SMA20',sma20dir:'SMA Dir',
+                        rsi:'RSI',volume:'Volume',relstrength:'Rel Str',macd:'MACD',bollinger:'Bollinger',
+                        adx:'ADX',cross:'Golden X',hi52:'52W High',gap:'Gap',
+                        delivery:'Delivery%',vwap:'VWAP',revgrowth:'Rev Growth',
+                        profitgrowth:'Profit Growth',cfomargin:'CFO Margin'};
                     const diff = calib.suggestedWeights[k] - DEFAULT_WEIGHTS[k];
-                    return `  ${LABELS[k]||k}: ${DEFAULT_WEIGHTS[k]} → ${calib.suggestedWeights[k]} (${diff>0?'+':''}${diff})`;
+                    return `${LABELS[k]||k}: ${DEFAULT_WEIGHTS[k]} → ${calib.suggestedWeights[k]} (${diff>0?'+':''}${diff})`;
                 }).join('\n');
 
-            if (!confirm(`Apply AI-suggested weights?\n\nChanges:\n${changes}\n\nThis will:\n1. Save to your repo (permanent, all devices)\n2. Re-score all stocks immediately\n\nYou can reset anytime.`)) return;
+            if (!confirm(`Apply AI-suggested weights?\n\nChanges:\n${changes}\n\nScores will update immediately. Saved to your device permanently.`)) return;
 
-            // Apply immediately in this session
+            // 1. Apply immediately
             activeWeights = { ...calib.suggestedWeights };
             activeWeightsApprovedAt = new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+
+            // 2. Save to localStorage (works on all devices immediately after repo sync)
             localStorage.setItem('rbk-weights', JSON.stringify(activeWeights));
             localStorage.setItem('rbk-weights-date', activeWeightsApprovedAt);
+            weightsSource = 'local';
 
-            // Re-score all stocks
+            // 3. Re-score all stocks
             buildMomentumSnapshot();
             renderList();
 
-            // Refresh calibration panel
+            // 4. Refresh calibration panel
             const body = document.getElementById('ai-ins-body');
             if (body && aiSelectedCategory === 'calib') renderCalibView(body);
 
-            // Write to repo in background
+            // 5. Try to save to repo in background (silent — no alert on success)
             const saved = await writeWeightsToRepo(activeWeights, activeWeightsApprovedAt);
             if (saved) {
-                alert('✅ Weights applied and saved to repo!\n\nAll devices will use the new weights when they next load the app.');
+                weightsSource = 'repo';
+                // Refresh panel to show "Saved to repo"
+                if (body && aiSelectedCategory === 'calib') renderCalibView(body);
             } else {
-                alert('✅ Weights applied for this session.\n\nCould not save to repo — try again from the Calibration tab, or add your GitHub token.');
+                // Only alert on failure
+                const retry = confirm('Could not save to repo (token issue?).\n\nWeights are saved on this device.\nWould you like to enter your GitHub token to save permanently?');
+                if (retry) {
+                    localStorage.removeItem('rbk-gh-token');
+                    const saved2 = await writeWeightsToRepo(activeWeights, activeWeightsApprovedAt);
+                    if (saved2) { weightsSource = 'repo'; if (body && aiSelectedCategory === 'calib') renderCalibView(body); }
+                }
             }
         };
 
         window.resetWeights = async function() {
-            if (!confirm('Reset to default weights?\n\nThis will:\n1. Remove weights.json from your repo\n2. Reset all scores to default immediately')) return;
+            if (!confirm('Reset to default weights? This will undo your calibration.')) return;
 
             activeWeights = { ...DEFAULT_WEIGHTS };
             activeWeightsApprovedAt = null;
@@ -2554,10 +2551,10 @@
             const body = document.getElementById('ai-ins-body');
             if (body && aiSelectedCategory === 'calib') renderCalibView(body);
 
-            const deleted = await deleteWeightsFromRepo();
-            alert(deleted
-                ? '↺ Reset to defaults. weights.json removed from repo.'
-                : '↺ Reset to defaults locally. Could not remove from repo — delete docs/data/weights.json manually if needed.');
+            // Try to remove from repo silently
+            deleteWeightsFromRepo().then(ok => {
+                if (!ok) console.log('[RBK] Could not remove weights.json from repo — delete manually if needed');
+            });
         };
 
         // Theme-aware colors — reads CSS variables so light/dark mode works for inline-styled sections
