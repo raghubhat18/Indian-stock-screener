@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-09-11T19:28:41Z",
+ "updatedAt": "2026-09-11T22:07:56Z",
  "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
@@ -12,15 +12,22 @@
  "briefing": {
   "Markets": [
    {
+    "title": "US stocks today: US stocks end higher as strong inflation data cements rate-hike bets",
+    "summary": "US stocks ended higher on Friday as accelerating consumer prices strengthened expectations for a Federal Reserve rate hike. Meanwhile, Dell shares surged to a record high and oil prices fell despite concerns over Middle East supply disruptions.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-stocks-today-us-stocks-end-higher-as-strong-inflation-data-cements-rate-hike-bets/articleshow/134088893.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Sat, 12 Sep 2026 01:44:25 +0530"
+   },
+   {
     "title": "Demat 2.0 will bring instant bond settlement closer, trading after regulation and market readiness: NSDL MD",
-    "summary": "NSDL Managing Director Vijay Chandok stated that Demat 2.0 could enable instant bond settlements using central bank digital currency. However, wider implementation depends on market readiness and regulatory approval.",
+    "summary": "NSDL Managing Director Vijay Chandok stated that Demat 2.0 could enable instant bond settlements and tokenized bond delivery using central bank digital currency. However, he noted that wider implementation depends on market readiness and regulatory approvals.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/demat-2-0-will-bring-instant-bond-settlement-closer-trading-after-regulation-and-market-readiness-nsdl-md/articleshow/134080583.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 11 Sep 2026 22:34:03 +0530"
    },
    {
     "title": "BlackRock private credit fund sees redemption pressure ease in third quarter",
-    "summary": "Redemption requests for BlackRock's flagship private credit fund decreased in the third quarter. This drop, along with declining withdrawal requests at other BlackRock funds, suggests easing pressure within the private credit sector.",
+    "summary": "BlackRock's flagship private credit fund experienced lower redemption requests in the third quarter. This decline in withdrawal requests signals easing pressure across the sector and improving market sentiment.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/blackrock-private-credit-fund-sees-redemption-pressure-ease-in-third-quarter/articleshow/134079663.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 11 Sep 2026 22:21:36 +0530"
@@ -34,65 +41,58 @@
    },
    {
     "title": "Fed rate-hike bets rise to 85% after hot August inflation data",
-    "summary": "Hot August inflation data and rising oil prices have caused traders to estimate an 85% chance of a Federal Reserve rate hike. Core consumer prices exceeded economists' forecasts, indicating an upward trajectory for inflation.",
+    "summary": "Hot August inflation and rising oil prices have caused traders to estimate an 85% chance of a Federal Reserve rate hike. Core consumer prices exceeded economists' forecasts, signaling that inflation is continuing to rise.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/fed-rate-hike-bets-rise-to-85-after-hot-august-inflation-data/articleshow/134075450.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 11 Sep 2026 20:45:25 +0530"
    },
    {
     "title": "Gold climbs on dip buying, Fed hike bets rise after US inflation data",
-    "summary": "Gold prices rose over one percent on Friday due to dip buying and found a short-term floor. Strong U.S. inflation data increased expectations that the Federal Reserve will raise interest rates next week.",
+    "summary": "Gold prices rose over one percent on Friday due to dip buying after finding a short-term floor. Strong U.S. inflation data increased market expectations for a Federal Reserve rate hike next week.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/gold-climbs-on-dip-buying-fed-hike-bets-rise-after-us-inflation-data/articleshow/134075274.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 11 Sep 2026 20:40:12 +0530"
-   },
-   {
-    "title": "NSEL settlement scheme: Sebi settles proceedings against 91 commodity brokers",
-    "summary": "Sebi settled proceedings with 91 commodity brokers linked to the NSEL issue under a new settlement scheme. The brokers agreed to settlement fees and temporary restrictions on proprietary trading and onboarding new clients.",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/news/nsel-settlement-scheme-sebi-settles-proceedings-against-91-commodity-brokers/articleshow/134074347.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Fri, 11 Sep 2026 20:22:04 +0530"
    }
   ],
   "Geo-Political": [
    {
     "title": "Houthis claim major advance in Yemen and tighten grip on Red Sea shipping lane",
-    "summary": "The Iran-backed Houthis claimed a major military advance in Yemen, including the seizure of the strategic island of Perim. This action tightens the group's grip on the critical Red Sea shipping lane.",
+    "summary": "The Iran-backed Houthis claim to have made a major military advance in Yemen and seized the strategic island of Perim. This action tightens their control over the vital Red Sea shipping lane.",
     "link": "https://www.bbc.co.uk/news/articles/c23x72yx2rvo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 11 Sep 2026 16:58:34 GMT"
+    "pubDate": "Fri, 11 Sep 2026 21:54:56 GMT"
    },
    {
     "title": "Norway's Princess Astrid dies two days after attending brother King Harald's funeral",
-    "summary": "Norway's Princess Astrid has died just two days after attending the funeral of her brother, King Harald. The new king, Haakon VIII, paid tribute to his aunt, praising the warm and dutiful manner in which she represented the Royal House.",
+    "summary": "Norway's Princess Astrid has died just two days after attending the funeral of her brother, King Harald. The new king, Haakon VIII, paid tribute to his aunt, praising her warm and dutiful representation of the Royal House.",
     "link": "https://www.bbc.co.uk/news/articles/cgjq1qy98vjo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 11 Sep 2026 16:00:59 GMT"
    },
    {
     "title": "Israel says it has destroyed major underground Hezbollah base",
-    "summary": "Israel destroyed a major underground Hezbollah base in a massive blast. The explosion generated seismic activity equivalent to a 4.1 magnitude earthquake, as recorded by the US Geological Survey.",
+    "summary": "Israel announced it has destroyed a major underground Hezbollah base in Lebanon. The blast was so powerful that the U.S. Geological Survey recorded it as the equivalent of a 4.1 magnitude earthquake.",
     "link": "https://www.bbc.co.uk/news/articles/c4gl92lw8vpo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 11 Sep 2026 15:50:23 GMT"
    },
    {
     "title": "Princess Diana's 'revenge dress' goes up for auction",
-    "summary": "Princess Diana's famous \"revenge dress\" is scheduled for auction by Sotheby's on December 9. The auction house expects the garment to sell for up to $300,000 (£220,000).",
+    "summary": "Sotheby's auction house is selling Princess Diana's famous \"revenge dress\" on December 9. The garment is expected to fetch between £220,000 and $300,000.",
     "link": "https://www.bbc.co.uk/news/articles/c0lrk7d7j0no?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 11 Sep 2026 12:04:46 GMT"
    },
    {
     "title": "Buddhist monk arrested in suspected $3m embezzlement scandal",
-    "summary": "Thai police arrested a Buddhist monk and a female accomplice in connection with a suspected three million dollar embezzlement scheme. The monk, who had taken a vow of celibacy, was also filmed having sex with the accomplice.",
+    "summary": "A Thai Buddhist monk has been arrested in connection with a suspected three million dollar embezzlement scandal. Police also arrested a female accomplice after the monk, who had taken a vow of celibacy, was filmed having sex with her.",
     "link": "https://www.bbc.co.uk/news/articles/c5yjkxlngjyo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 11 Sep 2026 10:50:04 GMT"
    },
    {
     "title": "Anthropic blocks possible attempt to use AI to make biological weapons",
-    "summary": "AI company Anthropic recently blocked an apparent attempt to use its artificial intelligence models to help create biological weapons. This discovery follows recent warnings from a former top Anthropic researcher regarding the severe risks advanced AI poses to humanity.",
+    "summary": "AI company Anthropic recently blocked a suspected attempt to use its technology to create biological weapons. This discovery follows previous warnings from a former top researcher regarding the severe existential risks AI poses to humanity.",
     "link": "https://www.bbc.co.uk/news/articles/cx2zrrpkx20o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 11 Sep 2026 08:15:25 GMT"
@@ -101,14 +101,14 @@
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "An online course creator recently discovered that their WordPress SaaS course was recommended as the top result when querying ChatGPT. This happened without any paid advertising or traditional search engine optimization.",
+    "summary": "The author discovered their WordPress SaaS course was recommended as the top result when searching for related products on ChatGPT. This visibility was achieved without paid advertising or traditional search engine optimization.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "This guide outlines ten essential artificial intelligence tools designed to revolutionize content creation in 2025. These applications help digital creators streamline their workflows and maintain a competitive edge in an evolving landscape.",
+    "summary": "This article lists ten essential artificial intelligence tools designed to help creators improve their content production in 2025. It explains that adopting these technologies is now necessary for digital creators to keep pace with industry changes and simplify their workflows.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
@@ -122,21 +122,21 @@
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "This article explores ten advanced AI tools designed to automate repetitive tasks, improve workflows, and boost productivity across various industries. These market-leading applications leverage technologies like natural language processing to drive efficiency and innovation.",
+    "summary": "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovation and efficiency in various industries. ...",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "Artificial intelligence content generators help users efficiently create engaging and relevant material for their audiences. Because numerous AI writing tools are available in 2022, choosing the right one can be challenging.",
+    "summary": "This article highlights the top ten artificial intelligence content generator and writer tools available in 2022. It is designed to help readers choose the most effective and efficient AI writing software for their audience.",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
    },
    {
     "title": "Beginner Guide to CJ Affiliate (Commission Junction) in 2022",
-    "summary": "This beginner's guide to CJ Affiliate explains how the network works and how to earn money on the platform. It also highlights top CJ affiliate programs and alternative platforms.",
+    "summary": "Image by vectorjuice on FreepikIn this CJ Affiliate guide, I will share with you everything you need to get started on t...",
     "link": "https://techncruncher.blogspot.com/2022/09/cj-affiliate-ultimate-guide-to.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Sat, 10 Sep 2022 08:57:00 +0000"
@@ -145,42 +145,42 @@
   "Data & Insights": [
    {
     "title": "PM Modi urges BRICS to turn its growing economic weight into stronger trade, investment and business partnerships",
-    "summary": "Prime Minister Narendra Modi urged BRICS nations to reduce trade barriers and strengthen business and investment partnerships. He also promoted India's infrastructure, startups, and digital public infrastructure as drivers of global growth.",
+    "summary": "Prime Minister Narendra Modi urged BRICS nations to reduce trade barriers, deepen investments, and secure sea lanes. He also presented India's infrastructure, startups, and digital public infrastructure as drivers of global growth.",
     "link": "https://www.livemint.com/economy/pm-modi-urges-brics-to-turn-its-growing-economic-weight-into-stronger-trade-investment-and-business-partnerships-11789139189917.html",
     "source": "livemint.com",
     "pubDate": "Fri, 11 Sep 2026 21:12:01 +0530"
    },
    {
     "title": "Modi meets Pezeshkian amid US-Iran War: Seafarers’ safety in West Asia, BRICS cooperation discussed",
-    "summary": "Prime Minister Narendra Modi and Iranian President Masoud Pezeshkian met on the sidelines of the BRICS Summit to discuss strengthening bilateral ties. Their discussions focused on seafarers' safety in West Asia and enhanced cooperation in multilateral forums.",
+    "summary": "Prime Minister Narendra Modi and Iranian President Masoud Pezeshkian met on the sidelines of the BRICS Summit in New Delhi. They discussed strengthening India-Iran relations, seafarers' safety in West Asia, and cooperation in multilateral forums.",
     "link": "https://www.livemint.com/economy/modi-meets-pezeshkian-amid-us-iran-war-seafarers-safety-in-west-asia-brics-cooperation-discussed-11789138796701.html",
     "source": "livemint.com",
     "pubDate": "Fri, 11 Sep 2026 20:49:18 +0530"
    },
    {
     "title": "India’s 7.8% Q1 GDP growth ‘above our expectations’, says IMF amid energy price shock",
-    "summary": "The IMF reported that India's economy grew by a better-than-expected 7.8% in the first quarter of fiscal year 2027. This strong performance, supported by improved data transparency, highlights India's resilience as a global growth engine despite energy price shocks.",
+    "summary": "The IMF reported that India's real GDP grew by 7.8% in Q1 FY27, exceeding expectations despite ongoing energy price shocks. The organization also praised India's improved data transparency and revised GDP estimation methods, highlighting the country's strength as a global growth engine.",
     "link": "https://www.livemint.com/economy/indias-7-8-q1-gdp-growth-above-our-expectations-says-imf-amid-energy-price-shock-11789136765277.html",
     "source": "livemint.com",
     "pubDate": "Fri, 11 Sep 2026 20:21:12 +0530"
    },
    {
     "title": "In New Delhi, Putin pitches BRICS investment platform, says bloc’s growth outpaces G7 - ‘World is always changing’",
-    "summary": "Russian President Vladimir Putin proposed a BRICS digital investment platform via the New Development Bank to mobilize private funding and enhance economic competitiveness. He also stated during a summit in New Delhi that the bloc's economic growth is outpacing the G7.",
+    "summary": "Russian President Vladimir Putin pitched a new BRICS digital investment platform in New Delhi aimed at mobilizing private-sector funding and boosting economic competitiveness. Highlighting that the bloc's growth now outpaces the G7, Putin emphasized that the global landscape is continually evolving.",
     "link": "https://www.livemint.com/economy/in-new-dehi-putin-pitches-brics-investment-platform-says-bloc-s-growth-outpaces-g7-world-is-always-changing-11789135786971.html",
     "source": "livemint.com",
     "pubDate": "Fri, 11 Sep 2026 20:09:37 +0530"
    },
    {
     "title": "BRICS Summit: From trade to defence, energy and space - What transpired during Modi-Putin meeting",
-    "summary": "Indian Prime Minister Narendra Modi and Russian President Vladimir Putin met during the BRICS Summit to review bilateral cooperation. According to the Ministry of External Affairs, they discussed progress in political, economic, defence, energy, space, skills mobility, and people-to-people domains.",
+    "summary": "Indian Prime Minister Narendra Modi and Russian President Vladimir Putin met during the BRICS Summit to review bilateral cooperation. The Ministry of External Affairs stated that they discussed progress across multiple sectors, including trade, defence, energy, and space.",
     "link": "https://www.livemint.com/economy/-summit-from-trade-to-defence-energy-and-space-what-transpired-during-modi-putin-talks-brics-11789127073872.html",
     "source": "livemint.com",
     "pubDate": "Fri, 11 Sep 2026 17:25:48 +0530"
    },
    {
     "title": "Modi-Putin meet: $100 billion trade target by 2030, nuclear energy, critical minerals likely focus areas, says report",
-    "summary": "Indian Prime Minister Modi and Russian President Putin are expected to set an ambitious bilateral trade target of $100 billion by 2030. According to reports, their upcoming meeting will also focus on expanding cooperation in nuclear energy and critical minerals.",
+    "summary": "Prime Minister Modi and President Putin are expected to set an ambitious bilateral trade target of $100 billion by 2030. Their upcoming meeting will also likely focus on expanding cooperation in nuclear energy and critical minerals.",
     "link": "https://www.livemint.com/economy/modiputin-meet-100-billion-trade-target-by-2030-nuclear-energy-critical-minerals-among-6-key-issues-discussed-11789122392022.html",
     "source": "livemint.com",
     "pubDate": "Fri, 11 Sep 2026 16:23:58 +0530"
@@ -188,87 +188,87 @@
   ],
   "India": [
    {
+    "title": "'US, Israel Want To Bully Us, But We Won't Kneel': Iran President In Delhi",
+    "summary": "During a visit to Delhi, Iran's president stated that his country will not submit to pressure from the United States and Israel. Meanwhile, Prime Minister Modi thanked Iran for maintaining high-level participation in BRICS meetings despite difficult circumstances.",
+    "link": "https://www.ndtv.com/india-news/us-israel-want-to-bully-us-but-we-wont-kneel-iran-president-masoud-pezeshkian-in-delhi-12035281#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Sat, 12 Sep 2026 00:25:41 +0530"
+   },
+   {
+    "title": "At BRICS Summit, PM Modi, UN Chief Discuss Need To Reform Global Bodies",
+    "summary": "During the BRICS summit, Prime Minister Modi and UN Chief Antonio Guterres discussed the necessity of reforming global institutions. Additionally, Guterres congratulated Modi on India holding the chairship of BRICS for the fourth time.",
+    "link": "https://www.ndtv.com/india-news/at-brics-summit-pm-modi-un-chief-antonio-guterres-discuss-need-to-reform-global-bodies-12035256#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Sat, 12 Sep 2026 00:13:04 +0530"
+   },
+   {
+    "title": "On Vande Mataram Row, Congress' 'Stand Upright' Retort To Omar Abdullah",
+    "summary": "The full national song was recently played at a Jammu and Kashmir event, sparking objections from the Congress party. In response to Omar Abdullah, Congress advised critics to stand upright during the song.",
+    "link": "https://www.ndtv.com/india-news/on-vande-mataram-row-congress-stand-upright-retort-to-omar-abdullah-12035103#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Sat, 12 Sep 2026 00:08:28 +0530"
+   },
+   {
     "title": "BRICS Summit 2026 LIVE Updates: Putin, Pezeshkian Highlight Issue Of Sanctions At BRICS Business Forum",
-    "summary": "As the BRICS Chair for 2026, India will host the BRICS Summit in New Delhi on September 12 and 13. During the BRICS Business Forum, leaders including Vladimir Putin and Masoud Pezeshkian highlighted the issue of sanctions.",
+    "summary": "India will host the BRICS Summit in New Delhi on September 12 and 13 as the BRICS Chair for 2026. At the BRICS Business Forum, leaders including Vladimir Putin and Masoud Pezeshkian highlighted the issue of sanctions.",
     "link": "https://www.ndtv.com/india-news/brics-summit-2026-live-updates-pm-narendra-modi-putin-xi-jinping-meeting-bharat-mandapam-new-delhi-traffic-advisory-updates-12031073#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Sat, 12 Sep 2026 00:02:25 +0530"
    },
    {
     "title": "Putin Takes \"40%\" Dig At G7, Compares It With BRICS' Contribution To World GDP",
-    "summary": "At the BRICS Business Forum, Russian President Vladimir Putin noted that BRICS now contributes 40 percent to the world's GDP. He compared this figure to the declining global economic share of the G7 nations.",
+    "summary": "At the BRICS Business Forum, Russian President Vladimir Putin noted that BRICS now accounts for 40% of the world's GDP, surpassing the G7 nations. He cited this statistic to highlight the shifting global economic landscape over the past five years.",
     "link": "https://www.ndtv.com/world-news/putin-takes-40-per-cent-dig-at-g7-compares-it-with-brics-contribution-to-world-gdp-12033570#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Sat, 12 Sep 2026 00:01:10 +0530"
    },
    {
     "title": "Delhi Lt Governor Proposes Mandatory Tuberculosis Test For All Hospital Patients",
-    "summary": "Delhi's Lieutenant Governor has proposed making tuberculosis tests mandatory for all hospital patients. The proposal aims to help the city meet key targets under the TB Mukt Bharat Abhiyaan before the September 30 deadline.",
+    "summary": "The Delhi Lieutenant Governor has proposed making tuberculosis tests mandatory for all hospital patients. This measure aims to help the city meet its lagging targets under the TB Mukt Bharat Abhiyaan before the September 30 deadline.",
     "link": "https://www.ndtv.com/india-news/delhi-lt-governor-proposes-mandatory-tb-screening-of-all-hospital-patients-12035203#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 11 Sep 2026 23:59:37 +0530"
-   },
-   {
-    "title": "US Envoy Sergio Gor Visits Manipur, Meets Governor, Chief Minister",
-    "summary": "US Envoy Sergio Gor visited the Indian state of Manipur to meet with the Governor and Chief Minister. During his visit, he toured the historic Kangla Fort, the ancient center of the erstwhile Manipur kingdom.",
-    "link": "https://www.ndtv.com/india-news/us-envoy-sergio-gor-visits-manipur-meets-governor-chief-minister-12033819#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Fri, 11 Sep 2026 23:50:58 +0530"
-   },
-   {
-    "title": "After Congress Comments On Punjab's Schools, AAP's Himachal Counter",
-    "summary": "Congress leader Sachin Pilot questioned a school audit in Punjab, sparking a verbal exchange with the Aam Aadmi Party. In response, AAP issued a counter-statement regarding Himachal Pradesh.",
-    "link": "https://www.ndtv.com/india-news/after-congress-comments-on-punjabs-schools-aaps-himachal-counter-12035173#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Fri, 11 Sep 2026 23:46:58 +0530"
-   },
-   {
-    "title": "Carplomacy 4.0: PM Modi, Putin Share A Ride Again After Bilateral Talks",
-    "summary": "Indian Prime Minister Narendra Modi and Russian President Vladimir Putin shared a car ride following their bilateral talks on Friday. This marks the fourth time the two leaders have traveled together in a car, following previous joint rides in China and on two other occasions.",
-    "link": "https://www.ndtv.com/india-news/carplomacy-4-0-pm-modi-putin-travel-in-fortress-on-wheels-in-delhi-12033310#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Fri, 11 Sep 2026 23:41:29 +0530"
    }
   ],
   "General": [
    {
     "title": "MPs vote against fresh attempt to legalise assisted dying",
-    "summary": "The proposed law sought to introduce one of the biggest societal changes in recent years.",
+    "summary": "Members of Parliament have voted against a proposed law to legalise assisted dying. The rejection prevents what would have been one of the biggest societal changes in recent years.",
     "link": "https://www.bbc.co.uk/news/articles/c17j91jenr8o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 11 Sep 2026 17:22:39 GMT"
    },
    {
     "title": "An extraordinary result - why did MPs reject assisted dying bill this time?",
-    "summary": "MPs rejected the assisted dying bill, causing the campaign to lose its current momentum. Supporters have stated that they will attempt to introduce the legislation again in the future.",
+    "summary": "MPs rejected a recent assisted dying bill, causing the campaign to lose its current momentum. Supporters of the legislation stated they plan to try again in the future.",
     "link": "https://www.bbc.co.uk/news/articles/c5y54n99l48o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 11 Sep 2026 16:49:47 GMT"
    },
    {
     "title": "'Never, ever forget' - America marks 25th anniversary of 9/11 attacks",
-    "summary": "America is marking the 25th anniversary of the September 11 terrorist attacks with solemn ceremonies. These memorial events are taking place in New York, the Pentagon, and Pennsylvania.",
+    "summary": "America marked the 25th anniversary of the September 11 terrorist attacks with solemn commemoration ceremonies. These events were held at the World Trade Center site in New York, the Pentagon, and Pennsylvania.",
     "link": "https://www.bbc.co.uk/news/articles/clyjqvjzlwno?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 11 Sep 2026 19:16:32 GMT"
+    "pubDate": "Fri, 11 Sep 2026 20:12:01 GMT"
    },
    {
     "title": "Houthis claim major advance in Yemen and tighten grip on Red Sea shipping lane",
-    "summary": "The Iran-backed Houthis claimed a major advance in Yemen. They also reportedly seized Perim, a strategic island along a major Red Sea shipping route.",
+    "summary": "The Iran-backed Houthis have reportedly seized the strategic island of Perim. This advance tightens their control over the major shipping lane in the Red Sea.",
     "link": "https://www.bbc.co.uk/news/articles/c23x72yx2rvo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 11 Sep 2026 16:58:34 GMT"
+    "pubDate": "Fri, 11 Sep 2026 21:54:56 GMT"
    },
    {
     "title": "How global trade and oil prices could be hit by Houthi advance",
-    "summary": "Yemen's Houthi rebels have captured territory near the Bab al-Mandab Strait. This strategic chokepoint is essential for international shipping and global oil trade.",
+    "summary": "Yemen's Houthi rebels have captured territory near the Bab al-Mandab Strait. This strategic chokepoint is essential for global shipping and oil transportation.",
     "link": "https://www.bbc.co.uk/news/videos/cy5z02w1zxxo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 11 Sep 2026 16:13:39 GMT"
    },
    {
     "title": "UK government rejects 'kill switch' idea for dangerous AI",
-    "summary": "The UK government has rejected the idea of implementing a \"kill switch\" to shut down dangerous artificial intelligence. The Cabinet Office stated that the country cannot simply turn off AI systems.",
+    "summary": "The Cabinet Office, which leads on AI safety, says the UK \"cannot simply turn AI off\".",
     "link": "https://www.bbc.co.uk/news/articles/c3eq7kl5l00o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 11 Sep 2026 15:07:07 GMT"
