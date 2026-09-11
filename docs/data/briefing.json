@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-09-11T17:27:22Z",
+ "updatedAt": "2026-09-11T19:28:41Z",
  "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
@@ -12,15 +12,29 @@
  "briefing": {
   "Markets": [
    {
+    "title": "Demat 2.0 will bring instant bond settlement closer, trading after regulation and market readiness: NSDL MD",
+    "summary": "NSDL Managing Director Vijay Chandok stated that Demat 2.0 could enable instant bond settlements using central bank digital currency. However, wider implementation depends on market readiness and regulatory approval.",
+    "link": "https://economictimes.indiatimes.com/markets/stocks/news/demat-2-0-will-bring-instant-bond-settlement-closer-trading-after-regulation-and-market-readiness-nsdl-md/articleshow/134080583.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Fri, 11 Sep 2026 22:34:03 +0530"
+   },
+   {
+    "title": "BlackRock private credit fund sees redemption pressure ease in third quarter",
+    "summary": "Redemption requests for BlackRock's flagship private credit fund decreased in the third quarter. This drop, along with declining withdrawal requests at other BlackRock funds, suggests easing pressure within the private credit sector.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/blackrock-private-credit-fund-sees-redemption-pressure-ease-in-third-quarter/articleshow/134079663.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Fri, 11 Sep 2026 22:21:36 +0530"
+   },
+   {
     "title": "Granules India promoter sells 1.72 crore shares worth Rs 1,500 crore; Goldman Sachs, BNP Paribas among investors",
-    "summary": "Granules India promoter Krishna Prasad Chigurupati sold 1.72 crore shares for approximately Rs 1,500 crore to institutional investors like Goldman Sachs and BNP Paribas. The share sale reduced the promoter's stake to 31.08% and will fund the second tranche of a preferential issue.",
+    "summary": "Granules India promoter Krishna Prasad Chigurupati sold 1.72 crore shares for approximately Rs 1,500 crore to institutional investors like Goldman Sachs and BNP Paribas. The share sale reduced the promoter's stake to 31.08% to fund the second tranche of a preferential issue.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/granules-india-promoter-sells-1-72-crore-shares-worth-rs-1500-crore-goldman-sachs-bnp-paribas-among-investors/articleshow/134077487.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 11 Sep 2026 21:33:05 +0530"
    },
    {
     "title": "Fed rate-hike bets rise to 85% after hot August inflation data",
-    "summary": "Hot August inflation and rising oil prices have caused traders to estimate an 85% chance of a Federal Reserve rate hike at the next meeting. Core consumer prices exceeded economists' forecasts, indicating that inflation is continuing on an upward trajectory.",
+    "summary": "Hot August inflation data and rising oil prices have caused traders to estimate an 85% chance of a Federal Reserve rate hike. Core consumer prices exceeded economists' forecasts, indicating an upward trajectory for inflation.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/fed-rate-hike-bets-rise-to-85-after-hot-august-inflation-data/articleshow/134075450.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 11 Sep 2026 20:45:25 +0530"
@@ -34,109 +48,95 @@
    },
    {
     "title": "NSEL settlement scheme: Sebi settles proceedings against 91 commodity brokers",
-    "summary": "Sebi has concluded proceedings against 91 commodity brokers linked to the NSEL issue by allowing them to join a settlement scheme. As part of the arrangement, the brokers agreed to temporary trading and onboarding limitations alongside settlement fees of up to 36 lakh rupees.",
+    "summary": "Sebi settled proceedings with 91 commodity brokers linked to the NSEL issue under a new settlement scheme. The brokers agreed to settlement fees and temporary restrictions on proprietary trading and onboarding new clients.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/nsel-settlement-scheme-sebi-settles-proceedings-against-91-commodity-brokers/articleshow/134074347.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 11 Sep 2026 20:22:04 +0530"
-   },
-   {
-    "title": "NSE's IPO to be second biggest till now as offer size cut, price band lowered",
-    "summary": "The National Stock Exchange has lowered its price band and reduced its share offering to raise between Rs 21,494 crore and Rs 22,569 crore in its initial public offering. The public subscription will run from September 17 to September 21, followed by the official listing on September 24.",
-    "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/nses-ipo-to-be-second-biggest-till-now-as-offer-size-cut-price-band-lowered/articleshow/134074277.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Fri, 11 Sep 2026 20:20:43 +0530"
-   },
-   {
-    "title": "SME IPO: Vama Wovenfab issue to open on Sep 15; sets price band at Rs 324-341/ share",
-    "summary": "Vama Wovenfab will launch its SME IPO on September 15 with a price band of Rs 324 to Rs 341 per share to raise Rs 49.5 crore. The company plans to use the funds for working capital, acquiring machinery, and building a new shed.",
-    "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/sme-ipo-vama-wovenfab-issue-to-open-on-sep-15-sets-price-band-at-rs-324-341/-share/articleshow/134074221.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Fri, 11 Sep 2026 20:19:17 +0530"
    }
   ],
   "Geo-Political": [
    {
     "title": "Houthis claim major advance in Yemen and tighten grip on Red Sea shipping lane",
-    "summary": "The Iran-backed Houthis claimed a major military advance in Yemen, including the seizure of the strategic island of Perim. This action tightens the group's control over a major Red Sea shipping lane.",
+    "summary": "The Iran-backed Houthis claimed a major military advance in Yemen, including the seizure of the strategic island of Perim. This action tightens the group's grip on the critical Red Sea shipping lane.",
     "link": "https://www.bbc.co.uk/news/articles/c23x72yx2rvo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 11 Sep 2026 16:58:34 GMT"
    },
    {
-    "title": "Anthropic blocks possible attempt to use AI to make biological weapons",
-    "summary": "Anthropic's threat intelligence report revealed that the company blocked an apparent attempt to use its AI models to create biological weapons. This disclosure follows warnings from a former top Anthropic researcher regarding the existential risks that advanced artificial intelligence poses to humanity.",
-    "link": "https://www.bbc.co.uk/news/articles/cx2zrrpkx20o?at_medium=RSS&at_campaign=rss",
+    "title": "Norway's Princess Astrid dies two days after attending brother King Harald's funeral",
+    "summary": "Norway's Princess Astrid has died just two days after attending the funeral of her brother, King Harald. The new king, Haakon VIII, paid tribute to his aunt, praising the warm and dutiful manner in which she represented the Royal House.",
+    "link": "https://www.bbc.co.uk/news/articles/cgjq1qy98vjo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 11 Sep 2026 08:15:25 GMT"
+    "pubDate": "Fri, 11 Sep 2026 16:00:59 GMT"
    },
    {
     "title": "Israel says it has destroyed major underground Hezbollah base",
-    "summary": "Israel announced that its military destroyed a major underground Hezbollah base in Lebanon. The demolition caused a powerful underground blast that the US Geological Survey registered as a magnitude 4.1 earthquake.",
+    "summary": "Israel destroyed a major underground Hezbollah base in a massive blast. The explosion generated seismic activity equivalent to a 4.1 magnitude earthquake, as recorded by the US Geological Survey.",
     "link": "https://www.bbc.co.uk/news/articles/c4gl92lw8vpo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 11 Sep 2026 15:50:23 GMT"
    },
    {
-    "title": "Buddhist monk arrested in suspected $3m embezzlement scandal",
-    "summary": "Thai police arrested a Buddhist monk and a female accomplice in connection with a suspected three million dollar embezzlement scandal. The monk, who had taken a vow of celibacy, was also filmed having sex with the accomplice.",
-    "link": "https://www.bbc.co.uk/news/articles/c5yjkxlngjyo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Fri, 11 Sep 2026 10:50:04 GMT"
-   },
-   {
     "title": "Princess Diana's 'revenge dress' goes up for auction",
-    "summary": "Sotheby's auction house is selling Princess Diana's famous \"revenge dress\" on December 9. The iconic garment is expected to fetch between £220,000 and $300,000.",
+    "summary": "Princess Diana's famous \"revenge dress\" is scheduled for auction by Sotheby's on December 9. The auction house expects the garment to sell for up to $300,000 (£220,000).",
     "link": "https://www.bbc.co.uk/news/articles/c0lrk7d7j0no?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 11 Sep 2026 12:04:46 GMT"
    },
    {
-    "title": "Norway's Princess Astrid dies two days after attending brother King Harald's funeral",
-    "summary": "Norway's Princess Astrid has died just two days after attending the funeral of her brother, King Harald. New King Haakon VIII paid tribute to his aunt, praising her warm and dutiful representation of the Royal House.",
-    "link": "https://www.bbc.co.uk/news/articles/cgjq1qy98vjo?at_medium=RSS&at_campaign=rss",
+    "title": "Buddhist monk arrested in suspected $3m embezzlement scandal",
+    "summary": "Thai police arrested a Buddhist monk and a female accomplice in connection with a suspected three million dollar embezzlement scheme. The monk, who had taken a vow of celibacy, was also filmed having sex with the accomplice.",
+    "link": "https://www.bbc.co.uk/news/articles/c5yjkxlngjyo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 11 Sep 2026 16:00:59 GMT"
+    "pubDate": "Fri, 11 Sep 2026 10:50:04 GMT"
+   },
+   {
+    "title": "Anthropic blocks possible attempt to use AI to make biological weapons",
+    "summary": "AI company Anthropic recently blocked an apparent attempt to use its artificial intelligence models to help create biological weapons. This discovery follows recent warnings from a former top Anthropic researcher regarding the severe risks advanced AI poses to humanity.",
+    "link": "https://www.bbc.co.uk/news/articles/cx2zrrpkx20o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Fri, 11 Sep 2026 08:15:25 GMT"
    }
   ],
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "A marketer tested ChatGPT by asking for the best SaaS WordPress course and discovered their own unpaid course was recommended first. This experiment highlights a shift in organic traffic generation from traditional search engine optimization to artificial intelligence optimization.",
+    "summary": "An online course creator recently discovered that their WordPress SaaS course was recommended as the top result when querying ChatGPT. This happened without any paid advertising or traditional search engine optimization.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "Artificial intelligence tools are now essential for digital creators looking to stay competitive in 2025. This guide highlights the top ten AI tools designed to streamline and improve the content creation process.",
+    "summary": "This guide outlines ten essential artificial intelligence tools designed to revolutionize content creation in 2025. These applications help digital creators streamline their workflows and maintain a competitive edge in an evolving landscape.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "LimeWire has evolved into a generative AI platform that allows users to create digital content. The tool also provides features for creators to share and monetize their AI-generated work.",
+    "summary": "LimeWire has transitioned into a generative AI platform that allows users to create digital content. The tool also provides features for creators to share and monetize their AI-generated work.",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "This article highlights ten leading artificial intelligence tools used across various industries to automate repetitive tasks and boost productivity. These advanced solutions are designed to improve workflow efficiency for a wide range of applications.",
+    "summary": "This article explores ten advanced AI tools designed to automate repetitive tasks, improve workflows, and boost productivity across various industries. These market-leading applications leverage technologies like natural language processing to drive efficiency and innovation.",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "This article lists the top 10 AI content generator and writer tools available in 2022. It aims to help readers choose the right AI tool to efficiently create engaging and relevant content for their audience.",
+    "summary": "Artificial intelligence content generators help users efficiently create engaging and relevant material for their audiences. Because numerous AI writing tools are available in 2022, choosing the right one can be challenging.",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
    },
    {
     "title": "Beginner Guide to CJ Affiliate (Commission Junction) in 2022",
-    "summary": "This beginner's guide explains how to use the CJ Affiliate network to earn money. It also highlights top affiliate programs and alternatives.",
+    "summary": "This beginner's guide to CJ Affiliate explains how the network works and how to earn money on the platform. It also highlights top CJ affiliate programs and alternative platforms.",
     "link": "https://techncruncher.blogspot.com/2022/09/cj-affiliate-ultimate-guide-to.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Sat, 10 Sep 2022 08:57:00 +0000"
@@ -145,42 +145,42 @@
   "Data & Insights": [
    {
     "title": "PM Modi urges BRICS to turn its growing economic weight into stronger trade, investment and business partnerships",
-    "summary": "Prime Minister Narendra Modi urged BRICS nations to reduce trade barriers and strengthen business ties while ensuring secure sea lanes. He also highlighted India's infrastructure, startups, and digital technology as key drivers for global growth.",
+    "summary": "Prime Minister Narendra Modi urged BRICS nations to reduce trade barriers and strengthen business and investment partnerships. He also promoted India's infrastructure, startups, and digital public infrastructure as drivers of global growth.",
     "link": "https://www.livemint.com/economy/pm-modi-urges-brics-to-turn-its-growing-economic-weight-into-stronger-trade-investment-and-business-partnerships-11789139189917.html",
     "source": "livemint.com",
     "pubDate": "Fri, 11 Sep 2026 21:12:01 +0530"
    },
    {
     "title": "Modi meets Pezeshkian amid US-Iran War: Seafarers’ safety in West Asia, BRICS cooperation discussed",
-    "summary": "Prime Minister Narendra Modi and Iranian President Masoud Pezeshkian met during the BRICS Summit in New Delhi on Friday. The two leaders discussed strengthening bilateral ties, multilateral cooperation, and the safety of seafarers in West Asia amid ongoing conflict.",
+    "summary": "Prime Minister Narendra Modi and Iranian President Masoud Pezeshkian met on the sidelines of the BRICS Summit to discuss strengthening bilateral ties. Their discussions focused on seafarers' safety in West Asia and enhanced cooperation in multilateral forums.",
     "link": "https://www.livemint.com/economy/modi-meets-pezeshkian-amid-us-iran-war-seafarers-safety-in-west-asia-brics-cooperation-discussed-11789138796701.html",
     "source": "livemint.com",
     "pubDate": "Fri, 11 Sep 2026 20:49:18 +0530"
    },
    {
     "title": "India’s 7.8% Q1 GDP growth ‘above our expectations’, says IMF amid energy price shock",
-    "summary": "The International Monetary Fund stated that India's real GDP grew by 7.8% in the first quarter of fiscal year 2027, exceeding expectations despite energy price shocks. The IMF also praised improvements in India's data transparency and GDP estimation methods.",
+    "summary": "The IMF reported that India's economy grew by a better-than-expected 7.8% in the first quarter of fiscal year 2027. This strong performance, supported by improved data transparency, highlights India's resilience as a global growth engine despite energy price shocks.",
     "link": "https://www.livemint.com/economy/indias-7-8-q1-gdp-growth-above-our-expectations-says-imf-amid-energy-price-shock-11789136765277.html",
     "source": "livemint.com",
     "pubDate": "Fri, 11 Sep 2026 20:21:12 +0530"
    },
    {
     "title": "In New Delhi, Putin pitches BRICS investment platform, says bloc’s growth outpaces G7 - ‘World is always changing’",
-    "summary": "Russian President Vladimir Putin pitched a new BRICS digital investment platform in New Delhi to mobilize private funding and boost the bloc's competitiveness. He also highlighted that BRICS economic growth currently outpaces the G7.",
+    "summary": "Russian President Vladimir Putin proposed a BRICS digital investment platform via the New Development Bank to mobilize private funding and enhance economic competitiveness. He also stated during a summit in New Delhi that the bloc's economic growth is outpacing the G7.",
     "link": "https://www.livemint.com/economy/in-new-dehi-putin-pitches-brics-investment-platform-says-bloc-s-growth-outpaces-g7-world-is-always-changing-11789135786971.html",
     "source": "livemint.com",
     "pubDate": "Fri, 11 Sep 2026 20:09:37 +0530"
    },
    {
     "title": "BRICS Summit: From trade to defence, energy and space - What transpired during Modi-Putin meeting",
-    "summary": "During the BRICS Summit, Prime Minister Modi and President Putin reviewed bilateral cooperation across multiple sectors, including trade, defence, energy, and space. The Ministry of External Affairs confirmed that the leaders discussed progress in political, economic, skills mobility, and people-to-people domains.",
+    "summary": "Indian Prime Minister Narendra Modi and Russian President Vladimir Putin met during the BRICS Summit to review bilateral cooperation. According to the Ministry of External Affairs, they discussed progress in political, economic, defence, energy, space, skills mobility, and people-to-people domains.",
     "link": "https://www.livemint.com/economy/-summit-from-trade-to-defence-energy-and-space-what-transpired-during-modi-putin-talks-brics-11789127073872.html",
     "source": "livemint.com",
     "pubDate": "Fri, 11 Sep 2026 17:25:48 +0530"
    },
    {
     "title": "Modi-Putin meet: $100 billion trade target by 2030, nuclear energy, critical minerals likely focus areas, says report",
-    "summary": "Prime Minister Narendra Modi and Vladimir Putin are expected to set an ambitious bilateral trade target of $100 billion by 2030. Their upcoming meeting will likely focus on expanding economic ties, cooperation in nuclear energy, and critical minerals.",
+    "summary": "Indian Prime Minister Modi and Russian President Putin are expected to set an ambitious bilateral trade target of $100 billion by 2030. According to reports, their upcoming meeting will also focus on expanding cooperation in nuclear energy and critical minerals.",
     "link": "https://www.livemint.com/economy/modiputin-meet-100-billion-trade-target-by-2030-nuclear-energy-critical-minerals-among-6-key-issues-discussed-11789122392022.html",
     "source": "livemint.com",
     "pubDate": "Fri, 11 Sep 2026 16:23:58 +0530"
@@ -188,73 +188,80 @@
   ],
   "India": [
    {
-    "title": "NEET PG Answer Key 2026 Live: Response Sheet Expected Today, Check Latest Updates Here",
-    "summary": "NBEMS is expected to release the provisional NEET PG answer key and response sheet today. Candidates can check the official website for download steps, the marking scheme, and result dates.",
-    "link": "https://www.ndtv.com/education/neet-pg-answer-key-2026-live-response-sheet-expected-today-check-latest-updates-here-12026840#publisher=newsstand",
+    "title": "BRICS Summit 2026 LIVE Updates: Putin, Pezeshkian Highlight Issue Of Sanctions At BRICS Business Forum",
+    "summary": "As the BRICS Chair for 2026, India will host the BRICS Summit in New Delhi on September 12 and 13. During the BRICS Business Forum, leaders including Vladimir Putin and Masoud Pezeshkian highlighted the issue of sanctions.",
+    "link": "https://www.ndtv.com/india-news/brics-summit-2026-live-updates-pm-narendra-modi-putin-xi-jinping-meeting-bharat-mandapam-new-delhi-traffic-advisory-updates-12031073#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Fri, 11 Sep 2026 18:21:53 +0530"
+    "pubDate": "Sat, 12 Sep 2026 00:02:25 +0530"
    },
    {
-    "title": "3 Killed As Speeding Tanker Rams Bike In Maharashtra's Beed",
-    "summary": "Three people were killed when a speeding tanker rammed into their motorcycle in Maharashtra's Beed district. The fatal accident occurred around 11:30 PM near Ukanda village in Patoda tehsil.",
-    "link": "https://www.ndtv.com/india-news/3-killed-as-speeding-tanker-rams-bike-in-maharashtras-beed-12033690#publisher=newsstand",
+    "title": "Putin Takes \"40%\" Dig At G7, Compares It With BRICS' Contribution To World GDP",
+    "summary": "At the BRICS Business Forum, Russian President Vladimir Putin noted that BRICS now contributes 40 percent to the world's GDP. He compared this figure to the declining global economic share of the G7 nations.",
+    "link": "https://www.ndtv.com/world-news/putin-takes-40-per-cent-dig-at-g7-compares-it-with-brics-contribution-to-world-gdp-12033570#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Fri, 11 Sep 2026 18:14:11 +0530"
+    "pubDate": "Sat, 12 Sep 2026 00:01:10 +0530"
    },
    {
-    "title": "Probe Ordered After 12 Class 7 Students Get Injured At Assam School",
-    "summary": "An investigation has been ordered after 12 seventh-grade students sustained minor injuries on an Assam school premises on Thursday. Authorities are currently looking into the cause of the incident.",
-    "link": "https://www.ndtv.com/india-news/probe-ordered-after-12-class-7-students-injured-at-assam-school-12033692#publisher=newsstand",
+    "title": "Delhi Lt Governor Proposes Mandatory Tuberculosis Test For All Hospital Patients",
+    "summary": "Delhi's Lieutenant Governor has proposed making tuberculosis tests mandatory for all hospital patients. The proposal aims to help the city meet key targets under the TB Mukt Bharat Abhiyaan before the September 30 deadline.",
+    "link": "https://www.ndtv.com/india-news/delhi-lt-governor-proposes-mandatory-tb-screening-of-all-hospital-patients-12035203#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Fri, 11 Sep 2026 18:09:31 +0530"
+    "pubDate": "Fri, 11 Sep 2026 23:59:37 +0530"
    },
    {
-    "title": "ISRO Satellite Detects Clearest Sign Yet Of \"Mother of All\" El Nio Events",
-    "summary": "ISRO's EOS-06/Oceansat-3 satellite has detected the clearest indications yet of a major El Niño event. These observations align with the latest outlook issued by the World Meteorological Organization.",
-    "link": "https://www.ndtv.com/india-news/isro-satellite-detects-clearest-sign-yet-of-mother-of-all-el-nio-events-12033353#publisher=newsstand",
+    "title": "US Envoy Sergio Gor Visits Manipur, Meets Governor, Chief Minister",
+    "summary": "US Envoy Sergio Gor visited the Indian state of Manipur to meet with the Governor and Chief Minister. During his visit, he toured the historic Kangla Fort, the ancient center of the erstwhile Manipur kingdom.",
+    "link": "https://www.ndtv.com/india-news/us-envoy-sergio-gor-visits-manipur-meets-governor-chief-minister-12033819#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Fri, 11 Sep 2026 18:04:28 +0530"
+    "pubDate": "Fri, 11 Sep 2026 23:50:58 +0530"
    },
    {
-    "title": "Adani International School Hosts National Games Chess Competition 2026",
-    "summary": "Adani International School in Ahmedabad is hosting the two-day National Games Chess Competition 2026. A release states that over 800 students, parents, coaches, and school representatives are attending the championship.",
-    "link": "https://www.ndtv.com/india-news/adani-international-school-hosts-national-games-chess-competition-2026-in-ahmedabad-12033668#publisher=newsstand",
+    "title": "After Congress Comments On Punjab's Schools, AAP's Himachal Counter",
+    "summary": "Congress leader Sachin Pilot questioned a school audit in Punjab, sparking a verbal exchange with the Aam Aadmi Party. In response, AAP issued a counter-statement regarding Himachal Pradesh.",
+    "link": "https://www.ndtv.com/india-news/after-congress-comments-on-punjabs-schools-aaps-himachal-counter-12035173#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Fri, 11 Sep 2026 18:04:04 +0530"
+    "pubDate": "Fri, 11 Sep 2026 23:46:58 +0530"
    },
    {
-    "title": "Carplomacy 4.0: PM Modi, Putin Travel In 'Fortress On Wheels' In Delhi",
-    "summary": "PM Modi and Russian president Putin travelled together in the latter's armoured Aurus Senat limousine to the INNOPROM ex...",
+    "title": "Carplomacy 4.0: PM Modi, Putin Share A Ride Again After Bilateral Talks",
+    "summary": "Indian Prime Minister Narendra Modi and Russian President Vladimir Putin shared a car ride following their bilateral talks on Friday. This marks the fourth time the two leaders have traveled together in a car, following previous joint rides in China and on two other occasions.",
     "link": "https://www.ndtv.com/india-news/carplomacy-4-0-pm-modi-putin-travel-in-fortress-on-wheels-in-delhi-12033310#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Fri, 11 Sep 2026 17:56:44 +0530"
+    "pubDate": "Fri, 11 Sep 2026 23:41:29 +0530"
    }
   ],
   "General": [
    {
     "title": "MPs vote against fresh attempt to legalise assisted dying",
-    "summary": "Members of Parliament have voted against a proposed law to legalise assisted dying. The legislation would have introduced one of the most significant societal changes in recent years.",
+    "summary": "The proposed law sought to introduce one of the biggest societal changes in recent years.",
     "link": "https://www.bbc.co.uk/news/articles/c17j91jenr8o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 11 Sep 2026 17:22:39 GMT"
    },
    {
     "title": "An extraordinary result - why did MPs reject assisted dying bill this time?",
-    "summary": "MPs have rejected the assisted dying bill, causing the momentum for a change in the law to fade. Supporters of the legislation have stated that they plan to try again in the future.",
+    "summary": "MPs rejected the assisted dying bill, causing the campaign to lose its current momentum. Supporters have stated that they will attempt to introduce the legislation again in the future.",
     "link": "https://www.bbc.co.uk/news/articles/c5y54n99l48o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 11 Sep 2026 16:49:47 GMT"
    },
    {
+    "title": "'Never, ever forget' - America marks 25th anniversary of 9/11 attacks",
+    "summary": "America is marking the 25th anniversary of the September 11 terrorist attacks with solemn ceremonies. These memorial events are taking place in New York, the Pentagon, and Pennsylvania.",
+    "link": "https://www.bbc.co.uk/news/articles/clyjqvjzlwno?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Fri, 11 Sep 2026 19:16:32 GMT"
+   },
+   {
     "title": "Houthis claim major advance in Yemen and tighten grip on Red Sea shipping lane",
-    "summary": "Iran-backed Houthi forces in Yemen claimed a major military advance and reportedly seized the strategic island of Perim. This capture tightens their control over the critical Red Sea shipping lane.",
+    "summary": "The Iran-backed Houthis claimed a major advance in Yemen. They also reportedly seized Perim, a strategic island along a major Red Sea shipping route.",
     "link": "https://www.bbc.co.uk/news/articles/c23x72yx2rvo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 11 Sep 2026 16:58:34 GMT"
    },
    {
     "title": "How global trade and oil prices could be hit by Houthi advance",
-    "summary": "Yemen's Houthis have captured territory near the Bab al-Mandab Strait, which serves as a vital shipping lane for global trade and oil. This advance threatens to significantly disrupt international trade and oil prices passing through the key gateway.",
+    "summary": "Yemen's Houthi rebels have captured territory near the Bab al-Mandab Strait. This strategic chokepoint is essential for international shipping and global oil trade.",
     "link": "https://www.bbc.co.uk/news/videos/cy5z02w1zxxo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 11 Sep 2026 16:13:39 GMT"
@@ -265,13 +272,6 @@
     "link": "https://www.bbc.co.uk/news/articles/c3eq7kl5l00o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 11 Sep 2026 15:07:07 GMT"
-   },
-   {
-    "title": "Kate visits cancer patients in hospital she helped fund with climb",
-    "summary": "Kate visited the hospital where she received cancer treatment to meet with patients. She helped fund the hospital by completing the Three Peaks Challenge.",
-    "link": "https://www.bbc.co.uk/news/articles/ce8e6pkkd04o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Fri, 11 Sep 2026 14:19:21 GMT"
    }
   ]
  }
