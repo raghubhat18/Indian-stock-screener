@@ -1,6 +1,6 @@
 {
- "updatedAt": "2026-09-14T22:53:44Z",
- "model": "gemini-flash-lite-latest",
+ "updatedAt": "2026-09-15T01:05:47Z",
+ "model": "none",
  "categories": [
   "Markets",
   "Geo-Political",
@@ -12,87 +12,87 @@
  "briefing": {
   "Markets": [
    {
+    "title": "US 10-year yields reach 5%, highest since October 2023",
+    "summary": "The rise of U.S. Treasury yields over five percent indicates expectations for a longer period of elevated interest rates...",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/us-10-year-yields-reach-5-highest-since-october-2023/articleshow/134249584.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Tue, 15 Sep 2026 06:20:06 +0530"
+   },
+   {
+    "title": "Pre-market action: Here's the trade setup for today's session",
+    "summary": "Indian benchmark indices witnessed a turbulent trading day on Friday, suffering significant losses in the initial hours....",
+    "link": "https://economictimes.indiatimes.com/markets/stocks/news/pre-market-action-heres-the-trade-setup-for-todays-session/articleshow/134249361.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Tue, 15 Sep 2026 06:00:00 +0530"
+   },
+   {
+    "title": "Stocks in news: Tata Group stocks, HDFC Bank, Coforge, HFCL, Sun Pharma and Varun Beverages",
+    "summary": "On September 11, Indian stock markets experienced a remarkable bounce back after an initial dip at opening. Key index he...",
+    "link": "https://economictimes.indiatimes.com/markets/stocks/news/stocks-in-news-hdfc-bank-coforge-hfcl-sun-pharma-and-varun-beverages/articleshow/134245046.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Tue, 15 Sep 2026 06:00:00 +0530"
+   },
+   {
+    "title": "BofA turns bullish on Nifty, forecasts 12% upside by December",
+    "summary": "BofA Securities expresses an optimistic outlook for the Nifty, projecting a growth to 26,200 by December 2026. They anti...",
+    "link": "https://economictimes.indiatimes.com/markets/stocks/news/bofa-turns-bullish-on-nifty-forecasts-12-upside-by-december/articleshow/134249495.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Tue, 15 Sep 2026 05:51:50 +0530"
+   },
+   {
+    "title": "Analysts remain bullish on L&amp;T, see up to 16% upside on order book strength",
+    "summary": "Larsen &amp; Toubro's shares face volatility, yet analysts remain optimistic about future growth.  A record order book a...",
+    "link": "https://economictimes.indiatimes.com/markets/stocks/news/lt-shares-slip-3-6-in-a-month-analysts-see-up-to-16-upside-on-record-order-book/articleshow/134249386.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Tue, 15 Sep 2026 05:48:57 +0530"
+   },
+   {
     "title": "US stocks today: US stocks end lower as AI slowdown fears hit chipmakers",
-    "summary": "US stocks closed lower as chipmakers like Nvidia dropped following calls from AI leaders for slower development and safety precautions. Rising Treasury yields, higher oil prices, and caution ahead of the Federal Reserve meeting also pressured the market.",
+    "summary": "US stocks ended lower as Nvidia and other chipmakers fell after AI leaders raised safety concerns and called for slower ...",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-stocks-today-us-stocks-end-lower-as-ai-slowdown-fears-hit-chipmakers/articleshow/134247627.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Tue, 15 Sep 2026 01:43:43 +0530"
-   },
-   {
-    "title": "Trump, Altman, Musk and Amodei clash over AI risks as safety debate heats up",
-    "summary": "President Donald Trump rejected calls from tech leaders Dario Amodei, Sam Altman, and Elon Musk to slow advanced AI development and add safeguards. The disagreement underscores rising tensions over AI risks and regulation as the U.S. competes with China for technological dominance.",
-    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/trump-altman-musk-and-amodei-clash-over-ai-risks-as-safety-debate-heats-up/articleshow/134246892.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Tue, 15 Sep 2026 00:19:49 +0530"
-   },
-   {
-    "title": "CVC-backed Bamboo Insurance targets $3.24 billion valuation in US IPO",
-    "summary": "CVC-backed Bamboo Insurance is targeting a valuation of up to $3.24 billion in its upcoming US initial public offering. The residential property insurer plans to raise up to $700 million by offering 35 million shares at $18 to $20 each on the New York Stock Exchange under the ticker BMB.",
-    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/cvc-backed-bamboo-insurance-targets-3-24-billion-valuation-in-us-ipo/articleshow/134246642.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Tue, 15 Sep 2026 00:00:53 +0530"
-   },
-   {
-    "title": "Copper price hits three-week low as inventories rise and dollar strengthens",
-    "summary": "Copper prices fell to a three-week low below $14,000 a ton due to rising inventories and a stronger US dollar. The metal has dropped 6.2% from its recent record high amid market uncertainty over US tariffs and tighter monetary policy.",
-    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/copper-hits-three-week-low-as-inventories-rise-and-dollar-strengthens/articleshow/134245729.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Mon, 14 Sep 2026 23:12:25 +0530"
-   },
-   {
-    "title": "US Senate Republicans release new crypto bill text ahead of critical vote",
-    "summary": "US Senate Republicans have released a revised Clarity Act that includes 126 changes requested by Democrats ahead of a key procedural vote. However, the bill's passage remains uncertain due to ongoing Democratic concerns regarding ethics safeguards and banking industry opposition to stablecoin rewards.",
-    "link": "https://economictimes.indiatimes.com/markets/cryptocurrency/crypto-news/us-senate-republicans-release-new-crypto-bill-text-ahead-of-critical-vote/articleshow/134244934.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Mon, 14 Sep 2026 22:22:54 +0530"
-   },
-   {
-    "title": "Crypto data firm Kaiko secures $110 million funding round led by S&amp;P Global",
-    "summary": "Crypto data provider Kaiko raised $110 million in a funding round led by S&P Global. The company plans to use the funds to expand its products and strengthen its data business amid rising interest from financial institutions.",
-    "link": "https://economictimes.indiatimes.com/markets/cryptocurrency/crypto-news/crypto-data-firm-kaiko-secures-110-million-funding-round-led-by-sp-global/articleshow/134244840.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Mon, 14 Sep 2026 22:17:02 +0530"
    }
   ],
   "Geo-Political": [
    {
     "title": "China criticises idea it is in 'malicious competition' over AI",
-    "summary": "China has rejected the Anthropic CEO's proposal to slow down global AI development, viewing it as an attempt to prevent China from advancing. Beijing criticized the idea as a form of malicious competition designed to maintain Western dominance in the sector.",
+    "summary": "It follows the Anthropic CEO's calls for a slowdown in AI development - but in a way that prevents China from pulling ah...",
     "link": "https://www.bbc.co.uk/news/articles/cn8me133119o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 14 Sep 2026 11:31:39 GMT"
    },
    {
     "title": "Russia hits Ukrainian train shortly after Boris Johnson and top European officials leave station",
-    "summary": "Russia bombed a stationary Ukrainian train on the Polish border shortly after Boris Johnson and other top European officials departed the station. Former UK Prime Minister Boris Johnson condemned the attack as being driven by warped logic.",
+    "summary": "The former UK PM said: \"I don't know what warped logic drove Putin to blow up a stationary Ukrainian locomotive on the P...",
     "link": "https://www.bbc.co.uk/news/articles/cy5zg41dkqwo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 14 Sep 2026 12:18:13 GMT"
    },
    {
     "title": "Swedish left-wing bloc narrowly ahead with election too close to call",
-    "summary": "With over 90 percent of ballots processed early on Monday, Sweden's left-wing bloc held a narrow lead of approximately 20,000 votes. The election remained too close to call as vote counting continued.",
+    "summary": "With more than 90% of ballots processed early on Monday, the left-wing bloc was in front by approximately 20,000 votes.",
     "link": "https://www.bbc.co.uk/news/articles/c0qx5d79kdeo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 14 Sep 2026 08:36:09 GMT"
    },
    {
     "title": "Wild dogs record 2,500-mile trek across Zambia in search of a mate",
-    "summary": "Three male wild dogs traveled 2,500 miles across Zambia in search of a mate. Scientists state that this record-breaking journey demonstrates the resilience of wildlife against growing environmental pressures.",
+    "summary": "Scientists say the record-breaking journey by three brothers offers hope wildlife can survive growing pressures.",
     "link": "https://www.bbc.co.uk/news/articles/cy459y5y9yxo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 14 Sep 2026 14:08:12 GMT"
    },
    {
     "title": "Thousands demand end to violence in Mexican cartel hotspot",
-    "summary": "Thousands of protesters in Culiacán, Mexico, demanded an end to the ongoing violence in the region. The unrest stems from a bloody feud between two rival factions of the Sinaloa cartel.",
+    "summary": "Culiacán has seen violence skyrocket since a feud broke out between two rival factions of the Sinaloa cartel.",
     "link": "https://www.bbc.co.uk/news/articles/cde06rxw5g6o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 14 Sep 2026 11:28:36 GMT"
    },
    {
     "title": "Legendary costume designer Bob Mackie dies aged 87",
-    "summary": "Legendary costume designer Bob Mackie has died at the age of 87. Known as the \"Sultan of Sequins,\" he created iconic stage outfits for celebrities including Cher, Tina Turner, and Elton John.",
+    "summary": "The \"Sultan of Sequins\" created iconic and dazzling costumes for stars including Cher, Tina Turner and Elton John.",
     "link": "https://www.bbc.co.uk/news/articles/cmpq04wx8l4eo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 14 Sep 2026 21:29:12 GMT"
@@ -101,7 +101,7 @@
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "The author tested AI-driven visibility and found their WordPress SaaS course recommended as the top result by ChatGPT without any paid advertising. This experiment demonstrates how AI optimization (AIO) is changing organic traffic acquisition compared to traditional SEO.",
+    "summary": "Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and aske...",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
@@ -122,7 +122,7 @@
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "This article highlights ten advanced artificial intelligence tools used across various industries to automate repetitive tasks and boost productivity. These widely adopted technologies are designed to streamline workflows and improve overall efficiency.",
+    "summary": "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovation and efficiency in various industries. ...",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
@@ -136,7 +136,7 @@
    },
    {
     "title": "Beginner Guide to CJ Affiliate (Commission Junction) in 2022",
-    "summary": "This guide explains how beginners can use the CJ Affiliate network to earn money. It also provides examples of top programs and alternative platforms.",
+    "summary": "Image by vectorjuice on FreepikIn this CJ Affiliate guide, I will share with you everything you need to get started on t...",
     "link": "https://techncruncher.blogspot.com/2022/09/cj-affiliate-ultimate-guide-to.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Sat, 10 Sep 2022 08:57:00 +0000"
@@ -144,134 +144,134 @@
   ],
   "Data & Insights": [
    {
+    "title": "Rising inflation sparks buzz of early rate hike",
+    "summary": "The simultaneous rise in the two inflation gauges points to intensifying price pressures across the economy.",
+    "link": "https://www.livemint.com/economy/india-inflation-rate-in-august-rbi-repo-rate-india-gdp-growth-rate-11789388552218.html",
+    "source": "livemint.com",
+    "pubDate": "Tue, 15 Sep 2026 06:01:03 +0530"
+   },
+   {
     "title": "Retail inflation breaches RBl's midpoint target for third successive month",
-    "summary": "In August, retail inflation rose to a 20-month high of 4.82% due to high food and fuel prices. This marks the third consecutive month that inflation has exceeded the Reserve Bank of India's midpoint target.",
+    "summary": "High food and fuel prices drive up inflation to a 20-month high of 4.82% in August.",
     "link": "https://www.livemint.com/economy/india-retail-inflation-august-2026-cpi-food-fuel-prices-rbi-inflation-target-11789113577685.html",
     "source": "livemint.com",
     "pubDate": "Mon, 14 Sep 2026 17:12:38 +0530"
    },
    {
     "title": "Wholesale price inflation nears double digits in August; next month may be worse",
-    "summary": "August wholesale price inflation neared double digits, with an even worse rate expected next month. Because businesses pass these rising input costs to consumers, high wholesale inflation drives up retail prices.",
+    "summary": "High wholesale inflation feeds into retail prices as businesses and other intermediaries pass on rising input costs to f...",
     "link": "https://www.livemint.com/economy/wholesale-price-inflation-india-wpi-august-2026-west-asia-crisis-food-fuel-inflation-11789377779165.html",
     "source": "livemint.com",
     "pubDate": "Mon, 14 Sep 2026 15:42:01 +0530"
    },
    {
     "title": "Trump says US should have world’s lowest interest rates ahead of Fed meeting: ‘I know more about formulas’",
-    "summary": "Ahead of the Federal Reserve's September meeting, Donald Trump stated that the United States should have the lowest interest rates in the world. Despite rising inflation and oil prices, he urged the central bank to cut rates.",
+    "summary": "Trump said the US should have the world’s lowest interest rate ahead of the Fed’s September 15-16 meeting. Despite risin...",
     "link": "https://www.livemint.com/economy/trump-says-us-should-have-world-s-lowest-interest-rates-ahead-of-fed-meeting-i-know-more-about-formulas-11789318208908.html",
     "source": "livemint.com",
     "pubDate": "Sun, 13 Sep 2026 22:47:51 +0530"
    },
    {
     "title": "Rate hikes are back? Kevin Warsh and G7 central banks face inflation test this week",
-    "summary": "Central banks in the US, UK, and Japan are holding key policy meetings this week to address ongoing inflation concerns. These upcoming decisions by Kevin Warsh and G7 central banks could reshape the global monetary policy outlook for 2026 and beyond.",
+    "summary": "Three key policy decisions, beginning with the US Federal Reserve on Wednesday and followed by the Bank of England and B...",
     "link": "https://www.livemint.com/economy/rate-hikes-are-back-kevin-warsh-and-g7-central-banks-face-inflation-test-this-week-11789295830710.html",
     "source": "livemint.com",
     "pubDate": "Sun, 13 Sep 2026 16:40:36 +0530"
    },
    {
     "title": "India’s 647 Rural Self Employment Training Institutes shift to digital platforms",
-    "summary": "India's 647 Rural Self Employment Training Institutes have replaced paper-based assessments with digital platforms to improve transparency and speed. This digital shift connects skills training, certification, and credit to help rural youth secure sustainable livelihoods.",
+    "summary": "The 647 Rural Self Employment Training Institutes are moving to a digital platform from paper-based assessments, aiming ...",
     "link": "https://www.livemint.com/economy/indias-647-rural-self-employment-training-institutes-shift-to-digital-platforms-11789285266281.html",
     "source": "livemint.com",
     "pubDate": "Sun, 13 Sep 2026 16:30:16 +0530"
-   },
-   {
-    "title": "BRICS Billionaire Club: Who’s richest in India, China, Russia, Brazil? Net worth of Ambani, Zhang Yiming, others",
-    "summary": "Billionaires from BRICS nations rank among the world's richest individuals, including India's second-richest billionaire, Gautam Adani. Adani met with South African President Cyril Ramaphosa during the BRICS Summit to strengthen bilateral trade and investment ties.",
-    "link": "https://www.livemint.com/economy/brics-billionaire-club-who-s-richest-in-india-china-russia-brazil-net-worth-of-mukesh-ambani-zhang-yiming-others-11789279831523.html",
-    "source": "livemint.com",
-    "pubDate": "Sun, 13 Sep 2026 12:23:57 +0530"
    }
   ],
   "India": [
    {
+    "title": "Tamil Nadu's Vijay Signs Rs 12,300 Crore UK Deals, 9,000 Jobs Expected",
+    "summary": "Vijay also signed a Rs 1,000-crore agreement with a British company, through Ernst & Young, to develop a Global Capabili...",
+    "link": "https://www.ndtv.com/india-news/tamil-nadus-vijay-signs-rs-12-300-crore-uk-deals-9-000-jobs-expected-12047020#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Tue, 15 Sep 2026 05:12:54 +0530"
+   },
+   {
     "title": "Kolkata Roads Named After Marx, Lenin, Ho Chi Minh May Be Renamed",
-    "summary": "Kolkata is considering renaming three of its major streets: Lenin Sarani, Karl Marx Sarani, and Ho Chi Minh Sarani. These roads are currently named after prominent international communist figures.",
+    "summary": "The three roads under consideration are Lenin Sarani, Karl Marx Sarani and Ho Chi Minh Sarani.",
     "link": "https://www.ndtv.com/india-news/kolkata-roads-named-after-marx-lenin-ho-chi-minh-may-be-renamed-12046709#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 15 Sep 2026 00:26:35 +0530"
    },
    {
     "title": "Bhagwant Mann's \"Fake Turban' Jibe Sparks Fresh Political Row In Punjab",
-    "summary": "Punjab Chief Minister Bhagwant Mann criticized political rival Saini for repeatedly wearing turbans during his visits to the state. This remark triggered a fresh political controversy regarding cultural authenticity and political posturing.",
+    "summary": "The controversy began after BHagwant Mann took a dig at Saini over his repeated visits to Punjab in turbans",
     "link": "https://www.ndtv.com/india-news/bhagwant-manns-fake-turban-jibe-sparks-fresh-political-row-in-punjab-12046690#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 15 Sep 2026 00:14:33 +0530"
    },
    {
     "title": "\"Extremely Heinous\": KTR Alleges Attack On Aides In Hyderabad Police Station",
-    "summary": "Bharat Rashtra Samithi leader K.T. Rama Rao (KTR) has alleged that his aides were attacked inside a Hyderabad police station. He questioned whether the assault was carried out by Congress workers or involved plainclothes police officers as part of a conspiracy.",
+    "summary": "KTR questioned whether the alleged attack was carried out by Congress workers or whether police personnel in plain cloth...",
     "link": "https://www.ndtv.com/india-news/extremely-heinous-ktr-alleges-attack-on-aides-in-hyderabad-police-station-12046689#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 15 Sep 2026 00:14:24 +0530"
    },
    {
     "title": "Why Mumbai MLA With Rs 5,000 Crore Net Worth Became 'Beggar' For A Day",
-    "summary": "Parag Shah, a Mumbai MLA with a net worth of Rs 5,000 crore, temporarily gave up his wealth and luxury to live as a beggar for a day. He took this action following the advice of his spiritual guru.",
+    "summary": "Parag Shah is one of the richest politicians in the country. However, he temporarily abandoned his luxury cars, security...",
     "link": "https://www.ndtv.com/india-news/why-mumbai-mla-with-rs-5-000-crore-net-worth-became-beggar-for-a-day-12046680#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 15 Sep 2026 00:07:08 +0530"
    },
    {
     "title": "SpiceJet Passengers Complain Of AC Malfunction, Airline Denies Charge",
-    "summary": "Passengers on a SpiceJet flight from Delhi to Gorakhpur complained of an air conditioning malfunction on Sunday. The airline denied the allegation even though the flight took off over an hour behind schedule.",
+    "summary": "SpiceJet flight SG2471, scheduled to depart Delhi for Gorakhpur around 4:30 pm on Sunday, took off at approximately 5:50...",
     "link": "https://www.ndtv.com/india-news/spicejet-passengers-complain-of-ac-malfunction-airline-denies-charge-12046652#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Mon, 14 Sep 2026 23:58:47 +0530"
-   },
-   {
-    "title": "\"She Didn't Stop, He Hit Her Bike\": Rider Posts New Gurugram Hit-And-Run Clip",
-    "summary": "A new video has emerged showing the recent hit-and-run incident in Gurugram from the perspective of a rider behind the victim. The footage captures the moment the driver hit the woman's Aprilia RS 457 sports bike after she continued driving.",
-    "link": "https://www.ndtv.com/india-news/kalyan-bainsla-gurugram-bike-crash-new-gurugram-hit-and-run-video-emerges-fellow-biker-says-car-was-tailgating-12046503#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Mon, 14 Sep 2026 23:51:10 +0530"
    }
   ],
   "General": [
    {
     "title": "Man admits drugging and raping wife over 20 years",
-    "summary": "A husband pleaded guilty to over 60 offenses, including rape and administering a substance to drug his wife. The crimes occurred over a 20-year period, and his identity was withheld to protect his wife's anonymity.",
+    "summary": "A husband, who cannot be named to protect his wife's anonymity, pleads guilty to more than 60 offences, including rape a...",
     "link": "https://www.bbc.co.uk/news/articles/cmp3042q6w3zo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 14 Sep 2026 16:54:26 GMT"
    },
    {
-    "title": "AI 'kill switch' may need to be mandatory, Anthropic co-founder says",
-    "summary": "Anthropic co-founder Jack Clark stated that artificial intelligence laboratories currently use various methods to shut down their systems. He suggested that having this \"kill switch\" capability may need to become a mandatory requirement.",
+    "title": "AI 'kill switch' may need to be mandatory, Anthropic co-founder tells BBC",
+    "summary": "US President Donald Trump dismisses calls to slow the development of AI, saying that claims of it \"taking over the World...",
     "link": "https://www.bbc.co.uk/news/articles/cqgk5e2j0gg8o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Mon, 14 Sep 2026 22:10:10 GMT"
+    "pubDate": "Tue, 15 Sep 2026 00:32:21 GMT"
+   },
+   {
+    "title": "Chris Mason: Row over Reform's mega donations has mileage in it yet",
+    "summary": "The £72m heading towards Reform UK's coffers is transforming the debate at Westminster about politics and money.",
+    "link": "https://www.bbc.co.uk/news/articles/cjn5dl95z13qo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Mon, 14 Sep 2026 23:51:03 GMT"
+   },
+   {
+    "title": "Nato jets down drone that entered Lithuanian airspace",
+    "summary": "It is currently unknown where the drone came from, officials said.",
+    "link": "https://www.bbc.co.uk/news/articles/cjx2zgk7edlzo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Tue, 15 Sep 2026 00:10:48 GMT"
+   },
+   {
+    "title": "In pictures: Stars on red carpet at Emmy Awards in LA",
+    "summary": "The biggest night in the US TV calendar is taking place, and stars are on the Emmy Awards red carpet.",
+    "link": "https://www.bbc.co.uk/news/articles/c98r632g6p76o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Tue, 15 Sep 2026 00:04:34 GMT"
    },
    {
     "title": "Burnham cancels engagements after death of his father",
-    "summary": "Burnham cancelled his public engagements following the death of his father. His father, who had Alzheimer's, was unaware that Burnham had become prime minister.",
+    "summary": "Burnham has previously said his father did not know he had become prime minister due to his Alzheimer's.",
     "link": "https://www.bbc.co.uk/news/articles/c68xkddgnd47o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 14 Sep 2026 18:53:38 GMT"
-   },
-   {
-    "title": "Farage says £72m donations are compliant 'with the law today'",
-    "summary": "Nigel Farage stated that his party's £72 million in donations comply with current laws. Meanwhile, ministers are proposing a £100,000 annual limit on expat donations, backdated to March 2026.",
-    "link": "https://www.bbc.co.uk/news/articles/c623xee9dkdyo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Mon, 14 Sep 2026 17:50:29 GMT"
-   },
-   {
-    "title": "Macklemore dropped from Ed Sheeran tour after 'Free Palestine' speech",
-    "summary": "The US rapper was condemned by Jewish groups after making comments criticising Israel.",
-    "link": "https://www.bbc.co.uk/news/articles/cq0m3pkmgg1ko?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Mon, 14 Sep 2026 21:10:49 GMT"
-   },
-   {
-    "title": "Staff slept while patient killed at NHS mental health unit",
-    "summary": "An inquest heard that hospital staff were asleep when 22-year-old Rolando Torres-Pena strangled and killed Hugo Flint-Cahan on a ward at an NHS mental health unit in east London. The fatal attack occurred due to a failure in patient monitoring at the facility.",
-    "link": "https://www.bbc.co.uk/news/articles/c750vqp1wlxo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Mon, 14 Sep 2026 15:19:26 GMT"
    }
   ]
  }
