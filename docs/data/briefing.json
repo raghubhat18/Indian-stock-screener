@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-09-16T19:52:29Z",
+ "updatedAt": "2026-09-16T22:30:49Z",
  "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
@@ -12,49 +12,63 @@
  "briefing": {
   "Markets": [
    {
+    "title": "Shorter-dated US Treasury yields surge in anticipation of another Fed rate hike",
+    "summary": "Following the Federal Reserve's first interest rate increase in over three years, policymakers anticipate at least one more quarter-percentage-point hike by the end of the year. Consequently, shorter-dated U.S. Treasury yields surged as market bets on another rate increase at the next meeting ticked higher.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/shorter-dated-us-treasury-yields-surge-in-anticipation-of-another-fed-rate-hike/articleshow/134296264.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Thu, 17 Sep 2026 01:46:21 +0530"
+   },
+   {
+    "title": "Dollar rises after Fed hikes rates in bid to counter inflation",
+    "summary": "The US dollar reached a nearly five-week high after the Federal Reserve raised interest rates and signaled more tightening to fight inflation. Meanwhile, traders estimated an 80% probability that the Bank of Japan will hike rates on Friday, and Bitcoin held steady following a sharp drop.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/dollar-rises-after-fed-hikes-rates-in-bid-to-counter-inflation/articleshow/134296325.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Thu, 17 Sep 2026 01:45:14 +0530"
+   },
+   {
+    "title": "Gold falls more than 1% after Fed hikes interest rates",
+    "summary": "Gold prices dropped over 1% to $4,240.10 an ounce after the US Federal Reserve raised interest rates and signaled future hikes. The rate hike strengthened the dollar, which also caused declines in silver, platinum, and palladium.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/gold-falls-more-than-1-after-fed-hikes-interest-rates/articleshow/134296279.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Thu, 17 Sep 2026 01:39:38 +0530"
+   },
+   {
+    "title": "US stocks today: Dow ends 650 pts lower after Fed rate hike, more rate tightening seen",
+    "summary": "US stocks fell after the Federal Reserve raised interest rates as expected and signaled further tightening to combat inflation. The Dow dropped 1.17%, the S&P 500 fell 0.43%, and the Nasdaq finished nearly flat.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/us-stocks-today-sp-500-ends-lower-after-fed-hikes-interest-rates-sees-more-tightening-ahead/articleshow/134296300.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Thu, 17 Sep 2026 01:34:58 +0530"
+   },
+   {
     "title": "US Fed chair Kevin Warsh explains why the Federal Reserve raised interest rates",
-    "summary": "The Federal Reserve raised interest rates by 0.25 percent due to a strengthening US economy, resilient domestic spending, and steady job gains. The central bank took this action because inflation has stubbornly stayed above its target for years.",
+    "summary": "The Federal Reserve raised interest rates by 0.25 percent due to a strengthening economy, resilient spending, and persistent inflation. The central bank implemented this increase to help achieve its long-term goal of price stability.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-fed-chair-kevin-warsh-explains-why-the-federal-reserve-raised-interest-rates/articleshow/134296073.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Thu, 17 Sep 2026 01:13:14 +0530"
    },
    {
     "title": "A 25 bps hike: US Federal Reserve raises interest rates for first time since 2023",
-    "summary": "The US Federal Reserve raised interest rates by twenty-five basis points on Wednesday to control inflation, which remained at three point four percent in August. This marks the central bank's first rate increase since 2023 and serves as a major test for Fed Chair Kevin Warsh's credibility.",
+    "summary": "The US Federal Reserve raised interest rates by 25 basis points on Wednesday to combat high inflation. Consumer inflation remained at 3.4 percent in August, driving this policy change under Fed Chair Kevin Warsh.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/a-25-bps-hike-us-federal-reserve-raises-interest-rates-for-first-time-since-2023/articleshow/134293809.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Wed, 16 Sep 2026 23:31:38 +0530"
-   },
-   {
-    "title": "Ahead of Market: 10 things that will decide stock market action on Thursday",
-    "summary": "Indian equities rebounded on September 16, with the Sensex gaining 333 points and the Nifty rising 99 points. Large-cap stocks led the market gains while broader markets declined.",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/news/ahead-of-market-10-things-that-will-decide-stock-market-action-on-thursday/articleshow/134291836.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Wed, 16 Sep 2026 21:27:53 +0530"
-   },
-   {
-    "title": "Sebi bars two entities over alleged cross-derivatives manipulation",
-    "summary": "SEBI has banned two entities for allegedly manipulating small-cap stock prices through advanced derivatives strategies. The companies reportedly used intentional losses in stock futures to unfairly influence options prices for profit.",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/news/indian-regulator-bars-two-entities-over-alleged-cross-derivatives-manipulation/articleshow/134291762.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Wed, 16 Sep 2026 21:21:53 +0530"
-   },
-   {
-    "title": "Market Trading Guide: PVR Inox, Radico Khaitan among 5 stock recommendations for Thursday",
-    "summary": "Indian equities rose due to lower crude prices, softer Japanese bond yields, and expectations of a US Federal Reserve rate hike. Analysts recommended Policybazaar, PNB, PVR Inox, Radico Khaitan, and Hindalco based on bullish technical setups.",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/news/market-trading-guide-pvr-inox-radico-khaitan-among-5-stock-recommendations-for-thursday/slideshow/134291164.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Wed, 16 Sep 2026 20:38:03 +0530"
-   },
-   {
-    "title": "Morgan Stanley shifts $10 billion in municipal bond mutual funds to ETFs",
-    "summary": "Morgan Stanley is converting eight municipal bond mutual funds holding nearly $10 billion in assets into seven new exchange-traded funds. The firm is making this move to meet strong client demand and retain assets by offering greater tax effectiveness and flexibility.",
-    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/morgan-stanley-shifts-10-billion-in-municipal-bond-mutual-funds-to-etfs/articleshow/134291061.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Wed, 16 Sep 2026 20:35:14 +0530"
    }
   ],
   "Geo-Political": [
+   {
+    "title": "US interest rates raised for first time in three years",
+    "summary": "The US Federal Reserve raised interest rates for the first time in three years in a unanimous decision. The rate hike occurred despite fierce opposition from President Donald Trump, who had publicly called for a rate cut.",
+    "link": "https://www.bbc.co.uk/news/articles/cw4gmlyvj422o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Wed, 16 Sep 2026 22:16:51 GMT"
+   },
+   {
+    "title": "Photos show widespread damage at US sites from Iranian attacks",
+    "summary": "CBS News obtained photos showing widespread damage at US sites from Iranian attacks. The images reveal a wrecked air force plane and destroyed buildings.",
+    "link": "https://www.bbc.co.uk/news/articles/c8g49e0gwxeno?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Wed, 16 Sep 2026 18:36:16 GMT"
+   },
    {
     "title": "EU chief backs plan for Canada to become 'associate member'",
     "summary": "Following a breakdown in relations with the United States under President Donald Trump, Canada is seeking closer ties with the European Union. In response, the EU chief has backed a proposal for Canada to become an associate member.",
@@ -63,73 +77,59 @@
     "pubDate": "Wed, 16 Sep 2026 12:36:51 GMT"
    },
    {
-    "title": "Photos show widespread damage at US sites from Iranian attacks",
-    "summary": "New photos obtained by CBS News show widespread damage to United States sites resulting from Iranian attacks. The images reveal a wrecked air force plane and several destroyed buildings.",
-    "link": "https://www.bbc.co.uk/news/articles/c8g49e0gwxeno?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Wed, 16 Sep 2026 18:36:16 GMT"
-   },
-   {
     "title": "Eight children among 21 killed after war-damaged Gaza building collapses, rescuers say",
-    "summary": "A war-damaged, six-storey building collapsed in Gaza City, killing 21 people, including eight children. The structure had been previously hit by an Israeli strike last year and was housing about 10 families.",
+    "summary": "Twenty-one people, including eight children, were killed when a war-damaged six-storey building collapsed in Gaza City. Around 10 families had been living in the structure, which was previously hit by an Israeli strike last year.",
     "link": "https://www.bbc.co.uk/news/articles/cvp8d00j9gg5o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Wed, 16 Sep 2026 17:16:47 GMT"
    },
    {
-    "title": "US accuses Russia of trying to kill Ukrainian allies overseas",
-    "summary": "The FBI has accused five men of conspiring to intimidate, threaten, or murder Ukrainian allies on U.S. soil and internationally. The United States has directly blamed Russia for attempting to orchestrate these overseas assassination plots.",
-    "link": "https://www.bbc.co.uk/news/articles/cjp3077led9qo?at_medium=RSS&at_campaign=rss",
+    "title": "US House votes to hold billionaire Epstein associate Leon Black in contempt",
+    "summary": "The US House voted to hold billionaire Leon Black in contempt of Congress. Black refused to appear and provide documents regarding his business ties to the late sex offender Jeffrey Epstein.",
+    "link": "https://www.bbc.co.uk/news/articles/c62l8g8qlr0ko?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Wed, 16 Sep 2026 12:26:00 GMT"
+    "pubDate": "Wed, 16 Sep 2026 19:59:57 GMT"
    },
    {
     "title": "OpenAI boss says world 'right to be afraid' but should trust AI firms",
-    "summary": "OpenAI CEO Sam Altman acknowledged that public fears regarding the threats of artificial intelligence are justified. However, he and other tech executives argued that the world should trust AI companies because there are existing incentives to limit dangerous advancements.",
+    "summary": "OpenAI CEO Sam Altman acknowledged that public fears regarding the threats of artificial intelligence are justified. However, he and other tech executives maintain that humanity should trust AI companies because sufficient incentives exist to safely limit advancements.",
     "link": "https://www.bbc.co.uk/news/articles/cqx2zpj4y525o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Wed, 16 Sep 2026 10:02:05 GMT"
-   },
-   {
-    "title": "Eight German state premiers back Merz amid speculation over future",
-    "summary": "Eight German state premiers from the Christian Democratic Union have expressed support for leader Friedrich Merz amid political speculation. This backing comes as the party prepares for two crucial state elections this weekend.",
-    "link": "https://www.bbc.co.uk/news/articles/c6dj4nn0n97ro?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Wed, 16 Sep 2026 14:50:26 GMT"
    }
   ],
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "An experiment using ChatGPT revealed that a WordPress SaaS course was recommended as the top result without any paid advertising. This discovery highlights the growing shift toward AI optimization (AIO) alongside traditional SEO for generating organic traffic.",
+    "summary": "An author discovered their WordPress SaaS course was recommended as the top result when asking ChatGPT for the best course in that category. This unexpected placement occurred without any paid advertising or traditional search engine optimization.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "This article outlines ten essential artificial intelligence tools designed to help digital creators improve their workflows in 2025. It explains how these technologies are revolutionizing the content creation landscape to make the process easier and more efficient.",
+    "summary": "This article outlines ten essential artificial intelligence tools designed to help creators improve their digital content creation in 2025. It explains how these technologies are modernizing the digital landscape and simplifying the content creation process.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "LimeWire has transitioned into a generative AI platform that allows users to create digital content. The tool also provides features for creators to share and monetize their AI-generated work.",
+    "summary": "LimeWire has transitioned into a generative AI platform that allows users to create digital content. The tool also provides features for creators to share and monetize their work.",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "This article explores ten advanced artificial intelligence tools designed to automate repetitive tasks and improve workplace productivity. These widely used market solutions drive innovation and efficiency across various industry applications.",
+    "summary": "This article explores the top 10 artificial intelligence tools of 2023 that automate tasks and improve workplace productivity. These advanced and widely used applications drive innovation and efficiency across multiple industries.",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "AI content generators help users efficiently create engaging and relevant material for their target audience. Because numerous tools are available on the market, choosing the right one for your specific needs can be challenging.",
+    "summary": "AI content generators help users efficiently create engaging and relevant content for their audiences. With numerous options available on the market, choosing the right tool for specific needs can be challenging.",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
@@ -145,42 +145,42 @@
   "Data & Insights": [
    {
     "title": "US Fed raises interest rates as Kevin Warsh bucks Donald Trump to control inflation",
-    "summary": "The US Federal Reserve raised interest rates by 25 basis points to a range of 3.75% to 4.00% in a unanimous decision led by Chair Kevin Warsh. The FOMC plans to implement at least one more rate hike later this year to help control inflation.",
+    "summary": "The US Federal Reserve unanimously raised interest rates by 25 basis points to a range of 3.75% to 4.00% under Chair Kevin Warsh. The central bank plans to implement at least one more rate hike later this year to control inflation.",
     "link": "https://www.livemint.com/economy/us-federal-reserve-interest-rates-kevin-warsh-us-inflation-economy-11789581910559.html",
     "source": "livemint.com",
     "pubDate": "Wed, 16 Sep 2026 23:41:29 +0530"
    },
    {
     "title": "India clears 642 UK car imports under FTA tariff quota as first allocations roll out",
-    "summary": "India approved the import of 642 UK-origin cars under the tariff-rate quota provisions of the India-UK trade pact. Seven of the eight applicants received quotas, with concessional duties set to eventually decrease to 10%.",
+    "summary": "India has approved the import of 642 UK-origin cars under the new India-UK CETA tariff-rate quota. Seven of the eight applicants received quotas, with concessional duties eventually dropping to 10%.",
     "link": "https://www.livemint.com/economy/india-uk-ceta-car-imports-trq-642-cars-11789561559622.html",
     "source": "livemint.com",
     "pubDate": "Wed, 16 Sep 2026 19:57:09 +0530"
    },
    {
     "title": "EPFO ceiling reset after 12 years;  ₹25,000 threshold to cover 5.1 million more workers",
-    "summary": "The EPFO wage ceiling has increased for the first time in 12 years to ₹25,000, expanding mandatory social-security coverage to an additional 5.1 million workers. This change will also raise contribution costs for both employers and the affected employees.",
+    "summary": "The EPFO wage ceiling has been raised for the first time in 12 years, increasing the threshold to ₹25,000. This change expands mandatory social security coverage to 5.1 million more workers while raising contribution costs for both employers and affected employees.",
     "link": "https://www.livemint.com/economy/epfo-wage-ceiling-rs-25000-mandatory-coverage-11789557468541.html",
     "source": "livemint.com",
     "pubDate": "Wed, 16 Sep 2026 18:31:41 +0530"
    },
    {
     "title": "India-New Zealand FTA: New Zealand clears path for trade deal –  What it means?",
-    "summary": "New Zealand's parliament has approved the India-New Zealand Free Trade Agreement, moving the trade deal closer to implementation. The agreement covers trade in goods and services, investment, agriculture, mobility, and customs procedures for both nations.",
+    "summary": "New Zealand's parliament has approved the India-New Zealand Free Trade Agreement, moving the trade deal closer to implementation. The agreement covers goods, services, investment, agriculture, mobility, and customs procedures between the two countries.",
     "link": "https://www.livemint.com/economy/indianew-zealand-fta-new-zealand-clears-path-for-trade-deal-what-it-means-11789550057021.html",
     "source": "livemint.com",
     "pubDate": "Wed, 16 Sep 2026 16:18:04 +0530"
    },
    {
     "title": "New Zealand Parliament passes legislation to implement India FTA",
-    "summary": "New Zealand's Parliament has passed legislation to implement a free trade agreement with India. The landmark deal is expected to take effect in the second half of October, providing immediate duty-free access for more than half of New Zealand's exports.",
+    "summary": "New Zealand's Parliament has passed legislation to implement a free trade agreement with India. The landmark deal is expected to take effect in the second half of October, providing immediate duty-free access for over half of New Zealand's exports.",
     "link": "https://www.livemint.com/economy/new-zealand-parliament-passes-legislation-to-implement-india-fta-11789545254998.html",
     "source": "livemint.com",
     "pubDate": "Wed, 16 Sep 2026 14:47:10 +0530"
    },
    {
     "title": "It's a fake! Forged art floods Indian market as masterworks fetch record millions",
-    "summary": "As the value of Indian art surges, the market is facing a growing flood of forgeries targeting renowned artists like MF Husain. In response to this threat, experts are urging increased authentication efforts and careful verification of artwork provenance for buyers.",
+    "summary": "Rising art values have triggered a flood of forgeries in the Indian art market, particularly affecting works by renowned artists like MF Husain. Experts are now emphasizing provenance and increasing authentication efforts to protect growing buyer interest.",
     "link": "https://www.livemint.com/economy/forged-art-indian-market-masterworks-record-millions-provenance-authentication-mf-husain-fn-souza-sh-raza-art-galleries-11789495211449.html",
     "source": "livemint.com",
     "pubDate": "Wed, 16 Sep 2026 13:47:09 +0530"
@@ -188,8 +188,36 @@
   ],
   "India": [
    {
+    "title": "Punjab Ambedkar Statue Row: BJP's Vijay Sampla Injured In Clash With BSP Workers",
+    "summary": "BJP leader Vijay Sampla was injured during a clash between BJP and BSP workers in Punjab. The violence erupted following an argument triggered by alleged remarks against Sampla.",
+    "link": "https://www.ndtv.com/india-news/punjab-ambedkar-statue-row-bjp-leader-vijay-sampla-injured-in-clash-with-bsp-workers-12056830#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Thu, 17 Sep 2026 02:16:52 +0530"
+   },
+   {
+    "title": "17-Year-Old Girl Raped In Chhattisgarh, 4 Men Arrested: Cops",
+    "summary": "Four men in Chhattisgarh were arrested for allegedly raping a 17-year-old girl. The victim had gone out with an acquaintance who took her to a village with three friends, where the assault occurred.",
+    "link": "https://www.ndtv.com/india-news/four-men-held-for-raping-17-year-old-girl-in-chhattisgarhs-kanker-district-12056553#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Thu, 17 Sep 2026 00:53:33 +0530"
+   },
+   {
+    "title": "2 Dead In 2 Days During Clashes Over Ganesh Chaturthi Procession In Tamil Nadu",
+    "summary": "Two people have died during clashes over a Ganesh Chaturthi procession in Tamil Nadu over a two-day period. The latest incident of violence occurred in the Cuddalore district villages of Keelkarapattu and Melkarapattu.",
+    "link": "https://www.ndtv.com/india-news/2-dead-in-2-days-during-clashes-over-ganesh-chaturthi-procession-in-tamil-nadu-12056664#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Thu, 17 Sep 2026 00:36:20 +0530"
+   },
+   {
+    "title": "Exclusive: After Survey Flags 2,800% Pharma Profit, Tukaram Mundhe Calls For Transparency",
+    "summary": "Bureaucrats in India flagged a pharmaceutical trade margin of 2,800 percent as completely unacceptable. Tukaram Mundhe called for greater industry transparency to protect consumers, hospitals, and regulators from excessive markups.",
+    "link": "https://www.ndtv.com/india-news/exclusive-after-survey-flags-2-800-pharma-profit-tukaram-mundhe-calls-for-transparency-12056638#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Thu, 17 Sep 2026 00:30:15 +0530"
+   },
+   {
     "title": "In 2025, J&K Saw No Stone-Throwing Incidents, Only 1 Terrorist Recruited",
-    "summary": "In 2025, Jammu and Kashmir recorded zero stone-throwing incidents and only one terrorist recruitment. The Defence Ministry attributed this decline to local youth abandoning violence in favor of government welfare and employment schemes.",
+    "summary": "The Defence Ministry reported that Jammu and Kashmir experienced zero stone-throwing incidents and only one terrorist recruitment in 2025. Local youth have reportedly turned away from violence to pursue government welfare and employment opportunities.",
     "link": "https://www.ndtv.com/india-news/in-2025-j-k-saw-no-stone-throwing-incidents-only-1-terrorist-recruited-12056616#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Thu, 17 Sep 2026 00:17:19 +0530"
@@ -200,78 +228,50 @@
     "link": "https://www.ndtv.com/india-news/6-minors-drown-in-lake-near-hyderabad-during-ganesh-idol-immersion-12056615#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Thu, 17 Sep 2026 00:16:52 +0530"
-   },
-   {
-    "title": "\"We Are Very Liberal\": Supreme Court On Bail Cases Involving Marijuana",
-    "summary": "The Supreme Court stated that it is very liberal regarding bail cases involving marijuana. The bench advised that accused individuals can approach the top court for bail after lower courts reject their pleas.",
-    "link": "https://www.ndtv.com/india-news/we-are-very-liberal-supreme-court-on-bail-cases-involving-marijuana-12056610#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Thu, 17 Sep 2026 00:15:18 +0530"
-   },
-   {
-    "title": "Centre Asks Ola, Uber, Rapido To Do Away With Advance Tipping Option",
-    "summary": "The central government has directed ride-hailing services Ola, Uber, and Rapido to remove the option for advance tipping. The Central Consumer Protection Authority emphasized that tipping must remain voluntary and at the consumer's discretion after a ride is completed.",
-    "link": "https://www.ndtv.com/india-news/centre-asks-ola-uber-rapido-to-do-away-with-advance-tipping-option-12056602#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Thu, 17 Sep 2026 00:12:05 +0530"
-   },
-   {
-    "title": "Revanth Reddy Orders Probe Into Farmhouse Linked To KCR, His Party Hits Back",
-    "summary": "Telangana Chief Minister Revanth Reddy ordered an investigation into a farmhouse linked to opposition leader KCR. In response, BRS leader T Harish Rao alleged that Reddy's family collectively owns about 308 acres of land.",
-    "link": "https://www.ndtv.com/india-news/revanth-reddy-orders-probe-into-farmhouse-linked-to-kcr-his-party-hits-back-12056588#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Thu, 17 Sep 2026 00:06:09 +0530"
-   },
-   {
-    "title": "Will Fake Paneer Sale Be Banned Across India? Food Body Chief Explains",
-    "summary": "Food Safety and Standards Authority of India CEO G. Kamala Vardhana Rao explained that fake paneer is not sold everywhere, as most food inspections find products to be acceptable. He noted that only the minority of cases involving actual violations receive media attention.",
-    "link": "https://www.ndtv.com/india-news/will-fake-paneer-sale-be-banned-across-india-food-body-chief-explains-12056576#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Thu, 17 Sep 2026 00:01:09 +0530"
    }
   ],
   "General": [
    {
     "title": "Body found in search for missing three-year-old Noah Woods",
-    "summary": "Police divers discovered the body of missing three-year-old Noah Woods in a pond. He had gone missing from a playground on Tuesday.",
+    "summary": "Police divers discovered the body of three-year-old Noah Woods in a pond. He had been missing since disappearing from a playground on Tuesday.",
     "link": "https://www.bbc.co.uk/news/articles/cm93v1573vqro?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Wed, 16 Sep 2026 18:50:09 GMT"
    },
    {
-    "title": "Charles said Diana would be forgotten 'soon enough', Earl Spencer claims in book",
-    "summary": "Earl Spencer claims in a new book that then-Prince Charles said Diana would be forgotten \"soon enough\" after her death. Buckingham Palace disputed this claim, stating that grief can alter people's memories of past events.",
+    "title": "US interest rates raised for first time in three years",
+    "summary": "US interest rates were raised for the first time in three years in a unanimous decision. The rate hike occurred despite fierce opposition and calls for a cut from President Donald Trump.",
+    "link": "https://www.bbc.co.uk/news/articles/cw4gmlyvj422o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Wed, 16 Sep 2026 22:16:51 GMT"
+   },
+   {
+    "title": "'Grief can colour memory': Palace responds after Earl Spencer's claim in Diana book",
+    "summary": "Buckingham Palace responded to Earl Spencer's claim that the then-Prince of Wales said Princess Diana would be forgotten soon after her death. The Palace stated that grief can color memory.",
     "link": "https://www.bbc.co.uk/news/articles/c8e3rk47r4ego?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Wed, 16 Sep 2026 17:47:17 GMT"
+    "pubDate": "Wed, 16 Sep 2026 20:46:30 GMT"
    },
    {
     "title": "EU chief backs plan for Canada to become 'associate member'",
-    "summary": "Canada is seeking closer ties with the European Union following a breakdown in relations with the United States under President Donald Trump. The EU chief has backed a proposal for Canada to become an associate member of the bloc.",
+    "summary": "Canada is seeking closer ties with the European Union following a breakdown in relations with US President Donald Trump. In response, the EU chief has backed a plan for Canada to become an associate member.",
     "link": "https://www.bbc.co.uk/news/articles/cjwyzrr9d3dko?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Wed, 16 Sep 2026 12:36:51 GMT"
    },
    {
     "title": "'Putney pusher' suspect found dead at home",
-    "summary": "Nicholas Brandram, a suspect in the 2015 \"Putney pusher\" incident where a woman was shoved into the path of a bus, has been found dead at his home. Police confirmed his death following the unsolved attack that occurred nine years ago.",
+    "summary": "Nicholas Brandram, the suspect in the nine-year-old \"Putney pusher\" bus-shoving incident, has been found dead at his home. He had been accused of pushing a woman into the path of a moving bus in London.",
     "link": "https://www.bbc.co.uk/news/articles/c6783ekp0yn8o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Wed, 16 Sep 2026 15:56:06 GMT"
    },
    {
     "title": "Photos show widespread damage at US sites from Iranian attacks",
-    "summary": "A wrecked air force plane and destroyed buildings are among the images obtained by the BBC's partner CBS News.",
+    "summary": "CBS News obtained photos showing widespread damage at United States sites from Iranian attacks. The images reveal a wrecked air force plane and several destroyed buildings.",
     "link": "https://www.bbc.co.uk/news/articles/c8g49e0gwxeno?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Wed, 16 Sep 2026 18:36:16 GMT"
-   },
-   {
-    "title": "Watch: BBC crew catch thieves in act while filming shoplifting report",
-    "summary": "A BBC television crew accidentally filmed two thieves stealing items from a store while reporting on rising shoplifting rates. The journalists captured the crime in progress and subsequently reported the incident to the store staff.",
-    "link": "https://www.bbc.co.uk/news/videos/cmq5xyq78gp1o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Wed, 16 Sep 2026 06:13:05 GMT"
    }
   ]
  }
