@@ -1,6 +1,6 @@
 {
- "updatedAt": "2026-09-22T17:51:29Z",
- "model": "none",
+ "updatedAt": "2026-09-22T20:01:57Z",
+ "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
   "Geo-Political",
@@ -12,117 +12,117 @@
  "briefing": {
   "Markets": [
    {
+    "title": "US economy firming as inflation risks persist, says Richmond Fed’s Tom Barkin",
+    "summary": "Richmond Fed President Tom Barkin stated that the U.S. economy remains resilient due to strong consumer spending and broad growth. He noted that persistent inflation is a greater concern than labor market weaknesses, following the Federal Reserve's recent interest rate hike.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-economy-firming-as-inflation-risks-persist-says-richmond-feds-tom-barkin/articleshow/134418821.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Tue, 22 Sep 2026 23:51:41 +0530"
+   },
+   {
     "title": "Ahead of Market: 10 things that will decide stock market action on Wednesday",
-    "summary": "Indian equities reversed morning gains on Tuesday, with Sensex falling 330 points and Nifty closing lower after sharp vo...",
+    "summary": "Indian equities reversed morning gains on Tuesday, with the Sensex falling 330 points and the Nifty closing lower. F&O expiry, foreign outflows, geopolitical uncertainty, IT pressure, and elevated crude prices weighed on the market sentiment.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/ahead-of-market-10-things-that-will-decide-stock-market-action-on-wednesday/articleshow/134415960.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Tue, 22 Sep 2026 21:26:34 +0530"
    },
    {
     "title": "Hill-house backed Elevate Campuses raises Rs 945-crore anchor book",
-    "summary": "Hillhouse-backed Elevate Campuses raised Rs 945 crore from 20 anchor investors, including major mutual funds and Norges....",
+    "summary": "Hillhouse-backed Elevate Campuses has raised Rs 945 crore from 20 anchor investors ahead of its Rs 2,100 crore initial public offering. The anchor book represents 60 percent of the company's qualified institutional buyer allocation for the IPO, which opens Wednesday and closes Friday.",
     "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/hill-house-backed-elevate-campuses-raises-rs-945-crore-anchor-book/articleshow/134415850.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Tue, 22 Sep 2026 21:19:51 +0530"
    },
    {
     "title": "Runwal Enterprises sets IPO price band at Rs 290-305 per share",
-    "summary": "Runwal Enterprises has set its IPO price band at Rs 290-305 per share, with the Rs 500 crore fresh issue opening Friday ...",
+    "summary": "Runwal Enterprises has set its IPO price band at Rs 290-305 per share to raise Rs 500 crore. The Mumbai-focused developer's initial public offering opens Friday and closes September 29.",
     "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/runwal-enterprises-sets-ipo-price-band-at-rs-290-305-per-share/articleshow/134415812.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Tue, 22 Sep 2026 21:16:18 +0530"
    },
    {
     "title": "Market Trading Guide: Finolex Cables among 3 stock recommendations for Wednesday",
-    "summary": "Falling crude oil prices and Brent slipping below $100 a barrel helped Indian markets recover from intraday lows. Analys...",
+    "summary": "Indian markets recovered from intraday lows as crude oil prices fell and Brent crude dropped below $100 a barrel. Analysts recommend BlueStone Jewellery, JSW Infrastructure, and Finolex Cables for Wednesday due to positive technical indicators and breakout setups.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/market-trading-guide-finolex-cables-among-3-stock-recommendations-for-wednesday/slideshow/134415805.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Tue, 22 Sep 2026 21:11:16 +0530"
    },
    {
     "title": "RHI Magnesita block deal: Dalmia Bharat refractories divests 11.11% stake for Rs 826 crore; SBI MF, Bandhan MF among buyers",
-    "summary": "Dalmia Bharat Refractories sold 2.29 crore RHI Magnesita India shares, or 11.11% of equity, through a Rs 826 crore block...",
+    "summary": "Dalmia Bharat Refractories sold an 11.11% stake in RHI Magnesita India for Rs 826 crore through a block deal. SBI Mutual Fund and Bandhan MF were among the buyers, and RHI Magnesita shares subsequently rose 3.04% to Rs 379.20.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/rhi-magnesita-block-deal-dalmia-bharat-refractories-divests-11-11-stake-for-rs-826-crore-sbi-mf-bandhan-mf-among-buyers/articleshow/134415677.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Tue, 22 Sep 2026 21:04:01 +0530"
-   },
-   {
-    "title": "Celldex shares slip 15% as safety concerns cloud skin drug trial win",
-    "summary": "(Rewrites throughout to add company comments, adds shares in paragraph 2, analyst comment in paragraph 5)- Celldex Thera...",
-    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/celldex-shares-slip-15-as-safety-concerns-cloud-skin-drug-trial-win/articleshow/134415639.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Tue, 22 Sep 2026 21:01:16 +0530"
    }
   ],
   "Geo-Political": [
    {
+    "title": "US to build two military bases in Greenland under new deal with Denmark",
+    "summary": "The United States and Denmark have signed a defense agreement to build two new military bases in Greenland. The deal also formally re-affirms Denmark's sovereignty over the semi-autonomous Arctic territory.",
+    "link": "https://www.bbc.co.uk/news/articles/c9dr74g32g8go?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Tue, 22 Sep 2026 18:43:29 GMT"
+   },
+   {
     "title": "Sri Lanka court convicts 15 men over deadly Easter Sunday bombings",
-    "summary": "Three churches and three luxury hotels were targeted in the 2019 attacks which killed 270.",
+    "summary": "A Sri Lankan court has convicted 15 men for their involvement in the 2019 Easter Sunday bombings. The coordinated attacks targeted three churches and three luxury hotels, resulting in 270 deaths.",
     "link": "https://www.bbc.co.uk/news/articles/cqy7z275yx65o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Tue, 22 Sep 2026 14:03:20 GMT"
+    "pubDate": "Tue, 22 Sep 2026 19:47:44 GMT"
    },
    {
     "title": "Developing El Niño becomes strongest on record weeks before expected peak",
-    "summary": "Scientists say the developing El Niño is now the strongest on record with weather impacts already being felt around the ...",
+    "summary": "Scientists report that the developing El Niño has become the strongest on record. Weather impacts from this severe climate pattern are already affecting regions globally.",
     "link": "https://www.bbc.co.uk/weather/articles/cmvgy4nv9d62o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Tue, 22 Sep 2026 12:54:14 GMT"
    },
    {
+    "title": "Ukraine anger as EU removes Russian oligarchs from sanctions list",
+    "summary": "The European Union removed Russian oligarchs Alisher Usmanov and Mikhail Fridman from its sanctions list. Ukraine condemned the decision, stating it sends the wrong signal to Moscow.",
+    "link": "https://www.bbc.co.uk/news/articles/c6dj4k98107do?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Tue, 22 Sep 2026 19:06:06 GMT"
+   },
+   {
     "title": "Eleven injured in shooting outside Turkish school",
-    "summary": "Footage appears to show a male in the area carrying a firearm, while officials say the attacker has been captured.",
+    "summary": "An attacker opened fire outside a school in Turkey, injuring eleven people. Authorities have successfully captured the suspect involved in the shooting.",
     "link": "https://www.bbc.co.uk/news/articles/c6y0z4gv0le4o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Tue, 22 Sep 2026 10:42:47 GMT"
    },
    {
     "title": "Lindsay Clancy's lawyer asks judge to investigate juror and check his phone",
-    "summary": "The attorney wants the court to look at the juror's mobile phone use and answers on questionnaires.",
+    "summary": "The defense attorney for Lindsay Clancy asked a judge to investigate a juror's mobile phone use during the trial. The lawyer also requested a review of the juror's initial questionnaire answers.",
     "link": "https://www.bbc.co.uk/news/articles/cm4gvyw80dp2o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Tue, 22 Sep 2026 13:58:42 GMT"
-   },
-   {
-    "title": "Top South African policeman charged with sexual offences",
-    "summary": "Shadrack Sibiya, who has made no comment, is alleged to have groomed a 16-year-old and raped an 18-year-old.",
-    "link": "https://www.bbc.co.uk/news/articles/cwjdvgx77n0zo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Tue, 22 Sep 2026 16:54:41 GMT"
-   },
-   {
-    "title": "Autopsy shows Hayden Panettiere died from a drug overdose",
-    "summary": "The death of the child star - who had fentanyl, Xanax, a muscle relaxant and antipsychotic medication in her system -  w...",
-    "link": "https://www.bbc.co.uk/news/articles/crn45d8dd2wdo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Tue, 22 Sep 2026 15:17:37 GMT"
    }
   ],
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and aske...",
+    "summary": "An author discovered their WordPress SaaS course was recommended as the top result when querying ChatGPT for the best course on the topic. They achieved this free AI visibility without purchasing advertising.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "Looking to level up your content creation game in 2025? You're in the right place! The digital landscape has evolved dra...",
+    "summary": "The digital landscape in 2025 requires creators to use artificial intelligence to stay ahead. This guide outlines the top ten AI tools designed to make content creation easier and more efficient.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "&nbsp;In the rapidly advancing landscape of AI technology and innovation, LimeWire emerges as a unique platform in the r...",
+    "summary": "LimeWire has transitioned into a generative AI platform that allows users to create digital content. The tool also provides features for creators to share and monetize their AI-generated work.",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovation and efficiency in various industries. ...",
+    "summary": "This article explores ten of the most advanced and widely used artificial intelligence tools in 2023. These technologies are designed to automate repetitive tasks, improve workflows, and increase productivity across various industries.",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
@@ -144,113 +144,120 @@
   ],
   "Data & Insights": [
    {
+    "title": "Strong pace of economic growth seen in June quarter to continue, says FM",
+    "summary": "Union Finance Minister Nirmala Sitharaman states that India's strong June quarter economic growth pace will continue. She notes the February 1 budget will sustain this growth rate through 2026.",
+    "link": "https://www.livemint.com/economy/strong-pace-of-economic-growth-seen-in-june-quarter-to-continue-says-fm-11790096136154.html",
+    "source": "livemint.com",
+    "pubDate": "Wed, 23 Sep 2026 00:48:29 +0530"
+   },
+   {
+    "title": "Charges, framework, dedicated fund — How MDR on UPI works for micro and small merchants, explained",
+    "summary": "Starting October 15, a 0.4% merchant discount rate applies to person-to-merchant UPI transactions exceeding ₹2,000. This article explains how these charges, the new framework, and a dedicated fund affect small and micro merchants.",
+    "link": "https://www.livemint.com/economy/charges-framework-dedicated-fund-how-mdr-on-upi-works-for-micro-and-small-merchants-explained-11790075385353.html",
+    "source": "livemint.com",
+    "pubDate": "Tue, 22 Sep 2026 23:36:12 +0530"
+   },
+   {
     "title": "Jamie Dimon flags India's 'inconsistent application of taxes': What the JPMorgan CEO said about Indian economy",
-    "summary": "Foreign investors have for years flagged concerns over India’s relatively high taxes and what they describe as inconsist...",
+    "summary": "JPMorgan CEO Jamie Dimon criticized India's inconsistent application of tax regulations. Foreign investors have long raised concerns about these unpredictable policies and high tax rates in the country.",
     "link": "https://www.livemint.com/economy/jamie-dimon-flags-indias-inconsistent-application-of-taxes-what-the-jpmorgan-ceo-said-about-indian-economy-11790093748658.html",
     "source": "livemint.com",
     "pubDate": "Tue, 22 Sep 2026 23:01:14 +0530"
    },
    {
     "title": "Saudi oil shock could hit Asian refiners through prices and freight before crude runs out",
-    "summary": "Saudi Arabia’s East-West oil pipeline has resumed operations after a shutdown that disrupted the kingdom’s crude export ...",
+    "summary": "Saudi Arabia's East-West oil pipeline has resumed operations after a temporary shutdown of the kingdom's crude export network. This restart has eased concerns among Asian refiners about potential crude supply shortages, price spikes, and freight disruptions.",
     "link": "https://www.livemint.com/economy/saudi-oil-shock-could-hit-asian-refiners-through-prices-and-freight-before-crude-runs-out-11790090051479.html",
     "source": "livemint.com",
     "pubDate": "Tue, 22 Sep 2026 21:26:10 +0530"
    },
    {
     "title": "FM asks entrepreneurs to build not just bigger, but better companies",
-    "summary": "Finance minister Nirmala Sitharaman said corporate managers should create an ecosystem where products are not only manuf...",
+    "summary": "Finance Minister Nirmala Sitharaman urged corporate leaders to build better companies by designing and developing products in India for global markets. She emphasized creating an ecosystem where manufacturing is supported by domestic innovation and conception.",
     "link": "https://www.livemint.com/economy/finance-minister-nirmala-sitharaman-startups-india-unicorns-11790077706814.html",
     "source": "livemint.com",
     "pubDate": "Tue, 22 Sep 2026 19:08:22 +0530"
    },
    {
     "title": "China has what Trump needs for AI race: Why Beijing’s rare earths may matter more than tariffs at Trump-Xi summit",
-    "summary": "Donald Trump and Xi Jinping's upcoming talks put rare earths in focus as China’s supply dominance meets the US push for ...",
+    "summary": "China's dominance over the global supply of rare earths gives Beijing significant leverage ahead of the upcoming summit between Donald Trump and Xi Jinping. The United States is actively seeking alternative sources, such as Greenland, to reduce its dependence on Chinese materials needed for the artificial intelligence race.",
     "link": "https://www.livemint.com/economy/china-has-what-trump-needs-for-ai-race-why-beijing-s-rare-earths-may-matter-more-than-tariffs-at-trump-xi-summit-11790076030230.html",
     "source": "livemint.com",
     "pubDate": "Tue, 22 Sep 2026 18:16:21 +0530"
-   },
-   {
-    "title": "GST on MDR will not impose additional burden on merchants: NPCI explains how they can adjust it against tax liability",
-    "summary": "UPI MDR of 0.4% will apply to P2M transactions above  ₹2,000 from 15 October. NPCI says GST paid on MDR can be adjusted ...",
-    "link": "https://www.livemint.com/economy/gst-on-mdr-will-not-impose-additional-burden-on-merchants-npci-explains-how-they-can-adjust-it-against-tax-liability-11790074654067.html",
-    "source": "livemint.com",
-    "pubDate": "Tue, 22 Sep 2026 17:34:40 +0530"
-   },
-   {
-    "title": "Centre keeps paddy procurement target unchanged despite lower acreage",
-    "summary": "Paddy acreage as of 18 September stood at 42.9 million hectares, down from 44.6 million hectares a year earlier, while t...",
-    "link": "https://www.livemint.com/economy/despite-paddy-acreage-decline-govt-sets-71-95-million-tonne-procurement-target-for-kms-202627-11790069341009.html",
-    "source": "livemint.com",
-    "pubDate": "Tue, 22 Sep 2026 17:30:18 +0530"
    }
   ],
   "India": [
    {
-    "title": "AAP's Guru Ravidas Yatra Plan Targets Key Dalit Vote In Punjab",
-    "summary": "The four Shobha Yatras will cover a large geographical area before converging at Sri Khuralgarh Sahib on December 3.The ...",
-    "link": "https://www.ndtv.com/india-news/four-shobha-yatras-one-political-message-aaps-big-guru-ravidas-outreach-ahead-of-2027-punjab-polls-12083278#publisher=newsstand",
+    "title": "Man Shoots Wife, 2 Priests In UP's Azamgarh, Takes 2 Children Hostage",
+    "summary": "A man in Azamgarh, Uttar Pradesh, shot and injured his wife and two priests. He then locked himself in a room with his two children as hostages, and police efforts to rescue them are ongoing.",
+    "link": "https://www.ndtv.com/india-news/man-shoots-wife-2-priests-in-ups-azamgarh-takes-2-children-hostage-12083575#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Tue, 22 Sep 2026 22:59:34 +0530"
+    "pubDate": "Wed, 23 Sep 2026 00:37:04 +0530"
    },
    {
-    "title": "From Seats To Personality Clash: Inside Samajwadi-Congress Alliance Talks",
-    "summary": "According to sources, several Congress leaders, including UP in-charge Rajendra Pal Gautam and Imran Masood, are constan...",
-    "link": "https://www.ndtv.com/india-news/from-seats-to-personality-clash-inside-samajwadi-congress-alliance-talks-12083207#publisher=newsstand",
+    "title": "4 Months On, No FIR Yet In Vaishno Devi's Rs 550 Crore-Silver 'Scandal'",
+    "summary": "Four months after a lawyer filed a complaint regarding the alleged pilferage and adulteration of Rs 550 crore in silver offerings at the Vaishno Devi shrine, authorities have not yet filed an FIR. The complaint alleges widespread irregularities concerning valuable silver items donated by devotees to the temple.",
+    "link": "https://www.ndtv.com/india-news/4-months-on-no-fir-yet-in-vaishno-devis-rs-550-crore-silver-scandal-case-12083565#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Tue, 22 Sep 2026 22:48:48 +0530"
+    "pubDate": "Wed, 23 Sep 2026 00:24:52 +0530"
    },
    {
-    "title": "Analysis: BJP's Punjab Challenge Runs Much Longer Than A 4,000-km Yatra",
-    "summary": "The BJP's four-route yatra across Punjab is scheduled to travel nearly 4,000 kilometres and cover all 117 Assembly const...",
-    "link": "https://www.ndtv.com/india-news/bjps-punjab-challenge-runs-much-longer-than-a-4-000-km-yatra-against-drugs-12083165#publisher=newsstand",
+    "title": "'Need The Money Now': Rs 700-Crore Mylapore Fund Scam Victims Demand Fast-Track Justice",
+    "summary": "Victims of the Rs 700-crore Mylapore Hindu Permanent Fund Nidhi scam are demanding fast-track justice so they can recover their money. Entrepreneur and politician Devanathan Yadav, who headed the fund, has been arrested in connection with the fraud.",
+    "link": "https://www.ndtv.com/india-news/need-the-money-now-rs-700-crore-mylapore-fund-scam-victims-gather-to-seek-quick-justice-12083562#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Tue, 22 Sep 2026 22:36:15 +0530"
+    "pubDate": "Wed, 23 Sep 2026 00:21:23 +0530"
    },
    {
-    "title": "US Wants To Punish Russian Oil Buyers. But It's Still Buying From Moscow",
-    "summary": "Data from the Centre for Research on Energy and Clean Air (CREA) show that since January 2023, China has been Russia's b...",
-    "link": "https://www.ndtv.com/india-news/us-wants-to-punish-russian-oil-buyers-but-its-still-buying-from-moscow-12082336#publisher=newsstand",
+    "title": "Dance, Liquor Videos: Bihar Groping Horror Accused's Facebook Timeline",
+    "summary": "The Facebook timeline of Nandan Yadav, an accused in the Bihar groping horror, features several videos of him posing aggressively. These videos show Yadav alone and with his friends while dancing and consuming liquor.",
+    "link": "https://www.ndtv.com/india-news/bihar-groping-horror-accuseds-facebook-timeline-dance-liquor-videos-12081524#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Tue, 22 Sep 2026 21:53:36 +0530"
+    "pubDate": "Wed, 23 Sep 2026 00:15:26 +0530"
    },
    {
-    "title": "Decks Cleared For Bangladesh's New High Commissioner To India Asad Alam Siam",
-    "summary": "The term of the current Bangladesh High Commissioner to India, Riaz Hamidullah, ends next month.",
-    "link": "https://www.ndtv.com/world-news/decks-cleared-for-bangladeshs-new-high-commissioner-to-india-asad-alam-siam-12082981#publisher=newsstand",
+    "title": "Why Maharashtra Minister Has Warned Of A Potential 100% Drought Situation",
+    "summary": "A Maharashtra minister has warned of a potential 100% drought situation in the state. Maharashtra has emerged as one of India's worst-hit states by drought this September.",
+    "link": "https://www.ndtv.com/india-news/why-maharashtra-minister-has-warned-of-a-potential-100-drought-situation-12083475#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Tue, 22 Sep 2026 21:51:01 +0530"
+    "pubDate": "Wed, 23 Sep 2026 00:03:51 +0530"
    },
    {
-    "title": "PM Modi To Chair 2-Day 'Chintan Shivir' With Cabinet Ministers From Tomorrow",
-    "summary": "The high-level brainstorming session will bring together only cabinet ministers for focused deliberations at Delhi's Sev...",
-    "link": "https://www.ndtv.com/india-news/pm-modi-to-chair-2-day-chintan-shivir-with-cabinet-ministers-from-tomorrow-12082941#publisher=newsstand",
+    "title": "From Vacancies To Appointments: Where UP's 9.5 Lakh Government Jobs Landed",
+    "summary": "Samajwadi Party President Akhilesh Yadav has criticized Chief Minister Yogi Adityanath regarding unemployment and a lack of job opportunities for youth in Uttar Pradesh. This debate centers on the allocation and status of 9.5 lakh government jobs in the state.",
+    "link": "https://www.ndtv.com/india-news/from-vacancies-to-appointments-where-ups-9-5-lakh-government-jobs-landed-12083519#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Tue, 22 Sep 2026 21:43:00 +0530"
+    "pubDate": "Wed, 23 Sep 2026 00:02:06 +0530"
    }
   ],
   "General": [
    {
-    "title": "Plot targeting Manchester's Jewish community disrupted, say police",
-    "summary": "Two men were arrested in Manchester on Sunday, say counter-terror police.",
-    "link": "https://www.bbc.co.uk/news/articles/cq07ly8xzvn4o?at_medium=RSS&at_campaign=rss",
+    "title": "Watch: Burnham 'gets it' says Trump, as the two leaders meet for first time",
+    "summary": "Donald Trump met with Andy Burnham for the first time in New York and stated that he can do business with the Greater Manchester mayor. During the meeting, Trump also criticized the UK government's recent agreement regarding the Chagos Islands.",
+    "link": "https://www.bbc.co.uk/news/videos/cxly57mv4767o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Tue, 22 Sep 2026 16:52:09 GMT"
+    "pubDate": "Tue, 22 Sep 2026 19:15:57 GMT"
    },
    {
-    "title": "New EU industry rules would damage UK, warns Burnham",
-    "summary": "The prime minister says he will raise his concerns when he meets the European Commission President later.",
-    "link": "https://www.bbc.co.uk/news/articles/cv2dwylkl7weo?at_medium=RSS&at_campaign=rss",
+    "title": "Plot targeting Manchester's Jewish community disrupted, say police",
+    "summary": "Counter-terrorism police arrested two men in Manchester on Sunday for allegedly targeting the city's Jewish community. Authorities successfully disrupted the planned plot through these arrests.",
+    "link": "https://www.bbc.co.uk/news/articles/cq07ly8xzvn4o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Tue, 22 Sep 2026 13:10:23 GMT"
+    "pubDate": "Tue, 22 Sep 2026 18:00:17 GMT"
    },
    {
     "title": "Tim Westwood charged with two more sexual offences",
-    "summary": "The alleged sexual offences date back to 1991 and 2004.",
+    "summary": "Tim Westwood has been charged with two additional sexual offences alleged to have occurred in 1991 and 2004. These new charges bring the total number of criminal allegations he faces regarding historical sexual misconduct.",
     "link": "https://www.bbc.co.uk/news/articles/ckx2zv0rx0nqo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Tue, 22 Sep 2026 14:29:31 GMT"
+   },
+   {
+    "title": "Earl Spencer should pull Diana book from shelves, Piers Morgan says",
+    "summary": "Piers Morgan is pursuing legal action against Princess Diana's brother, Earl Spencer, following a factual error in Spencer's memoir. Morgan stated that Spencer should pull the book from store shelves.",
+    "link": "https://www.bbc.co.uk/news/articles/cr93e2nz0281o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Tue, 22 Sep 2026 17:50:13 GMT"
    },
    {
     "title": "Father admits causing death of his son in hotel fall",
@@ -260,18 +267,11 @@
     "pubDate": "Tue, 22 Sep 2026 15:52:35 GMT"
    },
    {
-    "title": "Earl Spencer should pull Diana book from shelves, Piers Morgan says",
-    "summary": "The BBC understands the book's publisher, Penguin,  will be amending the inaccuracy in future editions of the book.",
-    "link": "https://www.bbc.co.uk/news/articles/cr93e2nz0281o?at_medium=RSS&at_campaign=rss",
+    "title": "Booker Prize judges reveal shortlisted novels after selection 'tussle'",
+    "summary": "Past Booker winners Marlon James and Douglas Stuart are among the nominees for this year's award.",
+    "link": "https://www.bbc.co.uk/news/articles/cqzjz8dk4wddo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Tue, 22 Sep 2026 17:50:13 GMT"
-   },
-   {
-    "title": "Autopsy shows Hayden Panettiere died from a drug overdose",
-    "summary": "The death of the child star - who had fentanyl, Xanax, a muscle relaxant and antipsychotic medication in her system -  w...",
-    "link": "https://www.bbc.co.uk/news/articles/crn45d8dd2wdo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Tue, 22 Sep 2026 15:17:37 GMT"
+    "pubDate": "Tue, 22 Sep 2026 19:01:18 GMT"
    }
   ]
  }
