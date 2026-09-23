@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-09-23T20:00:39Z",
+ "updatedAt": "2026-09-23T22:35:28Z",
  "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
@@ -12,49 +12,56 @@
  "briefing": {
   "Markets": [
    {
+    "title": "US stocks: US market ends down as oil prices, Treasury yields rise",
+    "summary": "US stocks closed lower due to disappointing performances from Alphabet and Amazon, alongside rising Treasury yields and oil prices. Meanwhile, strong US business activity sparked speculation about potential economic impacts.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/us-stocks-us-market-ends-down-as-oil-prices-treasury-yields-rise/articleshow/134445625.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Thu, 24 Sep 2026 01:49:17 +0530"
+   },
+   {
     "title": "US diesel futures fall on report of export ban plan; White House calls it fake news",
-    "summary": "US diesel futures dropped after reports of a potential 90-day export ban to lower fuel prices, though the White House dismissed the report as fake news. Energy Secretary Chris Wright questioned the ban's effectiveness, while global diesel prices remain high due to supply cuts from Russia and Saudi Arabia.",
+    "summary": "US diesel futures dropped after reports of a potential 90-day export ban, though the White House dismissed the rumor as fake news. Energy Secretary Chris Wright questioned whether the ban would effectively lower rising fuel prices driven by supply cuts from Russia and Saudi Arabia.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-diesel-futures-fall-on-report-of-export-ban-plan-white-house-calls-it-fake-news/articleshow/134444376.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Thu, 24 Sep 2026 00:08:14 +0530"
    },
    {
     "title": "Melania Trump rings New York Stock Exchange opening bell to launch new women's initiative Imperia",
-    "summary": "Melania Trump rang the New York Stock Exchange opening bell on Wednesday to launch Imperia, a new initiative focused on women's leadership and economic empowerment. During her remarks at the event, she highlighted women's global economic impact and discussed international issues such as war-separated children.",
+    "summary": "On Wednesday, Melania Trump rang the New York Stock Exchange opening bell to launch her new women's empowerment initiative, Imperia. During the event, she highlighted women's economic impact and discussed global issues such as war-separated children.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/melania-trump-rings-new-york-stock-exchange-opening-bell-to-launch-new-womens-initiative-imperia/articleshow/134443367.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Wed, 23 Sep 2026 22:57:05 +0530"
    },
    {
     "title": "Fed Governor Michael Barr signals more rate hikes needed to tame inflation",
-    "summary": "Federal Reserve Governor Michael Barr stated that more interest rate hikes may be needed to bring inflation down to the 2% target. His view differs from the Fed Chairman, who has not offered guidance on future rates following the recent increase to a 3.75%-4.00% range.",
+    "summary": "Federal Reserve Governor Michael Barr stated that more interest rate hikes are needed because inflation remains above the 2% target. This viewpoint differs from the Fed Chairman, who has not yet provided guidance on future rates.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/fed-governor-michael-barr-signals-more-rate-hikes-needed-to-tame-inflation/articleshow/134442493.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Wed, 23 Sep 2026 22:14:32 +0530"
    },
    {
     "title": "Ahead of Market: 10 things that will decide stock market action on Thursday",
-    "summary": "Indian equities closed higher on Wednesday, driven by falling crude prices, stronger domestic growth signals, and broader market gains in metals and banking. Investors are now looking ahead to ten key factors that will determine market action on Thursday.",
+    "summary": "Indian equities closed higher on Wednesday, driven by falling crude prices, stronger domestic growth signals, and broad-based gains in metals and banking stocks. The Sensex rose 299 points and the Nifty gained 118 points, with broader markets outperforming the main indices.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/ahead-of-market-10-things-that-will-decide-stock-market-action-on-thursday/articleshow/134442041.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Wed, 23 Sep 2026 21:31:34 +0530"
    },
    {
     "title": "Market Trading Guide: Vijaya Diagnostic among 3 stock recommendations for Thursday",
-    "summary": "Indian equities closed higher as investors focused on domestic growth momentum despite geopolitical risks and elevated crude prices. An expert recommended three stocks for trading on Thursday, including Vijaya Diagnostic, based on bullish trends, improving momentum, and breakout signals.",
+    "summary": "Indian equities closed higher due to a focus on domestic growth despite ongoing geopolitical and crude oil risks. An expert has recommended Vijaya Diagnostic and two other stocks based on bullish trends and breakout signals.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/market-trading-guide-vijaya-diagnostic-among-3-stock-recommendations-for-thursday/slideshow/134442027.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Wed, 23 Sep 2026 21:25:54 +0530"
-   },
-   {
-    "title": "10-year US Treasury yields surges over 5.05% to 19-year high",
-    "summary": "The 10-year US Treasury yield surged past 5.05% to its highest level in 19 years due to economic data raising fears of more Federal Reserve rate hikes. This increase in yields placed heavy downward pressure on equity markets, especially growth and technology stocks.",
-    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/10-year-us-treasury-yields-surges-over-5-05-to-19-year-high/articleshow/134441042.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Wed, 23 Sep 2026 20:22:02 +0530"
    }
   ],
   "Geo-Political": [
+   {
+    "title": "AI superpower ambitions take centre stage as Trump and Xi meet",
+    "summary": "US President Trump and Chinese President Xi met to discuss artificial intelligence supremacy. Both nations are competing for dominance in the field while aiming to maintain human control over the technology.",
+    "link": "https://www.bbc.co.uk/news/articles/c6gqdgg8w59xo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Wed, 23 Sep 2026 22:01:17 GMT"
+   },
    {
     "title": "Iran's president tells Trump it will never 'bend the knee'",
     "summary": "Iranian President Masoud Pezeshkian stated at the United Nations that Iran will never submit to the United States. This defiant response follows a threat from the U.S. president to annihilate Iran if a peace agreement is not reached soon.",
@@ -64,65 +71,58 @@
    },
    {
     "title": "Ethiopia and Tigray accuse each of launching offensives, fuelling fears of new war",
-    "summary": "Ethiopia and Tigray have accused each other of launching new military offensives, raising concerns of a renewed war. This escalation follows reports of recent drone strikes and the local seizure of Tigray's airports.",
+    "summary": "Ethiopia and Tigray have accused each other of launching new military offensives, raising fears of a renewed war. This escalation follows reports of recent drone strikes and the local authorities reportedly seizing airports in Tigray.",
     "link": "https://www.bbc.co.uk/news/articles/cry8zwwq21pxo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Wed, 23 Sep 2026 16:53:37 GMT"
    },
    {
-    "title": "White House rolling out red carpet for historic Xi Jinping visit",
-    "summary": "President Trump and Chinese President Xi Jinping are scheduled to meet in Washington for a multi-day visit. The leaders are expected to discuss various topics, including trade and artificial intelligence.",
-    "link": "https://www.bbc.co.uk/news/articles/c6n9w410v3vzo?at_medium=RSS&at_campaign=rss",
+    "title": "Trump's Board of Peace unveils $2.45bn plan to begin Gaza's reconstruction",
+    "summary": "Trump's Board of Peace has announced a $2.45 billion plan to begin the reconstruction of Gaza. The funding figure was revealed during a board meeting held on the sidelines of the United Nations General Assembly in New York.",
+    "link": "https://www.bbc.co.uk/news/articles/cwlyke0mm0x3o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Wed, 23 Sep 2026 14:32:37 GMT"
+    "pubDate": "Wed, 23 Sep 2026 21:26:14 GMT"
    },
    {
     "title": "Dramatic eviction of woman aged 87 highlights Spain's housing shortage",
-    "summary": "An 87-year-old woman named Maricarmen was evicted from her Madrid apartment after failing to pay the increased rent demanded by the firm that recently purchased the building. This event highlights Spain's ongoing housing shortage.",
+    "summary": "An 87-year-old woman named Maricarmen was evicted from her Madrid apartment after failing to pay the increased rent demanded by the firm that recently bought the building. This dramatic event underscores the severe housing shortage in Spain.",
     "link": "https://www.bbc.co.uk/news/articles/c6vgy55lm8z1o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Wed, 23 Sep 2026 12:31:31 GMT"
    },
    {
-    "title": "Dolly Parton's manager accuses her nephew of 'threats and intimidation'",
-    "summary": "Bryan Seaver, the nephew who announced Dolly Parton's death, has been accused by her manager of making threats and intimidation. He is specifically accused of attempting to extort Parton's estate.",
-    "link": "https://www.bbc.co.uk/news/articles/c670lydl5wg5o?at_medium=RSS&at_campaign=rss",
+    "title": "UK survivor of Canadian poison seller says he exploited her despair",
+    "summary": "Elisabeth Belien told Kenneth Law's sentencing hearing that she was 23 years old when she consumed the poison he sold. She stated that Law exploited her despair.",
+    "link": "https://www.bbc.co.uk/news/articles/cmvgy4237gq9o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Wed, 23 Sep 2026 12:22:53 GMT"
-   },
-   {
-    "title": "Harvey Weinstein sentenced to 15 years in prison for sexual assault",
-    "summary": "Harvey Weinstein was sentenced to 16 years in prison for sexual assault following a trial in Los Angeles. Assault survivor Miriam Haley stated that the attack had a devastating effect on her life and sense of security.",
-    "link": "https://www.bbc.co.uk/news/articles/cm98626n260yo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Wed, 23 Sep 2026 18:51:12 GMT"
+    "pubDate": "Wed, 23 Sep 2026 21:16:00 GMT"
    }
   ],
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "The author tested getting organic traffic from ChatGPT by asking it to recommend a SaaS course built with WordPress. The AI recommended the author's course as the top result without any paid advertising.",
+    "summary": "A digital creator discovered their WordPress SaaS course was recommended as the top result when asking ChatGPT for the best course on the topic. The author achieved this visibility without paying for advertising or traditional search engine optimization.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "This guide highlights ten essential artificial intelligence tools designed to revolutionize content creation in 2025. These applications help creators streamline their workflows and maintain a competitive edge in the evolving digital landscape.",
+    "summary": "The digital landscape in 2025 requires content creators to use artificial intelligence to stay competitive. This guide outlines the top ten AI tools designed to streamline and revolutionize the content creation process.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "LimeWire has evolved into a generative AI platform that allows users to create digital content. The tool also provides features for creators to share and monetize their AI-generated work.",
+    "summary": "&nbsp;In the rapidly advancing landscape of AI technology and innovation, LimeWire emerges as a unique platform in the r...",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovation and efficiency in various industries. ...",
+    "summary": "This article highlights ten leading artificial intelligence tools from 2023 that drive innovation across various industries. These advanced applications automate repetitive tasks, improve workflows, and increase overall productivity.",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
@@ -145,42 +145,42 @@
   "Data & Insights": [
    {
     "title": "Centre cuts import duty on edible oils to curb price rise",
-    "summary": "The central government has reduced import duties on edible oils to control rising prices. This decision aims to lower cooking oil import costs and potentially provide financial relief to consumers.",
+    "summary": "The central government has reduced import duties on edible oils to control rising prices. This reduction aims to lower cooking oil import costs and potentially relieve consumers if supply chain savings are passed down.",
     "link": "https://www.livemint.com/economy/centre-cuts-import-duty-on-edible-oils-to-curb-price-rise-11790184261562.html",
     "source": "livemint.com",
     "pubDate": "Wed, 23 Sep 2026 23:59:40 +0530"
    },
    {
     "title": "PM’s principal secretary flags risks from trade barriers, volatile capital",
-    "summary": "India's principal secretary Pramod Kumar Mishra warned that the country cannot depend on favorable global conditions despite its economic stability and growth. He specifically highlighted potential risks from rising trade barriers and volatile capital flows.",
+    "summary": "India's principal secretary Pramod Kumar Mishra warned that the country cannot depend on favorable global conditions despite its economic stability and growth. He specifically highlighted potential risks from trade barriers and volatile capital flows.",
     "link": "https://www.livemint.com/economy/pms-principal-secretary-flags-risks-from-trade-barriers-volatile-capital-11790173013662.html",
     "source": "livemint.com",
     "pubDate": "Wed, 23 Sep 2026 21:09:39 +0530"
    },
    {
     "title": "Rupee has a fair case to appreciate: RBI DG Poonam Gupta",
-    "summary": "Reserve Bank of India Deputy Governor Poonam Gupta states that the rupee's recent depreciation over the past year and a half will likely be temporary. She attributes this outlook to India's strong underlying Balance of Payments (BoP), creating a fair case for the currency to appreciate.",
+    "summary": "Reserve Bank of India Deputy Governor Poonam Gupta states that the rupee's recent depreciation is likely temporary. She attributes this view to India's strong underlying balance of payments.",
     "link": "https://www.livemint.com/economy/rupee-has-a-fair-case-to-appreciate-rbi-dg-poonam-gupta-11790171854530.html",
     "source": "livemint.com",
     "pubDate": "Wed, 23 Sep 2026 20:39:49 +0530"
    },
    {
     "title": "Flash PMI: Business activity hits three-month high in September on robust manufacturing demand",
-    "summary": "In September, Middle East tensions drove businesses to build record inventory buffers, pushing overall business activity to a three-month high due to robust manufacturing demand. Additionally, rising output prices signaled renewed efforts by firms to safeguard their profit margins.",
+    "summary": "Middle East tensions prompted companies to build record inventory buffers in September, pushing business activity to a three-month high. Additionally, rising output prices reflected renewed efforts by businesses to safeguard their profit margins.",
     "link": "https://www.livemint.com/economy/india-business-activity-pmi-september-manufacturing-services-growth-11790155742728.html",
     "source": "livemint.com",
     "pubDate": "Wed, 23 Sep 2026 15:49:26 +0530"
    },
    {
     "title": "After Moody's, now S&amp;P and Fitch raise their India growth forecasts",
-    "summary": "S&P and Fitch have raised their economic growth forecasts for India, following a similar move by Moody's. Both agencies expect an interest rate hike this fiscal year due to high inflation, strong growth, and the war in West Asia.",
+    "summary": "Following Moody's, S&P and Fitch have increased their economic growth forecasts for India. The rating agencies attribute this upward revision to strong growth, alongside expected interest rate hikes driven by high inflation and the conflict in West Asia.",
     "link": "https://www.livemint.com/economy/india-gdp-growth-forecast-fy27-sp-fitch-raise-growth-estimates-11790146490933.html",
     "source": "livemint.com",
     "pubDate": "Wed, 23 Sep 2026 13:33:01 +0530"
    },
    {
     "title": "India tops EMs again in August, but market risks persist",
-    "summary": "India ranked first in the August Emerging Markets Tracker due to strong GDP growth, robust exports, and solid import cover. However, an upcoming rate-hike cycle and geopolitical risks threaten the country's market stability.",
+    "summary": "India ranked first in Mint’s Emerging Markets Tracker for August due to strong GDP growth, robust exports, and solid import cover. However, an imminent rate-hike cycle and geopolitical risks threaten future market stability.",
     "link": "https://www.livemint.com/economy/india-tops-ems-again-in-august-but-market-risks-persist-11790143437593.html",
     "source": "livemint.com",
     "pubDate": "Wed, 23 Sep 2026 12:24:44 +0530"
@@ -188,15 +188,29 @@
   ],
   "India": [
    {
+    "title": "5 Seconds, 5 Bullets: Men On Bike Shoot At Ex-Councillor In Patna Colony",
+    "summary": "Two men on a motorcycle shot Anil Yadav, the husband of a Patna ward councillor, five times in a local colony. Yadav sustained four to five bullet injuries in his hands, lower abdomen, and legs.",
+    "link": "https://www.ndtv.com/india-news/5-seconds-5-bullets-men-on-bike-shoot-at-ex-councillor-in-patna-colony-12089037#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Thu, 24 Sep 2026 01:48:15 +0530"
+   },
+   {
+    "title": "CCTV Shows Moment When IIT Student Was Stopped During Exam, Pulled Aside",
+    "summary": "CCTV footage from IIT Bombay shows an invigilator stopping and pulling a student aside from his front-row seat during an exam. The specific reason for the intervention is not detailed in the available text.",
+    "link": "https://www.ndtv.com/india-news/on-camera-iit-bombay-student-sahil-wakode-who-died-by-suicide-stopped-during-exam-pulled-aside-12088050#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Thu, 24 Sep 2026 01:43:54 +0530"
+   },
+   {
     "title": "High Court Acquits UP Woman Convicted Of Killing Her 3 Children",
-    "summary": "A High Court bench acquitted a Uttar Pradesh woman named Priyanka and her co-accused, Ashish, of killing her three children. The court set aside their previous conviction and sentences on Tuesday.",
+    "summary": "A high court acquitted a Uttar Pradesh woman and her alleged partner of murdering her three children, setting aside their previous conviction and sentences. The bench consisting of Justices Siddhartha Varma and Jai Krishna Upadhyay delivered the ruling on Tuesday in favor of Priyanka and Ashish.",
     "link": "https://www.ndtv.com/india-news/high-court-acquits-up-woman-convicted-of-killing-her-3-children-12089069#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Thu, 24 Sep 2026 00:59:40 +0530"
    },
    {
     "title": "OpenAI, Anthropic Can Slow Down, No One's Pointing Gun: Sridhar Vembu To NDTV",
-    "summary": "Zoho founder Sridhar Vembu stated that leading AI companies like OpenAI and Anthropic should slow down their pace because there is no external pressure to rush. As his Chennai-based software company marks its 30th anniversary, it has launched an AI-powered conversational interface called Zia Chat to integrate business applications.",
+    "summary": "Zoho founder Sridhar Vembu stated that leading AI companies like OpenAI and Anthropic do not need to rush their development. Meanwhile, his Chennai-based software firm celebrated its 30th anniversary by launching Zia Chat, an AI tool that integrates business data and workflows.",
     "link": "https://www.ndtv.com/india-news/openai-anthropic-can-slow-down-no-ones-pointing-gun-sridhar-vembu-to-ndtv-12089029#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Thu, 24 Sep 2026 00:45:56 +0530"
@@ -209,69 +223,55 @@
     "pubDate": "Thu, 24 Sep 2026 00:43:20 +0530"
    },
    {
-    "title": "5 Seconds, 5 Bullets: Men On Bike Shoot At Ex-Councillor In Patna Colony",
-    "summary": "Two men on a motorcycle shot Anil Yadav, the husband of a Patna ward councillor, four to five times in a local colony. Yadav sustained bullet injuries to his hands, lower abdomen, and legs in the attack.",
-    "link": "https://www.ndtv.com/india-news/5-seconds-5-bullets-men-on-bike-shoot-at-ex-councillor-in-patna-colony-12089037#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Thu, 24 Sep 2026 00:42:49 +0530"
-   },
-   {
     "title": "Central Agency Search In Mohali Is Fresh Political Flashpoint In Punjab",
-    "summary": "On Tuesday, Enforcement Directorate teams began searching official records and questioning staff members in Mohali. This operation has sparked a fresh political flashpoint in Punjab.",
+    "summary": "On Tuesday, Enforcement Directorate teams began searching official records, examining computer systems, and questioning staff members in Mohali. This operation has sparked a fresh political flashpoint in Punjab.",
     "link": "https://www.ndtv.com/india-news/central-agency-search-in-mohali-is-fresh-political-flashpoint-in-punjab-12089034#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Thu, 24 Sep 2026 00:41:08 +0530"
-   },
-   {
-    "title": "'Passed Class 10 Before Birth?' Congress Goes To Court Over BJP Nandigram Pick",
-    "summary": "The Congress party has approached the court regarding the BJP candidate for the upcoming Nandigram bypoll, alleging discrepancies in the candidate's educational qualifications. Voting for this assembly seat is scheduled for October 6, with vote counting to take place on October 9.",
-    "link": "https://www.ndtv.com/india-news/passed-class-10-before-birth-congress-goes-to-court-over-bjp-nandigram-pick-12089026#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Thu, 24 Sep 2026 00:37:26 +0530"
    }
   ],
   "General": [
    {
+    "title": "Blood tests find high level of cancer-causing forever chemical in residents near factory",
+    "summary": "Blood tests revealed high levels of cancer-causing \"forever chemicals\" in residents living near a major chemical factory in Lancashire. These individuals have been warned they could face serious health risks due to the contamination.",
+    "link": "https://www.bbc.co.uk/news/articles/cjly4rv0q3l0o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Wed, 23 Sep 2026 21:01:06 GMT"
+   },
+   {
     "title": "UK military jamming other nations' satellites to defend itself, BBC told",
-    "summary": "The head of the Royal Air Force stated that the UK military jams other nations' satellites for self-defense against unprecedented space threats. This revelation coincides with the creation of a new military unit dedicated to protecting British satellites.",
+    "summary": "The head of the RAF stated that the UK military jams other nations' satellites to defend itself against unprecedented space threats. This disclosure coincides with the creation of a new unit dedicated to protecting Britain's satellite infrastructure.",
     "link": "https://www.bbc.co.uk/news/articles/c32l8y8kygdvo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Wed, 23 Sep 2026 17:01:11 GMT"
    },
    {
-    "title": "Home secretary says undetected migrant landings 'unacceptable'",
-    "summary": "Two unescorted migrant boats have arrived in the UK without detection. The Home Secretary described these uncontrolled landings as unacceptable.",
-    "link": "https://www.bbc.co.uk/news/articles/cm5yjzj8l5k5o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Wed, 23 Sep 2026 17:18:49 GMT"
-   },
-   {
     "title": "Watch: Moment pilots eject as RAF jet crashes in Anglesey",
-    "summary": "Two Royal Air Force pilots safely ejected from their jet before it crashed in Anglesey. Both pilots sustained minor injuries in the incident.",
+    "summary": "Two pilots safely ejected from a Royal Air Force jet before it crashed in Anglesey. Both pilots sustained minor injuries in the incident.",
     "link": "https://www.bbc.co.uk/news/videos/c6wyz0zlx10qo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Wed, 23 Sep 2026 15:23:49 GMT"
    },
    {
-    "title": "Iran's president tells Trump it will never 'bend the knee'",
-    "summary": "Iranian President Masoud Pezeshkian stated at the UN that Iran will never surrender to U.S. pressure. This declaration follows a threat from the U.S. president to destroy Iran if it does not quickly agree to a peace deal.",
-    "link": "https://www.bbc.co.uk/news/articles/cqvgyjy23ggjo?at_medium=RSS&at_campaign=rss",
+    "title": "Home secretary says undetected migrant landings 'unacceptable'",
+    "summary": "The arrivals of two unescorted migrant boats mark the first uncontrolled landings recorded in the UK since 2025.",
+    "link": "https://www.bbc.co.uk/news/articles/cm5yjzj8l5k5o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Wed, 23 Sep 2026 18:15:31 GMT"
+    "pubDate": "Wed, 23 Sep 2026 17:18:49 GMT"
    },
    {
-    "title": "Police examine video of anti-migrant activist slashing dinghy with knife",
-    "summary": "Police are investigating a livestreamed video showing anti-migrant activist Daniel Thomas, also known as Danny Tommo, slashing a dinghy with a knife. The footage captures the alleged incident as it was broadcast by the activist himself.",
-    "link": "https://www.bbc.co.uk/news/articles/c3rr48pxg54qo?at_medium=RSS&at_campaign=rss",
+    "title": "Burnham brands ban on football fans drinking alcohol in stands as 'discrimination'",
+    "summary": "Andy Burnham has criticized the 1985 ban on football fans drinking alcohol in stadium stands as discrimination. The prime minister opposes the current law and believes a case exists for its removal.",
+    "link": "https://www.bbc.co.uk/news/articles/c933ky0nknxko?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Wed, 23 Sep 2026 11:47:17 GMT"
+    "pubDate": "Wed, 23 Sep 2026 21:01:16 GMT"
    },
    {
-    "title": "Family tribute to 'devoted' mum and 'precious' children who died in fire",
-    "summary": "Elisha Brabin, aged 36, and her three children died in a house fire in Bootle on Tuesday. The children were identified as Leo, 16, Ellis, 8, and Prudence, 7.",
-    "link": "https://www.bbc.co.uk/news/articles/ckpq03g8940po?at_medium=RSS&at_campaign=rss",
+    "title": "OpenAI agent 'infiltrated' Australian government website, PM says",
+    "summary": "Albanese said he expressed \"concern\" to OpenAI founder Sam Altman, after authorities were informed three months after th...",
+    "link": "https://www.bbc.co.uk/news/articles/c6vgy0333dppo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Wed, 23 Sep 2026 18:34:04 GMT"
+    "pubDate": "Wed, 23 Sep 2026 22:23:28 GMT"
    }
   ]
  }
