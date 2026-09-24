@@ -1,6 +1,6 @@
 {
- "updatedAt": "2026-09-24T18:05:27Z",
- "model": "none",
+ "updatedAt": "2026-09-24T20:17:46Z",
+ "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
   "Geo-Political",
@@ -12,117 +12,117 @@
  "briefing": {
   "Markets": [
    {
+    "title": "US Federal Reserve’s Anna Paulson sees scope for more interest rate hikes amid inflation risks",
+    "summary": "Philadelphia Federal Reserve President Anna Paulson stated that further interest rate hikes may be needed because inflation remains persistently high at around 2.5 to 3 percent. She described the US economy as relatively strong despite external pressures from tariffs and the conflict in the Middle East.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-federal-reserves-anna-paulson-sees-scope-for-more-interest-rate-hikes-amid-inflation-risks/articleshow/134468950.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Fri, 25 Sep 2026 00:31:01 +0530"
+   },
+   {
     "title": "Snapdeal parent AceVector raises Rs 189 crore from anchors; Negen, Singularity among top investors",
-    "summary": "In a significant move, AceVector, the owner of Snapdeal, has successfully garnered Rs 189 crore from anchor investors fo...",
+    "summary": "Snapdeal parent company AceVector raised Rs 189 crore from anchor investors for its upcoming initial public offering. The IPO opens on September 25 with a price range of Rs 30 to Rs 32 per share.",
     "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/snapdeal-parent-acevector-raises-rs-189-crore-from-anchors-negen-singularity-among-top-investors/articleshow/134467815.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Thu, 24 Sep 2026 23:14:58 +0530"
    },
    {
     "title": "Sebi revamps accredited investors framework; approves common ad code for mkt intermediaries",
-    "summary": "Sebi has widened the definition of accredited investors by introducing new asset criteria for individuals and corporates...",
+    "summary": "Sebi expanded the definition of accredited investors and approved a common advertisement code that permits celebrity brand endorsements while restricting specific product ads. Additionally, the agency introduced a new settlement scheme for non-genuine trades in illiquid stock options.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/sebi-revamps-accredited-investors-framework-approves-common-ad-code-for-mkt-intermediaries/articleshow/134466743.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Thu, 24 Sep 2026 22:11:10 +0530"
    },
    {
     "title": "Sebi clears PRIM route for PMS players to invest in mutual funds, SIFs; Rs 25 lakh minimum ticket",
-    "summary": "Sebi’s board approved PRIM, allowing portfolio managers to invest client money in direct mutual fund plans, ETFs, index ...",
+    "summary": "Markets regulator Sebi has approved the PRIM framework, allowing portfolio managers to invest client funds in direct mutual fund plans, ETFs, index funds, and SIFs. This new investment route requires a minimum ticket size of Rs 25 lakh and broadens portfolio management services beyond direct equities.",
     "link": "https://economictimes.indiatimes.com/markets/aif-pms/sebi-clears-prim-route-for-pms-players-to-invest-in-mutual-funds-sifs-rs-25-lakh-minimum-ticket/articleshow/134466306.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Thu, 24 Sep 2026 21:34:31 +0530"
    },
    {
     "title": "HDFC MF bets on PB Fintech, buys stake worth Rs 321 crore as IRDAI reforms trigger 36% stock rout",
-    "summary": "HDFC Mutual Fund bought 25 lakh PB Fintech shares worth about Rs 321 crore at Rs 1,282.30 each, even as the stock plunge...",
+    "summary": "HDFC Mutual Fund purchased 2.5 million shares of PB Fintech for approximately Rs 321 crore. The investment came despite a 36% drop in the company's stock price caused by proposed IRDAI insurance commission caps.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/hdfc-mf-bets-on-pb-fintech-buys-stake-worth-rs-321-crore-as-irdai-reforms-trigger-36-stock-rout/articleshow/134466281.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Thu, 24 Sep 2026 21:30:46 +0530"
    },
    {
     "title": "Ahead of Market: 10 things that will decide stock market action on Friday",
-    "summary": "Indian equities suffered a sharp selloff, with Sensex plunging 1,248 points and Nifty falling 1.6% as US Treasury yields...",
+    "summary": "Indian stock markets suffered a sharp selloff on Friday, with the Sensex plunging 1,248 points and the Nifty dropping 1.6%. The downturn was driven by surging US Treasury yields, high crude oil prices, and escalating geopolitical tensions, with financial stocks leading the losses.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/ahead-of-market-10-things-that-will-decide-stock-market-action-on-friday/articleshow/134466210.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Thu, 24 Sep 2026 21:23:54 +0530"
-   },
-   {
-    "title": "Sebi expands bullion vaulting framework to ETFs, derivatives; vault manager net worth raised",
-    "summary": "Sebi expanded its vault managers framework beyond Electronic Gold Receipts to cover bullion underlying specified ETFs an...",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/news/sebi-expands-bullion-vaulting-framework-to-etfs-derivatives-vault-manager-net-worth-raised/articleshow/134466018.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Thu, 24 Sep 2026 21:11:25 +0530"
    }
   ],
   "Geo-Political": [
    {
     "title": "White House restores access to media outlets banned by Trump after judge's order",
-    "summary": "CNN, Politico and MS NOW were allowed back into the White House after some of their staff were earlier turned away.",
+    "summary": "The White House restored press access for CNN, Politico, and MS NOW after previously banning their staff. This reversal followed a judge's order against the Trump administration's restrictions.",
     "link": "https://www.bbc.co.uk/news/articles/cqe8ek7608mlo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Thu, 24 Sep 2026 17:49:20 GMT"
    },
    {
-    "title": "Rogue OpenAI agent 'infiltrated' Australian government website in world first",
-    "summary": "Australia criticised OpenAI for taking \"too long\" to tell them about the breach which happened in June.",
-    "link": "https://www.bbc.co.uk/news/articles/c6vgy0333dppo?at_medium=RSS&at_campaign=rss",
+    "title": "Why Australia chose the world's biggest political stage to reveal OpenAI hack",
+    "summary": "Australia announced an OpenAI data breach at the United Nations. This disclosure comes as the country implements strict social media restrictions and proposes new controls on technology.",
+    "link": "https://www.bbc.co.uk/news/articles/cr3eqk15ld14o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 24 Sep 2026 15:42:07 GMT"
+    "pubDate": "Thu, 24 Sep 2026 18:06:40 GMT"
    },
    {
-    "title": "Why did an OpenAI system hack Australia's health system - and can it be stopped in the future?",
-    "summary": "News that an automated AI agent hacked a government IT system raises big questions about regulating the tech.",
-    "link": "https://www.bbc.co.uk/news/articles/cw24jm9rryy3o?at_medium=RSS&at_campaign=rss",
+    "title": "Four civilians killed in Pakistani strikes in Afghanistan, Taliban says",
+    "summary": "Four civilians were killed in Afghanistan during airstrikes conducted by Pakistan. Pakistan stated that it targeted 10 military objectives during the operation.",
+    "link": "https://www.bbc.co.uk/news/articles/cm86xn0nnw58o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 24 Sep 2026 14:08:38 GMT"
+    "pubDate": "Thu, 24 Sep 2026 19:02:36 GMT"
    },
    {
-    "title": "Poland says fire at Starlink station is sabotage as Denmark warns of rising Russian threat",
-    "summary": "The satellite station is used in part to provide internet coverage to neighbouring Ukraine, the government says.",
-    "link": "https://www.bbc.co.uk/news/articles/cmp30r1klk37o?at_medium=RSS&at_campaign=rss",
+    "title": "Priest killed and four injured in knife attack at Polish abbey",
+    "summary": "A priest was killed and four other people were injured in a knife attack at an abbey in the Polish town of Jarosław. Police arrested a male suspect from Ukraine in connection with the stabbings.",
+    "link": "https://www.bbc.co.uk/news/articles/c607lrvm41l3o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 24 Sep 2026 16:00:29 GMT"
+    "pubDate": "Thu, 24 Sep 2026 19:18:12 GMT"
    },
    {
-    "title": "Ethiopia's army says it has repelled attacks in first comment on fresh fighting",
-    "summary": "The military says its soldiers inflicted casualties as fears grow of a resumption of a full-blown civil war.",
-    "link": "https://www.bbc.co.uk/news/articles/cqevwm09w4xmo?at_medium=RSS&at_campaign=rss",
+    "title": "Italy ministers agree to ban burqa and niqab in school and cap foreigners in class",
+    "summary": "Italian ministers agreed to ban the burqa and niqab in schools. They also approved a cap on the number of foreign students in classrooms.",
+    "link": "https://www.bbc.co.uk/news/articles/cw99d8g48873o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 24 Sep 2026 15:37:45 GMT"
+    "pubDate": "Thu, 24 Sep 2026 19:32:59 GMT"
    },
    {
-    "title": "105-year-old investigated for crimes at Nazi PoW camp in Germany",
-    "summary": "The suspect is alleged to have been an accessory to murder at the Stalag 326 camp, where tens of thousands of Soviet PoW...",
-    "link": "https://www.bbc.co.uk/news/articles/cwzrzjy3pynvo?at_medium=RSS&at_campaign=rss",
+    "title": "Rapper Macklemore announces 'Free Palestine' tour after Ed Sheeran fallout",
+    "summary": "Rapper Macklemore has announced a \"Free Palestine\" tour starting in Dublin next month following a fallout with Ed Sheeran. He stated that the proceeds from the tour will be donated to organizations that support Palestinians.",
+    "link": "https://www.bbc.co.uk/news/articles/cqzjzlve8jg7o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 24 Sep 2026 14:37:34 GMT"
+    "pubDate": "Thu, 24 Sep 2026 17:55:44 GMT"
    }
   ],
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and aske...",
+    "summary": "An online course creator successfully generated free organic traffic after ChatGPT recommended their WordPress SaaS course as the top result. This discovery highlights the growing shift toward optimizing content for AI platforms rather than traditional search engines.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "Looking to level up your content creation game in 2025? You're in the right place! The digital landscape has evolved dra...",
+    "summary": "This guide highlights ten essential artificial intelligence tools designed to revolutionize content creation in 2025. These applications help digital creators streamline their workflows and stay competitive in a rapidly evolving technological landscape.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "&nbsp;In the rapidly advancing landscape of AI technology and innovation, LimeWire emerges as a unique platform in the r...",
+    "summary": "LimeWire has evolved into a generative AI platform that allows users to create digital content. The tool also provides features for creators to share and monetize their AI-generated work.",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovation and efficiency in various industries. ...",
+    "summary": "This article highlights ten advanced artificial intelligence tools used across various industries in 2023. These tools automate repetitive tasks to improve workflows, increase productivity, and handle natural language applications.",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
@@ -145,42 +145,42 @@
   "Data & Insights": [
    {
     "title": "India-Mexico may sign trade pact, report reveals: Autos, pharma, engineering—who stands to gain?",
-    "summary": "India and Mexico are set to finalize the Terms of Reference for a preferential trade agreement in early October, focusin...",
+    "summary": "India and Mexico plan to finalize terms for a preferential trade agreement in early October to improve market access and trade. The pact is expected to boost Indian exports, particularly in automobiles, pharmaceuticals, and engineering, despite upcoming tariffs.",
     "link": "https://www.livemint.com/economy/indiamexico-may-sign-trade-pact-report-reveals-autos-pharma-engineering-who-stands-to-gain-11790259606449.html",
     "source": "livemint.com",
     "pubDate": "Thu, 24 Sep 2026 20:19:21 +0530"
    },
    {
     "title": "Agriculture Infrastructure Fund loans cross  ₹1 trillion as Centre targets post-harvest efficiency",
-    "summary": "Government data shows Madhya Pradesh, Maharashtra, Uttar Pradesh, Punjab, and Gujarat are the top five beneficiary state...",
+    "summary": "Loans under the Agriculture Infrastructure Fund have surpassed ₹1 trillion as the Centre aims to boost post-harvest efficiency. Madhya Pradesh, Maharashtra, Uttar Pradesh, Punjab, and Gujarat are the top five beneficiary states, with individual farmers accounting for nearly 59% of approved ventures.",
     "link": "https://www.livemint.com/economy/agriculture-infrastructure-fund-aif-loans-cross-rs-1-trillion-farm-storage-cold-chain-11790244812442.html",
     "source": "livemint.com",
     "pubDate": "Thu, 24 Sep 2026 17:17:26 +0530"
    },
    {
     "title": "Centre cuts import duty on edible oils to curb price rise",
-    "summary": "The move is expected to lower import costs for cooking oils and potentially provide some relief to consumers if the bene...",
+    "summary": "The Indian government has reduced import duties on edible oils to lower incoming costs. This policy change aims to decrease retail cooking oil prices for consumers.",
     "link": "https://www.livemint.com/economy/centre-cuts-import-duty-on-edible-oils-to-curb-price-rise-11790184261562.html",
     "source": "livemint.com",
     "pubDate": "Wed, 23 Sep 2026 23:59:40 +0530"
    },
    {
     "title": "PM’s principal secretary flags risks from trade barriers, volatile capital",
-    "summary": "PM's principal secretary Pramod Kumar Mishra said India cannot rely on favourable global conditions despite its macroeco...",
+    "summary": "India's principal secretary Pramod Kumar Mishra warned that the country cannot depend on favorable global conditions despite its economic stability and growth. He specifically highlighted potential risks from rising trade barriers and volatile capital flows.",
     "link": "https://www.livemint.com/economy/pms-principal-secretary-flags-risks-from-trade-barriers-volatile-capital-11790173013662.html",
     "source": "livemint.com",
     "pubDate": "Wed, 23 Sep 2026 21:09:39 +0530"
    },
    {
     "title": "Rupee has a fair case to appreciate: RBI DG Poonam Gupta",
-    "summary": "Rupee’s depreciation over the past 1.5 years is likely to prove temporary amid India’s underlying BoP strength, says Res...",
+    "summary": "Reserve Bank of India Deputy Governor Poonam Gupta states that the rupee's recent depreciation is likely temporary. She attributes this to India's strong underlying balance of payments, creating a fair case for the currency to appreciate.",
     "link": "https://www.livemint.com/economy/rupee-has-a-fair-case-to-appreciate-rbi-dg-poonam-gupta-11790171854530.html",
     "source": "livemint.com",
     "pubDate": "Wed, 23 Sep 2026 20:39:49 +0530"
    },
    {
     "title": "Flash PMI: Business activity hits three-month high in September on robust manufacturing demand",
-    "summary": "Middle East tensions drove firms to build record inventory buffers, while rising output prices signalled renewed efforts...",
+    "summary": "Middle East tensions prompted companies to build record inventory buffers, helping business activity reach a three-month high in September due to robust manufacturing demand. Additionally, rising output prices signaled renewed efforts by firms to safeguard their profit margins.",
     "link": "https://www.livemint.com/economy/india-business-activity-pmi-september-manufacturing-services-growth-11790155742728.html",
     "source": "livemint.com",
     "pubDate": "Wed, 23 Sep 2026 15:49:26 +0530"
@@ -188,62 +188,69 @@
   ],
   "India": [
    {
-    "title": "Top Court Clamps Down On Misuse Of Child Abuse Law In Matrimonial Disputes",
-    "summary": "The court said very often, an enraged parent, who is engulfed by anger and blinded by ego, falls prey to these machinati...",
-    "link": "https://www.ndtv.com/india-news/top-court-clamps-down-on-misuse-of-child-abuse-law-in-matrimonial-disputes-12094138#publisher=newsstand",
+    "title": "Drive Through Tollgates: New Rules For High-Speed Highways",
+    "summary": "The National Highways Authority of India has introduced new guidelines to implement barrier-free tolling on high-speed highways. The updated rules also focus on smarter traffic planning, improved drainage systems, and the creation of greener corridors.",
+    "link": "https://www.ndtv.com/india-news/drive-through-tollgates-new-rules-for-high-speed-highways-12094638#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Thu, 24 Sep 2026 22:29:50 +0530"
+    "pubDate": "Fri, 25 Sep 2026 01:16:24 +0530"
    },
    {
-    "title": "'US Or Chandigarh': Punjab Minister vs Ravneet Bittu Over Probe Agency Raid",
-    "summary": "The confrontation began after Ravneet Bittu alleged that Hardeep Singh Mundian had left the country and gone to the Unit...",
-    "link": "https://www.ndtv.com/india-news/us-or-chandigarh-punjab-minister-vs-ravneet-bittu-over-probe-agency-raid-12094133#publisher=newsstand",
+    "title": "Bay Of Bengal Depression To Bring Heavy Rain To Bengal, Odisha And Other States",
+    "summary": "The India Meteorological Department warns that a new depression over the Bay of Bengal will bring heavy to very heavy rainfall starting Friday. West Bengal, Odisha, and several other states are expected to be affected by the severe weather.",
+    "link": "https://www.ndtv.com/india-news/weather-tomorrow-telangana-may-see-extremely-heavy-rain-orange-alert-in-jharkhand-12092206#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Thu, 24 Sep 2026 22:27:37 +0530"
+    "pubDate": "Fri, 25 Sep 2026 00:42:01 +0530"
    },
    {
-    "title": "\"Nation Will Awaken\": Sonam Wangchuk Claims He May Be Killed In Encounter",
-    "summary": "Hundreds gathered in Ladakh today to pay homage to four persons including a former war hero who were killed in security ...",
-    "link": "https://www.ndtv.com/india-news/nation-will-awaken-sonam-wangchuk-claims-he-may-be-killed-in-encounter-12094123#publisher=newsstand",
+    "title": "DMK Didn't Try To Shield Granite Baron Accused In Sex Abuse Case: MK Stalin",
+    "summary": "DMK leader MK Stalin stated that granite baron R Veeramani and anyone who protected him must face the law for a sex abuse case. He added that all accused should receive the maximum punishment regardless of their positions.",
+    "link": "https://www.ndtv.com/india-news/no-orders-were-issued-to-shield-r-veeramani-under-dmk-mk-stalin-12094290#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Thu, 24 Sep 2026 22:26:20 +0530"
+    "pubDate": "Fri, 25 Sep 2026 00:39:33 +0530"
    },
    {
-    "title": "In N Chandrasekaran Reappointment Row, Tata Sons Cites Ex-Chief Justice's Opinion",
-    "summary": "The Tata Sons' board voted 4-1 to reappoint N Chandrasekaran. Noel Tata opposed the move.",
-    "link": "https://www.ndtv.com/india-news/tata-trusts-noel-tata-tata-group-uu-lalit-in-n-chandrasekaran-reappointment-row-tata-sons-cites-ex-chief-justices-opinion-12094058#publisher=newsstand",
+    "title": "Woman Alleges Her Photo Was Morphed During CJP Protests, Case Filed",
+    "summary": "A woman filed a police case alleging that her photograph was digitally altered using AI and face-swap technology to superimpose it onto an image of Prime Minister Narendra Modi. The alleged photo manipulation occurred during protests organized by the Citizens for Justice and Peace (CJP).",
+    "link": "https://www.ndtv.com/india-news/woman-alleges-her-photo-was-morphed-during-cjp-protests-cops-file-case-12094421#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Thu, 24 Sep 2026 22:22:03 +0530"
+    "pubDate": "Fri, 25 Sep 2026 00:37:37 +0530"
    },
    {
-    "title": "Professor Grabs Student By Collar, Threatens Him On Stage Over  'Jaldi Bol, Kal Subah Panvel Nikalna Hai'  Comment",
-    "summary": "A professor at Nirma University grabbed a student by the collar during a campus event and threatened him.",
-    "link": "https://www.ndtv.com/india-news/nirma-university-professor-grabs-student-by-collar-threatens-him-on-stage-over-jaldi-bol-subah-panvel-nikalna-hai-comment-12093927#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Thu, 24 Sep 2026 21:50:25 +0530"
-   },
-   {
-    "title": "Opinion: BLOG: 20 Years On, My LSR Memories Of Harassment Have Not Faded",
-    "summary": "If our answer to unsafe streets is to ask women to stop using them, we haven't solved the safety problem.",
+    "title": "Opinion: Blog: 20 Years On, My LSR Memories Of Harassment Have Not Faded",
+    "summary": "Two decades later, the author reflects on enduring memories of harassment from her time at Lady Shri Ram College. She argues that restricting women's access to public spaces does not solve the underlying problem of safety on the streets.",
     "link": "https://www.ndtv.com/opinion/20-years-on-my-lsr-memories-of-harassment-have-not-faded-12093930#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Thu, 24 Sep 2026 21:48:03 +0530"
+    "pubDate": "Fri, 25 Sep 2026 00:30:06 +0530"
+   },
+   {
+    "title": "Barmer MLA Ravindra Bhati Plans 5-Day March For Bigger Footprint In Rajasthan",
+    "summary": "Barmer MLA Ravindra Singh Bhati plans to lead a five-day march across Rajasthan to expand his political influence. Bhati already has a significant online presence, including millions of followers across Instagram, Facebook, and Twitter.",
+    "link": "https://www.ndtv.com/india-news/barmer-mla-ravindra-bhati-plans-5-day-march-for-bigger-footprint-in-rajasthan-12094549#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Fri, 25 Sep 2026 00:29:30 +0530"
    }
   ],
   "General": [
    {
     "title": "Watch: Why has Trump been so eager to welcome Xi?",
-    "summary": "President Donald Trump has been talking about Chinese President Xi Jinping's visit for months, the BBC's Sarah Smith loo...",
+    "summary": "BBC reporter Sarah Smith examines why President Donald Trump has eagerly anticipated Chinese President Xi Jinping's visit for months. The video report explores the strategic reasons behind Trump's warm welcome of the Chinese leader.",
     "link": "https://www.bbc.co.uk/news/videos/c914d17zn6kxo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Thu, 24 Sep 2026 15:16:27 GMT"
    },
    {
     "title": "White House restores access to media outlets banned by Trump after judge's order",
-    "summary": "Lawyers for CNN, Politico and MS Now are seeking an emergency court hearing, saying the White House \"repeatedly violated...",
+    "summary": "The White House restored press access for media outlets previously banned by the Trump administration following a judge's order. However, lawyers for CNN, Politico, and MS Now are now seeking an emergency hearing, alleging the White House repeatedly violated that order.",
     "link": "https://www.bbc.co.uk/news/articles/cqe8ek7608mlo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Thu, 24 Sep 2026 17:49:20 GMT"
+   },
+   {
+    "title": "Watch: UN delegates walk out of Netanyahu speech",
+    "summary": "United Nations delegates walked out of a speech delivered by Israeli Prime Minister Benjamin Netanyahu. Meanwhile, members of the Israeli delegation remained in the room cheering in support of his address.",
+    "link": "https://www.bbc.co.uk/news/videos/cqwyzmpm3pgdo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Thu, 24 Sep 2026 18:29:29 GMT"
    },
    {
     "title": "Poland says fire at Starlink station is sabotage as Denmark warns of rising Russian threat",
@@ -253,25 +260,18 @@
     "pubDate": "Thu, 24 Sep 2026 16:00:29 GMT"
    },
    {
-    "title": "Crashed RAF jet steered to 'avoid built-up areas' before pilots ejected, commander says",
-    "summary": "Gp Capt Gez Currie said the pilots are in hospital, and their families are with them.",
-    "link": "https://www.bbc.co.uk/news/articles/crx2zlqqpn2do?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Thu, 24 Sep 2026 12:29:39 GMT"
-   },
-   {
     "title": "Man jailed for two years over throwing bottle at Portsmouth migrant protest",
-    "summary": "Del Somerville, 42, pleaded guilty to violent disorder following an overnight protest at Eastney.",
+    "summary": "Del Somerville, 42, was sentenced to two years in prison after pleading guilty to violent disorder. He threw a bottle during an overnight migrant protest in Eastney.",
     "link": "https://www.bbc.co.uk/news/articles/c8vgy7ww21rqo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Thu, 24 Sep 2026 15:57:55 GMT"
    },
    {
-    "title": "'It has broken us as a family,' mother of poison seller victim tells hearing",
-    "summary": "Tanya Whitaker broke down before she spoke of how her son Samuel's death had devastated her family.",
+    "title": "'We are living a constant nightmare,' mother of poison seller victim tells hearing",
+    "summary": "Tanya Whitaker testified at a hearing about the devastating impact of her son Samuel's death. Samuel died after consuming a poison sold online by Kenneth Law.",
     "link": "https://www.bbc.co.uk/news/articles/cm20ldvx9xlxo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 24 Sep 2026 17:49:46 GMT"
+    "pubDate": "Thu, 24 Sep 2026 19:16:05 GMT"
    }
   ]
  }
