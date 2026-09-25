@@ -1,6 +1,6 @@
 {
- "updatedAt": "2026-09-25T18:10:15Z",
- "model": "none",
+ "updatedAt": "2026-09-25T20:15:57Z",
+ "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
   "Geo-Political",
@@ -12,103 +12,103 @@
  "briefing": {
   "Markets": [
    {
+    "title": "Virtual pharma API firm HRV preparing for IPO, DRHP likely in H1 of 2027: Sources",
+    "summary": "Virtual pharma API company HRV plans to file a draft red herring prospectus for an initial public offering in the first half of 2027. CEO Hari Kiran Chereddi stated that the firm is investing in partner facility capacity and pursuing acquisitions to reach a revenue target of Rs 1,000 crore in fiscal year 2028.",
+    "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/virtual-pharma-api-firm-hrv-preparing-for-ipo-drhp-likely-in-h1-of-2027-sources/articleshow/134491851.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Sat, 26 Sep 2026 00:49:32 +0530"
+   },
+   {
+    "title": "Anthropic investor Lonsdale says AI firms stoking fear to sway policy",
+    "summary": "Anthropic investor Joe Lonsdale warns that AI companies are stoking fear to influence public policy and regulation. He cautions against allowing a few major firms to dictate industry rules while acknowledging his support for Anthropic's talent and leadership.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/anthropic-investor-lonsdale-says-ai-firms-stoking-fear-to-sway-policy/articleshow/134491575.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Sat, 26 Sep 2026 00:36:32 +0530"
+   },
+   {
     "title": "AI boom raises ‘too-big-to-fail’ concerns as ecosystem expands, says Kansas Fed's Jeff Schmid",
-    "summary": "Kansas City Federal Reserve President Jeff Schmid has expressed concerns about the interconnectedness of the artificial ...",
+    "summary": "Kansas City Federal Reserve President Jeff Schmid warned that rapid investments and interconnectedness in the artificial intelligence industry resemble the financial system before the 2008 crisis. He stressed the need to better understand the emerging AI ecosystem and its growing economic significance amid \"too-big-to-fail\" concerns.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/ai-boom-raises-too-big-to-fail-concerns-as-ecosystem-expands-says-kansas-feds-jeff-schmid/articleshow/134490358.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 25 Sep 2026 23:15:51 +0530"
    },
    {
     "title": "CleanMax Enviro block deal: Augment India Holdings likely to divest 85 lakh shares worth Rs 1,063 crore",
-    "summary": "Augment India Holdings may sell 85 lakh Clean Max Enviro Energy Solutions shares, representing a 7.25% stake, through a ...",
+    "summary": "Augment India Holdings is planning to sell 85 lakh shares, representing a 7.25% stake, in CleanMax Enviro Energy Solutions through a block deal. The transaction is valued at Rs 1,062.8 crore with a floor price of Rs 1,250 per share.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/cleanmax-enviro-block-deal-augment-india-holdings-likely-to-divest-85-lakh-shares-worth-rs-1063-crore/articleshow/134488759.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 25 Sep 2026 21:04:32 +0530"
    },
    {
     "title": "Liqvd Digital India IPO subscribed 5.08 times on final day",
-    "summary": "Liqvd Digital India’s IPO was subscribed 5.08 times on the final bidding day, with 3.86 crore shares bid against 75.94 l...",
+    "summary": "Liqvd Digital India's initial public offering was subscribed 5.08 times on its final day of bidding, receiving bids for 3.86 crore shares against the 75.94 lakh shares offered. Non-institutional investors drove the demand with a 21.02 times subscription, followed by retail investors at 1.43 times and fully subscribed qualified institutional buyers.",
     "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/liqvd-digital-india-ipo-subscribed-5-08-times-on-final-day/articleshow/134488487.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 25 Sep 2026 20:44:35 +0530"
    },
    {
     "title": "Data center IPO hopefuls brave tougher market as investor scrutiny grows",
-    "summary": "Data center operator DayOne is pushing ahead with its plans to go public as soon as November, according to three people ...",
+    "summary": "Data center operator DayOne plans to proceed with an initial public offering as early as November. The company is moving forward despite higher interest rates and challenges within the broader data center sector that have increased investor scrutiny.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/data-center-ipo-hopefuls-brave-tougher-market-as-investor-scrutiny-grows/articleshow/134488469.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 25 Sep 2026 20:41:20 +0530"
-   },
-   {
-    "title": "US Federal Reserve plans to raise bank oversight thresholds, sources say",
-    "summary": "The US Federal Reserve is set to propose an increase in the asset thresholds for banking regulations, potentially raisin...",
-    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/us-federal-reserve-plans-to-raise-bank-oversight-thresholds-sources-say/articleshow/134488416.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Fri, 25 Sep 2026 20:38:53 +0530"
-   },
-   {
-    "title": "Lab-grown diamond manufacturer Anjali LabTech files updated papers for Rs 1,225 cr IPO",
-    "summary": "Anjali LabTech Ltd has re-submitted its draft papers to Sebi for a notable Initial Public Offering targeting Rs 1,225 cr...",
-    "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/lab-grown-diamond-manufacturer-anjali-labtech-files-updated-papers-for-rs-1225-cr-ipo/articleshow/134488307.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Fri, 25 Sep 2026 20:37:07 +0530"
    }
   ],
   "Geo-Political": [
    {
+    "title": "Russia targeting 'ordinary life' with attacks on data centres, Zelensky says",
+    "summary": "Ukrainian President Volodymyr Zelenskyy stated that recent Russian attacks on data centers are designed to disrupt the everyday lives of citizens. He noted that these strikes specifically target people's ability to work, study, and stay connected.",
+    "link": "https://www.bbc.co.uk/news/articles/c84gkwgk7d06o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Fri, 25 Sep 2026 20:07:43 GMT"
+   },
+   {
     "title": "Special agents' blood and urine test results stolen in FBI hack",
-    "summary": "Experts say the hack could leave agents vulnerable to scams, blackmail and targeted attacks.",
+    "summary": "Hackers stole the blood and urine test results of FBI special agents in a recent data breach. Security experts warn this stolen medical data could expose agents to blackmail, targeted attacks, and scams.",
     "link": "https://www.bbc.co.uk/news/articles/cw62me2vlj07o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 25 Sep 2026 13:56:16 GMT"
    },
    {
     "title": "Pope warns against 'losing humanity' to AI machines",
-    "summary": "The pontiff delivered the warning on the first day of his trip to France on Friday.",
+    "summary": "On Friday, the Pope warned against losing our humanity to artificial intelligence during the first day of his trip to France. He delivered this message to highlight the potential risks that advanced machines pose to human society.",
     "link": "https://www.bbc.co.uk/news/articles/cmq8j904212po?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 25 Sep 2026 15:06:41 GMT"
    },
    {
-    "title": "Xi got Trump's red carpet welcome - but not everything he wanted",
-    "summary": "China wanted progress on trade, technology and Taiwan - but hasn't got as much as it would have hoped for.",
-    "link": "https://www.bbc.co.uk/news/articles/cr93e4x7kdjjo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Fri, 25 Sep 2026 03:57:09 GMT"
-   },
-   {
     "title": "Supreme Court allows Trump to use controversial database to check voter citizenship",
-    "summary": "Critics have questioned the reliability of the data, warning it could  result in US citizens being wrongly removed from ...",
+    "summary": "The Supreme Court has permitted Donald Trump to use a disputed database for verifying voter citizenship. Critics warn that the unreliable data could cause eligible U.S. citizens to be improperly removed from voting rolls.",
     "link": "https://www.bbc.co.uk/news/articles/ck05rrj3jeylo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 25 Sep 2026 17:32:15 GMT"
+    "pubDate": "Fri, 25 Sep 2026 19:13:35 GMT"
+   },
+   {
+    "title": "Trump's plans for massive arch move ahead",
+    "summary": "Opposition is growing against Donald Trump's plans to build a 250-foot arch for military purposes. A Democratic official has criticized the proposed project as \"foolhardy.\"",
+    "link": "https://www.bbc.co.uk/news/articles/cq0lrr8kxy0lo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Fri, 25 Sep 2026 18:27:46 GMT"
    },
    {
     "title": "Students strike across Germany in protest against military service",
-    "summary": "A law establishing voluntary military service came into effect in January, but protest organisers fear compulsory servic...",
+    "summary": "Students across Germany went on strike to protest against military service. Protest organizers are concerned that the new voluntary military service law could lead to compulsory service.",
     "link": "https://www.bbc.co.uk/news/articles/cxnvlnve52qdo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 25 Sep 2026 15:36:22 GMT"
-   },
-   {
-    "title": "Man shot during 2024 Trump campaign rally in Butler dies",
-    "summary": "A gunman shot Jim Copenhaver twice while also killing another man and grazing Trump's ear with a bullet.",
-    "link": "https://www.bbc.co.uk/news/articles/c5dj401d88l3o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Fri, 25 Sep 2026 13:23:33 GMT"
    }
   ],
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and aske...",
+    "summary": "A digital creator successfully generated free organic traffic after discovering their WordPress SaaS course was recommended as the top result by ChatGPT. This experiment demonstrated a shift in online visibility from traditional search engine optimization to AI-driven optimization.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "Looking to level up your content creation game in 2025? You're in the right place! The digital landscape has evolved dra...",
+    "summary": "This article highlights ten essential artificial intelligence tools designed to help creators improve their content in 2025. These technologies aim to simplify the digital creation process and keep users competitive in a rapidly changing landscape.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
@@ -145,42 +145,42 @@
   "Data & Insights": [
    {
     "title": "CEA flags US friction, energy shocks, and missing AI play as India’s key near-term risks",
-    "summary": "CEA V. Anantha Nageswaran warned that trade coercion, weaponized supply chains, and rising US bond yields require India ...",
+    "summary": "Chief Economic Advisor V. Anantha Nageswaran stated that trade coercion, weaponized supply chains, and rising US bond yields are key near-term risks for India. He warned that these global pressures require India to adopt a costlier hedging strategy and a new economic playbook.",
     "link": "https://www.livemint.com/economy/cea-flags-us-friction-energy-shocks-and-missing-ai-play-as-india-s-key-near-term-risks-11790352328478.html",
     "source": "livemint.com",
     "pubDate": "Fri, 25 Sep 2026 22:20:36 +0530"
    },
    {
     "title": "India’s growth outlook strengthens as economists see resilient incomes, stable policy: WEF",
-    "summary": "India’s growth outlook has improved sharply, with 74% of WEF-surveyed economists expecting strong or very strong growth ...",
+    "summary": "A recent World Economic Forum survey shows that 74% of economists expect strong growth in India over the next year. This improved outlook is driven by strong domestic demand and stable government policies.",
     "link": "https://www.livemint.com/economy/indias-growth-outlook-strengthens-as-economists-see-resilient-incomes-stable-policy-wef-11790339237198.html",
     "source": "livemint.com",
     "pubDate": "Fri, 25 Sep 2026 22:14:23 +0530"
    },
    {
     "title": "Centre lowers FY27 borrowing estimate by  ₹1.2 trillion, plans  ₹7.86 trillion bond sales in H2",
-    "summary": "Stronger tax and non-tax receipts have allowed the Centre to trim its borrowing plans, easing the supply of fresh govern...",
+    "summary": "The central government has reduced its fiscal year 2027 borrowing estimate by ₹1.2 trillion due to stronger tax and non-tax receipts. It will conduct ₹7.86 trillion in bond sales during the second half of the year.",
     "link": "https://www.livemint.com/economy/centre-cuts-fy27-borrowing-bond-sales-11790344258072.html",
     "source": "livemint.com",
     "pubDate": "Fri, 25 Sep 2026 20:19:59 +0530"
    },
    {
     "title": "India attracts $19.8 billion FDI in Q1: Japan beats US as the top investor and which sectors got the money?",
-    "summary": "India's foreign direct investment rose 6% to $19.81 billion in Q1 of the financial year, as per DPIIT data. This marks a...",
+    "summary": "India's foreign direct investment rose 6% to $19.81 billion in the first quarter of the financial year, up from $18.62 billion during the same period last year. Singapore, Mauritius, and the US were among the top investors contributing to this growth according to DPIIT data.",
     "link": "https://www.livemint.com/economy/india-fdi-rises-6-to-19-8-billion-in-q1-these-three-countries-pour-most-money-11790346761254.html",
     "source": "livemint.com",
     "pubDate": "Fri, 25 Sep 2026 20:16:49 +0530"
    },
    {
     "title": "India-Australia trade pact: CECA, BIT talks to deepen ties in critical minerals, investment",
-    "summary": "India and Australia are negotiating a broader CECA and bilateral investment treaty, with critical minerals, investment, ...",
+    "summary": "India and Australia are negotiating a broader Comprehensive Economic Cooperation Agreement and a bilateral investment treaty. These talks focus on critical minerals, investment, education, and talent to deepen bilateral ties.",
     "link": "https://www.livemint.com/economy/indiaaustralia-trade-pact-ceca-bit-talks-to-deepen-ties-in-critical-minerals-investment-11790335029563.html",
     "source": "livemint.com",
     "pubDate": "Fri, 25 Sep 2026 17:31:40 +0530"
    },
    {
     "title": "Cabinet to decide on easing decade-old bilateral investment treaty rules",
-    "summary": "The proposed model will substantially shorten the mandatory five-year domestic litigation timeframe for companies under ...",
+    "summary": "The cabinet will decide on a proposal to ease decade-old bilateral investment treaty rules. The new model will shorten the mandatory five-year domestic litigation period required before companies can pursue global arbitration.",
     "link": "https://www.livemint.com/economy/cabinet-bilateral-investment-treaty-template-dispute-settlements-11790315746392.html",
     "source": "livemint.com",
     "pubDate": "Fri, 25 Sep 2026 12:03:48 +0530"
@@ -189,42 +189,42 @@
   "India": [
    {
     "title": "\"Stalin Sir, Open Your Mouth\": Vijay Attacks DMK In R Veeramani Sexual Abuse Case",
-    "summary": "Though a complaint had been lodged during the previous DMK regime, the entire crime and its history was buried, Vijay al...",
+    "summary": "Actor Vijay has accused Tamil Nadu Chief Minister M.K. Stalin and the ruling DMK of covering up a sexual abuse case involving R. Veeramani that originated during a previous DMK administration. Vijay publicly demanded accountability from Stalin regarding the suppressed investigation.",
     "link": "https://www.ndtv.com/india-news/stalin-sir-open-your-mouth-vijay-attacks-dmk-in-veeramani-sex-abuse-case-12097660#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 25 Sep 2026 22:07:56 +0530"
    },
    {
     "title": "High Court Bars Airing Of Videos, Audios From R Veeramani Sexual Abuse Case",
-    "summary": "Veeramani, 84, is the founder of GEM Granites and the wider GEM Group of Companies, a prominent Chennai-based business f...",
+    "summary": "The Madras High Court has banned the airing of audio and video materials related to the sexual abuse case against 84-year-old businessman R Veeramani. Veeramani and two associates were arrested on August 29 for allegedly facilitating these offenses at a Chennai rental house.",
     "link": "https://www.ndtv.com/india-news/r-veeramani-sexual-abuse-case-madras-high-court-bars-airing-of-videos-audios-gem-granites-12098959#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 25 Sep 2026 21:48:01 +0530"
    },
    {
     "title": "\"Shameless\": AAP Leader On Congress MLA's 'Living With Manish Sisodia' Claim",
-    "summary": "Congress MLA Sukhpal Singh alleged Manish Sisodia illegally occupied a house allotted to a minister, and was staying the...",
+    "summary": "Congress MLA Sukhpal Singh alleged that AAP leader Manish Sisodia illegally occupied a ministerial residence alongside AAP Punjab co-incharge Gayatri Bishnoi. Bishnoi strongly condemned the claim, and the women's commission has also responded to the controversy.",
     "link": "https://www.ndtv.com/india-news/aap-leader-gayari-bishnoi-slams-punjab-congress-mla-sukhpal-khaira-over-shameless-comments-linking-her-with-manish-sisodia-12098883#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 25 Sep 2026 21:43:23 +0530"
    },
    {
     "title": "\"Terrorist Country Asking Me?\" S Jaishankar Rips Into Pak Journalist's Question",
-    "summary": "The exchange took place on the sidelines of the 81st session of the United Nations General Assembly in New York.",
+    "summary": "Indian External Affairs Minister S. Jaishankar sharply rebuked a Pakistani journalist during the United Nations General Assembly in New York. The exchange occurred when the journalist asked him a question, prompting Jaishankar's pointed response.",
     "link": "https://www.ndtv.com/india-news/terrorist-country-asking-me-s-jaishankar-rips-into-pak-journalists-question-12098881#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 25 Sep 2026 21:40:28 +0530"
    },
    {
     "title": "Firms Bet Big On Agentic AI, But Return-On-Investment Questions Remain",
-    "summary": "Among Indian companies, concerns about agentic AI governance, the risks it poses, challenges in identifying real use cas...",
+    "summary": "Indian companies are heavily investing in agentic AI while questioning its return on investment. Major barriers to adoption include governance concerns, security risks, high costs, and difficulties in finding practical use cases.",
     "link": "https://www.ndtv.com/india-news/firms-bet-big-on-agentic-ai-but-return-on-investment-questions-remain-12098920#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 25 Sep 2026 21:39:28 +0530"
    },
    {
     "title": "2 Delhi University Students Arrested For Harassing Woman, Trying To Pull Her Into Car",
-    "summary": "Police arrested Abhinav from Laxmi Nagar and Abhimanyu from Gurugram. Both are first-year law students at Delhi Universi...",
+    "summary": "Police arrested two first-year Delhi University law students for allegedly harassing a woman and trying to pull her into a car. Authorities are still searching for a third suspect believed to have been driving the vehicle during the incident.",
     "link": "https://www.ndtv.com/india-news/mukharjee-nagar-2-delhi-university-students-arrested-for-harassing-woman-trying-to-pull-her-into-car-12098670#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 25 Sep 2026 21:07:04 +0530"
@@ -233,38 +233,31 @@
   "General": [
    {
     "title": "Watch: What could the potential sanctions for Man City be?",
-    "summary": "Football finance expert Kieran Maguire says the potential sanctions for Manchester City will be 'significant' after the ...",
+    "summary": "Sources told BBC Sport that Manchester City has been found guilty of breaking the majority of 115 financial rule breaches. Football finance expert Kieran Maguire stated that the resulting sanctions against the club will be significant.",
     "link": "https://www.bbc.co.uk/sport/football/videos/cj62ee3zydxlo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 25 Sep 2026 14:55:14 GMT"
    },
    {
     "title": "I'm not tempted to call an early election, Burnham says",
-    "summary": "The prime minister told the BBC an early poll would throw the country into a \"backward-looking process\".",
+    "summary": "Prime Minister Andy Burnham stated he has no intention of calling an early general election. He believes an early poll would plunge the country into a backward-looking process.",
     "link": "https://www.bbc.co.uk/news/articles/cqwyzz79mdgjo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 25 Sep 2026 17:15:35 GMT"
    },
    {
     "title": "Special agents' blood and urine test results stolen in FBI hack",
-    "summary": "Experts say the hack could leave agents vulnerable to scams, blackmail and targeted attacks.",
+    "summary": "The blood and urine test results of FBI special agents were stolen in a recent cyberattack. Cybersecurity experts warn that this stolen medical data could expose the agents to blackmail, scams, and targeted attacks.",
     "link": "https://www.bbc.co.uk/news/articles/cw62me2vlj07o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 25 Sep 2026 13:56:16 GMT"
    },
    {
     "title": "Some BBC channels and radio stations may well have to close, director general says",
-    "summary": "The BBC's financial situation \"may well mean\" some channels and stations close, Matt Brittin says.",
+    "summary": "BBC Director General Matt Brittin states that the broadcaster's financial situation may force the closure of some channels and radio stations. This potential downsizing is a direct result of ongoing funding challenges facing the organization.",
     "link": "https://www.bbc.co.uk/news/articles/c6grv78d59jpo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 25 Sep 2026 12:00:11 GMT"
-   },
-   {
-    "title": "Noah Woods left playground through gap in fence, inquest hears",
-    "summary": "Noah's mother tells parents to \"hold their children a little tighter and cherish every moment\".",
-    "link": "https://www.bbc.co.uk/news/articles/cqgk54vg053po?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Fri, 25 Sep 2026 12:51:48 GMT"
    },
    {
     "title": "Daniel Thomas pleads not guilty after dinghy slashed",
@@ -272,6 +265,13 @@
     "link": "https://www.bbc.co.uk/news/articles/cq0lr5r46z5jo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 25 Sep 2026 15:01:42 GMT"
+   },
+   {
+    "title": "U2 celebrate 50th anniversary at the school where they formed",
+    "summary": "Rock band U2 celebrated their 50th anniversary by performing a concert at the Dublin school where they originally formed. They played their reunion gig in the same playground where the band members first met.",
+    "link": "https://www.bbc.co.uk/news/articles/cm9w4042yklko?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Fri, 25 Sep 2026 16:52:10 GMT"
    }
   ]
  }
