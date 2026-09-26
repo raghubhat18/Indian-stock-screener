@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-09-26T14:03:54Z",
+ "updatedAt": "2026-09-26T18:55:42Z",
  "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
@@ -13,28 +13,28 @@
   "Markets": [
    {
     "title": "Same playbook, different numbers: Why FPI selling may not be the story it looks like",
-    "summary": "Indian equities dropped due to high crude prices, rising US Treasury yields, geopolitical risks, and foreign portfolio investor (FPI) selling. However, foreign investors continued buying select IPOs, debt, and mid-cap and small-cap stocks instead of fully withdrawing from the market.",
+    "summary": "Indian stock markets fell due to high crude prices, US Treasury yields, geopolitical risks, and foreign portfolio investor (FPI) selling. Despite this trend, foreign investors selectively continued buying Indian IPOs, debt, and mid-cap and small-cap stocks.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/same-playbook-different-numbers-why-fpi-selling-may-not-be-the-story-it-looks-like/articleshow/134503513.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sat, 26 Sep 2026 17:05:56 +0530"
    },
    {
     "title": "J Infratech files IPO papers; eyes Rs 600 cr via fresh issue",
-    "summary": "Haryana-based infrastructure firm J Infratech has filed preliminary papers for an initial public offering to raise Rs 600 crore through a fresh issue and an offer for sale. The company plans to use the IPO proceeds to fund working capital requirements and repay its borrowings.",
+    "summary": "Haryana-based infrastructure firm J Infratech has filed preliminary papers for an initial public offering to raise Rs 600 crore through a fresh issue and promoter offer for sale. The company plans to use the proceeds to support working capital requirements and repay its borrowings.",
     "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/j-infratech-files-ipo-papers-eyes-rs-600-cr-via-fresh-issue/articleshow/134502249.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sat, 26 Sep 2026 15:48:10 +0530"
    },
    {
     "title": "F&amp;O Talk: 23,270 is a key Nifty hurdle; Sudeep Shah picks 5 stocks, discusses PB Fintech, Turtlemint strategy",
-    "summary": "Nifty closed at 23,140.50 following its eighth consecutive weekly decline amid bearish technical indicators. Analyst Sudeep Shah identified 23,300 as a key resistance level and 23,000 as options-based support while highlighting five stock picks.",
+    "summary": "Nifty closed at 23,140.50 following its eighth straight weekly decline amid persistent bearish technical indicators and global market pressures. Analysts note that 23,300 acts as a key resistance level while 23,000 serves as options-based support, with Pharma and Healthcare showing relative strength.",
     "link": "https://economictimes.indiatimes.com/markets/expert-view/fo-talk-23270-is-a-key-nifty-hurdle-sudeep-shah-picks-5-stocks-discusses-pb-fintech-turtlemint-strategy/articleshow/134501331.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sat, 26 Sep 2026 14:50:42 +0530"
    },
    {
     "title": "Bitcoin rebounds strongly this week, trades near $84,000 after climbing above $86,000. Here is what experts say",
-    "summary": "Bitcoin rebounded with a 3.6% weekly gain, trading near $84,000 after briefly crossing $86,000. The rise was driven by positive ETF flows and reduced uncertainty following the US Federal Reserve's September policy decision.",
+    "summary": "Bitcoin rebounded this week, trading near $84,000 after briefly climbing above $86,000. The recovery was driven by positive ETF flows and reduced uncertainty following the US Federal Reserve's September policy decision.",
     "link": "https://economictimes.indiatimes.com/markets/cryptocurrency/bitcoin-rebounds-strongly-this-week-trades-near-84000-after-climbing-above-86000-here-is-what-experts-say/articleshow/134500992.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sat, 26 Sep 2026 14:26:45 +0530"
@@ -48,7 +48,7 @@
    },
    {
     "title": "FIIs, MFs raise stakes in 10 stocks; shares gain up to 40% in 3 months",
-    "summary": "Foreign institutional investors and mutual funds increased their holdings in 10 Nifty 500 stocks during the June 2026 quarter. Following this rise in institutional interest, these shares gained up to 40% over the next three months.",
+    "summary": "During the June 2026 quarter, foreign institutional investors and mutual funds increased their holdings in 10 Nifty 500 stocks. Following this heightened institutional interest, these shares gained up to 40% over the next three months.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/fiis-mfs-raise-stakes-in-10-stocks-shares-gain-up-to-40-in-3-months/slideshow/134500775.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sat, 26 Sep 2026 13:58:34 +0530"
@@ -56,59 +56,59 @@
   ],
   "Geo-Political": [
    {
-    "title": "Huge crowds greet Pope in Paris for open-air Mass",
-    "summary": "Over half a million people are expected to gather in central Paris for an open-air Mass. Huge crowds turned out to welcome the Pope during his visit to the French capital.",
-    "link": "https://www.bbc.co.uk/news/articles/cm4gjjwvvlzro?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Sat, 26 Sep 2026 13:23:59 GMT"
-   },
-   {
-    "title": "Iran offers US deal to reopen Strait of Hormuz in seven days",
-    "summary": "Iran offered the United States a deal to reopen the Strait of Hormuz within seven days. A U.S. official told the BBC that constructive discussions are taking place through mediators regarding the proposal.",
+    "title": "Trump rejects Iran deal to reopen Strait of Hormuz in seven days",
+    "summary": "President Trump rejected an Iranian proposal to reopen the Strait of Hormuz within seven days. He stated that Tehran made the offer only because they are losing the war.",
     "link": "https://www.bbc.co.uk/news/articles/cqgmrr9ekr7ko?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Sat, 26 Sep 2026 05:03:09 GMT"
+    "pubDate": "Sat, 26 Sep 2026 18:17:12 GMT"
+   },
+   {
+    "title": "Pope praises young people's 'energy and commitment' at huge open-air Mass in Paris",
+    "summary": "Approximately 700,000 people attended a large open-air Mass in central Paris. During the service, the Pope praised the energy and commitment of young people.",
+    "link": "https://www.bbc.co.uk/news/articles/cm4gjjwvvlzro?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Sat, 26 Sep 2026 16:53:32 GMT"
    },
    {
     "title": "British national among six dead in building explosion close to Acropolis in Athens",
-    "summary": "A suspected gas explosion in a building near the Acropolis in Athens killed six people. The victims include one British national, four Americans, and one Greek national.",
+    "summary": "A suspected gas explosion in a building near the Acropolis in Athens killed six people, including a British national. The remaining victims consisted of four Americans and one Greek national, according to officials.",
     "link": "https://www.bbc.co.uk/news/articles/c6p3kk78l4l1o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Sat, 26 Sep 2026 12:47:25 GMT"
    },
    {
-    "title": "Bangkok roads submerged as flood disaster declared",
-    "summary": "Heavy rainfall has caused severe flooding across Bangkok, Thailand. Officials have declared an emergency response in the capital city.",
-    "link": "https://www.bbc.co.uk/news/articles/ck1wxx8n2x3zo?at_medium=RSS&at_campaign=rss",
+    "title": "Security lapses at Utah campus where Charlie Kirk was killed, review says",
+    "summary": "An independent review found security lapses at the Utah campus where Charlie Kirk was killed. The report also states that Kirk's aides insisted on an outdoor venue despite concerns from campus officials.",
+    "link": "https://www.bbc.co.uk/news/articles/cq4g55r76d9lo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Sat, 26 Sep 2026 07:21:30 GMT"
+    "pubDate": "Sat, 26 Sep 2026 15:12:25 GMT"
    },
    {
-    "title": "South African white genocide does not exist, new ambassador to US tells BBC",
-    "summary": "South Africa's new ambassador to the US, Roelf Meyer, told the BBC that claims of a white genocide in South Africa are false. Meyer stated that his background as a white Afrikaner gives him the legitimacy to challenge these claims made by Donald Trump.",
-    "link": "https://www.bbc.co.uk/news/articles/cm2l8qv7zppko?at_medium=RSS&at_campaign=rss",
+    "title": "German town bans 'stumbling stone' memorials to Nazi victims",
+    "summary": "A town in Germany has banned \"stumbling stone\" brass memorials dedicated to Nazi victims. The country's education minister strongly criticized this decision, calling it a scandal.",
+    "link": "https://www.bbc.co.uk/news/articles/cqm2mm4y5dkko?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 25 Sep 2026 23:20:48 GMT"
+    "pubDate": "Sat, 26 Sep 2026 15:48:51 GMT"
    },
    {
-    "title": "OpenAI bots meddled with multiple US government agency sites",
-    "summary": "OpenAI confirmed that its automated bots accessed public data from multiple U.S. government agency websites during testing exercises. The company stated that these activities were part of routine data collection to evaluate system performance.",
-    "link": "https://www.bbc.co.uk/news/articles/cw62jje658dlo?at_medium=RSS&at_campaign=rss",
+    "title": "Nor'easter storm brings coastal flooding, as New York and New Jersey declare emergency",
+    "summary": "A powerful Nor'easter storm is bringing coastal flooding to tens of millions of people along the East Coast from Maine to Virginia. In response, officials in New York and New Jersey have declared states of emergency.",
+    "link": "https://www.bbc.co.uk/news/articles/ck1wxxzn5jndo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Sat, 26 Sep 2026 02:50:56 GMT"
+    "pubDate": "Sat, 26 Sep 2026 17:47:09 GMT"
    }
   ],
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and aske...",
+    "summary": "An author tested ChatGPT recommendations and found their WordPress SaaS course ranked as the top AI-suggested result without paid advertising. This experiment demonstrates how AI optimization (AIO) is changing organic traffic compared to traditional SEO.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "This article highlights the top 10 essential artificial intelligence tools designed to revolutionize content creation in 2025. These tools aim to help digital creators stay ahead of industry changes and simplify their workflows.",
+    "summary": "The digital landscape in 2025 requires content creators to use artificial intelligence to stay competitive. This guide outlines the top ten AI tools designed to streamline and improve the content creation process.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
@@ -122,21 +122,21 @@
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "This article highlights ten advanced artificial intelligence tools used across various industries in 2023. These technologies are designed to automate repetitive tasks, streamline workflows, and boost overall productivity.",
+    "summary": "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovation and efficiency in various industries. ...",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "This article lists the top 10 AI content generator and writer tools available in 2022. It aims to help readers choose the right software to create efficient, engaging, and relevant content for their audience.",
+    "summary": "Are you looking for a way to create content that is both effective and efficient? If so, then you should consider using ...",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
    },
    {
     "title": "Beginner Guide to CJ Affiliate (Commission Junction) in 2022",
-    "summary": "This beginner's guide explains how to use the CJ Affiliate network to earn money online. It also highlights top CJ affiliate programs and alternative platforms.",
+    "summary": "Image by vectorjuice on FreepikIn this CJ Affiliate guide, I will share with you everything you need to get started on t...",
     "link": "https://techncruncher.blogspot.com/2022/09/cj-affiliate-ultimate-guide-to.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Sat, 10 Sep 2022 08:57:00 +0000"
@@ -144,134 +144,134 @@
   ],
   "Data & Insights": [
    {
+    "title": "Sitharaman on India’s 10%+ growth potential: Startups and technology can drive next phase",
+    "summary": "Finance Minister Sitharaman stated that startups and technology can help India achieve over 10% economic growth. She emphasized that reaching this higher growth level to support Atmanirbhar Bharat and Viksit Bharat will require significant effort from all sectors of society.",
+    "link": "https://www.livemint.com/economy/sitharaman-on-india-s-10-growth-potential-startups-and-technology-can-drive-next-phase-11790435377387.html",
+    "source": "livemint.com",
+    "pubDate": "Sat, 26 Sep 2026 22:02:38 +0530"
+   },
+   {
     "title": "India's forex fall by $14.9 billion in a week, says RBI: Where do reserves stand now?",
-    "summary": "India's foreign exchange reserves fell by $14.9 billion in a single week, according to the Reserve Bank of India. The central bank reported that this sharp decline was primarily driven by a drop in foreign currency assets.",
+    "summary": "India's foreign exchange reserves dropped by $14.9 billion in a single week, according to the Reserve Bank of India. The decrease was primarily driven by a fall in foreign currency assets, which make up the largest component of the country's reserves.",
     "link": "https://www.livemint.com/economy/indias-forex-fall-by-14-9-billion-in-a-week-says-rbi-where-do-reserves-stand-now-11790404091421.html",
     "source": "livemint.com",
     "pubDate": "Sat, 26 Sep 2026 12:24:39 +0530"
    },
    {
     "title": "India's financial, external sectors remain resilient despite global risks: RBI bulletin",
-    "summary": "The Reserve Bank of India reported that the country's financial and external sectors remain resilient amid global risks. This stability is supported by strong Q1 growth, a five-year high in net FDI, robust exports and remittances, and $765.9 billion in foreign exchange reserves.",
+    "summary": "According to the RBI Bulletin, India's financial and external sectors remain resilient despite global risks. This economic strength is supported by strong Q1 growth, a five-year high in net FDI, robust services exports, remittances, and $765.9 billion in forex reserves.",
     "link": "https://www.livemint.com/economy/indias-financial-external-sectors-remain-resilient-despite-global-risks-rbi-bulletin-11790387587510.html",
     "source": "livemint.com",
     "pubDate": "Sat, 26 Sep 2026 07:30:37 +0530"
    },
    {
     "title": "CEA flags US friction, energy shocks, and missing AI play as India’s key near-term risks",
-    "summary": "CEA V. Anantha Nageswaran warned that trade coercion, weaponized supply chains, and rising US bond yields require India ...",
+    "summary": "Chief Economic Advisor V. Anantha Nageswaran stated that trade coercion, weaponized supply chains, and rising US bond yields are key near-term risks for India. He warned that these global pressures require India to adopt costlier hedging strategies and a new economic playbook.",
     "link": "https://www.livemint.com/economy/cea-flags-us-friction-energy-shocks-and-missing-ai-play-as-india-s-key-near-term-risks-11790352328478.html",
     "source": "livemint.com",
     "pubDate": "Fri, 25 Sep 2026 22:20:36 +0530"
    },
    {
     "title": "India’s growth outlook strengthens as economists see resilient incomes, stable policy: WEF",
-    "summary": "Seventy-four percent of economists surveyed by the World Economic Forum expect strong or very strong economic growth in India over the next year. This improved outlook is driven by resilient domestic demand and stable policy expectations.",
+    "summary": "According to a WEF survey, 74% of economists expect strong or very strong economic growth in India over the next year. This improved outlook is driven by resilient domestic demand and stable policy expectations.",
     "link": "https://www.livemint.com/economy/indias-growth-outlook-strengthens-as-economists-see-resilient-incomes-stable-policy-wef-11790339237198.html",
     "source": "livemint.com",
     "pubDate": "Fri, 25 Sep 2026 22:14:23 +0530"
    },
    {
     "title": "Centre lowers FY27 borrowing estimate by  ₹1.2 trillion, plans  ₹7.86 trillion bond sales in H2",
-    "summary": "The central government has reduced its fiscal year 2027 borrowing estimate by ₹1.2 trillion due to stronger tax and non-tax receipts. It will conduct ₹7.86 trillion in bond sales during the second half of the year.",
+    "summary": "The central government has reduced its gross borrowing estimate for the 2027 financial year by ₹1.2 trillion due to stronger-than-expected tax and non-tax revenues. Consequently, the Centre plans to sell ₹7.86 trillion in government bonds during the second half of the fiscal year.",
     "link": "https://www.livemint.com/economy/centre-cuts-fy27-borrowing-bond-sales-11790344258072.html",
     "source": "livemint.com",
     "pubDate": "Fri, 25 Sep 2026 20:19:59 +0530"
-   },
-   {
-    "title": "India attracts $19.8 billion FDI in Q1: Japan beats US as the top investor and which sectors got the money?",
-    "summary": "India's foreign direct investment rose 6% to $19.81 billion in the first quarter of the financial year, up from $18.62 billion during the same period last year. Singapore, Mauritius, and the US were among the top investing countries.",
-    "link": "https://www.livemint.com/economy/india-fdi-rises-6-to-19-8-billion-in-q1-these-three-countries-pour-most-money-11790346761254.html",
-    "source": "livemint.com",
-    "pubDate": "Fri, 25 Sep 2026 20:16:49 +0530"
    }
   ],
   "India": [
    {
-    "title": "IAF Agniveervayu Answer Key 2026 Released For Intake 02/2027: Check Details",
-    "summary": "The Indian Air Force has released the Agniveervayu answer key and response sheet for the 02/2027 intake. Candidates can now access these documents online and submit objections if needed.",
-    "link": "https://www.ndtv.com/education/iaf-agniveervayu-answer-key-2026-released-for-intake-02-2027-check-details-12101294#publisher=newsstand",
+    "title": "'Bigg Boss' Contestant Hits Pune Doctor With Sticks, Utensils To Extort Money",
+    "summary": "Divya Shinde, a reality TV contestant and social media star, was accused of breaking into a Pune doctor's home and brutally attacking him with sticks and utensils. She and her accomplices allegedly assaulted the victim and stole his car after he failed to pay a 5 lakh rupee extortion demand.",
+    "link": "https://www.ndtv.com/india-news/bigg-boss-contestant-assaults-doctor-leaves-him-bleeding-for-rs-5-lakh-12102687#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Sat, 26 Sep 2026 15:16:41 +0530"
+    "pubDate": "Sat, 26 Sep 2026 22:22:47 +0530"
    },
    {
-    "title": "Eggs, Stones Thrown At Mamata Banerjee MLA Kunal Ghosh's Car In Bengal",
-    "summary": "The video showed Kunal Ghosh sitting in the car while the mob banged at the car, threw eggs and stones, while raising \"K...",
-    "link": "https://www.ndtv.com/india-news/eggs-stones-hurled-at-mamata-banerjees-mla-kunal-ghoshs-car-in-bengal-12101315#publisher=newsstand",
+    "title": "When Two Akali Dals Faced Off At A Fair: Panthic Politics Dominates Chhapar Mela",
+    "summary": "Sukhbir Badal's Shiromani Akali Dal faced Amritpal Singh's Akali Dal at the Chhapar Mela in the absence of other political parties. This direct political clash at the traditional fair occurred just six months before upcoming elections.",
+    "link": "https://www.ndtv.com/india-news/chhapar-becomes-ground-zero-for-punjabs-panthic-vote-battle-12102704#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Sat, 26 Sep 2026 15:14:43 +0530"
+    "pubDate": "Sat, 26 Sep 2026 22:13:02 +0530"
    },
    {
-    "title": "'Heard Screams From Girls Hostel': 'Ghost' Rumour Triggers Massive Protests At Punjab University",
-    "summary": "Hundreds of students at Patiala's Chitkara University took to streets after a video claiming the presence of a 'ghost' o...",
-    "link": "https://www.ndtv.com/india-news/ghost-rumour-triggers-massive-protests-at-chitkara-university-in-patiala-heard-screams-from-girls-hostel-12101303#publisher=newsstand",
+    "title": "Punjab Sarpanch's Husband Shot, Family Alleges Murder Linked to Drug Tip-Off",
+    "summary": "Navdeep Singh, the husband of a Punjab sarpanch, was shot dead amidst an ongoing personal dispute with a local jeweller named Surinder Singh. His family has alleged that the murder is connected to a drug tip-off.",
+    "link": "https://www.ndtv.com/india-news/akali-leaders-husband-shot-after-argument-in-punjab-party-hits-out-at-aap-12102074#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Sat, 26 Sep 2026 15:11:23 +0530"
+    "pubDate": "Sat, 26 Sep 2026 22:12:23 +0530"
    },
    {
-    "title": "Odisha Man Kills Wife, Dumps Body In Vacant Plot In Bengaluru",
-    "summary": "Sagar Chandra Rawat, a native of Odisha, was arrested for killing his wife in Bengaluru. Police apprehended him over three weeks after discovering her highly decomposed body in a vacant plot in MS Nagar.",
-    "link": "https://www.ndtv.com/india-news/odisha-man-kills-wife-dumps-body-in-vacant-plot-in-bengaluru-sagar-chandra-rawat-kills-anusuya-12100689#publisher=newsstand",
+    "title": "Congress, BJP And Allies' Backing: Politics Follows Poll Body's Clarification",
+    "summary": "Following the Election Commission's clarification, BJP ally TDP leader Chandrababu Naidu stated that the issue has been unanimously resolved and misconceptions put to rest. The clarification received backing from both the Congress and the BJP along with its allies.",
+    "link": "https://www.ndtv.com/india-news/election-commissions-note-settles-row-says-bjp-congress-lists-unanswered-questions-12102630#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Sat, 26 Sep 2026 15:10:09 +0530"
+    "pubDate": "Sat, 26 Sep 2026 21:51:07 +0530"
    },
    {
-    "title": "IITs Bar 22 Companies From Campus Placements After Job Offers Withdrawn",
-    "summary": "The decision comes after the September 15 deadline fixed by the All IITs Placement Committee (AIPC) for companies to hon...",
-    "link": "https://www.ndtv.com/education/iits-bar-22-companies-from-campus-placements-after-job-offers-withdrawn-12101326#publisher=newsstand",
+    "title": "'Your Guidance Gives Me Renewed Energy': Yogi Adityanath Meets PM Modi",
+    "summary": "Uttar Pradesh Chief Minister Yogi Adityanath met with Prime Minister Narendra Modi in Delhi. The meeting followed Amit Shah's praise of Uttar Pradesh for producing BrahMos missiles and AK-203 assault rifles.",
+    "link": "https://www.ndtv.com/india-news/your-guidance-gives-me-renewed-energy-yogi-adityanath-meets-pm-modi-12102781#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Sat, 26 Sep 2026 15:08:30 +0530"
+    "pubDate": "Sat, 26 Sep 2026 21:50:07 +0530"
    },
    {
-    "title": "Maharashtra Declares Drought In 74% Of State, 265 Of 358 Talukas Affected",
-    "summary": "Maharashtra has declared drought across 265 of its 358 talukas, affecting 74 percent of the state. This status was triggered by a rainfall deficit exceeding 25 percent and a dry spell lasting 21 days.",
-    "link": "https://www.ndtv.com/india-news/maharashtra-declares-drought-in-74-of-state-265-of-358-talukas-affected-12101284#publisher=newsstand",
+    "title": "Help Us Get Truth Out: Sahil Wakode Parents' Appeal To IIT Students",
+    "summary": "Sahil Wakode's parents appealed to IIT Bombay students for help in uncovering the truth about their son. His father stated in a video that he had been blocked from entering the campus despite multiple visits.",
+    "link": "https://www.ndtv.com/india-news/iit-bombay-sahil-wakode-will-die-but-wont-give-up-fight-sahil-wakode-parents-message-to-iit-students-12102555#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Sat, 26 Sep 2026 14:55:55 +0530"
+    "pubDate": "Sat, 26 Sep 2026 21:37:13 +0530"
    }
   ],
   "General": [
    {
-    "title": "Man City legal fight could spiral out of control, former Premier League club executive warns",
-    "summary": "Christian Purslow's comments come after Manchester City was found guilty of dozens of financial rule charges brought by ...",
-    "link": "https://www.bbc.co.uk/sport/football/articles/c6d944ylqkkeo?at_medium=RSS&at_campaign=rss",
+    "title": "Burnham announces scheme to help first-time buyers onto housing ladder",
+    "summary": "Prime Minister Burnham has announced a new housing scheme to assist first-time buyers. The program is specifically designed to help people who cannot rely on financial support from their parents.",
+    "link": "https://www.bbc.co.uk/news/articles/cv8e33gdw17no?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Sat, 26 Sep 2026 11:03:53 GMT"
+    "pubDate": "Sat, 26 Sep 2026 18:50:02 GMT"
    },
    {
-    "title": "British national among six dead in building explosion close to Acropolis in Athens",
-    "summary": "A suspected gas explosion in a building near the Acropolis in Athens killed six people. The victims include four Americans, one Greek national, and one British national.",
-    "link": "https://www.bbc.co.uk/news/articles/c6p3kk78l4l1o?at_medium=RSS&at_campaign=rss",
+    "title": "Heathrow Airport warns third runway could be delayed by four years",
+    "summary": "Heathrow Airport has warned that the construction of its proposed third runway could be delayed by up to four years, potentially missing the government's 2035 completion target. Government ministers responded by stating that the original deadline has always been ambitious.",
+    "link": "https://www.bbc.co.uk/news/articles/crx2zz401935o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Sat, 26 Sep 2026 12:47:25 GMT"
+    "pubDate": "Sat, 26 Sep 2026 16:32:42 GMT"
+   },
+   {
+    "title": "Trump rejects Iran deal to reopen Strait of Hormuz in seven days",
+    "summary": "President Trump rejected an Iranian proposal to reopen the Strait of Hormuz within seven days. He stated that Tehran offered the deal only because they are losing the war.",
+    "link": "https://www.bbc.co.uk/news/articles/cqgmrr9ekr7ko?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Sat, 26 Sep 2026 18:17:12 GMT"
    },
    {
     "title": "How long can Labour's feel-good factor last?",
-    "summary": "Labour's morale has improved significantly since Burnham became Prime Minister. However, political journalist Laura Kuenssberg questions how long this positive momentum can last given upcoming challenges.",
+    "summary": "The party’s spirits have been transformed since Burnham became PM, but what's coming down the tracks, asks Laura Kuenssb...",
     "link": "https://www.bbc.co.uk/news/articles/cwn8mn0rzkzlo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Sat, 26 Sep 2026 11:22:03 GMT"
    },
    {
     "title": "Met to re-examine CCTV from Jill Dando murder case",
-    "summary": "Police are reviewing CCTV footage of a man at Putney Bridge station from the 1999 murder of Crimewatch presenter Jill Dando. The Metropolitan Police hope this re-examination of the evidence will yield new leads in the unsolved case.",
+    "summary": "Police are reviewing footage of a man at Putney Bridge station after the Crimewatch presenter was shot in 1999.",
     "link": "https://www.bbc.co.uk/news/articles/c60m334grx9vo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Sat, 26 Sep 2026 13:21:27 GMT"
    },
    {
-    "title": "Republic of Ireland confirm Israel game will go ahead",
-    "summary": "The Republic of Ireland confirmed that Sunday's UEFA Nations League B3 match against Israel will take place. The game is scheduled to be played in Debrecen, Hungary.",
+    "title": "Republic of Ireland to wear black armbands for Israel game",
+    "summary": "Republic of Ireland players intend to wear black armbands \"in recognition of all lives lost in the [Gaza] conflict\" for ...",
     "link": "https://www.bbc.co.uk/sport/football/articles/ckddvv5dn4eyo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Sat, 26 Sep 2026 13:38:29 GMT"
-   },
-   {
-    "title": "Huge crowds greet Pope in Paris for open-air Mass",
-    "summary": "More than half a million people are expected to gather in Paris to attend an open-air Mass led by the Pope. Huge crowds have already begun greeting him in the heart of the French capital for the event.",
-    "link": "https://www.bbc.co.uk/news/articles/cm4gjjwvvlzro?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Sat, 26 Sep 2026 13:23:59 GMT"
+    "pubDate": "Sat, 26 Sep 2026 14:58:44 GMT"
    }
   ]
  }
