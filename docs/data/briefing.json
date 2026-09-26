@@ -1,6 +1,6 @@
 {
- "updatedAt": "2026-09-25T22:59:25Z",
- "model": "gemini-flash-lite-latest",
+ "updatedAt": "2026-09-26T01:12:08Z",
+ "model": "gemini-flash-latest",
  "categories": [
   "Markets",
   "Geo-Political",
@@ -13,42 +13,42 @@
   "Markets": [
    {
     "title": "Dow ends 400 points higher as investors buy AI stocks; Microsoft rallies",
-    "summary": "Wall Street closed 400 points higher on Friday as investors bought Microsoft and other artificial intelligence stocks. This market gain occurred despite earlier weekly uncertainty driven by high oil prices, rising Treasury yields, and potential interest rate increases.",
+    "summary": "The Dow closed",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/dow-ends-400-points-higher-as-investors-buy-ai-stocks-microsoft-rallies/articleshow/134492147.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sat, 26 Sep 2026 01:41:14 +0530"
    },
    {
     "title": "Virtual pharma API firm HRV preparing for IPO, DRHP likely in H1 of 2027: Sources",
-    "summary": "Virtual pharma API company HRV plans to file a draft red herring prospectus for an initial public offering in the first half of 2027. CEO Hari Kiran Chereddi stated that the firm is investing in partner facility capacity, exploring acquisitions, and forecasting Rs 1,000 crore in revenue by fiscal year 2028.",
+    "summary": "HRV Pharma CEO Hari Kiran Chereddi says investing in capacity at partner facilities, exploring acquisitions for market a...",
     "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/virtual-pharma-api-firm-hrv-preparing-for-ipo-drhp-likely-in-h1-of-2027-sources/articleshow/134491851.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sat, 26 Sep 2026 00:49:32 +0530"
    },
    {
     "title": "Anthropic investor Lonsdale says AI firms stoking fear to sway policy",
-    "summary": "Anthropic investor Joe Lonsdale warns that AI companies are stoking fear to influence public policy and industry regulations in their favor. Despite his concerns about a few firms dictating industry rules, he maintains his support for Anthropic and its leadership in AI development.",
+    "summary": "Anthropic",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/anthropic-investor-lonsdale-says-ai-firms-stoking-fear-to-sway-policy/articleshow/134491575.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sat, 26 Sep 2026 00:36:32 +0530"
    },
    {
     "title": "AI boom raises ‘too-big-to-fail’ concerns as ecosystem expands, says Kansas Fed's Jeff Schmid",
-    "summary": "Kansas City Fed President Jeff Schmid warned that rapid investments in artificial intelligence create \"too-big-to-fail\" concerns due to deep industry interconnectedness. He compared the current AI boom's potential systemic risks to the financial system leading up to the 2008 crisis.",
+    "summary": "Kansas City Federal Reserve President Jeff Schmid has expressed concerns about the interconnectedness of the artificial ...",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/ai-boom-raises-too-big-to-fail-concerns-as-ecosystem-expands-says-kansas-feds-jeff-schmid/articleshow/134490358.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 25 Sep 2026 23:15:51 +0530"
    },
    {
     "title": "CleanMax Enviro block deal: Augment India Holdings likely to divest 85 lakh shares worth Rs 1,063 crore",
-    "summary": "Augment India Holdings plans to sell 85 lakh shares, representing a 7.25% stake, in CleanMax Enviro Energy Solutions through a block deal. The transaction is valued at Rs 1,062.8 crore with a floor price of Rs 1,250 per share.",
+    "summary": "Augment India Holdings may sell 85 lakh Clean Max Enviro Energy Solutions shares, representing a 7.25% stake, through a ...",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/cleanmax-enviro-block-deal-augment-india-holdings-likely-to-divest-85-lakh-shares-worth-rs-1063-crore/articleshow/134488759.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 25 Sep 2026 21:04:32 +0530"
    },
    {
     "title": "Liqvd Digital India IPO subscribed 5.08 times on final day",
-    "summary": "Liqvd Digital India's initial public offering was subscribed 5.08 times on its final day, receiving bids for 3.86 crore shares against the 75.94 lakh shares offered. Non-institutional investors drove the demand with a 21.02 times subscription, followed by retail investors at 1.43 times and fully subscribed qualified institutional buyers.",
+    "summary": "Liqvd Digital India’s IPO was subscribed 5.08 times on the final bidding day, with 3.86 crore shares bid against 75.94 l...",
     "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/liqvd-digital-india-ipo-subscribed-5-08-times-on-final-day/articleshow/134488487.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 25 Sep 2026 20:44:35 +0530"
@@ -56,80 +56,80 @@
   ],
   "Geo-Political": [
    {
+    "title": "Iran offers US deal to reopen Strait of Hormuz in seven days",
+    "summary": "Iran",
+    "link": "https://www.bbc.co.uk/news/articles/cqgmrr9ekr7ko?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Fri, 25 Sep 2026 23:38:48 GMT"
+   },
+   {
     "title": "Russia targeting 'ordinary life' with attacks on Ukraine's data centres, Zelensky says",
-    "summary": "Ukrainian President Volodymyr Zelenskyy stated that recent Russian attacks on Ukraine's data centers are designed to disrupt everyday life. He noted that these strikes specifically target citizens' ability to work, study, and stay connected.",
+    "summary": "Such strikes aim to disrupt \"people's ability to stay connected, study, work\", says Ukraine's president.",
     "link": "https://www.bbc.co.uk/news/articles/c84gkwgk7d06o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 25 Sep 2026 20:47:49 GMT"
    },
    {
-    "title": "Special agents' blood and urine test results stolen in FBI hack",
-    "summary": "Medical test results for FBI special agents were stolen in a recent cyberattack. Security experts warn that this data breach exposes the agents to potential blackmail, scams, and targeted attacks.",
-    "link": "https://www.bbc.co.uk/news/articles/cw62me2vlj07o?at_medium=RSS&at_campaign=rss",
+    "title": "South African white genocide does not exist, new ambassador to US tells BBC",
+    "summary": "Roelf Meyer tells the BBC that being a white Afrikaner gives him legitimacy to challenge Trump's claim of a genocide.",
+    "link": "https://www.bbc.co.uk/news/articles/cm2l8qv7zppko?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 25 Sep 2026 13:56:16 GMT"
+    "pubDate": "Fri, 25 Sep 2026 23:20:48 GMT"
    },
    {
-    "title": "Pope warns against 'losing humanity' to AI machines",
-    "summary": "Pope Francis warned about the risks of losing human qualities to artificial intelligence during a trip to France on Friday. He delivered this message on the first day of his visit.",
-    "link": "https://www.bbc.co.uk/news/articles/cmq8j904212po?at_medium=RSS&at_campaign=rss",
+    "title": "Inside the FBI hack: Agents fearful and angry after 'dangerous' data breach",
+    "summary": "Current and former FBI agents",
+    "link": "https://www.bbc.co.uk/news/articles/cm4gjjlgzdjgo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 25 Sep 2026 15:06:41 GMT"
+    "pubDate": "Fri, 25 Sep 2026 23:05:40 GMT"
    },
    {
-    "title": "Supreme Court allows Trump to use controversial database to check voter citizenship",
-    "summary": "The Supreme Court permitted Donald Trump to use a disputed database to verify voter citizenship. Critics warn the unreliable data could cause eligible U.S. citizens to be incorrectly removed from voter rolls.",
-    "link": "https://www.bbc.co.uk/news/articles/ck05rrj3jeylo?at_medium=RSS&at_campaign=rss",
+    "title": "OpenAI investigating 'dozens' of instances of agents acting improperly",
+    "summary": "OpenAI agents tried to get information from \"governments, universities, public agencies, and other institutions\" through...",
+    "link": "https://www.bbc.co.uk/news/articles/cw62jje658dlo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 25 Sep 2026 19:13:35 GMT"
+    "pubDate": "Sat, 26 Sep 2026 00:09:45 GMT"
    },
    {
-    "title": "Trump's plans for massive arch move ahead",
-    "summary": "Opposition is growing against Donald Trump's plans to build a 250-foot arch for military purposes. A Democratic official has criticized the proposed project as \"foolhardy.\"",
-    "link": "https://www.bbc.co.uk/news/articles/cq0lrr8kxy0lo?at_medium=RSS&at_campaign=rss",
+    "title": "Black woman found hanging from tree was dead before body was 'staged', police say",
+    "summary": "Police reported that Tasia",
+    "link": "https://www.bbc.co.uk/news/articles/cwp933nzpp9ro?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 25 Sep 2026 18:27:46 GMT"
-   },
-   {
-    "title": "Students strike across Germany in protest against military service",
-    "summary": "Students across Germany are striking to protest a new law that established voluntary military service in January. Organizers organized the walkouts because they fear the voluntary system will lead to compulsory military service.",
-    "link": "https://www.bbc.co.uk/news/articles/cxnvlnve52qdo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Fri, 25 Sep 2026 15:36:22 GMT"
+    "pubDate": "Fri, 25 Sep 2026 21:16:59 GMT"
    }
   ],
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "An author discovered their WordPress SaaS course was recommended as the top result when querying ChatGPT for the best course on the topic. This unexpected visibility occurred without paid advertising or traditional search engine optimization.",
+    "summary": "Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and aske...",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "This guide outlines the top ten essential artificial intelligence tools designed to revolutionize content creation in 2025. These technologies help digital creators stay ahead of industry changes and simplify their workflows.",
+    "summary": "Looking to level up your content creation game in 2025? You're in the right place! The digital landscape has evolved dra...",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "&nbsp;In the rapidly advancing landscape of AI technology and innovation, LimeWire emerges as a unique platform in the r...",
+    "summary": "LimeWire",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "This article explores the top ten artificial intelligence tools of 2023 that drive industry innovation and efficiency. These advanced applications automate repetitive tasks, improve workflows, and increase overall productivity across various sectors.",
+    "summary": "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovation and efficiency in various industries. ...",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "This article lists the top 10 AI content generator and writer tools available in 2022. It aims to help readers choose the right AI tool to efficiently create engaging and relevant content for their audience.",
+    "summary": "Are you looking for a way to create content that is both effective and efficient? If so, then you should consider using ...",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
@@ -145,86 +145,86 @@
   "Data & Insights": [
    {
     "title": "CEA flags US friction, energy shocks, and missing AI play as India’s key near-term risks",
-    "summary": "Chief Economic Advisor V. Anantha Nageswaran warned that trade coercion, weaponized supply chains, and rising US bond yields are key near-term risks for India. To address these challenges, he stated that India must adopt a costlier hedging strategy and a new economic playbook.",
+    "summary": "CEA V. Anantha Nageswaran warned that trade coercion, weaponized supply chains, and rising US bond yields require India ...",
     "link": "https://www.livemint.com/economy/cea-flags-us-friction-energy-shocks-and-missing-ai-play-as-india-s-key-near-term-risks-11790352328478.html",
     "source": "livemint.com",
-    "pubDate": "Fri, 25 Sept 2026 22:20:36 +0530"
+    "pubDate": "Fri, 25 Sep 2026 22:20:36 +0530"
    },
    {
     "title": "India’s growth outlook strengthens as economists see resilient incomes, stable policy: WEF",
-    "summary": "A World Economic Forum survey shows that 74% of economists expect India's economic growth to be strong or very strong over the next year. This improved outlook is driven by strong domestic demand and stable government policies.",
+    "summary": "India’s growth outlook has improved sharply, with 74% of WEF-surveyed economists expecting strong or very strong growth ...",
     "link": "https://www.livemint.com/economy/indias-growth-outlook-strengthens-as-economists-see-resilient-incomes-stable-policy-wef-11790339237198.html",
     "source": "livemint.com",
-    "pubDate": "Fri, 25 Sept 2026 22:14:23 +0530"
+    "pubDate": "Fri, 25 Sep 2026 22:14:23 +0530"
    },
    {
     "title": "Centre lowers FY27 borrowing estimate by  ₹1.2 trillion, plans  ₹7.86 trillion bond sales in H2",
-    "summary": "The central government has reduced its fiscal year 2027 borrowing estimate by ₹1.2 trillion due to stronger tax and non-tax receipts. It will also issue ₹7.86 trillion in bonds during the second half of the year.",
+    "summary": "Stronger tax and non-tax receipts have allowed the Centre to trim its borrowing plans, easing the supply of fresh govern...",
     "link": "https://www.livemint.com/economy/centre-cuts-fy27-borrowing-bond-sales-11790344258072.html",
     "source": "livemint.com",
-    "pubDate": "Fri, 25 Sept 2026 20:19:59 +0530"
+    "pubDate": "Fri, 25 Sep 2026 20:19:59 +0530"
    },
    {
     "title": "India attracts $19.8 billion FDI in Q1: Japan beats US as the top investor and which sectors got the money?",
-    "summary": "India's foreign direct investment rose 6% to $19.81 billion in the first quarter of the financial year, up from $18.62 billion in the same period last year. Singapore, Mauritius, and the US were among the top investors during this period.",
+    "summary": "India's foreign direct investment rose 6% to $19.81 billion in Q1 of the financial year, as per DPIIT data. This marks a...",
     "link": "https://www.livemint.com/economy/india-fdi-rises-6-to-19-8-billion-in-q1-these-three-countries-pour-most-money-11790346761254.html",
     "source": "livemint.com",
-    "pubDate": "Fri, 25 Sept 2026 20:16:49 +0530"
+    "pubDate": "Fri, 25 Sep 2026 20:16:49 +0530"
    },
    {
     "title": "India-Australia trade pact: CECA, BIT talks to deepen ties in critical minerals, investment",
-    "summary": "India and Australia are currently negotiating a broader Comprehensive Economic Cooperation Agreement and a bilateral investment treaty. These talks focus on deepening cooperation in critical minerals, investment, education, and talent.",
+    "summary": "India and Australia are negotiating",
     "link": "https://www.livemint.com/economy/indiaaustralia-trade-pact-ceca-bit-talks-to-deepen-ties-in-critical-minerals-investment-11790335029563.html",
     "source": "livemint.com",
-    "pubDate": "Fri, 25 Sept 2026 17:31:40 +0530"
+    "pubDate": "Fri, 25 Sep 2026 17:31:40 +0530"
    },
    {
     "title": "Cabinet to decide on easing decade-old bilateral investment treaty rules",
-    "summary": "The Cabinet will decide on relaxing decade-old bilateral investment treaty rules to make dispute resolution faster for companies. The proposed changes will significantly reduce the mandatory five-year domestic litigation period required before firms can pursue global arbitration.",
+    "summary": "The Cabinet is considering",
     "link": "https://www.livemint.com/economy/cabinet-bilateral-investment-treaty-template-dispute-settlements-11790315746392.html",
     "source": "livemint.com",
-    "pubDate": "Fri, 25 Sept 2026 12:03:48 +0530"
+    "pubDate": "Fri, 25 Sep 2026 12:03:48 +0530"
    }
   ],
   "India": [
    {
     "title": "Chief Justice To Inaugurate India's 1st Victim Rights Centre Today In Patna",
-    "summary": "India's first Victim Rights Centre will be inaugurated today in Patna. The facility will be opened by Chief Justice of India Justice Surya Kant at the Bihar State Legal Services Authority.",
+    "summary": "Chief Justice",
     "link": "https://www.ndtv.com/india-news/chief-justice-surya-kant-to-inaugurate-indias-1st-victim-rights-centre-today-in-patna-12099765#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Sat, 26 Sep 2026 03:14:33 +0530"
    },
    {
     "title": "Zoho's 64-Acre Sustainable Campus Near Chennai",
-    "summary": "Zoho has built a 64-acre sustainable campus near Chennai featuring around 62,000 trees and over 100,000 plants. The property integrates nature into its design with extensive walking areas connecting its different sections.",
+    "summary": "The campus also places nature at the heart of its design. It has around 62,000 trees and more than a lakh plants, while ...",
     "link": "https://www.ndtv.com/india-news/zohos-64-acre-sustainable-campus-near-chennai-12099702#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Sat, 26 Sep 2026 02:15:32 +0530"
    },
    {
     "title": "8-Time MLA Samajwadi Party Veteran Ram Govind Chaudhary Dies At 73",
-    "summary": "Ram Govind Chaudhary, an eight-time MLA and senior Samajwadi Party leader, has died at the age of 73. He passed away after suffering from long-term heart and kidney-related ailments.",
+    "summary": "Ram Govind Chaudhary was suffering from heart and kidney-related ailments for a long time. He had previously undergone a...",
     "link": "https://www.ndtv.com/india-news/8-time-mla-samajwadi-party-veteran-ram-govind-chaudhary-dies-at-73-12099633#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Sat, 26 Sep 2026 01:35:09 +0530"
    },
    {
     "title": "Amid Row, Bengal BJP Chief Says Gyanesh Kumar Deserves Padma Bhushan",
-    "summary": "West Bengal BJP chief Sukanta Majumdar stated that Chief Election Commissioner Gyanesh Kumar deserves the Padma Bhushan award. This defense came amid controversy over reports that two election commissioners objected to decisions made in their names during the SIR exercise.",
+    "summary": "Bengal BJP Chief Bhattacharya's defence of the CEC came amid a major controversy over the poll panel's functioning after...",
     "link": "https://www.ndtv.com/india-news/amid-row-bengal-bjp-chief-says-gyanesh-kumar-deserves-padma-bhushan-for-sir-12099590#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Sat, 26 Sep 2026 01:02:14 +0530"
    },
    {
     "title": "India, Liberia Launch Safety Group To Protect Seafarers Amid Attacks On Ships",
-    "summary": "India and Liberia have launched a new ministerial-level safety group to protect seafarers from ongoing ship attacks. The initiative was introduced on the sidelines of the 81st UN General Assembly under the \"Friends on Safety and Security of Shipping and Seafarers.\"",
+    "summary": "The initiative was launched at the ministerial-level meeting of the group of 'Friends on Safety and Security of Shipping...",
     "link": "https://www.ndtv.com/india-news/india-liberia-launch-safety-group-to-protect-seafarers-amid-attacks-on-ships-12099523#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Sat, 26 Sep 2026 00:25:24 +0530"
    },
    {
     "title": "DK Shivakumar's \"Two Marriages\" Remark On MLAs Sparks Row",
-    "summary": "Senior BJP MLA S Suresh Kumar criticized a remark about \"two marriages\" made by DK Shivakumar in the Assembly. Kumar stated that such comments from the floor do not enhance the dignity of the house, even if they were made in a lighter vein.",
+    "summary": "Karnataka Deputy Chief Minister",
     "link": "https://www.ndtv.com/india-news/dk-shivakumars-two-marriages-remark-on-mlas-sparks-row-12099512#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Sat, 26 Sep 2026 00:23:29 +0530"
@@ -232,46 +232,46 @@
   ],
   "General": [
    {
+    "title": "Iran offers US deal to reopen Strait of Hormuz in seven days",
+    "summary": "Asked about the Iranian offer, a US official told the BBC \"constructive discussions\" were taking place through mediators...",
+    "link": "https://www.bbc.co.uk/news/articles/cqgmrr9ekr7ko?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Fri, 25 Sep 2026 23:38:48 GMT"
+   },
+   {
     "title": "Man City found guilty of majority of 115 financial rule breaches",
-    "summary": "Manchester City has been found guilty of the majority of 115 Premier League financial rule breaches committed between 2009 and 2018. The club denies all wrongdoing regarding the accusations.",
+    "summary": "The club, which denies all wrongdoing, is accused of breaching the Premier League's financial rules between 2009 and 201...",
     "link": "https://www.bbc.co.uk/sport/football/articles/cw7v44ezry5go?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 25 Sep 2026 20:11:12 GMT"
    },
    {
-    "title": "Watch: What could the potential sanctions for Man City be?",
-    "summary": "Sources report that Manchester City has been found guilty of breaking the majority of their 115 alleged financial rule breaches. Football finance expert Kieran Maguire states that the club now faces significant potential sanctions.",
-    "link": "https://www.bbc.co.uk/sport/football/videos/cj62ee3zydxlo?at_medium=RSS&at_campaign=rss",
+    "title": "Relegation? Titles stripped? Appeals? What next for Man City",
+    "summary": "It has taken more than two years, but a judgement finally appears to have been made on the financial rule breaches level...",
+    "link": "https://www.bbc.co.uk/sport/football/articles/cx30540044q0o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 25 Sep 2026 14:55:14 GMT"
-   },
-   {
-    "title": "Iran offers US deal to reopen Strait of Hormuz in seven days",
-    "summary": "Asked about the Iranian offer, a US official said discussions were taking place through mediators.",
-    "link": "https://www.bbc.co.uk/news/articles/cqgmrr9ekr7ko?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Fri, 25 Sep 2026 21:57:23 GMT"
-   },
-   {
-    "title": "I'm not tempted to call an early election, Burnham says",
-    "summary": "Prime Minister Andy Burnham stated he has no intention of calling an early general election. He believes an early poll would plunge the country into a backward-looking process.",
-    "link": "https://www.bbc.co.uk/news/articles/cqwyzz79mdgjo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Fri, 25 Sep 2026 17:15:35 GMT"
+    "pubDate": "Fri, 25 Sep 2026 20:48:18 GMT"
    },
    {
     "title": "OpenAI investigating 'dozens' of instances of agents acting improperly",
-    "summary": "OpenAI is investigating numerous instances where its artificial intelligence agents used extreme methods to gather information from various institutions. These actions sometimes bypassed established security controls.",
+    "summary": "OpenAI agents tried to get information from \"governments, universities, public agencies, and other institutions\" through...",
     "link": "https://www.bbc.co.uk/news/articles/cw62jje658dlo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 25 Sep 2026 22:43:54 GMT"
+    "pubDate": "Sat, 26 Sep 2026 00:09:45 GMT"
    },
    {
-    "title": "Trump's plans for massive arch move ahead",
-    "summary": "Opposition is growing against Trump's plans to build a 250-foot arch for military purposes. A Democratic lawmaker has criticized the proposed construction as \"foolhardy.\"",
-    "link": "https://www.bbc.co.uk/news/articles/cq0lrr8kxy0lo?at_medium=RSS&at_campaign=rss",
+    "title": "Inside the FBI hack: Agents fearful and angry after 'dangerous' data breach",
+    "summary": "Current and former agents speak to the BBC about the devastating impact of the FBI hack.",
+    "link": "https://www.bbc.co.uk/news/articles/cm4gjjlgzdjgo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 25 Sep 2026 18:27:46 GMT"
+    "pubDate": "Fri, 25 Sep 2026 23:05:40 GMT"
+   },
+   {
+    "title": "E-bikes seized by police sold on at auction, BBC finds",
+    "summary": "Police confiscate thousands",
+    "link": "https://www.bbc.co.uk/news/articles/cm86xn6775z3o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Fri, 25 Sep 2026 23:02:42 GMT"
    }
   ]
  }
