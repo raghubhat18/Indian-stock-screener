@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-10-01T17:13:13Z",
+ "updatedAt": "2026-10-01T21:34:58Z",
  "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
@@ -12,103 +12,103 @@
  "briefing": {
   "Markets": [
    {
+    "title": "US stocks: US market rebounds to close higher as surging Treasury yields recede",
+    "summary": "US stocks closed higher as the S&P 500 recovered from a global bond selloff following receding Treasury yields. The market gains were further supported by a solid labor market report and strong technology shares led by Accenture.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/us-stocks-us-market-rebounds-to-close-higher-as-surging-treasury-yields-recede/articleshow/134626994.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Fri, 02 Oct 2026 01:42:06 +0530"
+   },
+   {
+    "title": "Fed’s Jefferson urges patience on rates; Kashkari sees more hikes ahead",
+    "summary": "Federal Reserve Vice Chair Philip Jefferson stated there is no immediate need for further interest rate changes. Meanwhile, Minneapolis Fed President Neel Kashkari expressed uncertainty about the timing of potential future rate hikes due to strong economic performance.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/feds-jefferson-urges-patience-on-rates-kashkari-sees-more-hikes-ahead/articleshow/134626712.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Fri, 02 Oct 2026 01:12:38 +0530"
+   },
+   {
+    "title": "Why are world bond markets selling off again?",
+    "summary": "Government borrowing costs have surged to their highest levels since 2002 due to rising inflation fears and mounting debt pressures. These increasing bond yields are raising loan costs for families and businesses while straining government finances.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/why-are-world-bond-markets-selling-off-again/articleshow/134625028.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Thu, 01 Oct 2026 23:24:37 +0530"
+   },
+   {
+    "title": "Global markets rattled as bond yields surge, offsetting AI-stock optimism",
+    "summary": "Global stock indexes declined as surging bond yields overshadowed optimism in technology stocks like Micron Technology. Meanwhile, rising oil prices and a 10-year Treasury yield near a 2002 high heightened economic and real-estate concerns despite overall US resilience.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/global-markets-rattled-as-bond-yields-surge-offsetting-ai-stock-optimism/articleshow/134623833.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Thu, 01 Oct 2026 22:42:18 +0530"
+   },
+   {
     "title": "Adani Group has Rs 2.6 lakh crore projects completed or under execution in Maharashtra: Pranav Adani",
-    "summary": "The Adani Group has completed or is currently executing projects worth Rs 2.6 lakh crore in Maharashtra. Its total planned investment in the state exceeds Rs 6 lakh crore across sectors such as energy, aviation, and infrastructure.",
+    "summary": "The Adani Group has completed or is currently executing projects worth Rs 2.6 lakh crore in Maharashtra. Its total investment blueprint in the state exceeds Rs 6 lakh crore across sectors such as energy, infrastructure, and urban redevelopment.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/adani-group-has-rs-2-6-lakh-crore-projects-completed-or-under-execution-in-maharashtra-pranav-adani/articleshow/134622802.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Thu, 01 Oct 2026 21:00:08 +0530"
    },
    {
     "title": "US stocks: US markets dip as surging Treasury yields overshadow software gains",
-    "summary": "US stocks fell as rising Treasury yields weakened investor confidence, despite strong earnings in the software sector. September ended with monthly losses for the S&P 500 and Dow, while the Nasdaq gained support from AI optimism.",
+    "summary": "US stocks dipped as rising Treasury yields weakened investor confidence, overshadowing gains in the software sector. While September brought monthly losses for the S&P 500 and Dow, the Nasdaq grew due to artificial intelligence optimism.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-stocks-us-markets-dip-as-surging-treasury-yields-overshadow-software-gains/articleshow/134621937.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Thu, 01 Oct 2026 20:00:55 +0530"
-   },
-   {
-    "title": "Sebi revamps Document Number Verification System, adds subject matter as mandatory field",
-    "summary": "Securities and Exchange Board of India (Sebi) has upgraded its Document Number Verification System to require a letter's subject matter for authentication. The updated system aligns with Sebi's E-Office format to allow recipients to verify physical letters, notices, and show-cause notices.",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/news/sebi-revamps-document-number-verification-system-adds-subject-matter-as-mandatory-field/articleshow/134621918.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Thu, 01 Oct 2026 19:58:00 +0530"
-   },
-   {
-    "title": "UK pound falls to three-month lows as investors fret over rates, oil",
-    "summary": "The British pound dropped to a three-month low against the dollar due to investor anxiety over soaring oil prices, persistent inflation, and rising government borrowing costs. Prime Minister Andy Burnham and Chancellor John Healey are currently facing escalating gilt yields as the FTSE 100 index declines.",
-    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/uk-pound-falls-to-three-month-lows-as-investors-fret-over-rates-oil/articleshow/134621868.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Thu, 01 Oct 2026 19:53:53 +0530"
-   },
-   {
-    "title": "UK 30-year gilt yields top 6% for the first time since 1998",
-    "summary": "UK 30-year government bond yields surged past 6% for the first time since 1998, driven by rising U.S. Treasury yields and concerns over domestic fiscal vulnerabilities. This market movement also caused short-dated gilt yields to rise sharply as investors anticipate potential interest rate hikes by the Central Bank.",
-    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/uk-30-year-gilt-yields-top-6-for-the-first-time-since-1998/articleshow/134621852.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Thu, 01 Oct 2026 19:52:13 +0530"
-   },
-   {
-    "title": "Jio Platforms IPO in final stages after concluding worldwide roadshows",
-    "summary": "Jio Platforms is preparing to launch a $3.8 billion initial public offering in India, which is projected to be the country's largest. The offering will issue new equity shares representing about 2.9 percent of its base following international roadshows and regulatory approval.",
-    "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/jio-platforms-ipo-in-final-stages-after-concluding-worldwide-roadshows/articleshow/134621273.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Thu, 01 Oct 2026 19:27:17 +0530"
    }
   ],
   "Geo-Political": [
    {
-    "title": "Tennessee halts executions after Christa Pike survives two lethal injection attempts",
-    "summary": "Tennessee has halted all executions after Christa Pike survived two separate attempts at lethal injection. Pike has been on death row since her 1996 conviction for the murder of Colleen Slemmer.",
+    "title": "Christa Pike in critical condition after surviving two lethal injections, lawyer says",
+    "summary": "Christa Pike is in critical condition after surviving two lethal injection attempts. Her lawyers are now asking a court to commute her death sentence following the botched execution.",
     "link": "https://www.bbc.co.uk/news/articles/cmn4540d4z87o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 01 Oct 2026 16:45:35 GMT"
+    "pubDate": "Thu, 01 Oct 2026 20:48:12 GMT"
    },
    {
     "title": "What happened in the failed execution of Christa Pike - and what next?",
-    "summary": "Convicted killer Christa Pike was hospitalized in Tennessee after surviving two lethal injection attempts. The failed execution has raised multiple legal and ethical questions about the state's capital punishment procedures.",
+    "summary": "Christa Pike, a convicted killer in Tennessee, was hospitalized after surviving two lethal injection attempts. This failed execution has raised multiple legal and ethical questions about the state's capital punishment procedures.",
     "link": "https://www.bbc.co.uk/news/articles/ckge4eql4q7eo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 01 Oct 2026 16:52:33 GMT"
+    "pubDate": "Thu, 01 Oct 2026 19:25:58 GMT"
    },
    {
-    "title": "Netanyahu says flight attacker 'underwent Islamist radical indoctrination'",
-    "summary": "Israeli Prime Minister Benjamin Netanyahu stated that the pilot who attempted to hijack a Flydubai plane underwent Islamist radical indoctrination. Netanyahu added that the pilot clearly intended to crash the aircraft.",
+    "title": "Netanyahu says Flydubai attacker had 'Islamist radical indoctrination'",
+    "summary": "Israeli Prime Minister Benjamin Netanyahu stated that the pilot who attempted to hijack a Flydubai plane suffered from Islamist radical indoctrination. Netanyahu added that the pilot clearly intended to crash the aircraft.",
     "link": "https://www.bbc.co.uk/news/articles/crje8edqyej9o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 01 Oct 2026 15:38:13 GMT"
+    "pubDate": "Thu, 01 Oct 2026 19:59:24 GMT"
+   },
+   {
+    "title": "Putin warns West that Russia is ready to use every weapon to protect Kaliningrad",
+    "summary": "Russian President Vladimir Putin warned Western leaders that Russia is prepared to use all available weapons to defend the exclave of Kaliningrad. Despite this threat, Putin claimed that Moscow is not making any threats and is only reacting to recent Western statements.",
+    "link": "https://www.bbc.co.uk/news/articles/cqg7k7v499jjo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Thu, 01 Oct 2026 19:38:30 GMT"
+   },
+   {
+    "title": "Renee Good: Family of US woman killed by ICE agent sues Trump officials",
+    "summary": "The family of Renee Good, a US woman killed by an ICE agent, is suing Trump administration officials in Minneapolis. Lawyers for the family allege that these officials created an unprecedented environment for state-sponsored violence.",
+    "link": "https://www.bbc.co.uk/news/articles/cwly7y5gvxlmo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Thu, 01 Oct 2026 20:30:47 GMT"
    },
    {
     "title": "Russian dissident Garry Kasparov says US warned him of danger to his life",
-    "summary": "Russian chess champion and dissident Garry Kasparov stated that U.S. officials warned him of threats to his life from Russia. He emphasized that neither he nor his family will be safe while Vladimir Putin remains in power.",
+    "summary": "Russian chess grandmaster and dissident Garry Kasparov stated that U.S. officials warned him of a threat to his life from Russia. Kasparov added that neither he nor his family will be truly safe while Vladimir Putin remains in power.",
     "link": "https://www.bbc.co.uk/news/articles/c6y8z8kr5mk8o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Thu, 01 Oct 2026 14:05:55 GMT"
-   },
-   {
-    "title": "Japan raises permanent residency fee by 20 times",
-    "summary": "Japan has increased its permanent residency application fee by 20 times. This change is part of new immigration policies designed to manage the country's growing foreign population.",
-    "link": "https://www.bbc.co.uk/news/articles/c6y8z8xeg8j1o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Thu, 01 Oct 2026 02:57:43 GMT"
-   },
-   {
-    "title": "Trump's AI rebrand causes 'unprecedented' demand for Slovenian website names",
-    "summary": "Donald Trump's proposal to rebrand artificial intelligence as \"super intelligence\" (SI) has driven unprecedented demand for Slovenian domain names, which share the same initials. This surge in interest has caused a significant spike in registrations for websites using the .si country code.",
-    "link": "https://www.bbc.co.uk/news/articles/cqx2z23xj555o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Thu, 01 Oct 2026 11:37:46 GMT"
    }
   ],
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "An online course creator recently discovered that ChatGPT recommended their WordPress SaaS course as the top result without any paid advertising. This experiment highlights a shift in organic traffic strategies from traditional SEO to AI optimization (AIO).",
+    "summary": "An experiment in 2025 showed that asking ChatGPT to recommend the best WordPress SaaS course resulted in the author's course appearing as the top AI-recommended result without any paid advertising. This discovery highlights a shift in organic traffic acquisition from traditional SEO to AI optimization (AIO).",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "This guide highlights the top 10 AI tools designed to revolutionize content creation in 2025. These essential technologies help digital creators streamline their work and stay ahead of industry changes.",
+    "summary": "This article explores the top ten artificial intelligence tools designed to revolutionize content creation in 2025. These essential technologies help digital creators streamline their workflows and stay competitive in a rapidly evolving landscape.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
@@ -122,7 +122,7 @@
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "This article highlights ten advanced artificial intelligence tools designed to automate repetitive tasks and boost productivity across industries. These widely used market solutions enhance workflow efficiency and support a diverse range of applications.",
+    "summary": "This article highlights the top 10 artificial intelligence tools of 2023 that drive industry innovation and efficiency. These advanced applications automate repetitive tasks, improve workflows, and increase overall productivity.",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
@@ -136,7 +136,7 @@
    },
    {
     "title": "Beginner Guide to CJ Affiliate (Commission Junction) in 2022",
-    "summary": "This beginner's guide explains how to use the CJ Affiliate network to earn money. It also provides examples of top CJ affiliate programs and alternative platforms.",
+    "summary": "Image by vectorjuice on FreepikIn this CJ Affiliate guide, I will share with you everything you need to get started on t...",
     "link": "https://techncruncher.blogspot.com/2022/09/cj-affiliate-ultimate-guide-to.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Sat, 10 Sep 2022 08:57:00 +0000"
@@ -144,134 +144,134 @@
   ],
   "Data & Insights": [
    {
+    "title": "US 10-year yield jumps to 5.34% as global bond rout pushes borrowing costs higher",
+    "summary": "Global bond markets suffered heavy selling, driving the US 10-year yield up to 5.34% and pushing borrowing costs to multi-decade highs. Analysts warn that surging inflation and energy costs could trigger further market declines despite temporary stabilization.",
+    "link": "https://www.livemint.com/economy/us-10-year-yield-jumps-to-5-34-as-global-bond-rout-pushes-borrowing-costs-higher-11790874389612.html",
+    "source": "livemint.com",
+    "pubDate": "Thu, 01 Oct 2026 22:47:55 +0530"
+   },
+   {
     "title": "AI bubble burst ‘inevitable’, India-US trade ties strained by Lindsey Graham bill, says Finance Ministry report",
-    "summary": "India's Finance Ministry reports that trade ties with the U.S. are strained due to a proposed Lindsey Graham bill that could impose up to 100% tariffs on buyers of Russian crude. The report also warns this legislation will drive up oil prices and bond yields while slowing capital flows and AI investments.",
+    "summary": "India's Finance Ministry reports that trade relations with the US are strained following a bill by Senator Lindsey Graham that proposes up to 100% tariffs on countries purchasing Russian crude oil. The report also warns that this legislation could drive up oil prices and bond yields while slowing capital flows and artificial intelligence investments.",
     "link": "https://www.livemint.com/economy/ai-bubble-burst-inevitable-india-us-trade-ties-strained-by-lindsey-graham-bill-says-finance-ministry-report-11790855995721.html",
     "source": "livemint.com",
     "pubDate": "Thu, 01 Oct 2026 18:29:43 +0530"
    },
    {
     "title": "Mint Explainer | Why tax refunds matter for Indian apparel exports",
-    "summary": "The RoSCTL tax refund scheme helps Indian apparel exporters offset domestic taxes and stay price competitive. This financial support is crucial as exporters face rising costs, supply chain disruptions, and competition from cheaper manufacturing hubs.",
+    "summary": "The RoSCTL tax refund scheme helps Indian apparel exporters offset embedded domestic taxes. This support allows them to compete on price despite rising costs, supply chain disruptions, and rival manufacturing hubs.",
     "link": "https://www.livemint.com/economy/rosctl-extension-indian-apparel-exporters-11790849119164.html",
     "source": "livemint.com",
     "pubDate": "Thu, 01 Oct 2026 16:55:11 +0530"
    },
    {
     "title": "'Sustaining growth will require...': Finance Ministry warns of geopolitical, supply-chain risks; projects 7.3% Q2 growth",
-    "summary": "The Finance Ministry projects India's second-quarter fiscal year 2027 GDP growth at 7.3%, following a 7.8% growth rate in the first quarter. However, the ministry warns that geopolitical tensions, supply-chain disruptions, volatile energy prices, and tighter global financial conditions could threaten this economic growth.",
+    "summary": "The Finance Ministry projects India's second-quarter fiscal year 2027 GDP growth at 7.3 percent, following a 7.8 percent rate in the first quarter. However, the ministry warns that global risks such as geopolitical tensions, supply-chain disruptions, volatile energy prices, and tighter financial conditions could threaten this economic growth.",
     "link": "https://www.livemint.com/economy/sustaining-growth-will-require-finance-ministry-warns-of-geopolitical-supply-chain-risks-projects-7-3-q2-growth-11790850988140.html",
     "source": "livemint.com",
     "pubDate": "Thu, 01 Oct 2026 16:25:42 +0530"
    },
    {
     "title": "India faces ‘stiff’ external challenges, global fight for capital: MoF review",
-    "summary": "According to the finance ministry's September review, India faces global economic challenges including US trade tensions, an AI investment boom, and developed countries' manufacturing drives. Despite these external pressures, the ministry noted that India's domestic growth and external buffers remain resilient.",
+    "summary": "India's finance ministry reported that the country faces intense external challenges, including US trade tensions and a global competition for capital. Despite these pressures and global manufacturing pushes, India's domestic growth and external buffers remain resilient.",
     "link": "https://www.livemint.com/economy/indian-economy-external-challenges-growth-capital-flows-11790841873345.html",
     "source": "livemint.com",
     "pubDate": "Thu, 01 Oct 2026 15:00:10 +0530"
    },
    {
     "title": "Manufacturing PMI jumps to 7-month high of 55.1 in September on strong demand, hiring",
-    "summary": "India's Manufacturing PMI rose to a seven-month high of 55.1 in September, driven by strong demand and increased hiring. However, despite this September rebound, the second-quarter PMI averaged 53.8, marking its lowest Q2 reading since 2021 due to a sluggish start to the fiscal year.",
+    "summary": "India's Manufacturing PMI rose to a seven-month high of 55.1 in September, driven by strong demand and increased hiring. However, despite this September rebound, the second-quarter PMI averaged 53.8, which is the lowest Q2 reading since 2021 following a sluggish start to the fiscal year.",
     "link": "https://www.livemint.com/economy/manufacturing-pmi-jumps-7-month-high-55-1-september-strong-demand-hiring-11790842298000.html",
     "source": "livemint.com",
     "pubDate": "Thu, 01 Oct 2026 14:52:43 +0530"
-   },
-   {
-    "title": "September GST collections cross  ₹2 trillion again",
-    "summary": "India's GST collections for September exceeded ₹2 trillion for the second time this fiscal year, reaching ₹2.04 trillion. This 14.7% year-on-year growth was largely driven by a nearly 26% increase in import-linked revenue.",
-    "link": "https://www.livemint.com/economy/september-gst-collections-cross-rs-2-trillion-import-gst-revenue-11790837470550.html",
-    "source": "livemint.com",
-    "pubDate": "Thu, 01 Oct 2026 13:19:54 +0530"
    }
   ],
   "India": [
    {
-    "title": "BJP's Mission UP: Drop 100 MLAs, Repair Internal Rifts, Focus On Voters",
-    "summary": "To counter anti-incumbency ahead of the elections, the BJP may deny tickets to over 100 of its 255 sitting MLAs in Uttar Pradesh. The party plans to scrutinize long-serving legislators while allocating a significant number of tickets to youth and women.",
-    "link": "https://www.ndtv.com/india-news/bjps-mission-up-drop-100-mlas-repair-internal-rifts-focus-on-voters-12127091#publisher=newsstand",
+    "title": "Ram Temple Staff To Undergo 100% Police Verification, Character Checks",
+    "summary": "The trust managing the Ram Temple requires complete background checks and police verification for all staff members. Employees must also provide comprehensive details about their families and relatives.",
+    "link": "https://www.ndtv.com/india-news/ram-temple-staff-to-undergo-100-police-verification-character-checks-12127892#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Thu, 01 Oct 2026 21:55:36 +0530"
+    "pubDate": "Fri, 02 Oct 2026 02:26:30 +0530"
    },
    {
-    "title": "CBSE Class 10, 12 Board Exams 2027: Date Sheet Release Timeline Based on Past Trends",
-    "summary": "Students preparing for the CBSE Class 10 and 12 board exams in 2027 are awaiting their official timetable. Based on past trends, this date sheet is expected to be released around late October.",
-    "link": "https://www.ndtv.com/education/cbse-class-10-12-board-exams-2027-when-will-date-sheet-release-past-trends-hint-at-timeline-12127042#publisher=newsstand",
+    "title": "Delhi Court Upholds Senior Citizens Rule To Evict Children From Property",
+    "summary": "A Delhi court upheld a legal rule allowing senior citizens to evict their children from property. The court ruled that this authority comes from state government powers designed to protect the property and lives of older adults.",
+    "link": "https://www.ndtv.com/india-news/delhi-court-upholds-senior-citizens-rule-to-evict-children-from-property-12127672#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Thu, 01 Oct 2026 21:45:58 +0530"
+    "pubDate": "Fri, 02 Oct 2026 00:25:08 +0530"
    },
    {
-    "title": "Veeramani, Others Charged Under Goondas Act In Minors' Sexual Abuse Case",
-    "summary": "Four cases have been registered against Veeramani and his associates, M. Shanthi and Mahendra Simhan. They have been charged under the Goondas Act in connection with a minors' sexual abuse case.",
-    "link": "https://www.ndtv.com/india-news/granite-baron-veeramani-others-charged-under-goondas-act-in-minors-sexual-abuse-case-12127021#publisher=newsstand",
+    "title": "Bhagwant Mann's Japan Hockey Trip Denied Clearance By Centre",
+    "summary": "The central government denied political clearance for Punjab Chief Minister Bhagwant Mann to visit Japan. Mann and a state delegation had been invited by the Asian Hockey Federation to attend the Aichi Nagoya Asian Games.",
+    "link": "https://www.ndtv.com/india-news/bhagwant-manns-japan-hockey-trip-blocked-centre-denies-political-clearance-12127400#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Thu, 01 Oct 2026 21:42:17 +0530"
+    "pubDate": "Fri, 02 Oct 2026 00:21:47 +0530"
    },
    {
-    "title": "Why Doesn't Congress Boycott If Polls Are \"Fixed\"? Answer Lies Beyond Rahul Gandhi's \"Distraction\" Quip",
-    "summary": "Despite demands from groups like the Cockroach Janta Party to boycott allegedly fixed elections, the Congress party continues to participate. Research and historical examples indicate that election boycotts rarely succeed in forcing political change.",
-    "link": "https://www.ndtv.com/india-news/why-doesnt-congress-boycott-elections-rahul-gandhi-vote-chori-and-the-question-he-calls-a-distraction-12121137#publisher=newsstand",
+    "title": "Adhir Chowdhury's 'Congress Offer' To Mamata Banerjee With 'Baggage' Rider",
+    "summary": "Congress leader Adhir Chowdhury has offered an alliance to Mamata Banerjee's party amid its current political crisis. However, he attached specific conditions to this offer.",
+    "link": "https://www.ndtv.com/india-news/adhir-chowdhurys-congress-offer-to-mamata-banerjee-with-baggage-rider-12126656#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Thu, 01 Oct 2026 21:24:46 +0530"
+    "pubDate": "Fri, 02 Oct 2026 00:20:35 +0530"
    },
    {
-    "title": "8 Students From Pune Drown While Holidaying At Beach In Maharashtra's Raigad",
-    "summary": "Eight students from Pune drowned after venturing into the sea at a beach in Maharashtra's Raigad district. The victims were part of a larger group of 48 individuals who were holidaying in the area.",
-    "link": "https://www.ndtv.com/india-news/8-students-from-pune-drown-while-holidaying-near-beach-in-maharashtras-raigad-12126333#publisher=newsstand",
+    "title": "Firing Outside Senior Punjab Cop's Office, Bullets Hit Building",
+    "summary": "Unknown attackers fired shots outside a senior Punjab police officer's office, damaging the building. Police arrested two suspects with an illegal pistol and are searching for the remaining individuals.",
+    "link": "https://www.ndtv.com/india-news/firing-outside-senior-punjab-cops-office-bullets-hit-building-12127641#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Thu, 01 Oct 2026 21:21:25 +0530"
+    "pubDate": "Fri, 02 Oct 2026 00:08:58 +0530"
    },
    {
-    "title": "Lovely Professional University Founder Sees 'Conspiracy' In Arson, Hints At Pakistan",
-    "summary": "Lovely Professional University founder and Rajya Sabha MP Ashok Mittal claimed that a recent arson incident at the institution is a conspiracy to destabilize Punjab. He further hinted that Pakistan might be involved in the plot.",
-    "link": "https://www.ndtv.com/india-news/lpu-owner-ashok-mittal-sees-conspiracy-behind-vandalism-points-towards-pakistan-12126830#publisher=newsstand",
+    "title": "From 'Bai Sukhbir' to 'Vibe Punjab Di': Akali Dal Takes Gen-Z Outreach Route Ahead of 2027 Punjab Polls",
+    "summary": "Ahead of the 2027 Punjab elections, the Shiromani Akali Dal has launched a Gen-Z outreach campaign titled 'Vibe Punjab Di'. During these events, party leader Sukhbir Badal takes direct questions from students to build a personal connection.",
+    "link": "https://www.ndtv.com/india-news/from-bai-sukhbir-to-vibe-punjab-di-akali-dal-takes-gen-z-outreach-route-ahead-of-2027-punjab-polls-12127588#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Thu, 01 Oct 2026 21:12:16 +0530"
+    "pubDate": "Thu, 01 Oct 2026 23:53:26 +0530"
    }
   ],
   "General": [
    {
     "title": "UK-Iranian dual national arrested over RAF Fairford incident, police say",
-    "summary": "Counter-terror police in London arrested a 27-year-old UK-Iranian dual national in Westminster. The man was detained in connection with an incident at RAF Fairford.",
+    "summary": "A 25-year-old UK-Iranian dual national was arrested in London in connection with an incident near the RAF Fairford airbase. This marks the sixth arrest made by police regarding Sunday's event.",
     "link": "https://www.bbc.co.uk/news/articles/cmdx5xw36492o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 01 Oct 2026 17:10:00 GMT"
+    "pubDate": "Thu, 01 Oct 2026 19:45:16 GMT"
    },
    {
-    "title": "Hundreds of criminals start leaving prison under new early release scheme",
-    "summary": "Around 4,500 inmates are being released early to prevent overcrowding in prisons. The scheme is scheduled to run through June 2027.",
-    "link": "https://www.bbc.co.uk/news/articles/c6evwvdwggrlo?at_medium=RSS&at_campaign=rss",
+    "title": "Christa Pike in critical condition after surviving two lethal injections, lawyer says",
+    "summary": "Christa Pike is in critical condition after surviving two lethal injection attempts. Her lawyers are now asking the court to commute her death sentence following the botched execution.",
+    "link": "https://www.bbc.co.uk/news/articles/cmn4540d4z87o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 01 Oct 2026 15:18:22 GMT"
+    "pubDate": "Thu, 01 Oct 2026 20:48:12 GMT"
    },
    {
     "title": "Netanyahu says Flydubai flight attacker 'underwent Islamist radical indoctrination'",
-    "summary": "Israeli Prime Minister Benjamin Netanyahu stated that the pilot who attempted to hijack a Flydubai flight underwent Islamist radical indoctrination. Netanyahu added that the pilot clearly intended to crash the aircraft.",
+    "summary": "Israel's prime minister stated that the pilot who attempted to hijack a Flydubai plane underwent Islamist radical indoctrination. He added that the pilot clearly intended to crash the aircraft.",
     "link": "https://www.bbc.co.uk/news/articles/crje8edqyej9o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 01 Oct 2026 15:38:13 GMT"
+    "pubDate": "Thu, 01 Oct 2026 19:59:24 GMT"
    },
    {
-    "title": "Man City to argue sponsorship deals came from Abu Dhabi government",
-    "summary": "Manchester City is appealing the Premier League's recent verdict by arguing that the club's sponsorship deals originated from the Abu Dhabi government. The outcome of the club's legal challenge depends on proving this specific source of the funding.",
+    "title": "HMRC urged to scrutinise tax implications of Man City case",
+    "summary": "The Treasury Committee has urged HMRC to examine the tax implications resulting from the recent Manchester City verdict. This parliamentary committee oversees HMRC's operations and financial policies.",
     "link": "https://www.bbc.co.uk/sport/football/articles/cjkg7g93y5yno?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 01 Oct 2026 15:38:08 GMT"
+    "pubDate": "Thu, 01 Oct 2026 18:21:22 GMT"
    },
    {
-    "title": "Burnham's Man City comments 'completely out of touch', Tories say",
-    "summary": "The prime minister said he would be \"really concerned\" if the club's owners sell up after Premier League rule breaches.",
-    "link": "https://www.bbc.co.uk/news/articles/cj3v4vn3ydw1o?at_medium=RSS&at_campaign=rss",
+    "title": "Putin warns West that Russia is ready to use every weapon to protect Kaliningrad",
+    "summary": "The Russian leader insists Moscow is \"not threatening anyone\" and is merely responding to statements by Western leaders.",
+    "link": "https://www.bbc.co.uk/news/articles/cqg7k7v499jjo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 01 Oct 2026 16:26:43 GMT"
+    "pubDate": "Thu, 01 Oct 2026 19:38:30 GMT"
    },
    {
-    "title": "Tennessee halts executions after Christa Pike survives two lethal injection attempts",
-    "summary": "Tennessee has halted executions after Christa Pike survived two lethal injection attempts. Pike has been on death row since her 1996 conviction for the murder of Colleen Slemmer.",
-    "link": "https://www.bbc.co.uk/news/articles/cmn4540d4z87o?at_medium=RSS&at_campaign=rss",
+    "title": "UK in talks with EU partners over fuel reserves after Trump diesel threat",
+    "summary": "President Donald Trump has threatened to ban diesel exports in a bid to ease prices in the US.",
+    "link": "https://www.bbc.co.uk/news/articles/c5zjzjgdeneeo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 01 Oct 2026 16:45:35 GMT"
+    "pubDate": "Thu, 01 Oct 2026 21:14:13 GMT"
    }
   ]
  }
