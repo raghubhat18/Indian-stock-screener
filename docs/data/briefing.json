@@ -1,6 +1,6 @@
 {
- "updatedAt": "2026-10-05T23:07:35Z",
- "model": "gemini-flash-latest",
+ "updatedAt": "2026-10-06T01:04:26Z",
+ "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
   "Geo-Political",
@@ -12,87 +12,87 @@
  "briefing": {
   "Markets": [
    {
+    "title": "PB Fintech loses Rs 42,000 cr in 7 sessions, hits 32-month low",
+    "summary": "Policybazaar parent PB Fintech lost over 48% of its market value, wiping out Rs 42,000 crore across seven sessions and hitting a 32-month low. The stock plummeted following an Irdai consultation paper proposing caps on distributor commissions.",
+    "link": "https://economictimes.indiatimes.com/markets/stocks/news/pb-fintech-loses-rs-42000-cr-in-7-sessions-hits-32-month-low/articleshow/134720310.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Tue, 06 Oct 2026 06:20:25 +0530"
+   },
+   {
+    "title": "Global Market Today: Asian stocks rise after US tech rally, oil dips",
+    "summary": "Asian stocks edged up after major US technology companies helped drive the S&amp;P 500 Index near an all-time high. Meanwhile, global oil prices dipped.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/global-market-today-asian-stocks-rise-after-us-tech-rally-oil-dips/articleshow/134720311.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Tue, 06 Oct 2026 06:11:02 +0530"
+   },
+   {
+    "title": "Banks cut CD borrowings by Rs 1.3 lakh crore in a month amid RBI liquidity boost",
+    "summary": "Indian banks reduced their certificate of deposit borrowings by ₹1.3 lakh crore in a single month. This reduction occurred because a boost in liquidity from an RBI foreign currency deposit scheme lowered the demand for short-term funding and caused rates to fall.",
+    "link": "https://economictimes.indiatimes.com/markets/forex/forex-news/banks-cut-cd-borrowings-by-rs-1-3-lakh-crore-in-a-month-amid-rbi-liquidity-boost/articleshow/134720252.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Tue, 06 Oct 2026 06:04:31 +0530"
+   },
+   {
+    "title": "Pre-market action: Here's the trade setup for today's session",
+    "summary": "The Nifty rose 0.6% at the open, breaking an eight-week losing streak due to positive Q2 business updates and strong bank earnings. Meanwhile, the rupee depreciated against the US dollar amid rising oil prices and foreign capital outflows.",
+    "link": "https://economictimes.indiatimes.com/markets/stocks/news/pre-market-action-heres-the-trade-setup-for-todays-session/articleshow/134720150.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Tue, 06 Oct 2026 06:00:00 +0530"
+   },
+   {
+    "title": "Stocks in news: Vedanta, Kotak Mahindra Bank, Marico, Axis Bank, Trent and Zydus Lifesciences",
+    "summary": "Indian equity markets recovered on Monday following softer-than-expected US jobs data. Investors are currently monitoring corporate updates and operational performances from major companies like Vedanta and Kotak Mahindra Bank.",
+    "link": "https://economictimes.indiatimes.com/markets/stocks/news/stocks-in-news-vedanta-kotak-mahindra-bank-marico-axis-bank-trent-and-zydus-lifesciences/articleshow/134712004.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Tue, 06 Oct 2026 06:00:00 +0530"
+   },
+   {
     "title": "US stocks: Nasdaq gains 1% at close as investors focus on earnings",
-    "summary": "The Nasdaq Composite has hit an all-time high, driven by impressive performances from tech giants Nvidia and Microsoft. ...",
+    "summary": "Driven by strong performances from tech giants like Nvidia and Microsoft, the Nasdaq Composite reached an all-time high as investors anticipated robust S&P 500 earnings. Meanwhile, oil prices declined due to increased crude exports from the Middle East and support from the Group of Seven nations.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/us-stocks-nasdaq-dow-close-1-higher-as-investors-focus-on-earnings/articleshow/134716734.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Tue, 06 Oct 2026 01:38:58 +0530"
-   },
-   {
-    "title": "Euro hits 17-month low as French debt fears, US inflation lift dollar",
-    "summary": "The euro reached a 17-month low against the dollar due to worries over France's budget deficit. Concerns about a potenti...",
-    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/euro-hits-17-month-low-as-french-debt-fears-us-inflation-lift-dollar/articleshow/134716587.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Tue, 06 Oct 2026 01:13:00 +0530"
-   },
-   {
-    "title": "French bond contagion fears are rattling the euro",
-    "summary": "The value of the euro has declined significantly as French borrowing costs increase. Concerns are rising among European ...",
-    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/french-bond-contagion-fears-are-rattling-the-euro/articleshow/134714445.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Mon, 05 Oct 2026 23:40:34 +0530"
-   },
-   {
-    "title": "PTC shares soar nearly 34% after Schneider Electric agrees to $22.6 billion buyout",
-    "summary": "In a strategic move, Schneider Electric has agreed to acquire PTC for $22.6 billion in cash. The acquisition reflects on...",
-    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/ptc-shares-soar-nearly-34-after-schneider-electric-agrees-to-22-6-billion-buyout/articleshow/134714341.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Mon, 05 Oct 2026 23:30:47 +0530"
-   },
-   {
-    "title": "Ahead of Market: 10 things that will decide stock market action on Tuesday",
-    "summary": "Indian equities rebounded on Monday after eight consecutive weekly losses, with Sensex rising 473 points and Nifty gaini...",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/news/ahead-of-market-10-things-that-will-decide-stock-market-action-on-tuesday/articleshow/134711920.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Mon, 05 Oct 2026 21:27:49 +0530"
-   },
-   {
-    "title": "Marico raises stake in Plix parent to 84.09%; Q2 revenue expected to grow in double digits",
-    "summary": "Marico has raised its stake in Satiya Nutraceuticals, owner of The Plant Fix–Plix, to 84.09% after acquiring an addition...",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/news/marico-raises-stake-in-plix-parent-to-84-09-q2-revenue-expected-to-grow-in-double-digits/articleshow/134711889.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Mon, 05 Oct 2026 21:25:25 +0530"
    }
   ],
   "Geo-Political": [
    {
     "title": "Trump says 'threat' led US to pull bombers from RAF Fairford",
-    "summary": "The Pentagon confirmed on Sunday it had removed the B1 bombers from the base in England back to their home stations in A...",
+    "summary": "President Trump stated that an unspecified \"threat\" prompted the U.S. military to withdraw its B-1 bombers from RAF Fairford in England. The Pentagon confirmed on Sunday that the aircraft have returned to their home bases in the United States.",
     "link": "https://www.bbc.co.uk/news/articles/cwj3413e5m1lo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 05 Oct 2026 21:46:22 GMT"
    },
    {
     "title": "France braces for national day of school protests after injuries and mass arrests",
-    "summary": "France",
+    "summary": "France is preparing for a national day of protests supporting students who are demanding increased investment in education. This follows recent incidents involving injuries and mass arrests related to the ongoing demonstrations.",
     "link": "https://www.bbc.co.uk/news/articles/cr4g1q1elxnjo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 05 Oct 2026 21:18:10 GMT"
    },
    {
     "title": "Flydubai co-pilot planned to crash plane into Tel Aviv airport or building, reports say",
-    "summary": "The Omani national was a \"lone wolf\" extremist, according to the reports.",
+    "summary": "Reports indicate that a Flydubai co-pilot who was an Omani national and \"lone wolf\" extremist planned to crash a plane into a Tel Aviv airport or building. The authorities are treating the incident as a targeted terror threat involving aviation infrastructure.",
     "link": "https://www.bbc.co.uk/news/articles/cm3691y79xp5o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 05 Oct 2026 11:34:59 GMT"
    },
    {
     "title": "Zelensky condemns 'horrific' Russian strike on boat carrying corn in Black Sea",
-    "summary": "The vessel's captain was killed and 11 crew members were rescued after the attack on the Turkish-owned ship, Ukraine's l...",
+    "summary": "Ukrainian President Volodymyr Zelensky condemned a Russian missile strike on a Turkish-owned civilian ship carrying corn in the Black Sea. The attack killed the vessel's captain and injured or forced the rescue of 11 crew members.",
     "link": "https://www.bbc.co.uk/news/articles/cr0j0w3p8453o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 05 Oct 2026 15:17:23 GMT"
    },
    {
     "title": "Spain PM pins hopes on housing crisis to help win snap election",
-    "summary": "**Spanish",
+    "summary": "Spanish Prime Minister Pedro Sánchez calculatedly called a snap election after assessing the political landscape. He is relying heavily on the ongoing housing crisis to secure a victory in the upcoming vote.",
     "link": "https://www.bbc.co.uk/news/articles/ck5yn81qqde0o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 05 Oct 2026 19:30:50 GMT"
    },
    {
     "title": "US 'watching closely' after plague researcher dies in Russia",
-    "summary": "Donald Trump says the US was looking \"very strongly\" at the case of a lab technician who died at a research centre in Si...",
+    "summary": "President Trump stated that the United States is closely monitoring the death of a laboratory technician at a Siberian research center. The technician died following an incident at the Russian facility that previously researched deadly diseases like the plague.",
     "link": "https://www.bbc.co.uk/news/articles/cv5yn3nwp5n5o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 05 Oct 2026 21:33:49 GMT"
@@ -101,42 +101,42 @@
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and aske...",
+    "summary": "An author discovered their WordPress SaaS course was recommended as the top result when asking ChatGPT for the best course in that category. This traffic was generated without any paid advertising or traditional search engine optimization.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "Looking to level up your content creation game in 2025? You're in the right place! The digital landscape has evolved dra...",
+    "summary": "The digital landscape of 2025 requires content creators to use artificial intelligence to stay competitive. This guide details the top ten AI tools designed to streamline and revolutionize the content creation process.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "&nbsp;In the rapidly advancing landscape of AI technology and innovation, LimeWire emerges as a unique platform in the r...",
+    "summary": "LimeWire is an AI platform that allows users to generate, share, and monetize various types of digital content. The service offers a fresh approach to content creation within the rapidly growing generative AI market.",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovation and efficiency in various industries. ...",
+    "summary": "This article explores ten advanced artificial intelligence tools designed to automate repetitive tasks and improve workplace efficiency. These widely used market solutions cater to various industry applications, including natural language processing.",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "Are you looking for a way to create content that is both effective and efficient? If so, then you should consider using ...",
+    "summary": "This article lists the top ten AI content generator and writer tools available in 2022. It aims to help readers choose the right AI tool to create efficient, engaging, and relevant content for their audience.",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
    },
    {
     "title": "Beginner Guide to CJ Affiliate (Commission Junction) in 2022",
-    "summary": "Image by vectorjuice on FreepikIn this CJ Affiliate guide, I will share with you everything you need to get started on t...",
+    "summary": "This beginner guide explains how the CJ Affiliate network works and how to earn money on the platform. It also highlights top CJ affiliate programs and alternative options for users.",
     "link": "https://techncruncher.blogspot.com/2022/09/cj-affiliate-ultimate-guide-to.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Sat, 10 Sep 2022 08:57:00 +0000"
@@ -145,42 +145,42 @@
   "Data & Insights": [
    {
     "title": "GST Council meeting rescheduled for Thursday, says official order",
-    "summary": "The GST Council meeting has been rescheduled to Thursday in New Delhi. The meeting will focus on process reforms and com...",
+    "summary": "The GST Council meeting in New Delhi has been rescheduled to Thursday. The discussion will focus on process reforms and compliance simplification instead of rate changes.",
     "link": "https://www.livemint.com/economy/gst-council-meeting-rescheduled-to-thursday-says-official-order-11791217970800.html",
     "source": "livemint.com",
     "pubDate": "Mon, 05 Oct 2026 22:58:37 +0530"
    },
    {
     "title": "GST Council meeting postponed for second time, rescheduled to October 8",
-    "summary": "The 57th GST Council meeting has been postponed again and will now be held on October 8, instead of October 7. The meeti...",
+    "summary": "The 57th GST Council meeting has been postponed for a second time to October 8. The meeting will focus on discussing changes regarding GST registration, returns, and refund mechanisms.",
     "link": "https://www.livemint.com/economy/gst-council-meeting-postponed-for-second-time-rescheduled-to-october-8-11791215422846.html",
     "source": "livemint.com",
     "pubDate": "Mon, 05 Oct 2026 21:23:32 +0530"
    },
    {
     "title": "China’s banking shake-up: 670 lenders vanish as Beijing moves to contain financial risks",
-    "summary": "China closed a record 670 banks in 2025 as Beijing consolidated weaker rural lenders amid rising bad loans and slower ec...",
+    "summary": "China shut down a record 670 banks in 2025 to consolidate weaker rural lenders. This shake-up aims to contain rising bad loans and manage slower economic growth.",
     "link": "https://www.livemint.com/economy/chinas-banking-shake-up-670-lenders-vanish-as-beijing-moves-to-contain-financial-risks-11791208318054.html",
     "source": "livemint.com",
     "pubDate": "Mon, 05 Oct 2026 20:06:51 +0530"
    },
    {
     "title": "India’s growth momentum holds, but inflation and weak industrial activity weigh, says BCG report",
-    "summary": "BCG’s September monitor points to a less even expansion, with strong investment and services offsetting softer manufactu...",
+    "summary": "A BCG report shows India's economic growth is continuing, driven by strong investment and services. However, rising inflation and weak manufacturing and consumer sentiment are weighing on the expansion.",
     "link": "https://www.livemint.com/economy/india-growth-momentum-holds-but-inflation-and-industrial-activity-pose-risks-bcg-11791200956716.html",
     "source": "livemint.com",
     "pubDate": "Mon, 05 Oct 2026 19:25:07 +0530"
    },
    {
     "title": "Mint explainer: how Brics’ new tax platforms could change cross-border taxation",
-    "summary": "BRICS is creating new platforms on international taxation, transfer pricing and revenue data. The move could give emergi...",
+    "summary": "BRICS is developing new platforms focused on international taxation, transfer pricing, and revenue data. This initiative aims to give emerging economies greater influence over global cross-border tax rules.",
     "link": "https://www.livemint.com/economy/brics-cross-border-taxation-international-taxation-transfer-pricing-tax-data-revenue-statistics-digital-taxation-11791169947810.html",
     "source": "livemint.com",
     "pubDate": "Mon, 05 Oct 2026 10:24:44 +0530"
    },
    {
     "title": "Rate hikes are coming, but don’t count credit growth out just yet",
-    "summary": "Despite imminent rate hikes, strong economic growth, ample liquidity, and structural demand could mean India’s credit up...",
+    "summary": "India's upcoming interest rate hikes are unlikely to immediately halt the current credit upcycle. Strong economic growth, ample liquidity, and structural demand will help sustain credit expansion in the short term.",
     "link": "https://www.livemint.com/economy/india-credit-growth-rate-hike-rbi-monetary-policy-bank-lending-bank-credit-fcnr-b-deposits-financial-deepening-11791139917638.html",
     "source": "livemint.com",
     "pubDate": "Mon, 05 Oct 2026 09:00:45 +0530"
@@ -189,42 +189,42 @@
   "India": [
    {
     "title": "Woman, 26, Jumps Into Well With 4-Year-Old Son In UP, Both Die: Cops",
-    "summary": "A 26-year-old woman allegedly jumped into a well along with her four-year-old son on Monday, with police saying they hav...",
+    "summary": "A 26-year-old woman and her four-year-old son died after jumping into a well in Uttar Pradesh on Monday. Police have recovered both bodies, and the reason for the incident remains unknown.",
     "link": "https://www.ndtv.com/india-news/woman-26-jumps-into-well-with-4-year-old-son-in-up-both-die-cops-12143358#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 06 Oct 2026 04:07:54 +0530"
    },
    {
     "title": "Delhi Cop Vivek Bhagat's Promotion Withheld Amid Sexual Harassment Allegation",
-    "summary": "The proposal to confer additional duty charge to these officers was initiated on August 25, \"much before the present set...",
+    "summary": "Delhi police officer Vivek Bhagat's promotion has been withheld following sexual harassment allegations against him. The government stated that the initial proposal and approval for his additional duty charge occurred before these events unfolded.",
     "link": "https://www.ndtv.com/india-news/delhi-cop-vivek-bhagats-promotion-withheld-amid-sexual-harassment-allegation-12143125#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 06 Oct 2026 01:02:20 +0530"
    },
    {
     "title": "\"Girls Don't Marry Village Boys\": Farmer's 'Brides' Request To DK Shivakumar",
-    "summary": "The farmer raised the issue before Chief Minister DK Shivakumar, saying men from farming communities were struggling to ...",
+    "summary": "A farmer told Chief Minister DK Shivakumar that men in farming communities are struggling to find brides despite owning agricultural land. He highlighted that women are increasingly reluctant to marry men who live in villages.",
     "link": "https://www.ndtv.com/karnataka-news/karnataka-dk-shivakumar-we-want-women-to-marry-farmers-viral-plea-to-dk-shivakumar-12142576#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 06 Oct 2026 00:39:23 +0530"
    },
    {
     "title": "Top Court Tells Delhi Police To Make Women Safe, Even At 11 pm",
-    "summary": "A bench of Justices J B Pardiwala and K Vinod Chandran said it must be ensured that every woman should feel safe even at...",
+    "summary": "India's Supreme Court directed the Delhi Police to ensure women feel safe while traveling on roads or the metro late at night. Justices J B Pardiwala and K Vinod Chandran emphasized that safety must be guaranteed even at 11 pm.",
     "link": "https://www.ndtv.com/india-news/top-court-tells-delhi-police-to-make-women-safe-even-at-11-pm-12143089#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 06 Oct 2026 00:35:00 +0530"
    },
    {
     "title": "Bengaluru Jail Official Arrested For Allegedly Soliciting Sex From Convict's Wife",
-    "summary": "The allegation against Sri Somashekar, who was serving as Chief Superintendent at the time, emerged during the police in...",
+    "summary": "A Bengaluru jail official, Sri Somashekar, has been arrested for allegedly soliciting sex from a convict's wife. The allegation came to light during a police investigation into the 2018 release of convict Shankar A. using a forged Supreme Court order.",
     "link": "https://www.ndtv.com/india-news/bengaluru-top-cop-arrested-for-allegedly-soliciting-sex-from-convicts-wife-12143058#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 06 Oct 2026 00:24:53 +0530"
    },
    {
     "title": "Bengaluru Gym Trainer Killed After Argument Inside Client's Apartment",
-    "summary": "Among the accused -- Vishwanatha, Sharath and Nishanth were the victim's colleagues at the gym, while Anush was a client...",
+    "summary": "A Bengaluru gym trainer was killed following an argument inside a client's apartment. Police stated that the suspects include three of the victim's gym colleagues and a client whom they all trained.",
     "link": "https://www.ndtv.com/india-news/bengaluru-gym-trainer-killed-after-argument-inside-clients-apartment-12143060#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 06 Oct 2026 00:20:13 +0530"
@@ -233,45 +233,45 @@
   "General": [
    {
     "title": "Trump says 'threat' led US to pull bombers from RAF Fairford",
-    "summary": "The Pentagon confirmed on Sunday it had removed the B1 bombers from the base in England back to their home stations in A...",
+    "summary": "President Trump stated that an unspecified \"threat\" caused the U.S. to withdraw B-1 bombers from RAF Fairford in England. The Pentagon confirmed on Sunday that these aircraft were returned to their home stations in the United States.",
     "link": "https://www.bbc.co.uk/news/articles/cwj3413e5m1lo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 05 Oct 2026 21:46:22 GMT"
    },
    {
+    "title": "What prompted the US bombers to leave RAF Fairford?",
+    "summary": "American bombers evacuated from RAF Fairford due to concerns held within the Pentagon. The mass departure highlights the serious nature of these security concerns.",
+    "link": "https://www.bbc.co.uk/news/articles/ck87z09xe82qo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Mon, 05 Oct 2026 21:57:26 GMT"
+   },
+   {
     "title": "Author and former politician Jeffrey Archer dies aged 86",
-    "summary": "His last book, Adam and Eve, is set to release this month.",
+    "summary": "Author and former politician Jeffrey Archer has died at the age of 86. His final book, Adam and Eve, is scheduled for release this month.",
     "link": "https://www.bbc.co.uk/news/articles/ckj0l401dvpgo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 05 Oct 2026 21:41:53 GMT"
    },
    {
     "title": "King's funding for Andrew not to be used for legal action against police",
-    "summary": "Andrew Mountbatten-Windsor is taking action over search warrants issued ahead of his arrest in February.",
+    "summary": "Andrew Mountbatten-Windsor is taking legal action regarding search warrants issued before his February arrest. King Charles's funding will not be used to cover the costs of this specific police challenge.",
     "link": "https://www.bbc.co.uk/news/articles/c9ly0l028d1go?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 05 Oct 2026 18:48:40 GMT"
    },
    {
-    "title": "What we know about Andrew Mountbatten-Windsor's legal action against police",
-    "summary": "Andrew Mountbatten-Windsor is taking legal action against Thames Valley Police over his arrest in February.",
-    "link": "https://www.bbc.co.uk/news/videos/cv62yd93z906o?at_medium=RSS&at_campaign=rss",
+    "title": "France braces for national day of school protests after injuries and mass arrests",
+    "summary": "France is preparing for a national day of school protests following recent student demonstrations over education funding that resulted in injuries and mass arrests. Students have been demanding increased investment in the French education system.",
+    "link": "https://www.bbc.co.uk/news/articles/cr4g1q1elxnjo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Mon, 05 Oct 2026 13:09:42 GMT"
+    "pubDate": "Mon, 05 Oct 2026 21:18:10 GMT"
    },
    {
-    "title": "Teenager's hand blown off during confrontation between France school protesters and police",
-    "summary": "The prefect of Pas-de-Calais says the 15-year-old's life is \"not in danger\" after the \"very serious\" incident.",
-    "link": "https://www.bbc.co.uk/news/articles/c9zrdmxp4vy6o?at_medium=RSS&at_campaign=rss",
+    "title": "Tories pledge £10bn 'Britannia Shield' air defence system",
+    "summary": "The Conservative party has pledged a £10 billion air defence system called the \"Britannia Shield\" to protect the UK. The proposal comes in response to warnings from NATO allies about Russian drone incursions.",
+    "link": "https://www.bbc.co.uk/news/articles/cxvgdl5npl86o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Mon, 05 Oct 2026 16:32:18 GMT"
-   },
-   {
-    "title": "Prisoner took his own life after terror order had 'substantial impact' on mental state, inquest finds",
-    "summary": "Akhtar Uddin was jailed for breaching Terrorism Prevention and Investigation Measures in 2020.",
-    "link": "https://www.bbc.co.uk/news/articles/c5398lm30pwwo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Mon, 05 Oct 2026 17:21:42 GMT"
+    "pubDate": "Mon, 05 Oct 2026 22:39:20 GMT"
    }
   ]
  }
