@@ -1,6 +1,6 @@
 {
- "updatedAt": "2026-10-08T21:50:21Z",
- "model": "none",
+ "updatedAt": "2026-10-09T00:05:42Z",
+ "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
   "Geo-Political",
@@ -13,42 +13,42 @@
   "Markets": [
    {
     "title": "US stocks: S&amp;P 500, Nasdaq end lower as crude prices jump, chip stocks weigh",
-    "summary": "US stock indices slid on Thursday as crude oil prices surged, prompted by intensifying Middle East tensions. Major bench...",
+    "summary": "US stock indexes, including the S&P 500 and Nasdaq, fell on Thursday due to surging crude oil prices caused by Middle East tensions. Additionally, chip stocks declined after OpenAI disclosed a revenue target cut.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/us-stocks-sp-500-nasdaq-end-lower-as-crude-prices-jump-chip-stocks-weigh/articleshow/134800283.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 09 Oct 2026 01:38:56 +0530"
    },
    {
     "title": "Tech stocks drag Nasdaq lower on report of OpenAI revenue fall, high yields",
-    "summary": "US equity indexes fell, influenced by megacap technology stocks and concerns regarding OpenAI's revenue performance. The...",
+    "summary": "US equity indexes fell, led by megacap technology stocks, as OpenAI revenue concerns and rising 10-year Treasury yields pressured the market. Additional pressure came from higher oil prices, energy supply fears, and Federal Reserve signals of potential interest rate increases.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/tech-stocks-drag-nasdaq-lower-on-report-of-openai-revenue-fall-high-yields/articleshow/134800145.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 09 Oct 2026 01:26:06 +0530"
    },
    {
     "title": "US 30-year fixed-rate mortgage rate hits 7.40%, likely to further erode housing demand",
-    "summary": "In the U.S., the 30-year fixed-rate mortgage has surged to 7.40%, fueled by rising inflation that has also driven up ene...",
+    "summary": "The U.S. 30-year fixed-rate mortgage has surged to 7.40% due to rising inflation and Treasury yields. This increase is worsening affordability challenges and causing homeowners to withhold their properties from the market.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/us-30-year-fixed-rate-mortgage-rate-hits-7-40-likely-to-further-erode-housing-demand/articleshow/134798770.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Thu, 08 Oct 2026 23:57:58 +0530"
    },
    {
     "title": "US President Donald Trump buys $1 million-plus stakes in Meta, Microsoft, McDonald’s; adds SpaceX debt",
-    "summary": "Donald Trump invested over $1 million in stocks of several major companies during August. Notable purchases included Met...",
+    "summary": "In August, Donald Trump invested over $1 million in major companies, including Meta, Microsoft, McDonald's, and SpaceX debt. These financial activities also included trading shares of AI sector leaders like Nvidia and Advanced Micro Devices.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-president-donald-trump-buys-1-million-plus-stakes-in-meta-microsoft-mcdonalds-adds-spacex-debt/articleshow/134798553.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Thu, 08 Oct 2026 23:47:47 +0530"
    },
    {
     "title": "Infosys, Wipro ADRs fall nearly 3% after TCS earnings, US crackdown on H-1B-linked green card programme",
-    "summary": "Infosys and Wipro ADRs fell nearly 3% in US trading as investors assessed TCS’s quarterly results and fresh US immigrati...",
+    "summary": "Infosys and Wipro ADRs dropped nearly 3% in US trading following TCS's quarterly results and new US immigration restrictions. Investors reacted to growing concerns over technology spending, AI disruption, and tighter employment-based immigration policies impacting Indian IT stocks.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/infosys-wipro-adrs-fall-nearly-3-after-tcs-earnings-us-crackdown-on-h-1b-linked-green-card-programme/articleshow/134794915.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Thu, 08 Oct 2026 21:27:31 +0530"
    },
    {
     "title": "Ahead of Market: 10 things that will decide stock market action on Friday",
-    "summary": "Indian markets plunged on Thursday as RBI policy tightening, persistent FII selling, rising bond yields and rupee weakne...",
+    "summary": "Indian markets plunged on Thursday due to RBI policy tightening, foreign institutional investor selling, rising bond yields, and rupee weakness. The Nifty hit a 52-week low of 22,179, and the Sensex fell 1,045 points, wiping out over Rs 10 lakh crore in investor wealth.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/ahead-of-market-10-things-that-will-decide-stock-market-action-on-thursday/articleshow/134794702.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Thu, 08 Oct 2026 21:17:00 +0530"
@@ -56,87 +56,87 @@
   ],
   "Geo-Political": [
    {
+    "title": "Suspect linked to Monaco bomb attack on millionaire breaks silence to BBC",
+    "summary": "Vitalii Zhykovych has broken his silence to the BBC regarding the attempted assassination of Ukrainian-born businessman Vadym Yermolayev. Zhykovych provided his own account of the bomb attack that targeted the millionaire in Monaco.",
+    "link": "https://www.bbc.co.uk/news/articles/ckgel9044vqeo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Thu, 08 Oct 2026 23:11:10 GMT"
+   },
+   {
+    "title": "Fort Hood attacker's execution by firing squad will be livestreamed, Pentagon says",
+    "summary": "US Defense Secretary Pete Hegseth announced on Thursday that the execution of the Fort Hood attacker by firing squad will be livestreamed. The Pentagon confirmed that the public will be able to watch the event.",
+    "link": "https://www.bbc.co.uk/news/articles/cmy0r96xygx6o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Thu, 08 Oct 2026 23:35:57 GMT"
+   },
+   {
     "title": "Russian strike on buses kills at least 30, say officials, as deadly attacks on Ukraine surge",
-    "summary": "Ukraine accused Russia of targeting two crowded vehicles in the front line city of Kramatorsk to kill as many civilians ...",
+    "summary": "A Russian strike on two crowded buses in Kramatorsk killed at least 30 people. Ukrainian officials accused Russia of intentionally targeting civilians as deadly attacks across the country surge.",
     "link": "https://www.bbc.co.uk/news/articles/c875pwq134l3o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Thu, 08 Oct 2026 16:31:29 GMT"
    },
    {
     "title": "Christa Pike now walking after failed US execution, lawyer tells BBC",
-    "summary": "A lawyer says the murderer of Colleen Slemmer is moving around her hospital room after surviving two lethal injections.",
+    "summary": "Christa Pike, the murderer of Colleen Slemmer, survived two lethal injection attempts at a United States execution. Her lawyer told the BBC that she is now able to walk around her hospital room.",
     "link": "https://www.bbc.co.uk/news/articles/c60rln74yzvxo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Thu, 08 Oct 2026 15:02:32 GMT"
    },
    {
-    "title": "Venezuela's ex-leader Nicolás Maduro charged with conspiracy to commit torture",
-    "summary": "The new accusations relate to the alleged torture of US citizens held in Venezuela while Maduro was in power.",
-    "link": "https://www.bbc.co.uk/news/articles/c5pvgn7xvxpzo?at_medium=RSS&at_campaign=rss",
+    "title": "Adidas sues Australian label White Fox over four stripes design",
+    "summary": "German sportswear brand Adidas is suing Sydney-based label White Fox for allegedly copying its trademarked stripes design. Adidas is demanding financial damages and an immediate halt to the sale of the disputed clothing items.",
+    "link": "https://www.bbc.co.uk/news/articles/c9e8ld448km8o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 08 Oct 2026 17:38:59 GMT"
+    "pubDate": "Thu, 08 Oct 2026 18:17:28 GMT"
    },
    {
     "title": "Protesters blame 'vulture funds' for Spain's housing crisis",
-    "summary": "Hundreds have pitched their tents in central Madrid, while the Spanish prime minister has called a snap election.",
+    "summary": "Hundreds of protesters pitched tents in central Madrid to blame \"vulture funds\" for Spain's escalating housing crisis. In response to the growing political pressure, the Spanish prime minister called a snap election.",
     "link": "https://www.bbc.co.uk/news/articles/c3j4790elkx7o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Thu, 08 Oct 2026 19:10:06 GMT"
-   },
-   {
-    "title": "Italy approves elections overhaul as opposition accuse Meloni of 'scam'",
-    "summary": "Prime Minister Giorgia Meloni says the move will deliver more stable government, but opposition parties say her aim is t...",
-    "link": "https://www.bbc.co.uk/news/articles/c6zxjdw8rdl5o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Thu, 08 Oct 2026 12:32:12 GMT"
-   },
-   {
-    "title": "US deportations to African countries unlawful and exploit suffering, rights group says",
-    "summary": "More than 500 migrants have been expelled from the US to African countries, HRW says, citing US data.",
-    "link": "https://www.bbc.co.uk/news/articles/c9p8gn55433jo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Thu, 08 Oct 2026 17:16:32 GMT"
    }
   ],
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and aske...",
+    "summary": "A creator discovered their WordPress SaaS course was recommended as the top result by ChatGPT without paying for ads. This experiment highlights a shift in organic traffic strategies from traditional SEO to AI optimization (AIO).",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "Looking to level up your content creation game in 2025? You're in the right place! The digital landscape has evolved dra...",
+    "summary": "The digital landscape has evolved to make AI tools essential for content creators in 2025. This guide highlights the top 10 AI tools designed to revolutionize content creation and simplify creators' workflows.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "&nbsp;In the rapidly advancing landscape of AI technology and innovation, LimeWire emerges as a unique platform in the r...",
+    "summary": "LimeWire has transformed from a file-sharing service into a generative AI platform for content creation. The tool allows users to generate, share, and monetize their artificial intelligence creations.",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovation and efficiency in various industries. ...",
+    "summary": "This article explores ten advanced artificial intelligence tools designed to automate repetitive tasks and boost workplace productivity across various industries. These widely used market solutions improve workflows and drive efficiency for a variety of specific applications.",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "Are you looking for a way to create content that is both effective and efficient? If so, then you should consider using ...",
+    "summary": "The article introduces AI content generators as effective tools for creating engaging and relevant material for audiences. It notes that with numerous options currently available on the market, choosing the right tool can be challenging.",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
    },
    {
     "title": "Beginner Guide to CJ Affiliate (Commission Junction) in 2022",
-    "summary": "Image by vectorjuice on FreepikIn this CJ Affiliate guide, I will share with you everything you need to get started on t...",
+    "summary": "This beginner's guide to CJ Affiliate explains how the network works and how to earn money on the platform. It also highlights top CJ affiliate programs, alternatives, and answers frequently asked questions.",
     "link": "https://techncruncher.blogspot.com/2022/09/cj-affiliate-ultimate-guide-to.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Sat, 10 Sep 2022 08:57:00 +0000"
@@ -145,42 +145,42 @@
   "Data & Insights": [
    {
     "title": "GST Council Meeting Oct 2026: List of decisions taken - Arrest, prosecution, general penalty and more",
-    "summary": "GST Council Meeting October 2026: Key decisions include ending arrest powers for GST officers, raising the prosecution t...",
+    "summary": "The GST Council's October 2026 meeting removed arrest powers for GST officers and raised the prosecution threshold to ₹5 crore. Additional decisions include reducing general penalties, accelerating refunds, and simplifying the registration process.",
     "link": "https://www.livemint.com/economy/gst-council-meeting-oct-2026-list-of-decisions-taken-arrest-prosecution-general-penalty-and-more-11791481509822.html",
     "source": "livemint.com",
     "pubDate": "Thu, 08 Oct 2026 23:57:11 +0530"
    },
    {
     "title": "Homecooked food gets expensive, vegetarians to pay more than non-vegetarians amid onion, rice, LPG price hike: Crisil",
-    "summary": "The cost of a home-cooked vegetarian thali has increased to  ₹30.8 in September 2026 from last year's  ₹28.1. In compari...",
+    "summary": "In September 2026, the cost of a home-cooked vegetarian thali rose to ₹30.8 from ₹28.1 the previous year. Concurrently, the price of a non-vegetarian thali increased to ₹59.5 from ₹56, driven by higher onion, rice, and LPG prices.",
     "link": "https://www.livemint.com/economy/homecooked-food-gets-expensive-vegetarians-to-pay-more-than-non-vegetarians-amid-onion-rice-lpg-price-hike-crisil-11791468585537.html",
     "source": "livemint.com",
     "pubDate": "Thu, 08 Oct 2026 19:58:23 +0530"
    },
    {
     "title": "India signs pact to address global excess capacity: What is it? Who are the 15 signatories? Check joint statement",
-    "summary": "India joined the United States and 13 other economies in calling for action against policies that contribute to excess m...",
+    "summary": "India and 14 other global economies signed an agreement to combat market-distorting policies that cause excess manufacturing capacity. The signatories will share information and develop coordinated responses to address the issue.",
     "link": "https://www.livemint.com/economy/india-signs-pact-to-address-global-excess-capacity-what-is-it-who-are-the-15-signatories-check-joint-statement-11791464036695.html",
     "source": "livemint.com",
     "pubDate": "Thu, 08 Oct 2026 19:37:41 +0530"
    },
    {
     "title": "India eyes $1 trillion exports despite weak global trade outlook: Piyush Goyal",
-    "summary": "India will need nearly 16% export growth to hit the target as global trade is expected to expand just 2.5-3%.",
+    "summary": "India is aiming for a $1 trillion export target despite a weak global trade outlook projecting only 2.5% to 3% growth. Achieving this goal will require the country to sustain an export growth rate of nearly 16%.",
     "link": "https://www.livemint.com/economy/india-eyes-1-trillion-exports-despite-weak-global-trade-outlook-piyush-goyal-11791455245560.html",
     "source": "livemint.com",
     "pubDate": "Thu, 08 Oct 2026 18:47:53 +0530"
    },
    {
     "title": "GST Council meet: Tax officers' arrest power scrapped; easier e-comm norms for small sellers — Check key highlights",
-    "summary": "The GST Council removed tax officers’ power to arrest individuals in certain cases and raised the prosecution threshold ...",
+    "summary": "The GST Council raised the prosecution threshold to ₹5 crore and removed tax officers' arrest powers in certain cases. It also simplified compliance for small e-commerce sellers and shortened timelines for acknowledging refund applications.",
     "link": "https://www.livemint.com/economy/gst-council-meet-tax-officers-arrest-power-scrapped-easier-e-comm-norms-for-small-sellers-check-key-highlights-11791460904109.html",
     "source": "livemint.com",
     "pubDate": "Thu, 08 Oct 2026 17:37:24 +0530"
    },
    {
     "title": "Retail inflation likely hit 23-month high of 5.6% in September: Mint poll",
-    "summary": "If inflation comes in as expected, it would exceed the Reserve Bank of India’s medium-term aim of 4% for the fourth cons...",
+    "summary": "A Mint poll shows retail inflation in September likely reached a 23-month high of 5.6%. This expected rate exceeds the Reserve Bank of India's 4% target for the fourth consecutive month.",
     "link": "https://www.livemint.com/economy/retail-inflation-likely-hit-23-month-high-of-5-6-in-sep-mint-poll-11791453904208.html",
     "source": "livemint.com",
     "pubDate": "Thu, 08 Oct 2026 17:09:03 +0530"
@@ -189,42 +189,42 @@
   "India": [
    {
     "title": "INDIA Bloc Protest Highlights: INDIA Bloc Protesters Meet At Delhi Cafe To Discuss Forward Strategy",
-    "summary": "INDIA Bloc Protest Highlights: Several opposition leaders were detained on Wednesday after they staged a sit-in and rais...",
+    "summary": "Several opposition leaders were detained on Wednesday after staging a sit-in and demanding the election chief's resignation. Earlier, members of the INDIA bloc met at a Delhi cafe to discuss their forward strategy.",
     "link": "https://www.ndtv.com/india-news/india-bloc-protest-live-updates-save-democracy-march-election-commission-vote-chori-priyanka-gandhi-rahul-gandhi-mamata-banerjee-gyanesh-kumar-poll-bo-12153922#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 09 Oct 2026 00:55:00 +0530"
    },
    {
     "title": "Bhagwant Mann Aide Goes To Court, Says Raid Illegal, Agency Had No Approval",
-    "summary": "Punjab Chief Minister Bhagwant Mann's OSD Rajbir Singh Ghuman has moved the Punjab and Haryana High Court challenging th...",
+    "summary": "Punjab Chief Minister Bhagwant Mann's OSD, Rajbir Singh Ghuman, has filed a petition in the Punjab and Haryana High Court. He is challenging a CBI raid at his Sangrur residence, claiming the search was illegal and conducted without proper approval.",
     "link": "https://www.ndtv.com/india-news/bhagwant-mann-aide-goes-to-court-says-raid-illegal-agency-had-no-approval-12158904#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 09 Oct 2026 00:54:06 +0530"
    },
    {
     "title": "Rat Seen Swimming In Vessel Full Of Gulab Jamun In Maharashtra",
-    "summary": "The department took note of a viral video that showed the rodent swimming in the sugar syrup and trying to climb out of ...",
+    "summary": "Authorities in Maharashtra investigated a viral video showing a rat swimming inside a large vessel filled with gulab jamun and sugar syrup. The footage sparked widespread concern regarding food safety and hygiene standards at the unidentified local establishment.",
     "link": "https://www.ndtv.com/india-news/rat-seen-swimming-in-vessel-full-of-gulab-jamun-in-maharashtra-12158874#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 09 Oct 2026 00:37:42 +0530"
    },
    {
     "title": "Congress Alleges Police Manhandled Ex-Assam Chief During Guwahati Protest",
-    "summary": "The party was protesting the police action against Opposition MPs during a demonstration in Delhi on Wednesday.",
+    "summary": "The Congress party alleges that police manhandled a former Assam chief minister during a protest in Guwahati. The demonstration was held to condemn police action against opposition members of parliament in Delhi.",
     "link": "https://www.ndtv.com/india-news/ripun-bora-congress-alleges-police-manhandled-ex-assam-chief-during-guwahati-protest-12158871#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 09 Oct 2026 00:37:21 +0530"
    },
    {
     "title": "Court Ruling Today On AIADMK Plea Against Nod To 6 Rebel MLAs' Resignations",
-    "summary": "The six legislators - Maragatham Kumaravel, Sathyabhama, Isakki Subbaya, Jayakumar, MR Vijayabaskar and C Vijayabaskar -...",
+    "summary": "A court will rule today on an AIADMK petition challenging the approval of resignations submitted by six rebel MLAs. These legislators previously faced disqualification proceedings for defying the party whip by voting for the TVK government during a trust vote.",
     "link": "https://www.ndtv.com/india-news/court-ruling-today-on-aiadmk-plea-against-nod-to-6-rebel-mlas-resignations-12158847#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 09 Oct 2026 00:24:30 +0530"
    },
    {
     "title": "5 Injured In Fire Caused By Gas Leak In Hostel On IIT Bombay Campus",
-    "summary": "Two children were among the injured.",
+    "summary": "Five people, including two children, were injured in a fire at an IIT Bombay campus hostel. The fire was caused by a gas leak.",
     "link": "https://www.ndtv.com/india-news/5-injured-in-fire-caused-by-gas-leak-in-hostel-on-iit-bombay-campus-12158735#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 09 Oct 2026 00:19:38 +0530"
@@ -232,46 +232,46 @@
   ],
   "General": [
    {
+    "title": "ADHD and autism at risk of over-diagnosis, says government review",
+    "summary": "A government review warns that younger people face a growing risk of ADHD and autism over-diagnosis or mis-diagnosis. The findings suggest society is shifting from an era of under-diagnosis to one of over-identifying these conditions.",
+    "link": "https://www.bbc.co.uk/news/articles/crkg7n1ypj24o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Thu, 08 Oct 2026 23:01:30 GMT"
+   },
+   {
+    "title": "Polanski failed to show leadership over Zionism motion, ex-Green leader says",
+    "summary": "Former Green Party leader Caroline Lucas stated that Zack Polanski failed to show leadership by abstaining from a vote. The vote concerned a motion that declared Zionism to be a form of racism.",
+    "link": "https://www.bbc.co.uk/news/articles/cm2d6x11l6pko?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Thu, 08 Oct 2026 23:56:16 GMT"
+   },
+   {
     "title": "Warrants used to search Andrew Mountbatten-Windsor's homes were unlawful, court says",
-    "summary": "A criminal investigation into the former prince continues and police have retained material seized from his homes.",
+    "summary": "A court ruled that the police search warrants used on Andrew Mountbatten-Windsor's homes were unlawful. The criminal investigation against him continues, and police are still holding the seized material.",
     "link": "https://www.bbc.co.uk/news/articles/cr1exlvpzylvo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Thu, 08 Oct 2026 16:33:29 GMT"
    },
    {
-    "title": "Watch: What does the ruling mean for the investigation into the former prince?",
-    "summary": "Special correspondent Lucy Manning explains why the Hight Court has ruled that search warrants used to search Mr Mountba...",
-    "link": "https://www.bbc.co.uk/news/videos/c6qxn8dd0zllo?at_medium=RSS&at_campaign=rss",
+    "title": "Suspect linked to Monaco bomb attack on millionaire breaks silence to BBC",
+    "summary": "Vitalii Zhykovych has spoken to the BBC regarding his alleged involvement in a bomb attack against Ukrainian-born millionaire Vadym Yermolayev in Monaco. Zhykovych provided his own account of the attempted assassination to the broadcaster.",
+    "link": "https://www.bbc.co.uk/news/articles/ckgel9044vqeo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 08 Oct 2026 17:26:49 GMT"
+    "pubDate": "Thu, 08 Oct 2026 23:11:10 GMT"
    },
    {
-    "title": "Two Latvian men arrested on suspicion of trespass at RAF base in Cambridgeshire",
-    "summary": "Police say they apprehended two Latvian men at about 02:00 BST while they were inside the perimeter.",
-    "link": "https://www.bbc.co.uk/news/articles/c6ly0vzew9e8o?at_medium=RSS&at_campaign=rss",
+    "title": "Fort Hood attacker's execution by firing squad will be livestreamed, Pentagon says",
+    "summary": "US Defence Secretary Pete Hegseth announced on Thursday that the execution of the Fort Hood attacker by firing squad will be livestreamed. The Pentagon confirmed that the event will be made available for the public to watch.",
+    "link": "https://www.bbc.co.uk/news/articles/cmy0r96xygx6o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 08 Oct 2026 17:36:28 GMT"
+    "pubDate": "Thu, 08 Oct 2026 23:35:57 GMT"
    },
    {
-    "title": "Burnham calls on Polanski to reverse Green Party's Zionism motion",
-    "summary": "The prime minister has intervened in the row over the motion passed by members at Green Party conference.",
-    "link": "https://www.bbc.co.uk/news/articles/cm2d6x11l6pko?at_medium=RSS&at_campaign=rss",
+    "title": "Emotions run high at the round table as Celebrity Traitors banish two players",
+    "summary": "Emotions ran high at the first round table of the new series of Celebrity Traitors. Viewers watched to see if Richard E Grant could save himself as two players were banished.",
+    "link": "https://www.bbc.co.uk/news/articles/cm9dzl7wx2qyo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 08 Oct 2026 21:00:16 GMT"
-   },
-   {
-    "title": "Three sisters who drowned in sea off Brighton took own lives, inquest finds",
-    "summary": "Jane Adetoro, Christina Walters and Rebecca Walters, who lived in London, drowned in the sea in May.",
-    "link": "https://www.bbc.co.uk/news/articles/c689zxd8w87lo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Thu, 08 Oct 2026 13:11:01 GMT"
-   },
-   {
-    "title": "Royal Navy sailor in court accused of preparing to spy for Russia",
-    "summary": "The 24-year-old man appeared at Westminster Magistrates’ Court on Thursday after being arrested at his home in Bedfordsh...",
-    "link": "https://www.bbc.co.uk/news/articles/cw203n6emde8o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Thu, 08 Oct 2026 12:44:03 GMT"
+    "pubDate": "Thu, 08 Oct 2026 23:08:09 GMT"
    }
   ]
  }
