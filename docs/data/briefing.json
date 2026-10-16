@@ -1,6 +1,6 @@
 {
- "updatedAt": "2026-10-16T17:46:25Z",
- "model": "none",
+ "updatedAt": "2026-10-16T19:52:00Z",
+ "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
   "Geo-Political",
@@ -12,124 +12,124 @@
  "briefing": {
   "Markets": [
    {
+    "title": "Big US bank stocks head for longest weekly losing streak since 2008",
+    "summary": "Major US bank stocks are experiencing their longest weekly losing streak since the 2008 financial crisis. This downturn is driven by mixed quarterly earnings, rising inflation, and concerns that artificial intelligence will disrupt financial services.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/big-us-bank-stocks-head-for-longest-weekly-losing-streak-since-2008/articleshow/135002546.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Sat, 17 Oct 2026 00:24:46 +0530"
+   },
+   {
+    "title": "Chip selloff deepens Wall Street losses as doubts grew over AI returns",
+    "summary": "Semiconductor stocks dropped amid growing doubts about the profitability of artificial intelligence investments, dragging down major US indexes. The Nasdaq 100 fell 1.8%, marking its longest losing streak since 2008.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/chip-selloff-deepens-wall-street-losses-as-doubts-grew-over-ai-returns/articleshow/135001236.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Fri, 16 Oct 2026 23:29:09 +0530"
+   },
+   {
     "title": "CoreWeave stock wipeout exposes divide between AI fear and greed",
-    "summary": "CoreWeave Inc. is navigating turbulent stock trends due to climbing bond yields and investor trepidation over its debt, ...",
+    "summary": "CoreWeave is facing stock volatility and default fears driven by rising bond yields and heavy debt, despite strong demand for artificial intelligence. While Nvidia's CEO offered temporary relief through optimistic comments, investors remain cautious about the company's pressing funding needs.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/coreweave-stock-wipeout-exposes-divide-between-ai-fear-and-greed/articleshow/134998742.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 16 Oct 2026 21:33:56 +0530"
    },
    {
     "title": "Crompton Greaves Consumer Electricals Ltd Q2 Results: Profit surges 65% to Rs 124 crore",
-    "summary": "Crompton Greaves Consumer Electricals reported a 65 percent increase in consolidated net profit for the September quarte...",
+    "summary": "Crompton Greaves Consumer Electricals reported a 65 percent increase in consolidated net profit to Rs 124 crore for the September quarter. Revenue from operations jumped 18.15 percent, driven by strong growth in the electric consumer durable segment, particularly fans and appliances.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/earnings/crompton-greaves-q2-results-profit-surges-65-to-rs-124-crore/articleshow/134998426.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 16 Oct 2026 21:03:01 +0530"
    },
    {
     "title": "Cult.fit receives Sebi approval for proposed IPO",
-    "summary": "Cult.fit has received Sebi observations for its proposed IPO, comprising a fresh issue of up to Rs 950 crore and an offe...",
+    "summary": "Fitness chain Cult.fit has received regulatory approval from Sebi for an initial public offering that includes a fresh issue of up to Rs 950 crore and an offer for sale. The company's expansion of nationwide fitness operations drove a 36.26% revenue increase and a significant improvement in its adjusted EBITDA margin in FY26.",
     "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/cult-fit-receives-sebi-approval-for-proposed-ipo/articleshow/134997161.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 16 Oct 2026 19:32:27 +0530"
    },
    {
     "title": "US stocks: S&amp;P 500 muted as AI concerns hit chip stocks; bank gains lift Dow",
-    "summary": "The S&amp;P 500 showed little movement as semiconductor stocks decreased due to AI-related concerns and market pressures...",
+    "summary": "The S&amp;P 500 remained flat as losses in semiconductor and AI-related stocks were offset by gains in major banks like Goldman Sachs and JPMorgan Chase. Market sentiment was further influenced by rising debt concerns among AI companies and new inflation data.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-stocks-wall-st-opens-muted-as-tech-jitters-linger-tesla-gains/articleshow/134996865.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 16 Oct 2026 19:15:27 +0530"
-   },
-   {
-    "title": "DLF Q2 profit rises to Rs 1,301 crore as luxury project sells out",
-    "summary": "DLF reported a 11% year-on-year increase in July-September net profit to Rs 1,301 crore, with sales bookings reaching Rs...",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/earnings/dlf-q2-profit-rises-to-rs-1301-crore-as-luxury-project-sells-out/articleshow/134996827.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Fri, 16 Oct 2026 19:10:03 +0530"
-   },
-   {
-    "title": "Ujjivan SFB to raise Rs 409 crore from IFC, three insurers",
-    "summary": "Ujjivan Small Finance Bank plans to raise Rs 409 crore through a preferential share allotment to IFC and three insurers ...",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/news/ujjivan-sfb-to-raise-rs-409-crore-from-ifc-three-insurers/articleshow/134996772.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Fri, 16 Oct 2026 19:07:46 +0530"
    }
   ],
   "Geo-Political": [
    {
     "title": "Inside Ukrainian offensive pushing Russia back - with Starlink playing a key role",
-    "summary": "The BBC joins Ukraine's Operation Vivaldi as it regains crucial territory in the Donbas, but optimism has been dampened ...",
+    "summary": "BBC reporters joined Ukraine's Operation Vivaldi to witness forces using Starlink technology to reclaim territory in the Donbas. However, this military progress is tempered by increasing political tensions with US President Trump.",
     "link": "https://www.bbc.co.uk/news/articles/cvx284w16z1po?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 16 Oct 2026 16:00:30 GMT"
    },
    {
     "title": "Palestinians and US journalist injured by Israeli settlers in West Bank harvest attack",
-    "summary": "The BBC sees masked settlers attack Palestinians trying to harvest olives, amid a surge in similar incidents.",
+    "summary": "Masked Israeli settlers attacked Palestinians and a US journalist in the West Bank during an olive harvest. This incident is part of a recent surge in similar violent attacks in the region.",
     "link": "https://www.bbc.co.uk/news/articles/c65ynk7212vqo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 16 Oct 2026 14:31:04 GMT"
    },
    {
-    "title": "Zelensky says Ukraine has right to defend itself after Trump calls latest strikes a 'disgrace'",
-    "summary": "EU leaders rally around Ukraine's president after new criticism from Donald Trump, who says Zelensky is \"more difficult ...",
-    "link": "https://www.bbc.co.uk/news/articles/c58jz174w89ro?at_medium=RSS&at_campaign=rss",
+    "title": "Trump denies limiting Ukraine access to Starlink network",
+    "summary": "Former U.S. President Donald Trump denied limiting Ukraine's access to the Starlink satellite network. Speed restrictions on the network had previously hindered Ukrainian defenses against Russian attacks.",
+    "link": "https://www.bbc.co.uk/news/articles/ckz65g34wyd8o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 16 Oct 2026 15:59:30 GMT"
+    "pubDate": "Fri, 16 Oct 2026 19:33:48 GMT"
    },
    {
     "title": "Pope pictured for first time since surgery and cancer diagnosis",
-    "summary": "The pontiff was diagnosed with lung cancer after having surgery at Rome's Gemelli Hospital on Tuesday.",
+    "summary": "Pope Francis was photographed for the first time since undergoing surgery at Rome's Gemelli Hospital on Tuesday. During this medical procedure, the pontiff was diagnosed with lung cancer.",
     "link": "https://www.bbc.co.uk/news/articles/cw146ej00yn7o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 16 Oct 2026 14:36:39 GMT"
    },
    {
     "title": "India's 'cockroach' party founder detained ahead of protest",
-    "summary": "The youth-led movement had called for a Delhi protest after mass detentions last week and the jailing of two leaders.",
+    "summary": "The founder of a youth-led political movement in India known as the \"cockroach\" party has been detained prior to a planned protest in Delhi. This action follows mass detentions last week and the recent imprisonment of two other movement leaders.",
     "link": "https://www.bbc.co.uk/news/articles/cmx237n1y9lzo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 16 Oct 2026 11:44:31 GMT"
    },
    {
-    "title": "US senators call for investigation into Ukraine's Starlink restrictions",
-    "summary": "Ukraine says temporary speed limits to the Starlink internet network disrupted its battlefield missions.",
-    "link": "https://www.bbc.co.uk/news/articles/cq398zl8jmvdo?at_medium=RSS&at_campaign=rss",
+    "title": "Dad fined after son, 2, died in Cyprus hotel fall",
+    "summary": "A British father was fined in Cyprus after his two-year-old son fell to his death from a hotel window. The father had lost control of the toddler while showing him the view of a nearby water park.",
+    "link": "https://www.bbc.co.uk/news/articles/cvj6j1klez88o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 16 Oct 2026 14:19:50 GMT"
+    "pubDate": "Fri, 16 Oct 2026 14:21:32 GMT"
    }
   ],
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and aske...",
+    "summary": "An author tested ChatGPT to see if their WordPress SaaS course would be recommended without paid advertising. The AI unexpectedly recommended their course as the top result, demonstrating a new way to gain organic traffic.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "Looking to level up your content creation game in 2025? You're in the right place! The digital landscape has evolved dra...",
+    "summary": "This article introduces the top 10 artificial intelligence tools designed to revolutionize content creation in 2025. These essential technologies help digital creators stay ahead of industry trends and streamline their workflows.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "&nbsp;In the rapidly advancing landscape of AI technology and innovation, LimeWire emerges as a unique platform in the r...",
+    "summary": "LimeWire is an AI content generation platform that helps users create digital media. The tool also provides features for creators to share and monetize their AI-generated content.",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovation and efficiency in various industries. ...",
+    "summary": "This article explores ten advanced artificial intelligence tools designed to automate repetitive tasks, improve workflows, and increase productivity across various industries. These widely used market solutions help drive innovation and efficiency for a variety of applications.",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "Are you looking for a way to create content that is both effective and efficient? If so, then you should consider using ...",
+    "summary": "This article reviews the top ten AI content generator and writer tools available in 2022. It aims to help readers choose the right software to create engaging and efficient content for their audiences.",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
@@ -145,21 +145,21 @@
   "Data & Insights": [
    {
     "title": "800 million jobs at risk over 15 years? World Bank's Ajay Banga calls for global financing overhaul",
-    "summary": "World Bank President Ajay Banga said 1.2 billion young people would enter the global workforce over the next 10 to 15 ye...",
+    "summary": "World Bank President Ajay Banga warned that 1.2 billion young people will enter the global workforce over the next decade, while only 400 million jobs are currently projected. To address this and other challenges, the institution plans to increase critical minerals financing to $19 billion by 2030 and mobilize more private capital.",
     "link": "https://www.livemint.com/economy/800-million-jobs-at-risk-over-15-years-world-banks-ajay-banga-calls-for-global-financing-overhaul-11792150516791.html",
     "source": "livemint.com",
     "pubDate": "Fri, 16 Oct 2026 17:33:54 +0530"
    },
    {
     "title": "PM-SETU: Five ITI clusters to get  ₹1,195 crore investment from Tata Steel Foundation, BVG India, others",
-    "summary": "Tata Steel Foundation, BVG India, Belrise Industries, Eagle Infra India and Inderdeep Infra India will partner in upgrad...",
+    "summary": "Five ITI clusters will receive a ₹1,195 crore investment from companies including Tata Steel Foundation and BVG India under the PM-SETU scheme. This brings the cumulative approved investment under the scheme to ₹3,687 crore.",
     "link": "https://www.livemint.com/economy/pmsetu-five-iti-clusters-to-get-1-195-crore-investment-from-tata-steel-foundation-bvg-india-others-11792149570932.html",
     "source": "livemint.com",
     "pubDate": "Fri, 16 Oct 2026 17:08:02 +0530"
    },
    {
     "title": "Vibrant Goa summit to connect 220 Goan MSMEs with 300+ global buyers – What to expect?",
-    "summary": "The three-day event will take place from 29 October to 31 October at the Dr Shyama Prasad Mukherjee Indoor Stadium, Goa ...",
+    "summary": "The Vibrant Goa summit will take place from October 29 to October 31 at the Dr Shyama Prasad Mukherjee Indoor Stadium in Taleigao. The three-day event will connect 220 local MSMEs with over 300 global buyers and business leaders from more than 50 countries.",
     "link": "https://www.livemint.com/economy/vibrant-goa-summit-to-connect-220-goan-msmes-with-300-global-buyers-what-to-expect-11792148727737.html",
     "source": "livemint.com",
     "pubDate": "Fri, 16 Oct 2026 16:42:06 +0530"
@@ -180,7 +180,7 @@
    },
    {
     "title": "Put private sector at center of development agenda: Sitharaman to World Bank",
-    "summary": "The finance minister urged the multilateral lender to prioritize job creation and productivity over total financing, cal...",
+    "summary": "Indian Finance Minister Sitharaman urged the World Bank to prioritize the private sector, job creation, and productivity within its development agenda. She also called on the multilateral lender to provide competitive pricing and local currency financing tools.",
     "link": "https://www.livemint.com/economy/put-private-sector-at-center-of-development-agenda-sitharaman-to-world-bank-11792083987709.html",
     "source": "livemint.com",
     "pubDate": "Thu, 15 Oct 2026 23:33:15 +0530"
@@ -188,87 +188,87 @@
   ],
   "India": [
    {
-    "title": "Analysis: Anti-Drugs Activist's Murder Sparks Pan-Punjab Protest, AAP Faces Dual Challenge",
-    "summary": "There are already questions that have arisen from another activist's suicide and the alleged torture of a protester, amo...",
-    "link": "https://www.ndtv.com/india-news/anti-drugs-activist-parvinder-jhotas-murder-sparks-pan-punjab-protest-aap-struggles-for-answers-12196763#publisher=newsstand",
+    "title": "Tremors, Tectonic Shifts: Milind Deora, Shashi Tharoor's Banter Over Protests",
+    "summary": "Politicians Milind Deora and Shashi Tharoor engaged in lighthearted banter on social media regarding current protests. Their exchange was initially sparked by a post from Deora mentioning an earthquake in Panama.",
+    "link": "https://www.ndtv.com/india-news/cjp-congress-shiv-sena-gyanesh-kumar-tremors-tectonic-shifts-milind-deora-shashi-tharoors-banter-over-protests-12197041#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Fri, 16 Oct 2026 22:36:55 +0530"
+    "pubDate": "Fri, 16 Oct 2026 23:57:26 +0530"
    },
    {
-    "title": "Sikkim Congress Protests Against Dushyant Gautam's Appointment As Governor",
-    "summary": "SPCC president Gopal Chettri questioned the decision to appoint Gautam to a constitutional office while allegations link...",
-    "link": "https://www.ndtv.com/india-news/sikkim-congress-protests-against-dushyant-gautams-appointment-as-governor-12196749#publisher=newsstand",
+    "title": "Sankoo Becomes Ladakh's 8th District, Gets Separate Hill Council",
+    "summary": "Sankoo was not among the five new districts announced earlier this year, despite demands from local organisations and po...",
+    "link": "https://www.ndtv.com/india-news/sankoo-becomes-ladakhs-8th-district-gets-separate-hill-council-12197014#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Fri, 16 Oct 2026 22:33:11 +0530"
+    "pubDate": "Fri, 16 Oct 2026 23:48:16 +0530"
    },
    {
-    "title": "'India Among Leading World Bank Investors': Ajay Banga",
-    "summary": "In his address to the World Bank Annual Meeting plenary in Bangkok, Ajay Banga highlighted India's growing role in inter...",
-    "link": "https://www.ndtv.com/world-news/india-among-leading-world-bank-investors-ajay-banga-12196667#publisher=newsstand",
+    "title": "3 Detained After Missing J&K Special Officer's Body Found With Head Injuries",
+    "summary": "Three people have been detained following the discovery of missing Jammu and Kashmir Special Police Officer Bashir Ahmad near his home. His body bore visible head injuries a day after he went missing.",
+    "link": "https://www.ndtv.com/india-news/3-detained-after-missing-j-k-special-officers-body-found-with-head-injuries-12196967#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Fri, 16 Oct 2026 22:15:41 +0530"
+    "pubDate": "Fri, 16 Oct 2026 23:35:54 +0530"
    },
    {
-    "title": "Gautam Singhania To Attend NDTV World Summit 2026: All About Raymond Chairman",
-    "summary": "The NDTV World Summit 2026 will be held in New Delhi on October 22 and 23. This year's theme is \"A World Between Orders\"...",
-    "link": "https://www.ndtv.com/world-news/who-is-gautam-singhania-raymond-chairman-to-attend-ndtv-world-summit-2026-12188556#publisher=newsstand",
+    "title": "Tibetan Government-in-Exile Tells World: Prepare Now for Dalai Lama's Succession",
+    "summary": "Who gets to recognise Dalai Lama's his successor is now a sensitive issue between the exiles and Beijing.",
+    "link": "https://www.ndtv.com/india-news/tibetan-government-in-exile-tells-world-prepare-now-for-dalai-lamas-succession-12190282#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Fri, 16 Oct 2026 22:14:10 +0530"
+    "pubDate": "Fri, 16 Oct 2026 23:21:18 +0530"
    },
    {
-    "title": "Punjab Man Kills Wife With Axe In Front Of His Mother, Consumes Poison",
-    "summary": "A domestic dispute is suspected, but the exact motive behind the killing has not yet been established.",
-    "link": "https://www.ndtv.com/india-news/punjab-man-kills-wife-with-axe-in-front-of-his-mother-consumes-poison-12196654#publisher=newsstand",
+    "title": "TVK Worker Arrested in Drugs Case, Udhayanidhi Stalin Targets Vijay",
+    "summary": "Tamil Nadu Deputy Chief Minister Udhayanidhi Stalin criticized actor-politician Vijay after a worker from Vijay's TVK party was arrested in a drug case. Stalin contrasted the arrest with Vijay's anti-drug campaign slogan, \"Give up drugs, take up sports.\"",
+    "link": "https://www.ndtv.com/india-news/tvk-worker-arrested-in-drugs-case-udhayanidhi-stalin-targets-vijay-12196844#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Fri, 16 Oct 2026 22:12:20 +0530"
+    "pubDate": "Fri, 16 Oct 2026 23:05:15 +0530"
    },
    {
-    "title": "DMK vs TVK Credit War Over Periyar Library In Coimbatore",
-    "summary": "At the heart of the exchange is a familiar political question: should credit for a public project go to the government t...",
-    "link": "https://www.ndtv.com/india-news/dmk-vs-tvk-credit-war-over-periyar-library-in-coimbatore-12196554#publisher=newsstand",
+    "title": "'Waving Tiranga Is No Crime': Opposition Rallies Behind Neha Bora, Abhijeet Dipke",
+    "summary": "Opposition leaders are rallying behind Neha Bora and Abhijeet Dipke after they faced backlash for marching to wave the Indian national flag. Arvind Kejriwal criticized the BJP for questioning the flag-waving march and asked if citizens should wave the flag in Pakistan instead.",
+    "link": "https://www.ndtv.com/india-news/waving-tiranga-a-crime-opposition-rallies-behind-abhijeet-dipke-neha-bora-mamata-banerjee-mk-stalin-post-on-x-for-aisa-chief-cjp-founder-12196298#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Fri, 16 Oct 2026 22:00:22 +0530"
+    "pubDate": "Fri, 16 Oct 2026 22:59:30 +0530"
    }
   ],
   "General": [
    {
     "title": "Zelensky says Ukraine has right to defend itself after Trump calls refinery strikes a 'disgrace'",
-    "summary": "EU leaders rally around Ukraine's president after new criticism from Donald Trump, who says Zelensky is \"more difficult ...",
+    "summary": "Ukrainian President Volodymyr Zelensky defended his country's right to strike Russian oil refineries following criticism from Donald Trump. Trump also stated that Zelensky is more difficult to work with than Vladimir Putin, prompting European Union leaders to rally in support of Ukraine's president.",
     "link": "https://www.bbc.co.uk/news/articles/c58jz174w89ro?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 16 Oct 2026 15:59:30 GMT"
    },
    {
-    "title": "Inside Ukrainian offensive pushing Russia back - with Starlink playing a key role",
-    "summary": "The BBC joins Ukraine's Operation Vivaldi as it regains crucial territory in the Donbas, but optimism has been dampened ...",
-    "link": "https://www.bbc.co.uk/news/articles/cvx284w16z1po?at_medium=RSS&at_campaign=rss",
+    "title": "Watch: BBC follows Ukraine's Operation Vivaldi pushing Russia back on frontline",
+    "summary": "Kyiv says it has recaptured 277 sq km (106 square miles) of territory in the eastern Donbas region in recent months",
+    "link": "https://www.bbc.co.uk/news/videos/cm1ex06026e8o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 16 Oct 2026 16:00:30 GMT"
+    "pubDate": "Fri, 16 Oct 2026 17:41:53 GMT"
    },
    {
     "title": "Man killed by tiger may have had medical records breached by NHS staff",
-    "summary": "William Chapman, 24, was mauled to death at Yorkshire Wildlife Park, near Doncaster, on Saturday.",
+    "summary": "Twenty-four-year-old William Chapman was mauled to death by a tiger at Yorkshire Wildlife Park. Following the incident, NHS staff may have breached his medical records.",
     "link": "https://www.bbc.co.uk/news/articles/c875prd12vkqo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 16 Oct 2026 16:53:07 GMT"
    },
    {
     "title": "Palestinians and US journalist injured by Israeli settlers in West Bank harvest attack",
-    "summary": "The BBC sees masked settlers attack Palestinians trying to harvest olives, amid a surge in similar incidents.",
+    "summary": "Masked Israeli settlers attacked Palestinians attempting to harvest olives in the West Bank. The violent incident resulted in injuries to several Palestinians and a United States journalist.",
     "link": "https://www.bbc.co.uk/news/articles/c65ynk7212vqo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 16 Oct 2026 14:31:04 GMT"
    },
    {
     "title": "Nurse stole £750k from 99-year-old woman for cosmetic surgery and home improvements",
-    "summary": "Rebecca Louise Burwood saw the vulnerable victim \"as her nanna\" but stole to fund her lifestyle.",
+    "summary": "Nurse Rebecca Louise Burwood stole £750,000 from a 99-year-old vulnerable victim. She used the stolen money to fund cosmetic surgery and home improvements.",
     "link": "https://www.bbc.co.uk/news/articles/cm9qzx43rlzjo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 16 Oct 2026 16:07:37 GMT"
    },
    {
     "title": "Watch: Did Tesla really just unveil a flying car?",
-    "summary": "Tesla CEO Elon Musk showcased the vehicle at a facility owned by his SpaceX company, which helped develop the model.",
+    "summary": "Tesla CEO Elon Musk showcased a new vehicle at a SpaceX facility. SpaceX helped develop the model, which was presented during a recent unveiling.",
     "link": "https://www.bbc.co.uk/news/videos/ckly4mj1g3n9o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 16 Oct 2026 12:32:31 GMT"
