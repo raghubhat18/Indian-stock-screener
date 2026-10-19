@@ -1,6 +1,6 @@
 {
- "updatedAt": "2026-10-19T21:21:46Z",
- "model": "none",
+ "updatedAt": "2026-10-19T23:14:44Z",
+ "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
   "Geo-Political",
@@ -13,42 +13,42 @@
   "Markets": [
    {
     "title": "US stocks today: Nasdaq leads Wall Street gains as chip, AI stocks rebound",
-    "summary": "US stocks ended mixed on Monday, with the Nasdaq leading gains as chip and AI-linked stocks bounced back after last week...",
+    "summary": "US stocks finished mixed on Monday as the Nasdaq rose due to a rebound in chip and AI-related stocks. Investors monitored corporate earnings and fresh stock moves while ongoing worries about AI spending persisted.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-stocks-today-nasdaq-leads-wall-street-gains-as-chip-ai-stocks-rebound/articleshow/135056194.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Tue, 20 Oct 2026 01:48:35 +0530"
    },
    {
     "title": "Hedge funds retreat from tech at fastest pace in a decade as AI trade weakens",
-    "summary": "Hedge funds cut technology exposure at the fastest pace in at least a decade as the global AI trade weakened and tech st...",
+    "summary": "Hedge funds reduced their technology stock exposure at the fastest rate in at least a decade amid a weakening artificial intelligence trade. According to Goldman Sachs data, the sell-off drove a sharp reduction in risk, though technology still constitutes a major part of fund portfolios.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/hedge-funds-retreat-from-tech-at-fastest-pace-in-a-decade-as-ai-trade-weakens/articleshow/135055531.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Tue, 20 Oct 2026 00:46:29 +0530"
    },
    {
     "title": "S&amp;P Global flags potentially hidden AI debt at hyperscalers as AI spending surges",
-    "summary": "S&amp;P Global warned that hyperscalers could be carrying more AI related debt than currently visible through financing ...",
+    "summary": "S&P Global warned that major tech companies may be hiding AI-related debt through complex data center and startup financing structures. While the credit agency sees no immediate need for rating changes, it flagged escalating investments and profitability as key risks.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/sp-global-flags-potentially-hidden-ai-debt-at-hyperscalers-as-ai-spending-surges/articleshow/135054758.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Mon, 19 Oct 2026 23:49:26 +0530"
    },
    {
     "title": "Jio IPO: LIC, BlackRock, Fidelity, GIC among 212 anchor investors to pour Rs 8,110 crore",
-    "summary": "Jio Platforms successfully raised approximately Rs 8,110 crore from 212 anchor investors before its upcoming IPO. The co...",
+    "summary": "Jio Platforms raised about Rs 8,110 crore from 212 anchor investors, including LIC, BlackRock, and Fidelity, ahead of its upcoming IPO. This strong participation from domestic and global institutions sets the stage for an IPO expected to surpass Hyundai Motor India's previous record.",
     "link": "https://economictimes.indiatimes.com/markets/ipos/fpos/jio-ipo-lic-blackrock-fidelity-gic-among-212-anchor-investors-pour-rs-8110-crore/articleshow/135053762.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Mon, 19 Oct 2026 23:04:53 +0530"
    },
    {
     "title": "AI stocks rebound as CoreWeave jumps on Goldman Sachs upgrade",
-    "summary": "AI stocks rebound after last week’s sharp selloff, with semiconductor stocks leading the recovery. CoreWeave gains after...",
+    "summary": "AI stocks rebounded from last week's selloff, led by gains in semiconductor companies and a Goldman Sachs upgrade for CoreWeave. Investors are now awaiting upcoming tech earnings reports for insights into AI spending and valuations.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/ai-stocks-rebound-as-coreweave-jumps-on-goldman-upgrade/articleshow/135052127.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Mon, 19 Oct 2026 21:47:35 +0530"
    },
    {
     "title": "Ireda net profit grows to Rs 554 cr in Sep qtr",
-    "summary": "Ireda has announced a net profit of Rs 554 crore for the September quarter of FY27, reflecting a robust financial perfor...",
+    "summary": "Ireda reported a net profit of Rs 554 crore for the September quarter of FY27, driven by a 14% increase in operating revenue to Rs 2,345 crore. The renewable energy financier also saw loan disbursements surge by 31% to Rs 10,579 crore.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/earnings/ireda-net-profit-grows-to-rs-554-cr-in-sep-qtr/articleshow/135051929.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Mon, 19 Oct 2026 21:29:01 +0530"
@@ -56,43 +56,43 @@
   ],
   "Geo-Political": [
    {
-    "title": "Australian MP critically injured after being hit by car in apparent attack",
-    "summary": "The independent politician is in hospital after what the prime minister says may have been a deliberate attack.",
-    "link": "https://www.bbc.co.uk/news/articles/cwp9g43g2p07o?at_medium=RSS&at_campaign=rss",
+    "title": "Curfew imposed in parts of central Paris and other cities after rioting across France",
+    "summary": "Curfews have been imposed in parts of central Paris and other French cities following widespread rioting. This action was taken after the country's interior minister admitted that police had lost control in certain areas.",
+    "link": "https://www.bbc.co.uk/news/articles/cx30ez03djyqo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Mon, 19 Oct 2026 14:09:54 GMT"
+    "pubDate": "Mon, 19 Oct 2026 21:14:53 GMT"
    },
    {
     "title": "Ukrainians dying because US restricting intelligence sharing, Zelensky adviser tells BBC",
-    "summary": "Serhii Beskrestnov says there has not been enough time to warn people about incoming missile attacks. The White House sa...",
+    "summary": "A Ukrainian presidential adviser told the BBC that US restrictions on intelligence sharing are causing Ukrainian deaths by delaying warnings of incoming missile attacks. The White House stated that there have been no changes to its intelligence-sharing policies with Ukraine.",
     "link": "https://www.bbc.co.uk/news/articles/cmj47yx572z5o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 19 Oct 2026 20:49:00 GMT"
    },
    {
     "title": "Kenya cult leader who told parents to starve children guilty of 191 murders",
-    "summary": "Self-proclaimed pastor Paul Mackenzie was found guilty of 191 murder charges - all but one of them children.",
+    "summary": "Kenyan cult leader Paul Mackenzie was convicted of 191 murder charges, nearly all of which were children. He had instructed parents to starve their children to death.",
     "link": "https://www.bbc.co.uk/news/articles/ckd6d2l3dz4xo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 19 Oct 2026 17:18:04 GMT"
    },
    {
     "title": "Ex-OpenAI worker accused of planting device had Saudi support, says court filing",
-    "summary": "The Saudi government did not immediately respond to BBC requests for comment.",
+    "summary": "A court filing alleges that a former OpenAI worker accused of planting a tracking device received support from the Saudi government. The Saudi government did not immediately respond to BBC requests for comment.",
     "link": "https://www.bbc.co.uk/news/articles/c6gel2dlyxvyo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 19 Oct 2026 21:12:30 GMT"
    },
    {
-    "title": "Alberta heads to polls to decide whether to hold vote on separation from Canada",
-    "summary": "Polling suggests most Albertans favour remaining part of the country, although the debate alone has proven divisive.",
-    "link": "https://www.bbc.co.uk/news/articles/cxvgd0ymgzgyo?at_medium=RSS&at_campaign=rss",
+    "title": "Tennis star Svitolina says emotional toll of Ukraine war led to Monfils separation",
+    "summary": "Professional tennis players Elina Svitolina and Gael Monfils are separating after marrying in 2021 and having one child together. Svitolina stated that the emotional toll of the ongoing war in Ukraine contributed to the split.",
+    "link": "https://www.bbc.co.uk/news/articles/ckd7qy12j148o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Mon, 19 Oct 2026 13:44:57 GMT"
+    "pubDate": "Mon, 19 Oct 2026 21:02:33 GMT"
    },
    {
     "title": "Exiled critic of Rwandan president found beheaded",
-    "summary": "Former army sergeant major Robert Kabera was a popular YouTuber and singer, who had sought asylum in Uganda.",
+    "summary": "Former Rwandan army sergeant major and YouTuber Robert Kabera was found beheaded in Uganda, where he had sought asylum after becoming an exiled critic of the Rwandan president. Ugandan authorities are currently investigating the killing of the popular singer and political critic.",
     "link": "https://www.bbc.co.uk/news/articles/c3lylj78777do?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 19 Oct 2026 13:42:41 GMT"
@@ -101,21 +101,21 @@
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and aske...",
+    "summary": "The author discovered that their WordPress SaaS course was recommended as the top result when asking ChatGPT for the best course in that category. This unexpected AI recommendation occurred without any paid advertising or traditional search engine optimization.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "Looking to level up your content creation game in 2025? You're in the right place! The digital landscape has evolved dra...",
+    "summary": "This guide highlights the top 10 artificial intelligence tools designed to revolutionize content creation in 2025. These essential technologies help digital creators streamline their workflows and stay competitive in a rapidly evolving landscape.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "&nbsp;In the rapidly advancing landscape of AI technology and innovation, LimeWire emerges as a unique platform in the r...",
+    "summary": "LimeWire has evolved into a generative AI platform that allows users to create digital content. The tool also provides features for creators to share and monetize their work.",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
@@ -129,14 +129,14 @@
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "Are you looking for a way to create content that is both effective and efficient? If so, then you should consider using ...",
+    "summary": "AI content generators help users efficiently create engaging and relevant material for their target audiences. With many different options currently available on the market, choosing the right AI writing tool can be difficult.",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
    },
    {
     "title": "Beginner Guide to CJ Affiliate (Commission Junction) in 2022",
-    "summary": "Image by vectorjuice on FreepikIn this CJ Affiliate guide, I will share with you everything you need to get started on t...",
+    "summary": "This beginner's guide to CJ Affiliate explains how the network works and how to earn money on the platform. It also highlights top CJ affiliate programs, alternatives, and answers frequently asked questions.",
     "link": "https://techncruncher.blogspot.com/2022/09/cj-affiliate-ultimate-guide-to.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Sat, 10 Sep 2022 08:57:00 +0000"
@@ -145,42 +145,42 @@
   "Data & Insights": [
    {
     "title": "India-New Zealand trade pact takes effect on October 20: How it benefits both sides | Key highlights",
-    "summary": "India’s free trade agreement with New Zealand takes effect on October 20, offering Indian exports full duty-free access ...",
+    "summary": "India and New Zealand's free trade agreement takes effect on October 20, granting Indian exports full duty-free access. The pact aims to increase bilateral trade to about ₹35,000 crore by 2030.",
     "link": "https://www.livemint.com/economy/indianew-zealand-trade-pact-takes-effect-on-october-20-how-it-benefits-both-sides-key-highlights-11792426810108.html",
     "source": "livemint.com",
     "pubDate": "Mon, 19 Oct 2026 22:38:54 +0530"
    },
    {
     "title": "Amitabh Kant on how India’s semiconductor future is taking shape: 6 states with 12 projects,  ₹1.64 lakh cr investments",
-    "summary": "Gujarat emerges as the largest semiconductor hub, with six approved projects, including Tata-PSMC’s  ₹91,526 crore fabri...",
+    "summary": "India has attracted 1.64 lakh crore rupees in investments for 12 semiconductor projects across six states. Gujarat leads this initiative with six approved projects, highlighted by a major 91,526 crore rupee fabrication plant from Tata-PSMC.",
     "link": "https://www.livemint.com/economy/amitabh-kant-on-how-india-s-semiconductor-future-is-taking-shape-6-states-with-12-projects-1-64-lakh-cr-investments-11792420787138.html",
     "source": "livemint.com",
     "pubDate": "Mon, 19 Oct 2026 22:19:00 +0530"
    },
    {
     "title": "India-New Zealand FTA: No tariff on Indian exports from Oct 20; Textile, pharma, leather exports to gain market access",
-    "summary": "The India-New Zealand FTA takes effect on 20 October, eliminating tariffs on all Indian exports to New Zealand. The move...",
+    "summary": "The India-New Zealand Free Trade Agreement takes effect on October 20, eliminating tariffs on all Indian exports. This agreement will boost sectors like textiles, leather, and pharmaceuticals while strengthening bilateral trade ties.",
     "link": "https://www.livemint.com/economy/indianew-zealand-fta-no-tariff-on-indian-exports-from-oct-20-textile-pharma-leather-exports-to-gain-market-access-11792426906148.html",
     "source": "livemint.com",
     "pubDate": "Mon, 19 Oct 2026 21:59:00 +0530"
    },
    {
     "title": "Is India’s solar power play facing its Icarus moment?",
-    "summary": "India’s electricity grid is struggling to keep up with its solar power boom. Can the government fix the infrastructure b...",
+    "summary": "India's rapid growth in solar power is overwhelming its electricity grid due to infrastructure bottlenecks. The government must upgrade this transmission infrastructure to prevent these bottlenecks from derailing the country's clean energy goals.",
     "link": "https://www.livemint.com/economy/india-solar-boom-grid-challenges-11792407133953.html",
     "source": "livemint.com",
     "pubDate": "Mon, 19 Oct 2026 17:03:11 +0530"
    },
    {
     "title": "FM Sitharaman flags global capital moving towards US, AI-linked markets as a ‘concern’ for India in 2027",
-    "summary": "FM Nirmala Sitharaman warned that continued capital outflows and global investment shifting toward the US and AI markets...",
+    "summary": "Finance Minister Nirmala Sitharaman warned that global capital shifting toward the US and artificial intelligence markets poses a major risk of investment outflows for India by 2027. She highlighted this trend as a significant concern for the country's financial stability and economic growth.",
     "link": "https://www.livemint.com/economy/fm-sitharaman-flags-global-capital-moving-towards-us-ai-linked-markets-as-a-concern-for-india-in-2027-11792402978461.html",
     "source": "livemint.com",
     "pubDate": "Mon, 19 Oct 2026 16:13:51 +0530"
    },
    {
     "title": "Govt plans  ₹25,000-crore skilling push to sharpen textile export edge",
-    "summary": "The Samarth 2.0, announced in the budget for 2026–27, aims to modernise the existing skilling framework through closer c...",
+    "summary": "The Indian government has announced a ₹25,000-crore initiative called Samarth 2.0 in the 2026–27 budget to boost textile exports. The program will modernize workforce training through industry and academic collaboration to meet advancing technological demands.",
     "link": "https://www.livemint.com/economy/india-plans-25000-crore-skilling-push-to-sharpen-textile-export-edge-samarth-20-11792303307150.html",
     "source": "livemint.com",
     "pubDate": "Mon, 19 Oct 2026 05:40:46 +0530"
@@ -189,42 +189,42 @@
   "India": [
    {
     "title": "Bomb Hoax On IndiGo Flight In Chennai, Fliers Deboarded, Take-Off Delayed",
-    "summary": "All passengers were offloaded by 6.55 pm as security personnel initiated the prescribed procedures, including an anti-sa...",
+    "summary": "An IndiGo flight at the Chennai airport was delayed after receiving a bomb threat. All passengers were safely offloaded while security personnel conducted mandatory anti-sabotage checks.",
     "link": "https://www.ndtv.com/india-news/bomb-hoax-on-indigo-flight-in-chennai-fliers-deboarded-take-off-delayed-12208398#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 20 Oct 2026 00:44:39 +0530"
    },
    {
     "title": "Inspired By Reels, 3 Friends Came Up With 'Bigshot' Plan. Why It Failed",
-    "summary": "Influenced by an Instagram reel, one minor convinced two friends, a minor and an adult, to join him in his quest to beco...",
+    "summary": "Inspired by an Instagram reel, a minor convinced two friends to join him in a criminal plan to become a bigshot. The scheme ultimately failed, leading to their apprehension.",
     "link": "https://www.ndtv.com/india-news/inspired-by-reels-3-friends-come-up-with-bigshot-plan-why-it-failed-12208344#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 20 Oct 2026 00:41:39 +0530"
    },
    {
     "title": "Tiger Shroff Firing Case Updates: 3 Suspects Undergo Medical Examination In Kota, Transit Remand Granted",
-    "summary": "Tiger Shroff Firing Case Updates: Tiger Shroff sustained injuries on his shoulder, chest and his right arm.",
+    "summary": "Three suspects in the Tiger Shroff firing case underwent a medical examination in Kota after being granted transit remand. Tiger Shroff sustained injuries to his shoulder, chest, and right arm during the incident.",
     "link": "https://www.ndtv.com/india-news/tiger-shroff-assassination-bid-updates-lawrence-bishnoi-gang-salman-khan-juhu-mumbai-12203309#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 20 Oct 2026 00:34:49 +0530"
    },
    {
     "title": "Marco Rubio To Begin 3-Day India Tour Today, Will Honour 26/11 Victims",
-    "summary": "In addition to his meeting with S Jaishankar, Rubio's engagements in Mumbai included laying a wreath at the Taj memorial...",
+    "summary": "Marco Rubio is beginning a three-day tour of India today. During his time in Mumbai, he will meet with S Jaishankar and lay a wreath at the Taj memorial to honor the victims of the 26/11 terror attacks.",
     "link": "https://www.ndtv.com/india-news/marco-rubio-to-begin-3-day-india-tour-today-will-honour-26-11-victims-12208382#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 20 Oct 2026 00:33:50 +0530"
    },
    {
     "title": "UP Murder Convict Wishes To Contest Polls. High Court Pauses His Conviction",
-    "summary": "A two-judge bench comprising Justice Siddharth and Justice Vinai Kumar Dwivedi passed the order hearing a criminal appea...",
+    "summary": "The Allahabad High Court has temporarily paused the 2025 murder conviction of Nandlal Rai alias Babloo Rai from a 2017 case. This court order allows the Varanasi convict to contest upcoming elections while his criminal appeal is pending.",
     "link": "https://www.ndtv.com/india-news/up-murder-convict-wishes-to-contest-polls-high-court-pauses-his-conviction-12208363#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 20 Oct 2026 00:28:40 +0530"
    },
    {
     "title": "Dussehra 2026: Dry Day Restrictions, Bank Closures And What's Open Or Closed",
-    "summary": "From liquor shops to banks, here are detailed guidelines regarding commercial operations and public services on Dussehra...",
+    "summary": "Dussehra 2026 brings specific commercial and public service restrictions across India. The guidelines detail operational closures and openings for liquor shops and banks during the festival.",
     "link": "https://www.ndtv.com/india-news/dussehra-2026-dry-day-restrictions-bank-closures-and-whats-open-or-closed-12208340#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 20 Oct 2026 00:14:05 +0530"
@@ -233,31 +233,17 @@
   "General": [
    {
     "title": "Curfew imposed in parts of central Paris and other cities after rioting across France",
-    "summary": "It comes after the country's interior minister admits that police \"lost control\" in some cities.",
+    "summary": "Curfews have been imposed in parts of central Paris and other French cities following widespread rioting. The restrictions were announced after the interior minister admitted that police had lost control in certain areas.",
     "link": "https://www.bbc.co.uk/news/articles/cx30ez03djyqo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 19 Oct 2026 21:14:53 GMT"
    },
    {
-    "title": "Watch: Are the French riots a warning of an intense election to come?",
-    "summary": "Rioting, looting and vandalism has gripped France over the weekend after protests spiralled out of control across the co...",
-    "link": "https://www.bbc.co.uk/news/videos/ckzd60dy746qo?at_medium=RSS&at_campaign=rss",
+    "title": "Watch: Clean up begins after French riots but police remain",
+    "summary": "Cleanup efforts have begun following severe riots in France. Marseille suffered some of the worst damage, where shop owners reported that over 600 businesses were looted while police maintained their presence.",
+    "link": "https://www.bbc.co.uk/news/videos/cwr7y0e57r50o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Mon, 19 Oct 2026 13:43:27 GMT"
-   },
-   {
-    "title": "Australian MP critically injured after being hit by car in apparent attack",
-    "summary": "The independent politician is in hospital after what the prime minister says may have been a deliberate attack.",
-    "link": "https://www.bbc.co.uk/news/articles/cwp9g43g2p07o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Mon, 19 Oct 2026 14:09:54 GMT"
-   },
-   {
-    "title": "Woman says she 'closed eyes and tried not to be there' during alleged Russell Brand rape",
-    "summary": "The 51-year-old faces three counts of rape, three charges of sexual assault and one of indecent assault.",
-    "link": "https://www.bbc.co.uk/news/articles/cvj6jylk3456o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Mon, 19 Oct 2026 18:22:06 GMT"
+    "pubDate": "Mon, 19 Oct 2026 21:30:08 GMT"
    },
    {
     "title": "Ukrainians dying because US restricting intelligence sharing, Zelensky adviser tells BBC",
@@ -267,8 +253,22 @@
     "pubDate": "Mon, 19 Oct 2026 20:49:00 GMT"
    },
    {
+    "title": "Burnham vows end to 'rip-off parking charges' under new rules",
+    "summary": "Andy Burnham has pledged to end unfair parking penalties for drivers using private land under new regulations. The proposed rules aim to address current charges that are widely considered too harsh on motorists.",
+    "link": "https://www.bbc.co.uk/news/articles/ck87ze7wl4qno?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Mon, 19 Oct 2026 21:30:06 GMT"
+   },
+   {
+    "title": "Woman says she 'closed eyes and tried not to be there' during alleged Russell Brand rape",
+    "summary": "A 51-year-old woman testified that she closed her eyes and tried to dissociate during an alleged rape by Russell Brand. Brand faces a total of seven charges, including three counts of rape, three charges of sexual assault, and one count of indecent assault.",
+    "link": "https://www.bbc.co.uk/news/articles/cvj6jylk3456o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Mon, 19 Oct 2026 18:22:06 GMT"
+   },
+   {
     "title": "Mission blasts off for Mars to grab a piece of its moon",
-    "summary": "A spacecraft is set to launch on an ambitious mission to bring 10g of Martian moon dust back to Earth.",
+    "summary": "A spacecraft is launching on a mission to collect 10 grams of dust from a Martian moon. The probe will then return the sample back to Earth.",
     "link": "https://www.bbc.co.uk/news/articles/cmvgxvkv54w1o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 19 Oct 2026 19:45:46 GMT"
