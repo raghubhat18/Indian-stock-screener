@@ -1,7 +1,953 @@
 {
- "updatedAt": "2026-10-20T20:03:39Z",
- "model": "none",
- "count": 0,
- "insights": {},
- "error": "All models failed — quota exhausted or restricted"
+ "updatedAt": "2026-10-21T20:19:24Z",
+ "model": "gemini-flash-lite-latest",
+ "count": 30,
+ "insights": {
+  "TBZ": {
+   "headline": "Trib Bhimji Zaveri Surges Amid Strong Returns And Growth",
+   "summary": "Trib Bhimji Zaveri demonstrates strong momentum with a 4.99% daily gain, supported by a healthy return on equity of 24.14%. The company trades at an elevated valuation with a book value of Rs.125.6 against a current price of Rs.665.35, while maintaining solid business quality through a 6.32% net profit margin.",
+   "technicalView": "The stock experienced a strong 4.99% upward movement today, currently trading at Rs.665.35 with active participation reflecting strong buying momentum.",
+   "fundamentalView": "The company delivers a robust return on equity of 24.14% alongside a manageable debt to equity ratio of 0.9374.",
+   "positives": [
+    "Delivers a strong return on equity of 24.14% reflecting efficient capital allocation",
+    "Generates substantial annual revenue of Rs.3202.95 Cr with a net profit of Rs.202.31 Cr",
+    "Maintains a healthy current ratio of 1.65 indicating adequate short-term liquidity buffer"
+   ],
+   "concerns": [
+    "Carries a moderate debt to equity ratio of 0.9374 increasing financial leverage risks",
+    "Trades at a significant premium to its book value per share of Rs.125.6",
+    "Operates with a relatively thin net profit margin of 6.32% susceptible to cost pressures"
+   ],
+   "watchFor": "Sustained trading volume above today's breakout level to confirm ongoing buying interest",
+   "category": "Top Momentum",
+   "categories": [
+    "Top Momentum",
+    "Small Cap"
+   ],
+   "name": "TRIB BHIMJI ZAVERI LTD",
+   "price": 665.35,
+   "changePct": 4.99
+  },
+  "CUBEXTUB": {
+   "headline": "Cubex Tubings Hits Fresh High On Massive Buying Momentum",
+   "summary": "The stock demonstrates explosive momentum with a 10% daily surge and a massive 117.2% 10-day return, trading right at its 52-week high of Rs.167.46. Valuation appears stretched with a price-to-book ratio of 2.88 based on a book value of Rs.58.18, paired with modest business quality marked by a 2.59% net profit margin.",
+   "technicalView": "Price action is exceptionally strong, hitting the 52-week high of Rs.167.46 with a 3.90x volume surge over the 30-day average, up 123.0% from the 52-week low of Rs.75.08.",
+   "fundamentalView": "The company reports a modest ROE of 8.95% and a low net profit margin of 2.59%, supported by a manageable debt-to-equity ratio of 0.5212.",
+   "positives": [
+    "Substantial revenue scale recorded at Rs.288.01 Cr with an annual EPS of Rs.5.21.",
+    "Manageable financial leverage indicated by a moderate debt-to-equity ratio of 0.5212.",
+    "Healthy short-term liquidity buffer demonstrated by a current ratio standing at 1.46."
+   ],
+   "concerns": [
+    "Thin profitability reflected in a low net profit margin of just 2.59% on Rs.7.45 Cr net profit.",
+    "Subdued capital efficiency shown through a modest return on equity of 8.95%.",
+    "Extreme short-term price velocity with 117.2% 10-day gains increasing pullback risks near the Rs.167.46 peak."
+   ],
+   "watchFor": "Sustained trading volume above the 3.90x average to confirm continuation at current 52-week high levels.",
+   "category": "Top Momentum",
+   "categories": [
+    "Top Momentum",
+    "Small Cap"
+   ],
+   "name": "CUBEX TUBINGS LTD",
+   "price": 167.46,
+   "changePct": 10.0
+  },
+  "RETAIL": {
+   "headline": "JHS Svendgaard Retail Surges Sharply Amid Exceptional Momentum",
+   "summary": "The stock exhibits explosive momentum with a 108.2% ten-day return and 4.09x volume surge, though fundamental quality remains weak due to a negative ROE of -1.51% and -2.38% net profit margin. Valuation is elevated as the equity trades right at its 52-week high of Rs.34.93, surpassing its book value of Rs.31.1.",
+   "technicalView": "Price action shows extreme bullish momentum hitting the 52-week high of Rs.34.93, delivering a 110.5% gain from the 52-week low of Rs.16.59 alongside a 4.09x volume surge over the 30-day average.",
+   "fundamentalView": "Fundamentals reflect ongoing challenges with a negative ROE of -1.51%, negative net profit margin of -2.38%, and annual EPS of Rs.-0.37, despite a manageable debt-to-equity ratio of 0.2423.",
+   "positives": [
+    "Manageable debt-to-equity ratio of 0.2423 indicates a relatively low financial leverage risk profile.",
+    "Strong short-term price momentum delivering a massive 108.2% return over the past ten days.",
+    "Robust liquidity position supported by a healthy current ratio standing comfortably at 5.23."
+   ],
+   "concerns": [
+    "Persistent unprofitability reflected in a negative net profit margin of -2.38% on Rs.16.18 Cr revenue.",
+    "Subpar capital allocation efficiency demonstrated by a negative Return on Equity of -1.51%.",
+    "Trading at a peak valuation of Rs.34.93, which represents the current 52-week high level."
+   ],
+   "watchFor": "Sustained trading volume above the 4.09x surge to confirm institutional participation at the 52-week high.",
+   "category": "Top Momentum",
+   "categories": [
+    "Top Momentum",
+    "Small Cap"
+   ],
+   "name": "JHS SVENDGAARD RETAIL V L",
+   "price": 34.93,
+   "changePct": 9.98
+  },
+  "AHCL": {
+   "headline": "Anlon Healthcare Shows Strong 30-Day Momentum and Healthy Margins",
+   "summary": "Anlon Healthcare exhibits explosive 30-day momentum with an 86.8% return, supported by a healthy net profit margin of 16.92%. The company maintains a solid balance sheet with a low debt-to-equity ratio of 0.1713 and a conservative valuation trading below its book value.",
+   "technicalView": "The stock price stands at Rs.28.11, trading 22.8% below its 52-week high of Rs.36.39 and 86.8% above its 52-week low of Rs.15.05, accompanied by a muted volume surge of 0.32x against the 30-day average.",
+   "fundamentalView": "The firm delivers a respectable ROE of 11.42% and strong net profit margins of 16.92%, backed by minimal leverage with a debt-to-equity ratio of 0.1713.",
+   "positives": [
+    "Healthy net profit margin of 16.92% on annual revenue of Rs.171.97 Cr.",
+    "Conservative leverage profile reflected in a low debt-to-equity ratio of 0.1713.",
+    "Robust liquidity position demonstrated by a current ratio of 2.87."
+   ],
+   "concerns": [
+    "Recent short-term consolidation marked by a negative 10-day return of 1.9%.",
+    "Volume participation remains weak with a volume surge of only 0.32x versus average.",
+    "Stock is trading at a significant discount to its book value per share of Rs.47.94."
+   ],
+   "watchFor": "Monitor volume participation for sustained breakout above the 52-week high of Rs.36.39.",
+   "category": "Top Momentum",
+   "categories": [
+    "Top Momentum"
+   ],
+   "name": "ANLON HEALTHCARE LIMITED",
+   "price": 28.11,
+   "changePct": 4.97
+  },
+  "RAYMOND": {
+   "headline": "Raymond Ltd Exhibits Massive 30-Day Momentum and Exceptional Profitability",
+   "summary": "The stock demonstrates explosive short-term momentum with an 89.2% 30-day return despite a slight 10-day pullback of -1.4%. Valuation is underpinned by an exceptionally high ROE of 171.96% and a net profit margin of 242.35%. Business quality appears robust supported by a manageable debt-to-equity ratio of 0.32.",
+   "technicalView": "The price trades at Rs.1186.60, remaining 8.8% below its 52-week high of Rs.1300.70 and up 93.3% from its 52-week low of Rs.614.00, accompanied by a modest volume surge of 0.37x against the 30-day average.",
+   "fundamentalView": "The company boasts an extraordinary ROE of 171.96% and a net profit margin of 242.35%, alongside a conservative debt-to-equity ratio of 0.3203 and a comfortable current ratio of 1.73.",
+   "positives": [
+    "Delivered a massive 89.2% return over the trailing 30-day period.",
+    "Achieved an exceptionally high return on equity of 171.96% with strong profitability.",
+    "Maintained a conservative balance sheet with a debt-to-equity ratio of 0.3203."
+   ],
+   "concerns": [
+    "Experienced a slight 10-day negative return of -1.4% indicating short-term consolidation.",
+    "Trading volume remains subdued at 0.37x relative to the 30-day average.",
+    "Current price of Rs.1186.60 sits 8.8% below the 52-week high resistance."
+   ],
+   "watchFor": "Volume participation exceeding the 30-day average during a retest of the 52-week high of Rs.1300.70.",
+   "category": "Top Momentum",
+   "categories": [
+    "Top Momentum",
+    "Small Cap"
+   ],
+   "name": "RAYMOND LTD",
+   "price": 1186.6,
+   "changePct": 1.67
+  },
+  "STLNETWORK": {
+   "headline": "STL Networks Exhibits Extreme Volatility Amid Weak Underlying Fundamentals",
+   "summary": "STL Networks displays sharp short-term momentum with an 80.6% 30-day return despite a recent 10.9% 10-day pullback. The stock trades at an elevated valuation relative to its book value of Rs.16.4 while reflecting deeply distressed business quality with negative profitability metrics.",
+   "technicalView": "The stock declined 3.58% today trading 15.1% below its 52-week high of Rs.54.61 and 81.8% above its 52-week low of Rs.25.50 on normal volume.",
+   "fundamentalView": "The company reports a weak ROE of -12.38%, a negative net profit margin of -10.34%, and an annual EPS of Rs.-2.03.",
+   "positives": [
+    "Debt to equity ratio remains low at a conservative 0.0117 level",
+    "Current ratio stands healthy at 1.5 indicating adequate short-term liquidity coverage",
+    "Substantial revenue base recorded at Rs.958.96 Cr across operations"
+   ],
+   "concerns": [
+    "Return on equity is deeply negative at minus 12.38 percent annually",
+    "Net profit margin shows persistent losses at minus 10.34 percent",
+    "Annual earnings per share remains negative at minus Rs.2.03"
+   ],
+   "watchFor": "Monitor volume trends near the 52-week high of Rs.54.61 for signs of momentum exhaustion.",
+   "category": "Top Momentum",
+   "categories": [
+    "Top Momentum"
+   ],
+   "name": "STL NETWORKS LIMITED",
+   "price": 46.35,
+   "changePct": -3.58
+  },
+  "XTRANET": {
+   "headline": "Xtranet Technologies Shows Massive 30-Day Surge Despite Recent Correction",
+   "summary": "The stock demonstrates explosive momentum with a 76.3% thirty-day return, though it currently sits 14.0% below its 52-week high of Rs.334.36. Valuation and comprehensive fundamental data are currently absent, leaving momentum as the primary market driver. Business quality assessment remains constrained due to a lack of reported financial metrics.",
+   "technicalView": "The stock trades at Rs.287.50, correcting 8.4% over the last 10 days amidst low volume at 0.23x the 30-day average. It maintains a strong position 79.9% above its 52-week low of Rs.159.83 despite being 14.0% off its 52-week high.",
+   "fundamentalView": "No fundamental data available",
+   "positives": [
+    "Impressive 30-day return of 76.3% highlights strong short-term upward momentum in the stock.",
+    "Current price of Rs.287.50 sits firmly up 79.9% from its 52-week low.",
+    "Trading close to highs while maintaining a substantial distance of 79.9% above the 52-week low."
+   ],
+   "concerns": [
+    "Recent 10-day return of -8.4% indicates a cooling off period from recent peaks.",
+    "Current price remains down 14.0% from the 52-week high of Rs.334.36.",
+    "Volume surge of 0.23x against the 30-day average shows a notable lack of participation."
+   ],
+   "watchFor": "A return in trading volume above the 30-day average to confirm price direction following the recent -8.4% ten-day correction.",
+   "category": "Top Momentum",
+   "categories": [
+    "Top Momentum"
+   ],
+   "name": "XTRANET TECHNOLOGIES LTD",
+   "price": 287.5,
+   "changePct": -0.03
+  },
+  "BODALCHEM": {
+   "headline": "Bodal Chemicals exhibits subdued returns alongside moderate leverage levels",
+   "summary": "The stock demonstrates minimal price movement with a current price of Rs.201.93 amid thin momentum. Valuation stands at a price-to-book ratio of 2.20 based on a book value of Rs.91.91 per share. Business quality remains constrained by a modest return on equity of 4.13% and a low net profit margin of 2.38%.",
+   "technicalView": "The stock price remained virtually unchanged at Rs.201.93 with a minor daily decline of 0.04% on low volume. Price action reflects range-bound behavior without a clear short-term directional trend.",
+   "fundamentalView": "The company reports a modest ROE of 4.13% and a low net profit margin of 2.38% on revenue of Rs.2012.24 Cr. Debt to equity is moderate at 0.6913, while the current ratio sits at 1.2.",
+   "positives": [
+    "Substantial annual revenue generation reaching Rs.2012.24 Cr across its core chemical business operations",
+    "Moderate debt to equity ratio of 0.6913 indicating controlled financial leverage",
+    "Book value per share standing at a solid Rs.91.91 providing underlying asset backing"
+   ],
+   "concerns": [
+    "Low return on equity of 4.13% indicating subdued generation of shareholder returns",
+    "Thin net profit margin of 2.38% reflecting limited operational pricing power",
+    "Modest current ratio of 1.2 pointing towards tight near-term liquidity management"
+   ],
+   "watchFor": "Improvement in net profit margins above the current 2.38% level to signal operational efficiency gains",
+   "category": "Top Momentum",
+   "categories": [
+    "Top Momentum",
+    "Small Cap"
+   ],
+   "name": "BODAL CHEMICALS LTD",
+   "price": 201.93,
+   "changePct": -0.04
+  },
+  "AKI": {
+   "headline": "AKI India Plummets Nine Percent Amid Weak Return Metrics",
+   "summary": "The stock exhibits heavy downward momentum with a sharp single-day correction, trading at a discount to its book value. Business quality remains constrained by thin profitability margins and a modest return on equity despite manageable leverage.",
+   "technicalView": "The stock faced intense selling pressure, closing down 9.95% at Rs. 7.15 on significant intraday volume.",
+   "fundamentalView": "The company reported a low ROE of 1.93% and a thin net profit margin of 1.8%, while maintaining a conservative debt-to-equity ratio of 0.21.",
+   "positives": [
+    "Conservative financial leverage with a manageable debt-to-equity ratio standing at 0.2138.",
+    "Healthy liquidity profile supported by a current ratio well above parity at 2.24.",
+    "Trading at a discount to fundamental value with a book value per share of Rs.9.72."
+   ],
+   "concerns": [
+    "Subdued capital efficiency demonstrated by a low return on equity of just 1.93%.",
+    "Thin profitability margins with a net profit margin restricted to a modest 1.8 percent.",
+    "Severe downward price momentum evidenced by a sharp single-day decline of 9.95 percent."
+   ],
+   "watchFor": "Volume stabilization near the book value of Rs.9.72 to gauge potential downside exhaustion.",
+   "category": "Top Momentum",
+   "categories": [
+    "Top Momentum"
+   ],
+   "name": "AKI INDIA LIMITED",
+   "price": 7.15,
+   "changePct": -9.95
+  },
+  "MONQ50": {
+   "headline": "Motilal Oswal Nifty 50 Index Fund Exhibits Explosive Short-Term Momentum",
+   "summary": "The stock demonstrates extreme short-term momentum with a 70.5% thirty-day return and 3.41% daily gain, while trading significantly below its 52-week high of Rs.396.30. High participation is evident through a 1.79x volume surge against the thirty-day average. Fundamental data is currently unavailable for this specific passive index instrument.",
+   "technicalView": "Price action shows a strong recovery up 77.8% from its 52-week low of Rs.141.73, supported by a 1.79x volume surge over the 30-day average, though still trading 36.4% below the 52-week high of Rs.396.30.",
+   "fundamentalView": "No fundamental data available",
+   "positives": [
+    "Delivered robust short-term momentum with a 20.3% return over the past 10 days.",
+    "Recorded an aggressive 30-day return of 70.5%, indicating strong buying interest.",
+    "Observed healthy market participation with a volume surge of 1.79x against the 30-day average."
+   ],
+   "concerns": [
+    "Trading significantly lower by 36.4% compared to the 52-week high of Rs.396.30.",
+    "Rapid 30-day price appreciation of 70.5% raises the probability of near-term profit booking.",
+    "High volatility indicated by the steep distance from both the 52-week high and low."
+   ],
+   "watchFor": "Sustained volume levels above the 1.79x average to confirm continuation toward the 52-week high.",
+   "category": "Top Momentum",
+   "categories": [
+    "Top Momentum"
+   ],
+   "name": "MOTILALAMC - MONQ50",
+   "price": 252.03,
+   "changePct": 3.41
+  },
+  "ENERGYDEV": {
+   "headline": "Energy Development Company Trades Near 52-Week Lows Amid Negative Momentum",
+   "summary": "Energy Development Company demonstrates weak short-term momentum with a 10.9% decline over thirty days, trading precariously near its 52-week low of Rs.14.08. The company exhibits poor business quality marked by negative net profit margins of -0.52% and negative annual EPS of Rs.-0.05. Valuation reflects distress with a negative book value per share of Rs.-0.57 alongside a concerning current ratio of 0.36.",
+   "technicalView": "Price action remains under pressure, trading 11.5% below its 52-week high of Rs.16.13 and hovering just 1.3% above the 52-week low of Rs.14.08. Volume participation is subdued with a below-average surge of 0.72x against the 30-day average.",
+   "fundamentalView": "The company reports a modest ROE of 8.96% against a negative net profit margin of -0.52% on revenue of Rs.46.25 Cr. Balance sheet stress is evident from a negative book value per share of Rs.-0.57 and a weak current ratio of 0.36.",
+   "positives": [
+    "Modest return on equity standing at 8.96% based on company filings",
+    "Total revenue generation of Rs.46.25 Cr indicating operational scale",
+    "Stock trades within a narrow band near the 52-week low of Rs.14.08"
+   ],
+   "concerns": [
+    "Negative net profit margin of -0.52% resulting in a net loss of Rs.-0.24 Cr",
+    "Weak liquidity position highlighted by a low current ratio of 0.36",
+    "Negative book value per share of Rs.-0.57 reflecting severe capital erosion"
+   ],
+   "watchFor": "Watch for any improvement in the current ratio above 1.0 to assess near-term liquidity recovery.",
+   "category": "Top Fundamentals",
+   "categories": [
+    "Top Fundamentals",
+    "Long Term Pick"
+   ],
+   "name": "ENERGY DEVE. CO.LTD",
+   "price": 14.27,
+   "changePct": 0.92
+  },
+  "MCLEODRUSS": {
+   "headline": "McLeod Russel India Faces Severe Liquidity Pressure Near Lows",
+   "summary": "The stock demonstrates heavy negative momentum with a 18.4 percent decline over thirty days, trading near its 52-week low of Rs.40.63. Valuations and underlying fundamentals reflect deep structural distress, evidenced by a negative net profit margin of 10.7 percent and deeply eroded book value. Business quality is severely compromised by a critical current ratio of 0.23 and negative equity metrics.",
+   "technicalView": "Price action remains in a persistent downtrend, trading just 1.5 percent above the 52-week low of Rs.40.63 after shedding 18.4 percent in thirty days on sub-average volume of 0.71x.",
+   "fundamentalView": "Despite a distorted ROE of 244.6 percent due to eroded equity, the company struggles with a negative net profit margin of -10.7 percent, negative book value of Rs.-4.83, and alarming liquidity risk shown by a 0.23 current ratio.",
+   "positives": [
+    "Substantial annual revenue generation of Rs.1154.39 Cr demonstrates scale in the bulk tea segment",
+    "Trading near the 52-week low of Rs.40.63 offers compressed entry relative to the peak of Rs.50.53",
+    "Statistically elevated ROE of 244.6 percent reflects extreme leverage effects on depleted capital bases"
+   ],
+   "concerns": [
+    "Critical liquidity position highlighted by a severely inadequate current ratio of 0.23",
+    "Deeply negative book value per share of Rs.-4.83 indicates severe capital erosion",
+    "Persistent operational losses resulting in an annual net loss of Rs.-123.5 Cr and negative net profit margins"
+   ],
+   "watchFor": "Monitor quarterly working capital updates and lender negotiations for immediate liquidity resolution",
+   "category": "Top Fundamentals",
+   "categories": [
+    "Top Fundamentals",
+    "Long Term Pick"
+   ],
+   "name": "MCLEOD RUSSEL INDIA LTD.",
+   "price": 41.23,
+   "changePct": 1.48
+  },
+  "GMRAIRPORT": {
+   "headline": "GMR Airports surges on strong volume despite short-term consolidation",
+   "summary": "The stock demonstrates a sharp daily rebound with a 2.07x volume surge, though 30-day returns remain negative at -7.6%. Valuation and profitability metrics reflect a negative return on equity of -30.49% alongside a thin net profit margin of 3.19% on revenue of Rs.14807.41 Cr. Business quality is weighed down by a negative book value per share of Rs.-1.47 and a current ratio of 0.77.",
+   "technicalView": "Price action shows a 5.17% daily gain trading near Rs.92.31, sitting 7.6% below its 52-week high of Rs.99.85 and 5.2% above its 52-week low of Rs.87.77, supported by a 2.07x volume surge over the 30-day average.",
+   "fundamentalView": "The company reports a negative return on equity of -30.49% and a thin net profit margin of 3.19% on Rs.14807.41 Cr in revenue, alongside a negative book value of Rs.-1.47 per share.",
+   "positives": [
+    "Achieved a robust daily price gain of 5.17% driven by strong buying momentum.",
+    "Recorded a significant volume surge of 2.07x compared to the 30-day average.",
+    "Generated positive net profit of Rs.472.39 Cr on total revenue of Rs.14807.41 Cr."
+   ],
+   "concerns": [
+    "Delivered negative short-term returns of -5.2% over 10 days and -7.6% over 30 days.",
+    "Posted a weak return on equity of -30.49% reflecting poor shareholder return efficiency.",
+    "Struggles with a negative book value per share of Rs.-1.47 and a low current ratio of 0.77."
+   ],
+   "watchFor": "Sustained volume above the 2.07x average to confirm a breakout past the Rs.99.85 52-week high.",
+   "category": "Top Fundamentals",
+   "categories": [
+    "Top Fundamentals",
+    "Long Term Pick"
+   ],
+   "name": "GMR AIRPORTS LIMITED",
+   "price": 92.31,
+   "changePct": 5.17
+  },
+  "GLOBALVECT": {
+   "headline": "Global Vectra Helicorp Shows High ROE Amid Negative Margins",
+   "summary": "The stock exhibits weak short-term momentum with a 15.2% decline over 30 days, trading near its 52-week low of Rs.124.20. Fundamental quality presents a stark contrast with an exceptionally high ROE of 398.47% despite a negative net profit margin of 6.19%. Valuation and financial stability are pressured by a negative book value per share of Rs.-5.79 and a low current ratio of 0.45.",
+   "technicalView": "The stock is in a persistent short-term downtrend, returning -15.2% over 30 days and hovering just 1.6% above its 52-week low of Rs.124.20. Volume remains subdued with a volume surge of 0.91x against the 30-day average.",
+   "fundamentalView": "The company reports a phenomenal ROE of 398.47% and annual EPS of Rs.23.06, offset by a negative net profit margin of -6.19% and a negative book value per share of Rs.-5.79.",
+   "positives": [
+    "Delivers an exceptionally high Return on Equity of 398.47% based on reported figures.",
+    "Generates substantial annual earnings per share standing firmly at Rs.23.06.",
+    "Operates with sizable annual top-line revenue reaching Rs.521.41 Cr in the sector."
+   ],
+   "concerns": [
+    "Suffers from a negative net profit margin of -6.19% translating to a net loss of Rs.-32.29 Cr.",
+    "Carries a negative book value per share of Rs.-5.79 due to capital erosion.",
+    "Shows severe near-term liquidity pressure with a low current ratio of only 0.45."
+   ],
+   "watchFor": "Watch for the next quarterly financial results to see if net margins can turn positive to justify the high ROE.",
+   "category": "Top Fundamentals",
+   "categories": [
+    "Top Fundamentals",
+    "Long Term Pick"
+   ],
+   "name": "GLOBAL VEC HELICORP LTD",
+   "price": 126.24,
+   "changePct": 1.64
+  },
+  "CPEDU": {
+   "headline": "Career Point Edutech Exhibits Strong Momentum And Excellent Fundamentals",
+   "summary": "The stock shows steady short-term momentum with positive 30-day returns of 3.3% near its 52-week high. Valuation reflects premium pricing backed by exceptional financial quality, including zero debt and superior profitability. The business demonstrates outstanding capital efficiency supported by a high return on equity.",
+   "technicalView": "The stock trades at Rs. 183.95, hovering 5.8% below its 52-week high of Rs. 195.31 and 7.2% above its low of Rs. 171.66 on modest volume of 0.91x the 30-day average.",
+   "fundamentalView": "The company boasts a stellar ROE of 30.28%, a debt-free balance sheet with zero debt to equity, and a remarkable net profit margin of 44.81% on revenues of Rs. 51.23 Cr.",
+   "positives": [
+    "Exceptional net profit margin of 44.81% indicating strong pricing power and cost management.",
+    "Completely debt-free balance sheet with a debt to equity ratio of 0.0.",
+    "Robust return on equity of 30.28% showcasing superior efficiency in capital allocation."
+   ],
+   "concerns": [
+    "Trading close to its 52-week high of Rs. 195.31 limits near-term upside potential.",
+    "Volume surge of 0.91x against the 30-day average suggests subdued immediate institutional interest.",
+    "High current ratio of 8.07 indicates potential underutilization of liquid assets on the balance sheet."
+   ],
+   "watchFor": "Breakout above the 52-week high of Rs. 195.31 backed by expanding trading volumes.",
+   "category": "Top Fundamentals",
+   "categories": [
+    "Top Fundamentals"
+   ],
+   "name": "CAREER POINT EDUTECH LTD",
+   "price": 183.95,
+   "changePct": 2.87
+  },
+  "CRIZAC": {
+   "headline": "Crizac Limited Trades Near 52-Week Lows Amid Short-Term Correction",
+   "summary": "The stock exhibits negative short-term momentum with 10-day and 30-day returns of -12.4% and -8.0%, trading just 1.9% above its 52-week low. Despite the price correction, the company demonstrates exceptional fundamental quality with a 30.05% ROE and a massive 62.59% net profit margin. Valuation reflects strength through an annual EPS of Rs.9.54 and a robust book value of Rs.31.73 per share.",
+   "technicalView": "The price action shows a persistent downtrend, trading at Rs.162.94, which is 12.7% below its 52-week high of Rs.186.68 and near the 52-week low of Rs.159.97. Volume remains subdued with a volume surge of 0.51x against the 30-day average.",
+   "fundamentalView": "The company boasts a zero-debt balance sheet with a debt-to-equity ratio of 0.0 and a staggering net profit margin of 62.59%. Return on equity stands high at 30.05%, supported by a massive current ratio of 24.77.",
+   "positives": [
+    "Exceptional net profit margin of 62.59% on total revenues of Rs.266.58 Cr.",
+    "Completely debt-free capital structure with a debt-to-equity ratio of 0.0.",
+    "Strong return on equity of 30.05% backed by an annual EPS of Rs.9.54."
+   ],
+   "concerns": [
+    "Sharp short-term price correction with a 10-day return dropping by 12.4%.",
+    "Trading precariously close to the 52-week low of Rs.159.97 with weak momentum.",
+    "Subdued trading interest indicated by a low volume surge of 0.51x versus average."
+   ],
+   "watchFor": "A potential volume breakout above the 30-day average to signal a reversal from the 52-week low.",
+   "category": "Top Fundamentals",
+   "categories": [
+    "Top Fundamentals"
+   ],
+   "name": "CRIZAC LIMITED",
+   "price": 162.94,
+   "changePct": 1.86
+  },
+  "GOCLCORP": {
+   "headline": "GOCL Corporation Faces Bearish Momentum Near 52-Week Lows",
+   "summary": "GOCL Corporation shows negative short-term momentum with 30-day returns down 9.7% while hovering near its 52-week low of Rs.347.70. The stock boasts an exceptionally high ROE of 66.51% and zero debt, though revenue remains remarkably low at Rs.9.76 Cr against a massive net profit of Rs.1445.85 Cr.",
+   "technicalView": "The stock trades near its 52-week low of Rs.347.70, down 21.6% from its high of Rs.456.15, accompanied by weak volume at 0.19x the 30-day average.",
+   "fundamentalView": "GOCL displays a stellar ROE of 66.51% and a pristine debt-to-equity ratio of 0.0, alongside an extraordinary net profit margin of 14809.29% driven by non-operating income.",
+   "positives": [
+    "Pristine balance sheet maintained with a debt-to-equity ratio of exactly 0.0.",
+    "Phenomenal Return on Equity of 66.51% reflecting exceptional capital allocation efficiency.",
+    "Stellar Return on Assets of 55.94% demonstrating high profitability from asset base."
+   ],
+   "concerns": [
+    "Severe negative momentum with the 30-day return dropping by 9.7% recently.",
+    "Very low trading volume surge at 0.19x indicates weak market participation.",
+    "Extremely low core operational revenue of Rs.9.76 Cr relative to reported net profit."
+   ],
+   "watchFor": "Sustained volume expansion above the 30-day average to confirm price stabilization near the 52-week low of Rs.347.70.",
+   "category": "Top Fundamentals",
+   "categories": [
+    "Top Fundamentals"
+   ],
+   "name": "GOCL CORPORATION LIMITED",
+   "price": 357.5,
+   "changePct": -0.03
+  },
+  "WAAREEINDO": {
+   "headline": "Indosolar Faces Steep Correction Near 52-Week Lows Despite Fundamentals",
+   "summary": "Indosolar exhibits strong downward momentum with 30-day returns down 27.9 percent, trading near its 52-week low of Rs 197.00. Valuation trades at an EPS of Rs 59.27, underpinned by exceptional business quality reflected in an ROE of 85.92 percent and zero debt.",
+   "technicalView": "The stock remains in a strong bearish trend down 28.3 percent from its 52-week high of Rs 276.25, currently hovering just 0.5 percent above its 52-week low of Rs 197.00 with muted volume participation at 1.00x average.",
+   "fundamentalView": "The company boasts an exceptional Return on Equity of 85.92 percent, a clean debt-to-equity ratio of 0.0, and a robust net profit margin of 36.27 percent on revenues of Rs 679.85 Cr.",
+   "positives": [
+    "Delivers an exceptional Return on Equity of 85.92 percent backed by strong asset efficiency.",
+    "Maintains a pristine balance sheet with a debt-to-equity ratio of exactly 0.0.",
+    "Generates a robust net profit margin of 36.27 percent on annual revenues of Rs 679.85 Cr."
+   ],
+   "concerns": [
+    "Suffers severe downward momentum with a steep 30-day return decline of 27.9 percent.",
+    "Trades perilously close to its 52-week low of Rs 197.00 with limited downside cushion.",
+    "Lacks volume support during the recent correction with volume surge registering at just 1.00x average."
+   ],
+   "watchFor": "A potential stabilization and volume expansion around the Rs 197.00 support level to signal a reversal.",
+   "category": "Top Fundamentals",
+   "categories": [
+    "Top Fundamentals",
+    "Long Term Pick"
+   ],
+   "name": "INDOSOLAR LIMITED",
+   "price": 198.04,
+   "changePct": 0.53
+  },
+  "OFSS": {
+   "headline": "Oracle Financial Services Software faces severe momentum correction near support",
+   "summary": "The stock demonstrates a sharp negative momentum with a 10.4% decline over thirty days, currently trading near its 52-week low. Despite the recent correction, the business exhibits elite quality with a 33.72% ROE and strong net margins of 34.4%, trading at a trailing P/E of approximately 34.6x based on an annual EPS of Rs.303.54.",
+   "technicalView": "The stock is in a defined downtrend, trading down 16.2% from its 52-week high of Rs.12540.00 and resting just 1.1% above its 52-week low of Rs.10400.00 on subdued volume of 0.83x the 30-day average.",
+   "fundamentalView": "The company boasts pristine fundamentals with zero debt, a robust 33.72% ROE, and exceptionally high net profit margins of 34.4% on revenue of Rs.7672.1 Cr.",
+   "positives": [
+    "Delivers an exceptional Return on Equity of 33.72% reflecting superior capital allocation efficiency.",
+    "Maintains a pristine balance sheet with zero debt to equity supporting financial stability.",
+    "Generates robust net profit margins of 34.4% on total annual revenue of Rs.7672.1 Cr."
+   ],
+   "concerns": [
+    "Experiences heavy downward momentum with a steep 10.4% loss over the past 30 days.",
+    "Trades perilously close to its 52-week low of Rs.10400.00, sitting only 1.1% above it.",
+    "Suffers from below-average participation with volume tracking at 0.83x of the 30-day average."
+   ],
+   "watchFor": "A decisive break below the 52-week low of Rs.10400.00 or a volume-backed reversal confirming a price floor.",
+   "category": "Top Fundamentals",
+   "categories": [
+    "Top Fundamentals"
+   ],
+   "name": "ORACLE FIN SERV SOFT LTD.",
+   "price": 10510.0,
+   "changePct": 1.06
+  },
+  "SHILCTECH": {
+   "headline": "Shilchar Technologies Exhibits Strong Fundamentals Near 52Week Low Levels",
+   "summary": "The stock demonstrates consolidating near-term momentum with flat 30-day returns of 0.1% while hovering near its 52-week low of Rs.3919.70. Business quality is exceptionally robust, underpinned by a zero-debt capital structure, a high Return on Equity of 32.22%, and a healthy net profit margin of 24.26%.",
+   "technicalView": "The stock trades near its 52-week low of Rs.3919.70 and is down 6.8% from its 52-week high of Rs.4212.50, accompanied by a subdued volume surge of 0.71x relative to the 30-day average.",
+   "fundamentalView": "The company boasts an impressive ROE of 32.22%, a completely debt-free balance sheet with a debt-to-equity ratio of 0.0, and a strong net profit margin of 24.26% on annual revenues of Rs.651.94 Cr.",
+   "positives": [
+    "Zero debt-to-equity ratio of 0.0 indicates a pristine, risk-free balance sheet structure.",
+    "Exceptional Return on Equity of 32.22% demonstrates high efficiency in generating shareholder returns.",
+    "Robust net profit margin of 24.26% translates to Rs.158.16 Cr in net profit from Rs.651.94 Cr revenue."
+   ],
+   "concerns": [
+    "Trading perilously close to its 52-week low of Rs.3919.70, reflecting persistent near-term downward pressure.",
+    "Below-average volume surge of 0.71x indicates a lack of aggressive institutional buying interest currently.",
+    "Flat 30-day return of 0.1% highlights a stagnant price momentum phase in the immediate term."
+   ],
+   "watchFor": "A decisive volume breakout above the current price of Rs.3925.30 to signal a reversal from the 52-week low.",
+   "category": "Top Fundamentals",
+   "categories": [
+    "Top Fundamentals"
+   ],
+   "name": "SHILCHAR TECHNOLOGIES LTD",
+   "price": 3925.3,
+   "changePct": -0.47
+  },
+  "KOTAKBANK": {
+   "headline": "Kotak Mahindra Bank hits new 52-week high with momentum",
+   "summary": "The stock demonstrates strong short-term momentum with returns of 8.9% over 10 days and 9.8% over 30 days. Trading at its 52-week high of Rs.441.00, it reflects robust market interest backed by elevated volume. Fundamental metrics are currently unavailable in the provided dataset.",
+   "technicalView": "Price action is exceptionally bullish, touching the 52-week high of Rs.441.00 after rebounding 9.8% from its 52-week low of Rs.401.55. Volume surge of 1.64x against the 30-day average confirms strong buying participation supporting the breakout.",
+   "fundamentalView": "No fundamental data available",
+   "positives": [
+    "Stock price reached a fresh 52-week high of Rs.441.00 today.",
+    "Strong 10-day return of 8.9% indicates robust short-term price momentum.",
+    "Significant volume expansion at 1.64x above the 30-day average supports the rally."
+   ],
+   "concerns": [
+    "Trading at 0.0% from the 52-week high increases the risk of near-term consolidation.",
+    "Lack of fundamental financial data creates uncertainty regarding underlying operational strength.",
+    "Rapid 30-day gain of 9.8% may lead to overbought technical conditions."
+   ],
+   "watchFor": "Sustained trading volume above the 1.64x average to confirm continuation of the breakout.",
+   "category": "Large Cap",
+   "categories": [
+    "Large Cap"
+   ],
+   "name": "KOTAK MAHINDRA BANK LTD",
+   "price": 441.0,
+   "changePct": 1.38
+  },
+  "DIVISLAB": {
+   "headline": "Divi's Laboratories trades near highs with debt-free balance sheet",
+   "summary": "The stock demonstrates steady 30-day momentum of 6.8% while resting just 3.0% below its 52-week high of Rs.9624.00. Fundamental quality remains exceptional, supported by a debt-free capital structure, a robust net profit margin of 24.32%, and solid asset efficiency. However, the current price commands an elevated valuation with an annual EPS of Rs.96.75 against a share price of Rs.9340.00.",
+   "technicalView": "Price action remains resilient near the 52-week high of Rs.9624.00, trading 6.8% above the 52-week low of Rs.8744.50. Volume activity is subdued at 0.84x the 30-day average during a minor daily pullback of -0.22%.",
+   "fundamentalView": "The company exhibits strong fundamentals highlighted by zero debt, a robust net profit margin of 24.32%, and a healthy ROE of 15.32%. Liquidity is exceptionally secure backed by a current ratio of 5.43 alongside an annual EPS of Rs.96.75.",
+   "positives": [
+    "Zero debt to equity ratio of 0.0 ensures a pristine and secure balance sheet",
+    "Strong net profit margin of 24.32% reflecting excellent operational efficiency and pricing power",
+    "Robust liquidity position demonstrated by a high current ratio of 5.43"
+   ],
+   "concerns": [
+    "Premium valuation reflected in a high share price of Rs.9340.00 against an annual EPS of Rs.96.75",
+    "Subdued volume participation at 0.84x the 30-day average indicating lack of strong buying conviction",
+    "Recent short-term consolidation with a negative 10-day return of -2.7%"
+   ],
+   "watchFor": "Watch for a decisive volume-backed breakout above the 52-week high of Rs.9624.00.",
+   "category": "Large Cap",
+   "categories": [
+    "Large Cap"
+   ],
+   "name": "DIVI S LABORATORIES LTD",
+   "price": 9340.0,
+   "changePct": -0.22
+  },
+  "COALINDIA": {
+   "headline": "Coal India Trades Near Lows Despite Exceptional Return Metrics",
+   "summary": "The stock demonstrates modest short-term consolidation with a 10-day return of -2.5% while holding near its 52-week low of Rs.400.00. Valuation is backed by an extraordinary ROE of 91.33% and negligible leverage with a debt-to-equity ratio of 0.0386. The business quality shines through robust profitability, though current trading volume remains subdued at 0.61x the 30-day average.",
+   "technicalView": "Price action is consolidating near the 52-week low of Rs.400.00, sitting 4.7% below the 52-week high of Rs.432.00 on below-average volume of 0.61x.",
+   "fundamentalView": "The company boasts an exceptional ROE of 91.33% and a conservative debt-to-equity ratio of 0.0386, supported by a healthy current ratio of 6.0.",
+   "positives": [
+    "Astonishing return on equity of 91.33% demonstrates exceptional capital allocation efficiency for shareholders.",
+    "Minimal financial leverage with a debt-to-equity ratio of just 0.0386 provides robust balance sheet safety.",
+    "Strong liquidity position underlined by a robust current ratio of 6.0 covering short-term obligations easily."
+   ],
+   "concerns": [
+    "Subdued trading volume at 0.61x the 30-day average indicates a lack of near-term institutional buying interest.",
+    "Stock is lingering near its 52-week low of Rs.400.00, reflecting persistent downward short-term price pressure.",
+    "Short-term momentum is negative with a 10-day return of -2.5% amid broader consolidation."
+   ],
+   "watchFor": "A decisive volume breakout above the 30-day average volume to signal a reversal from the 52-week low.",
+   "category": "Large Cap",
+   "categories": [
+    "Large Cap"
+   ],
+   "name": "COAL INDIA LTD",
+   "price": 411.55,
+   "changePct": 0.54
+  },
+  "ADANIPORTS": {
+   "headline": "Adani Ports shows moderate momentum near its peak valuation",
+   "summary": "The stock demonstrates steady positive momentum with a 3.4% thirty-day return, trading close to its 52-week high of Rs.1824.00. Business quality is highlighted by a healthy net profit margin of 21.01% and extremely low debt to equity of 0.0077, though valuation appears elevated with a book value per share of Rs.268.41 against the current price of Rs.1761.00.",
+   "technicalView": "The stock trades at Rs.1761.00, remaining just 3.5% below its 52-week high of Rs.1824.00 and supported by a 1.42x volume surge versus the 30-day average.",
+   "fundamentalView": "The company maintains a low debt to equity ratio of 0.0077 alongside a robust net profit margin of 21.01%, despite a modest return on equity of 2.9%.",
+   "positives": [
+    "Strong net profit margin of 21.01% demonstrates solid operational efficiency within port related activities.",
+    "Extremely low debt to equity ratio of 0.0077 indicates a conservative capital structure.",
+    "Robust volume surge of 1.42x compared to the 30-day average reflects heightened buying interest."
+   ],
+   "concerns": [
+    "Modest return on equity of 2.9% signals relatively low profitability generated from shareholder equity.",
+    "Subdued ten-day return of -1.4% highlights short-term consolidation below the peak price.",
+    "Low return on assets of 1.58% points to heavy capital deployment yielding slow returns."
+   ],
+   "watchFor": "sustained volume expansion above 1.42x to break past the 52-week high of Rs.1824.00",
+   "category": "Large Cap",
+   "categories": [
+    "Large Cap"
+   ],
+   "name": "ADANI PORT & SEZ LTD",
+   "price": 1761.0,
+   "changePct": 3.1
+  },
+  "PNB": {
+   "headline": "Punjab National Bank Trades Near 52-Week High Amid Quiet Momentum",
+   "summary": "Punjab National Bank shows muted short-term momentum with flat 10-day returns of -0.1% alongside a minor 30-day gain of 0.9%. The stock trades near the top of its annual range, reflecting resilience despite the absence of fundamental data.",
+   "technicalView": "The stock trades at Rs.116.98, sitting just 1.1% below its 52-week high of Rs.118.30 and 6.8% above its 52-week low of Rs.109.57, backed by a modest volume surge of 1.07x against the 30-day average.",
+   "fundamentalView": "No fundamental data available",
+   "positives": [
+    "Current price of Rs.116.98 sits just 1.1% below the 52-week high of Rs.118.30.",
+    "Trading comfortably above the 52-week low of Rs.109.57 with a 6.8% buffer.",
+    "Volume surge of 1.07x against the 30-day average indicates steady near-term trading interest."
+   ],
+   "concerns": [
+    "Muted 10-day return of -0.1% highlights sluggish immediate price momentum and consolidation.",
+    "Modest 30-day return of 0.9% suggests a lack of aggressive buying pressure in the medium term.",
+    "Lack of accessible fundamental metrics limits visibility into core earnings quality and valuation safety."
+   ],
+   "watchFor": "A decisive breakout above the 52-week high of Rs.118.30 on expanding volume.",
+   "category": "Large Cap",
+   "categories": [
+    "Large Cap"
+   ],
+   "name": "PUNJAB NATIONAL BANK",
+   "price": 116.98,
+   "changePct": 1.47
+  },
+  "LICHSGFIN": {
+   "headline": "LIC Housing Finance Shows Steady Momentum Near 52-Week High",
+   "summary": "LIC Housing Finance demonstrates robust short-term momentum with a 9.0% thirty-day return, trading just 3.6% below its 52-week high of Rs.572.50. The company exhibits solid business quality backed by a healthy net profit margin of 19.43% and a debt-free equity structure. Valuation appears attractive, with the current price of Rs.551.65 sitting below the book value per share of Rs.752.78.",
+   "technicalView": "The stock is trading near its 52-week high of Rs.572.50, up 9.9% from its 52-week low of Rs.502.00, supported by a 1.24x volume surge versus the 30-day average. Despite a mild 10-day retracement of -2.2%, the broader trend remains resilient with a positive 2.73% daily gain.",
+   "fundamentalView": "The company maintains a strong fundamental profile with zero debt, a robust return on equity of 13.53%, and a high net profit margin of 19.43%. Valuation remains compelling as the stock trades at a discount to its book value per share of Rs.752.78, supported by annual earnings per share of Rs.101.87.",
+   "positives": [
+    "Debt-free capital structure with a debt-to-equity ratio of 0.0 providing immense financial flexibility.",
+    "Strong profitability reflected in a net profit margin of 19.43% on revenue of Rs.28837.11 Cr.",
+    "Attractive valuation trading below the book value per share of Rs.752.78 at a price of Rs.551.65."
+   ],
+   "concerns": [
+    "Recent short-term consolidation indicated by a negative 10-day return of -2.2% despite monthly gains.",
+    "Trading within striking distance of the 52-week high of Rs.572.50, increasing near-term resistance risks.",
+    "Return on equity of 13.53% sits at a moderate level compared to top-tier financial sector peers."
+   ],
+   "watchFor": "Sustained volume expansion above the current 1.24x surge to break decisively past the 52-week high of Rs.572.50.",
+   "category": "Mid Cap",
+   "categories": [
+    "Mid Cap"
+   ],
+   "name": "LIC HOUSING FINANCE LTD",
+   "price": 551.65,
+   "changePct": 2.73
+  },
+  "LAURUSLABS": {
+   "headline": "Laurus Labs Nears 52-Week High Amid Solid Profitability Metrics",
+   "summary": "The stock demonstrates strong momentum with a 9.1% thirty-day return, trading just 0.8% below its 52-week high of Rs.2052.80. Business quality is supported by a respectable return on equity of 16.39% and a healthy net profit margin of 13.07%. However, valuation appears elevated with an annual EPS of Rs.16.47.",
+   "technicalView": "The price action is bullish, hovering near the 52-week high of Rs.2052.80 and up 10.7% from the 52-week low of Rs.1840.00. Volume remains subdued, showing a volume surge of 0.53x against the 30-day average.",
+   "fundamentalView": "Fundamentals exhibit a reasonable return on equity of 16.39% alongside a manageable debt-to-equity ratio of 0.4414. The net profit margin stands at 13.07% on revenues of Rs.6812.9 Cr.",
+   "positives": [
+    "Healthy return on equity of 16.39% reflects efficient utilization of shareholder funds.",
+    "Manageable debt-to-equity ratio of 0.4414 indicates a relatively conservative financial leverage structure.",
+    "Solid net profit margin of 13.07% on total revenues of Rs.6812.9 Cr."
+   ],
+   "concerns": [
+    "Trading near the 52-week high of Rs.2052.80 with a modest annual EPS of Rs.16.47.",
+    "Subdued volume surge of 0.53x relative to the 30-day average indicates weaker buying conviction.",
+    "Current ratio of 1.33 leaves a relatively narrow buffer for short-term liquidity obligations."
+   ],
+   "watchFor": "Volume expansion above the 30-day average confirming a decisive breakout past the 52-week high of Rs.2052.80.",
+   "category": "Mid Cap",
+   "categories": [
+    "Mid Cap"
+   ],
+   "name": "LAURUS LABS LIMITED",
+   "price": 2036.6,
+   "changePct": 1.94
+  },
+  "BHEL": {
+   "headline": "BHEL maintains positive momentum trading near 52 week highs",
+   "summary": "BHEL shows steady short-term momentum with positive 10-day and 30-day returns of 4.4% and 4.0% respectively, trading 4.1% below its 52-week high of Rs.452.00. The company exhibits modest profitability with a net profit margin of 4.67% and a Return on Equity of 5.95% on a substantial revenue base of Rs.33,782.18 Cr. Valuation is elevated relative to book value, with the stock trading at Rs.433.60 against a book value per share of Rs.76.15.",
+   "technicalView": "The stock trades firmly at Rs.433.60, hovering near its 52-week high of Rs.452.00 and up 5.6% from its 52-week low of Rs.410.60. Volume remains robust, registering a 1.70x surge compared to the 30-day average, reflecting sustained buying interest.",
+   "fundamentalView": "BHEL reports a modest Return on Equity of 5.95% and a net profit margin of 4.67% on annual net profit of Rs.1,577.95 Cr. Debt to equity is manageable at 0.31, while the stock trades at an elevated price relative to its book value per share of Rs.76.15.",
+   "positives": [
+    "Manageable financial leverage demonstrated by a conservative debt to equity ratio of 0.31",
+    "Substantial revenue generation capacity evidenced by annual top-line figures of Rs.33,782.18 Cr",
+    "Healthy short-term price momentum reflected in a 1.70x volume surge over 30-day averages"
+   ],
+   "concerns": [
+    "Subdued capital efficiency highlighted by a modest Return on Equity of just 5.95%",
+    "Thin bottom-line performance demonstrated by a relatively low net profit margin of 4.67%",
+    "Weak asset productivity indicated by a modest Return on Assets of 2.06%"
+   ],
+   "watchFor": "Sustained volume above the 1.70x average to confirm a decisive breakout past the 52-week high of Rs.452.00.",
+   "category": "Mid Cap",
+   "categories": [
+    "Mid Cap"
+   ],
+   "name": "BHEL",
+   "price": 433.6,
+   "changePct": 0.93
+  },
+  "MAHABANK": {
+   "headline": "Bank of Maharashtra Trades Near 52-Week High With Modest Momentum",
+   "summary": "Bank of Maharashtra exhibits steady short-term momentum with positive 10-day and 30-day returns of 0.9% and 1.8% respectively, alongside a modest daily gain of 1.35%. Valuation and fundamental metrics remain unavailable in the current dataset, reflecting a pure price-action-driven setup near historical highs. Business quality must be assessed through broader operational disclosures not provided in this snapshot.",
+   "technicalView": "The stock trades at Rs. 83.16, sitting just 3.7% below its 52-week high of Rs. 86.32 and 5.1% above its 52-week low of Rs. 79.16, accompanied by a subdued volume surge of 0.75x against the 30-day average.",
+   "fundamentalView": "No fundamental data available",
+   "positives": [
+    "Stock is trading close to the 52-week high at Rs. 83.16, reflecting sustained underlying market strength.",
+    "Delivered positive 30-day returns of 1.8%, demonstrating consistent short-term price appreciation trends.",
+    "Maintained a positive 10-day return of 0.9% despite below-average volume participation of 0.75x."
+   ],
+   "concerns": [
+    "Trading just 5.1% above the 52-week low of Rs. 79.16 indicates limited cushion from key support levels.",
+    "Volume surge of 0.75x relative to the 30-day average points to subdued market participation during recent price advances.",
+    "Proximity to the 52-week high of Rs. 86.32 could introduce overhead resistance limiting immediate upside potential."
+   ],
+   "watchFor": "A decisive volume-backed breakout above the 52-week high of Rs. 86.32 or a breakdown below the 52-week low of Rs. 79.16.",
+   "category": "Mid Cap",
+   "categories": [
+    "Mid Cap"
+   ],
+   "name": "BANK OF MAHARASHTRA",
+   "price": 83.16,
+   "changePct": 1.35
+  },
+  "NYKAA": {
+   "headline": "Nykaa Trades Near 52-Week High Amid Modest Profit Margins",
+   "summary": "Nykaa shows steady positive momentum with a 3.22% daily gain trading near its 52-week peak. Valuation is elevated with a low net profit margin of 2.03% and an annual EPS of Rs.0.7 against a share price of Rs.343.00. Business quality reflects a moderate ROE of 13.58% backed by substantial revenue of Rs.10022.35 Cr.",
+   "technicalView": "The stock trades at Rs.343.00, sitting just 1.9% below its 52-week high of Rs.349.55 and 5.9% above its 52-week low of Rs.323.75. Price action is supported by a volume surge of 1.62x the 30-day average alongside positive 10-day and 30-day returns of 2.3% and 2.7% respectively.",
+   "fundamentalView": "Fundamentals indicate a modest ROE of 13.58% and a thin net profit margin of 2.03% yielding an annual EPS of Rs.0.7. Leverage remains manageable with a debt-to-equity ratio of 0.4974 and a current ratio of 1.16.",
+   "positives": [
+    "Robust top-line performance with annual revenue reaching Rs.10022.35 Cr across operations.",
+    "Manageable financial leverage evidenced by a debt-to-equity ratio standing at 0.4974.",
+    "Strong near-term price momentum with volume surging at 1.62x the 30-day average."
+   ],
+   "concerns": [
+    "Thin net profit margin of 2.03% resulting in a low annual EPS of Rs.0.7.",
+    "Tight short-term liquidity buffer demonstrated by a relatively low current ratio of 1.16.",
+    "Valuation sensitivity as the current price of Rs.343.00 sits only 1.9% below its high."
+   ],
+   "watchFor": "Sustained volume above the 1.62x 30-day average to confirm a decisive breakout past the 52-week high of Rs.349.55.",
+   "category": "Mid Cap",
+   "categories": [
+    "Mid Cap"
+   ],
+   "name": "FSN E COMMERCE VENTURES",
+   "price": 343.0,
+   "changePct": 3.22
+  }
+ },
+ "radar": {
+  "1W": {
+   "picks": [
+    {
+     "sym": "BROOKS",
+     "name": "BROOKS LAB LIMITED",
+     "return": 29.3,
+     "reason": "Demonstrates solid fundamentals with an ROE of 20.04% and minimal debt, supporting the sustainability of this short-term breakout."
+    },
+    {
+     "sym": "TARAPUR",
+     "name": "TARAPUR TRANSFORMERS",
+     "return": 43.2,
+     "reason": "Exceptional ROE of 99.16% and debt-free status provide strong fundamental backing for this sharp weekly surge."
+    },
+    {
+     "sym": "PNGSREVA",
+     "name": "PNGS REVA DIAMOND JE",
+     "return": 28.5,
+     "reason": "Healthy double-digit ROE of 12.55% and manageable leverage underpin institutional accumulation and volume interest."
+    }
+   ]
+  },
+  "2W": {
+   "picks": [
+    {
+     "sym": "DPABHUSHAN",
+     "name": "D. P. ABHUSHAN LIMIT",
+     "return": 68.2,
+     "reason": "Strong fundamental backing driven by a high ROE of 33.49% and controlled debt, ensuring move sustainability over a two-week horizon."
+    },
+    {
+     "sym": "CUBEXTUB",
+     "name": "CUBEX TUBINGS LTD",
+     "return": 117.2,
+     "reason": "Consistent multi-week momentum backed by respectable profitability and reasonable leverage in the small-cap segment."
+    },
+    {
+     "sym": "BURNPUR",
+     "name": "BURNPUR CEMENT LIMIT",
+     "return": 45.7,
+     "reason": "Turnaround profile backed by a 13.81% ROE and negative net debt, attracting steady buying volume."
+    }
+   ]
+  },
+  "1M": {
+   "picks": [
+    {
+     "sym": "RAYMOND",
+     "name": "RAYMOND LTD",
+     "return": 60.2,
+     "reason": "Exceptional fundamental quality highlighted by an extraordinary ROE of 171.96% and sustainable multi-week accumulation."
+    },
+    {
+     "sym": "JAYKAY",
+     "name": "JAYKAY ENTERPRISES L",
+     "return": 50.0,
+     "reason": "Solid 30.95% ROE combined with near-zero debt validates the strong one-month upward trajectory."
+    },
+    {
+     "sym": "DPABHUSHAN",
+     "name": "D. P. ABHUSHAN LIMIT",
+     "return": 67.1,
+     "reason": "Sustained strong momentum supported by robust capital efficiency and solid earnings visibility."
+    }
+   ]
+  },
+  "6M": {
+   "picks": []
+  },
+  "marketPulse": "The market demonstrates aggressive speculative interest in low-priced small-cap and micro-cap stocks, with massive multi-fold short-term rallies. However, investors should remain cautious as many surging counters lack consistent fundamental backing, making strict risk management essential."
+ },
+ "radarUpdatedAt": "2026-10-21T20:19:31Z",
+ "calibration": {
+  "updatedAt": "2026-10-21T20:19:41Z",
+  "accuracy": {
+   "BUY": {
+    "avg": -0.0,
+    "win_rate": 45.6,
+    "count": 6107
+   },
+   "HOLD": {
+    "avg": 0.1,
+    "win_rate": 48.4,
+    "count": 9909
+   },
+   "AVOID": {
+    "avg": 0.12,
+    "win_rate": 48.3,
+    "count": 23284
+   }
+  },
+  "factorPower": {
+   "roc5": -0.44,
+   "roc10": 0.1,
+   "vsma20": 0.0,
+   "rsi": -0.08,
+   "hi52": -0.15,
+   "sma20dir": -0.16
+  },
+  "currentWeights": {
+   "roc5": 12,
+   "roc10": 8,
+   "vsma20": 10,
+   "sma20dir": 8,
+   "rsi": 12,
+   "volume": 8,
+   "relstrength": 14,
+   "macd": 12,
+   "bollinger": 8,
+   "adx": 8,
+   "cross": 8,
+   "hi52": 6,
+   "gap": 6
+  },
+  "suggestedWeights": {
+   "roc5": 12,
+   "roc10": 2,
+   "vsma20": 22,
+   "sma20dir": 20,
+   "rsi": 22,
+   "volume": 8,
+   "relstrength": 14,
+   "macd": 12,
+   "bollinger": 8,
+   "adx": 8,
+   "cross": 8,
+   "hi52": 20,
+   "gap": 6
+  },
+  "topWins": [
+   [
+    "GOKEX",
+    "2026-01-29",
+    41,
+    49.83
+   ],
+   [
+    "AEROFLEX",
+    "2026-04-30",
+    46,
+    44.21
+   ],
+   [
+    "GMBREW",
+    "2024-06-26",
+    39,
+    43.53
+   ],
+   [
+    "JTLIND",
+    "2026-03-30",
+    45,
+    43.41
+   ],
+   [
+    "EMIL",
+    "2026-08-04",
+    41,
+    38.73
+   ]
+  ],
+  "topMisses": [
+   [
+    "ROLEXRINGS",
+    "2025-10-16",
+    53,
+    -90.44
+   ],
+   [
+    "FMCGIETF",
+    "2024-05-06",
+    38,
+    -89.88
+   ],
+   [
+    "IOLCP",
+    "2025-03-07",
+    38,
+    -82.21
+   ],
+   [
+    "KRISHANA",
+    "2026-06-30",
+    39,
+    -81.19
+   ],
+   [
+    "PRECAM",
+    "2025-02-06",
+    42,
+    -23.7
+   ]
+  ],
+  "aiReport": {
+   "overallVerdict": "The model demonstrates inverse performance characteristics where AVOID and HOLD tiers slightly outperform the BUY tier, indicating a need for weight reallocation away from failing momentum signals toward trend and mean-reversion factors.",
+   "calibrationScore": "3/10",
+   "confidenceLevel": "Medium",
+   "factorInsights": [
+    "5-Day Momentum exhibits a strong negative predictive power (-0.44), suggesting current short-term chasing leads to negative alpha.",
+    "Price vs SMA20 shows neutral predictive power (0.0) but requires significant weight increase to capture baseline trend alignment.",
+    "SMA20 Direction and 52-Week High both display negative power coefficients (-0.16 and -0.15), implying current trend-following parameters are catching tops."
+   ],
+   "weightJustification": [
+    "Price vs SMA20 weight increased from 10pts to 22pts (+12pts) to heavily prioritize primary trend baseline positioning over noise.",
+    "RSI weight increased from 12pts to 22pts (+10pts) to better penalize overbought entries that drive severe negative outliers like ROLEXRINGS.",
+    "10-Day Momentum weight decreased from 8pts to 2pts (-6pts) due to weak predictive power (0.1) that fails to justify model allocation."
+   ],
+   "recommendations": [
+    "Invert or penalize short-term momentum signals given their negative correlation with forward returns.",
+    "Implement a hard stop-loss risk management overlay to eliminate catastrophic tail-risk events yielding >-80% returns."
+   ]
+  },
+  "dataPoints": 39300,
+  "status": "pending_approval"
+ }
 }
