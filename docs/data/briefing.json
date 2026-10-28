@@ -1,6 +1,6 @@
 {
- "updatedAt": "2026-10-28T14:42:53Z",
- "model": "none",
+ "updatedAt": "2026-10-28T21:31:45Z",
+ "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
   "Geo-Political",
@@ -12,124 +12,124 @@
  "briefing": {
   "Markets": [
    {
-    "title": "Sebi to review FPI compliance norms, issue consultation paper to align with global standards",
-    "summary": "Sebi Chairman Tuhin Kanta Pandey stated they will review compliance requirements for foreign portfolio investors in Indi...",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/news/sebi-to-review-fpi-compliance-norms-issue-consultation-paper-to-align-with-global-standards/articleshow/135269023.cms",
+    "title": "US stocks today: US stocks end higher as Fed holds rates; focus turns to earnings",
+    "summary": "US stocks ended higher after the Federal Reserve kept interest rates unchanged. The market was also boosted by strong earnings from chipmaker SK Hynix.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-stocks-today-us-stocks-end-higher-as-fed-holds-rates-earnings-in-focus/articleshow/135279631.cms",
     "source": "economictimes.indiatimes.com",
-    "pubDate": "Wed, 28 Oct 2026 19:40:10 +0530"
+    "pubDate": "Thu, 29 Oct 2026 01:44:51 +0530"
    },
    {
-    "title": "Acutaas Chemicals among 5 stocks hitting 52-week highs; rallied up to 18% in a month",
-    "summary": "Despite the Sensex falling 352 points to 73,246, five BSE 500 stocks touched fresh 52-week highs on Wednesday. PVR Inox,...",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/news/acutaas-chemicals-among-5-stocks-hitting-52-week-highs-rallied-up-to-18-in-a-month/slideshow/135268346.cms",
+    "title": "Fed's Kevin Warsh says US economy not running too hot from AI boom",
+    "summary": "Federal Reserve Chairman Kevin Warsh stated on Wednesday that the U.S. economy is not overheating despite increased demand from the artificial intelligence boom. He noted that ongoing AI investments are creating some pressure, but the overall economic pace remains manageable.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/feds-kevin-warsh-says-us-economy-not-running-too-hot-from-ai-boom/articleshow/135279091.cms",
     "source": "economictimes.indiatimes.com",
-    "pubDate": "Wed, 28 Oct 2026 19:14:25 +0530"
+    "pubDate": "Thu, 29 Oct 2026 01:18:14 +0530"
    },
    {
-    "title": "Vedanta Aluminium Q2 Results: Profit doubles to Rs 6,187 crore, revenue jumps 41%",
-    "summary": "Vedanta Aluminium’s Q2 FY27 net profit surged 105% to Rs 6,187 crore, driven by record production, higher sales and impr...",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/earnings/vedanta-aluminium-q2-results-profit-doubles-to-rs-6187-crore-revenue-jumps-41/articleshow/135268184.cms",
+    "title": "Wendy’s draws buyout bid as beef costs and burger rivalry weigh on business",
+    "summary": "Nelson Peltz’s Trian Fund Management offered $7.35 per share to take Wendy’s private, causing the chain's stock to jump. The buyout bid comes as Wendy's struggles with high beef costs, weaker consumer demand, store closures, and fierce fast-food competition.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/wendys-draws-buyout-bid-as-beef-costs-and-burger-rivalry-weigh-on-business/articleshow/135278283.cms",
     "source": "economictimes.indiatimes.com",
-    "pubDate": "Wed, 28 Oct 2026 19:13:05 +0530"
+    "pubDate": "Thu, 29 Oct 2026 00:31:05 +0530"
    },
    {
-    "title": "US stocks today: S&amp;P 500, Nasdaq open higher as SK Hynix lifts chips; Fed meet in focus",
-    "summary": "On Wednesday, the S&amp;P 500 and Nasdaq opened higher after positive results from memory-chip firms like SK Hynix. Inve...",
-    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-stocks-today-sp-500-nasdaq-open-higher-as-sk-hynix-lifts-chips-fed-meet-in-focus/articleshow/135267943.cms",
+    "title": "US Federal Reserve holds interest rates steady as stubborn inflation puts future rate hikes in focus",
+    "summary": "The US Federal Reserve kept its benchmark interest rate unchanged to assess inflation trends driven by rising energy prices and tariffs. Policymakers are evaluating these economic pressures as traders closely monitor upcoming data releases.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/fed-rate-us-federal-reserve-holds-interest-rates-steady-as-stubborn-inflation-puts-future-rate-hikes-in-focus/articleshow/135275622.cms",
     "source": "economictimes.indiatimes.com",
-    "pubDate": "Wed, 28 Oct 2026 19:09:22 +0530"
+    "pubDate": "Wed, 28 Oct 2026 23:31:23 +0530"
    },
    {
-    "title": "Sebi signs MoU with Bank of England to strengthen oversight of clearing corporations",
-    "summary": "SEBI and the Bank of England signed an MoU to strengthen regulatory cooperation and information sharing on clearing corp...",
-    "link": "https://economictimes.indiatimes.com/markets/stocks/news/sebi-signs-mou-with-bank-of-england-to-strengthen-oversight-of-clearing-corporations/articleshow/135267165.cms",
+    "title": "World Bank sees commodity prices surging 23% in 2026 on Middle East war",
+    "summary": "The World Bank projects commodity prices will surge 23% in 2026 due to Middle East conflict disruptions to energy supplies and shipping. The bank warned that further escalation and severe weather could worsen global inflation and food security risks.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/world-bank-sees-commodity-prices-surging-23-in-2026-on-middle-east-war/articleshow/135274754.cms",
     "source": "economictimes.indiatimes.com",
-    "pubDate": "Wed, 28 Oct 2026 18:45:56 +0530"
+    "pubDate": "Wed, 28 Oct 2026 22:56:20 +0530"
    },
    {
-    "title": "India bonds end flat as oil woes come up against short covering",
-    "summary": "Indian government bonds faced volatility as oil price hikes raised inflation concerns and affected market sentiment. The...",
-    "link": "https://economictimes.indiatimes.com/markets/bonds/india-bonds-end-flat-as-oil-woes-come-up-against-short-covering/articleshow/135265739.cms",
+    "title": "Satin Creditcare Q2 profit surges over three-fold as asset quality improves",
+    "summary": "Satin Creditcare Network reported a more than three-fold increase in consolidated net profit to Rs 176 crore for the second quarter. This financial growth was driven by portfolio expansion, lower microfinance provisions, and an improvement in the gross NPA ratio to 1.9%.",
+    "link": "https://economictimes.indiatimes.com/markets/stocks/news/satin-creditcare-q2-profit-surges-over-three-fold-as-asset-quality-improves/articleshow/135272520.cms",
     "source": "economictimes.indiatimes.com",
-    "pubDate": "Wed, 28 Oct 2026 18:04:01 +0530"
+    "pubDate": "Wed, 28 Oct 2026 21:38:45 +0530"
    }
   ],
   "Geo-Political": [
    {
+    "title": "Flávio Bolsonaro lands in Miami after defeat in Brazil's presidential election",
+    "summary": "Flávio Bolsonaro arrived in Miami following his father's defeat in the Brazilian presidential election. His arrival in the United States resolved speculation about his location after he defied an order to surrender his passports.",
+    "link": "https://www.bbc.co.uk/news/articles/c6kglwe4lxwzo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Wed, 28 Oct 2026 21:07:06 GMT"
+   },
+   {
+    "title": "Netanyahu's bloc leading Israel election but short of majority, partial results show",
+    "summary": "Partial election results show Benjamin Netanyahu's bloc winning 53 of the 120 seats in Israel's Knesset with 85% of ballots counted. This total leaves the alliance currently short of the majority needed to form a government.",
+    "link": "https://www.bbc.co.uk/news/articles/cmdx3knq1xexo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Wed, 28 Oct 2026 20:24:39 GMT"
+   },
+   {
+    "title": "How could Israel break election deadlock? Here are four scenarios",
+    "summary": "Following an Israeli election where 85% of the votes counted indicate a political impasse, new elections emerge as the most likely outcome. The article outlines four potential scenarios for resolving this deadlock.",
+    "link": "https://www.bbc.co.uk/news/articles/cm62y46d97wwo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Wed, 28 Oct 2026 14:30:31 GMT"
+   },
+   {
     "title": "Luxury cruise passengers stranded in Cambodia due to soaring fuel costs",
-    "summary": "The Villa Vie Odyssey suspended its voyage and is working with passengers on \"temporary living arrangements\".",
+    "summary": "The Villa Vie Odyssey luxury cruise suspended its voyage in Cambodia due to soaring fuel costs. The company is currently working with stranded passengers to arrange temporary living situations.",
     "link": "https://www.bbc.co.uk/news/articles/cwj342k62exyo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Wed, 28 Oct 2026 10:31:22 GMT"
    },
    {
     "title": "Serbian shot dead after attacking officer outside Israeli embassy, minister says",
-    "summary": "Authorities say the attacker in Belgrade was an underage male who was being monitored by security services.",
+    "summary": "A Serbian teenager was shot and killed after attacking a police officer with a crossbow outside the Israeli embassy in Belgrade. Authorities confirmed that the underage attacker was already under surveillance by security services prior to the incident.",
     "link": "https://www.bbc.co.uk/news/articles/ck5ynj4eeyj2o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Wed, 28 Oct 2026 10:17:54 GMT"
    },
    {
     "title": "Tanzania celebrates first natural gas discovery in more than 10 years",
-    "summary": "The energy minister described it as a \"major milestone\" for the East African nation.",
+    "summary": "Tanzania has announced its first natural gas discovery in over a decade. The energy minister has described this new find as a major milestone for the country.",
     "link": "https://www.bbc.co.uk/news/articles/c5m2dry2xwwvo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Wed, 28 Oct 2026 10:18:40 GMT"
-   },
-   {
-    "title": "Anger in Kenya over extradition hearing delay for ex-British soldier accused of murdering woman",
-    "summary": "No official reason has been given for postponing next month’s hearing to May 2027, the family says.",
-    "link": "https://www.bbc.co.uk/news/articles/cmly073ql392o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Wed, 28 Oct 2026 08:28:39 GMT"
-   },
-   {
-    "title": "Ceasefire extended across Ukraine's Kherson region, officials say",
-    "summary": "The truce was originally planned for the stranded residents of Oleshky, and Russia and Ukraine say no breaches have been...",
-    "link": "https://www.bbc.co.uk/news/articles/c6lye1w9p2l8o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Tue, 27 Oct 2026 22:11:08 GMT"
-   },
-   {
-    "title": "King acknowledges 'suffering of the past' as Caribbean tour begins",
-    "summary": "The King is on a nine-day tour that will take him to three countries, including the Bahamas, Guyana and Antigua and Barb...",
-    "link": "https://www.bbc.co.uk/news/articles/cmwyv8ld22z1o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Wed, 28 Oct 2026 04:32:36 GMT"
    }
   ],
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and aske...",
+    "summary": "An online course creator recently discovered their WordPress SaaS course was recommended as the top result when asking ChatGPT for the best course in that category. This organic visibility occurred without any paid advertising or traditional search engine optimization.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "Looking to level up your content creation game in 2025? You're in the right place! The digital landscape has evolved dra...",
+    "summary": "This article lists ten essential artificial intelligence tools designed to revolutionize content creation in 2025. These tools aim to help digital creators stay competitive and streamline their workflow.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "&nbsp;In the rapidly advancing landscape of AI technology and innovation, LimeWire emerges as a unique platform in the r...",
+    "summary": "LimeWire has transitioned into a generative AI platform that allows users to create digital content. The tool also provides features for creators to share and monetize their AI-generated content.",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovation and efficiency in various industries. ...",
+    "summary": "This article explores the top ten artificial intelligence tools of 2023 that automate tasks and improve workplace efficiency. These advanced tools are widely used across various industries to increase productivity and streamline workflows.",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "Are you looking for a way to create content that is both effective and efficient? If so, then you should consider using ...",
+    "summary": "This article evaluates the top 10 AI content generator and writer tools available in 2022. It aims to help readers choose the right AI tool to create engaging and efficient content for their audience.",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
@@ -144,134 +144,134 @@
   ],
   "Data & Insights": [
    {
+    "title": "India’s public debt ratio to fall to 75.1% of GDP by FY32, only major emerging economy set for a decline: RBI DG",
+    "summary": "RBI Deputy Governor Poonam Gupta stated that India's public debt ratio is projected to drop from 84.3% of GDP in FY26 to 75.1% by FY32. India is the only major emerging market economy with a GDP exceeding $1 trillion expected to reduce its debt ratio during this period.",
+    "link": "https://www.livemint.com/economy/indias-public-debt-ratio-to-fall-to-75-1-of-gdp-by-fy32-only-major-emerging-economy-set-for-a-decline-rbi-dg-11793206461504.html",
+    "source": "livemint.com",
+    "pubDate": "Wed, 28 Oct 2026 22:32:42 +0530"
+   },
+   {
     "title": "Industrial output growth a tad slower at 6.7% in September, expansion led by manufacturing, electricity generation",
-    "summary": "The industrial output growth moderated to 6.7% in September from 8% in August, driven by strong performances in manufact...",
+    "summary": "India's industrial output growth slowed to 6.7% in September from 8% in August. This expansion was driven by strong performances in manufacturing and electricity generation, despite a decline in mining.",
     "link": "https://www.livemint.com/economy/industrial-output-growth-a-tad-slower-at-6-7-in-september-expansion-led-by-manufacturing-electricity-generation-11793186294012.html",
     "source": "livemint.com",
     "pubDate": "Wed, 28 Oct 2026 19:38:09 +0530"
    },
    {
     "title": "Cabinet approves PM Viksit Gram Swaraj Yojana for 2026-31 with  ₹7,395 crore outlay to strengthen Panchayat governance",
-    "summary": "The Union Cabinet has approved the Pradhan Mantri Viksit Gram Swaraj Yojana for 2026-27 to 2030-31, with an outlay of  ₹...",
+    "summary": "The Union Cabinet approved the Pradhan Mantri Viksit Gram Swaraj Yojana with a ₹7,395.55 crore outlay for 2026-31 to strengthen Panchayat governance. The scheme will benefit about 32 lakh elected representatives and functionaries across more than 2.55 lakh Panchayats and traditional local bodies.",
     "link": "https://www.livemint.com/economy/cabinet-approves-pm-viksit-gram-swaraj-yojana-for-2026-31-with-7-395-crore-outlay-to-strengthen-panchayat-governance-11793189302320.html",
     "source": "livemint.com",
     "pubDate": "Wed, 28 Oct 2026 18:52:52 +0530"
    },
    {
     "title": "India's industrial output growth slows to 6.7% in September as manufacturing, consumer durables lose momentum",
-    "summary": "India’s industrial output growth slowed to 6.7% in September from 7.8% in August, missing market expectations of 7.3%. M...",
+    "summary": "India's industrial output growth slowed to 6.7% in September from 7.8% in August, missing market expectations of 7.3%. The slowdown was driven by moderated manufacturing and electricity growth, alongside a 6.2% contraction in the mining sector.",
     "link": "https://www.livemint.com/economy/indias-industrial-output-growth-slows-to-6-7-in-september-as-manufacturing-consumer-durables-lose-momentum-11793187860166.html",
     "source": "livemint.com",
     "pubDate": "Wed, 28 Oct 2026 17:21:55 +0530"
    },
    {
     "title": "‘Will disrupt business during Diwali’: Delhi traders' body writes to Rahul Gandhi over November 1 Ramlila Maidan march",
-    "summary": "The Chamber of Trade and Industry has asked Rahul Gandhi for a meeting before the opposition’s planned Ramlila Maidan ra...",
+    "summary": "The Chamber of Trade and Industry asked Rahul Gandhi to meet regarding the opposition's planned November 1 Ramlila Maidan rally. Traders warned the march could disrupt 20 nearby markets and cause up to ₹10,000 crore in losses ahead of Diwali.",
     "link": "https://www.livemint.com/economy/will-disrupt-business-during-diwali-delhi-traders-body-writes-to-rahul-gandhi-over-november-1-ramlila-maidan-march-11793174738294.html",
     "source": "livemint.com",
     "pubDate": "Wed, 28 Oct 2026 13:50:53 +0530"
    },
    {
     "title": "Why China is defying global inflationary tide—and what it means for the world",
-    "summary": "Amid a global energy crisis, China’s inflation remains low. Deep structural flaws and a housing slump continue to threat...",
+    "summary": "While a global energy crisis drives up worldwide inflation, China's inflation remains low due to a severe housing slump and deep structural economic flaws. This domestic weakness threatens to create negative economic spillovers for the rest of the world.",
     "link": "https://www.livemint.com/economy/china-inflation-weak-demand-property-crisis-global-economy-11793163994046.html",
     "source": "livemint.com",
     "pubDate": "Wed, 28 Oct 2026 12:31:37 +0530"
-   },
-   {
-    "title": "US Fed FOMC decision tonight: Hike or no rate increased? What will Kevin Warsh’s next move? Top 3 things to watch",
-    "summary": "The Federal Reserve faces persistent inflation above its 2% target alongside pressure on housing and employment. Markets...",
-    "link": "https://www.livemint.com/economy/us-fed-decision-what-kevin-warsh-s-next-move-could-be-as-inflation-stays-above-3-and-jobs-weaken-3-things-to-watch-11793149180952.html",
-    "source": "livemint.com",
-    "pubDate": "Wed, 28 Oct 2026 07:02:46 +0530"
    }
   ],
   "India": [
    {
-    "title": "Delhi University Hindi PhD Admissions Row: Overnight Interview Notice Sparks Protest",
-    "summary": "Delhi University's Hindi Department could not conduct its PhD interviews on October 28 as ABVP and DUSU protested over t...",
-    "link": "https://www.ndtv.com/education/notice-at-night-interviews-by-morning-delhi-university-hindi-phd-admissions-spark-row-12248312#publisher=newsstand",
+    "title": "From King Edward III To Neha Bora, A 1361 Law Lives On In 'Peace Bonds': NDTV Explains",
+    "summary": "Activists Abhijeet Dipke, Saurav Das, and Ashutosh Ranka signed peace bonds under a 1361 English law, with two facing jail for an alleged breach. Student leader Neha Bora questioned the logic of these bonds, prompting an examination of their history and current use.",
+    "link": "https://www.ndtv.com/india-news/whose-peace-how-a-1361-english-law-lives-on-in-delhis-bond-cases-of-cjps-ashutosh-ranka-saurav-das-and-aisas-neha-bora-12249121#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Wed, 28 Oct 2026 16:34:34 +0530"
+    "pubDate": "Thu, 29 Oct 2026 00:41:28 +0530"
    },
    {
-    "title": "'Thousands Of Posts Gone': CJP's Abhijeet Dipke Alleges Instagram Crackdown",
-    "summary": "The CJP leaders' allegation of censorship came amid complaints from several users. Sources in the IT Ministry have denie...",
-    "link": "https://www.ndtv.com/india-news/cjps-abhijeet-dipke-alleges-insta-crackdown-by-centre-many-say-posts-blocked-12247090#publisher=newsstand",
+    "title": "House Vandalised During Arunachal Dam Protest, Ex-Minister Calls For Talks",
+    "summary": "A house was vandalized during a protest against a dam project in Arunachal Pradesh. Former minister Ninong Ering condemned the violence while urging all parties to engage in peaceful dialogue.",
+    "link": "https://www.ndtv.com/india-news/house-vandalised-during-arunachal-dam-protest-ex-minister-calls-for-talks-12250832#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Wed, 28 Oct 2026 16:29:58 +0530"
+    "pubDate": "Thu, 29 Oct 2026 00:34:12 +0530"
    },
    {
-    "title": "'First in My Bloodline To See This': Social Media Reacts To Ashwini Vaishnaw's Gen Z 'Cope Harder' Slang",
-    "summary": "Union minister Ashwini Vaishnaw used Gen Z slang 'Cope Harder' to push back against the criticism about India's manufact...",
-    "link": "https://www.ndtv.com/india-news/first-in-my-bloodline-to-see-this-social-media-reacts-to-ashwini-vaishnaws-gen-z-cope-harder-slang-12248307#publisher=newsstand",
+    "title": "10 Lakh Target, Anti-SIR Push: Congress Strategy For November 1 Ramlila Maidan Rally",
+    "summary": "Congress MP Nasir Hussain stated that the party aims to gather 10 lakh people for the November 1 Ramlila Maidan rally with an anti-SIR push. He noted that ensuring the success of this event is the collective responsibility of all INDIA alliance parties.",
+    "link": "https://www.ndtv.com/india-news/10-lakh-target-anti-sir-push-congresss-strategy-for-november-1-ramlila-rally-12250668#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Wed, 28 Oct 2026 16:26:20 +0530"
+    "pubDate": "Thu, 29 Oct 2026 00:32:07 +0530"
    },
    {
-    "title": "'Election Commission Can't Modify Forms 6, 7 And 8': Supreme Court During Delhi SIR Hearing",
-    "summary": "",
-    "link": "https://www.ndtv.com/india-news/election-commission-cant-modify-forms-6-7-and-8-supreme-court-during-delhi-sir-hearing-12248065#publisher=newsstand",
+    "title": "BJP Ahead But Akhilesh Yadav's Party Gains Ground In UP MLC Elections",
+    "summary": "The BJP won six of the first ten declared seats in the Uttar Pradesh Legislative Council elections. Akhilesh Yadav's Samajwadi Party gained ground by securing the remaining four seats.",
+    "link": "https://www.ndtv.com/india-news/bjp-ahead-but-akhilesh-yadavs-party-gains-ground-in-up-mlc-elections-12250819#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Wed, 28 Oct 2026 16:20:09 +0530"
+    "pubDate": "Thu, 29 Oct 2026 00:30:50 +0530"
    },
    {
-    "title": "\"Will Ensure Justice\": Rahul Gandhi's Post On Tata Boardroom Battle",
-    "summary": "\"Tata is being criminally destroyed, and no business leader dares say a word,\" Rahul Gandhi said in a post on X",
-    "link": "https://www.ndtv.com/india-news/will-ensure-justice-rahul-gandhis-post-on-tata-boardroom-battle-12247411#publisher=newsstand",
+    "title": "Akal Takht Jathedar Flags Punjab's Drug Menace At UK Parliament",
+    "summary": "Giani Kuldip Singh Gargajj, the Jathedar of Sri Akal Takht Sahib, addressed Punjab's severe youth drug addiction crisis at the UK Parliament. He emphasized the need for a comprehensive strategy that combines cutting off drug supplies with providing effective rehabilitation.",
+    "link": "https://www.ndtv.com/india-news/akal-takht-jathedar-flags-punjabs-drug-menace-at-uk-parliament-12250898#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Wed, 28 Oct 2026 16:10:19 +0530"
+    "pubDate": "Thu, 29 Oct 2026 00:29:48 +0530"
    },
    {
-    "title": "Dearness Allowance For Government Employees Hiked By 3% Ahead Of Diwali",
-    "summary": "The increase follows the accepted formula based on the recommendations of the seventh pay commission.",
-    "link": "https://www.ndtv.com/india-news/dearness-allowance-for-government-employees-hiked-by-3-ahead-of-diwali-12248040#publisher=newsstand",
+    "title": "India Closely Monitoring Tehran Talks Involving Pakistan, Says Centre",
+    "summary": "India is closely monitoring diplomatic talks in Tehran involving Pakistan, which are focused on regional de-escalation. Iran is reportedly facilitating these negotiations to secure a ceasefire between Saudi Arabia and Yemen's Houthi group.",
+    "link": "https://www.ndtv.com/world-news/india-closely-monitoring-tehran-talks-involving-pakistan-says-centre-12250886#publisher=newsstand",
     "source": "ndtv.com",
-    "pubDate": "Wed, 28 Oct 2026 16:01:43 +0530"
+    "pubDate": "Thu, 29 Oct 2026 00:22:23 +0530"
    }
   ],
   "General": [
    {
+    "title": "Healey unveils £100 for energy bills and bank tax in first Budget",
+    "summary": "In his first Budget, Chancellor Healey announced a £100 payment for energy bills and introduced a new bank tax to help citizens facing global economic turmoil. While the measures aim to ease the cost of living, opposition parties criticized the plans for lacking sufficient boldness.",
+    "link": "https://www.bbc.co.uk/news/articles/cqpvgxz3y49go?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Wed, 28 Oct 2026 18:45:09 GMT"
+   },
+   {
     "title": "Key points at a glance",
-    "summary": "Here’s what you need to know from John Healey’s first Budget, as the chancellor sets out the government’s tax and spendi...",
+    "summary": "John Healey delivered his first Budget outlining the government's tax and spending plans. The Chancellor detailed key financial measures for the upcoming period.",
     "link": "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Wed, 28 Oct 2026 13:48:29 GMT"
+    "pubDate": "Wed, 28 Oct 2026 16:55:27 GMT"
+   },
+   {
+    "title": "Chris Mason: Budget felt cautious despite its range of small measures",
+    "summary": "The chancellor faced severe challenges with both public and household finances. Despite introducing a wide range of small measures, the resulting budget ultimately felt cautious.",
+    "link": "https://www.bbc.co.uk/news/articles/cm78pljvqvxeo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Wed, 28 Oct 2026 16:52:16 GMT"
+   },
+   {
+    "title": "The main announcements from the Budget - and how they will be funded",
+    "summary": "The BBC's Joe Pike explains key things outlined by the Chancellor.",
+    "link": "https://www.bbc.co.uk/news/videos/ck0j06zl28wzo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Wed, 28 Oct 2026 16:12:57 GMT"
    },
    {
     "title": "How the Budget affects you",
     "summary": "Changes announced by Chancellor John Healey in his first Budget will affect your finances directly. Here's how.",
     "link": "https://www.bbc.co.uk/news/articles/cr0j05vxlwjzo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Wed, 28 Oct 2026 14:29:20 GMT"
+    "pubDate": "Wed, 28 Oct 2026 16:43:35 GMT"
    },
    {
-    "title": "Chancellor takes to the despatch box for his first Budget",
-    "summary": "The chancellor begins his speech by calling it a Budget for the \"working people of Britain, for British businesses big a...",
-    "link": "https://www.bbc.co.uk/news/videos/cqn49vy2jlx0o?at_medium=RSS&at_campaign=rss",
+    "title": "What the Budget offers for under 25s - and what it leaves out",
+    "summary": "The recent Budget includes measures affecting under-25s regarding housing and the minimum wage. However, the announcement also leaves out several key provisions for this age group.",
+    "link": "https://www.bbc.co.uk/news/articles/c60e05yn3w9zo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Wed, 28 Oct 2026 13:13:17 GMT"
-   },
-   {
-    "title": "Overturned carriages and makeshift medical tents at crash site",
-    "summary": "Dozens of people are feared dead after a high-speed train collided with another train south of Madrid.",
-    "link": "https://www.bbc.co.uk/news/videos/cv8ezjdkle59o?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Wed, 28 Oct 2026 11:13:55 GMT"
-   },
-   {
-    "title": "What we know about the crash so far",
-    "summary": "More than 500 passengers were on board the trains when the incident occurred in the province of Toledo, south of Madrid.",
-    "link": "https://www.bbc.co.uk/news/articles/cm8xz7pkd0jjo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Wed, 28 Oct 2026 12:14:44 GMT"
-   },
-   {
-    "title": "Russell Brand tells court allegations made friends and colleagues turn against him",
-    "summary": "The entertainer begins giving evidence at his trial on charges including rape at Southwark Crown Court.",
-    "link": "https://www.bbc.co.uk/news/articles/cmvgxl5kdgrzo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Wed, 28 Oct 2026 14:26:18 GMT"
+    "pubDate": "Wed, 28 Oct 2026 20:02:38 GMT"
    }
   ]
  }
