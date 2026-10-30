@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-10-30T21:23:51Z",
+ "updatedAt": "2026-10-30T23:24:06Z",
  "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
@@ -13,42 +13,42 @@
   "Markets": [
    {
     "title": "US stocks today: Dow Jones crashes 500 pts, Nasdaq over 2.5% as AI cash burn fears spark tech selloff",
-    "summary": "US stocks tumbled on Friday, led by a steep tech sell-off driven by disappointing earnings from Intel and Amazon. The downturn was fueled by investor concerns over escalating artificial intelligence spending and uncertain financial returns.",
+    "summary": "US stocks tumbled on Friday, led by a steep tech sell-off as disappointing results from Intel and Amazon fueled concerns over rising artificial intelligence spending. Consequently, the Dow Jones dropped 500 points and the Nasdaq fell over 2.5%, sealing negative returns for October for both the Nasdaq and the S&P 500.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-stocks-today-dow-jones-crashes-500-pts-nasdaq-over-2-5-as-ai-cash-burn-fears-spark-tech-selloff/articleshow/135377269.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sat, 31 Oct 2026 01:49:20 +0530"
    },
    {
     "title": "Nasdaq 100 cracks 5%, wipes out $2 trillion in October as AI spending fears deepen",
-    "summary": "The Nasdaq 100 dropped over 5% and lost $2 trillion in October due to growing investor anxiety over high artificial intelligence spending. Major tech companies like Meta, Alphabet, and Microsoft are increasing their capital outlays for AI infrastructure amid rising borrowing costs.",
+    "summary": "The Nasdaq 100 dropped more than 5% in October, wiping out $2 trillion in market value due to rising borrowing costs and investor anxiety over massive artificial intelligence spending. Major tech companies like Meta, Alphabet, and Microsoft continue to increase their capital outlays to build out AI infrastructure despite these financial concerns.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/nasdaq-100-cracks-5-faces-2-trillion-wipeout-in-october-as-ai-spending-fears-deepen/articleshow/135376949.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sat, 31 Oct 2026 01:40:09 +0530"
    },
    {
     "title": "Reddit stock plunges 30% as Google's AI search threatens traffic and user growth",
-    "summary": "Reddit shares dropped after the company warned that Google's AI-powered search features are reducing referral traffic and threatening user growth. Pinterest shares also fell following a weaker revenue outlook caused by pressure on European cross-border sellers.",
+    "summary": "Reddit shares dropped after the company warned that Google's AI-powered search features are reducing referral traffic and threatening daily active user growth. Additionally, Pinterest shares fell following a weaker revenue outlook caused by pressure on European cross-border sellers.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/reddit-plunges-23-as-googles-ai-search-threatens-traffic-and-user-growth/articleshow/135374718.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Sat, 31 Oct 2026 00:03:48 +0530"
    },
    {
     "title": "Intel stock plunges 30% as weak PC demand and AI costs trigger global chip selloff",
-    "summary": "Intel shares plunged 30% after the company issued a weak revenue forecast and warned of negative cash flow for the year. This warning triggered a global semiconductor selloff, with Nvidia, AMD, and other chip stocks declining due to weak PC demand and rising AI costs.",
+    "summary": "Intel shares plummeted 30% after the company issued a weak revenue forecast and warned of negative annual cash flow. This announcement sparked a global semiconductor selloff, dragging down competitors like Nvidia and AMD due to concerns over weak PC demand and high AI costs.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/intel-plunges-25-as-weak-pc-demand-and-ai-costs-trigger-global-chip-selloff/articleshow/135371230.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 30 Oct 2026 22:37:17 +0530"
    },
    {
     "title": "Sun Pharma Q2 profit falls 36% as litigation costs hit earnings",
-    "summary": "Sun Pharma reported a 36% decline in Q2FY27 net profit to Rs 1,989 crore due to exceptional litigation and acquisition costs. Despite this profit drop, revenue grew by 11.8% driven by strong domestic and emerging market sales.",
+    "summary": "Sun Pharma reported a 36% drop in second-quarter net profit to Rs 1,989 crore, driven down by exceptional litigation and acquisition costs. Although revenue grew by 11.8% on strong domestic and emerging market sales, US formulations experienced weaker performance.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/earnings/sun-pharma-q2-profit-falls-36-as-litigation-costs-hit-earnings/articleshow/135370217.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 30 Oct 2026 22:14:19 +0530"
    },
    {
     "title": "Syrma SGS reports best-ever quarter; Q2 revenue up 73% to Rs 1,999.5 crore",
-    "summary": "Syrma SGS Technology reported a record-high quarterly revenue of Rs 1,999.5 crore, marking a 73.2% increase year-on-year for the quarter ending September 2026. Consolidated net profit grew by 87.2%, driven by a 91% surge in exports and strong international demand.",
+    "summary": "Syrma SGS Technology reported a record-high quarterly consolidated revenue of Rs 1,999.5 crore for the period ending September 2026, marking a 73.2% increase year-on-year. During the same quarter, the company's consolidated net profit rose by 87.2% and exports grew by 91%.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/earnings/syrma-sgs-reports-best-ever-quarter-q2-revenue-up-73-to-rs-1999-5-crore/articleshow/135369732.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Fri, 30 Oct 2026 22:05:53 +0530"
@@ -56,15 +56,22 @@
   ],
   "Geo-Political": [
    {
+    "title": "US approves sale of 500 Patriot missiles to Ukraine",
+    "summary": "The United States has approved the sale of 500 Patriot missiles to Ukraine. These American-made interceptors are currently the only effective weapon Ukraine has to shoot down Russian ballistic missiles.",
+    "link": "https://www.bbc.co.uk/news/articles/c3vgxznlx7jzo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Fri, 30 Oct 2026 22:20:52 GMT"
+   },
+   {
     "title": "Crypto giant Binance attempting to recover $6.3bn stolen in hack linked to North Korea",
-    "summary": "Cryptocurrency exchange Binance is trying to recover $6.3 billion stolen in what is believed to be the largest cyber-attack of its kind. Investigators have linked the complex hack to North Korea.",
+    "summary": "Binance is trying to recover $6.3 billion stolen in what is believed to be the largest cryptocurrency cyber-attack in history. The complex hack has been linked to North Korea.",
     "link": "https://www.bbc.co.uk/news/articles/cwe8lp7zy07zo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 30 Oct 2026 21:13:14 GMT"
    },
    {
     "title": "US inmate Christa Pike says she woke up 'confused and in pain' after failed execution",
-    "summary": "US inmate Christa Pike released her first public statement since surviving a botched lethal injection execution attempt in September. She stated that she woke up confused and in pain following the failed procedure.",
+    "summary": "In her first public statement since surviving a September lethal injection attempt, US inmate Christa Pike stated she woke up confused and in pain. The failed execution marks a rare instance of a lethal injection procedure not resulting in death.",
     "link": "https://www.bbc.co.uk/news/articles/ck62ydn7dj9eo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 30 Oct 2026 17:07:19 GMT"
@@ -77,66 +84,59 @@
     "pubDate": "Fri, 30 Oct 2026 16:26:11 GMT"
    },
    {
+    "title": "Police deployed during stand-off over control of top Poland court",
+    "summary": "Polish police were deployed during a stand-off regarding control of the country's top court. This escalation followed the government's decision to suspend two senior justices and pursue criminal charges against them.",
+    "link": "https://www.bbc.co.uk/news/articles/crz9824d5e88o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Fri, 30 Oct 2026 20:52:01 GMT"
+   },
+   {
     "title": "They strangled us, says founder of Russian newspaper shut under pressure from authorities",
-    "summary": "The founder of Novaya Gazeta stated that authorities pressured and ultimately strangled the prominent independent Russian newspaper until it was forced to shut down. The outlet had operated as one of Russia's most high-profile independent news sources for the past thirty years.",
+    "summary": "The founder of the independent Russian newspaper Novaya Gazeta stated that authorities forced the prominent news outlet to shut down. Novaya Gazeta had operated for the past three decades before succumbing to this government pressure.",
     "link": "https://www.bbc.co.uk/news/articles/cmewepdr109do?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 30 Oct 2026 20:41:51 GMT"
-   },
-   {
-    "title": "Spain transport minister says he won't resign over high-speed rail disaster",
-    "summary": "Spanish Transport Minister Óscar Puente has refused to resign following a high-speed train collision earlier in the week that killed at least 69 people. He faces intense pressure to step down in the wake of the fatal disaster.",
-    "link": "https://www.bbc.co.uk/news/articles/c6zxj2e5qlxxo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Fri, 30 Oct 2026 15:03:39 GMT"
-   },
-   {
-    "title": "Pope Leo XIV becomes first pontiff to vote in a US election",
-    "summary": "Pope Leo XIV became the first pontiff to vote in a US election by mailing in a ballot for the midterm elections. The Chicago-born pope has a tense relationship with Donald Trump.",
-    "link": "https://www.bbc.co.uk/news/articles/ckwyq2509p7xo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Fri, 30 Oct 2026 14:48:22 GMT"
    }
   ],
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "Three weeks ago, I tested something that completely changed how I think about organic traffic. I opened ChatGPT and aske...",
+    "summary": "A marketer discovered their WordPress SaaS course was recommended as the top result when asking ChatGPT for the best courses in that category. This unexpected AI recommendation occurred without the use of paid advertising or traditional search engine optimization.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "Looking to level up your content creation game in 2025? You're in the right place! The digital landscape has evolved dra...",
+    "summary": "This article highlights ten essential artificial intelligence tools designed to revolutionize content creation in 2025. These technologies aim to help digital creators stay competitive and streamline their workflow.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "&nbsp;In the rapidly advancing landscape of AI technology and innovation, LimeWire emerges as a unique platform in the r...",
+    "summary": "LimeWire has transitioned into a generative AI platform that allows users to create various types of AI-generated content. Additionally, the platform provides creators with tools to share and monetize their digital creations.",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "This article highlights the top 10 artificial intelligence tools of 2023 used across various industries to drive innovation and efficiency. These advanced solutions are designed to automate repetitive tasks, improve workflows, and increase overall productivity.",
+    "summary": "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovation and efficiency in various industries. ...",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "AI content generators help users efficiently create engaging and relevant material for their target audiences. With many tools available on the market, choosing the right AI writer can be challenging.",
+    "summary": "Are you looking for a way to create content that is both effective and efficient? If so, then you should consider using ...",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
    },
    {
     "title": "Beginner Guide to CJ Affiliate (Commission Junction) in 2022",
-    "summary": "This beginner's guide to CJ Affiliate explains how the network works and how to earn money on the platform. It also highlights top CJ affiliate programs and alternative options.",
+    "summary": "Image by vectorjuice on FreepikIn this CJ Affiliate guide, I will share with you everything you need to get started on t...",
     "link": "https://techncruncher.blogspot.com/2022/09/cj-affiliate-ultimate-guide-to.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Sat, 10 Sep 2022 08:57:00 +0000"
@@ -145,42 +145,42 @@
   "Data & Insights": [
    {
     "title": "Govt sets up high-level banking panel under Suresh N. Patel",
-    "summary": "The Indian government has established a high-level banking panel led by Suresh N. Patel to review the nation's banking sector. The committee will recommend reforms to make the sector globally competitive, financially inclusive, and resilient by 2047.",
+    "summary": "The panel will review India's banking sector and recommend structural, institutional, regulatory and legislative reforms...",
     "link": "https://www.livemint.com/economy/govt-sets-up-high-level-banking-panel-under-suresh-n-patel-11793380648683.html",
     "source": "livemint.com",
     "pubDate": "Fri, 30 Oct 2026 23:18:46 +0530"
    },
    {
     "title": "Extreme poverty in India falls to 2.6% from 27.1%: World Bank",
-    "summary": "Between 2011 and 2023, 496 million people in India rose above the lower-middle-income poverty line. Consequently, the World Bank reported that extreme poverty in the country dropped from 27.1% to 2.6%.",
+    "summary": "Between 2011 and 2023, 496 million people in India rose above the lower-middle-income poverty line of $4.20 a day. According to a World Bank report, this shifted India's extreme poverty rate downward from 27.1% to 2.6%.",
     "link": "https://www.livemint.com/economy/india-extreme-poverty-rate-declines-2011-to-2023-world-bank-11793375500521.html",
     "source": "livemint.com",
     "pubDate": "Fri, 30 Oct 2026 22:24:38 +0530"
    },
    {
     "title": "‘2026 resembles 1991’: Why CEA V Anantha Nageswaran wants India to rethink its growth strategy — what he said",
-    "summary": "Chief Economic Adviser V Anantha Nageswaran warned that global tensions and supply-chain shocks threaten India's access to critical resources. He urged the country to rethink its growth strategy by strengthening domestic capabilities, diversifying imports, and building strategic buffers.",
+    "summary": "Chief Economic Adviser V Anantha Nageswaran warned that global tensions and supply-chain shocks threaten India's access to critical resources. He urged the country to strengthen domestic capabilities, diversify imports, and build strategic buffers.",
     "link": "https://www.livemint.com/economy/2026-resembles-1991-why-cea-v-anantha-nageswaran-wants-india-to-rethink-its-growth-strategy-what-he-said-11793372293114.html",
     "source": "livemint.com",
     "pubDate": "Fri, 30 Oct 2026 21:37:49 +0530"
    },
    {
     "title": "West Asia conflict drives 15-20% surge in working capital demand at Indian banks, lifts corporate credit growth: Report",
-    "summary": "The conflict in West Asia increased working-capital demand at Indian banks by 15 to 20 percent due to higher raw-material costs and shipping delays. This surge, along with refinancing and acquisition borrowing, helped boost corporate credit growth in the September quarter.",
+    "summary": "The conflict in West Asia increased working-capital demand at Indian banks by 15 to 20 percent due to rising raw-material costs and shipping delays. This surge in corporate borrowing, along with refinancing and acquisitions, helped drive loan growth during the September quarter.",
     "link": "https://www.livemint.com/economy/west-asia-conflict-drives-15-20-surge-in-working-capital-demand-at-indian-banks-lifts-corporate-credit-growth-report-11793357383748.html",
     "source": "livemint.com",
     "pubDate": "Fri, 30 Oct 2026 17:03:32 +0530"
    },
    {
     "title": "Mint Explainer | What does the proposed India-Mexico preferential trade agreement mean for Indian exporters?",
-    "summary": "A proposed preferential trade agreement could help Indian exporters improve price competitiveness in Mexico. This improvement would come through negotiated tariff concessions on Indian goods.",
+    "summary": "A proposed preferential trade agreement could help Indian exporters secure tariff concessions in Mexico. These negotiated reductions would improve the price competitiveness of Indian products in the Mexican market.",
     "link": "https://www.livemint.com/economy/india-mexico-preferential-trade-agreement-exporters-negotiations-duties-11793336701418.html",
     "source": "livemint.com",
     "pubDate": "Fri, 30 Oct 2026 13:35:28 +0530"
    },
    {
     "title": "Economy can sustain high-growth trajectory in FY27, recent GST reforms to help: Finmin review",
-    "summary": "The Finance Ministry reports that the Indian economy can maintain a high-growth trajectory in FY27, supported by recent GST reforms. However, the Department of Economic Affairs noted in its October review that persistent global uncertainties like high oil prices and inflation require ongoing vigilance.",
+    "summary": "The Finance Ministry's October review states that the Indian economy can maintain a high-growth trajectory in FY27, supported by recent GST reforms. However, the Department of Economic Affairs warned that persistent global uncertainties, such as elevated oil prices and inflation, require constant vigilance.",
     "link": "https://www.livemint.com/economy/economy-can-sustain-high-growth-trajectory-in-fy27-recent-gst-reforms-to-help-finmin-review-11793284568464.html",
     "source": "livemint.com",
     "pubDate": "Thu, 29 Oct 2026 22:53:48 +0530"
@@ -189,42 +189,42 @@
   "India": [
    {
     "title": "ISRO Launches Next-Gen Satellite To Strengthen Indigenous GPS System",
-    "summary": "ISRO launched the NVS-03 satellite, which is the third spacecraft in the second-generation NVS series. This mission is designed to strengthen India's indigenous NavIC satellite navigation system.",
+    "summary": "ISRO launched the NVS-03 satellite to strengthen the indigenous NavIC navigation system. This spacecraft is the third launch in the second-generation NVS series.",
     "link": "https://www.ndtv.com/india-news/isro-launches-next-gen-satellite-to-strengthen-indias-indigenous-gps-system-12261237#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Sat, 31 Oct 2026 00:07:57 +0530"
    },
    {
     "title": "Amit Shah's 'Special' Offer To INDIA Bloc Before Gyanesh Kumar's 'Public Impeachment'",
-    "summary": "At a party event in Lucknow, Amit Shah challenged Rahul Gandhi and Akhilesh Yadav to a special parliamentary session to discuss the BJP's stance. He stated that the party is fully prepared and has nothing to hide regarding the matter.",
+    "summary": "Union Home Minister Amit Shah challenged Rahul Gandhi and Akhilesh Yadav to discuss a specific issue during a specially convened parliamentary session. Shah stated at a Lucknow party event that the Bharatiya Janata Party has nothing to hide and is fully prepared for the debate.",
     "link": "https://www.ndtv.com/india-news/amit-shahs-special-session-challenge-to-india-bloc-on-eve-of-public-impeachment-of-gyanesh-kumar-12261266#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Sat, 31 Oct 2026 00:05:43 +0530"
    },
    {
     "title": "Delhi Records Coldest October Day In 75 Years After Heavy Rain, Clean Air",
-    "summary": "Delhi experienced its coldest October day in 75 years following heavy rain and clean air. The sudden drop in temperature brought shallow fog and caused residents to wear warm clothes as the mercury fell well below normal.",
+    "summary": "Delhi experienced its coldest October day in 75 years following heavy rain and clean air. The resulting drop in temperatures caused residents to wear warm clothes as the mercury fell well below normal.",
     "link": "https://www.ndtv.com/india-news/delhi-records-coldest-october-day-in-75-years-after-heavy-rain-clean-air-12261273#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Sat, 31 Oct 2026 00:04:34 +0530"
    },
    {
     "title": "BJP Leader's Singer Wife, A Kabir Bhajan Gone Viral, And The 'Jantar Mantar' That Wasn't",
-    "summary": "A viral video of singer Sivasri Skandaprasad performing a Kabir bhajan was misinterpreted as a political jab at protests in Delhi's Jantar Mantar. The song's actual lyrics reference a spiritual concept by the poet Kabir rather than the physical protest site.",
+    "summary": "A viral video of singer Sivasri Skandaprasad performing a Kabir bhajan was widely misinterpreted as a political jab at protests in Delhi. Scholars clarify that the saint-poet's original lyrics carried a much deeper spiritual meaning rather than a reference to the Jantar Mantar landmark.",
     "link": "https://www.ndtv.com/india-news/a-kabir-bhajan-tejasvi-suryas-singer-wife-sivasri-skandaprasad-and-the-meaning-of-jantar-mantar-12260362#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 30 Oct 2026 23:43:37 +0530"
    },
    {
     "title": "AAP Claims Government Jobs Halting Punjab Migration, BJP Blames Visa Rules",
-    "summary": "Punjab Chief Minister Bhagwant Singh Mann claimed that government jobs are stopping young people from migrating abroad. In response, the BJP argued that international visa regulations are actually responsible for the change in migration patterns.",
+    "summary": "Punjab Chief Minister Bhagwant Singh Mann claimed that government jobs are stopping young people from migrating abroad. Conversely, the BJP attributed the shift in migration trends to stricter foreign visa rules.",
     "link": "https://www.ndtv.com/india-news/aap-claims-government-jobs-halting-punjab-migration-bjp-blames-visa-rules-12261196#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 30 Oct 2026 23:39:27 +0530"
    },
    {
     "title": "'Does A Man Not Have Right To End Relationship?' Supreme Court On False Rape Cases",
-    "summary": "The Supreme Court questioned whether a man has the right to end a relationship. The bench clarified that ending a relationship does not make earlier consensual sex a crime.",
+    "summary": "The Supreme Court questioned whether a man has the right to end a relationship during a legal proceeding regarding false rape allegations. The bench clarified that ending a relationship does not make previously consensual sexual relations a crime.",
     "link": "https://www.ndtv.com/india-news/does-a-man-not-have-right-to-end-relationship-supreme-court-on-false-rape-cases-12261084#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 30 Oct 2026 23:11:28 +0530"
@@ -232,46 +232,46 @@
   ],
   "General": [
    {
+    "title": "US approves sale of 500 Patriot missiles to Ukraine",
+    "summary": "The United States has approved the sale of 500 Patriot missiles to Ukraine. These American-made interceptors are currently the only effective weapons capable of shooting down Russian ballistic missiles.",
+    "link": "https://www.bbc.co.uk/news/articles/c3vgxznlx7jzo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Fri, 30 Oct 2026 22:20:52 GMT"
+   },
+   {
     "title": "Crypto giant Binance attempting to recover $6.3bn stolen in hack linked to North Korea",
-    "summary": "Binance is attempting to recover $6.3 billion stolen in a complex cyber-attack. The incident is believed to be the largest cryptocurrency hack of its kind and is linked to North Korea.",
+    "summary": "Crypto exchange Binance is trying to recover $6.3 billion stolen in what is believed to be the largest cyber-attack of its kind. The complex hack is linked to North Korea.",
     "link": "https://www.bbc.co.uk/news/articles/cwe8lp7zy07zo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 30 Oct 2026 21:13:14 GMT"
    },
    {
     "title": "What we know about Binance's $6.3bn hack",
-    "summary": "Cyber correspondent Joe Tidy reports on a suspected $6.3bn cryptocurrency hack involving Binance. This incident is believed to be the largest cyber attack in history.",
+    "summary": "Cyber correspondent Joe Tidy reports on a suspected $6.3bn hack targeting cryptocurrency exchange Binance. This incident is believed to be the largest hack in history.",
     "link": "https://www.bbc.co.uk/news/videos/cv2d62e34rw5o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 30 Oct 2026 12:27:28 GMT"
    },
    {
-    "title": "Hundreds evacuated from Russian-occupied Oleshky during rare Ukraine ceasefire",
-    "summary": "Hundreds of people are also understood to have stayed in the front-line town, despite the dangers.",
-    "link": "https://www.bbc.co.uk/news/articles/c60me298k1yeo?at_medium=RSS&at_campaign=rss",
+    "title": "Celebrity Traitors comes to a climax in nail-biting final",
+    "summary": "The second series of the television show Celebrity Traitors concluded on Friday. The finale reached 15 million viewers.",
+    "link": "https://www.bbc.co.uk/news/articles/cw4g17z11l45o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 30 Oct 2026 16:26:11 GMT"
+    "pubDate": "Fri, 30 Oct 2026 22:52:33 GMT"
    },
    {
-    "title": "Driver guilty of hitting cyclist and dragging him to death under car",
-    "summary": "Simon Richardson is convicted of murdering head teacher Michael Mullins and will be sentenced on Monday.",
-    "link": "https://www.bbc.co.uk/news/articles/c6e3xg5we9eyo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Fri, 30 Oct 2026 15:27:40 GMT"
-   },
-   {
-    "title": "Police deployed during stand-off over control of Poland's top court",
-    "summary": "Police were deployed during a stand-off regarding control of Poland's top court. This occurred after the government suspended two senior justices and moved to bring criminal charges against them.",
+    "title": "Police deployed during stand-off over control of top Poland court",
+    "summary": "Polish police were deployed during a stand-off over the control of the country's top court. This escalation occurred after the government suspended two senior justices and moved to bring criminal charges against them.",
     "link": "https://www.bbc.co.uk/news/articles/crz9824d5e88o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Fri, 30 Oct 2026 20:52:01 GMT"
    },
    {
-    "title": "US inmate Christa Pike says she woke up 'confused and in pain' after failed execution",
-    "summary": "It is Pike's first public statement since she survived an execution attempt by lethal injection in September.",
-    "link": "https://www.bbc.co.uk/news/articles/ck62ydn7dj9eo?at_medium=RSS&at_campaign=rss",
+    "title": "Hundreds evacuated from Russian-occupied Oleshky during rare Ukraine ceasefire",
+    "summary": "Hundreds of people were evacuated from the Russian-occupied front-line town of Oleshky during a rare ceasefire. Despite the dangers, hundreds of other residents chose to remain in the town.",
+    "link": "https://www.bbc.co.uk/news/articles/c60me298k1yeo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Fri, 30 Oct 2026 17:07:19 GMT"
+    "pubDate": "Fri, 30 Oct 2026 16:26:11 GMT"
    }
   ]
  }
