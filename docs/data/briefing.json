@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-02T20:36:49Z",
+ "updatedAt": "2026-11-02T23:49:08Z",
  "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
@@ -12,22 +12,29 @@
  "briefing": {
   "Markets": [
    {
+    "title": "US stocks today: Nasdaq ends over 1% lower as AI worries persist",
+    "summary": "US stocks finished mixed on Monday, with the S&P 500 and Nasdaq closing lower due to declines in Apple and Oracle. The market was weighed down by persistent concerns over Big Tech's AI spending, though falling oil prices provided some relief.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-stocks-today-nasdaq-ends-over-1-lower-as-ai-worries-persist/articleshow/135474287.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Tue, 03 Nov 2026 02:50:46 +0530"
+   },
+   {
     "title": "El Nino could add to US inflation pressures in 2027, San Francisco Fed paper warns",
-    "summary": "A San Francisco Fed study warns that the current El Niño weather pattern could increase U.S. inflation by 1 percentage point in 2027. This potential climate shock may create additional pressure for the Federal Reserve to raise interest rates.",
+    "summary": "A San Francisco Fed study warns that the current strong El Niño could increase U.S. inflation by 1 percentage point in 2027. This climate shock may create additional pressure on the Federal Reserve to raise interest rates while inflation remains above its 2% target.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/el-nino-could-add-to-us-inflation-pressures-in-2027-san-francisco-fed-paper-warns/articleshow/135473482.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Tue, 03 Nov 2026 01:31:04 +0530"
    },
    {
     "title": "US manufacturing strengthens in October, input prices stay high",
-    "summary": "US manufacturing activity accelerated in October with an ISM PMI of 55.5, driven by strong consumer and AI-related spending. However, elevated factory input prices of 75.2 raised concerns that inflation may remain above the Federal Reserve's 2% target.",
+    "summary": "US manufacturing activity grew faster than expected in October, driven by strong consumer and AI-related spending. However, high factory input prices continued to raise concerns that inflation will stay above the Federal Reserve's target.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/us-manufacturing-strengthens-in-october-input-prices-stay-high/articleshow/135472594.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Tue, 03 Nov 2026 00:47:36 +0530"
    },
    {
     "title": "Meta eyes at least $20 billion from potential bond offerings, Bloomberg News reports",
-    "summary": "Meta is reportedly planning a bond offering to raise at least $20 billion. The tech company intends to use the funds to support its growing artificial intelligence infrastructure.",
+    "summary": "Meta plans to raise at least $20 billion through a cross-border bond offering. The funds will be used to finance the company's expanding artificial intelligence infrastructure.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/meta-eyes-at-least-20-billion-from-potential-bond-offerings-bloomberg-news-reports/articleshow/135472448.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Tue, 03 Nov 2026 00:28:02 +0530"
@@ -41,81 +48,74 @@
    },
    {
     "title": "Market Trading Guide: Tata Steel among 5 stocks to buy on Tuesday for healthy returns",
-    "summary": "Indian equities opened the week strongly due to better-than-expected Q2 earnings and positive domestic economic indicators. Analysts recommend buying five specific stocks, including Tata Steel, for potential healthy returns on Tuesday.",
+    "summary": "Strong Q2 earnings and positive domestic economic indicators helped Indian equities start the week with a strong rally. Consequently, analysts recommended five stocks, including Tata Steel, as potential buys for healthy returns on Tuesday.",
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/market-trading-guide-tata-steel-among-5-stocks-to-buy-on-tuesday-for-healthy-returns/articleshow/135467317.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Mon, 02 Nov 2026 21:57:59 +0530"
-   },
-   {
-    "title": "Oracle plans to raise $20 billion through bonds and stock sales",
-    "summary": "Oracle plans to raise $20 billion through bond and share sales to fund corporate needs and infrastructure development. The capital will specifically support advancements in AI and cloud computing, debt repayment, acquisitions, and share buybacks.",
-    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/oracle-plans-to-raise-20-billion-through-bonds-and-stock-sales/articleshow/135466960.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Mon, 02 Nov 2026 21:21:46 +0530"
    }
   ],
   "Geo-Political": [
    {
     "title": "Russian bombing kills 26 people at Ukraine aid centre, Kyiv says",
-    "summary": "Russian aerial bombs struck an aid centre in a southern Ukrainian village, killing 26 people. Local officials reported that more people remained missing following the attack.",
+    "summary": "Russian airstrikes involving heavy bombs killed 26 people at an aid center in a southern Ukrainian village. Ukrainian officials condemned the attack, with the president describing it as utterly horrific.",
     "link": "https://www.bbc.co.uk/news/articles/cjy56dndlyz0o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Mon, 02 Nov 2026 20:23:12 GMT"
+    "pubDate": "Mon, 02 Nov 2026 21:10:04 GMT"
    },
    {
     "title": "Copilot in deadly Florida jet crash identified in reports as 20-year-old",
-    "summary": "The co-pilot of a fatal Florida jet crash has been identified in reports as a 20-year-old. Air traffic audio captured a crew member shouting that they were going to crash into the ground.",
+    "summary": "Reports have identified the co-pilot of a fatal Florida jet crash as a 20-year-old. Air traffic audio captured a crew member shouting that the aircraft was going to crash into the ground.",
     "link": "https://www.bbc.co.uk/news/articles/cm369yy7lw73o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 02 Nov 2026 19:58:34 GMT"
    },
    {
     "title": "Shop freezers in seven European countries hit by cyber-attack",
-    "summary": "A cyber-attack targeted shop freezers in seven European countries, causing temperatures to rise as high as 50 degrees Celsius. This incident compromised refrigeration units across multiple locations in the region.",
+    "summary": "A cyber-attack targeted shop freezers across seven European countries, causing their temperatures to rise as high as 50 degrees Celsius. The incident disrupted refrigeration systems in multiple retail locations throughout the region.",
     "link": "https://www.bbc.co.uk/news/articles/cq1kd1nee80eo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 02 Nov 2026 17:38:11 GMT"
    },
    {
     "title": "Fighting returns to Kherson region after longest Ukraine war ceasefire",
-    "summary": "Fighting has resumed in the Kherson region of Ukraine following a rare six-day ceasefire. This unprecedented truce ultimately failed to change the broader trajectory of the ongoing war.",
+    "summary": "Fighting has resumed in the Kherson region of Ukraine following a six-day ceasefire. This unprecedented truce ultimately failed to change the overall trajectory of the ongoing war.",
     "link": "https://www.bbc.co.uk/news/articles/ckg5jlyp66jzo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 02 Nov 2026 17:33:19 GMT"
    },
    {
+    "title": "Legal challenge to Australia's social media ban to start in High Court",
+    "summary": "A human rights group is launching a High Court challenge against Australia's social media ban for children under 16. The lawsuit argues that the world-first policy unlawfully strips minors of their right to free communication.",
+    "link": "https://www.bbc.co.uk/news/articles/ck79py02p1jlo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Mon, 02 Nov 2026 23:37:31 GMT"
+   },
+   {
     "title": "Man guilty of stealing cash from farm owned by South African president",
-    "summary": "A man has been found guilty of stealing cash from a farm owned by South African President Cyril Ramaphosa. This incident is tied to the \"Farmgate\" scandal, which has led the president into an ongoing impeachment saga.",
+    "summary": "A man was convicted of stealing cash from a farm owned by South African President Cyril Ramaphosa. The theft is part of the \"Farmgate\" scandal that has resulted in an impeachment saga for the president.",
     "link": "https://www.bbc.co.uk/news/articles/c9vgrvpk4l6eo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 02 Nov 2026 20:08:51 GMT"
-   },
-   {
-    "title": "Dutch police offer record €2m reward in hunt for drug lord",
-    "summary": "Dutch police have offered a record two million euro reward for information leading to the capture of convicted drug lord Jos Leijdekkers. Leijdekkers was found guilty in absentia of cocaine smuggling and is believed to be hiding in Sierra Leone.",
-    "link": "https://www.bbc.co.uk/news/articles/ckly0v2q2yxlo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Mon, 02 Nov 2026 17:29:49 GMT"
    }
   ],
   "AI & Tech": [
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "An online course creator found their WordPress SaaS course recommended as the top result when asking ChatGPT for the best course in that category. This unexpected placement occurred without the use of paid advertising or traditional search engine optimization.",
+    "summary": "An online course creator discovered that ChatGPT recommended their WordPress SaaS course as the top result without any paid advertising. This experiment highlights a shift in organic traffic generation from traditional SEO to AI optimization (AIO).",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "This article outlines ten essential AI tools designed to help digital creators improve and streamline their work in 2025. It explains how these technologies are revolutionizing the content creation landscape to keep creators ahead of industry changes.",
+    "summary": "This article outlines ten essential artificial intelligence tools designed to help creators improve their content production in 2025. It explains how these technologies are modernizing the digital landscape and simplifying the content creation process.",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "LimeWire is an AI content generation platform that helps users create digital media. The platform also enables creators to share and monetize their work.",
+    "summary": "&nbsp;In the rapidly advancing landscape of AI technology and innovation, LimeWire emerges as a unique platform in the r...",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
@@ -129,14 +129,14 @@
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "This article reviews the top ten artificial intelligence content generator tools available in 2022. It aims to help readers choose the right software to create effective, engaging, and relevant content efficiently.",
+    "summary": "This article discusses various artificial intelligence content generator tools available in 2022 to help users create effective, engaging, and relevant material efficiently. It highlights the difficulty of choosing the right tool given the many options currently on the market.",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
    },
    {
     "title": "Beginner Guide to CJ Affiliate (Commission Junction) in 2022",
-    "summary": "This guide explains how beginners can use the CJ Affiliate network to earn money. It also highlights top CJ affiliate programs and alternative platforms.",
+    "summary": "This beginner's guide to CJ Affiliate explains how the network works and how to earn money on the platform. It also highlights top CJ affiliate programs and alternative options for users.",
     "link": "https://techncruncher.blogspot.com/2022/09/cj-affiliate-ultimate-guide-to.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Sat, 10 Sep 2022 08:57:00 +0000"
@@ -145,42 +145,42 @@
   "Data & Insights": [
    {
     "title": "India’s manufacturing growth stays strong as price pressures ease: PMI Manufacturing survey",
-    "summary": "India's manufacturing growth remained strong in October despite the index falling to 54.7 from 55.1 in September. The reading stayed well above the neutral threshold of 50 and its long-term average as price pressures eased.",
+    "summary": "India's manufacturing Purchasing Managers' Index dropped slightly to 54.7 in October from 55.1 in September. Despite this decline, the sector's growth remained strong and well above the neutral threshold of 50.",
     "link": "https://www.livemint.com/economy/india-manufacturing-pmi-october-2026-growth-new-export-orders-11793598601253.html",
     "source": "livemint.com",
     "pubDate": "Mon, 02 Nov 2026 12:11:25 +0530"
    },
    {
     "title": "Why India faces three balancing acts—and why they are tough to achieve",
-    "summary": "India must balance fuel affordability, interest rates for savers versus borrowers, and tax incentives for foreign capital against fiscal stability. These competing economic priorities create complex trade-offs that are difficult to manage.",
+    "summary": "India faces critical economic trade-offs: balancing fuel affordability against market price signals, optimizing interest...",
     "link": "https://www.livemint.com/economy/india-economic-policy-monetary-policy-fiscal-policy-inflation-fuel-prices-west-asia-war-foreign-portfolio-investors-11793548163541.html",
     "source": "livemint.com",
     "pubDate": "Mon, 02 Nov 2026 10:00:57 +0530"
    },
    {
     "title": "India's festive demand is uneven as inflation, price hikes weigh on shoppers",
-    "summary": "While overall consumer demand in India remains resilient, inflation driven by the West Asia war is causing stress in specific categories. This economic pressure has led to uneven festive shopping trends and price hikes for consumers.",
+    "summary": "While consumer demand remains resilient across consumer categories, demand shows signs of stress in pockets due to infla...",
     "link": "https://www.livemint.com/economy/as-diwali-approaches-festive-demand-shows-mixed-signals-11793523400433.html",
     "source": "livemint.com",
     "pubDate": "Mon, 02 Nov 2026 05:41:02 +0530"
    },
    {
     "title": "Imports, low base power fastest GST growth in four years in October",
-    "summary": "India's gross GST collections grew 23% year-on-year in October, marking the fourth month this fiscal year exceeding ₹2 trillion. This rapid growth was driven by a surge in import-related taxes and a low statistical base from the previous year.",
+    "summary": "October GST collections exceeded ₹2 trillion for the fourth time this fiscal year. The 23% year-on-year growth was driven by increased import taxes and a low base effect from the previous year.",
     "link": "https://www.livemint.com/economy/gst-collections-october-2026-import-revenue-growth-india-11793517761930.html",
     "source": "livemint.com",
     "pubDate": "Sun, 01 Nov 2026 13:38:12 +0530"
    },
    {
     "title": "States get addition instalment of tax devolution of  ₹1.09 lakh crore, supported by strong economy, taxes—See break-up",
-    "summary": "The central government has released an additional tax devolution instalment of ₹1.09 lakh crore to state governments. Union Finance Minister Nirmala Sitharaman stated that this release was supported by robust economic activity and strong tax collections.",
+    "summary": "The central government has released an additional tax devolution installment of ₹1.09 lakh crore to states. Union Finance Minister Nirmala Sitharaman attributed this release to buoyant tax collections and stronger economic activity.",
     "link": "https://www.livemint.com/economy/states-get-addition-instalment-of-tax-devolution-of-rs-1-09-lakh-crore-supported-by-strong-economy-taxes-see-breakup-11793503116157.html",
     "source": "livemint.com",
     "pubDate": "Sun, 01 Nov 2026 10:21:04 +0530"
    },
    {
     "title": "The week ahead in numbers: Auto sales, PMI numbers, US mid-term elections",
-    "summary": "This report previews key economic events for the upcoming week, including auto sales, Purchasing Managers' Index (PMI) data, and the U.S. mid-term elections. These scheduled data releases and market events are expected to shape financial market trends and economic developments.",
+    "summary": "The upcoming week features key economic reports, including auto sales and PMI numbers. Additionally, markets will closely watch the US mid-term elections.",
     "link": "https://www.livemint.com/economy/the-week-ahead-in-numbers-auto-sales-pmi-numbers-us-mid-term-elections-11793371518295.html",
     "source": "livemint.com",
     "pubDate": "Sun, 01 Nov 2026 07:00:40 +0530"
@@ -188,46 +188,46 @@
   ],
   "India": [
    {
+    "title": "Smugglers Attack 3 BSF Jawans In Tripura, Chief Minister Vows Strict Action",
+    "summary": "Smugglers in Tripura attacked three Border Security Force jawans during a pursuit. BSF personnel detained one suspect named Hefzur Rahman approximately 400 meters away from the incident site.",
+    "link": "https://www.ndtv.com/india-news/smugglers-attack-3-bsf-jawans-in-tripura-chief-minister-vows-strict-action-12273883#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Tue, 03 Nov 2026 04:40:37 +0530"
+   },
+   {
+    "title": "Massive Fire At Andhra Pradesh Oil Refinery After Explosion, No Casualties",
+    "summary": "A massive fire broke out at an oil refinery in Andhra Pradesh following an explosion, sending thick smoke over nearby neighborhoods. Fortunately, no casualties have been reported from the incident.",
+    "link": "https://www.ndtv.com/india-news/massive-fire-at-andhra-pradesh-oil-refinery-after-explosion-12273295#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Tue, 03 Nov 2026 03:44:50 +0530"
+   },
+   {
+    "title": "Indian Navy Rescues All 20 Crew Of Pirated Fishing Vessel In Arabian Sea",
+    "summary": "The Indian Navy rescued all 20 crew members of a pirated fishing vessel in the Arabian Sea. Defense Minister Rajnath Singh stated that the operation demonstrated India's commitment to maritime security and regional stability.",
+    "link": "https://www.ndtv.com/india-news/indian-navy-rescues-all-20-crew-of-pirated-fishing-vessel-in-arabian-sea-12273779#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Tue, 03 Nov 2026 03:25:18 +0530"
+   },
+   {
+    "title": "Cyclone Murasu Landfall Begins, Heavy Rain Batters Andhra Coast",
+    "summary": "Cyclone Murasu began making landfall on the Andhra coast at around 1 am on Tuesday. The storm brought heavy rainfall and gale winds with speeds reaching up to 120 kmph.",
+    "link": "https://www.ndtv.com/india-news/cyclone-murasu-landfall-begins-heavy-rain-120-kmph-winds-batter-andhra-coast-12273713#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Tue, 03 Nov 2026 02:45:45 +0530"
+   },
+   {
     "title": "NCP Meet Today Amid BJP 'Concern': What Party Leader Said On \"Rift\" Buzz",
-    "summary": "Maharashtra NCP state chief Sunil Tatkare has denied any discontent or rift within the party. He stated that the recent meeting in Delhi was pre-planned and that all party leaders remain united.",
+    "summary": "National Congress Party (NCP) state chief Sunil Tatkare stated that the party is united and has no internal discontent. He clarified that a recent meeting in Delhi was pre-planned, despite rumors of a rift and BJP concerns.",
     "link": "https://www.ndtv.com/india-news/ncp-meet-today-amid-bjp-concern-what-party-leader-said-on-rift-buzz-12273466#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 03 Nov 2026 00:16:35 +0530"
    },
    {
     "title": "Arunachal Chief Minister Assures Open Dialogue To Siang Dam Protesters",
-    "summary": "Arunachal Pradesh's Chief Minister wrote an open letter assuring Siang dam protesters of open dialogue. He clarified that the government is not currently discussing dam construction.",
+    "summary": "Arunachal Pradesh's chief minister wrote an open letter assuring Siang dam protesters of an open dialogue. He clarified that the government is not currently discussing dam construction.",
     "link": "https://www.ndtv.com/india-news/arunachal-chief-minister-pema-khandu-assures-open-dialogue-to-siang-dam-protesters-12273488#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Tue, 03 Nov 2026 00:09:03 +0530"
-   },
-   {
-    "title": "Tamil Nadu Teen Gets Instagram Message. Day Later, His Body Found In Sack",
-    "summary": "Police detained two teenage boys after a Tamil Nadu teen received an Instagram message and was found dead in a sack a day later. Authorities are currently questioning the suspects to determine their involvement in the murder.",
-    "link": "https://www.ndtv.com/india-news/tamil-nadu-teen-gets-instagram-message-day-later-his-body-found-in-sack-12273401#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Tue, 03 Nov 2026 00:01:17 +0530"
-   },
-   {
-    "title": "DMK Leader Called Vijay \"Corpse\". Court Grants Her Bail, Cites Free Speech",
-    "summary": "An Indian court granted bail to a DMK leader who called actor-politician Vijay a \"corpse.\" The judge ruled that public figures must endure criticism and that police cannot arrest individuals for non-violent political speech.",
-    "link": "https://www.ndtv.com/india-news/tamil-nadu-vijay-dmk-leader-called-vijay-corpse-court-grants-her-bail-cites-free-speech-12273452#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Mon, 02 Nov 2026 23:53:50 +0530"
-   },
-   {
-    "title": "'12th Man' Of Meghalaya Politics Paul Lyngdoh Back In Conrad Sangma Cabinet",
-    "summary": "Paul Lyngdoh has taken the final available ministerial berth in Meghalaya Chief Minister Conrad Sangma's Cabinet. Sangma stated that no further ministers from the BJP will be added due to the constitutional limit of 12 ministers.",
-    "link": "https://www.ndtv.com/india-news/12th-man-of-meghalaya-politics-paul-lyngdoh-back-in-conrad-sangma-cabinet-12273432#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Mon, 02 Nov 2026 23:45:57 +0530"
-   },
-   {
-    "title": "Analysis: Mumbai Police Fail 1 Of 3 Key Tests In Tiger Shroff Firing Case",
-    "summary": "Although the Mumbai Police quickly arrested the suspects in the Tiger Shroff firing case, they are being criticized for failing to prevent the incident. This failure highlights shortcomings in the department's crime prevention strategies despite their swift response.",
-    "link": "https://www.ndtv.com/india-news/analysis-mumbai-police-fail-1-of-3-key-tests-in-tiger-shroff-firing-case-12273423#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Mon, 02 Nov 2026 23:42:13 +0530"
    }
   ],
   "General": [
@@ -236,11 +236,11 @@
     "summary": "The home secretary has scrapped proposed changes regarding when migrant care workers can claim permanent residency. She instead outlined a revised plan concerning the settlement timeline for these workers.",
     "link": "https://www.bbc.co.uk/news/articles/c6lye8g4w7g1o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Mon, 02 Nov 2026 20:30:21 GMT"
+    "pubDate": "Mon, 02 Nov 2026 22:32:31 GMT"
    },
    {
     "title": "Shop freezers in seven European countries hit by cyber-attack",
-    "summary": "Shop freezers in seven European countries were targeted in a cyber-attack that caused their temperatures to rise as high as 50 degrees Celsius. The incident affected retail locations across multiple nations, disrupting normal refrigeration operations.",
+    "summary": "A cyber-attack targeted shop freezers across seven European countries, causing temperatures to rise as high as 50 degrees Celsius. The incident affected the operations of multiple stores in the region.",
     "link": "https://www.bbc.co.uk/news/articles/cq1kd1nee80eo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 02 Nov 2026 17:38:11 GMT"
@@ -254,21 +254,21 @@
    },
    {
     "title": "Russian bombing kills 26 people at Ukraine aid centre, Kyiv says",
-    "summary": "At least nine heavy aerial bombs struck a southern Ukrainian village aid center, killing 26 people according to Kyiv officials. Local authorities reported that additional individuals remain missing following the attack.",
+    "summary": "Russian bombing of a southern Ukrainian village killed 26 people at an aid center. Ukrainian officials stated that at least nine 3,000-kilogram aerial bombs struck the site.",
     "link": "https://www.bbc.co.uk/news/articles/cjy56dndlyz0o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Mon, 02 Nov 2026 20:23:12 GMT"
+    "pubDate": "Mon, 02 Nov 2026 21:10:04 GMT"
    },
    {
     "title": "Copilot in deadly Florida jet crash identified in reports as 20-year-old",
-    "summary": "Reports have identified the co-pilot killed in a Florida jet crash as a 20-year-old. Air traffic audio captured a crew member shouting, \"We are going to crash into the ground!\"",
+    "summary": "Reports identify the co-pilot of the deadly Florida jet crash as a 20-year-old. Air traffic audio reveals a crew member shouting that the aircraft was going to crash into the ground.",
     "link": "https://www.bbc.co.uk/news/articles/cm369yy7lw73o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 02 Nov 2026 19:58:34 GMT"
    },
    {
     "title": "What Florida jet audio and flight data tells us about its final moments",
-    "summary": "A private jet crashed in Florida on Sunday, killing all nine people on board. BBC Verify used air traffic control audio and flight data to reconstruct the plane's final moments.",
+    "summary": "A private jet crashed in Florida on Sunday, resulting in the deaths of all nine people on board. US authorities are examining the flight data and audio to determine what happened during the aircraft's final moments.",
     "link": "https://www.bbc.co.uk/news/videos/c52e9lgxjz82o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Mon, 02 Nov 2026 19:49:22 GMT"
