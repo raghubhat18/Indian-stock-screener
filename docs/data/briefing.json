@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-19T23:25:47Z",
+ "updatedAt": "2026-11-20T01:33:34Z",
  "model": "gemini-flash-lite-latest",
  "categories": [
   "Markets",
@@ -12,15 +12,36 @@
  "briefing": {
   "Markets": [
    {
+    "title": "Global Market Today: Asian stocks slide as AI fears trigger selloff",
+    "summary": "Asian stocks fell 1%, extending losses to a seventh consecutive session amid fears surrounding artificial intelligence. This decline pushed the MSCI All Country World Index toward its longest losing streak since September 2023.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/global-market-today-asian-stocks-slide-as-ai-fears-trigger-selloff/articleshow/136009259.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Fri, 20 Nov 2026 06:32:17 +0530"
+   },
+   {
+    "title": "Anthropic shares surge 34% in Nasdaq debut, valuation hits $2 trillion",
+    "summary": "AI startup Anthropic raised $81.3 billion in its Nasdaq debut after pricing shares at $111.50, up from its $83 target. The successful stock offering pushed the company's market valuation to $2 trillion.",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/2-trillion-anthropic-soars-34-on-wall-street-debut/articleshow/136009222.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Fri, 20 Nov 2026 06:27:11 +0530"
+   },
+   {
+    "title": "Anthropic's historic debut to put AI's promise and peril on Wall Street trial",
+    "summary": "Strong demand for Anthropic shares during a broader tech selloff is offering hope to a sector where market euphoria has recently cooled. This",
+    "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/anthropics-historic-debut-to-put-ais-promise-and-peril-on-wall-street-trial/articleshow/136009180.cms",
+    "source": "economictimes.indiatimes.com",
+    "pubDate": "Fri, 20 Nov 2026 06:18:29 +0530"
+   },
+   {
     "title": "AMD shares slide 8% as report says China links could invite US scrutiny",
-    "summary": "AMD shares fell 8% following a report that its technology and licensing revenue are linked to blacklisted Chinese firms. This connection to a Chinese server manufacturer and restricted entities could trigger increased scrutiny from the U.S. government.",
+    "summary": "AMD shares dropped 8% following a report that its technology and licensing revenue are linked to blacklisted Chinese firms. This connection to a Chinese server manufacturer and restricted entities could trigger increased regulatory scrutiny from the U.S. government.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/amd-shares-slide-8-as-report-says-china-links-could-invite-us-scrutiny/articleshow/136002141.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Thu, 19 Nov 2026 23:43:12 +0530"
    },
    {
     "title": "Amundi CIO says not bearish on France bonds, AI at the start of repricing",
-    "summary": "Amundi Chief Investment Officer Vincent Mortier stated he is not bearish on French government bonds despite current fiscal concerns and rising yields. He prefers shorter maturities and nations with lower debt-to-GDP ratios while noting potential future interest in Japanese bonds.",
+    "summary": "Amundi Chief Investment Officer Vincent Mortier stated he is not bearish on French government bonds despite current fiscal concerns and rising yields. He favors bonds from countries with lower debt-to-GDP ratios and shorter maturities while noting potential future interest in Japanese government debt.",
     "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/amundi-cio-says-not-bearish-on-france-bonds-ai-at-the-start-of-repricing/articleshow/135998168.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Thu, 19 Nov 2026 21:31:26 +0530"
@@ -31,112 +52,91 @@
     "link": "https://economictimes.indiatimes.com/markets/stocks/news/sebi-roadmap-focuses-on-faster-ipos-easier-foreign-investor-access-official/articleshow/135998128.cms",
     "source": "economictimes.indiatimes.com",
     "pubDate": "Thu, 19 Nov 2026 21:29:26 +0530"
-   },
-   {
-    "title": "Six listed REIT firms distribute Rs 3,234 cr in Q2 to over 5.25 lakh unitholders",
-    "summary": "India's six listed REITs distributed Rs 3,234 crore to over 5.25 lakh unitholders during the second quarter. The sector's total gross Assets Under Management exceeded Rs 3.30 lakh crore, driven by strong office space demand and healthy rental collections.",
-    "link": "https://economictimes.indiatimes.com/markets/digital-real-estate/realty-news/six-listed-reit-firms-distribute-rs-3234-cr-in-q2-to-over-5-25-lakh-unitholders/articleshow/135998101.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Thu, 19 Nov 2026 21:27:34 +0530"
-   },
-   {
-    "title": "Keystone Realtors to launch Rs 5,000 cr worth housing properties in MMR by Mar: CMD",
-    "summary": "Keystone Realtors plans to launch residential properties valued at Rs 5,000 crore in the Mumbai Metropolitan Region by next March. The company achieved Rs 2,000 crore in sales bookings during the first half of the fiscal year and anticipates strong festive demand.",
-    "link": "https://economictimes.indiatimes.com/markets/digital-real-estate/realty-news/keystone-realtors-to-launch-rs-5000-cr-worth-housing-properties-in-mmr-by-mar-cmd/articleshow/135997982.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Thu, 19 Nov 2026 21:26:22 +0530"
-   },
-   {
-    "title": "Signature Global acquires 10-acre land parcels in Gurugram to build realty projects",
-    "summary": "Signature Global acquired two land parcels spanning about 10 acres in Sohna, Gurugram, to develop new real estate projects. This purchase follows another recent land acquisition in Raigad, Maharashtra, as the company expands its presence beyond the Delhi-NCR region.",
-    "link": "https://economictimes.indiatimes.com/markets/digital-real-estate/realty-news/signature-global-acquires-10-acre-land-parcels-in-gurugram-to-build-realty-projects/articleshow/135997924.cms",
-    "source": "economictimes.indiatimes.com",
-    "pubDate": "Thu, 19 Nov 2026 21:23:49 +0530"
    }
   ],
   "Geo-Political": [
    {
     "title": "Anthropic becomes one of world's most valuable public companies in stock market debut",
-    "summary": "Anthropic has gone public, making it one of the world's most valuable companies in its stock market debut. As the first purely AI company to be publicly listed, its debut serves as a test for the entire industry.",
+    "summary": "Anthropic has become a publicly traded company through its stock market debut. This makes it the first purely artificial intelligence company to be publicly listed.",
     "link": "https://www.bbc.co.uk/news/articles/c3x29ggenz12o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 19 Nov 2026 21:38:42 GMT"
+    "pubDate": "Thu, 19 Nov 2026 23:33:51 GMT"
+   },
+   {
+    "title": "'I tell my son it's just fireworks': People inside besieged Yemeni city speak to BBC",
+    "summary": "Orla Guerin speaks with seven residents trapped inside the Yemeni city of Taiz by Houthi forces. The interviewees reveal the harsh daily realities of living under the ongoing siege.",
+    "link": "https://www.bbc.co.uk/news/articles/cx7v2d8q879eo?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Fri, 20 Nov 2026 00:13:21 GMT"
    },
    {
     "title": "Myanmar committed genocide against Rohingya minority, top UN court rules",
-    "summary": "The International Court of Justice ruled that Myanmar committed genocide against the Rohingya minority during a 2017 military crackdown. The unprecedented verdict relates to military violence that resulted in the deaths of thousands of people.",
+    "summary": "The International Court of Justice ruled that Myanmar committed genocide against the Rohingya minority during a 2017 military crackdown. The unprecedented verdict relates to military operations that resulted in the deaths of thousands of people.",
     "link": "https://www.bbc.co.uk/news/articles/c804wzp20ddvo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Thu, 19 Nov 2026 20:07:02 GMT"
    },
    {
+    "title": "Europe ready for talks with Russia on ending war in Ukraine, leaders say",
+    "summary": "European leaders meeting in Berlin stated they share a united negotiating position. They announced Europe is ready to hold talks with Russia to end the war in Ukraine.",
+    "link": "https://www.bbc.co.uk/news/articles/ckzd9nln5e6go?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Fri, 20 Nov 2026 00:50:24 GMT"
+   },
+   {
     "title": "Trump, Putin and Xi release 'peace declaration' after historic meeting",
-    "summary": "The presidents of the United States, Russia, and China held their first-ever trilateral meeting. Following the historic discussion, the three leaders released a joint peace declaration.",
+    "summary": "U.S. President Trump, Russian President Putin, and Chinese President Xi held their first-ever trilateral meeting. Following the discussion, the three leaders released a joint peace declaration.",
     "link": "https://www.bbc.co.uk/news/articles/c623j4ln97x7o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Thu, 19 Nov 2026 17:38:22 GMT"
    },
    {
-    "title": "Europe ready for talks with Russia on ending war in Ukraine, leaders say",
-    "summary": "European leaders meeting in Berlin announced they share a united negotiating position. They stated Europe is ready to hold talks with Russia to end the war in Ukraine.",
-    "link": "https://www.bbc.co.uk/news/articles/ckzd9nln5e6go?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Thu, 19 Nov 2026 21:21:43 GMT"
-   },
-   {
-    "title": "California probing whether China improperly acquired Nvidia technology",
-    "summary": "California is investigating whether China improperly acquired technology from Nvidia. This probe follows the departure of the artificial intelligence chipmaker's former CEO, Jensen Huang.",
+    "title": "California targets Nvidia in China AI chip probe",
+    "summary": "California is investigating Nvidia, its local AI chipmaker, regarding its artificial intelligence chips sent to China. This regulatory probe began shortly after former CEO Jensen Huang stepped down from the company.",
     "link": "https://www.bbc.co.uk/news/articles/cqn70vxp5p4no?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Thu, 19 Nov 2026 23:04:30 GMT"
-   },
-   {
-    "title": "Judge finds Thomas Markle mentally fit to stand trial on child abuse charges",
-    "summary": "A court-appointed psychiatrist evaluated Thomas Markle and deemed him mentally fit to stand trial. Markle denies possessing images of child sex abuse.",
-    "link": "https://www.bbc.co.uk/news/articles/crgj35ldz2zxo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Thu, 19 Nov 2026 22:48:22 GMT"
    }
   ],
   "AI & Tech": [
    {
     "title": "REA: The Open-Source AI Tool That Can Reverse Engineer Almost Anything (2026 Guide)",
-    "summary": "REA is a new open-source AI tool that allows users to understand how applications work without accessing their source code. The tool eliminates the need for months of learning disassemblers and reading assembly code by providing evidence-backed answers about app mechanics.",
+    "summary": "REA is a new open-source AI tool that allows users to understand how applications and games work without needing to view their source code. This eliminates the need for months of learning disassemblers and assembly code to analyze software features.",
     "link": "https://techncruncher.blogspot.com/2026/11/rea-open-source-ai-tool-that-can.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 05 Nov 2026 11:03:50 +0000"
    },
    {
     "title": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
-    "summary": "An author discovered that ChatGPT recommended their WordPress SaaS course as the top result without any paid advertising. This experiment demonstrates a shift in generating organic traffic through AI rather than traditional search engine optimization.",
+    "summary": "An online course creator discovered their WordPress SaaS course was recommended as the top result when they asked ChatGPT for the best course on the subject. The author achieved this visibility without paying for advertising, prompting a reevaluation of organic traffic strategies compared to traditional search engine optimization.",
     "link": "https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 04 Dec 2025 05:37:00 +0000"
    },
    {
     "title": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
-    "summary": "The digital landscape requires creators to use artificial intelligence to stay competitive in 2025. This guide highlights the top 10 AI tools designed to revolutionize and simplify the content creation process.",
+    "summary": "Looking to level up your content creation game in 2025? You're in the right place! The digital landscape has evolved dra...",
     "link": "https://techncruncher.blogspot.com/2025/01/top-10-ai-tools-that-will-transform.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Thu, 02 Jan 2025 09:26:00 +0000"
    },
    {
     "title": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
-    "summary": "LimeWire has launched an AI Studio that functions as a generative content platform. The tool allows users to create, share, and monetize their artificial intelligence content.",
+    "summary": "LimeWire has evolved into a generative AI platform for content creation. The tool allows users to generate, share, and monetize their AI-created content.",
     "link": "https://techncruncher.blogspot.com/2023/12/limewire-ai-studio-review-2023-details.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 12 Dec 2023 16:10:00 +0000"
    },
    {
     "title": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
-    "summary": "This article explores ten advanced AI tools from 2023 that automate repetitive tasks to improve workflow and productivity across various industries. These widely used market solutions are designed to drive efficiency and suit a variety of applications.",
+    "summary": "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovation and efficiency in various industries. ...",
     "link": "https://techncruncher.blogspot.com/2023/01/top-10-ai-tools-in-2023-that-will-make.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Wed, 25 Jan 2023 19:52:00 +0000"
    },
    {
     "title": "Top 10 AI Content Generator & Writer Tools in 2022",
-    "summary": "This article lists the top 10 AI content generator and writer tools available in 2022. It explains that these tools help users efficiently create engaging and relevant content for their audiences.",
+    "summary": "Are you looking for a way to create content that is both effective and efficient? If so, then you should consider using ...",
     "link": "https://techncruncher.blogspot.com/2022/11/top-10-ai-content-generator-writer.html",
     "source": "techncruncher.blogspot.com",
     "pubDate": "Tue, 15 Nov 2022 08:58:00 +0000"
@@ -145,14 +145,14 @@
   "Data & Insights": [
    {
     "title": "Govt weighing ways to boost long-term credit to manufacturing: DEA secretary Anuradha Thakur",
-    "summary": "The government is exploring methods to increase long-term credit for the manufacturing sector. Department of Economic Affairs Secretary Anuradha Thakur also urged large companies to engage in public-private partnerships, collaborate with smaller businesses, and tackle wage stagnation.",
+    "summary": "The Department of Economic Affairs Secretary, Anuradha Thakur, stated that the government is exploring methods to increase long-term credit for the manufacturing sector. She also urged large corporations to engage in public-private partnerships, collaborate with smaller enterprises, and tackle wage stagnation.",
     "link": "https://www.livemint.com/economy/government-weighs-manufacturing-long-term-credit-boost-dfi-demand-economic-affairs-secretary-anuradha-thakur-11795086230061.html",
     "source": "livemint.com",
     "pubDate": "Thu, 19 Nov 2026 18:05:39 +0530"
    },
    {
     "title": "More economic red signals in October—but not everywhere, shows Mint tracker",
-    "summary": "While many sectors of the Indian economy showed warning signs in October, producer and industrial segments remained resilient. However, the second half of the year is expected to be more challenging as the positive impacts of previous GST rate cuts and interest rate reductions diminish.",
+    "summary": "The Mint economic tracker shows warning signals flashing across India in October, though producer and industrial segments remain resilient. The second half of the year is expected to be more difficult as the positive effects of previous GST rate cuts and interest rate changes diminish.",
     "link": "https://www.livemint.com/economy/indian-economy-red-signals-october-price-index-gst-auto-sales-11794994019627.html",
     "source": "livemint.com",
     "pubDate": "Thu, 19 Nov 2026 06:00:53 +0530"
@@ -166,21 +166,21 @@
    },
    {
     "title": "Trump, Xi, Putin unite $1.48 Trillion military might at Shenzhen: Will nukes be on the table? Why it matters",
-    "summary": "US President Donald Trump has arrived in Shenzhen, China, for the Asia-Pacific Economic Cooperation summit. He is scheduled to hold a high-stakes meeting with Chinese President Xi Jinping and Russian President Vladimir Putin on Thursday.",
+    "summary": "US President Donald Trump has arrived in Shenzhen, China, for the Asia-Pacific Economic Cooperation summit. On Thursday, he is scheduled to hold a high-stakes meeting with Chinese President Xi Jinping and Russian President Vladimir Putin.",
     "link": "https://www.livemint.com/economy/trump-xi-putin-unite-1-48-trillion-military-might-at-shenzhen-will-nukes-be-on-the-table-why-it-matters-11794843240626.html",
     "source": "livemint.com",
     "pubDate": "Wed, 18 Nov 2026 18:19:51 +0530"
    },
    {
     "title": "Soybean oil's share rises in India's edible oil import mix",
-    "summary": "In the 2025-26 period, India imported 5.83 million tonnes of soybean oil. This quantity contributed to a total edible oil import volume of 16.92 million tonnes, reflecting an increased market share.",
+    "summary": "India imported 5.83 million tonnes of soybean oil during the 2025-26 period. This accounted for a portion of the country's total edible oil imports of 16.92 million tonnes.",
     "link": "https://www.livemint.com/economy/india-soybean-oil-imports-rise-as-palm-oil-share-declines-11794976842017.html",
     "source": "livemint.com",
     "pubDate": "Wed, 18 Nov 2026 12:09:46 +0530"
    },
    {
     "title": "Could AI boom trigger a jobs crisis? The risks Fed Chair Kevin Warsh sees beyond productivity gains",
-    "summary": "Fed Chair Kevin Warsh warns that the AI boom could cause widespread job displacement through automation or trigger an economic slowdown if market expectations fail. Alternatively, he notes that artificial intelligence might drive faster economic growth through productivity gains.",
+    "summary": "Fed Chair Kevin Warsh warns that the AI boom could cause widespread job displacement through automation. Alternatively, he notes it may drive faster economic growth or trigger an economic slowdown if market expectations fail.",
     "link": "https://www.livemint.com/economy/could-ai-boom-trigger-a-jobs-crisis-the-risks-fed-chair-kevin-warsh-sees-beyond-productivity-gains-11794912832679.html",
     "source": "livemint.com",
     "pubDate": "Tue, 17 Nov 2026 17:29:17 +0530"
@@ -188,90 +188,90 @@
   ],
   "India": [
    {
+    "title": "Cyclone Akvan LIVE Updates: Akvan Weakens Into Cyclonic Storm, Likely To Cross Odisha-Andhra Coast Today",
+    "summary": "Cyclone Akvan has weakened into a cyclonic storm over the west-central Bay of Bengal. It is expected to cross the Odisha-Andhra coast today.",
+    "link": "https://www.ndtv.com/india-news/cyclone-akvan-live-imd-weather-updates-landfall-rainfall-odisha-andhra-pradesh-akvan-weakens-into-cyclonic-storm-likely-to-cross-odisha-andhra-coast-12352070#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Fri, 20 Nov 2026 06:57:52 +0530"
+   },
+   {
+    "title": "Resignation Not Admission Of Guilt: Justice Yashwant Varma Tells Lok Sabha Secretariat",
+    "summary": "Justice Yashwant Varma sent a September 10 letter to Lok Sabha Secretary General Utpal Kumar Singh regarding an inquiry committee report. He stated that his resignation should not be interpreted as an admission of guilt.",
+    "link": "https://www.ndtv.com/india-news/resignation-not-admission-of-guilt-justice-yashwant-varma-tells-lok-sabha-secretariat-12351554#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Fri, 20 Nov 2026 06:23:23 +0530"
+   },
+   {
+    "title": "47 Train Cancelled, Over 3 Lakh Evacuated As Cyclone Akvan Heads To Odisha",
+    "summary": "Odisha evacuated over 300,000 people and cancelled 47 trains as it prepares for the impending arrival of Cyclone Akvan. Chief Minister Mohan Charan Majhi reviewed the state's preparedness and response measures to handle the storm.",
+    "link": "https://www.ndtv.com/india-news/47-train-cancelled-over-3-lakh-evacuated-as-cyclone-akvan-heads-to-odisha-12351955#publisher=newsstand",
+    "source": "ndtv.com",
+    "pubDate": "Fri, 20 Nov 2026 05:18:40 +0530"
+   },
+   {
     "title": "Uttarakhand Bank Manager, 2 Agents Arrested In Rs 9 Lakh Bribery Case",
-    "summary": "An Uttarakhand bank manager and two agents were arrested for allegedly demanding a Rs 9 lakh bribe to process a Rs 1.8 crore loan. The suspects requested 5 percent of the total loan amount to facilitate its sanction and disbursement.",
+    "summary": "An Uttarakhand bank manager and two agents were arrested for demanding a 5 percent bribe to process a Rs 1.8 crore loan. The accused allegedly sought Rs 9 lakh from the complainant to facilitate the loan's sanction and disbursement.",
     "link": "https://www.ndtv.com/india-news/uttarakhand-bank-manager-2-agents-arrested-in-rs-9-lakh-bpribery-case-12351637#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 20 Nov 2026 01:18:14 +0530"
    },
    {
     "title": "Azam Khan's 'Biryani' Jibe At Asaduddin Owaisi Amid Tussle For UP Muslim Votes",
-    "summary": "AIMIM chief Asaduddin Owaisi has announced plans to contest the upcoming Uttar Pradesh assembly elections through an alliance with Chandrasekhar Azad's Azad Samaj Party. This political move has sparked a war of words, prompting a \"biryani\" jibe from Azam Khan amid competition for Muslim votes in the state.",
+    "summary": "AIMIM chief Asaduddin Owaisi has allied with the Azad Samaj Party to contest the upcoming Uttar Pradesh assembly elections. Azam Khan criticized this political move amid competition for Muslim votes in the state.",
     "link": "https://www.ndtv.com/india-news/up-likes-pulao-not-hyderabadi-biriyani-azam-khan-snubs-asaduddin-owaisi-12350576#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 20 Nov 2026 01:04:11 +0530"
    },
    {
     "title": "How's He Called 'Youth Leader' At 56? Rahul Gandhi Shares His Formula: \"Ridiculous Questions\"",
-    "summary": "During an event in Chicago, 56-year-old Indian politician Rahul Gandhi laughed off comments regarding whether he is considered a youth leader or an older leader. He then shared his own personal definition of youth.",
+    "summary": "At a Chicago event, 56-year-old Indian politician Rahul Gandhi responded to those questioning why he is still called a youth leader. He brushed off the criticism and shared his own personal definition of youth.",
     "link": "https://www.ndtv.com/india-news/youth-leader-at-56-rahul-gandhi-says-its-about-asking-the-most-ridiculous-questions-12351240#publisher=newsstand",
     "source": "ndtv.com",
     "pubDate": "Fri, 20 Nov 2026 00:37:27 +0530"
-   },
-   {
-    "title": "AAP Government Faces Fire After Court Halts Punjab Civil Services Recruitment",
-    "summary": "The Punjab and Haryana High Court halted Punjab Civil Services recruitment processes, prompting severe criticism of the AAP government. Senior Akali leader Bikram Singh Majithia subsequently demanded a CBI investigation into the matter, alleging a 100-crore rupee recruitment scam.",
-    "link": "https://www.ndtv.com/india-news/aap-government-faces-fire-after-court-halts-punjab-civil-services-recruitment-12351547#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Fri, 20 Nov 2026 00:27:32 +0530"
-   },
-   {
-    "title": "Evicted Families Relocate To New Area In Assam, Face Bulldozer Action Again",
-    "summary": "Families who were previously evicted in Assam relocated to a new area and faced another bulldozer demolition. The district administration carried out the operation in the morning with deployed police personnel and officials.",
-    "link": "https://www.ndtv.com/india-news/bulldozer-action-in-assam-after-evicted-families-relocate-to-new-area-12351559#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Fri, 20 Nov 2026 00:25:27 +0530"
-   },
-   {
-    "title": "Resignation Not Admission Of Guilt: Justice Yashwant Varma Tells Lok Sabha Secretariat",
-    "summary": "In a September 10 letter to Lok Sabha Secretary General Utpal Kumar Singh, Justice Yashwant Varma stated that his resignation is not an admission of guilt. He responded to an inquiry committee report initiated by Lok Sabha Speaker Om Birla.",
-    "link": "https://www.ndtv.com/india-news/resignation-not-admission-of-guilt-justice-yashwant-varma-tells-lok-sabha-secretariat-12351554#publisher=newsstand",
-    "source": "ndtv.com",
-    "pubDate": "Fri, 20 Nov 2026 00:23:53 +0530"
    }
   ],
   "General": [
    {
     "title": "Woman drugged and advertised for sex by husband speaks out as abusers found guilty",
-    "summary": "Joanne Young's husband was found guilty after drugging her and advertising her for sex over a 13-year period. Young stated that the abuse completely destroyed her life.",
+    "summary": "Joanne Young spoke out after a court found her husband and another man guilty of drugging her and advertising her for sex over a 13-year period. Young stated that the abuse completely destroyed her previous life.",
     "link": "https://www.bbc.co.uk/news/articles/crq5n5pe935no?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 19 Nov 2026 22:17:29 GMT"
+    "pubDate": "Fri, 20 Nov 2026 01:12:45 GMT"
+   },
+   {
+    "title": "Tens of thousands of UK fridges secured from hackers in secret nationwide operation",
+    "summary": "A secret nationwide operation in the UK secured tens of thousands of commercial fridges from hackers. Facilities including supermarkets, warehouses, restaurants, and stadiums rushed to make their connected devices safe.",
+    "link": "https://www.bbc.co.uk/news/articles/c6eq49zyx7p4o?at_medium=RSS&at_campaign=rss",
+    "source": "bbc.co.uk",
+    "pubDate": "Fri, 20 Nov 2026 00:02:07 GMT"
    },
    {
     "title": "Anthropic becomes one of world's most valuable public companies in stock market debut",
-    "summary": "Anthropic has become a publicly traded company through its stock market debut, making it the first pure-play artificial intelligence firm to go public. This milestone serves as a market test for the broader artificial intelligence industry.",
+    "summary": "Anthropic is the first purely AI company to be publicly listed, creating a test for the entire industry.",
     "link": "https://www.bbc.co.uk/news/articles/c3x29ggenz12o?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 19 Nov 2026 21:38:42 GMT"
+    "pubDate": "Thu, 19 Nov 2026 23:33:51 GMT"
    },
    {
     "title": "Bowen: Myanmar genocide verdict is historic and could have far-reaching implications",
-    "summary": "A historic genocide verdict against Myanmar was achieved after Gambia successfully proved the crucial intent to commit genocide. Legal experts are now studying this case because it could have far-reaching implications for future international law.",
+    "summary": "The BBC's international editor reports that Gambia successfully proved Myanmar intended to commit genocide in a historic legal verdict. Legal experts will now examine the specific methods used to establish this intent, which could create far-reaching implications for international law.",
     "link": "https://www.bbc.co.uk/news/articles/c6ly58ndgd0no?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Thu, 19 Nov 2026 20:02:02 GMT"
    },
    {
-    "title": "Covid inquiry report: key findings on testing, tracing and 'the pingdemic'",
-    "summary": "A public inquiry found that early UK efforts to contain the coronavirus were doomed to fail. The report details key findings regarding testing, tracing, and the \"pingdemic.\"",
-    "link": "https://www.bbc.co.uk/news/articles/crx20q8ql4gwo?at_medium=RSS&at_campaign=rss",
-    "source": "bbc.co.uk",
-    "pubDate": "Thu, 19 Nov 2026 12:47:27 GMT"
-   },
-   {
     "title": "Watch: What did Trump, Xi and Putin get out of their historic meeting?",
-    "summary": "Trump, Putin, and Xi held historic trilateral talks resulting in a joint declaration of peace. The meeting aimed to benefit all three leaders, though the specific diplomatic gains for each remain under analysis.",
+    "summary": "Trump, Putin, and Xi held historic trilateral talks resulting in a joint declaration of peace. The meeting aimed to benefit each leader politically and strategically on the global stage.",
     "link": "https://www.bbc.co.uk/news/videos/c63rgnq05pdwo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
     "pubDate": "Thu, 19 Nov 2026 17:23:29 GMT"
    },
    {
-    "title": "Europe ready for talks with Russia on ending war in Ukraine, leaders say",
-    "summary": "European leaders meeting in Berlin stated they are prepared to negotiate with Russia to end the war in Ukraine. The allies emphasized that they share a unified negotiating position.",
-    "link": "https://www.bbc.co.uk/news/articles/ckzd9nln5e6go?at_medium=RSS&at_campaign=rss",
+    "title": "'I tell my son it's just fireworks': People inside besieged Yemeni city speak to BBC",
+    "summary": "Orla Guerin speaks to seven people trapped in Taiz by the Houthis who reveal what life is like under siege.",
+    "link": "https://www.bbc.co.uk/news/articles/cx7v2d8q879eo?at_medium=RSS&at_campaign=rss",
     "source": "bbc.co.uk",
-    "pubDate": "Thu, 19 Nov 2026 21:21:43 GMT"
+    "pubDate": "Fri, 20 Nov 2026 00:13:21 GMT"
    }
   ]
  }
